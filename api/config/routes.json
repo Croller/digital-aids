@@ -1,5 +1,4 @@
 [
     { "route": "auth" },    
-    { "route": "restaurants" },    
-    { "route": "admin" }
+    { "route": "restaurants" }
 ]
