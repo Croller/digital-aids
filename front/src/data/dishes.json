@@ -1,0 +1,759 @@
+[
+    {
+        "dishid": 1,
+        "dishprice": 3.5,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Bread, aioli and grated tomato with olive oil and salt",
+        "dishtitlees": "Pan, alioli y tomate rallado con aceite y sal",
+        "dishtitlenor": "Brød, aioli, reven tomat med oliven olje og salt",
+        "dishtitleru": "Свежий хлеб с олиоли, томатами и оливковым маслом"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 5.5,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Homemade authentic Russian salad",
+        "dishtitlees": "Ensalada rusa casera",
+        "dishtitlenor": "Hjemmelaget klassisk russisk salat",
+        "dishtitleru": "Домашний русский салат"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 5.5,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Creamy seafood salad with pineapple",
+        "dishtitlees": "Ensalada de marisco cremosa con piña",
+        "dishtitlenor": "Kremig skalldyrsalat med ananas",
+        "dishtitleru": "Cалат с морепродуктами и ананасами"
+    },
+    {
+        "dishid": 4,
+        "dishprice": 7.5,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Beetroot salad with marinated salmon",
+        "dishtitlees": "Ensalada de remolacha con salmón marinado",
+        "dishtitlenor": "Rødbetsalat med marinert fersk laks",
+        "dishtitleru": "Салат из свеклы с маринованным лососем"
+    },
+    {
+        "dishid": 5,
+        "dishprice": 8.5,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Dry aged Duck breast with peach and caramelized nuts",
+        "dishtitlees": "Jamón de Magret de pato curado con melocotón y nuez caramelizada",
+        "dishtitlenor": "Skinke av tørket andebryst med fersken og karameliserte hvalnøtter",
+        "dishtitleru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
+    },
+    {
+        "dishid": 6,
+        "dishprice": 13.5,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Rolls of Rice paper filled with fresh salmon, avocado, Philadelphia cheese",
+        "dishtitlees": "Rollito de papel de arroz con salmón fresco, aguacate, queso",
+        "dishtitlenor": "Rull av rispapir fyldt med fersk laks, avokado, krem ost",
+        "dishtitleru": "Роллы со свежим лососем, авокадо и сыром филадельфия"
+    },
+    {
+        "dishid": 7,
+        "dishprice": 12,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Carpaccio of Beef with black truffle oil and parmesan cheese",
+        "dishtitlees": "Carpacho de ternera con trufa y parmesano",
+        "dishtitlenor": "Okse carpaccio med trøffelolje og parmesan",
+        "dishtitleru": "Карпаччо из говядины с трюфелем и сыром пармезан"
+    },
+    {
+        "dishid": 8,
+        "dishprice": 12,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tartar of fresh Salmon and avocado",
+        "dishtitlees": "Tartar de salmón fresco y aguacate",
+        "dishtitlenor": "Tartar av fersk laks og avokado",
+        "dishtitleru": "Тартар из свежего лосося с авокадо"
+    },
+    {
+        "dishid": 9,
+        "dishprice": 14,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Foie of duck with caramelized apple",
+        "dishtitlees": "Foie de pato con manzanas caramelizadas",
+        "dishtitlenor": "Pate av gåselever med karamelliserte epler",
+        "dishtitleru": "Фуа-гра с карамелизированными яблоками"
+    },
+    {
+        "dishid": 10,
+        "dishprice": 13,
+        "dishcategoryid": "cold_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Cured Spanish ham with Goats cheese",
+        "dishtitlees": "Jamón Serrano con queso de cabra",
+        "dishtitlenor": "Spansk Serrano skinke med hvit geitost",
+        "dishtitleru": "Испанский хамон Серрано с козьим сыром"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 6.5,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Meatballs with Tomato sauce or Mushroom sauce",
+        "dishtitlees": "Albóndigas con salsa de tomate o setas con trufa",
+        "dishtitlenor": "Kjøttboller med enten tomat eller sopp saus",
+        "dishtitleru": "Мясные фрикадельки с томатным или с труфельно-грибным соусом"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 11,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Grilled and Caramelized Octopus with potato purée and chips",
+        "dishtitlees": "Pulpo caramelizado con puré de patata",
+        "dishtitlenor": "Grillet og karamellisert Blekksprut med potet pure",
+        "dishtitleru": "Карамелизированный осьминог с картофельным"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 14.5,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Cod with mashed potatoes, pumpkin cream and bacon",
+        "dishtitlees": "Bacalao con puré de patatas, crema de calabaza y beicon",
+        "dishtitlenor": "Torskerygg med potetpure, gresskar creme og bacon",
+        "dishtitleru": "Треска с картофельным пюре, тыквенным кремом и беконом"
+    },
+    {
+        "dishid": 4,
+        "dishprice": 8,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Hot Nachos with minced meat, tomato, guacamole and cheese",
+        "dishtitlees": "Nachos calientes con carne picada, tomate, guacamole y queso",
+        "dishtitlenor": "Varme Nachos med kjøttfarse, tomat, guacamole og ost",
+        "dishtitleru": "Начос с мясным фаршем, томатами, гуакамоле и сыром"
+    },
+    {
+        "dishid": 5,
+        "dishprice": 11,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Fresh Mussels served with homemade tomato sauce",
+        "dishtitlees": "Mejillones al vapor con salsa de tomate casera",
+        "dishtitlenor": "Dampede blåskjell med hjemmelaget tomat saus",
+        "dishtitleru": "Мидии в томатном соусе"
+    },
+    {
+        "dishid": 6,
+        "dishprice": 13,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Mussel Casserole with gorgonzola sauce",
+        "dishtitlees": "Mejillones al vapor con salsa de gorgonzola",
+        "dishtitlenor": "Blåskjell med gorgonzola saus",
+        "dishtitleru": "Мидии с соусом гарганзола (молочно-сырный соус)"
+    },
+    {
+        "dishid": 7,
+        "dishprice": 18,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Fillet steak with mashed potato and creamed mushroom sauce",
+        "dishtitlees": "Solomillo de ternera con puré de patata y salsa de setas silvestres",
+        "dishtitlenor": "Indrefillet av Okse med potetpure og kremet skogsoppsaus",
+        "dishtitleru": "Говяжий стейк с картофельным пюре и грибным соусом"
+    },
+    {
+        "dishid": 8,
+        "dishprice": 21,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Fillet steak Rossini with goose liver and fruit wine sauce",
+        "dishtitlees": "Solomillo de ternera Rossini con foie y salsa de fruta y vino",
+        "dishtitlenor": "Indrefillet Rossini med gåselever og frukt og vinsaus",
+        "dishtitleru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
+    },
+    {
+        "dishid": 9,
+        "dishprice": 11,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Spanish garlic prawns",
+        "dishtitlees": "Gambas al ajillo",
+        "dishtitlenor": "Spanske hvitløksreker",
+        "dishtitleru": "Жареные креветки с чесноком"
+    },
+    {
+        "dishid": 10,
+        "dishprice": 14,
+        "dishcategoryid": "hot_app",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Grilled fresh Scallops with truffle cauliflower cream",
+        "dishtitlees": "Vieiras a la plancha con crema de coliflor",
+        "dishtitlenor": "Grillede kamskjell med blomkålscreme",
+        "dishtitleru": "Гребешок на гриле с крем-соусом из цветной капусты"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 13,
+        "dishcategoryid": "pasta",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Spaghetti with prawns and tomato sauce",
+        "dishtitlees": "Espagueti con marisco y salsa de tomate casero",
+        "dishtitlenor": "Spagetti med reker og hjemmelaget tomat saus",
+        "dishtitleru": "Спагетти с креветками и томатным соусом"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 13,
+        "dishcategoryid": "pasta",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tagliatelle with fresh Salmon and Gorgonzola sauce",
+        "dishtitlees": "Tagliatelle con salmón y salsa gorgonzola",
+        "dishtitlenor": "Tagliatelle med fersk laks og gorgonzola saus",
+        "dishtitleru": "Тальятелле с лососем и соусом гарганзола (молочно-сырный соус)"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 11,
+        "dishcategoryid": "pasta",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tagliatelle with wild mushroom truffle sauce",
+        "dishtitlees": "Tagliatelle con salsa de setas con trufa",
+        "dishtitlenor": "Tagliatelle med skogsopp og sort trøffel saus",
+        "dishtitleru": "Тальятелле трюфельно-грибным  соусом"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 5.5,
+        "dishcategoryid": "soups",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Pumpkin soup with Curry",
+        "dishtitlees": "Sopa de calabaza con curry",
+        "dishtitlenor": "Kremet gresskar suppe med karri",
+        "dishtitleru": "Тыквенный суп с карри"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 4.5,
+        "dishcategoryid": "soups",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Freshly made Gazpacho the cave style",
+        "dishtitlees": "Gazpacho casero",
+        "dishtitlenor": "Hjemmelaget Gazpacho, spansk tomatisert grønnsakssuppe",
+        "dishtitleru": "Холодный суп гаспачо"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 6,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": " “Affogato al Café” Vanilla ice, coffee liqueur, caramelized walnuts and espresso coffee       ",
+        "dishtitlees": "“Affogato al Café” Helado de vainilla, licor de café, nuez caramelizada y café solo   ",
+        "dishtitlenor": "“Affogato al Café” Vaniljeis, kaffelikør, karamelliserte valnøtter og espresso",
+        "dishtitleru": "Affogato al Café ванильный лед, кофейный ликер, карамелизированные грецкие орехи и кофе "
+    },
+    {
+        "dishid": 2,
+        "dishprice": 5.5,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Couland of chocolate with ice cream",
+        "dishtitlees": "Couland de chocolate con helado",
+        "dishtitlenor": "Coulant av sjokolade med iskrem",
+        "dishtitleru": "Шоколадный брауни с мороженным"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 4.5,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Warm Apple crumble Pie with ice cream",
+        "dishtitlees": "Tarta de manzana con helado de vainilla",
+        "dishtitlenor": "Varm eplekake med iskrem",
+        "dishtitleru": "Яблочный пирог с ванильным мороженным"
+    },
+    {
+        "dishid": 4,
+        "dishprice": 6,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Lemon sorbete with cava",
+        "dishtitlees": "Sorbete de Limón con Cava",
+        "dishtitlenor": "Sitron sorbet med Cava",
+        "dishtitleru": "Лимонный сорбет с шампанским"
+    },
+    {
+        "dishid": 5,
+        "dishprice": 5.5,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Chocolate mousse",
+        "dishtitlees": "Mousse de chocolate",
+        "dishtitlenor": "Sjokolademousse",
+        "dishtitleru": "Шоколадный мусс"
+    },
+    {
+        "dishid": 6,
+        "dishprice": 5.5,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Warm Apple Compote with ice cream",
+        "dishtitlees": "Compota de Manzana con helado de vainilla",
+        "dishtitlenor": "Varm eplekompott med vaniljeis",
+        "dishtitleru": "Яблочный десерт с ванильным мороженным"
+    },
+    {
+        "dishid": 7,
+        "dishprice": 5.5,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tiramisu",
+        "dishtitlees": "Tiramisu",
+        "dishtitlenor": "Tiramisu",
+        "dishtitleru": "Тирамису"
+    },
+    {
+        "dishid": 8,
+        "dishprice": 6,
+        "dishcategoryid": "dessert",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Irish Coffee",
+        "dishtitlees": "Café Irlandés",
+        "dishtitlenor": "Irisk kaffe",
+        "dishtitleru": "Ирландский кофе"
+    },
+    {
+        "dishid": 1,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Grand Marinier",
+        "dishtitlees": "Grand Marinier",
+        "dishtitlenor": "Grand Marinier",
+        "dishtitleru": "Grand Marinier"
+    },
+    {
+        "dishid": 2,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Baylies",
+        "dishtitlees": "Baylies",
+        "dishtitlenor": "Baylies",
+        "dishtitleru": "Baylies"
+    },
+    {
+        "dishid": 3,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tia Maria",
+        "dishtitlees": "Tia Maria",
+        "dishtitlenor": "Tia Maria",
+        "dishtitleru": "Tia Maria"
+    },
+    {
+        "dishid": 4,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Licor 43",
+        "dishtitlees": "Licor 43",
+        "dishtitlenor": "Licor 43",
+        "dishtitleru": "Licor 43"
+    },
+    {
+        "dishid": 5,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Drambuie",
+        "dishtitlees": "Drambuie",
+        "dishtitlenor": "Drambuie",
+        "dishtitleru": "Drambuie"
+    },
+    {
+        "dishid": 6,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Jagermaister",
+        "dishtitlees": "Jagermaister",
+        "dishtitlenor": "Jagermaister",
+        "dishtitleru": "Jagermaister"
+    },
+    {
+        "dishid": 7,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Anis Cream",
+        "dishtitlees": "Anis Cream",
+        "dishtitlenor": "Anis Cream",
+        "dishtitleru": "Anis Cream"
+    },
+    {
+        "dishid": 8,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Ponche Caballero",
+        "dishtitlees": "Ponche Caballero",
+        "dishtitlenor": "Ponche Caballero",
+        "dishtitleru": "Ponche Caballero"
+    },
+    {
+        "dishid": 9,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Licor de Café",
+        "dishtitlees": "Licor de Café",
+        "dishtitlenor": "Licor de Café",
+        "dishtitleru": "Licor de Café"
+    },
+    {
+        "dishid": 10,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Orujo de Hierbas",
+        "dishtitlees": "Orujo de Hierbas",
+        "dishtitlenor": "Orujo de Hierbas",
+        "dishtitleru": "Orujo de Hierbas"
+    },
+    {
+        "dishid": 11,
+        "dishcategoryid": "our_strong_dessert_licor",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Orujo blanco",
+        "dishtitlees": "Orujo blanco",
+        "dishtitlenor": "Orujo blanco",
+        "dishtitleru": "Orujo blanco"
+    },
+    {
+        "dishid": 1,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Cardinal Mendoza",
+        "dishtitlees": "Cardinal Mendoza",
+        "dishtitlenor": "Cardinal Mendoza",
+        "dishtitleru": "Cardinal Mendoza"
+    },
+    {
+        "dishid": 2,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Carlos I",
+        "dishtitlees": "Carlos I",
+        "dishtitlenor": "Carlos I",
+        "dishtitleru": "Carlos I"
+    },
+    {
+        "dishid": 3,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Carlos III",
+        "dishtitlees": "Carlos III",
+        "dishtitlenor": "Carlos III",
+        "dishtitleru": "Carlos III"
+    },
+    {
+        "dishid": 4,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Torres 10",
+        "dishtitlees": "Torres 10",
+        "dishtitlenor": "Torres 10",
+        "dishtitleru": "Torres 10"
+    },
+    {
+        "dishid": 5,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Gran Duque de Alba",
+        "dishtitlees": "Gran Duque de Alba",
+        "dishtitlenor": "Gran Duque de Alba",
+        "dishtitleru": "Gran Duque de Alba"
+    },
+    {
+        "dishid": 6,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Martell VS",
+        "dishtitlees": "Martell VS",
+        "dishtitlenor": "Martell VS",
+        "dishtitleru": "Martell VS"
+    },
+    {
+        "dishid": 7,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Port wine",
+        "dishtitlees": "Port wine",
+        "dishtitlenor": "Port wine",
+        "dishtitleru": "Port wine"
+    },
+    {
+        "dishid": 8,
+        "dishcategoryid": "our_strong_dessert_brandy",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Sherry",
+        "dishtitlees": "Sherry",
+        "dishtitlenor": "Sherry",
+        "dishtitleru": "Sherry"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 5,
+        "dishcategoryid": "children",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Pizza Margarita",
+        "dishtitlees": "Pizza Margarita",
+        "dishtitlenor": "Pizza Margarita",
+        "dishtitleru": "Пицца Маргарита"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 6.5,
+        "dishcategoryid": "children",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Sausages with mashed potato",
+        "dishtitlees": "Salchichas con puré de papa",
+        "dishtitlenor": "Pølser med potetmos",
+        "dishtitleru": "Сосиски с картофельным пюре"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 7.5,
+        "dishcategoryid": "children",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Pasta with tomato",
+        "dishtitlees": "Espagueti con tomates",
+        "dishtitlenor": "Pasta med tomat",
+        "dishtitleru": "Паста с томатами"
+    },
+    {
+        "dishid": 4,
+        "dishprice": 6.5,
+        "dishcategoryid": "children",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Pizza Barbeque",
+        "dishtitlees": "Pizza Barbeque",
+        "dishtitlenor": "Pizza Barbeque",
+        "dishtitleru": "Пицца Барбекю"
+    },
+    {
+        "dishid": 5,
+        "dishprice": 7.5,
+        "dishcategoryid": "children",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Chicken nuggets with potato chips",
+        "dishtitlees": "Nuggets de pollo with patata frita",
+        "dishtitlenor": "Kyllingnuggets med potetgull",
+        "dishtitleru": "Куринные наггетсы с картофелем фри"
+    },
+    {
+        "dishid": 1,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Pumpkin and Curry cream soup",
+        "dishtitlees": "Sopa de calabaza con curry",
+        "dishtitlenor": "Kremet gresskar suppe med karri",
+        "dishtitleru": "Тыквенный суп с карри"
+    },
+    {
+        "dishid": 2,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Dry aged Duck breast with peach and caramelized nuts",
+        "dishtitlees": "Jamón de Magret de pato curado con melocotón y nuez caramelizada",
+        "dishtitlenor": "Skinke av tørket andebryst med fersken og karameliserte hvalnøtter",
+        "dishtitleru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
+    },
+    {
+        "dishid": 3,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tartar of fresh Salmon and avocado",
+        "dishtitlees": "Tartar de salmón fresco y aguacate",
+        "dishtitlenor": "Tartar av fersk laks og avokado",
+        "dishtitleru": "Тартар из свежего лосося с авокадо"
+    },
+    {
+        "dishid": 4,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Large sautéed prawns",
+        "dishtitlees": "Gambones salteadas",
+        "dishtitlenor": "Store sauterte reker",
+        "dishtitleru": "Жареные креветки"
+    },
+    {
+        "dishid": 1,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Cod with mashed potatoes, pumpkin cream and bacon",
+        "dishtitlees": "Bacalao con puré de patatas, crema de calabaza y beicon",
+        "dishtitlenor": "Torskerygg med potetpure, gresskar creme og bacon",
+        "dishtitleru": "Треска с картофельным пюре, тыквенным кремом и беконом"
+    },
+    {
+        "dishid": 2,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Fillet steak Rossini with goose liver and fruit wine sauce",
+        "dishtitlees": "Solomillo de ternera Rossini con foie y salsa de fruta y vino",
+        "dishtitlenor": "Indrefillet Rossini med gåselever og frukt og vinsaus",
+        "dishtitleru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
+    },
+    {
+        "dishid": 3,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Tiramisu",
+        "dishtitlees": "Tiramisu",
+        "dishtitlenor": "Tiramisu",
+        "dishtitleru": "Тирамису"
+    },
+    {
+        "dishid": 4,
+        "dishcategoryid": "daily_menu",
+        "dishrestaurtantid": 3700,
+        "dishtitleen": "Chocolate mousse",
+        "dishtitlees": "Mousse de chocolate",
+        "dishtitlenor": "Sjokolademousse",
+        "dishtitleru": "Шоколадный мусс"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 6.6,
+        "dishcategoryid": "salads",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Spicy Korean salad with beef, fresh cucumbers and paprika",
+        "dishtitlees": "Ensalada coreana picante con ternera, pepino y pimentón",
+        "dishtitleru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 7.2,
+        "dishcategoryid": "salads",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Spicy Korean salad with special marinated beef and carrot",
+        "dishtitlees": "Je: ensalada coreana picante con ternera marinada y zanahoria",
+        "dishtitleru": "Хе с мясом: острый корейский салат с маринованной говядиной и морковкой"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 7.2,
+        "dishcategoryid": "salads",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Spicy Korean salad with special marinated fish, cucumbers and onion",
+        "dishtitlees": "Je con pescado: ensalada coreana picante con pescado marinado, pepino y cebolla",
+        "dishtitleru": "Хе с рыбой: острый корейский салат с маринованной белой рыбой, огурцом и луком"
+    },
+    {
+        "dishid": 4,
+        "dishprice": 7.1,
+        "dishcategoryid": "salads",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Eggplants with vegetables and garlic",
+        "dishtitlees": "Ensalada de berenjena con verduras y ajo",
+        "dishtitleru": "Баклажаны с овощами и чесноком"
+    },
+    {
+        "dishid": 5,
+        "dishprice": 8.5,
+        "dishcategoryid": "salads",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Korean style spicy salted cabbage",
+        "dishtitlees": "Kimchi: repollo salado y picante al estilo coreano",
+        "dishtitleru": "Ким Чи:  острая соленная капуста по- корейски"
+    },
+    {
+        "dishid": 6,
+        "dishprice": 4.4,
+        "dishcategoryid": "salads",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Homemade pickled tomatoes",
+        "dishtitlees": "Tomates caseros en escabeche de su propio jugo",
+        "dishtitleru": "Домашние маринованные помидоры в собственном соку"
+    },
+    {
+        "dishid": 1,
+        "dishprice": 6.5,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Kuk si: Korean noodles with vegetables and beef",
+        "dishtitlees": "Kuksi: fideos coreanos con verduras y carne de ternera",
+        "dishtitleru": "Кук Си: Корейская лапша с овощами и мясом говядины"
+    },
+    {
+        "dishid": 2,
+        "dishprice": 7.4,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Lagman: Asian noodles with beef and vegetable gravy",
+        "dishtitlees": "Laghman: fideos asiáticos con salsa de carne de ternera y verdura",
+        "dishtitleru": "Лагман: с подливом из мяса говядины и овощей"
+    },
+    {
+        "dishid": 3,
+        "dishprice": 5.7,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Dumplings with meat",
+        "dishtitlees": "Pelmeni: Plato tradicional ruso “ravioli” con carne",
+        "dishtitleru": "Пельмени c мясом"
+    },
+    {
+        "dishid": 4,
+        "dishprice": 4.2,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Vareniki: stuffed dough with potato",
+        "dishtitlees": "Vareniki: Plato tradicional ruso “ravioli” con patata",
+        "dishtitleru": "Вареники с картошкой"
+    },
+    {
+        "dishid": 5,
+        "dishprice": 6.9,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Chicken cutlets with potato or rice",
+        "dishtitlees": "Chuletas de la carne picado de pollo con patata o arroz",
+        "dishtitleru": "Куриные котлетки с картошкой или рисом"
+    },
+    {
+        "dishid": 6,
+        "dishprice": 8.2,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Hamburger with chicken cutlet",
+        "dishtitlees": "Hamburguesa de pollo",
+        "dishtitleru": "Гамбургер с куриной котлетой"
+    },
+    {
+        "dishid": 7,
+        "dishprice": 3.2,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Hot pasties stuffed with beef meat",
+        "dishtitlees": "Empanadas calientes con carne de ternera",
+        "dishtitleru": "Чебуреки с мясом говядины"
+    },
+    {
+        "dishid": 8,
+        "dishprice": 9.7,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Pilaf: rice with lamb pieces and carrot",
+        "dishtitlees": "Pilaf: arroz de receta asiática con cordero y zanahoria",
+        "dishtitleru": "Плов с бараниной"
+    },
+    {
+        "dishid": 9,
+        "dishcategoryid": "main_dishes",
+        "dishrestaurtantid": 3701,
+        "dishtitleen": "Shashlik: Fried pieces of marinated pork meat",
+        "dishtitlees": "Shashlik: pinchitos fritos de la carne del cerdo",
+        "dishtitleru": "Шашлык из свинины"
+    }
+]

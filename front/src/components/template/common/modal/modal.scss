@@ -1,0 +1,41 @@
+$buttonRadius: 0.35em;
+
+.modal-overlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    // .modal-reveal{
+    //     > div{
+
+    //         flex-grow: 1;        
+    //     }
+        .modal-reveal{
+            outline: none;
+            width: 70%;
+            max-height: 90%;
+            min-height: 20%;
+            position: relative;
+            margin: 0 auto;
+    
+            .panel {
+                flex-grow: 1;
+                padding-top: 1em;
+                padding-bottom: 1.6em;
+                overflow-y: auto;
+            }
+    
+            .close-modal{
+                position: absolute;
+                top: -(2 * $buttonRadius);
+                right: -(2 * $buttonRadius);
+                background: red;
+                color: white;
+                padding: $buttonRadius;
+                min-width:0 ;
+                font-size: 2em;
+                border-radius: 50%;
+            }
+        }
+    // }
+}
