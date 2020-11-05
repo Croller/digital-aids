@@ -2,7 +2,7 @@ import Base from './baseClientService'
 import rests from '../data/restaurants.json'
 import cuisines_list from '../data/cuisines.json'
 import dishes from '../data/dishes.json'
-import categories from '../data/categories.json'
+import categories_list from '../data/categories.json'
 
 class RestaurantsService extends Base {
 
@@ -24,7 +24,34 @@ class RestaurantsService extends Base {
                 }) 
             
             const menu = await this.getRestorauntMenu( rest.id, lang )
-            rest = {...rest, menu }
+
+            /// gather the categories
+            const uniqueCategories = menu.reduce( (cats, item) => {
+                if( !cats.includes(item.dishcategoryid) )
+                    return [...cats, item.dishcategoryid ]
+                else
+                    return cats
+            }, [])
+
+            const categories = uniqueCategories.map( 
+                c => {
+                    const foundCat = categories_list.find( cc => cc.categoryid === c)
+                    let title
+                    if( foundCat ){
+                        title = foundCat[`categorytitle${lang}`] || foundCat[`categorytitleen`]
+                    } else {
+                        console.error("Category not found: ", c, ", using ID as title")
+                        title = c
+                    }
+
+                    return {
+                        id: c, 
+                        title
+                    }
+                }
+                )
+
+            rest = {...rest, menu, categories }
         } 
         console.log("Rest:" , rest)
         return rest

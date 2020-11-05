@@ -14,7 +14,7 @@ export const experimentCategories = ["physics", "biology", "chemistry", "environ
 
 export const routes = [
     { exact: true, path: "/" , component: components["Home"]  },
-    // { exact: true, path: "/:slug" , component: components["Menu"]  },
+    { exact: true, path: "/:slug" , component: components["Menu"]  },
     { exact: false, path: "*" , component: components["P404"]},
 ]
 
