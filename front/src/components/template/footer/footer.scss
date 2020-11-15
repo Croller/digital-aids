@@ -1,0 +1,25 @@
+@import "../../../variables.scss";
+#root{
+    .footer{
+        background: white;
+        padding: 0.5em;
+        z-index: 100;
+        display: flex;
+        flex-grow: 1;
+        height: $footerHeight;
+        align-items: center;
+    //   width: 100%;
+        justify-content: center;
+        @media screen and(max-width: $bp_1) {
+            position: sticky;
+            bottom: 0;
+            left: 0;
+        }
+
+        .mobile-footer{
+            @media screen and (min-width: $bp_2) {
+                display: none;
+            }
+        }
+    }
+}

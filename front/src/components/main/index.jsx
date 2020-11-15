@@ -1,12 +1,13 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
-import Footer from '../template/footer'
+// import Footer from '../template/footer'
 import Routes from '../routes'
 import routes from '../../data/routes'
 // import { connect } from 'react-redux'
 // import A from '../../redux/actionTypes'
 // import Actions from '../../redux/actions'
 import "./main.scss"
+// import CartWidget from '../cart/cart-widget'
 
 // let usageDefer = Date.now()
 // const deferUsageDelay = 1000 // ms
@@ -21,7 +22,6 @@ class Main extends React.Component {
                 <div className={`main ${showDrawer ? "drawer-open" : ""}`}>
                     <Routes routes={routes} />
                 </div>
-                <Footer />
             </Router>
         )
     }

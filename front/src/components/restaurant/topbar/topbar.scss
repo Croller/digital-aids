@@ -1,0 +1,26 @@
+@import "../../../variables.scss";
+#root {
+    header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .top-bar-contents{
+
+            display: flex;
+            flex-direction: row;
+            flex-grow: 1;
+            align-items: center;
+            .title {
+                flex-grow: 1;
+                align-items: center;
+                font-size: 20px;
+                font-weight: 600;
+            }
+        }
+        .hide-on-mobile{
+            @media screen and (max-width: $bp_2) {
+                display: none;
+            }
+        }
+    }   
+}

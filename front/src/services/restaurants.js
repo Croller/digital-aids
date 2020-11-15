@@ -4,57 +4,71 @@ import cuisines_list from '../data/cuisines.json'
 import dishes from '../data/dishes.json'
 import categories_list from '../data/categories.json'
 
+
 class RestaurantsService extends Base {
 
-    static async getRestaurant( slug, lang ){
-        let rest = rests.find( r => r.slug === slug )
+    static async getRestaurant( slug, lang = "en" ){
+
         
-        rest = {...rest} ///copy it...
-        if( rest ){
-            console.log( "Rest:", rest)
-            // populate cuisines list
-            const {cuisines } = rest
-            console.log( "cuisines:", cuisines)
+        try{
 
-            rest.cuisines = cuisines.split(",").map ( 
-                c => {
+            const rest = await this.GET(`/restaurants/${slug}/${lang}`)
+            return rest
+        }catch(e){
+            if( e.response && e.response.data )
+                this.Error(e.response.data)  
+            else
+                this.Error(e.message)
+        }
+        
+        // let rest = rests.find( r => r.slug === slug )
+        
+        // rest = {...rest} ///copy it...
+        // if( rest ){
+        //     console.log( "Rest:", rest)
+        //     // populate cuisines list
+        //     const {cuisines } = rest
+        //     console.log( "cuisines:", cuisines)
 
-                    const cuisine = cuisines_list.find( c1=> c1.cuisineid === c )
-                    return cuisine[lang] || cuisine["en"]
-                }) 
+        //     rest.cuisines = cuisines.split(",").map ( 
+        //         c => {
+
+        //             const cuisine = cuisines_list.find( c1=> c1.cuisineid === c )
+        //             return cuisine[lang] || cuisine["en"]
+        //         }) 
             
-            const menu = await this.getRestorauntMenu( rest.id, lang )
+        //     const menu = await this.getRestorauntMenu( rest.id, lang )
 
-            /// gather the categories
-            const uniqueCategories = menu.reduce( (cats, item) => {
-                if( !cats.includes(item.dishcategoryid) )
-                    return [...cats, item.dishcategoryid ]
-                else
-                    return cats
-            }, [])
+        //     /// gather the categories
+        //     const uniqueCategories = menu.reduce( (cats, item) => {
+        //         if( !cats.includes(item.dishcategoryid) )
+        //             return [...cats, item.dishcategoryid ]
+        //         else
+        //             return cats
+        //     }, [])
 
-            const categories = uniqueCategories.map( 
-                c => {
-                    const foundCat = categories_list.find( cc => cc.categoryid === c)
-                    let title
-                    if( foundCat ){
-                        title = foundCat[`categorytitle${lang}`] || foundCat[`categorytitleen`]
-                    } else {
-                        console.error("Category not found: ", c, ", using ID as title")
-                        title = c
-                    }
+        //     const categories = uniqueCategories.map( 
+        //         c => {
+        //             const foundCat = categories_list.find( cc => cc.categoryid === c)
+        //             let title
+        //             if( foundCat ){
+        //                 title = foundCat[`categorytitle${lang}`] || foundCat[`categorytitleen`]
+        //             } else {
+        //                 console.error("Category not found: ", c, ", using ID as title")
+        //                 title = c
+        //             }
 
-                    return {
-                        id: c, 
-                        title
-                    }
-                }
-                )
+        //             return {
+        //                 id: c, 
+        //                 title
+        //             }
+        //         }
+        //         )
 
-            rest = {...rest, menu, categories }
-        } 
-        console.log("Rest:" , rest)
-        return rest
+        //     rest = {...rest, menu, categories }
+        // } 
+        // console.log("Rest:" , rest)
+        // return rest
     }
 
     static async getRestorauntMenu( id, lang ){

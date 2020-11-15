@@ -1,0 +1,167 @@
+
+@import "../../../../variables.scss";
+
+#root {
+    .main{
+
+        // .rest-menu{
+
+            div:last-child > .rest-menu-item{
+                border-bottom: none!important; // remove  bottom border at the bottom of the list
+            }
+
+            .rest-menu-item{
+
+                &.ordered {
+
+                    .price, .dish-index {
+                        background-color: $accent!important; // this is bad code (
+                        border: $accent!important; // this is also bad code (
+                    }
+
+                    .dish-title-box{
+
+                        .title-default {
+                            color: $accent;
+                        }
+                    }
+                }
+
+                display: flex;
+                /* background: #eee; */
+                /* border: 1px solid #999; */
+                /* border-radius: 10px; */
+                border-bottom: 1px solid $light-gray;
+                padding: 1em;
+                flex-direction: row;
+                justify-content: stretch;
+                align-items: center;
+                cursor: pointer;
+
+                .dish-index{
+                    background: $dark;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    border-radius: 6px;
+                    color: white;
+                    font-size: 1em;
+                    align-items: center;
+                    justify-content: center;
+                    margin-right: 0.8em;
+                }
+
+                .dish-title-box{
+                    display: flex;
+                    flex-direction: column;
+
+                    > div {
+                        display: flex;
+                        align-items: center;
+                    }
+                    
+                    .title-main{
+                        color: black;
+                        font-size: 1.1em;
+                        font-weight: 500;
+                    }
+
+                    .title-default{
+                        font-size: 1em;
+                        font-weight: 500;
+                        color: $darker;
+                    }
+                }
+
+                .price-container{
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: flex-end;
+
+                    @media screen and (max-width: 600px ) {
+                        justify-content: flex-start;
+                        margin-top: 1em;
+                    }
+
+                    > div, > span {
+                        margin-right: 0.8em; 
+                        &:last-child{
+                            margin-right: 0;
+                        }
+                    }
+
+                    .button {
+                        height: 35px;
+                        
+                        
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 600;
+                        border-radius: 6px;
+                        border: 1px solid;
+                        font-size: 2em;
+                        &.square {                            
+                            width: 35px;                                
+                            min-width: 35px;
+                        }
+
+                        &.invisible {
+                            color: transparent;
+                            border-color: transparent;
+                        }
+                    }
+                    .price {
+                        
+                        
+
+                        background: $darker;
+                        height: 35px;
+                        width: 81px;
+                        padding-left: 0.5em;
+                        padding-right: 0.5em;
+                        font-size: 1.1em;
+                        color: white;
+                        font-weight: 600;                        
+                    }
+                    .quantity-badge {
+                        .lid{
+                            font-size: 1em;
+                        }
+                        .MuiBadge-badge{
+                            background-color: $green;
+                            color: rgba(255,255,255,0.6);
+                            right: 5px;
+                        }
+                    } 
+                    .quantity{
+                        
+                        display: flex;
+                        color: $darker;
+                        border: solid $darker;
+                        border-radius: 6px;
+                        &.positive{
+                            background: $accent;
+                            border-color: $accent;
+                            color: white;
+
+                            svg {
+                                font-size: 2em;
+                            }
+                        }
+                    }
+
+                    .remove-dish{
+                        color: white;
+                        background: $danger;
+                        border: 1px solid $danger;
+                        font-size: 2em;
+                        font-weight: 300;
+                    }
+                }
+
+            }
+        // }
+    }
+}

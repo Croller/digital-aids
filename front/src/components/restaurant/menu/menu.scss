@@ -1,0 +1,76 @@
+@import "../../../variables.scss";
+
+#root{
+    .main{
+
+        .categories {
+            @media screen and (max-width: $bp_1 ){
+                display: none;
+            }
+            margin: 0 -0.4em;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 82px;
+            background: white;
+            z-index: 20;
+            font-size: 18px;
+
+            &:after {
+                content: " ";
+                flex-grow: 2;
+            }
+        }
+
+        .category-button{
+        
+            border: 1px solid $accent;
+            border-radius: 6px;
+            margin: 0.4em;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0.4em 1em;
+            min-height: 68px;
+            flex-grow: 1;
+
+            &.selected{
+                background-color: $accent;
+                span{
+                    div{
+                        color: white;
+                        &.default-lang{
+                            color: white;
+                        }
+                    }
+                }
+            }
+            
+
+            span {
+                display: flex;
+                flex-direction: column;
+                justify-content: stretch;
+                flex-grow: 1;
+                
+                div   {
+                    font-family: 'Montserrat';
+                    display: flex;
+                    flex-direction: row;
+                    align-content: center;
+                    justify-content: flex-start;
+                    flex-grow: 1;
+                    min-width :100%;
+                    text-transform: none;
+                    font-size: 1em;
+                    &.default-lang{
+                        color: $accent;
+                        font-size: 0.6em;
+                        text-transform: inherit;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,54 @@
+body{
+    background-image: url("https://digital-carte.com/media/images/placeholder-bg-2000x1667.jpg");
+    background-color: white;
+    background-position: center;
+    background-size: cover;
+
+    #root {
+        .main {
+            display: flex;
+            
+            .placeholder-container {
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+                justify-content: center;
+                // min-width: 100%;
+                min-height: 100%;
+                
+                font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            
+                padding-left: 53%;
+                padding-right: 2%;
+            
+                @media only screen and (min-width: 1200px) {
+                    font-size: 18px;
+                }
+                @media screen and (max-width: 992px) {
+                    font-size: 12px;
+                }
+            
+                @media screen and (max-width: 600px) {
+                    font-size: 9px;
+                }
+            
+                h1.placeholder{
+                    font-size: 2em;
+                    color: black;
+                }
+                
+                .subtitle{
+                    font-size: 1.6em;
+                    color: green;
+                }
+            
+                .firm{
+                    color: green;
+                    font-size: 1.4em;
+                    margin: 0.5em 0
+                }
+            }
+        }
+    }
+}
+

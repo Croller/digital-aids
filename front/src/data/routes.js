@@ -1,11 +1,13 @@
 import Home from '../components/home'
-import Menu from '../components/menu'
+import Restaurant from '../components/restaurant'
+import Cart from '../components/cart'
 import P404 from '../components/template/404'
 
 
 const components = {
     Home,
-    Menu,
+    Cart, 
+    Restaurant,
     P404, 
 }
 
@@ -14,7 +16,8 @@ export const experimentCategories = ["physics", "biology", "chemistry", "environ
 
 export const routes = [
     { exact: true, path: "/" , component: components["Home"]  },
-    { exact: true, path: "/:slug" , component: components["Menu"]  },
+    { exact: true, path: "/:slug" , component: components["Restaurant"]  },
+    { exact: true, path: "/:slug/cart" , component: components["Cart"]  },
     { exact: false, path: "*" , component: components["P404"]},
 ]
 

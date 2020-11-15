@@ -1,14 +1,14 @@
 import React from 'react'
 import {Container, Typography} from '@material-ui/core'
-
+import './placeholder.scss'
 class Home extends React.Component{
 
     render(){
         return(
-            <Container >
-                <Typography variant="h2">Digital Solutions For Restaurants</Typography>
-                <p>We're working on it!</p>
-            </Container>
+            <div className="placeholder-container">
+                <h1 className="title">Don't waste your time, <br/> taste the world every day!</h1>
+                <div className="subtitle">We join you soon, Foodfans Team </div>
+            </div>
         ) 
     }
 }

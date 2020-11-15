@@ -11,6 +11,7 @@ html, body{
 body{
   flex-grow: 1;
   background-color: $bgLight;
+  font-family: Montserrat, sans-serif;
   
   #root{
     display: flex;
@@ -19,40 +20,68 @@ body{
     flex-grow: 1;
 
 
-    h1{
-      font-size: 3em;
+    // all containers padding
+  .MuiContainer-root{
+    @media only screen and (min-width: $bp_3) {
+      padding-left: 119px;
+      padding-right: 119px;
     }
+    @media screen and (min-width: $bp_1) {
+      padding-left: 83px;
+      padding-right: 83px;
+    }
+    // @media screen and (min-width: $bp_1) {
+    //   padding-left: 32px;
+    //   padding-right: 32px;
+    // }
+    @media screen and (max-width: 600px) {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
 
-
-    .navbar {
-      // background: #5c7372;
-      height: $headerHeight;      
-      padding: 0 2em;
-      color: white;
-      .menu-button{
-        cursor: pointer;
+    header {
+      height: $headerHeight;
+    }
+    @for $var from 1 to 8  {
+      .fw-#{$var}00 {
+        font-weight: #{$var * 100};
       }
     }
 
+    h3{
+      font-size: 1.3em;
+    }
+   
+
     .main{
       flex-grow: 1;
+      flex-direction: column;
       transition: 255ms padding-left;
       padding-top: #{$headerHeight + $mainTopMargin};
+
       &.drawer-open{
         padding-left: $sidebarWidth;
       }
     }
 
-    .footer {
-      display: flex;
-      flex-grow: 0;
-      height: $footerHeight;
-      align-items: center;
-      width: 100%;
-      justify-content: center;
-      color: white;
-      // background: #7ea09f;
+
+    .panel{
+      background-color: white;
+      box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
     }
+
+    // .footer {
+    //   display: flex;
+    //   flex-grow: 0;
+    //   height: $footerHeight;
+    //   align-items: center;
+    //   width: 100%;
+    //   justify-content: center;
+    //   color: white;
+    //   // background: #7ea09f;
+    // }
   }
 
   

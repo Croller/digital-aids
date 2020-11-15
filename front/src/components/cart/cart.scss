@@ -1,0 +1,49 @@
+@import "../../variables.scss";
+
+#root{
+    .main{
+
+        .breadcrumbs {
+            margin: 1em 0;
+            display: flex;
+            flex-direction: row;
+        }
+        
+        a.back-link {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-decoration: none;
+            color: $accent;
+        }
+        .cart{
+            padding-top: 2em;
+        }
+        
+        .total{
+            display: flex;
+            padding: 1em;
+            margin: 1em 0;
+            flex-direction: row;
+            justify-content: flex-end;
+            font-weight: 700;
+            align-items: center;
+            padding-right: 80px;
+            span{
+                border-radius: $borderRadius;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: $accent;
+                height: 35px;
+                width: 81px;
+                padding-left: 0.5em;
+                padding-right: 0.5em;
+                font-size: 1.1em;
+                color: white;
+                font-weight: 600;
+                margin-left: 0.5em;
+            }
+        }
+    }
+}
