@@ -1,0 +1,30 @@
+[
+    {
+        "id": 3700,
+        "slug": "las-cuevas",
+        "title": "Las Cuevas",
+        "cuisines": "inter,medi,euro",
+        "languages": "en,es,no,ru,it,gr,de,ko",
+        "defaultlanguage": "es",
+        "workinghours": "17.00-22.00",
+        "phone": " 34 600 00 11 17",
+        "website": "http://www.lascuevas.es/",
+        "address": "Barrio 1. De Mayo no 13, 03193 San Miguel de Salinas Spain",
+        "facebook": "https://www.facebook.com/Restaurantelascuevas/?ref=bookmarks",
+        "instagram": "https://www.instagram.com/lascuevasrestaurante/",
+        "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html"
+    },
+    {
+        "id": 3701,
+        "slug": "galacafe",
+        "title": "Galacafe",
+        "cuisines": "korean,asian",
+        "languages": "en,es,no,ru,it,gr,de,ko",
+        "defaultlanguage": "es",
+        "workinghours": "12.00- 22.00, Mon/Tue-closed",
+        "phone": "34 634 30 44 42",
+        "address": "Carr. de Denia A Xabia, 38, 03700, Denia, Spain",
+        "facebook": "https://www.facebook.com/galacafe.restaurant",
+        "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g609043-d8684373-Reviews-Galacafe-Denia_Costa_Blanca_Province_of_Alicante_Valencian_Country.html"
+    }
+]
