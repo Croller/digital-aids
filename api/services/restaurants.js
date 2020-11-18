@@ -1,4 +1,5 @@
-const baseService = require("./baseService")
+const baseService           = require("./baseService")
+const translationService    = require("./translation")
 const _f = require("fetsch")
 
 const defautlFields = "r.*"
@@ -48,7 +49,7 @@ class RestService extends baseService{
                         }) 
                     
 
-                        
+                    rest.languages = await translationService.languagesByRestaurant(slug)
                         
                     const menu = await this.getRestorauntMenu( rest.id, lang, defaultlanguage )
                     /// gather the categories
@@ -129,13 +130,15 @@ class RestService extends baseService{
             const {
             dishid,
             dishprice,
-            dishcategoryid
+            dishcategoryid,
+            tags
             } = dish
             return { dishid,
                 dishprice,
                 dishcategoryid,
                 dishtitle: dish[`dishtitle${lang}`] || dish["dishtitleen"],
-                dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`]
+                dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`],
+                tags: tags ? tags.split(",") : []
                 }
             }
         )
