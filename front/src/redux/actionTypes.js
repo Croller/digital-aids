@@ -4,6 +4,9 @@ const ActionTypes = {
     ADD_TO_CART: "ADD",
     DELETE_FROM_CART: "DELETE",
     CLEAR_CART: "CLEARC",
+
+    SET_FILTER: "SETFILTER",
+    
     
     SHOW_MESSAGE: "SHOW_MESSAGE",
     HIDE_MESSAGE: "HIDE_MESSAGE",

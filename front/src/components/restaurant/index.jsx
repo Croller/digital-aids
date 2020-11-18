@@ -5,16 +5,18 @@ import {connect } from 'react-redux'
 import Service from '../../services/restaurants'
 import Footer from '../template/footer'
 import { CircularProgress, Container, Grid, Select, MenuItem, Button, Paper, AppBar } from '@material-ui/core'
-import {
-    LocationOnOutlined as Location, 
-    FastfoodOutlined as Food,
-    PhoneInTalkOutlined as Phone,
-    AccessTimeOutlined as Time
-} from '@material-ui/icons'
+// import {
+//     LocationOnOutlined as Location, 
+//     FastfoodOutlined as Food,
+//     PhoneInTalkOutlined as Phone,
+//     AccessTimeOutlined as Time
+// } from '@material-ui/icons'
+
+import {Redirect} from 'react-router-dom'
 import Menu from './menu'
 import Topbar from './topbar'
 import Spinner from '../template/common/Spinner'
-
+import Lang from '../restaurant/language'
 
 
 class RestaurantComponent extends React.Component{
@@ -24,6 +26,8 @@ class RestaurantComponent extends React.Component{
     }
 
     componentDidMount(){
+       
+
         this.fetchData()
     }
     
@@ -48,33 +52,26 @@ class RestaurantComponent extends React.Component{
         const {restaurant} = this.state
         
         const {language, lang} = this.props
+
+
+        
+
+        
+        
+        // if( !language ) return <Lang {...{restaurant}} />
         const {slug} = this.props.match.params
+        
+        
+        if( !language){
+            // redirect to language selector
+            return <Redirect to={`/${slug}/language`} />
+        }
 
         return(
             restaurant ? 
             <>
                 <Topbar {...{restaurant, language, lang}} />
                 <Container key={slug}>
-                    
-                    <Paper className="restaurant-details panel">
-                        <Grid container>
-                            <Grid item xs={12} md={8} className="details-text">
-                                <div>
-                                    <Food/> {restaurant.cuisines.join(", ")}
-                                </div>
-                                <div>
-                                    <Location/> {restaurant.address}
-                                </div>
-                                <div>
-                                    <Time/> {restaurant.workinghours}
-                                </div>
-                            </Grid>
-                            <Grid item xs={12} md={4} className="call-buttons">
-                                <Button><Phone/> Reservation</Button>
-                                <Button><Phone/> Delivery</Button>
-                            </Grid>
-                        </Grid>
-                    </Paper> 
                     <Menu slug={slug} {...restaurant} />
                 </Container>
                 <Footer slug={slug} />

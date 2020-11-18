@@ -11,11 +11,21 @@ try {
 }
 
 
+const initialRestaurantState = {
+    language: null,
+    cart: [],
+    filters: {},
+    cartCount: 0,
+    cartPrice: 0,
+    cartHasItemsWithNoPrice: false
+}
+
 const initialState = 
 {
     ...{
-        language: "en",
+        language: null,
         cart: {},
+        filters: {},
         cartCount: 0,
         cartPrice: 0,
         cartHasItemsWithNoPrice: false
@@ -40,12 +50,12 @@ export default function root( state = initialState, action ) {
     let newState = {...state}
     // let {messages} = state
     // let now = Date.now()
-    const {type, payload } = action
+    const {type: payloadType, payload } = action
     
-    let cart, cartCount, index, item, slug, restCart, dishid, cartPrice
+    let cart, cartCount, index, item, slug, restCart, dishid, cartPrice, type, value
 
     console.debug("Dispatch type and payload:", type, payload)
-    switch( type ){
+    switch( payloadType ){
         
         case A.SET_LANGUAGE:
             newState = {...newState, language: payload }
@@ -171,6 +181,32 @@ export default function root( state = initialState, action ) {
                 newState = { ...newState, cart, cartCount, cartPrice}
             }
             break;
+
+        case A.SET_FILTER:
+            // set specific filter for specific restaurant
+            /**
+             * @param {string} slug
+             * @param {string} type type of filter ('search' etc)
+             * @param {*} value value to set to the filter
+             */
+            ({slug, type, value} = payload)
+            
+            const filters = state.filters ? {...newState.filters} : {}
+
+            // filters fotr this particular restaurant
+            const restFilters = filters[slug] || {}
+
+            // set new value
+            restFilters[type] = value
+
+            // update filters 
+            filters[slug] = restFilters
+
+            // update new state
+            newState = {...newState, filters }
+            
+            break;    
+        
         default:
             //newState = state;
             

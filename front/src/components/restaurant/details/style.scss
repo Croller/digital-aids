@@ -1,0 +1,71 @@
+@import "../../../variables.scss";
+#root {
+    .main{
+
+        .restaurant-details{
+            padding: 20px;
+            & > div {
+                // margin-bottom : 1em;
+            }
+            // margin-top: calc(-#{$mainTopMargin} - 6px);
+            margin-bottom: 2em;
+
+            svg {
+                    
+                margin-right: 0.2em;
+                font-size: 20px;
+                fill: $gray;
+            }
+        }
+
+        .details-text{
+            div {
+                
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 1.5em;
+            }
+        }
+
+        .call-buttons{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            button{
+                margin: 0.4em;
+                width: 192px;
+                background-color: $accent;
+                color: white;
+                max-width: 360px;
+                svg {
+                    color: white;
+    
+                }
+            }
+        }
+
+        .contact-buttons {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: stretch;
+            margin-bottom: 2em;
+
+            .contact-button {
+                background: $light-gray;
+                flex-grow: 1;
+                padding: 0.5em;
+                font-weight: 600;
+                font-size: 15px;
+                svg{
+                    fill: black;
+                    margin-right: 0.5em;
+                }
+            }
+        }
+        
+        
+    }
+}

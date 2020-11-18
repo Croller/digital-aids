@@ -67,28 +67,57 @@ class baseClientService {
      * Will throw error on request error.
      * @param {*} url 
      * @param {*} config 
+     * @param {string} cache_mode cache|nocache|reset - wether to use cached value if exists, don't use cache or reset cached value
      */
-    static async GET( url, config = {}){   
-        try{
-            const {data} = await baseClientService.api.get(url, this.prepareConfig(config) )
-            return data        
-        }catch(e){
-            // console.log( "Error: ", e.requestData )
-            if( e.response ){
-                console.log( e.response )
-                if( e.response.status === 401 ){
-                    // oops, session terminated
-                    // logout
-                    this.dispatch( A.LOGOUT )
-                    // show message
-                    this.dispatch( A.SHOW_MESSAGE, {text: "Your session has expired, please log in again", level: "warning"})
-                } else {
-                    throw new Error(e.response.data)    
+    static async GET( url, config = {}, cache_mode = "nocache" ){   
+
+        const fetchData = async () => {
+            
+            try{
+                const {data} = await baseClientService.api.get(url, this.prepareConfig(config) )
+                
+                // if use cached or reset - store value in cache
+                if( [ "cache", "reset" ].includes(cache_mode)){
+                    this.cache( url, data )
                 }
-            } else {
-                throw new Error(e.message)
+                return data        
+            }catch(e){
+                // console.log( "Error: ", e.requestData )
+                if( e.response ){
+                    console.log( e.response )
+                    if( e.response.status === 401 ){
+                        // oops, session terminated
+                        // logout
+                        this.dispatch( A.LOGOUT )
+                        // show message
+                        this.dispatch( A.SHOW_MESSAGE, {text: "Your session has expired, please log in again", level: "warning"})
+                    } else {
+                        throw new Error(e.response.data)    
+                    }
+                } else {
+                    throw new Error(e.message)
+                }
+            
             }
-        }  
+        }
+
+        switch( cache_mode ){
+            case "cache":
+                if( this.cacheExists(url) ){
+                    return this.getCached(url)
+                } else {
+                    return await fetchData()
+                }
+                break;
+            case "reset":
+                this.clearCache(url)
+                return await fetchData()
+                break;
+            case "nocache":
+            default:
+                return await fetchData()
+                break;
+        }
     }
 
     /**

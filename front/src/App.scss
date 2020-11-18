@@ -19,6 +19,9 @@ body{
     align-items: stretch;
     flex-grow: 1;
 
+    .rectangular {
+        border-radius: 0!important;
+    }
 
     // all containers padding
   .MuiContainer-root{
@@ -35,8 +38,33 @@ body{
     //   padding-right: 32px;
     // }
     @media screen and (max-width: 600px) {
-      padding-left: 24px;
-      padding-right: 24px;
+      padding-left: 27px;
+      padding-right: 27px;
+    }
+
+
+    .hide-on-mobile{
+      display: inherit!important;
+      @media screen and (max-width: $bp_2) {
+          display: none!important;
+      }
+    }
+
+    .show-on-mobile{
+        display: none!important;
+        @media screen and (max-width: $bp_2) {
+            display: inherit!important;
+        }
+    }
+
+   
+    .flex{
+      display: flex;
+
+      &.align-items-center{
+        align-items: center;
+      }
+      
     }
   }
 
@@ -71,6 +99,8 @@ body{
       box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
       border-radius: 8px;
     }
+
+    
 
     // .footer {
     //   display: flex;

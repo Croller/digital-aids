@@ -8,11 +8,9 @@ import categories_list from '../data/categories.json'
 class RestaurantsService extends Base {
 
     static async getRestaurant( slug, lang = "en" ){
-
         
         try{
-
-            const rest = await this.GET(`/restaurants/${slug}/${lang}`)
+            const rest = await this.GET(`/restaurants/${slug}/${lang}`, {}, "cache" )
             return rest
         }catch(e){
             if( e.response && e.response.data )

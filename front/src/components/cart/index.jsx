@@ -8,6 +8,8 @@ import Topbar from '../restaurant/topbar'
 import Menu from '../restaurant/menu'
 import {connect} from 'react-redux'
 import A from '../../redux/actionTypes'
+import {Redirect} from 'react-router-dom'
+
 import './cart.scss'
 
 
@@ -39,7 +41,14 @@ class Cart extends React.Component{
         const {restaurant} = this.state
         
         const {language} = this.props
+
+        
         const {slug} = this.props.match.params
+        
+        if( !language){
+            // redirect to language selector
+            return <Redirect to={`/${slug}/language`} />
+        }
 
         const {cart, cartPrice} = this.props
         const menu = cart[slug] || []
@@ -63,15 +72,21 @@ class Cart extends React.Component{
         return(
            
             <>
-                <Topbar {...{restaurant, language}} />
+                <Topbar {...{restaurant, language}} 
+                showHamburger={false}
+                showSearch={false}
+                closeButtonLink={`/${slug}`}
+                />
                 <Container key={`cart-${slug}`} className="cart">
                     
                     
-                    <div className="breadcrumbs">
+                    {/* <div className="breadcrumbs">
                         <Link to={`/${restaurant.slug}`} className="back-link"><ChevronLeft />Menu</Link>
                     </div>
-                    
-
+                     */}
+                     <div className="title">
+                        My order
+                     </div>
                     { restaurant ? 
                         <>
                             <Menu {...{menu, slug, categories, show_categories: false }}/>

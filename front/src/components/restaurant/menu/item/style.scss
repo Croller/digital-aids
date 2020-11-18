@@ -12,20 +12,7 @@
 
             .rest-menu-item{
 
-                &.ordered {
-
-                    .price, .dish-index {
-                        background-color: $accent!important; // this is bad code (
-                        border: $accent!important; // this is also bad code (
-                    }
-
-                    .dish-title-box{
-
-                        .title-default {
-                            color: $accent;
-                        }
-                    }
-                }
+                
 
                 display: flex;
                 /* background: #eee; */
@@ -38,6 +25,12 @@
                 align-items: center;
                 cursor: pointer;
 
+                @media screen and (max-width: $bp_1 ) {
+                    // justify-content: space-between;
+                    // margin-top: 1em;
+                    padding: 20px 0;
+                }
+
                 .dish-index{
                     background: $dark;
                     width: 30px;
@@ -49,6 +42,8 @@
                     align-items: center;
                     justify-content: center;
                     margin-right: 0.8em;
+
+                    align-self: flex-start; // align to top
                 }
 
                 .dish-title-box{
@@ -73,26 +68,42 @@
                     }
                 }
 
+
+                .tags{
+                    margin-top: 4px;
+                    img {
+                        width: 32px;
+                        margin-right: 2px;
+                    }
+                }
+
                 .price-container{
                     display: flex;
                     flex-direction: row;
                     align-items: center;
                     justify-content: flex-end;
 
-                    @media screen and (max-width: 600px ) {
-                        justify-content: flex-start;
+                    @media screen and (max-width: $bp_1 ) {
+                        justify-content: space-between;
                         margin-top: 1em;
                     }
 
+                    .increment{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        flex-grow: 1;
+                    }
+
                     > div, > span {
-                        margin-right: 0.8em; 
+                        margin-right: 6px; 
                         &:last-child{
                             margin-right: 0;
                         }
                     }
 
                     .button {
-                        height: 35px;
+                        height: 33px;
                         
                         
                         display: flex;
@@ -111,6 +122,15 @@
                             color: transparent;
                             border-color: transparent;
                         }
+
+                        &.black {
+                            background: $darker;
+                            color: white;
+                        }
+
+                        &.qty{
+                            font-size: 1em;
+                        }
                     }
                     .price {
                         
@@ -118,7 +138,7 @@
 
                         background: $darker;
                         height: 35px;
-                        width: 81px;
+                        width: calc(81px - 1em);
                         padding-left: 0.5em;
                         padding-right: 0.5em;
                         font-size: 1.1em;
@@ -161,6 +181,35 @@
                     }
                 }
 
+
+                // item.ordered
+                &.ordered {
+
+                    .price, .dish-index {
+                        background-color: $light-gray!important; // this is bad code (
+                        border: $light-gray!important; // this is also bad code (
+                        color: $darker!important;
+                    }
+
+                    .dish-title-box{
+
+                        .title-default {
+                            // color: $accent;
+                        }
+                    }
+
+                    
+                    .price-container{
+
+                        .button.qty {
+                            background: $light-gray;
+                            border-color: $light-gray;
+                            color: $darker;
+                        }
+                    }
+                
+
+                }
             }
         // }
     }

@@ -1,7 +1,8 @@
 import React from 'react'
 import {Badge} from '@material-ui/core'
 import {Link} from 'react-router-dom'
-import {RoomService as Cloche} from '@material-ui/icons'
+// import {RoomService as Cloche} from '@material-ui/icons'
+import {ReactComponent as Cloche} from  '../../../assets/svg/cloche.svg'
 import './cart-widget.scss'
 import {connect} from 'react-redux'
 
@@ -9,11 +10,13 @@ class CartWidget extends React.Component{
 
     render(){
         
-        const {count, slug, ...other } = this.props
+        const {count, slug, language, ...other } = this.props
+       
+
         return(
             <Link to={`/${slug}/cart`} {...other}>
                 <Badge className="cart-widget" badgeContent={count}>
-                    <Cloche />
+                    <Cloche style={{color: "white"}}/>
                 </Badge>
             </Link>
         )
@@ -21,5 +24,5 @@ class CartWidget extends React.Component{
 }
 
 export default connect(
-    state =>  ({ count: state.cartCount } )
+    state =>  ({ count: state.cartCount, language: state.language } )
 )(CartWidget)

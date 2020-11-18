@@ -1,0 +1,29 @@
+@import "../../../variables.scss";
+
+
+#root {
+    .main{
+
+        .language-selector {
+            .lang-list{
+
+                display: flex;
+                flex-direction: column;
+                padding: 2em 0;
+                margin: -3em 0 2em;
+                .lang-item{
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 1em;    
+                    font-size: 22px;
+                    font-weight: 600;
+                    text-transform: inherit;
+                    padding: 0;
+                }
+            }
+        }
+    }
+}
+

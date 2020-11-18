@@ -1,0 +1,21 @@
+@import "../../../../variables.scss";
+
+#root{
+
+    .search-container{
+        flex-direction: row;
+        &.reverse{
+            flex-direction: row-reverse;
+        }
+        background-color: $lighter-gray;
+        margin: 0 0.5em;
+        display: flex;
+        align-items: center;
+        padding: 0.5em;
+        border-radius: 6px;
+        .search-input {
+            margin: 0 0.5em;
+            flex-grow: 1;
+        }
+    }
+}
