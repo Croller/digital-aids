@@ -1,0 +1,110 @@
+[
+    {
+        "tagid": "hot",
+        "en": "Hot",
+        "es": "Muy picante",
+        "ru": "Очень остро"
+    },
+    {
+        "tagid": "spicy",
+        "en": "Spicy",
+        "es": "Picante",
+        "ru": "Пикантно"
+    },
+    {
+        "tagid": "vegan",
+        "en": "Vegan",
+        "es": "Vegan",
+        "ru": "Веган"
+    },
+    {
+        "tagid": "gluten-free",
+        "en": "Gluten-free",
+        "es": "Sin gluten",
+        "ru": "Без глютена"
+    },
+    {
+        "tagid": "gluten",
+        "en": "Gluten",
+        "es": "Gluten",
+        "ru": "Глютен"
+    },
+    {
+        "tagid": "sesame",
+        "en": "Sesame",
+        "es": "Sésamo",
+        "ru": "Кунжут"
+    },
+    {
+        "tagid": "nuts",
+        "en": "Nuts",
+        "es": "Nuéces",
+        "ru": "Орехи"
+    },
+    {
+        "tagid": "crustacean",
+        "en": "Crustacean",
+        "es": "Crustáceos",
+        "ru": "Ракообразные"
+    },
+    {
+        "tagid": "eggs",
+        "en": "Eggs",
+        "es": "Huevos",
+        "ru": "Яйца"
+    },
+    {
+        "tagid": "fish",
+        "en": "Fish",
+        "es": "Pescado",
+        "ru": "Рыба"
+    },
+    {
+        "tagid": "mustard",
+        "en": "Mustard",
+        "es": "Mostaza",
+        "ru": "Горчица"
+    },
+    {
+        "tagid": "milk",
+        "en": "Dairy products",
+        "es": "Lácteos",
+        "ru": "Молочные продукты"
+    },
+    {
+        "tagid": "celery",
+        "en": "Celery",
+        "es": "Apio",
+        "ru": "Сельдерей"
+    },
+    {
+        "tagid": "peanuts",
+        "en": "Contains peanuts",
+        "es": "Cacahuetes ",
+        "ru": "Арахис"
+    },
+    {
+        "tagid": "soya",
+        "en": "Soya",
+        "es": "Soja",
+        "ru": "Соя"
+    },
+    {
+        "tagid": "shellfish",
+        "en": "Mollusks ",
+        "es": "Moluscos",
+        "ru": "Моллюски"
+    },
+    {
+        "tagid": "lupins",
+        "en": "Lupins",
+        "es": "Altramuces ",
+        "ru": "Люпин"
+    },
+    {
+        "tagid": "sulphite",
+        "en": "Diox, sulfur and sulfites ",
+        "es": "Diox, azufre y sulfitos ",
+        "ru": "Диоксид серы и сульфиты"
+    }
+]

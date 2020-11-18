@@ -1,6 +1,8 @@
 const router = require("express").Router()
 const Service = require("../../services/translation")
 
+router.get("/", (req,res)=> res.send("Translations OK"))
+
 router.get("/:slug/languages", async (req, res) => {
     const {slug } = req.params
     const result = await Service.languagesByRestaurant(slug)

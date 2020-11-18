@@ -17,6 +17,7 @@ api.use( parser.json() )
 const routes = require("./config/routes.json")
 
 // autoimport routes
-routes.map( route => api.use( `/${route.route}`, require(`./routes/${route.route}`)))
+routes.map( route => { console.debug("importing routes:", route.route ); api.use( `/${route.route}`, require(`./routes/${route.route}`)) } )
+// routes.map( route => api.use( `/${route.route}`, require(`./routes/${route.route}`)))
 
 https(api).catch( e => console.log( e ) )

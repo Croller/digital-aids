@@ -1,4 +1,6 @@
 [
     { "route": "auth" },    
-    { "route": "restaurants" }
+    { "route": "restaurants" },
+    { "route": "tags" },
+    { "route": "translations" }
 ]
