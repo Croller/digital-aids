@@ -43,6 +43,22 @@ body{
     }
 
 
+    
+  }
+
+    // header {
+    //   height: $headerHeight;
+    // }
+    @for $var from 1 to 8  {
+      .fw-#{$var}00 {
+        font-weight: #{$var * 100};
+      }
+    }
+
+    h3{
+      font-size: 1.3em;
+    }
+
     .hide-on-mobile{
       display: inherit!important;
       @media screen and (max-width: $bp_2) {
@@ -64,23 +80,18 @@ body{
       &.align-items-center{
         align-items: center;
       }
+
+      &.column{
+        flex-direction: column;
+      }
+      &.row{
+        flex-direction: row;
+      }
       
     }
-  }
-
-    header {
-      height: $headerHeight;
+    .flex-grow{
+      flex-grow: 1;
     }
-    @for $var from 1 to 8  {
-      .fw-#{$var}00 {
-        font-weight: #{$var * 100};
-      }
-    }
-
-    h3{
-      font-size: 1.3em;
-    }
-   
 
     .main{
       flex-grow: 1;

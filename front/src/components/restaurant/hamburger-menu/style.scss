@@ -7,8 +7,34 @@
             & > div {
                 margin-bottom : 1em;
             }
-            margin-top: calc(-#{$mainTopMargin} - 6px);
+
+            .stuck-under{
+                margin-top: calc(-#{$mainTopMargin} - 6px);
+            }
             margin-bottom: 2em;
+        }
+
+        .cat-button {
+            
+            flex-grow: 1;
+            margin: 12px 0;
+            font-size: 20px;
+            text-transform: none;
+            span{
+                display: flex;
+                flex-direction: column;
+                > div {
+                    display: flex;
+                    margin: 2px 0;
+                    line-height: 1em;
+                }
+                .title{
+                    color: black;
+                }
+                .default-title{
+                    color: $gray;
+                }
+            }
         }
 
         .details-text{

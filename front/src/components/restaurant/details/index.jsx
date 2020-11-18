@@ -8,7 +8,7 @@ import {
     AccessTimeOutlined as Time
 } from '@material-ui/icons'
 import {PhoneCall, Chef} from '../../template/common/icons'
-
+import Social from '../social'
 import {Redirect} from 'react-router-dom'
 import Service from '../../../services/restaurants'
 import A from '../../../redux/actionTypes'
@@ -60,8 +60,9 @@ class RestaurantDetails extends React.Component{
         }
 
         return(
-            restaurant ? 
-            <Container>
+            restaurant ?
+            <> 
+            <Container className="flex column flex-grow">
                 <TopBar 
                 restaurant={restaurant} 
                 showSearch={false} 
@@ -84,7 +85,7 @@ class RestaurantDetails extends React.Component{
                         </Grid> */}
                     </Grid>
                 </Paper> 
-                <div className="contact-buttons">
+                <div className="contact-buttons show-on-mobile">
                     {restaurant.phone && 
                     <Button 
                         className="contact-button" 
@@ -95,12 +96,16 @@ class RestaurantDetails extends React.Component{
                 </div>
                 <Paper className="restaurant-details panel">
                     <div className="details-text">
+                        <div className="restaurant-title">{restaurant.title}</div>
                         <div>
                             <Location/> {restaurant.address}
                         </div>
                     </div>
+                    <div className="map"></div>
                 </Paper>
             </Container>
+            <Social {...{...restaurant}} />
+            </>
             : restaurant === null ? <Spinner/> : <h2>Error loading data</h2>    
         
         )

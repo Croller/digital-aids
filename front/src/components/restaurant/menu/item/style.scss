@@ -91,16 +91,22 @@
                     .increment{
                         display: flex;
                         flex-direction: row;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         flex-grow: 1;
-                    }
 
-                    > div, > span {
-                        margin-right: 6px; 
-                        &:last-child{
-                            margin-right: 0;
+                        @media screen and (max-width: $bp_1 ) {
+                            justify-content: space-between;
+                    
+                        }
+                        
+                        > div, > span {
+                            margin-right: 6px; 
+                            &:last-child{
+                                margin-right: 0;
+                            }
                         }
                     }
+
 
                     .button {
                         height: 33px;

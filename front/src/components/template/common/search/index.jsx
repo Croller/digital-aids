@@ -8,10 +8,25 @@ let searchTimeout
 
 class Search extends React.Component{
 
+    state = { value: null }
+
+    componentDidMount(){
+        const {value} = this.props 
+        if( value !== this.state.value )
+            this.setState({value})
+    }
+
+    componentDidUpdate(prevProps){
+        if( prevProps.value !== this.props.value )
+            this.setState({value: this.props.value })
+    }
+
     doSearch = ev => {
         const {value} = ev.target
         console.debug("called onSearch with", value)
         const {onSearch = console.debug, debounceTime = 600 } = this.props
+
+        this.setState({value})
 
         // debounce the search
         clearTimeout(searchTimeout)
@@ -26,10 +41,12 @@ class Search extends React.Component{
             iconProps = { className: "search-icon" },
             ...other
         } = this.props
+
+        const {value} = this.state
         return(
             <div className={className} {...other} >
                 <IconElement {...iconProps} />
-                <InputBase {...inputBaseProps } onInput = {this.doSearch} />
+                <InputBase {...inputBaseProps } onInput = {this.doSearch} value={value} />
             </div>
         )
     }

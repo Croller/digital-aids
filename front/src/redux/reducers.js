@@ -57,7 +57,7 @@ export default function root( state = initialState, action ) {
     const {type: payloadType, payload } = action
     
     let 
-    restaurant,
+    restaurant, restaurants,
     cart, 
     cartCount, 
     index, 
@@ -221,9 +221,9 @@ export default function root( state = initialState, action ) {
              * @param {string} type type of filter ('search' etc)
              * @param {*} value value to set to the filter
              */
-            ({slug, type, value} = payload)
+            ({slug, type, value} = payload);
             
-            restaurant = getRestaurant( newState, slug)
+            restaurant = getRestaurant( newState, slug);
 
             const filters = restaurant.filters || {}
 
@@ -236,11 +236,13 @@ export default function root( state = initialState, action ) {
             // update filters 
             // filters[slug] = restFilters
 
-            restaurant = {...restaurant, filters }
+            restaurant = {...restaurant, filters };
 
             // update new state
             // newState = {...newState, filters }
-            newState.restaurants[slug] = restaurant
+            ({restaurants} = newState);
+            restaurants = {...restaurants, [slug]: restaurant }
+            newState = {...newState, restaurants }
             
             break;    
         

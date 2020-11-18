@@ -3,21 +3,55 @@ import {Grid, Button, Typography, Paper} from '@material-ui/core'
 import './menu.scss'
 import Item from './item'
 import {connect} from 'react-redux'
-import cart from '../../cart'
+import A from '../../../redux/actionTypes'
+import {getRestaurant} from '../../../redux/reducers'
 
 class RestaurantMenu extends React.Component{
 
 
     state = {
-        categoryid: null
+        categoryid: null,
+        restState: null
+    }
+
+    componentDidMount(){
+        this.getRestaurantState()
+    }
+
+    componentDidUpdate( prevProps ){
+        console.debug("Updated!");
+        const prev = getRestaurant(prevProps, this.props.slug);
+        const now = getRestaurant(this.props, this.props.slug );
+        
+        console.debug("prev and now:", prev, now);
+
+        /// THIS IS AWFUL (((((
+        if( prev.filters.caterory !== now.filters.caterory ){
+            this.getRestaurantState()
+        }
+        // )
+    }
+
+    getRestaurantState(){
+        const {slug} = this.props 
+        const restState = getRestaurant( this.props, slug )
+        this.setState({restState})
     }
 
     toggleCategory = id => {
+        const {slug} = this.props 
+        const restState = getRestaurant( this.props, slug )
+
+        const {category} = restState.filters 
+
         console.debug("toggling category", id )
-        if( this.state.categoryid === id )
-            this.setState({categoryid: null})
+
+        if( category === id )
+            // this.setState({categoryid: null})
+            this.props.setFilter( slug, null ) 
         else
-            this.setState({categoryid: id})
+            this.props.setFilter( slug, id )
+            // this.setState({categoryid: id})
     }
 
     render(){
@@ -25,7 +59,13 @@ class RestaurantMenu extends React.Component{
             // , cart 
         } = this.props
 
-        const {categoryid: selectedCategory} = this.state 
+        // const {categoryid: selectedCategory} = this.state 
+        
+        const {restState} = this.state // getRestaurant( this.props, slug )
+        let { category: selectedCategory, search } = restState ?  restState.filters : {}
+        search = search ? search.toLowerCase() : search
+        
+        
         console.debug("Render selectedCategory" ,selectedCategory)
 
         const filteredCategories = selectedCategory ? categories.filter( c => c.id === selectedCategory ) : categories
@@ -61,7 +101,19 @@ class RestaurantMenu extends React.Component{
                         <h3 className="fw-600">{cat.title}</h3>
                         <Paper className="category-body panel" >
                             <Grid container spacing={0}>
-                                {menu.filter(d=>d.dishcategoryid === cat.id).map(
+                                {menu.filter(d=> d.dishcategoryid === cat.id && 
+                                    (   
+                                        // etiher search is empty
+                                        !search
+                                        // or 
+                                        ||
+                                        // title or default title include search term  
+                                        ( 
+                                            d.dishtitle.toLowerCase().includes(search) || 
+                                            d.dishtitledefault.toLowerCase().includes(search)
+                                        ) 
+                                    )
+                                ).map(
                                     (dish, index) => {
                                         // let cartItem = cart.find( i => i.dishid === dish.dishid )
                                         // cartItem = {...cartItem} //copy...
@@ -92,5 +144,8 @@ class RestaurantMenu extends React.Component{
 }
 
 export default connect(
-    // state => ({restaurants: state.restaurants})
+    state => ({...state}),
+    dispatch => ({
+        setFilter: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "category", value} } )
+    })
 )(RestaurantMenu)

@@ -8,6 +8,8 @@ import Search from '../../template/common/search';
 import CartWidget from '../../cart/cart-widget'
 import {connect} from 'react-redux'
 import A from '../../../redux/actionTypes'
+import {getRestaurant} from '../../../redux/reducers'
+
 import {Link } from 'react-router-dom'
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
@@ -35,6 +37,8 @@ class TopBar extends React.Component{
         if( !restaurant )
             return <Spinner />
 
+        const restState = getRestaurant(this.props, restaurant.slug)
+        const {search = null } = restState.filters
         return(
 
             <AppBar color="inherit" className="panel rectangular">
@@ -55,6 +59,7 @@ class TopBar extends React.Component{
                             className="search-container reverse" 
                             // onChange={onSearchUpdate} 
                             placeholder={"Search"} 
+                            value={search}
                             onSearch = {this.onSearch}
                             />
                             }
@@ -94,8 +99,8 @@ class TopBar extends React.Component{
 
 // export default TopBar
 export default connect(
-    // state => ({...state})
-    null,
+    state => ({...state}),
+    // null,
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
         setFilter: (slug , type, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type, value} } )

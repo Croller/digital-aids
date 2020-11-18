@@ -4,12 +4,18 @@ import React from 'react'
 import './style.scss'
 import A from '../../../../redux/actionTypes'
 import {getRestaurant} from '../../../../redux/reducers'
-
+import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
 class RestMenuItem extends React.Component{
 
+    state = {
+        tag_list: null
+    }
+    componentDidMount(){
+
+    }
 
     remove = (dishid, ev) => {
         ev.stopPropagation()
@@ -19,6 +25,8 @@ class RestMenuItem extends React.Component{
 
     render(){
         // const {slug} = this.props
+
+        const {tags_list} = this.state
         
         let {
             slug,
@@ -61,7 +69,7 @@ class RestMenuItem extends React.Component{
                         {index}
                     </div>
                     <Grid container key={`dish-${dishid}` }>
-                        <Grid item xs={12} sm={9} className="dish-title-box">
+                        <Grid item xs={12} md={9} className="dish-title-box">
                             <div className="title-main">
                                 {dishtitle}
                             </div>
@@ -71,12 +79,12 @@ class RestMenuItem extends React.Component{
                         </Grid>
                         { Array.isArray(tags) && <Grid item xs={12} className="tags">
                                 {tags.map( t => {
-                                    return <img src={`${MEDIA}/images/tags/${t}.png`} />
+                                    return <img src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
                                 })}
                             </Grid>
                         }
                         
-                        <Grid item xs={12} sm={3} className="price-container">
+                        <Grid item xs={12} md={3} className="price-container">
                             <div className="increment show-on-mobile">
                                 {/* <Badge badgeContent={ isOrdered ? <><Lid className="lid"/>{quantity}</> : 0 } showZero={false} color="default" className="quantity-badge"  > */}
                                     {dishprice &&  

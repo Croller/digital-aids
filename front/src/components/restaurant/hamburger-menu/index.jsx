@@ -46,7 +46,7 @@ class HamburgerMenu extends React.Component{
 
         const {restaurant} = this.state
         
-        const {language, lang} = this.props
+        const {language, lang, setFilter } = this.props
 
         const {slug} = this.props.match.params
         
@@ -55,6 +55,8 @@ class HamburgerMenu extends React.Component{
             // redirect to language selector
             return <Redirect to={`/${slug}/language`} />
         }
+
+        const selectCategory = cid => setFilter(slug, cid)
 
         return(
             restaurant ? 
@@ -65,16 +67,16 @@ class HamburgerMenu extends React.Component{
                 showHamburger={false}
                 closeButtonLink={`/${restaurant.slug}`}
                 />
-                <Paper className="restaurant-details panel">
-                    {restaurant.categories && restaurant.categories.map( c => {
+                <div className="restaurant-details flex column">
+                    {restaurant.categories && restaurant.categories.map( (c, ind) => {
 
                     return(
-                    <Button >
+                    <Button className="cat-button panel flex column" key={`cat-btn-${ind}`} onClick={() => selectCategory(c.id)} >
                         <div className="title">{c.title}</div>
                         <div className="default-title">{c.titledefault}</div>
                     </Button>)
                     })}    
-                </Paper>
+                </div>
                 
             </Container>
             : restaurant === null ? <Spinner/> : <h2>Error loading data</h2>    
@@ -86,6 +88,7 @@ class HamburgerMenu extends React.Component{
 export default connect(
     state => state,
     dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
+        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+        setFilter: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "category", value} } )
     })
 )(HamburgerMenu)

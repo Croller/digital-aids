@@ -1,0 +1,42 @@
+@import "../../../variables.scss";
+#root{
+    .main{
+        .social-container {
+            margin-top: 20px;
+            .social-footer {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+    
+                .icons{
+                    flex-grow: 1;
+                    margin-bottom: 30px;
+                    width: 150px;
+                    justify-content: space-between;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                }
+    
+                svg.thumbs-up {
+                    margin-top: -25px;
+                    margin-bottom: 13px;
+                }
+                
+                .thank-you {
+                    font-weight: 600;
+                    width: 100%;
+                    border-bottom: 1px solid $lighter-gray;
+                    text-align: center;
+                    padding-bottom: 14px;
+                    margin-bottom: 14px;
+                }
+
+                .opinion {
+                    text-align: center;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+}
