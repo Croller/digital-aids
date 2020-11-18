@@ -92,5 +92,5 @@ class RestaurantMenu extends React.Component{
 }
 
 export default connect(
-    state => ({cart: state.cart})
+    // state => ({restaurants: state.restaurants})
 )(RestaurantMenu)

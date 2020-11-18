@@ -12,7 +12,6 @@ try {
 
 
 const initialRestaurantState = {
-    language: null,
     cart: [],
     filters: {},
     cartCount: 0,
@@ -24,11 +23,7 @@ const initialState =
 {
     ...{
         language: null,
-        cart: {},
-        filters: {},
-        cartCount: 0,
-        cartPrice: 0,
-        cartHasItemsWithNoPrice: false
+        restaurants: {}
     },
     // overwrite values from local state, if any
     ...localStorageState
@@ -45,6 +40,15 @@ const initialState =
 
 // export const onTokenUpdate = state => Actions.onTokenUpdate(state) // renewTokenIn, usageThreshold )
 
+
+// returns restaurant by its slug if exists or initial state if not.
+export const getRestaurant = (_state, slug) => {
+    console.debug("getRestaurant:", slug, initialRestaurantState, _state.restaurants )
+    const result =  _state.restaurants[slug] ? {..._state.restaurants[slug] } : {...initialRestaurantState}
+    console.debug("getRestaurant result:", result)
+    return result
+}
+
 export default function root( state = initialState, action ) { 
 
     let newState = {...state}
@@ -52,7 +56,19 @@ export default function root( state = initialState, action ) {
     // let now = Date.now()
     const {type: payloadType, payload } = action
     
-    let cart, cartCount, index, item, slug, restCart, dishid, cartPrice, type, value
+    let 
+    restaurant,
+    cart, 
+    cartCount, 
+    index, 
+    item, 
+    slug, 
+    restCart, 
+    dishid, 
+    cartPrice,
+    type, 
+    value
+    
 
     console.debug("Dispatch type and payload:", type, payload)
     switch( payloadType ){
@@ -62,30 +78,41 @@ export default function root( state = initialState, action ) {
             break;
         
         case A.CLEAR_CART:
-            newState = {...newState, cart: {}, cartCount: 0 }
+
+            restaurant = getRestaurant( newState, payload)
+            if( restaurant ){
+                restaurant.cart = []
+                restaurant.cartCount = 0 
+                newState.restaurants[payload] = restaurant 
+            }else {
+                console.debug("Wrong restaurant slug passed: ", payload)
+            }
             break;
         
         case A.ADD_TO_CART:
 
             ({slug, item} = payload);
-            ({cart, cartCount, cartPrice } = newState );
             
-            cart = { ...cart } // copy so that we don't mutate it
+            restaurant = getRestaurant( newState, slug);
+            console.debug("getRestaurant got:", restaurant);
+            ({cart, cartCount, cartPrice } = restaurant);
+            
+            // cart = { ...cart } // copy so that we don't mutate it
             
             // the portion of the cart that relates to the given restaurant
-            restCart = cart[slug] ? [ ...cart[slug] ] : []
+            // restCart = cart[slug] ? [ ...cart[slug] ] : []
 
             const increment = item.quantity || 1
 
             // find if the item already exists in cart
-            index = restCart.findIndex( i => i.dishid === item.dishid )
+            index = cart.findIndex( i => i.dishid === item.dishid )
             console.debug("Found index:", index)
 
             // if there is already one in the cart...
             if( index >=0 ){
                 
                 // ...then use it as item
-                item = restCart[index]
+                item = cart[index]
  
                 console.debug("found existing item:", item)
                 
@@ -93,7 +120,8 @@ export default function root( state = initialState, action ) {
                 
                 item.quantity = item.quantity ? item.quantity + increment : increment 
                 
-                restCart.splice(index,1, item )
+                // replace
+                cart.splice(index,1, item )
                 console.debug("After replacing element:", cart )
 
                 // increment count
@@ -101,7 +129,7 @@ export default function root( state = initialState, action ) {
 
                 
                 // update in restCart
-                restCart.splice(index, 1, item )
+                // cart.splice(index, 1, item )
 
             } else {
 
@@ -114,11 +142,8 @@ export default function root( state = initialState, action ) {
                 // increment count
                 cartCount += increment
 
-                // add to restCart
-                restCart = [...restCart, item ]
-                
-                // // update item in cart object
-                // cart = {...cart, [slug]: restCart }
+                // add to cart
+                cart = [...cart, item ]
 
             }
 
@@ -127,30 +152,35 @@ export default function root( state = initialState, action ) {
 
             
             // update item in cart object
-            cart = {...cart, [slug]: restCart }
+            // cart = {...cart, [slug]: ca }
+            restaurant = {...restaurant, cart, cartCount, cartPrice }
 
-            console.debug("After adding: ", cart )
-            newState = {...newState, cart , cartCount, cartPrice }
+            console.debug("After adding: ", restaurant )
+            // newState = {...newState, cart , cartCount, cartPrice }
+
+            // update restaurat in state
+            newState.restaurants[slug] = restaurant
             
             break;
 
         case A.DELETE_FROM_CART:
-            ({cart, cartCount, cartPrice } = newState );
-
             ({slug, dishid} = payload);
+            restaurant = getRestaurant( newState, slug);
+            ({cart, cartCount, cartPrice } = restaurant );
+
 
             // copy
-            cart = {...cart}
+            // cart = {...cart}
             
             // the portion of the cart that relates to the given restaurant
-            restCart = cart[slug] ? [ ...cart[slug] ] : []
+            // restCart = cart[slug] ? [ ...cart[slug] ] : []
             
             // ind if item exists in cart
-            index = restCart.findIndex( i => i.dishid === dishid )
+            index = cart.findIndex( i => i.dishid === dishid )
             
 
             if( index >=0 ){
-                item = restCart[index]
+                item = cart[index]
                 console.debug("Found to delete:", item)
                 
                 // decrement quantity...
@@ -170,15 +200,17 @@ export default function root( state = initialState, action ) {
                 if(item.quantity <= 0){
                     console.debug("Item depleted. Removing from cart")
                     // if zero, remove
-                    restCart.splice(index, 1)
+                    cart.splice(index, 1)
                 }
 
 
                 // update item in cart object
-                cart = {...cart, [slug]: restCart }
+                // cart = {...cart, [slug]: restCart }
+                restaurant = {...restaurant, cart, cartCount, cartPrice}
 
-                console.debug("After removing: ", cart, cartCount)
-                newState = { ...newState, cart, cartCount, cartPrice}
+                console.debug("After removing: ", restaurant )
+                // newState = { ...newState, cart, cartCount, cartPrice}
+                newState.restaurants[slug] = restaurant
             }
             break;
 
@@ -191,19 +223,24 @@ export default function root( state = initialState, action ) {
              */
             ({slug, type, value} = payload)
             
-            const filters = state.filters ? {...newState.filters} : {}
+            restaurant = getRestaurant( newState, slug)
+
+            const filters = restaurant.filters || {}
 
             // filters fotr this particular restaurant
-            const restFilters = filters[slug] || {}
+            // const restFilters = filters[slug] || {}
 
             // set new value
-            restFilters[type] = value
+            filters[type] = value
 
             // update filters 
-            filters[slug] = restFilters
+            // filters[slug] = restFilters
+
+            restaurant = {...restaurant, filters }
 
             // update new state
-            newState = {...newState, filters }
+            // newState = {...newState, filters }
+            newState.restaurants[slug] = restaurant
             
             break;    
         

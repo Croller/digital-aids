@@ -3,6 +3,8 @@ import {Check, RoomService as Lid} from '@material-ui/icons'
 import React from 'react'
 import './style.scss'
 import A from '../../../../redux/actionTypes'
+import {getRestaurant} from '../../../../redux/reducers'
+
 import {connect} from 'react-redux'
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
@@ -16,9 +18,10 @@ class RestMenuItem extends React.Component{
     }
 
     render(){
-        const {slug} = this.props
-        console.debug("Item slug:", slug, " props: ", this.props)
+        // const {slug} = this.props
+        
         let {
+            slug,
             dishid, 
             dishtitle, 
             dishtitledefault, 
@@ -27,16 +30,19 @@ class RestMenuItem extends React.Component{
             tags,
             index, 
             add, 
-            filters = {},
+            reduxState
+            // filters = {},
             // quantity 
             // cartItem,
-            cart
+            // cart
         } = this.props
-
+        // console.debug("Item slug:", slug, " props: ", this.props)
+        const restState = getRestaurant( reduxState, slug)
+        console.debug("restState", restState)
         let quantity
         
         // get the required cart
-        cart = cart[slug] || []
+        const {cart} = restState
 
         const cartItem = cart.find( i => i.dishid === dishid )
         
@@ -97,7 +103,8 @@ class RestMenuItem extends React.Component{
 }
 
 export default connect(
-    state => ({cart: state.cart, filters: state.filters}),
+    // state => ({cart: state.cart, filters: state.filters}),
+    state => ({reduxState: state}),
     dispatch => ({
         add: (item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
         delete: (dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )

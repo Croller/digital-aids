@@ -8,6 +8,7 @@ import Topbar from '../restaurant/topbar'
 import Menu from '../restaurant/menu'
 import {connect} from 'react-redux'
 import A from '../../redux/actionTypes'
+import {getRestaurant} from '../../redux/reducers'
 import {Redirect} from 'react-router-dom'
 
 import './cart.scss'
@@ -40,7 +41,7 @@ class Cart extends React.Component{
 
         const {restaurant} = this.state
         
-        const {language} = this.props
+        const {language, restaurants } = this.props
 
         
         const {slug} = this.props.match.params
@@ -50,18 +51,21 @@ class Cart extends React.Component{
             return <Redirect to={`/${slug}/language`} />
         }
 
-        const {cart, cartPrice} = this.props
-        const menu = cart[slug] || []
+        const restState = getRestaurant( this.props, slug )
+        
+        // const {cart, cartPrice} = this.props
+        // const menu = cart[slug] || []
+        const {cart, cartPrice} = restState
 
         const total_text = "Total" // TODO: get from translations
 
-        console.debug("MEnu", menu)
+        console.debug("MEnu", cart)
         if( !restaurant ){
             return restaurant === null ? <Spinner/> : <h2>Error loading data</h2>
         }
 
         // get all category ids within the cart
-        const category_ids = menu.reduce( (r, i) =>{ return r.includes(i.dishcategoryid ) ? r : [...r, i.dishcategoryid] }, [] )
+        const category_ids = cart.reduce( (r, i) =>{ return r.includes(i.dishcategoryid ) ? r : [...r, i.dishcategoryid] }, [] )
         console.debug("filtered caegory ids:", category_ids)
 
         // get all corresponding categories
@@ -89,7 +93,7 @@ class Cart extends React.Component{
                      </div>
                     { restaurant ? 
                         <>
-                            <Menu {...{menu, slug, categories, show_categories: false }}/>
+                            <Menu {...{menu: cart, slug, categories, show_categories: false }}/>
                             <div className="total panel">
                                 {total_text}:
                                 <span>
