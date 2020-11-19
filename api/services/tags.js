@@ -12,7 +12,7 @@ class TagsService extends baseService{
 
     static async getAll( slug, lang, default_lang ){
         // TODO: fetch only the ones used in restaurant with slug
-        return tags.map( t => ({ id: t.id, title: t[lang] || t["en"], default_title: t[default_lang] || t["en"] }))
+        return tags.map( t => ({ id: t.tagid, type: t.tagtype, title: t[lang] || t["en"], default_title: t[default_lang] || t["en"] }))
     }
     
 }

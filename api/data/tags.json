@@ -1,108 +1,126 @@
 [
     {
         "tagid": "hot",
+        "tagtype": "description",
         "en": "Hot",
         "es": "Muy picante",
         "ru": "Очень остро"
     },
     {
         "tagid": "spicy",
+        "tagtype": "description",
         "en": "Spicy",
         "es": "Picante",
         "ru": "Пикантно"
     },
     {
         "tagid": "vegan",
+        "tagtype": "description",
         "en": "Vegan",
         "es": "Vegan",
         "ru": "Веган"
     },
     {
         "tagid": "gluten-free",
+        "tagtype": "description",
         "en": "Gluten-free",
         "es": "Sin gluten",
         "ru": "Без глютена"
     },
     {
         "tagid": "gluten",
+        "tagtype": "allergen",
         "en": "Gluten",
         "es": "Gluten",
         "ru": "Глютен"
     },
     {
         "tagid": "sesame",
+        "tagtype": "allergen",
         "en": "Sesame",
         "es": "Sésamo",
         "ru": "Кунжут"
     },
     {
         "tagid": "nuts",
+        "tagtype": "allergen",
         "en": "Nuts",
         "es": "Nuéces",
         "ru": "Орехи"
     },
     {
         "tagid": "crustacean",
+        "tagtype": "allergen",
         "en": "Crustacean",
         "es": "Crustáceos",
         "ru": "Ракообразные"
     },
     {
         "tagid": "eggs",
+        "tagtype": "allergen",
         "en": "Eggs",
         "es": "Huevos",
         "ru": "Яйца"
     },
     {
         "tagid": "fish",
+        "tagtype": "allergen",
         "en": "Fish",
         "es": "Pescado",
         "ru": "Рыба"
     },
     {
         "tagid": "mustard",
+        "tagtype": "allergen",
         "en": "Mustard",
         "es": "Mostaza",
         "ru": "Горчица"
     },
     {
         "tagid": "milk",
+        "tagtype": "allergen",
         "en": "Dairy products",
         "es": "Lácteos",
         "ru": "Молочные продукты"
     },
     {
         "tagid": "celery",
+        "tagtype": "allergen",
         "en": "Celery",
         "es": "Apio",
         "ru": "Сельдерей"
     },
     {
         "tagid": "peanuts",
+        "tagtype": "allergen",
         "en": "Contains peanuts",
         "es": "Cacahuetes ",
         "ru": "Арахис"
     },
     {
         "tagid": "soya",
+        "tagtype": "allergen",
         "en": "Soya",
         "es": "Soja",
         "ru": "Соя"
     },
     {
         "tagid": "shellfish",
+        "tagtype": "allergen",
         "en": "Mollusks ",
         "es": "Moluscos",
         "ru": "Моллюски"
     },
     {
         "tagid": "lupins",
+        "tagtype": "allergen",
         "en": "Lupins",
         "es": "Altramuces ",
         "ru": "Люпин"
     },
     {
         "tagid": "sulphite",
+        "tagtype": "allergen",
         "en": "Diox, sulfur and sulfites ",
         "es": "Diox, azufre y sulfitos ",
         "ru": "Диоксид серы и сульфиты"
