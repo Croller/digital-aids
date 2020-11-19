@@ -4,6 +4,7 @@ import {ChevronLeft} from '@material-ui/icons'
 import React from 'react'
 import Service from '../../services/restaurants'
 import Spinner from '../template/common/Spinner'
+import ErrorPage from '../template/common/error-loading'
 import Topbar from '../restaurant/topbar'
 import Menu from '../restaurant/menu'
 import {connect} from 'react-redux'
@@ -61,7 +62,7 @@ class Cart extends React.Component{
 
         console.debug("MEnu", cart)
         if( !restaurant ){
-            return restaurant === null ? <Spinner/> : <h2>Error loading data</h2>
+            return restaurant === null ? <Spinner/> : <ErrorPage />
         }
 
         // get all category ids within the cart

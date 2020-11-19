@@ -72,7 +72,7 @@ class RestaurantMenu extends React.Component{
 
         return(
             categories ? 
-            <>
+            <div>
             {   
                 show_categories && 
                 <div className="categories">
@@ -95,7 +95,7 @@ class RestaurantMenu extends React.Component{
                                 ))}
                 </div>
             }
-            <Grid container spacing={4}>
+            <Grid container spacing={4} >
                 {filteredCategories.map ( (cat, ind) => (
                     <Grid item xs={12} key={`cat-body-${ind}`} >
                         <h3 className="fw-600">{cat.title}</h3>
@@ -138,7 +138,7 @@ class RestaurantMenu extends React.Component{
                     ))
                 }
             </Grid>
-            </> : <Typography>No data obtained</Typography>
+            </div> : <Typography>No data obtained</Typography>
         )
     }
 }

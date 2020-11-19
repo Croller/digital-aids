@@ -8,6 +8,7 @@ import {
     AccessTimeOutlined as Time
 } from '@material-ui/icons'
 import {PhoneCall, Chef} from '../../template/common/icons'
+import ErrorPage from '../../template/common/error-loading'
 import Social from '../social'
 import {Redirect} from 'react-router-dom'
 import Service from '../../../services/restaurants'
@@ -67,6 +68,7 @@ class RestaurantDetails extends React.Component{
                 restaurant={restaurant} 
                 showSearch={false} 
                 showHamburger={false}
+                showMenuButton={true}
                 closeButtonLink={`/${restaurant.slug}`}
                 />
                <Paper className="restaurant-details panel">
@@ -106,7 +108,7 @@ class RestaurantDetails extends React.Component{
             </Container>
             <Social {...{...restaurant}} />
             </>
-            : restaurant === null ? <Spinner/> : <h2>Error loading data</h2>    
+            : restaurant === null ? <Spinner/> : <ErrorPage /> 
         
         )
     }

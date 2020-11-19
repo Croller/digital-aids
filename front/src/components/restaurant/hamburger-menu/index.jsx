@@ -12,7 +12,15 @@ import Service from '../../../services/restaurants'
 import A from '../../../redux/actionTypes'
 import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
+import ErrorPage from '../../template/common/error-loading'
 import TopBar from '../topbar'
+import {Link} from 'react-router-dom'
+
+const txt = {
+    "reglament_1169": "Reglament (EU) №1169/2011",
+}
+
+const _t = key => txt[key] || key
 
 class HamburgerMenu extends React.Component{
 
@@ -65,6 +73,7 @@ class HamburgerMenu extends React.Component{
                 restaurant={restaurant} 
                 showSearch={false} 
                 showHamburger={false}
+                showMenuButton={true}
                 closeButtonLink={`/${restaurant.slug}`}
                 />
                 <div className="restaurant-details flex column">
@@ -76,10 +85,15 @@ class HamburgerMenu extends React.Component{
                         <div className="default-title">{c.titledefault}</div>
                     </Button>)
                     })}    
+                    <div className="separator"></div>
+                    <Button component={Link} to={`/${slug}/reglament-1169`} className="cat-button panel flex column" >
+                        <div className="title">{_t("reglament_1169")}</div>
+                        <div className="default-title">{_t("reglament_1169")}</div>
+                    </Button>)
                 </div>
                 
             </Container>
-            : restaurant === null ? <Spinner/> : <h2>Error loading data</h2>    
+            : restaurant === null ? <Spinner/> : <ErrorPage />
         
         )
     }

@@ -3,6 +3,8 @@ import Restaurant from '../components/restaurant'
 import Cart from '../components/cart'
 import Details from '../components/restaurant/details'
 import Options from '../components/restaurant/hamburger-menu'
+import Reglament from '../components/restaurant/reglament'
+import Insider from '../components/restaurant/insider'
 import Lang from '../components/restaurant/language'
 import P404 from '../components/template/404'
 
@@ -14,11 +16,10 @@ const components = {
     Restaurant,
     Details,
     Options,
+    Reglament,
+    Insider,
     P404, 
 }
-
-export const sets = ["robotics", "science", "science-and-robotics"]
-export const experimentCategories = ["physics", "biology", "chemistry", "environment", "children"]
 
 export const routes = [
     { exact: true, path: "/" , component: components["Home"]  },
@@ -27,6 +28,8 @@ export const routes = [
     { exact: true, path: "/:slug/language" , component: components["Lang"]  },
     { exact: true, path: "/:slug/details" , component: components["Details"]  },
     { exact: true, path: "/:slug/options" , component: components["Options"]  },
+    { exact: true, path: "/:slug/reglament-1169" , component: components["Reglament"] },
+    { exact: true, path: "/:slug/insider" , component: components["Insider"] },
     { exact: false, path: "*" , component: components["P404"]},
 ]
 

@@ -17,6 +17,7 @@ import Menu from './menu'
 import Topbar from './topbar'
 import Spinner from '../template/common/Spinner'
 import Lang from '../restaurant/language'
+import Social from './social'
 
 
 class RestaurantComponent extends React.Component{
@@ -71,10 +72,11 @@ class RestaurantComponent extends React.Component{
             restaurant ? 
             <>
                 <Topbar {...{restaurant, language, lang}} />
-                <Container key={slug}>
+                <Container key={slug} className="flex-grow">
                     <Menu slug={slug} {...restaurant} />
                 </Container>
-                <Footer slug={slug} />
+                <Social {...restaurant} />
+                {/* <Footer slug={slug} /> */}
             </>
             : restaurant === null ? <Spinner/> : <h2>Error loading data</h2>
         )

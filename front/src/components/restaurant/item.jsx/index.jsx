@@ -4,6 +4,8 @@ import A from '../../redux/actionTypes'
 import {connect } from 'react-redux'
 import Service from '../../services/restaurants'
 import { CircularProgress, Container, Grid, Select, MenuItem, Button } from '@material-ui/core'
+import Spinner from '../../template/common/Spinner'
+import ErrorPage from '../../template/common/error-loading'
 
 
 class Menu extends React.Component{
@@ -86,7 +88,7 @@ class Menu extends React.Component{
                     </Grid>
                         
                 </Container>
-            : restaurant === null ? <CircularProgress/> : <h2>Error loading data</h2>
+            : restaurant === null ? <Spinner/> : <ErrorPage/>
         )
     }
 }
