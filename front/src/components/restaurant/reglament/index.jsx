@@ -12,6 +12,7 @@ import Social from '../social'
 import {Redirect} from 'react-router-dom'
 import Service from '../../../services/restaurants'
 import TagsService from '../../../services/tags'
+import TranslService from '../../../services/translations'
 import A from '../../../redux/actionTypes'
 import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
@@ -25,13 +26,14 @@ const txt = {
 
 }
 
-const _t = key => txt[key] || key
+// const _t = key => txt[key] || key
 
 class Reglament extends React.Component{
 
     state ={
         restaurant: null,
-        tags: null
+        tags: null,
+        translations: null
     }
 
     componentDidMount(){
@@ -54,16 +56,31 @@ class Reglament extends React.Component{
         const restaurant = await Service.getRestaurant( slug, language )
         if( restaurant ){
             const tags = await TagsService.getAll(slug, language, restaurant.defaultlanguage )
-            this.setState({restaurant, tags})
-        }
+            
+            const translations = await TranslService.getByKeys(
+                [
+                    "reglament_text_1", 
+                    "reglament_text_2",
+                    "reglament_1169"
+                ]    
+                , language, restaurant.defaultlanguage )
+                
+                this.setState({restaurant, tags, translations})
+            }
+        
     }
 
 
     render(){
 
-        const {restaurant, tags} = this.state
+        
+        const {restaurant, tags, translations} = this.state
+        
         
         const {language, lang} = this.props
+        
+        const _t = key => translations[key] ? translations[key][language] || key : key
+        const _t1 = key => translations[key] ? translations[key][restaurant.defaultlanguage] || key : key
 
         const {slug} = this.props.match.params
         
@@ -74,7 +91,7 @@ class Reglament extends React.Component{
         }
 
         return(
-            restaurant && tags ?
+            restaurant && tags && translations ?
             <> 
             <Container className="flex column flex-grow reglament">
                 <TopBar 
@@ -87,8 +104,13 @@ class Reglament extends React.Component{
             
                 <h1 className="flex column">
                     <span>{_t("reglament_1169")}</span>
-                    <span>{_t("reglament_1169")}</span>
+                    <span>{_t1("reglament_1169")}</span>
                 </h1>
+
+                <div>
+                    <p>{_t("reglament_text_1")}</p>
+                    <p>{_t("reglament_text_2")}</p>
+                </div>
 
                 <div className="allergen-list flex column">
                     {tags.map( t => (

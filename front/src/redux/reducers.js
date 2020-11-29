@@ -44,7 +44,7 @@ const initialState =
 // returns restaurant by its slug if exists or initial state if not.
 export const getRestaurant = (_state, slug) => {
     console.debug("getRestaurant:", slug, initialRestaurantState, _state.restaurants )
-    const result =  _state.restaurants[slug] ? {..._state.restaurants[slug] } : {...initialRestaurantState}
+    const result =  _state.restaurants[slug] || {...initialRestaurantState}   /// _state.restaurants[slug] ? {..._state.restaurants[slug] } : {...initialRestaurantState}
     console.debug("getRestaurant result:", result)
     return result
 }
@@ -70,20 +70,36 @@ export default function root( state = initialState, action ) {
     value
     
 
-    console.debug("Dispatch type and payload:", type, payload)
+    console.debug("Dispatch type and payload:", payloadType, payload)
     switch( payloadType ){
         
         case A.SET_LANGUAGE:
-            newState = {...newState, language: payload }
+            newState = {...newState, language: payload,  }
             break;
         
         case A.CLEAR_CART:
-
+            console.debug("clearing cart for" , payload  )
             restaurant = getRestaurant( newState, payload)
+            
             if( restaurant ){
-                restaurant.cart = []
-                restaurant.cartCount = 0 
-                newState.restaurants[payload] = restaurant 
+                // restaurant.cart = []
+                // restaurant.cartCount = 0 
+                
+                // newState.restaurants[payload] = restaurant 
+                ({ restaurants } = newState );
+
+                newState = {
+                    ...newState, 
+                    restaurants: 
+                        {...restaurants, 
+                            [payload]: {
+                                ...restaurant, 
+                                cart: [], 
+                                cartCount: 0,
+                                cartPrice: 0,
+                            } 
+                        } 
+                    } 
             }else {
                 console.debug("Wrong restaurant slug passed: ", payload)
             }
@@ -155,11 +171,14 @@ export default function root( state = initialState, action ) {
             // cart = {...cart, [slug]: ca }
             restaurant = {...restaurant, cart, cartCount, cartPrice }
 
-            console.debug("After adding: ", restaurant )
+            console.debug("After adding: ", restaurant );
             // newState = {...newState, cart , cartCount, cartPrice }
 
             // update restaurat in state
-            newState.restaurants[slug] = restaurant
+            // newState.restaurants[slug] = restaurant
+            
+            ({ restaurants } = newState );
+            newState = {...newState, restaurants: {...restaurants, [slug]: restaurant } } 
             
             break;
 
@@ -208,9 +227,10 @@ export default function root( state = initialState, action ) {
                 // cart = {...cart, [slug]: restCart }
                 restaurant = {...restaurant, cart, cartCount, cartPrice}
 
-                console.debug("After removing: ", restaurant )
+                console.debug("After removing: ", restaurant );
                 // newState = { ...newState, cart, cartCount, cartPrice}
-                newState.restaurants[slug] = restaurant
+                ({ restaurants } = newState );
+                newState = {...newState, restaurants: {...restaurants, [slug]: restaurant } } 
             }
             break;
 

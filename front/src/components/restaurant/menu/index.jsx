@@ -2,20 +2,30 @@ import React from 'react'
 import {Grid, Button, Typography, Paper} from '@material-ui/core'
 import './menu.scss'
 import Item from './item'
+import ItemImages from './item_images'
+import Service from '../../../services/restaurants'
 import {connect} from 'react-redux'
 import A from '../../../redux/actionTypes'
 import {getRestaurant} from '../../../redux/reducers'
+
+
+const templates = {
+    text: Item,
+    images: ItemImages
+}
 
 class RestaurantMenu extends React.Component{
 
 
     state = {
         categoryid: null,
-        restState: null
+        restState: null,
+        restaurant: null
     }
 
     componentDidMount(){
         this.getRestaurantState()
+        this.fetchRestaurant()
     }
 
     componentDidUpdate( prevProps ){
@@ -29,11 +39,21 @@ class RestaurantMenu extends React.Component{
         if( prev.filters.caterory !== now.filters.caterory ){
             this.getRestaurantState()
         }
+
+        if( prevProps.slug !== this.props.slug ){
+            this.fetchRestaurant()
+        }
         // )
     }
 
+    async fetchRestaurant(){
+        const {slug, language } = this.props 
+        const restaurant = await Service.getRestaurant(slug, language)
+        this.setState({restaurant})
+    }
+
     getRestaurantState(){
-        const {slug} = this.props 
+        const {slug, language } = this.props 
         const restState = getRestaurant( this.props, slug )
         this.setState({restState})
     }
@@ -61,7 +81,7 @@ class RestaurantMenu extends React.Component{
 
         // const {categoryid: selectedCategory} = this.state 
         
-        const {restState} = this.state // getRestaurant( this.props, slug )
+        const {restState, restaurant } = this.state // getRestaurant( this.props, slug )
         let { category: selectedCategory, search } = restState ?  restState.filters : {}
         search = search ? search.toLowerCase() : search
         
@@ -70,9 +90,18 @@ class RestaurantMenu extends React.Component{
 
         const filteredCategories = selectedCategory ? categories.filter( c => c.id === selectedCategory ) : categories
 
+
+        let ItemComponent = Item
+
+        if(restaurant && restaurant.defaulttemplate){
+            ItemComponent = templates[restaurant.defaulttemplate]
+        }
+
+
+
         return(
-            categories ? 
-            <div>
+            categories && restaurant ? 
+            <div className={`template-${restaurant.defaulttemplate}`}> 
             {   
                 show_categories && 
                 <div className="categories">
@@ -95,12 +124,12 @@ class RestaurantMenu extends React.Component{
                                 ))}
                 </div>
             }
-            <Grid container spacing={4} >
+            <Grid container spacing={4} className="menu-body">
                 {filteredCategories.map ( (cat, ind) => (
                     <Grid item xs={12} key={`cat-body-${ind}`} >
                         <h3 className="fw-600">{cat.title}</h3>
                         <Paper className="category-body panel" >
-                            <Grid container spacing={0}>
+                            <Grid container spacing={2} className="menu-items-list">
                                 {menu.filter(d=> d.dishcategoryid === cat.id && 
                                     (   
                                         // etiher search is empty
@@ -120,8 +149,9 @@ class RestaurantMenu extends React.Component{
                                         // const quantity = cartItem ? cartItem.quantity : null;
 
                                         return(
-                                            <Grid item xs={12}  key={`menuitem-${index}`} >
-                                                <Item                                                
+                                            <Grid item xs={12}  key={`menuitem-${index}`} className="menu-item-container" >
+                                                {/* <Item                                                 */}
+                                                <ItemComponent
                                                 index={index + 1} 
                                                 // cartItem={cartItem}
                                                 // quantity={quantity} 

@@ -80,6 +80,28 @@ body{
       &.align-items-center{
         align-items: center;
       }
+      &.align-items-start{
+        align-items: flex-start;
+      }
+      &.align-items-end{
+        align-items: flex-end;
+      }
+
+      &.space-between{
+        justify-content: space-between;
+      }
+
+      &.justify-end{
+        justify-content: flex-end;
+      }
+
+      &.justify-start{
+        justify-content: flex-start;
+      }
+
+      &.justify-center{
+        justify-content: center;
+      }
 
       &.column{
         flex-direction: column;
@@ -111,8 +133,78 @@ body{
       border-radius: 8px;
     }
 
-    
+    @for $var from 0 to 9 {
+      .m#{$var}{
+        margin: #{$var * 10}px;
+      }
+      .mx-#{$var}{
+        margin-left: #{$var * 10}px;
+        margin-right: #{$var * 10}px;
+      }
+      .my-#{$var}{
+        margin-top: #{$var * 10}px;
+        margin-bottom: #{$var * 10}px;
+      }
+      .ml-#{$var}{
+        margin-left: #{$var * 10}px;
+      }
+      .mr-#{$var}{
+        margin-right: #{$var * 10}px;
+      }
+      .mt-#{$var}{
+        margin-top: #{$var * 10}px;
+      }
+      .mb-#{$var}{
+        margin-bottom: #{$var * 10}px;
+      }
 
+      .p#{$var}{
+        padding: #{$var * 10}px;
+      }
+      .mx-#{$var}{
+        padding-left: #{$var * 10}px;
+        padding-right: #{$var * 10}px;
+      }
+      .py-#{$var}{
+        padding-top: #{$var * 10}px;
+        padding-bottom: #{$var * 10}px;
+      }
+      .pl-#{$var}{
+        padding-left: #{$var * 10}px;
+      }
+      .pr-#{$var}{
+        padding-right: #{$var * 10}px;
+      }
+      .pt-#{$var}{
+        padding-top: #{$var * 10}px;
+      }
+      .pb-#{$var}{
+        padding-bottom: #{$var * 10}px;
+      }
+
+      
+    }
+
+    $colors: (
+      "white": white,
+      "green": $green, 
+      "gray": $gray,
+      "light-gray": $light-gray,
+      "light-gray-2": $light-gray-2,
+      
+    ); 
+    
+    @each $var, $val in $colors {
+      .bg-#{$var}{
+        background-color: $val;
+      }
+
+      .c-#{$var}{
+        color: $val!important;
+      }
+    }
+
+    
     // .footer {
     //   display: flex;
     //   flex-grow: 0;

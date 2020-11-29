@@ -1,5 +1,6 @@
 const db = require("../db/remote")
 const _f = require("fetsch")
+const crypto = require("crypto")
 
 class baseService {
     
@@ -16,6 +17,13 @@ class baseService {
     static getCached (index, defaultValue ){ return this.cacheExists(index) ? this.Copy( this._CACHE[index] ) : defaultValue}
 
     static cacheExists(index) { return this._CACHE.hasOwnProperty(index)}
+
+    static makeHash( str ){
+        return crypto
+            .createHash("sha256")
+            .update( str )
+            .digest("hex");
+    }
 
     static clearCache( index ) { 
         if( index ) {

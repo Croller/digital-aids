@@ -131,11 +131,16 @@ class RestService extends baseService{
             dishid,
             dishprice,
             dishcategoryid,
+            dishmenuid,
+            image,
             tags
             } = dish
+            console.debug("image:", image)
             return { dishid,
                 dishprice,
                 dishcategoryid,
+                image,
+                dishmenuid,
                 dishtitle: dish[`dishtitle${lang}`] || dish["dishtitleen"],
                 dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`],
                 tags: tags ? tags.split(",") : []

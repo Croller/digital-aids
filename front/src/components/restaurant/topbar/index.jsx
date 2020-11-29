@@ -75,7 +75,7 @@ class TopBar extends React.Component{
 
         return(
 
-            <AppBar color="inherit" className="panel rectangular">
+            <AppBar color="inherit" className="top-bar">
                     <Container className="top-bar-contents">                            
                         <Link to={`/${restaurant.slug}/details`} className="title">
                             {

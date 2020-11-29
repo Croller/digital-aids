@@ -18,6 +18,7 @@ import Topbar from './topbar'
 import Spinner from '../template/common/Spinner'
 import Lang from '../restaurant/language'
 import Social from './social'
+import ErrorPage from '../template/common/error-loading'
 
 
 class RestaurantComponent extends React.Component{
@@ -76,9 +77,9 @@ class RestaurantComponent extends React.Component{
                     <Menu slug={slug} {...restaurant} />
                 </Container>
                 <Social {...restaurant} />
-                {/* <Footer slug={slug} /> */}
+                <Footer {...restaurant} />
             </>
-            : restaurant === null ? <Spinner/> : <h2>Error loading data</h2>
+            : restaurant === null ? <Spinner/> : <ErrorPage /> // <h2>Error loading data</h2>
         )
     }
 }

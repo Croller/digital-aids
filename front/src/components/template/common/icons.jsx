@@ -19,12 +19,15 @@ import {ReactComponent as Cloche} from '../../../assets/svg/cloche.svg'
 import {ReactComponent as World} from '../../../assets/svg/world.svg'
 import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
 import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
+import {ReactComponent as Exclamation} from '../../../assets/svg/exclamation.svg'
 
 // social
 import {ReactComponent as FacebookIcon} from '../../../assets/svg/facebook.svg'
 import {ReactComponent as InstagramIcon} from '../../../assets/svg/instagram.svg'
 import {ReactComponent as TheForkIcon} from '../../../assets/svg/thefork.svg'
 import {ReactComponent as TripadvisorIcon} from '../../../assets/svg/tripadvisor.svg'
+import {ReactComponent as Trash} from '../../../assets/svg/trash.svg'
+import {ReactComponent as Plate} from '../../../assets/svg/plate.svg'
 
 
 
@@ -44,12 +47,15 @@ export {
     // tag_soya,
     // tag_sulphite,
 
-    PhoneCall,
     Chef,
     Cloche,
+    Exclamation,
+    Plate,
     Search,
-    World,
+    PhoneCall,
     ThumbsUp,
+    Trash,
+    World,
 
     FacebookIcon,
     InstagramIcon,

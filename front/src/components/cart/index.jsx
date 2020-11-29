@@ -1,8 +1,9 @@
-import { Container, Paper } from '@material-ui/core'
+import { Button, Container, Paper } from '@material-ui/core'
 import {Link} from 'react-router-dom'
 import {ChevronLeft} from '@material-ui/icons'
 import React from 'react'
 import Service from '../../services/restaurants'
+import TranslService, {_T} from '../../services/translations'
 import Spinner from '../template/common/Spinner'
 import ErrorPage from '../template/common/error-loading'
 import Topbar from '../restaurant/topbar'
@@ -10,46 +11,94 @@ import Menu from '../restaurant/menu'
 import {connect} from 'react-redux'
 import A from '../../redux/actionTypes'
 import {getRestaurant} from '../../redux/reducers'
-import {Redirect} from 'react-router-dom'
+import Redirect from '../template/common/redirect'
 
 import './cart.scss'
+import { Trash } from '../template/common/icons'
+import Footer from '../template/footer'
+import Social from '../restaurant/social'
 
 
 
 class Cart extends React.Component{
 
     state = {
-        restaurant: null 
+        restaurant: null,
+        translations: null,
+        _t: null
     }
     componentDidMount(){
-        this.fetchRestaurant()
+        this.fetchRestaurant( {} )
+        
     }
 
     componentDidUpdate(prevProps){
         if(this.props.match.params.slug !== prevProps.match.params.slug ){
-            this.fetchRestaurant()
+            this.fetchRestaurant( prevProps )
         }
     }
 
-    async fetchRestaurant(){
+    async fetchTranslations( default_lang ){
+        const { language } = this.props
+        if( language ){
+            const translations = await TranslService.getByKeys(
+                [
+                    "MyOrder",
+                    "Total", 
+                    "ThankForOrder"
+                ],
+                language, default_lang
+            )
+
+            return translations
+        } else {
+            return false
+        }
+    }
+
+    async fetchRestaurant( prevProps ){
+        const {language} = this.props 
         const {slug} = this.props.match.params
         const restaurant = await Service.getRestaurant( slug )
-        this.setState({restaurant})
+
+        let {translations} = this.state 
+
+        if( restaurant ){
+            if( !translations || translations && ( language !== prevProps.language) ){
+                
+                translations = await this.fetchTranslations( restaurant.defaultlangage )
+
+                // get translation function
+                const _t = _T(translations, language, restaurant.defaultlangage )
+
+                this.setState({restaurant, translations, _t })
+                
+    
+            } else {
+    
+                this.setState({restaurant})
+            }
+        } else {
+            this.setState({restaurant})            
+        }
+
     }
 
 
     render(){
 
-        const {restaurant} = this.state
+        const {restaurant, translations, _t } = this.state
         
-        const {language, restaurants } = this.props
+        const {language, emptyCart } = this.props
 
         
         const {slug} = this.props.match.params
+
+        
         
         if( !language){
             // redirect to language selector
-            return <Redirect to={`/${slug}/language`} />
+            return <Redirect to={`/${slug}/language`} back={window.location.pathname} />
         }
 
         const restState = getRestaurant( this.props, slug )
@@ -58,12 +107,11 @@ class Cart extends React.Component{
         // const menu = cart[slug] || []
         const {cart, cartPrice} = restState
 
-        const total_text = "Total" // TODO: get from translations
-
         console.debug("MEnu", cart)
-        if( !restaurant ){
-            return restaurant === null ? <Spinner/> : <ErrorPage />
+        if( !restaurant || !translations ){
+            return restaurant === null || translations === null ? <Spinner/> : <ErrorPage />
         }
+        
 
         // get all category ids within the cart
         const category_ids = cart.reduce( (r, i) =>{ return r.includes(i.dishcategoryid ) ? r : [...r, i.dishcategoryid] }, [] )
@@ -82,23 +130,22 @@ class Cart extends React.Component{
                 showSearch={false}
                 closeButtonLink={`/${slug}`}
                 />
-                <Container key={`cart-${slug}`} className="cart">
-                    
-                    
-                    {/* <div className="breadcrumbs">
-                        <Link to={`/${restaurant.slug}`} className="back-link"><ChevronLeft />Menu</Link>
+                <Container key={`cart-${slug}`} className="cart flex-grow">
+                    <div className="flex row align-items-center space-between mb-3">
+                        <div className="title">
+                            {_t("MyOrder", 1)}
+                        </div>
+                        <Button aria-label="Empty cart" className="empty-cart" onClick={() => emptyCart(slug)}><Trash/></Button>
                     </div>
-                     */}
-                     <div className="title">
-                        My order
-                     </div>
                     { restaurant ? 
                         <>
                             <Menu {...{menu: cart, slug, categories, show_categories: false }}/>
-                            <div className="total panel">
-                                {total_text}:
+                            <div className="total flex row align-items-center space-between">
                                 <span>
-                                    {cartPrice}€
+                                    {_t("Total", 1)}:
+                                </span>
+                                <span className="button ">
+                                    {(cartPrice * 1).toFixed(2)}€
                                 </span>
                             </div>
                         </>
@@ -107,6 +154,8 @@ class Cart extends React.Component{
                     
                         
                 </Container>
+                <Social {...{...restaurant}} message={_t("ThankForOrder", 1)} />
+                <Footer {...{...restaurant}} />
             </>
         )
     }
@@ -116,6 +165,7 @@ class Cart extends React.Component{
 export default connect(
     state => state,
     dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
+        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+        emptyCart: payload => dispatch( {type: A.CLEAR_CART, payload } )
     })
 )(Cart)

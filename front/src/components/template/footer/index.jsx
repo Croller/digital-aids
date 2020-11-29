@@ -5,11 +5,12 @@ import {
     // RoomServiceOutlined as Cloche, 
     // PhoneInTalkOutlined as Phone
 } from '@material-ui/icons'
-import {Cloche, PhoneCall as Phone, World } from '../common/icons'
-import {Link} from 'react-router-dom'
+import {Cloche, PhoneCall as Phone, World, Plate } from '../common/icons'
+import {NavLink as Link, Link as ALink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import A from '../../../redux/actionTypes'
 import {getRestaurant} from '../../../redux/reducers'
+import Service, {_T} from '../../../services/translations'
 import './footer.scss'
 
 
@@ -20,27 +21,69 @@ const txt = {
 }
 
 class Footer extends React.Component{
+    
+    state = {
+        translations: null
+    }
+
+    componentDidMount(){
+        this.fetchData()
+    
+    }
+    
+    componentDidUpdate( prevProps ){
+        if( prevProps.language !== this.props.language){
+            this.fetchData()
+        }    
+    }
+    
+    async fetchData(){
+        const translations = await Service.getByKeys(
+            [
+                "CallUs",
+                "Order", 
+            ],
+            this.props.language,
+            this.props.defaultlanguage
+        )
+
+        this.setState({translations})
+    }
 
     render(){
-        const {slug, lang, language } = this.props
+        const {slug, lang, language, defaultlanguage, phone } = this.props
 
         const restState = getRestaurant( this.props, slug )
         console.debug("footer restState:", restState )
         const { cartCount} = restState
+
+        const translations = this.state.translations || {}
+
+        const _t = _T( translations, language, defaultlanguage )
 
         return(
             <Box className="footer panel rectangular" >
                 {/* &copy;&nbsp;Food & Fans, 2020 */}
                 <Container>
                 <div className="mobile-footer">
-                    <Button onClick={() => lang(null)}><World/>{language}</Button>
+                    <Button component={Link} to={`/${slug}/insider`}><Plate/><span>FOODFANS</span></Button>
+                    <Button onClick={() => lang(null)}><World/>
+                        <span>
+                            {language}
+                        </span>
+                    </Button>
                     <Button component={Link} to={`/${slug}/cart`}>
                         <Badge badgeContent={cartCount} showZero={false} className="badge-quantity">
                             <Cloche/>
                         </Badge>
-                        {txt['my_order']}
+                        <span>
+                            {_t("Order", 1)}
+                        </span>
                     </Button>
-                    <Button><Phone/>{txt['callus']}</Button>
+                    <Button component={ALink} to={`tel: +${phone}`}>
+                        <Phone/>
+                        <span>{_t("CallUs", 1)}</span>
+                    </Button>
                 </div>
                 </Container>
             </Box>

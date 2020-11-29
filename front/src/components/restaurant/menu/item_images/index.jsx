@@ -3,10 +3,19 @@ import {Check, RoomService as Lid} from '@material-ui/icons'
 import React from 'react'
 import './style.scss'
 import A from '../../../../redux/actionTypes'
+import {getRestaurant} from '../../../../redux/reducers'
+import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
+const {REACT_APP_MEDIA : MEDIA} = process.env 
 
 class RestMenuItem extends React.Component{
 
+    state = {
+        tag_list: null
+    }
+    componentDidMount(){
+        console.debug("Images!")
+    }
 
     remove = (dishid, ev) => {
         ev.stopPropagation()
@@ -15,59 +24,96 @@ class RestMenuItem extends React.Component{
     }
 
     render(){
-        const {slug} = this.props
-        console.debug("Item slug:", slug, " props: ", this.props)
+        // const {slug} = this.props
+
+        const {tags_list} = this.state
+        
         let {
+            slug,
             dishid, 
             dishtitle, 
             dishtitledefault, 
             dishprice, 
             dishcategoryid,
+            image = "no-image.jpg",
+            tags,
             index, 
             add, 
+            reduxState
+            // filters = {},
             // quantity 
             // cartItem,
-            cart
+            // cart
         } = this.props
-
+        console.debug("Item slug:", slug, " props: ", this.props)
+        const restState = getRestaurant( reduxState, slug)
+        console.debug("restState", restState)
         let quantity
         
         // get the required cart
-        cart = cart[slug] || []
+        const {cart} = restState
 
         const cartItem = cart.find( i => i.dishid === dishid )
         
         if(cartItem) 
             ({quantity} = cartItem )
 
-        const item = { dishid, dishtitle, dishcategoryid, dishtitledefault, dishprice, quantity: 1 }
+        const item = { dishid, dishtitle, dishcategoryid, dishtitledefault, image, dishprice, tags, quantity: 1 }
         const isOrdered = quantity > 0
         console.debug("menu item render. quantity: ", quantity )
+        
         return( 
             
-                <div className={`rest-menu-item${ isOrdered  ? ' ordered' : "" }`} >
+                <div className={`card-menu-item${ isOrdered  ? ' ordered' : "" }`} >
 
-                    <div className="dish-index">
-                        {index}
-                    </div>
-                    <Grid container key={`dish-${dishid}` } onClick={ () => add( item, slug ) }>
-                        <Grid item xs={12} sm={9} className="dish-title-box">
-                            <div className="title-main">
-                                {dishtitle}
-                            </div>
-                            <div className="title-default">
-                                {dishtitledefault}
-                            </div>
+                    
+                    <Grid className="card-container" container key={`dish-${dishid}` }>
+                        <Grid 
+                            item xs={12} 
+                            md={3} 
+                            className="dish-image"
+                            style={{backgroundImage: `url(${MEDIA}/images/restaurants/${slug}/dishes/${image})`}}
+                        >
                         </Grid>
-                        <Grid item xs={12} sm={3} className="price-container">
-                            <Badge badgeContent={ isOrdered ? <><Lid className="lid"/>{quantity}</> : 0 } showZero={false} color="default" className="quantity-badge"  >
-                                {dishprice &&  <div className="button price">{`${dishprice}€`}</div>}
-                            </Badge>
-                            {/* <div className={ isOrdered ? `button quantity positive` : 'button quantity'}>{isOrdered ? <Check /> : "" }</div> */}
-                            
-                            {<div className={ isOrdered  ? `button square remove-dish` : "button square invisible"} onClick={ ev => isOrdered ? this.remove(dishid, ev) : null }>{ isOrdered && <>&times;</> }</div> }
+                        <Grid item xs={12} md={6} className="dish-title-box flex row p2">
+                            <div className="dish-index">
+                                {index}
+                            </div>
+                            <div className="titles flex column align-items-start p-2">
+                                <div className="title-main">
+                                    {dishtitle}
+                                </div>
+                                <div className="title-default">
+                                    {dishtitledefault}
+                                </div>
+                                { Array.isArray(tags) && <div className="tags">
+                                    {tags.map( t => {
+                                        return <img src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
+                                    })}
+                                </div>
+                                }
+                            </div>
+                        
+                        </Grid>
+                        
+                        <Grid item xs={12} md={3} className="price-container flex row justify-end align-items-start">
+                            <div className="increment show-on-mobile flex-grow">
+                                {/* <Badge badgeContent={ isOrdered ? <><Lid className="lid"/>{quantity}</> : 0 } showZero={false} color="default" className="quantity-badge"  > */}
+                                    {dishprice &&  
+                                    <>
+                                    <div className="button square plus"  onClick={ () => add( item, slug ) }>+</div>
+                                        <div className={`button square black qty`}>{quantity || 0}</div> 
+                                    <div className="button square" onClick={ ev => isOrdered ? this.remove(dishid, ev) : null }>-</div>
+                                    
+                                    </>
+                                    }
+                                {/* </Badge> */}
+                                {/* <div className={ isOrdered ? `button quantity positive` : 'button quantity'}>{isOrdered ? <Check /> : "" }</div> */}
+                            </div>
+                            <div className="button price">{`${dishprice}€`}</div>                            
                             
                         </Grid>
+                        
 
                     </Grid>
                 </div>
@@ -77,7 +123,8 @@ class RestMenuItem extends React.Component{
 }
 
 export default connect(
-    state => ({cart: state.cart}),
+    // state => ({cart: state.cart, filters: state.filters}),
+    state => ({reduxState: state}),
     dispatch => ({
         add: (item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
         delete: (dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )

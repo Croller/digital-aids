@@ -17,7 +17,7 @@ import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
 import TopBar from '../topbar'
 import ErrorPage from '../../template/common/error-loading'
-
+import Footer from '../../template/footer'
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
 const txt = {
@@ -89,6 +89,7 @@ class Insider extends React.Component{
                 
             </Container>
             <Social {...{...restaurant}} />
+            <Footer {...{...restaurant}} />
             
             </>
             : restaurant === null ? <Spinner/> : <ErrorPage/>    

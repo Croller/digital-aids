@@ -5,10 +5,13 @@ import {
     LocationOnOutlined as Location, 
     FastfoodOutlined as Food,
     PhoneInTalkOutlined as Phone,
-    AccessTimeOutlined as Time
+    AccessTimeOutlined as Time,
+    // WarningOutlined as Info
 } from '@material-ui/icons'
-import {Redirect} from 'react-router-dom'
+import {Exclamation, World} from '../../template/common/icons'
+import Redirect from '../../template/common/redirect'
 import Service from '../../../services/restaurants'
+import TranslService, {_T} from '../../../services/translations'
 import A from '../../../redux/actionTypes'
 import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
@@ -20,12 +23,15 @@ const txt = {
     "reglament_1169": "Reglament (EU) №1169/2011",
 }
 
-const _t = key => txt[key] || key
+// const _t = key => txt[key] || key
+
 
 class HamburgerMenu extends React.Component{
 
     state ={
-        restaurant: null
+        restaurant: null,
+        selected: false,
+        translations: null
     }
 
     componentDidMount(){
@@ -46,56 +52,98 @@ class HamburgerMenu extends React.Component{
         const {slug} = this.props.match.params
         const {language} = this.props
         const restaurant = await Service.getRestaurant( slug, language )
-        this.setState({restaurant})
+        if( restaurant ){
+            const translations = await TranslService.getByKeys(
+                [
+                    "Menu", "reglament_1169"
+                ],
+                language, restaurant.defaultlanguage
+            )
+            this.setState({restaurant, translations})
+        } else {
+            this.setState({restaurant})
+        }
     }
 
 
     render(){
 
-        const {restaurant} = this.state
+        const {restaurant, selected, translations } = this.state
         
+        
+
         const {language, lang, setFilter } = this.props
+
+        
 
         const {slug} = this.props.match.params
         
+        if( selected ) 
+            return <Redirect to={`/${slug}`} />
         
         if( !language){
+            console.debug("No language. Location:", window.location.pathname);
             // redirect to language selector
-            return <Redirect to={`/${slug}/language`} />
+            return <Redirect to={`/${slug}/language`} back={window.location.pathname} />
         }
 
-        const selectCategory = cid => setFilter(slug, cid)
+        const selectCategory = cid => {
+            setFilter(slug, cid)
+            this.setState({selected: true})
 
-        return(
-            restaurant ? 
-            <Container>
-                <TopBar 
-                restaurant={restaurant} 
-                showSearch={false} 
-                showHamburger={false}
-                showMenuButton={true}
-                closeButtonLink={`/${restaurant.slug}`}
-                />
-                <div className="restaurant-details flex column">
-                    {restaurant.categories && restaurant.categories.map( (c, ind) => {
+        }
 
-                    return(
-                    <Button className="cat-button panel flex column" key={`cat-btn-${ind}`} onClick={() => selectCategory(c.id)} >
-                        <div className="title">{c.title}</div>
-                        <div className="default-title">{c.titledefault}</div>
-                    </Button>)
-                    })}    
-                    <div className="separator"></div>
-                    <Button component={Link} to={`/${slug}/reglament-1169`} className="cat-button panel flex column" >
-                        <div className="title">{_t("reglament_1169")}</div>
-                        <div className="default-title">{_t("reglament_1169")}</div>
-                    </Button>)
-                </div>
-                
-            </Container>
-            : restaurant === null ? <Spinner/> : <ErrorPage />
+        if( restaurant ){
+            const _t = _T(translations, language, restaurant.defaultlanguage )
+            const langData = restaurant.languages.find( l => l.id === language )
+            const langTitle = langData ? langData.nativeName : language
+
+            console.debug("Translate", _t("Menu", 1))
+            return(
+                <Container className="hamburger-menu">
+                    <TopBar 
+                    restaurant={restaurant} 
+                    showSearch={false} 
+                    showHamburger={false}
+                    showMenuButton={true}
+                    closeButtonLink={`/${restaurant.slug}`}
+                    />
+                    <div className="flex column">
+                        <div className="main-title">{_t("Menu", 1)}</div>
+                        {restaurant.categories && restaurant.categories.map( (c, ind) => {
+    
+                        return(
+                        <Button className="cat-button panel flex column py-1" key={`cat-btn-${ind}`} onClick={() => selectCategory(c.id)} >
+                            <div className="title">{c.title}</div>
+                            <div className="default-title">{c.titledefault}</div>
+                        </Button>)
+                        })}    
+                        <div className="separator"></div>
+                        <Button component={Link} to={`/${slug}/reglament-1169`} className="cat-button panel flex column py-1" >
+                            <div className="flex row align-items-center flex-grow">
+                                <Exclamation className="icon mr-1" />
+                                <div>
+                                    <div className="title">{_t("reglament_1169",1)}</div>
+                                    <div className="default-title">{_t("reglament_1169")}</div>
+                                </div>
+                            </div>
+                        </Button>
+                        <Button className="cat-button panel flex column py-1 bg-light-gray-2" onClick={() => lang(null) }>
+                            <div className="title flex row align-items-center"><World className="icon mr-1" />{langTitle}</div>                            
+                        </Button>
+                        <Button component={Link} to={`/${slug}/insider`} className="cat-button bg-green panel flex column py-1" >
+                            <div className="title c-white">FOODFANS INSIDER</div>                            
+                        </Button>
+                    </div>
+                    
+                </Container>
+            
+            )
+        } else {
+            return restaurant === null ? <Spinner/> : <ErrorPage />
+        }
+
         
-        )
     }
 }
 

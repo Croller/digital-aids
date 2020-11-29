@@ -2,67 +2,85 @@
 #root {
     .main{
 
-        .restaurant-details{
-            padding: 2em 2em 1em;
-            & > div {
-                margin-bottom : 1em;
-            }
 
-            .stuck-under{
-                margin-top: calc(-#{$mainTopMargin} - 6px);
-            }
-            margin-bottom: 2em;
-        }
+        .hamburger-menu{
 
-        .cat-button {
-            
-            flex-grow: 1;
-            margin: 12px 0;
-            font-size: 20px;
-            text-transform: none;
-            span{
+            // .restaurant-details{
+            //     padding: 2em 2em 1em;
+            //     & > div {
+            //         margin-bottom : 1em;
+            //     }
+    
+            //     .stuck-under{
+            //         margin-top: calc(-#{$mainTopMargin} - 6px);
+            //     }
+            //     margin-bottom: 2em;
+            // }
+    
+            .main-title{
+                font-weight: 700;
+                font-size: 16px;
+                text-align: center;
+                text-transform: uppercase;
+            }
+    
+            .cat-button {
+                
+                flex-grow: 1;
+                margin: 12px 0;
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: none;
+                min-height: 60px;
+    
+                .icon{
+                    // color: $green;
+                    fill: $gray;
+                }
+                span{
+                    display: flex;
+                    flex-direction: column;
+                    > div {
+                        display: flex;
+                        margin: 2px 0;
+                        line-height: 1em;
+                    }
+                    .title{
+                        color: black;
+                    }
+                    .default-title{
+                        color: $gray;
+                    }
+                }
+            }
+    
+            .details-text{
+                div {
+                    svg {
+                        color: $accent;
+                        margin-right: 0.2em;
+                    }
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-bottom: 1.5em;
+                }
+            }
+    
+            .call-buttons{
                 display: flex;
                 flex-direction: column;
-                > div {
-                    display: flex;
-                    margin: 2px 0;
-                    line-height: 1em;
-                }
-                .title{
-                    color: black;
-                }
-                .default-title{
-                    color: $gray;
-                }
-            }
-        }
-
-        .details-text{
-            div {
-                svg {
-                    color: $accent;
-                    margin-right: 0.2em;
-                }
-                display: flex;
-                flex-direction: row;
                 align-items: center;
-                margin-bottom: 1.5em;
-            }
-        }
-
-        .call-buttons{
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            button{
-                margin: 0.4em;
-                width: 192px;
-                background-color: $accent;
-                color: white;
-                svg {
-                    color: white;
     
+                button{
+                    margin: 0.4em;
+                    width: 192px;
+                    background-color: $accent;
+                    color: white;
+                    svg {
+                        color: white;
+        
+                    }
                 }
             }
         }

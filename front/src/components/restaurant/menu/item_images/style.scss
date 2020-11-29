@@ -1,167 +1,110 @@
 
 @import "../../../../variables.scss";
 
+
+
 #root {
     .main{
+        .template-images {
 
-        // .rest-menu{
+            $item-padding: 24px;
 
-            div:last-child > .rest-menu-item{
-                border-bottom: none!important; // remove  bottom border at the bottom of the list
+            .category-body{
+                box-shadow: none;
+                padding: 0;
             }
 
-            .rest-menu-item{
-
-                &.ordered {
-
-                    .price, .dish-index {
-                        background-color: $accent!important; // this is bad code (
-                        border: $accent!important; // this is also bad code (
-                    }
-
-                    .dish-title-box{
-
-                        .title-default {
-                            color: $accent;
-                        }
-                    }
-                }
-
-                display: flex;
-                /* background: #eee; */
-                /* border: 1px solid #999; */
-                /* border-radius: 10px; */
-                border-bottom: 1px solid $light-gray;
-                padding: 1em;
-                flex-direction: row;
-                justify-content: stretch;
-                align-items: center;
-                cursor: pointer;
-
-                .dish-index{
-                    background: $dark;
-                    width: 30px;
-                    height: 30px;
-                    display: flex;
-                    border-radius: 6px;
-                    color: white;
-                    font-size: 1em;
-                    align-items: center;
-                    justify-content: center;
-                    margin-right: 0.8em;
-                }
-
-                .dish-title-box{
-                    display: flex;
-                    flex-direction: column;
-
-                    > div {
-                        display: flex;
-                        align-items: center;
-                    }
+            .card-menu-item{
+    
+                background: #FFFFFF;
+                box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                overflow: hidden;
+    
+                .card-container{
                     
-                    .title-main{
-                        color: black;
-                        font-size: 1.1em;
-                        font-weight: 500;
-                    }
-
-                    .title-default{
-                        font-size: 1em;
-                        font-weight: 500;
-                        color: $darker;
-                    }
-                }
-
-                .price-container{
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    justify-content: flex-end;
-
-                    @media screen and (max-width: 600px ) {
-                        justify-content: flex-start;
-                        margin-top: 1em;
-                    }
-
-                    > div, > span {
-                        margin-right: 0.8em; 
-                        &:last-child{
-                            margin-right: 0;
-                        }
-                    }
-
-                    .button {
-                        height: 35px;
-                        
-                        
+                    .dish-index{
+                        background: $dark;
+                        width: 30px;
+                        min-width: 30px;
+                        height: 30px;
                         display: flex;
+                        border-radius: 6px;
+                        color: white;
+                        font-size: 1em;
                         align-items: center;
                         justify-content: center;
-                        font-weight: 600;
-                        border-radius: 6px;
-                        border: 1px solid;
-                        font-size: 2em;
-                        &.square {                            
-                            width: 35px;                                
-                            min-width: 35px;
-                        }
+                        margin-right: 0.8em;
 
-                        &.invisible {
-                            color: transparent;
-                            border-color: transparent;
+                        align-self: flex-start; // align to top
+                    }
+
+
+                    .dish-image{
+                        background-size: cover;
+                        background-position: center;
+                        @media screen and (max-width:$bp_2) {
+                            padding-bottom: 56%;
                         }
                     }
-                    .price {
-                        
-                        
 
-                        background: $darker;
-                        height: 35px;
-                        width: 81px;
-                        padding-left: 0.5em;
-                        padding-right: 0.5em;
-                        font-size: 1.1em;
-                        color: white;
-                        font-weight: 600;                        
+                    .tags{
+                        margin-top: 4px;
+                        img {
+                            width: 32px;
+                            margin-right: 2px;
+                        }
                     }
-                    .quantity-badge {
-                        .lid{
-                            font-size: 1em;
-                        }
-                        .MuiBadge-badge{
-                            background-color: $green;
-                            color: rgba(255,255,255,0.6);
-                            right: 5px;
-                        }
-                    } 
-                    .quantity{
-                        
-                        display: flex;
-                        color: $darker;
-                        border: solid $darker;
-                        border-radius: 6px;
-                        &.positive{
-                            background: $accent;
-                            border-color: $accent;
-                            color: white;
 
-                            svg {
-                                font-size: 2em;
+                    .price-container{
+                        padding: $item-padding;
+                        .button {
+                            height: 33px;
+                            
+                            margin-right: 16px;                            
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            font-weight: 600;
+                            border-radius: 6px;
+                            border: 1px solid;
+                            font-size: 2em;
+
+                            &:last-child{
+                                margin-right: 0;
+                            }
+                            &.square {                            
+                                width: 35px;                                
+                                min-width: 35px;
+                            }
+    
+                            &.invisible {
+                                color: transparent;
+                                border-color: transparent;
+                            }
+    
+                            &.black {
+                                background: $darker;
+                                color: white;
+                            }
+    
+                            &.qty{
+                                font-size: 1em;
                             }
                         }
-                    }
-
-                    .remove-dish{
-                        color: white;
-                        background: $danger;
-                        border: 1px solid $danger;
-                        font-size: 2em;
-                        font-weight: 300;
+                        .price{
+                            background: $darker;
+                            height: 35px;
+                            width: calc(81px - 1em);
+                            padding-left: 0.5em;
+                            padding-right: 0.5em;
+                            font-size: 1.1em;
+                            color: white;
+                            font-weight: 600;     
+                        }
                     }
                 }
-
             }
-        // }
+        }
     }
 }

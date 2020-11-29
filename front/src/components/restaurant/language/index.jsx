@@ -55,21 +55,32 @@ class LanguageSelector extends React.Component{
 
     render(){
         const {restaurant, selected } = this.state
-
-        if( selected ) return <Redirect to={`/${restaurant.slug}`}/>
+        
         if( ! restaurant ) 
             return <Spinner />
-        else
-            return(
-                <div className="language-selector">
-                    <TopBar restaurant={restaurant} showSearch={false} showHamburger={false} />
-                    <Container>
-                        <div className="panel lang-list">
-                            {restaurant.languages.map( l => <LangItem {...l} onClick={() => this.selectLanguage(l.id) } /> )}
-                        </div>
-                    </Container>
-                </div>
-            )
+
+        // can send back link via props, fallback to menu
+        const back = this.props.location.state ? this.props.location.state.back  : `/${restaurant.slug}`;
+        
+        console.debug("Back:", back, this.props);
+
+        if( selected ) 
+            // if( this.props.history ){
+            //     console.debug("history exists, going back")
+            //     this.props.history.goBack()
+            // }else
+                return <Redirect to={ back }/>
+        
+        return(
+            <div className="language-selector">
+                <TopBar restaurant={restaurant} showSearch={false} showHamburger={false} />
+                <Container>
+                    <div className="panel lang-list">
+                        {restaurant.languages.map( l => <LangItem {...l} onClick={() => this.selectLanguage(l.id) } /> )}
+                    </div>
+                </Container>
+            </div>
+        )
     }
 }
 
