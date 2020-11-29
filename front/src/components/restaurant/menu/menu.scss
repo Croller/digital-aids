@@ -7,16 +7,20 @@
             @media screen and (max-width: $bp_2 ){
                 display: none;
             }
-            margin: 0 -0.4em;
+           
+            margin: 0 -1.4em 0;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             flex-wrap: wrap;
             position: sticky;
-            top: 82px;
+            top: 60px;
             background: white;
             z-index: 20;
             font-size: 18px;
+            padding: 1em;
+            /* backdrop-filter: blur(5px); */
+            box-shadow: 0 10px 10px white;
 
             &:after {
                 content: " ";
