@@ -79,7 +79,7 @@ class RestaurantComponent extends React.Component{
                 <Social {...restaurant} />
                 <Footer {...restaurant} />
             </>
-            : restaurant === null ? <Spinner/> : <ErrorPage /> // <h2>Error loading data</h2>
+            : restaurant === null ? <Spinner/> : <ErrorPage {...{slug, language}} /> // <h2>Error loading data</h2>
         )
     }
 }

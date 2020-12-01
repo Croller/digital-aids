@@ -15,6 +15,7 @@
 
 import {ReactComponent as PhoneCall} from '../../../assets/svg/phone-call.svg'
 import {ReactComponent as Chef} from '../../../assets/svg/chef.svg'
+import {ReactComponent as ChefHead} from '../../../assets/svg/chef-head.svg'
 import {ReactComponent as Cloche} from '../../../assets/svg/cloche.svg'
 import {ReactComponent as World} from '../../../assets/svg/world.svg'
 import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
@@ -48,6 +49,7 @@ export {
     // tag_sulphite,
 
     Chef,
+    ChefHead,
     Cloche,
     Exclamation,
     Plate,
