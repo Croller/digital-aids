@@ -1,13 +1,18 @@
 const baseService           = require("./baseService")
 const translationService    = require("./translation")
+
 const _f = require("fetsch")
 
 const defautlFields = "r.*"
+const defaultLang = "en"
 
-const rests             = require("../data/restaurants.json")
+const rests             = require( '../data/restaurants.json')
 const cuisines_list     = require( '../data/cuisines.json')
 const dishes            = require( '../data/dishes.json')
 const categories_list   = require( '../data/categories.json')
+const menus             = require( '../data/menus.json')
+const menu_dishes       = require( '../data/menu-dishes.json')
+// const translations      = require( '../data/translations.json')
 
 qRestaurants = 
 "SELECT %fields% FROM restaurants r \
@@ -24,7 +29,7 @@ class RestService extends baseService{
      * Get single restaurant by slug
      * @param {*} slug 
      */
-    static async get( slug, lang = "en" ){
+    static async get( slug, lang = defaultLang ){
         const restid = `restaurant_${slug}`
 
         if( !this.cacheExists(restid)){
@@ -45,7 +50,7 @@ class RestService extends baseService{
                         c => {
 
                             const cuisine = cuisines_list.find( c1=> c1.cuisineid === c )
-                            return cuisine[lang] || cuisine["en"]
+                            return cuisine[lang] || cuisine[defaultLang]
                         }) 
                     
 
@@ -123,7 +128,8 @@ class RestService extends baseService{
     }
 
 
-    static async getRestorauntMenu( id, lang = "en", default_lang = "en" ){
+    static async getRestorauntMenu( id, lang = defaultLang, default_lang = defaultLang ){
+
         console.debug(lang, default_lang)
         let result = dishes.filter( d => d.dishrestaurtantid === id )
         .map( dish => { 
@@ -151,6 +157,74 @@ class RestService extends baseService{
         
 
         return result;
+    }
+
+    /**
+     * 
+     * @param {*} id 
+     * @param {Date} now Date object. Time for which to choose the menus.
+     * @param {*} lang string two-letter ISO language code, main language to translate the menu into
+     * @param {*} default_lang string two-letter ISO language code, default language of the restaurant
+     */
+    static async getRestaurantMenus( id, now, lang = defaultLang, default_lang = defaultLang ){
+        // TODO: validate 'now' type
+
+        // TODO: offset GMT for each restaurant.
+        const weekday = now.getDay() + 1
+        const daytime = now.getHours() * 60 + now.getMinutes() // convert time to integer
+
+        // console.log( "weekday:", weekday, "daytime:", daytime)
+        let rest_menus = menus.filter( m => 
+            m.restaurantid === id &&
+            (!m.activedays || m.activedays === weekday) &&
+            (!m.hourfrom || m.hourfrom * 60 <= daytime ) && // comparing time * 60 with converted daytime
+            (!m.hourto || m.hourto * 60 >= daytime )
+        );
+
+        if( Array.isArray(rest_menus) && rest_menus.length > 0 ){
+            rest_menus = rest_menus.map ( m => {
+
+                const _t = translationService._T( lang, default_lang )
+                
+                const title = _t(m.titletranslationid, 1)
+                const default_title = _t(m.titletranslationid)
+
+                const items = menu_dishes.filter(d => 
+                    d.restaurantid === id &&
+                    d.menuid === m.menuid 
+                    ).map( async d => {
+                        const dish = dishes.find( dd => d.dishid === dd.dishid )
+                        // let translated = await translationService.getByKeys( [ dish.translationid ], lang, default_lang )
+                        // console.debug("translated:", translated)
+                        
+                        const title = _t(dish.translationid, 1)
+                        const default_title = _t(dish.translationid)
+
+                        const {
+                            dishid,
+                            dishprice,
+                            dishcategoryid,
+                            image,
+                            dishmenuid,
+                            tags
+                        } = dish
+                        return {
+                            dishid,
+                            dishprice,
+                            dishcategoryid,
+                            image,
+                            dishmenuid,
+                            tags: tags ? tags.split(",") : [],
+                            title,
+                            default_title
+                        }
+                    })  
+
+                return {...m, title, default_title, items}
+            })
+        }
+        // console.debug(rest_menus)
+        return rest_menus;
     }
     
 }

@@ -95,5 +95,21 @@ class TranslateService extends baseService{
 
 baseService.extend(TranslateService)
 
+/**
+ * A function factory that returns a function to translate into 2 languages: target language and restaurant's default language
+ * @param {*} language target language code
+ * @param {*} def_language restaurant's default language cod
+ */
+TranslateService._T = (language, def_language ) =>
+// returns a function that will transate based on given key and index (index being 1 or anything else)
+(key, ind ) => 
+// if ind = 1 returns translation in current language, or key if not found
+ind === 1 ? translate(key)[language] || key : 
+// otherwise returns translation in restaurant's default language, or in requested language if found, or key if not found
+translate(key)[def_language] || translate(key)[language] || key
+
+// finds translation in translations object
+const translate = (key) => trans.find( i => i.translationid === key ) ||  {}
+
 
 module.exports = TranslateService
