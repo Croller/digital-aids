@@ -64,9 +64,11 @@ describe('Check menus selection functionality', function () {
             {
                 id: m.menuid,
                 title: m.title + " / " + m.default_title,
-                item_count: m.items.length
+                item_count: m.items.length,
+                categories: m.categories,
             }
         ))
+        // console.debug("Categories:\n", m.categories)
         // console.debug("Fetched dishes: \n", menus[0]["items"][0] )
     });
 })

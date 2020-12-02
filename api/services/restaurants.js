@@ -55,68 +55,48 @@ class RestService extends baseService{
                     
 
                     rest.languages = await translationService.languagesByRestaurant(slug)
-                        
-                    const menu = await this.getRestorauntMenu( rest.id, lang, defaultlanguage )
-                    /// gather the categories
-                    const uniqueCategories = menu.reduce( (cats, item) => {
-                        if( !cats.includes(item.dishcategoryid) )
-                            return [...cats, item.dishcategoryid ]
-                        else
-                            return cats
-                    }, [])
-
-                    const categories = uniqueCategories.map( 
-                        c => {
-                            const foundCat = categories_list.find( cc => cc.categoryid === c)
-                            let title, titledefault
-                            if( foundCat ){
-                                title = foundCat[`categorytitle${lang}`] || foundCat[`categorytitleen`]
-                                titledefault =  
-                                    lang === defaultlanguage ? null :
-                                foundCat[`categorytitle${defaultlanguage}`] || foundCat[`categorytitleen`]
-                            } else {
-                                console.error("Category not found: ", c, ", using ID as title")
-                                title = c
-                            }
-
-                            return {
-                                id: c, 
-                                title, titledefault
-                            }
-                        }
+                    
+                    const menus = await this.getRestaurantMenus(
+                        rest.id, 
+                        new Date(),
+                        lang, defaultlanguage
                     )
-                    rest = {...rest, menu, categories }
+                    // const menu = await this.getRestorauntMenu( rest.id, lang, defaultlanguage )
+                    // /// gather the categories
+                    // const uniqueCategories = menu.reduce( (cats, item) => {
+                    //     if( !cats.includes(item.dishcategoryid) )
+                    //         return [...cats, item.dishcategoryid ]
+                    //     else
+                    //         return cats
+                    // }, [])
+
+                    // const categories = uniqueCategories.map( 
+                    //     c => {
+                    //         const foundCat = categories_list.find( cc => cc.categoryid === c)
+                    //         let title, titledefault
+                    //         if( foundCat ){
+                    //             title = foundCat[`categorytitle${lang}`] || foundCat[`categorytitleen`]
+                    //             titledefault =  
+                    //                 lang === defaultlanguage ? null :
+                    //             foundCat[`categorytitle${defaultlanguage}`] || foundCat[`categorytitleen`]
+                    //         } else {
+                    //             console.error("Category not found: ", c, ", using ID as title")
+                    //             title = c
+                    //         }
+
+                    //         return {
+                    //             id: c, 
+                    //             title, titledefault
+                    //         }
+                    //     }
+                    // )
+                    // rest = {...rest, menu, categories }
+                    rest = {...rest, menus}
                 } 
                 // console.log("Rest:" , rest)
                 return rest
 
-                // const q = _f.strFormat(
-                //     qRestaurants, 
-                //     {
-                //         "%fields%" :  defaultFields,
-                //         "%where%": "active='1' AND deleted='0' AND r.slug=?",
-                //         "%limit%": "LIMIT 1",
-                //         "%groupby%": "GROUP BY u.id"
-                //     }
-                // )
-    
-                // // console.debug(q)
-                // const [restaurants] = await this.DB.query(
-                //     q,
-                //     [slug]
-                // )
-    
-                // if( Array.isArray(restaurants) && restaurants.length > 0){
-                //     // array is received, fetch first element and cache it
-                //     this.cache(restid, restaurants[0] )
-                //     // return cached
-                //     return this.getCached(restid) 
-
-                // } else {
-                //     // no array or empty array is received
-                //     this.Error("Restaurant not found")
-                //     return false
-                // }
+               
             } catch(e){
                 console.error("Error fetching single restaurant: ", e.message )
                 this.Error("Database error")
@@ -190,37 +170,69 @@ class RestService extends baseService{
                 const default_title = _t(m.titletranslationid)
 
                 const items = menu_dishes.filter(d => 
-                    d.restaurantid === id &&
-                    d.menuid === m.menuid 
-                    ).map( async d => {
-                        const dish = dishes.find( dd => d.dishid === dd.dishid )
-                        // let translated = await translationService.getByKeys( [ dish.translationid ], lang, default_lang )
-                        // console.debug("translated:", translated)
-                        
-                        const title = _t(dish.translationid, 1)
-                        const default_title = _t(dish.translationid)
+                d.restaurantid === id &&
+                d.menuid === m.menuid 
+                ).map( d => {
+                    const dish = dishes.find( dd => d.dishid === dd.dishid )
+                    // let translated = await translationService.getByKeys( [ dish.translationid ], lang, default_lang )
+                    // console.debug("translated:", translated)
+                    
+                    const title = _t(dish.translationid, 1)
+                    const default_title = _t(dish.translationid)
 
-                        const {
-                            dishid,
-                            dishprice,
-                            dishcategoryid,
-                            image,
-                            dishmenuid,
-                            tags
-                        } = dish
+                    const {
+                        dishid,
+                        dishprice,
+                        dishcategoryid,
+                        image,
+                        dishmenuid,
+                        tags
+                    } = dish
+                    return {
+                        dishid,
+                        dishprice,
+                        dishcategoryid,
+                        image,
+                        dishmenuid,
+                        tags: tags ? tags.split(",") : [],
+                        title,
+                        default_title
+                    }
+                })  
+
+                const uniqueCategories = items.reduce( (cats, item) => {
+                    if( !cats.includes(item.dishcategoryid) )
+                        return [...cats, item.dishcategoryid ]
+                    else
+                        return cats
+                }, [])
+                
+                console.debug("Unique categories:", uniqueCategories)
+                const categories = uniqueCategories.map( 
+                    c => {
+                        // const foundCat = categories_list.find( cc => cc.categoryid === c)
+
+                        const title = _t(c, 1)
+                        const titledefault = _t(c)
+                        // let title, titledefault
+                        // if( foundCat ){
+                        //     title = foundCat[`categorytitle${lang}`] || foundCat[`categorytitleen`]
+                        //     titledefault =  
+                        //         lang === defaultlanguage ? null :
+                        //     foundCat[`categorytitle${defaultlanguage}`] || foundCat[`categorytitleen`]
+                        // } else {
+                        //     console.error("Category not found: ", c, ", using ID as title")
+                        //     title = c
+                        // }
+
                         return {
-                            dishid,
-                            dishprice,
-                            dishcategoryid,
-                            image,
-                            dishmenuid,
-                            tags: tags ? tags.split(",") : [],
-                            title,
-                            default_title
+                            id: c, 
+                            title, titledefault
                         }
-                    })  
+                    }
+                )
 
-                return {...m, title, default_title, items}
+                return {...m, title, default_title, categories,  items}
             })
         }
         // console.debug(rest_menus)
