@@ -46,3 +46,14 @@ $colors: (
       "light-gray-2": $light-gray-2,
       
     ); 
+
+
+@mixin sticky {
+  position: sticky;
+  position: -webkit-sticky;
+}
+
+@mixin v-scroll{
+  overflow-y: scroll; /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+}

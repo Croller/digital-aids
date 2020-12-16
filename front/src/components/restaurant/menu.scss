@@ -85,7 +85,9 @@ body{
             flex-direction: column;
             justify-content: flex-start; // important so that the category starts at the top of the page.
             // margin: 0   ;
-            overflow-y: auto;
+            // overflow-y: auto;
+            @include v-scroll;
+
             @media screen and (max-width: $bp_2){
                 
                 max-height: calc(100vh - 170px); // TODO: find the exact height to diff
@@ -96,7 +98,9 @@ body{
             }
 
             .category-header{
-                position: sticky;
+                // position: sticky;
+                @include sticky;
+
                 top: 0; //#{$headerHeight + $mainTopMargin};
                 left: 0;
                 background: white;
@@ -130,6 +134,9 @@ body{
                         // margin-left:  $categoryXmargin;
                     }
                 }
+
+
+                
             }
             .category-body{
                 padding: 1em;
@@ -138,6 +145,21 @@ body{
                     margin: 0; // #{$categoryXmargin};
                 }
                 // border-radius: 10px;
+
+            }
+        }
+
+
+        .card-menu-item{
+            // for all templates, including cart
+            .tags{
+                margin-top: 4px;
+                display: flex;
+                flex-direction: row;
+                img {
+                    width: 32px;
+                    margin-right: 2px;
+                }
             }
         }
 

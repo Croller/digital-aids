@@ -36,7 +36,8 @@
 
 
         @media screen and(max-width: $bp_1) {
-            position: sticky;
+            // position: sticky;
+            @include sticky;
             bottom: 0;
             left: 0;
         }

@@ -5,7 +5,8 @@
     .main{
 
         .language-selector {
-            overflow-y: auto;
+            // overflow-y: auto;
+            @include v-scroll;
             width: 100%;
             max-width: 583px;
             .lang-list{
