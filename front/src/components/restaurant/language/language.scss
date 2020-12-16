@@ -5,16 +5,17 @@
     .main{
 
         .language-selector {
-            // overflow-y: auto;
-            @include v-scroll;
+            overflow-y: auto;
+            // @include v-scroll;
             width: 100%;
-            max-width: 583px;
+            
             .lang-list{
+                max-width: 583px;
 
                 display: flex;
                 flex-direction: column;
                 padding: 4em 0;
-                margin: -3em 0 2em;
+                margin: -3em auto 2em;
 
 
                 @media screen and (min-width: $bp_3) {

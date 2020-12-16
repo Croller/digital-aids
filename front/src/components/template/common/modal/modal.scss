@@ -22,7 +22,7 @@ $buttonRadius: 0.35em;
                 flex-grow: 1;
                 padding-top: 1em;
                 padding-bottom: 1.6em;
-                overflow-y: auto;
+                // overflow-y: auto;
                 @include v-scroll;
             }
     

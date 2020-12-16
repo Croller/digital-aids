@@ -74,9 +74,9 @@ class RestaurantComponent extends React.Component{
             restaurant ? 
             <>
                 {/* <Topbar {...{restaurant, language, lang}} /> */}
-                <div key={slug} className="flex-grow">
-                    <Menu {...{slug, restaurant, restState }} />
-                </div>
+                {/* <div key={slug} className="flex-grow"> */}
+                    <Menu key={slug} className="flex-grow" {...{slug, restaurant, restState }} />
+                {/* </div> */}
                 {/* <Social {...restaurant} /> */}
                 {/* <Footer {...restaurant} /> */}
             </>

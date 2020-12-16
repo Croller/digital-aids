@@ -181,7 +181,7 @@ class RestaurantMenu extends React.Component {
         return (
             // categories && restaurant ?
             restaurant ?
-                <div className={`template-${restaurant.defaulttemplate} flex column align-items-center`}>
+                <div className={`template-${restaurant.defaulttemplate} flex column align-items-center flex-grow`}>
 
                     {/* <ul className="menu-list">
                         {

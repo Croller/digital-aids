@@ -14,7 +14,6 @@ body{
         } 
 
         .template-images, .template-text{
-            
             @media screen and (min-width: $bp_3) {
                 max-width: #{$containerMaxWidth + 24px}; // 24px to compensate container margins
             }
@@ -158,6 +157,7 @@ body{
                 flex-direction: row;
                 img {
                     width: 32px;
+                    height: 32px;
                     margin-right: 2px;
                 }
             }
