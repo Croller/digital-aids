@@ -479,7 +479,7 @@
         "es": "Brownie de chocolate con helado",
         "de": "Schokolade Brownie mit Eis",
         "dishtitleno": "Coulant av sjokolade med iskrem",
-        "dishtitleru": "Шоколадный брауни с мороженым"
+        "dishtitleru": "Шоколадный брауни с мороженным"
     },
     {
         "dishid": 29,
@@ -1116,7 +1116,7 @@
     {
         "dishid": 72,
         "dishprice": 6.5,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "tags": "gluten",
@@ -1130,7 +1130,7 @@
     {
         "dishid": 73,
         "dishprice": 7.4,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "tags": "hot,gluten",
@@ -1144,7 +1144,7 @@
     {
         "dishid": 74,
         "dishprice": 5.7,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "tags": "gluten",
@@ -1158,7 +1158,7 @@
     {
         "dishid": 75,
         "dishprice": 4.2,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "tags": "vegan,gluten",
@@ -1172,7 +1172,7 @@
     {
         "dishid": 76,
         "dishprice": 6.9,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "amount": "180/80",
@@ -1185,7 +1185,7 @@
     {
         "dishid": 77,
         "dishprice": 8.2,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "tags": "gluten",
@@ -1199,7 +1199,7 @@
     {
         "dishid": 78,
         "dishprice": 3.2,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "tags": "hot,gluten",
@@ -1213,7 +1213,7 @@
     {
         "dishid": 79,
         "dishprice": 9.7,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "amount": 200,
@@ -1226,7 +1226,7 @@
     {
         "dishid": 80,
         "dishprice": 8.5,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "amount": 200,
@@ -1239,7 +1239,7 @@
     {
         "dishid": 81,
         "dishprice": 14,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "amount": 200,
@@ -1252,7 +1252,7 @@
     {
         "dishid": 82,
         "dishprice": 20,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
         "amount": 350,
@@ -1597,7 +1597,7 @@
     {
         "dishid": 108,
         "dishprice": 25,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "7.jpeg",
@@ -1610,7 +1610,7 @@
     {
         "dishid": 109,
         "dishprice": 18,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "8.jpeg",
@@ -1623,7 +1623,7 @@
     {
         "dishid": 110,
         "dishprice": 2,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "9.jpeg",
@@ -1636,7 +1636,7 @@
     {
         "dishid": 111,
         "dishprice": 30,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "10.jpeg",
@@ -1649,7 +1649,7 @@
     {
         "dishid": 112,
         "dishprice": 7.4,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "11.jpeg",
@@ -1662,7 +1662,7 @@
     {
         "dishid": 113,
         "dishprice": 11.3,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "1.jpeg",
@@ -1675,7 +1675,7 @@
     {
         "dishid": 114,
         "dishprice": 3,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "2.jpeg",
@@ -1688,7 +1688,7 @@
     {
         "dishid": 115,
         "dishprice": 25,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "3.jpeg",
@@ -1701,7 +1701,7 @@
     {
         "dishid": 116,
         "dishprice": 48,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "4.jpeg",
@@ -1714,7 +1714,7 @@
     {
         "dishid": 117,
         "dishprice": 14,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "5.jpeg",
@@ -1727,7 +1727,7 @@
     {
         "dishid": 118,
         "dishprice": 3.5,
-        "dishcategoryid": "main_dishes",
+        "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 2,
         "image": "6.jpeg",
