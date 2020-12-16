@@ -1,0 +1,86 @@
+[
+    {
+        "insiderid": 1,
+        "restaurantid": 3700,
+        "translationid": "insider_001",
+        "imagetext": "Caramelized Octopus",
+        "dishid": 12
+    },
+    {
+        "insiderid": 2,
+        "restaurantid": 3700,
+        "translationid": "insider_002",
+        "imagetext": "Fillet steak “Rossini”",
+        "dishid": 18
+    },
+    {
+        "insiderid": 3,
+        "restaurantid": 3700,
+        "translationid": "insider_003",
+        "imagetext": "Mussel Casserole",
+        "dishid": 16
+    },
+    {
+        "insiderid": 4,
+        "restaurantid": 3700,
+        "translationid": "insider_004",
+        "imagetext": "Grilled fresh Scallops",
+        "dishid": 20
+    },
+    {
+        "insiderid": 5,
+        "restaurantid": 3700,
+        "translationid": "insider_005",
+        "imagetext": "Duck foie",
+        "dishid": 9
+    },
+    {
+        "insiderid": 6,
+        "restaurantid": 3700,
+        "translationid": "insider_006",
+        "imagetext": "Affogato al Café",
+        "dishid": 26
+    },
+    {
+        "insiderid": 7,
+        "restaurantid": 3701,
+        "translationid": "insider_007",
+        "imagetext": "Borsch"
+    },
+    {
+        "insiderid": 8,
+        "restaurantid": 3701,
+        "translationid": "insider_008",
+        "imagetext": "Dumplings with meat"
+    },
+    {
+        "insiderid": 9,
+        "restaurantid": 3701,
+        "translationid": "insider_009",
+        "imagetext": "Pilaf"
+    },
+    {
+        "insiderid": 10,
+        "restaurantid": 3701,
+        "translationid": "insider_010",
+        "imagetext": "Eggplants"
+    },
+    {
+        "insiderid": 11,
+        "restaurantid": 3701,
+        "translationid": "insider_011",
+        "imagetext": "Je with the fish"
+    },
+    {
+        "insiderid": 12,
+        "restaurantid": 3701,
+        "translationid": "insider_012",
+        "imagetext": "Manti"
+    },
+    {
+        "insiderid": 13,
+        "restaurantid": 3701,
+        "translationid": "insider_012",
+        "imagetext": "Chak Chak"
+    }
+]

@@ -37,6 +37,21 @@ class TranslateService extends baseService{
         }
     }
     
+    static async translateOne( key, language, defaulLanguage = fallbackLang ){
+        const cachekey = `t-${key}-${language}`
+        if( !this.cacheExists(cachekey) ){
+            const found = trans.find( t => t.translationid === key )
+            if( found ){
+                const result = found[language] || found[defaulLanguage] || key
+                this.cache(cachekey, result)
+            } else {
+                this.cache(cachekey, key)
+            }
+            return this.getCached(cachekey);
+        } else {
+            return this.getCached(cachekey);
+        }
+    }
 
     static async getByKeys( keys, lang=fallbackLang, default_lang=fallbackLang ){
         
@@ -59,23 +74,41 @@ class TranslateService extends baseService{
             if( Array.isArray(keys) ){
                 let t // to reference in error catch
                 try {
-    
-                    const result =  keys.reduce( (res, key) => {
-                        const found = trans.find( t => t.translationid === key )
-                        if( found && typeof found === "object" ){
-                            return {...res, 
-                                [key]: { 
-                                    [lang]: found[lang] || found[fallbackLang] , 
-                                    [default_lang]: found[default_lang] || found[fallbackLang]  } }
-                        } else return res
-                    }, {} )
+                    let i = 0;
+                    let result = {}
+                    while( i < keys.length ){
+                        const key = keys[i];
+                        const tr1 = await this.translateOne(key, lang );
+                        const tr2 = await this.translateOne(key, default_lang );
+                        i+=1
+                        // add translation pair
+                        result[key] = {
+                            [lang] : tr1 ,
+                            [default_lang]: tr2
+                        }
+                    }
+                    // const result =  keys.reduce( async (res, key) => {
+                    //     const tr1 = await this.translateOne(key, lang );
+                    //     const tr2 = await this.translateOne(key, default_lang );
+                    //     return {...res, 
+                    //         [lang] : tr1 ,
+                    //         [default_lang]: tr2
+                    //     }
+                    //     // const found = trans.find( t => t.translationid === key )
+                    //     // if( found && typeof found === "object" ){
+                    //     //     return {...res, 
+                    //     //         [key]: { 
+                    //     //             [lang]: found[lang] || found[fallbackLang] , 
+                    //     //             [default_lang]: found[default_lang] || found[fallbackLang]  } }
+                    //     // } else return res
+                    // }, {} )
 
                     this.cache( cachekey, result )
                     return this.getCached(cachekey)
     
                 } catch(e){
                     this.Error("Error translating request")
-                    console.error("Error translating. Request:", keys, "\nKey with error: ", t )
+                    console.error("Error translating. Request:", keys, "\nKey with error: ", t, "error:", e )
                     return false
                 }
     

@@ -4,9 +4,10 @@
         "slug": "las-cuevas",
         "title": "Las Cuevas",
         "image": "logo.png",
+        "photos": "01.jpg,02.jpg,03.jpg,04.jpg,05.jpg",
         "cuisines": "inter,medi,euro",
-        "defaulttemplate": "text",
-        "languages": "en,es,no,ru,it,el,de,ko",
+        "defaulttemplate": "images",
+        "languages": "en,de,fr,es,ru",
         "defaultlanguage": "es",
         "workinghours": "17.00-22.00",
         "phone": "34 600 00 11 17",
@@ -14,7 +15,14 @@
         "address": "Barrio 1. De Mayo no 13, 03193 San Miguel de Salinas Spain",
         "facebook": "https://www.facebook.com/Restaurantelascuevas/?ref=bookmarks",
         "instagram": "https://www.instagram.com/lascuevasrestaurante/",
-        "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html"
+        "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html",
+        "tripadvisorrating": 3,
+        "tripadvisorcomments": 74,
+        "thefork": "#!",
+        "theforkrating": 9.4,
+        "theforkcomments": 84,
+        "lat": 37.9764644942575,
+        "lng": -0.787014502283371
     },
     {
         "id": 3701,
@@ -22,13 +30,19 @@
         "title": "Galacafe",
         "image": "logo-galacafe.jpg",
         "cuisines": "korean,asian",
-        "defaulttemplate": "images",
-        "languages": "en,es,no,ru,it,el,de,ko",
+        "defaulttemplate": "text",
+        "languages": "en,de,fr,es,ru",
         "defaultlanguage": "es",
         "workinghours": "12.00- 22.00, Mon/Tue-closed",
         "phone": "34 634 30 44 42",
         "address": "Carr. de Denia A Xabia, 38, 03700, Denia, Spain",
         "facebook": "https://www.facebook.com/galacafe.restaurant",
-        "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g609043-d8684373-Reviews-Galacafe-Denia_Costa_Blanca_Province_of_Alicante_Valencian_Country.html"
+        "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g609043-d8684373-Reviews-Galacafe-Denia_Costa_Blanca_Province_of_Alicante_Valencian_Country.html",
+        "tripadvisorcomments": 67,
+        "thefork": "#!",
+        "theforkrating": 8.4,
+        "theforkcomments": 63,
+        "lat": 38.836347565087,
+        "lng": 0.117865111235874
     }
 ]

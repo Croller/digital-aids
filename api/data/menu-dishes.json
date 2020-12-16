@@ -137,11 +137,6 @@
     {
         "restaurantid": 3700,
         "menuid": 1,
-        "dishid": 28
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 1,
         "dishid": 29
     },
     {
@@ -152,17 +147,7 @@
     {
         "restaurantid": 3700,
         "menuid": 1,
-        "dishid": 31
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 1,
         "dishid": 32
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 1,
-        "dishid": 33
     },
     {
         "restaurantid": 3700,
@@ -623,5 +608,30 @@
         "restaurantid": 3701,
         "menuid": 2,
         "dishid": 125
+    },
+    {
+        "restaurantid": 3701,
+        "menuid": 3,
+        "dishid": 112
+    },
+    {
+        "restaurantid": 3701,
+        "menuid": 3,
+        "dishid": 114
+    },
+    {
+        "restaurantid": 3701,
+        "menuid": 3,
+        "dishid": 116
+    },
+    {
+        "restaurantid": 3701,
+        "menuid": 3,
+        "dishid": 118
+    },
+    {
+        "restaurantid": 3700,
+        "menuid": 3,
+        "dishid": 58
     }
 ]

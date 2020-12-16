@@ -3,19 +3,42 @@
         "translationid": "Menu",
         "en": "Menu",
         "es": "Menú",
-        "ru": "Меню"
+        "el": "Μενού",
+        "it": "Menù",
+        "de": "Speisekarte",
+        "fr": "Menu",
+        "no": "Meny",
+        "jp": "メニュー",
+        "ko": "메뉴",
+        "ru": "Меню",
+        "ch": "菜单"
     },
     {
         "translationid": "DailyMenu",
         "en": "Daily Menu",
         "es": "Menú del día",
-        "ru": "Меню дня"
+        "el": "Καθημερινό μενού",
+        "it": "Il menu di oggi",
+        "de": "Tagesmenü",
+        "fr": "Menu du jour",
+        "no": "Dagens meny",
+        "jp": "今日のメニュー",
+        "ko": "오늘의 메뉴",
+        "ru": "Меню дня",
+        "ch": "今天的菜单"
     },
     {
         "translationid": "TakeAwayMenu",
-        "en": "Take away menu",
+        "en": "Takeaway menu",
         "es": "Menú para llevar",
-        "ru": "Меню на вынос"
+        "it": "Takeaway menu",
+        "de": "Menü zum Mitnehmen",
+        "fr": "Plats à emporter",
+        "no": "Takeaway-meny",
+        "jp": "テイクアウトメニュー",
+        "ko": "테이크 아웃 메뉴",
+        "ru": "Меню на вынос",
+        "ch": "外卖菜单"
     },
     {
         "translationid": "cold_app",
@@ -24,7 +47,7 @@
         "el": "Κρύα ορεκτικά",
         "it": "Antipasti freddi",
         "de": "Kalte Vorspeisen",
-        "fr": "Tapas froides",
+        "fr": "Apéritifs froids",
         "no": "Kalde forretter",
         "jp": "冷たい前菜",
         "ko": "차가운 전채",
@@ -35,13 +58,13 @@
         "translationid": "hot_app",
         "en": "Hot Appetizers",
         "es": "Tapas Calientes",
-        "el": "Καυτό τάπας",
-        "it": "Tapas calde",
-        "de": "Heiße Tapas",
-        "fr": "Tapas chaudes",
-        "no": "Varm tapas",
-        "jp": "ホットタパス",
-        "ko": "뜨거운 타파스",
+        "el": "Ζεστά ορεκτικά",
+        "it": "Antipasti caldi",
+        "de": "Heiße Vorspeisen",
+        "fr": "Apéritifs chauds",
+        "no": "Varme forretter",
+        "jp": "ホット前菜",
+        "ko": "뜨거운 전채",
         "ru": "Горячие закуски",
         "ch": "热开胃菜"
     },
@@ -54,8 +77,8 @@
         "de": "Pasta",
         "fr": "Pâtes",
         "no": "Pasta",
-        "jp": "パスタ",
-        "ko": "파스타",
+        "jp": "スパゲッティ",
+        "ko": "스파게티",
         "ru": "Паста",
         "ch": "意大利面"
     },
@@ -78,8 +101,8 @@
         "en": "Desserts",
         "es": "Postres",
         "el": "Επιδόρπιο",
-        "it": "Dessert",
-        "de": "Dessert",
+        "it": "Dolci",
+        "de": "Nachspeisen",
         "fr": "Dessert",
         "no": "Dessert",
         "jp": "デザート",
@@ -88,18 +111,23 @@
         "ch": "甜点"
     },
     {
-        "translationid": "our_strong_des",
-        "en": "Our Strong Desserts",
-        "es": "Postres Fuertes",
-        "de": "Starke Desserts",
-        "fr": "Desserts forts",
-        "no": "Sterke desserter",
-        "ru": "Крепкие десерты"
+        "translationid": "drinks",
+        "en": "Drinks",
+        "es": "Bebidas",
+        "el": "Ποτά",
+        "it": "Bevande",
+        "de": "Getränke",
+        "fr": "Breuvages",
+        "no": "Drikker",
+        "jp": "飲み物",
+        "ko": "음료수",
+        "ru": "Напитки",
+        "ch": "饮料"
     },
     {
         "translationid": "children",
         "en": "Children's Menu",
-        "es": "Menu de Niños",
+        "es": "Menú infantil",
         "el": "Παιδικό μενού",
         "it": "Menu per bambini",
         "de": "Kindermenü",
@@ -109,20 +137,6 @@
         "ko": "어린이 메뉴",
         "ru": "Меню для детей",
         "ch": "儿童菜单"
-    },
-    {
-        "translationid": "drinks",
-        "en": "Drinks",
-        "es": "Bebidas",
-        "el": "Αναψυκτικά",
-        "it": "Bevande",
-        "de": "Getränke",
-        "fr": "Boissons",
-        "no": "Drikker",
-        "jp": "飲み物",
-        "ko": "음료수",
-        "ru": "Напитки",
-        "ch": "饮料"
     },
     {
         "translationid": "daily_menu_app",
@@ -143,7 +157,7 @@
         "en": "Degustation menu",
         "es": "Menú degustación",
         "el": "Μενού απογύμνωσης",
-        "it": "Menu degustazione",
+        "it": "Menù degustazione",
         "de": "Degustationsmenü",
         "fr": "Menu de dégustation",
         "no": "Degustasjonsmeny",
@@ -157,13 +171,13 @@
         "en": "Chef dishes",
         "es": "Platos del Chef",
         "el": "Σεφ πιάτα",
-        "it": "I piatti dello Chef",
-        "de": "Die Gerichte des Chef",
-        "fr": "Les plats du Chef",
+        "it": "Piatti dello Chef",
+        "de": "Gerichte des Chef",
+        "fr": "Plats du Chef",
         "no": "Kokkens retter",
         "jp": "シェフの名物",
-        "ko": "셰프의 특선 요리",
-        "ru": "Фирменные блюда от шеф-повара",
+        "ko": "샐러드",
+        "ru": "Блюда от шеф-повара",
         "ch": "厨师菜"
     },
     {
@@ -187,7 +201,7 @@
         "el": "Κρασί",
         "it": "Vino",
         "de": "Wein",
-        "fr": "Du vin",
+        "fr": "Vin",
         "no": "Vin",
         "jp": "ワイン",
         "ko": "포도주",
@@ -223,104 +237,226 @@
         "ch": "鸡尾酒"
     },
     {
-        "translationid": "our_strong_dessert_licor",
-        "en": "Licors",
+        "translationid": "licor",
+        "en": "Liqueurs",
         "es": "Licores",
-        "de": "Licors",
-        "fr": "Licors",
-        "no": "Licors",
-        "ru": "Ликеры"
+        "el": "Λικέρ",
+        "it": "Liquori",
+        "de": "Liköre",
+        "fr": "Liqueurs",
+        "no": "Likører",
+        "jp": "リキュール",
+        "ko": "리큐어",
+        "ru": "Ликеры",
+        "ch": "酒"
     },
     {
-        "translationid": "our_strong_dessert_brandy",
+        "translationid": "tea_coffee",
+        "en": "Tea&Coffee",
+        "es": "Te&Cafe",
+        "el": "Τσάι&Kαφές",
+        "it": "Tè&Caffè",
+        "de": "Tee&Kaffee",
+        "fr": "Thé&Café",
+        "no": "Te&Kaffe",
+        "jp": "紅茶とコーヒー",
+        "ko": "차와 커피",
+        "ru": "Чай&Кофе",
+        "ch": "茶和咖啡"
+    },
+    {
+        "translationid": "beverages",
+        "en": "Beverages",
+        "es": "Refrescos",
+        "el": "Αναψυκτικά",
+        "it": "Bevande analcoliche",
+        "de": "Alkoholfreie Getränke",
+        "fr": "Boissons non alcoolisées",
+        "no": "Drikkevarer",
+        "jp": "ソフトドリンク",
+        "ko": "청량 음료",
+        "ru": "Безалкогольный напиток",
+        "ch": "软饮料"
+    },
+    {
+        "translationid": "brandy",
         "en": "Brandy",
         "es": "Brandy",
+        "el": "μπράντυ",
+        "it": "Brandy",
         "de": "Brandy",
         "fr": "Brandy",
         "no": "Brandy",
-        "ru": "Бренди"
+        "jp": "ブランデー",
+        "ko": "브랜디",
+        "ru": "Бренди",
+        "ch": "白兰地"
     },
     {
-        "translationid": "main_dishes",
-        "en": "Main dishes",
+        "translationid": "main_courses",
+        "en": "Main courses",
         "es": "Platos principales",
-        "ru": "Главные блюда"
+        "el": "Κύρια πιάτα",
+        "it": "Piatti principali",
+        "de": "Hauptgänge",
+        "fr": "Plats principaux",
+        "no": "Hovedretter",
+        "jp": "メインディッシュ",
+        "ko": "메인 요리",
+        "ru": "Основные блюда",
+        "ch": "主菜"
     },
     {
         "translationid": "1pc",
         "en": "1 piece",
         "es": "1 pz",
-        "ru": "1 шт"
+        "el": "1 κομμάτι",
+        "it": "1 pezzo",
+        "de": "1 Stück",
+        "fr": "1 pièce",
+        "no": "1 stk",
+        "jp": "1個",
+        "ko": "1 조각",
+        "ru": "1 шт",
+        "ch": "1片"
     },
     {
         "translationid": "1kg",
         "en": "1 kg",
-        "es": "1 kg",
-        "ru": "1 кг"
+        "es": "1 kilo",
+        "el": "1 κιλό",
+        "it": "1 kg",
+        "de": "1 kg",
+        "fr": "1 kg",
+        "no": "1 kg",
+        "jp": "1キログラム",
+        "ko": "1 킬로그램",
+        "ru": "1 кг",
+        "ch": "1公斤"
     },
     {
         "translationid": "1pr",
         "en": "1 portion",
         "es": "1 ración",
-        "ru": "1 порцию"
+        "el": "1 μερίδα",
+        "it": "1 porzione",
+        "de": "1 Portion",
+        "fr": "1 portion",
+        "no": "1 porsjon",
+        "jp": "1人前",
+        "ko": "1 인분",
+        "ru": "1 порция",
+        "ch": "1份"
     },
     {
-        "translationid": "1leg",
-        "en": "1 leg",
-        "es": "1 pierna",
-        "ru": "1 ногу"
-    },
-    {
-        "translationid": "price_for",
-        "en": "Price for",
-        "es": "Precio por",
-        "ru": "Цена за"
+        "translationid": "price",
+        "en": "Price ",
+        "es": "Precio ",
+        "el": "Τιμή ",
+        "it": "Prezzo",
+        "de": "Preis ",
+        "fr": "Prix ",
+        "no": "Pris ",
+        "jp": "の価格",
+        "ko": "가격",
+        "ru": "Цена",
+        "ch": "价钱"
     },
     {
         "translationid": "reglament_1169",
         "en": "Reglament (EU) №1169/2011",
-        "es": "Reglamento EU №1169/2011",
-        "ru": "Регламент (EС) №1169/2011"
+        "es": "Reglament EU №1169/2011",
+        "el": "Reglament (EU) №1169/2011",
+        "it": "Regolamento (CE) №1169 / 2011",
+        "de": "Reglament (EU) №1169/2011",
+        "fr": "Règlement (UE) 691169/2011",
+        "no": "Reglament (EU) №1169 / 2011",
+        "jp": "規制（EU）№1169/ 2011",
+        "ko": "규제 (EU) №1169 / 2011",
+        "ru": "Регламент (EС) №1169/2011",
+        "ch": "法规（EU）№1169/ 2011"
     },
     {
         "translationid": "reglament_text_1",
         "en": "Establishment with available information on food allergies and intolerances. ",
+        "es": "Establecimiento con información disponible sobre ingredientes alérgenos e intolerancia alimentarias en los productos que elabora.",
         "ru": "Согласно единому европейскому регламенту, ниже приведена маркировка пищевых продуктов, которые могут вызвать аллергию."
     },
     {
         "translationid": "reglament_text_2",
-        "en": "In case you have any allegry, please, ask the waiter an information about our dishes.",
+        "en": "We remind you that this table is indicative and that we cannot guarantee the absence of 100% allergens in all our products. In case you have any allergy, please, ask the waiter for more detailed information about our dishes. ",
+        "es": "Te recordamos que esta tabla es orientativa y que no podemos garantizar la ausencia de alérgenos al 100% en todos nuestros productos. En caso de que tenga alguna alergia, consulte al camarero para obtener información más detallada sobre nuestros platos.",
         "ru": "Пожалуйста, уточните у официанта состав блюд, если у вас есть аллергия на какие либо продукты питания."
     },
     {
         "translationid": "MyOrder",
-        "en": "My order",
+        "en": "My Order",
         "es": "Mi pedido",
-        "ru": "Мой заказ"
+        "el": "My Order",
+        "it": "Mio ordine",
+        "de": "Meine Bestellung",
+        "fr": "My Order",
+        "no": "Min bestilling",
+        "jp": "My Order",
+        "ko": "My Order",
+        "ru": "Мой заказ",
+        "ch": "My Order"
     },
     {
         "translationid": "Order",
         "en": "Order",
         "es": "Pedido",
-        "ru": "Заказ"
+        "el": "Order",
+        "it": "Ordine",
+        "de": "Bestellung",
+        "fr": "Ordre",
+        "no": "Bestilling",
+        "jp": "Ordre",
+        "ko": "Ordre",
+        "ru": "Заказ",
+        "ch": "Ordre"
     },
     {
         "translationid": "Total",
         "en": "Total",
         "es": "Total",
-        "ru": "Итого"
+        "el": "Συνολικά ",
+        "it": "Totale",
+        "de": "Gesamt",
+        "fr": "Total",
+        "no": "Totalt ",
+        "jp": "合計",
+        "ko": "합계",
+        "ru": "Итого",
+        "ch": "量"
     },
     {
         "translationid": "CallUs",
         "en": "Call Us",
-        "es": "Llamenos",
-        "ru": "Позвонить"
+        "es": "Llámanos",
+        "el": "Καλέστε μας",
+        "it": "Chiamaci",
+        "de": "Rufen ",
+        "fr": "Appelez nous",
+        "no": "Ring oss",
+        "jp": "Call Us",
+        "ko": "Call Us",
+        "ru": "Позвонить",
+        "ch": "Call Us"
     },
     {
         "translationid": "ThankYou",
         "en": "Thank you!",
         "es": "Gracias!",
-        "ru": "Спасибо!"
+        "el": "Ευχαριστώ!",
+        "it": "Grazie!",
+        "de": "Danke!",
+        "fr": "Merci!",
+        "no": "Takk skal du ha!",
+        "jp": "ありがとう！",
+        "ko": "감사합니다!",
+        "ru": "Спасибо!",
+        "ch": "謝謝！"
     },
     {
         "translationid": "ThankForOrder",
@@ -331,648 +467,371 @@
     {
         "translationid": "YourOpinionIs",
         "en": "Your opinion is very important for us, please, let us know it! ",
-        "es": "Su opinión es importante para nosotros, por favor déjenos saberla!",
-        "ru": "Ваше мнение очень важно для нас, пожалуйста поделитесь им!"
+        "es": "Su opinión es muy importante para nosotros, por favor déjenos saberla!",
+        "el": "γνώμη σας είναι πολύ σημαντική για εμάς, παρακαλώ, ενημερώστε μας!",
+        "it": "Tua opinione è molto importante per noi, faccelo sapere!",
+        "de": "Ihre Meinung ist sehr wichtig für uns, bitte, lassen Sie uns wissen!",
+        "fr": "Votre avis est très important pour nous, merci de nous le faire savoir!",
+        "no": "Din mening er veldig viktig for oss, gi oss beskjed!",
+        "jp": "Your opinion is very important for us, please, let us know it! ",
+        "ko": "Your opinion is very important for us, please, let us know it! ",
+        "ru": "Ваше мнение очень важно для нас, пожалуйста поделитесь с нами!",
+        "ch": "Your opinion is very important for us, please, let us know it! "
     },
     {
-        "translationid": "g",
-        "en": "g",
-        "es": "g",
-        "ru": "гр."
+        "translationid": "WantToClearEntireOrder",
+        "en": "Are you sure you want to remove your entire order?",
+        "es": "Estas seguro de que quiere borrar su orden completo?",
+        "ru": "Вы уверены, что готовы удалить весь свой заказ?"
+    },
+    {
+        "translationid": "Yes",
+        "en": "Yes",
+        "es": "Si",
+        "el": "Ναί",
+        "it": "Si",
+        "de": "Ja",
+        "fr": "Oui",
+        "no": "Ja",
+        "jp": "はい",
+        "ko": "예",
+        "ru": "Да",
+        "ch": "是"
+    },
+    {
+        "en": "Please, ask the waiter to confirm your order",
+        "es": "Por favor, pide al camarero confirmar su pedido"
+    },
+    {
+        "en": "Your order is empty.The selected plate should be added to an order.",
+        "es": "Su pedido está vacío. El plato seleccionada debe ser agregado a un pedido."
+    },
+    {
+        "translationid": "Cancel",
+        "en": "Cancel",
+        "es": "Cancelar",
+        "el": "Ακυρώστε",
+        "it": "Cancellare",
+        "de": "Löschen",
+        "fr": "Annuler",
+        "no": "Slette",
+        "jp": "キャンセルします",
+        "ko": "취소하다",
+        "ru": "Отмена",
+        "ch": "取消"
+    },
+    {
+        "translationid": "Remove",
+        "en": "Remove",
+        "es": "Borrar",
+        "el": "Αφαιρώ",
+        "it": "Rimuovere",
+        "de": "Entfernen",
+        "fr": "Retirer",
+        "no": "Ta vekk",
+        "jp": "取り除く",
+        "ko": "제거하다",
+        "ru": "Удалить",
+        "ch": "去掉"
+    },
+    {
+        "translationid": "No",
+        "en": "No",
+        "es": "No",
+        "el": "Οχι",
+        "it": "No",
+        "de": "Nein",
+        "fr": "Non",
+        "no": "Nei",
+        "ko": "아니",
+        "ru": "Нет",
+        "ch": "不"
+    },
+    {
+        "translationid": "Allergens",
+        "en": "Allergens",
+        "es": "Alérgenos",
+        "el": "Αλλεργιογόνα",
+        "it": "Allergeni",
+        "de": "Allergene",
+        "fr": "Allergènes",
+        "no": "Allergener",
+        "jp": "アレルゲン",
+        "ko": "알레르겐",
+        "ru": "Аллергены",
+        "ch": "过敏原"
+    },
+    {
+        "translationid": "gr",
+        "en": "gr",
+        "es": "gramo",
+        "el": "γρ",
+        "it": "gr",
+        "de": "GR",
+        "fr": "gr",
+        "no": "gr",
+        "jp": "グラム",
+        "ko": "gr",
+        "ru": "гр.",
+        "ch": "公克"
     },
     {
         "translationid": "kg",
         "en": "kg",
-        "es": "kg",
-        "ru": "кг."
+        "es": "kilo",
+        "el": "κιλό",
+        "it": "chilo",
+        "de": "Kilo",
+        "fr": "kilo",
+        "no": "kilo",
+        "jp": "キログラム",
+        "ko": "킬로그램",
+        "ru": "кг.",
+        "ch": "公斤"
     },
     {
         "translationid": "L",
-        "en": "L",
-        "es": "L",
-        "ru": "л."
+        "en": "liter",
+        "es": "litro",
+        "el": "λίτρο",
+        "it": "litro",
+        "de": "Liter",
+        "fr": "litre",
+        "no": "liter",
+        "jp": "リットル",
+        "ko": "리터",
+        "ru": "лтр",
+        "ch": "公升"
     },
     {
         "translationid": "errorText",
         "en": "Oops! It seems that something went wrong, but we are here to help you! Press the button to retry.",
-        "es": "Oops! Parece que algo no salió bien. Pero estamos aquí para ayudarles! Presione el boton para intentar de nuevo.",
-        "ru": "Упс! Похоже, что-то пошло не так. Но мы здесь, чтобы помочь вам! Нажмите кнопку, чтобы попробовать ещё раз."
+        "es": "¡Ups! Parece que algo ha salido mal, pero estamos aquí para ayudarte! Presiona el botón para volver a intentarlo.",
+        "ru": "Упс! Похоже что-то пошло не так. Но мы здесь, чтобы помочь вам! Нажмите кнопку, чтобы попробовать ещё раз."
     },
     {
         "translationid": "tryAgain",
         "en": "Try again",
         "es": "Intentar de nuevo",
-        "ru": "Попробовать ещё раз"
-    },
-    {
-        "translationid": "dish_1",
-        "en": "Bread, aioli and grated tomato with olive oil and salt",
-        "es": "Pan, alioli y tomate rallado con aceite y sal",
-        "no": "Brød, aioli, reven tomat med oliven olje og salt",
-        "ru": "Свежий хлеб с олиоли, томатами и оливковым маслом"
-    },
-    {
-        "translationid": "dish_2",
-        "en": "Homemade authentic Russian salad",
-        "es": "Ensalada rusa casera",
-        "no": "Hjemmelaget klassisk russisk salat",
-        "ru": "Домашний русский салат"
-    },
-    {
-        "translationid": "dish_3",
-        "en": "Creamy seafood salad with pineapple",
-        "es": "Ensalada de marisco cremosa con piña",
-        "no": "Kremig skalldyrsalat med ananas",
-        "ru": "Cалат с морепродуктами и ананасами"
-    },
-    {
-        "translationid": "dish_4",
-        "en": "Beetroot salad with marinated salmon",
-        "es": "Ensalada de remolacha con salmón marinado",
-        "no": "Rødbetsalat med marinert fersk laks",
-        "ru": "Салат из свеклы с маринованным лососем"
-    },
-    {
-        "translationid": "dish_5",
-        "en": "Dry aged Duck breast with peach and caramelized nuts",
-        "es": "Jamón de Magret de pato curado con melocotón y nuez caramelizada",
-        "no": "Skinke av tørket andebryst med fersken og karameliserte hvalnøtter",
-        "ru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
-    },
-    {
-        "translationid": "dish_6",
-        "en": "Rolls of Rice paper filled with fresh salmon, avocado, Philadelphia cheese",
-        "es": "Rollito de papel de arroz con salmón fresco, aguacate, queso",
-        "no": "Rull av rispapir fyldt med fersk laks, avokado, krem ost",
-        "ru": "Роллы со свежим лососем, авокадо и сыром филадельфия"
-    },
-    {
-        "translationid": "dish_7",
-        "en": "Carpaccio of Beef with black truffle oil and parmesan cheese",
-        "es": "Carpacho de ternera con trufa y parmesano",
-        "no": "Okse carpaccio med trøffelolje og parmesan",
-        "ru": "Карпаччо из говядины с трюфелем и сыром пармезан"
-    },
-    {
-        "translationid": "dish_8",
-        "en": "Tartar of fresh Salmon and avocado",
-        "es": "Tartar de salmón fresco y aguacate",
-        "no": "Tartar av fersk laks og avokado",
-        "ru": "Тартар из свежего лосося с авокадо"
-    },
-    {
-        "translationid": "dish_9",
-        "en": "Foie of duck with caramelized apple",
-        "es": "Foie de pato con manzanas caramelizadas",
-        "no": "Pate av gåselever med karamelliserte epler",
-        "ru": "Фуа-гра с карамелизированными яблоками"
-    },
-    {
-        "translationid": "dish_10",
-        "en": "Cured Spanish ham with Goats cheese",
-        "es": "Jamón Serrano con queso de cabra",
-        "no": "Spansk Serrano skinke med hvit geitost",
-        "ru": "Испанский хамон Серрано с козьим сыром"
-    },
-    {
-        "translationid": "dish_11",
-        "en": "Meatballs with Tomato sauce or Mushroom sauce",
-        "es": "Albóndigas con salsa de tomate o setas con trufa",
-        "no": "Kjøttboller med enten tomat eller sopp saus",
-        "ru": "Мясные фрикадельки с томатным или с трюфельно-грибным соусом"
-    },
-    {
-        "translationid": "dish_12",
-        "en": "Grilled and Caramelized Octopus with potato purée and chips",
-        "es": "Pulpo caramelizado con puré de patata",
-        "no": "Grillet og karamellisert Blekksprut med potet pure",
-        "ru": "Карамелизированный осьминог с картофельным пюре"
-    },
-    {
-        "translationid": "dish_13",
-        "en": "Cod with mashed potatoes, pumpkin cream and bacon",
-        "es": "Bacalao con puré de patatas, crema de calabaza y beicon",
-        "no": "Torskerygg med potetpure, gresskar creme og bacon",
-        "ru": "Треска с картофельным пюре, тыквенным кремом и беконом"
-    },
-    {
-        "translationid": "dish_14",
-        "en": "Hot Nachos with minced meat, tomato, guacamole and cheese",
-        "es": "Nachos calientes con carne picada, tomate, guacamole y queso",
-        "no": "Varme Nachos med kjøttfarse, tomat, guacamole og ost",
-        "ru": "Начос с мясным фаршем, томатами, гуакамоле и сыром"
-    },
-    {
-        "translationid": "dish_15",
-        "en": "Fresh Mussels served with homemade tomato sauce",
-        "es": "Mejillones al vapor con salsa de tomate casera",
-        "no": "Dampede blåskjell med hjemmelaget tomat saus",
-        "ru": "Мидии в томатном соусе"
-    },
-    {
-        "translationid": "dish_16",
-        "en": "Mussel Casserole with gorgonzola sauce",
-        "es": "Mejillones al vapor con salsa de gorgonzola",
-        "no": "Blåskjell med gorgonzola saus",
-        "ru": "Мидии с соусом гарганзола (молочно-сырный соус)"
-    },
-    {
-        "translationid": "dish_17",
-        "en": "Fillet steak with mashed potato and creamed mushroom sauce",
-        "es": "Solomillo de ternera con puré de patata y salsa de setas silvestres",
-        "no": "Indrefillet av Okse med potetpure og kremet skogsoppsaus",
-        "ru": "Говяжий стейк с картофельным пюре и грибным соусом"
-    },
-    {
-        "translationid": "dish_18",
-        "en": "Fillet steak Rossini with goose liver and fruit wine sauce",
-        "es": "Solomillo de ternera Rossini con foie y salsa de fruta y vino",
-        "no": "Indrefillet Rossini med gåselever og frukt og vinsaus",
-        "ru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
-    },
-    {
-        "translationid": "dish_19",
-        "en": "Spanish garlic prawns",
-        "es": "Gambas al ajillo",
-        "no": "Spanske hvitløksreker",
-        "ru": "Жареные креветки с чесноком"
-    },
-    {
-        "translationid": "dish_20",
-        "en": "Grilled fresh Scallops with truffle cauliflower cream",
-        "es": "Vieiras a la plancha con crema de coliflor",
-        "no": "Grillede kamskjell med blomkålscreme",
-        "ru": "Гребешок на гриле с крем-соусом из цветной капусты"
-    },
-    {
-        "translationid": "dish_21",
-        "en": "Spaghetti with prawns and tomato sauce",
-        "es": "Espagueti con marisco y salsa de tomate casero",
-        "no": "Spagetti med reker og hjemmelaget tomat saus",
-        "ru": "Спагетти с креветками и томатным соусом"
-    },
-    {
-        "translationid": "dish_22",
-        "en": "Tagliatelle with fresh Salmon and Gorgonzola sauce",
-        "es": "Tagliatelle con salmón y salsa gorgonzola",
-        "no": "Tagliatelle med fersk laks og gorgonzola saus",
-        "ru": "Тальятелле с лососем и соусом гарганзола (молочно-сырный соус)"
-    },
-    {
-        "translationid": "dish_23",
-        "en": "Tagliatelle with wild mushroom truffle sauce",
-        "es": "Tagliatelle con salsa de setas con trufa",
-        "no": "Tagliatelle med skogsopp og sort trøffel saus",
-        "ru": "Тальятелле трюфельно-грибным  соусом"
-    },
-    {
-        "translationid": "dish_24",
-        "en": "Pumpkin soup with Curry",
-        "es": "Sopa de calabaza con curry",
-        "no": "Kremet gresskar suppe med karri",
-        "ru": "Тыквенный суп с карри"
-    },
-    {
-        "translationid": "dish_25",
-        "en": "Freshly made Gazpacho the cave style",
-        "es": "Gazpacho casero",
-        "no": "Hjemmelaget Gazpacho, spansk tomatisert grønnsakssuppe",
-        "ru": "Холодный суп гаспачо"
-    },
-    {
-        "translationid": "dish_26",
-        "en": " “Affogato al Café” Vanilla ice, coffee liqueur, caramelized walnuts and espresso coffee       ",
-        "es": "“Affogato al Café” Helado de vainilla, licor de café, nuez caramelizada y café solo   ",
-        "no": "“Affogato al Café” Vaniljeis, kaffelikør, karamelliserte valnøtter og espresso",
-        "ru": "Affogato al Café ванильный лед, кофейный ликер, карамелизированные грецкие орехи и кофе "
-    },
-    {
-        "translationid": "dish_27",
-        "en": "Couland of chocolate with ice cream",
-        "es": "Couland de chocolate con helado",
-        "no": "Coulant av sjokolade med iskrem",
-        "ru": "Шоколадный брауни с мороженным"
-    },
-    {
-        "translationid": "dish_28",
-        "en": "Warm Apple crumble Pie with ice cream",
-        "es": "Tarta de manzana con helado de vainilla",
-        "no": "Varm eplekake med iskrem",
-        "ru": "Яблочный пирог с ванильным мороженным"
-    },
-    {
-        "translationid": "dish_29",
-        "en": "Lemon sorbete with cava",
-        "es": "Sorbete de Limón con Cava",
-        "no": "Sitron sorbet med Cava",
-        "ru": "Лимонный сорбет с шампанским"
-    },
-    {
-        "translationid": "dish_30",
-        "en": "Chocolate mousse",
-        "es": "Mousse de chocolate",
-        "no": "Sjokolademousse",
-        "ru": "Шоколадный мусс"
-    },
-    {
-        "translationid": "dish_31",
-        "en": "Warm Apple Compote with ice cream",
-        "es": "Compota de Manzana con helado de vainilla",
-        "no": "Varm eplekompott med vaniljeis",
-        "ru": "Яблочный десерт с ванильным мороженным"
-    },
-    {
-        "translationid": "dish_32",
-        "en": "Tiramisu",
-        "es": "Tiramisu",
-        "no": "Tiramisu",
-        "ru": "Тирамису"
-    },
-    {
-        "translationid": "dish_33",
-        "en": "Irish Coffee",
-        "es": "Café Irlandés",
-        "no": "Irisk kaffe",
-        "ru": "Ирландский кофе"
-    },
-    {
-        "translationid": "dish_34",
-        "en": "Grand Marinier",
-        "es": "Grand Marinier",
-        "no": "Grand Marinier",
-        "ru": "Grand Marinier"
-    },
-    {
-        "translationid": "dish_35",
-        "en": "Baylies",
-        "es": "Baylies",
-        "no": "Baylies",
-        "ru": "Baylies"
-    },
-    {
-        "translationid": "dish_36",
-        "en": "Tia Maria",
-        "es": "Tia Maria",
-        "no": "Tia Maria",
-        "ru": "Tia Maria"
-    },
-    {
-        "translationid": "dish_37",
-        "en": "Licor 43",
-        "es": "Licor 43",
-        "no": "Licor 43",
-        "ru": "Licor 43"
-    },
-    {
-        "translationid": "dish_38",
-        "en": "Drambuie",
-        "es": "Drambuie",
-        "no": "Drambuie",
-        "ru": "Drambuie"
-    },
-    {
-        "translationid": "dish_39",
-        "en": "Jagermaister",
-        "es": "Jagermaister",
-        "no": "Jagermaister",
-        "ru": "Jagermaister"
-    },
-    {
-        "translationid": "dish_40",
-        "en": "Anis Cream",
-        "es": "Anis Cream",
-        "no": "Anis Cream",
-        "ru": "Anis Cream"
-    },
-    {
-        "translationid": "dish_41",
-        "en": "Ponche Caballero",
-        "es": "Ponche Caballero",
-        "no": "Ponche Caballero",
-        "ru": "Ponche Caballero"
-    },
-    {
-        "translationid": "dish_42",
-        "en": "Licor de Café",
-        "es": "Licor de Café",
-        "no": "Licor de Café",
-        "ru": "Licor de Café"
-    },
-    {
-        "translationid": "dish_43",
-        "en": "Orujo de Hierbas",
-        "es": "Orujo de Hierbas",
-        "no": "Orujo de Hierbas",
-        "ru": "Orujo de Hierbas"
-    },
-    {
-        "translationid": "dish_44",
-        "en": "Orujo blanco",
-        "es": "Orujo blanco",
-        "no": "Orujo blanco",
-        "ru": "Orujo blanco"
-    },
-    {
-        "translationid": "dish_45",
-        "en": "Cardinal Mendoza",
-        "es": "Cardinal Mendoza",
-        "no": "Cardinal Mendoza",
-        "ru": "Cardinal Mendoza"
-    },
-    {
-        "translationid": "dish_46",
-        "en": "Carlos I",
-        "es": "Carlos I",
-        "no": "Carlos I",
-        "ru": "Carlos I"
-    },
-    {
-        "translationid": "dish_47",
-        "en": "Carlos III",
-        "es": "Carlos III",
-        "no": "Carlos III",
-        "ru": "Carlos III"
-    },
-    {
-        "translationid": "dish_48",
-        "en": "Torres 10",
-        "es": "Torres 10",
-        "no": "Torres 10",
-        "ru": "Torres 10"
-    },
-    {
-        "translationid": "dish_49",
-        "en": "Gran Duque de Alba",
-        "es": "Gran Duque de Alba",
-        "no": "Gran Duque de Alba",
-        "ru": "Gran Duque de Alba"
-    },
-    {
-        "translationid": "dish_50",
-        "en": "Martell VS",
-        "es": "Martell VS",
-        "no": "Martell VS",
-        "ru": "Martell VS"
-    },
-    {
-        "translationid": "dish_51",
-        "en": "Port wine",
-        "es": "Port wine",
-        "no": "Port wine",
-        "ru": "Port wine"
-    },
-    {
-        "translationid": "dish_52",
-        "en": "Sherry",
-        "es": "Sherry",
-        "no": "Sherry",
-        "ru": "Sherry"
-    },
-    {
-        "translationid": "dish_53",
-        "en": "Pizza Margarita",
-        "es": "Pizza Margarita",
-        "no": "Pizza Margarita",
-        "ru": "Пицца Маргарита"
-    },
-    {
-        "translationid": "dish_54",
-        "en": "Sausages with mashed potato",
-        "es": "Salchichas con puré de papa",
-        "no": "Pølser med potetmos",
-        "ru": "Сосиски с картофельным пюре"
-    },
-    {
-        "translationid": "dish_55",
-        "en": "Pasta with tomato",
-        "es": "Espagueti con tomates",
-        "no": "Pasta med tomat",
-        "ru": "Паста с томатами"
-    },
-    {
-        "translationid": "dish_56",
-        "en": "Pizza Barbeque",
-        "es": "Pizza Barbeque",
-        "no": "Pizza Barbeque",
-        "ru": "Пицца Барбекю"
-    },
-    {
-        "translationid": "dish_57",
-        "en": "Chicken nuggets with potato chips",
-        "es": "Nuggets de pollo with patata frita",
-        "no": "Kyllingnuggets med potetgull",
-        "ru": "Куринные наггетсы с картофелем фри"
-    },
-    {
-        "translationid": "dish_58",
-        "en": "Pumpkin and Curry cream soup",
-        "es": "Sopa de calabaza con curry",
-        "no": "Kremet gresskar suppe med karri",
-        "ru": "Тыквенный суп с карри"
-    },
-    {
-        "translationid": "dish_59",
-        "en": "Dry aged Duck breast with peach and caramelized nuts",
-        "es": "Jamón de Magret de pato curado con melocotón y nuez caramelizada",
-        "no": "Skinke av tørket andebryst med fersken og karameliserte hvalnøtter",
-        "ru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
-    },
-    {
-        "translationid": "dish_60",
-        "en": "Tartar of fresh Salmon and avocado",
-        "es": "Tartar de salmón fresco y aguacate",
-        "no": "Tartar av fersk laks og avokado",
-        "ru": "Тартар из свежего лосося с авокадо"
-    },
-    {
-        "translationid": "dish_61",
-        "en": "Large sautéed prawns",
-        "es": "Gambones salteadas",
-        "no": "Store sauterte reker",
-        "ru": "Жареные креветки"
-    },
-    {
-        "translationid": "dish_62",
-        "en": "Cod with mashed potatoes, pumpkin cream and bacon",
-        "es": "Bacalao con puré de patatas, crema de calabaza y beicon",
-        "no": "Torskerygg med potetpure, gresskar creme og bacon",
-        "ru": "Треска с картофельным пюре, тыквенным кремом и беконом"
-    },
-    {
-        "translationid": "dish_63",
-        "en": "Fillet steak Rossini with goose liver and fruit wine sauce",
-        "es": "Solomillo de ternera Rossini con foie y salsa de fruta y vino",
-        "no": "Indrefillet Rossini med gåselever og frukt og vinsaus",
-        "ru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
-    },
-    {
-        "translationid": "dish_64",
-        "en": "Tiramisu",
-        "es": "Tiramisu",
-        "no": "Tiramisu",
-        "ru": "Тирамису"
-    },
-    {
-        "translationid": "dish_65",
-        "en": "Chocolate mousse",
-        "es": "Mousse de chocolate",
-        "no": "Sjokolademousse",
-        "ru": "Шоколадный мусс"
+        "el": "Προσπάθησε ξανά",
+        "it": "Riprova",
+        "de": "Versuchen nochmal",
+        "fr": "Réessayer",
+        "no": "Prøv igjen",
+        "jp": "再試行",
+        "ko": "다시 해 보다",
+        "ru": "Повторить попытку",
+        "ch": "再试一次"
+    },
+    {
+        "translationid": "Reservation",
+        "en": "Reservation",
+        "es": "Reservación",
+        "el": "Κράτηση",
+        "it": "Prenotazione",
+        "de": "Reservierung",
+        "fr": "Réservation",
+        "no": "Reservasjon",
+        "jp": "予約",
+        "ko": "예약",
+        "ru": "Бронирование",
+        "ch": "预约"
+    },
+    {
+        "translationid": "Bon Appetit",
+        "en": "Bon Appetit!",
+        "es": "¡Bon Appetit!",
+        "el": "Bon Appetit!",
+        "it": "Bon Appetit!",
+        "de": "Bon Appetit!",
+        "fr": "Bon Appetit!",
+        "no": "Bon Appetit!",
+        "jp": "Bon Appetit!",
+        "ko": "Bon Appetit!",
+        "ru": "Bon Appetit!",
+        "ch": "Bon Appetit!",
+        "undefined": "Bon Appetit!"
     },
     {
         "translationid": "dish_66",
         "en": "Spicy Korean salad with beef, fresh cucumbers and paprika",
         "es": "Ensalada coreana picante con ternera, pepino y pimentón",
+        "de": "Würziger koreanischer Salat mit Rindfleisch, Gurke und Paprika",
         "ru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем"
     },
     {
         "translationid": "dish_67",
         "en": "Spicy Korean salad with special marinated beef and carrot",
         "es": "Je: ensalada coreana picante con ternera marinada y zanahoria",
+        "de": "Je: würziger koreanischer Salat mit mariniertem Rindfleisch und Karotten",
         "ru": "Хе с мясом: острый корейский салат с маринованной говядиной и морковкой"
     },
     {
         "translationid": "dish_68",
         "en": "Spicy Korean salad with special marinated fish, cucumbers and onion",
         "es": "Je con pescado: ensalada coreana picante con pescado marinado, pepino y cebolla",
+        "de": "Je mit Fisch: Würziger koreanischer Salat mit mariniertem Fisch, Gurke und Zwiebel",
         "ru": "Хе с рыбой: острый корейский салат с маринованной белой рыбой, огурцом и луком"
     },
     {
         "translationid": "dish_69",
         "en": "Eggplants with vegetables and garlic",
         "es": "Ensalada de berenjena con verduras y ajo",
+        "de": "Auberginensalat mit Gemüse und Knoblauch",
         "ru": "Баклажаны с овощами и чесноком"
     },
     {
         "translationid": "dish_70",
         "en": "Korean style spicy salted cabbage",
         "es": "Kimchi: repollo salado y picante al estilo coreano",
+        "de": "Kimchi: Bohnenkraut Salat nach koreanischer Art aus würziger Kohl",
         "ru": "Ким Чи:  острая соленная капуста по- корейски"
     },
     {
         "translationid": "dish_71",
         "en": "Homemade pickled tomatoes",
         "es": "Tomates caseros en escabeche de su propio jugo",
+        "de": "Hausgemachte eingelegte Tomaten im eigenen Saft",
         "ru": "Домашние маринованные помидоры в собственном соку"
     },
     {
         "translationid": "dish_72",
         "en": "Kuk si: Korean noodles with vegetables and beef",
         "es": "Kuksi: fideos coreanos con verduras y carne de ternera",
+        "de": "Kuksi: Koreanische Nudeln mit Gemüse und Rindfleisch    ",
         "ru": "Кук Си: Корейская лапша с овощами и мясом говядины"
     },
     {
         "translationid": "dish_73",
         "en": "Lagman: Asian noodles with beef and vegetable gravy",
         "es": "Laghman: fideos asiáticos con salsa de carne de ternera y verdura",
+        "de": "Laghman: Asiatische Nudeln mit Rind- und Gemüsesauce   ",
         "ru": "Лагман: с подливом из мяса говядины и овощей"
     },
     {
         "translationid": "dish_74",
         "en": "Dumplings with meat",
-        "es": "Pelmeni: Plato tradicional ruso “ravioli” con carne",
+        "es": "Pelimeni: Plato tradicional ruso “ravioli” con carne",
+        "de": "Pelimeni: Traditionelles russisches Gericht mit Fleisch nach “Ravioli-Art”  ",
         "ru": "Пельмени c мясом"
     },
     {
         "translationid": "dish_75",
         "en": "Vareniki: stuffed dough with potato",
         "es": "Vareniki: Plato tradicional ruso “ravioli” con patata",
+        "de": "Vareniki: Traditionelles russisches Gericht mit Kartoffeln nach \"Ravioli-Art\"",
         "ru": "Вареники с картошкой"
     },
     {
         "translationid": "dish_76",
         "en": "Chicken cutlets with potato or rice",
         "es": "Chuletas de la carne picado de pollo con patata o arroz",
+        "de": "Hackfleisch Kotelett mit Kartoffeln oder Reis ",
         "ru": "Куриные котлетки с картошкой или рисом"
     },
     {
         "translationid": "dish_77",
         "en": "Hamburger with chicken cutlet",
         "es": "Hamburguesa de pollo",
+        "de": "Hähnchen Burger  ",
         "ru": "Гамбургер с куриной котлетой"
     },
     {
         "translationid": "dish_78",
         "en": "Hot pasties stuffed with beef meat",
         "es": "Empanadas calientes con carne de ternera",
+        "de": "Rindfleischpasteten ",
         "ru": "Чебуреки с мясом говядины"
     },
     {
         "translationid": "dish_79",
         "en": "Pilaf: rice with lamb pieces and carrot",
         "es": "Pilaf: arroz de receta asiática con cordero y zanahoria",
+        "de": "Pilaw ein Gericht der orientalischen Küche, Reis mit Lamm und Karotte",
         "ru": "Плов с бараниной"
     },
     {
         "translationid": "dish_80",
         "en": "Shashlik: Fried pieces of marinated pork meat",
         "es": "Shashlik: pinchitos fritos de la carne del cerdo",
+        "de": "Gebratene Schweinefleisch Spieße",
         "ru": "Шашлык из свинины"
     },
     {
         "translationid": "dish_81",
         "en": "Shashlik: Fried pieces of marinated lamb meat",
         "es": "Shashlik: pinchitos fritos de la carne del cordero",
+        "de": "Gebratene Fleischspieße",
         "ru": "Шашлык из баранины"
     },
     {
         "translationid": "dish_82",
         "en": "Mixed shashlik (pork and lamb) for 2 persons",
         "es": "Pinchos de cerdo y de cordero para 2 personas",
+        "de": "Schweinefleisch- und Lammspieße für 2 ",
         "ru": "Микс шашлык (свинина и баранина) на 2"
     },
     {
         "translationid": "dish_83",
         "en": "Spicy Korean soup with potato and beef",
         "es": "La sopa Coreana picante con patata y ternera",
+        "de": "Würzige koreanische Suppe mit Kartoffeln und Rindfleisch   ",
         "ru": "Острый корейский суп с картошкой и мясом говядины"
     },
     {
         "translationid": "dish_84",
         "en": "Borscht: Russian traditional soup with beef and vegetables",
         "es": "Borscht: la sopa mas tradicional rusa con ternera y verduras",
+        "de": "Borschtsch: die traditionellste russische Suppe mit Rindfleisch und Gemüse    ",
         "ru": "Борщ из говядины"
     },
     {
         "translationid": "dish_85",
         "en": "Yoghurt- berry cake",
         "es": "Pastel de yogur y bayas",
+        "de": "Joghurt-Beeren-Kuchen ",
         "ru": "Ягодно-йогуртовое"
     },
     {
         "translationid": "dish_86",
         "en": "Chak Chak: oriental sweetness, fried dough pieces in honey syrup and walnuts",
         "es": "Chak Chak: dulzura de asia oriental, trozos de masa fritos en almíbar de miel y nueces",
+        "de": "Chak Chak: Ostasiatische Süße, gebratene Teigstücke in Honig und Walnuss Sirup  ",
         "ru": "Чак Чак: восточная сладость, обжаренные кусочки теста в медовом сиропе с грецким орехом"
     },
     {
         "translationid": "dish_87",
         "en": "Napoleon cake: puff pastry cake with buttercream",
         "es": "Pastel Napoleon: pastel de hojaldre con crema de mantequilla",
+        "de": "Napoleon-Kuchen: Blätterteig Kuchen mit Buttercreme   ",
         "ru": "Торт Наполеон: торт из слоеного теста со сливочным кремом"
     },
     {
         "translationid": "dish_88",
         "en": "Carrot biscuit",
         "es": "Bizcocho de zanahoria",
+        "de": "Karottenkeks                                                                                             ",
         "ru": "Морковный бисквит"
     },
     {
         "translationid": "dish_89",
         "en": "Manti: dough stuffed with lamb meat and pumpkin",
         "es": "Manti: masa rellena de cordero y calabaza",
+        "de": "Manti: Teig gefüllt mit Lamm und Kürbis    ",
         "ru": "Манты: тесто фаршированное начинкой из баранины и тыквы"
     },
     {
         "translationid": "dish_90",
         "en": "Baked leg of lamb",
         "es": "Pierna de cordero al horno",
+        "de": "Pier Gebackene Lammkeule    ",
         "ru": "Запеченная баранья нога"
     },
     {
         "translationid": "dish_91",
         "en": "Homemade pickled tomatoes  ",
         "es": "Tomates caseros en escabeche (precio por 1 kilo)",
+        "de": "Hausgemachte eingelegte Tomaten im eigenen Saft",
         "ru": "Домашние маринованные помидоры в собственном соку (стоимость за 1 кг)"
     },
     {
@@ -1180,238 +1039,591 @@
         "ru": "Медовый торт (стоимость за 1 порцию)"
     },
     {
-        "translationid": "cold_app",
-        "en": "Cold Appetizers",
-        "es": "Tapas Frías",
-        "el": "Κρύα ορεκτικά",
-        "it": "Antipasti freddi",
-        "de": "Kalte Vorspeisen",
-        "fr": "Tapas froides",
-        "no": "Kalde forretter",
-        "jp": "冷たい前菜",
-        "ko": "차가운 전채",
-        "ru": "Холодные закуски",
-        "ch": "冷开胃菜"
-    },
-    {
-        "translationid": "hot_app",
-        "en": "Hot Appetizers",
-        "es": "Tapas Calientes",
-        "el": "Καυτό τάπας",
-        "it": "Tapas calde",
-        "de": "Heiße Tapas",
-        "fr": "Tapas chaudes",
-        "no": "Varm tapas",
-        "jp": "ホットタパス",
-        "ko": "뜨거운 타파스",
-        "ru": "Горячие закуски",
-        "ch": "热开胃菜"
-    },
-    {
-        "translationid": "pasta",
-        "en": "Pasta",
-        "es": "Pastas",
-        "el": "Ζυμαρικά",
-        "it": "Pasta",
-        "de": "Pasta",
-        "fr": "Pâtes",
-        "no": "Pasta",
-        "jp": "パスタ",
-        "ko": "파스타",
-        "ru": "Паста",
-        "ch": "意大利面"
-    },
-    {
-        "translationid": "soups",
-        "en": "Soups",
-        "es": "Sopas",
-        "el": "Σούπες",
-        "it": "Zuppe",
-        "de": "Suppen",
-        "fr": "Soupes",
-        "no": "Supper",
-        "jp": "スープ",
-        "ko": "수프",
-        "ru": "Супы",
-        "ch": "汤类"
-    },
-    {
-        "translationid": "dessert",
-        "en": "Desserts",
-        "es": "Postres",
-        "el": "Επιδόρπιο",
-        "it": "Dessert",
-        "de": "Dessert",
-        "fr": "Dessert",
-        "no": "Dessert",
-        "jp": "デザート",
-        "ko": "디저트",
-        "ru": "Десерты",
-        "ch": "甜点"
-    },
-    {
-        "translationid": "our_strong_des",
-        "en": "Our Strong Desserts",
-        "es": "Postres Fuertes",
-        "de": "Starke Desserts",
-        "fr": "Desserts forts",
-        "no": "Sterke desserter",
-        "ru": "Крепкие десерты"
-    },
-    {
-        "translationid": "children",
-        "en": "Children's Menu",
-        "es": "Menu de Niños",
-        "el": "Παιδικό μενού",
-        "it": "Menu per bambini",
-        "de": "Kindermenü",
-        "fr": "Menu enfant",
-        "no": "Barnemeny",
-        "jp": "キッズメニュー",
-        "ko": "어린이 메뉴",
-        "ru": "Меню для детей",
-        "ch": "儿童菜单"
-    },
-    {
-        "translationid": "drinks",
-        "en": "Drinks",
-        "es": "Bebidas",
-        "el": "Αναψυκτικά",
-        "it": "Bevande",
-        "de": "Getränke",
-        "fr": "Boissons",
-        "no": "Drikker",
-        "jp": "飲み物",
-        "ko": "음료수",
-        "ru": "Напитки",
-        "ch": "饮料"
-    },
-    {
-        "translationid": "daily_menu_app",
-        "en": "Daily Menu",
-        "es": "Menú del día",
-        "el": "Καθημερινό μενού",
-        "it": "Menù giornaliero",
-        "de": "Tagesmenü",
-        "fr": "Menu du jour",
-        "no": "Daglig meny",
-        "jp": "日替わりメニュー",
-        "ko": "일일 메뉴",
-        "ru": "Меню дня",
-        "ch": "每日菜单"
-    },
-    {
-        "translationid": "degustation_menu",
-        "en": "Degustation menu",
-        "es": "Menú degustación",
-        "el": "Μενού απογύμνωσης",
-        "it": "Menu degustazione",
-        "de": "Degustationsmenü",
-        "fr": "Menu de dégustation",
-        "no": "Degustasjonsmeny",
-        "jp": "テイスティングメニュー",
-        "ko": "테이스팅 메뉴",
-        "ru": "Дегустационное меню",
-        "ch": "品尝菜单"
-    },
-    {
-        "translationid": "chef_dishes",
-        "en": "Chef dishes",
-        "es": "Platos del Chef",
-        "el": "Σεφ πιάτα",
-        "it": "I piatti dello Chef",
-        "de": "Die Gerichte des Chef",
-        "fr": "Les plats du Chef",
-        "no": "Kokkens retter",
-        "jp": "シェフの名物",
-        "ko": "셰프의 특선 요리",
-        "ru": "Фирменные блюда от шеф-повара",
-        "ch": "厨师菜"
-    },
-    {
-        "translationid": "salads",
-        "en": "Salads",
-        "es": "Ensaladas",
-        "el": "Σαλάτες",
-        "it": "Insalate",
-        "de": "Salate",
-        "fr": "Salades",
-        "no": "Salater",
-        "jp": "サラダ",
-        "ko": "샐러드",
-        "ru": "Салаты",
-        "ch": "沙律"
-    },
-    {
-        "translationid": "wine",
-        "en": "Wine",
-        "es": "Vino",
-        "el": "Κρασί",
-        "it": "Vino",
-        "de": "Wein",
-        "fr": "Du vin",
-        "no": "Vin",
-        "jp": "ワイン",
-        "ko": "포도주",
-        "ru": "Вино",
-        "ch": "葡萄酒"
-    },
-    {
-        "translationid": "beer",
-        "en": "Beer",
-        "es": "Cerveza",
-        "el": "Μπύρα",
-        "it": "Birra",
-        "de": "Bier",
-        "fr": "Bière",
-        "no": "Øl",
-        "jp": "ビール",
-        "ko": "발포성 음료",
-        "ru": "Пиво",
-        "ch": "啤"
-    },
-    {
-        "translationid": "cocktails",
-        "en": "Cocktails",
-        "es": "Cócteles",
-        "el": "Κοκτέιλ",
-        "it": "Cocktail",
-        "de": "Cocktails",
-        "fr": "Сocktails",
-        "no": "Cocktailer",
-        "jp": "カクテル",
-        "ko": "칵테일",
-        "ru": "Коктели",
-        "ch": "鸡尾酒"
-    },
-    {
-        "translationid": "our_strong_dessert_licor",
-        "en": "Licors",
-        "es": "Licors",
-        "de": "Licors",
-        "fr": "Licors",
-        "no": "Licors",
-        "ru": "Ликеры"
-    },
-    {
-        "translationid": "our_strong_dessert_brandy",
-        "en": "Brandy",
-        "es": "Brandy",
-        "de": "Brandy",
-        "fr": "Brandy",
-        "no": "Brandy",
-        "ru": "Бренди"
-    },
-    {
-        "translationid": "main_dishes",
-        "en": "Main DIshes"
-    },
-    {
         "translationid": "pre_order_plates",
-        "en": "Pre-order"
+        "en": "Pre-order",
+        "es": "Pedido Previo",
+        "el": "Προπαραγγελία",
+        "it": "Preordinare",
+        "de": "Vorbestellung",
+        "fr": "Précommander",
+        "no": "Forhåndsbestille",
+        "ru": "Предзаказ"
     },
     {
         "translationid": "garnish",
-        "en": "Garnish"
+        "en": "Side dish",
+        "es": "Guarniación",
+        "el": "Γαρνιτούρα",
+        "it": "Guarnizione",
+        "de": "Beilage",
+        "fr": "Garnir",
+        "no": "Garnityr",
+        "jp": "副菜",
+        "ko": "반찬",
+        "ru": "Гарнир",
+        "ch": "小菜"
+    },
+    {
+        "translationid": "dish_1",
+        "en": "Bread, aioli and grated tomato with olive oil and salt",
+        "es": "Pan, alioli y tomate rallado con aceite y sal",
+        "de": "Brot, Aioli und geriebene Tomaten mit Olivenöl und Salz",
+        "no": "Brød, aioli, reven tomat med oliven olje og salt",
+        "ru": "Свежий хлеб с олиоли, томатами и оливковым маслом"
+    },
+    {
+        "translationid": "dish_2",
+        "en": "Homemade authentic Russian salad",
+        "es": "Ensalada rusa casera",
+        "de": "Hausgemachter authentischer russischer Salat",
+        "no": "Hjemmelaget klassisk russisk salat",
+        "ru": "Домашний русский салат"
+    },
+    {
+        "translationid": "dish_3",
+        "en": "Creamy seafood salad with pineapple",
+        "es": "Ensalada de marisco cremosa con piña",
+        "de": "Cremiger Meeresfrüchtesalat mit Ananas",
+        "no": "Kremig skalldyrsalat med ananas",
+        "ru": "Cалат с морепродуктами и ананасами"
+    },
+    {
+        "translationid": "dish_4",
+        "en": "Beetroot salad with marinated salmon",
+        "es": "Ensalada de remolacha con salmón marinado",
+        "de": "Rote-Bete Salat mit mariniertem Lachs",
+        "no": "Rødbetsalat med marinert fersk laks",
+        "ru": "Салат из свеклы с маринованным лососем"
+    },
+    {
+        "translationid": "dish_5",
+        "en": "Dry aged Duck breast with peach and caramelized nuts",
+        "es": "Jamón de Magret de pato curado con melocotón y nuez caramelizada",
+        "de": "Gealterte trocknen Entenbrust mit Pfirsich und karamellisierten Nüssen",
+        "no": "Skinke av tørket andebryst med fersken og karameliserte hvalnøtter",
+        "ru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
+    },
+    {
+        "translationid": "dish_6",
+        "en": "Rolls of Rice paper filled with fresh salmon, avocado, Philadelphia cheese",
+        "es": "Rollito de papel de arroz con salmón fresco, aguacate, queso",
+        "de": "Reisrollen gefüllt mit frischem Lachs, Avocado und Philadelphia-Käse.",
+        "no": "Rull av rispapir fyldt med fersk laks, avokado, krem ost",
+        "ru": "Роллы со свежим лососем, авокадо и сыром филадельфия"
+    },
+    {
+        "translationid": "dish_7",
+        "en": "Carpaccio of Beef with black truffle oil and parmesan cheese",
+        "es": "Carpacho de ternera con trufa y parmesano",
+        "de": "Carpaccio vom Rind mit schwarzem Trüffelöl und Parmesan",
+        "no": "Okse carpaccio med trøffelolje og parmesan",
+        "ru": "Карпаччо из говядины с трюфелем и сыром пармезан"
+    },
+    {
+        "translationid": "dish_8",
+        "en": "Tartar of fresh Salmon and avocado",
+        "es": "Tartar de salmón fresco y aguacate",
+        "de": "Tartar aus frischem Lachs und Avocado",
+        "no": "Tartar av fersk laks og avokado",
+        "ru": "Тартар из свежего лосося с авокадо"
+    },
+    {
+        "translationid": "dish_9",
+        "en": "Foie of duck with caramelized apple",
+        "es": "Foie de pato con manzanas caramelizadas",
+        "de": "Foie aus Ente mit karamellisiertem Apfel",
+        "no": "Pate av gåselever med karamelliserte epler",
+        "ru": "Фуа-гра с карамелизированными яблоками"
+    },
+    {
+        "translationid": "dish_10",
+        "en": "Cured Spanish ham with Goats cheese",
+        "es": "Jamón Serrano con queso de cabra",
+        "de": "Spanischer Schinken Jamon mit Ziegenkäse",
+        "no": "Spansk Serrano skinke med hvit geitost",
+        "ru": "Испанский хамон Серрано с козьим сыром"
+    },
+    {
+        "translationid": "dish_11",
+        "en": "Meatballs with Tomato sauce or Mushroom sauce",
+        "es": "Albóndigas con salsa de tomate o setas con trufa",
+        "de": "Fleischbällchen mit Tomatensauce oder Pilzsauce",
+        "no": "Kjøttboller med enten tomat eller sopp saus",
+        "ru": "Мясные фрикадельки с томатным или с трюфельно-грибным соусом"
+    },
+    {
+        "translationid": "dish_12",
+        "en": "Grilled and Caramelized Octopus with potato purée and chips",
+        "es": "Pulpo caramelizado con puré de patata",
+        "de": "Gegrillter und karamellisierter Tintenfisch mit Kartoffelpüree und Pommes",
+        "no": "Grillet og karamellisert Blekksprut med potet pure",
+        "ru": "Карамелизированный осьминог с картофельным пюре"
+    },
+    {
+        "translationid": "dish_13",
+        "en": "Cod with mashed potatoes, pumpkin cream and bacon",
+        "es": "Bacalao con puré de patatas, crema de calabaza y beicon",
+        "de": "Kabeljau mit Kartoffelpüree, Kürbiscreme und Speck",
+        "no": "Torskerygg med potetpure, gresskar creme og bacon",
+        "ru": "Треска с картофельным пюре, тыквенным кремом и беконом"
+    },
+    {
+        "translationid": "dish_14",
+        "en": "Hot Nachos with minced meat, tomato, guacamole and cheese",
+        "es": "Nachos calientes con carne picada, tomate, guacamole y queso",
+        "de": "Heiße Nachos mit Hackfleisch, Tomaten, Guacamole und cheese",
+        "no": "Varme Nachos med kjøttfarse, tomat, guacamole og ost",
+        "ru": "Начос с мясным фаршем, томатами, гуакамоле и сыром"
+    },
+    {
+        "translationid": "dish_15",
+        "en": "Fresh Mussels served with homemade tomato sauce",
+        "es": "Mejillones al vapor con salsa de tomate casera",
+        "de": "Frische Muscheln mit hausgemachter Tomatensauce",
+        "no": "Dampede blåskjell med hjemmelaget tomat saus",
+        "ru": "Мидии в томатном соусе"
+    },
+    {
+        "translationid": "dish_16",
+        "en": "Mussel Casserole with gorgonzola sauce",
+        "es": "Mejillones al vapor con salsa de gorgonzola",
+        "de": "Muschelauflauf mit Gorgonzolasauce",
+        "no": "Blåskjell med gorgonzola saus",
+        "ru": "Мидии с соусом гарганзола (молочно-сырный соус)"
+    },
+    {
+        "translationid": "dish_17",
+        "en": "Fillet steak with mashed potato and creamed mushroom sauce",
+        "es": "Solomillo de ternera con puré de patata y salsa de setas silvestres",
+        "de": "Filetsteak mit Kartoffelpüree und Champignoncremesauce",
+        "no": "Indrefillet av Okse med potetpure og kremet skogsoppsaus",
+        "ru": "Говяжий стейк с картофельным пюре и грибным соусом"
+    },
+    {
+        "translationid": "dish_18",
+        "en": "Fillet steak Rossini with goose liver and fruit wine sauce",
+        "es": "Solomillo de ternera Rossini con foie y salsa de fruta y vino",
+        "de": "Filetsteak Rossini mit Gänseleber und Fruchtwein Sauce",
+        "no": "Indrefillet Rossini med gåselever og frukt og vinsaus",
+        "ru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
+    },
+    {
+        "translationid": "dish_19",
+        "en": "Spanish garlic prawns",
+        "es": "Gambas al ajillo",
+        "de": "Spanische Garnelen mit Knoblauch",
+        "no": "Spanske hvitløksreker",
+        "ru": "Жареные креветки с чесноком"
+    },
+    {
+        "translationid": "dish_20",
+        "en": "Grilled fresh Scallops with truffle cauliflower cream",
+        "es": "Vieiras a la plancha con crema de coliflor",
+        "de": "Gegrillte frische Muscheln mit Trüffel-Blumenkohlcreme",
+        "no": "Grillede kamskjell med blomkålscreme",
+        "ru": "Гребешок на гриле с крем-соусом из цветной капусты"
+    },
+    {
+        "translationid": "dish_21",
+        "en": "Spaghetti with prawns and  mussels with tomato sauce",
+        "es": "Espagueti con mariscos y salsa de tomate casero",
+        "de": "Spaghetti mit Garnelen und Tomatensauce",
+        "no": "Spaghetti med sjømat og hjemmelaget tomatsaus",
+        "ru": "Спагетти с морепродуктами и томатным соусом"
+    },
+    {
+        "translationid": "dish_22",
+        "en": "Tagliatelle with fresh Salmon and Gorgonzola sauce",
+        "es": "Tagliatelle con salmón y salsa gorgonzola",
+        "de": "Tagliatelle mit frischem Lachs und Gorgonzolasauce",
+        "no": "Tagliatelle med fersk laks og gorgonzola saus",
+        "ru": "Тальятелле с лососем и соусом гарганзола (молочно-сырный соус)"
+    },
+    {
+        "translationid": "dish_23",
+        "en": "Tagliatelle with wild mushroom truffle sauce",
+        "es": "Tagliatelle con salsa de setas con trufa",
+        "de": "Tagliatelle mit Wildpilz-Trüffelsauce               ",
+        "no": "Tagliatelle med skogsopp og sort trøffel saus",
+        "ru": "Тальятелле трюфельно-грибным  соусом"
+    },
+    {
+        "translationid": "dish_24",
+        "en": "Pumpkin soup with Curry",
+        "es": "Sopa de calabaza con curry",
+        "de": "Kürbissuppe mit Curry",
+        "no": "Kremet gresskar suppe med karri",
+        "ru": "Тыквенный суп с карри"
+    },
+    {
+        "translationid": "dish_25",
+        "en": "Freshly made Gazpacho the cave style",
+        "es": "Gazpacho casero",
+        "de": "Frisch zubereiteter Gazpacho",
+        "no": "Hjemmelaget Gazpacho, spansk tomatisert grønnsakssuppe",
+        "ru": "Холодный суп гаспачо"
+    },
+    {
+        "translationid": "dish_26",
+        "en": " “Affogato al Café” Vanilla ice, coffee liqueur, caramelized walnuts and espresso coffee       ",
+        "es": "“Affogato al Café” Helado de vainilla, licor de café, nuez caramelizada y café solo   ",
+        "de": "“Affogato al Café” Vanilleeis, Kaffeelikör, karamellisierte Walnüsse und Espresso         ",
+        "no": "“Affogato al Café” Vaniljeis, kaffelikør, karamelliserte valnøtter og espresso",
+        "ru": "Affogato al Café ванильный лед, кофейный ликер, карамелизированные грецкие орехи и кофе "
+    },
+    {
+        "translationid": "dish_27",
+        "en": "Chocolate brownie with ice cream",
+        "es": "Brownie de chocolate con helado",
+        "de": "Schokolade Brownie mit Eis",
+        "no": "Coulant av sjokolade med iskrem",
+        "ru": "Шоколадный брауни с мороженым"
+    },
+    {
+        "translationid": "dish_29",
+        "en": "Lemon sorbete with cava",
+        "es": "Sorbete de Limón con Cava",
+        "de": "Zitronensorbet mit Cava",
+        "no": "Sitron sorbet med Cava",
+        "ru": "Лимонный сорбет с шампанским"
+    },
+    {
+        "translationid": "dish_30",
+        "en": "Chocolate mousse",
+        "es": "Mousse de chocolate",
+        "de": "Schokoladenmousse",
+        "no": "Sjokolademousse",
+        "ru": "Шоколадный мусс"
+    },
+    {
+        "translationid": "dish_32",
+        "en": "Tiramisu",
+        "es": "Tiramisu",
+        "de": "Tiramisu",
+        "no": "Tiramisu",
+        "ru": "Тирамису"
+    },
+    {
+        "translationid": "dish_34",
+        "en": "Grand Marinier",
+        "es": "Grand Marinier",
+        "de": "Grand Marinier",
+        "no": "Grand Marinier",
+        "ru": "Grand Marinier"
+    },
+    {
+        "translationid": "dish_35",
+        "en": "Baylies",
+        "es": "Baylies",
+        "de": "Baylies",
+        "no": "Baylies",
+        "ru": "Baylies"
+    },
+    {
+        "translationid": "dish_36",
+        "en": "Tia Maria",
+        "es": "Tia Maria",
+        "de": "Tia Maria",
+        "no": "Tia Maria",
+        "ru": "Tia Maria"
+    },
+    {
+        "translationid": "dish_37",
+        "en": "Licor 43",
+        "es": "Licor 43",
+        "de": "Licor 43",
+        "no": "Licor 43",
+        "ru": "Licor 43"
+    },
+    {
+        "translationid": "dish_38",
+        "en": "Drambuie",
+        "es": "Drambuie",
+        "de": "Drambuie",
+        "no": "Drambuie",
+        "ru": "Drambuie"
+    },
+    {
+        "translationid": "dish_39",
+        "en": "Jagermaister",
+        "es": "Jagermaister",
+        "de": "Jagermaister",
+        "no": "Jagermaister",
+        "ru": "Jagermaister"
+    },
+    {
+        "translationid": "dish_40",
+        "en": "Anis Cream",
+        "es": "Anis Cream",
+        "de": "Anis Cream",
+        "no": "Anis Cream",
+        "ru": "Anis Cream"
+    },
+    {
+        "translationid": "dish_41",
+        "en": "Ponche Caballero",
+        "es": "Ponche Caballero",
+        "de": "Ponche Caballero",
+        "no": "Ponche Caballero",
+        "ru": "Ponche Caballero"
+    },
+    {
+        "translationid": "dish_42",
+        "en": "Licor de Café",
+        "es": "Licor de Café",
+        "de": "Licor de Café",
+        "no": "Licor de Café",
+        "ru": "Licor de Café"
+    },
+    {
+        "translationid": "dish_43",
+        "en": "Orujo de Hierbas",
+        "es": "Orujo de Hierbas",
+        "de": "Orujo de Hierbas",
+        "no": "Orujo de Hierbas",
+        "ru": "Orujo de Hierbas"
+    },
+    {
+        "translationid": "dish_44",
+        "en": "Orujo blanco",
+        "es": "Orujo blanco",
+        "de": "Orujo blanco",
+        "no": "Orujo blanco",
+        "ru": "Orujo blanco"
+    },
+    {
+        "translationid": "dish_45",
+        "en": "Cardinal Mendoza",
+        "es": "Cardinal Mendoza",
+        "de": "Cardinal Mendoza",
+        "no": "Cardinal Mendoza",
+        "ru": "Cardinal Mendoza"
+    },
+    {
+        "translationid": "dish_46",
+        "en": "Carlos I",
+        "es": "Carlos I",
+        "de": "Carlos I",
+        "no": "Carlos I",
+        "ru": "Carlos I"
+    },
+    {
+        "translationid": "dish_47",
+        "en": "Carlos III",
+        "es": "Carlos III",
+        "de": "Carlos III",
+        "no": "Carlos III",
+        "ru": "Carlos III"
+    },
+    {
+        "translationid": "dish_48",
+        "en": "Torres 10",
+        "es": "Torres 10",
+        "de": "Torres 10",
+        "no": "Torres 10",
+        "ru": "Torres 10"
+    },
+    {
+        "translationid": "dish_49",
+        "en": "Gran Duque de Alba",
+        "es": "Gran Duque de Alba",
+        "de": "Gran Duque de Alba",
+        "no": "Gran Duque de Alba",
+        "ru": "Gran Duque de Alba"
+    },
+    {
+        "translationid": "dish_50",
+        "en": "Martell VS",
+        "es": "Martell VS",
+        "de": "Martell VS",
+        "no": "Martell VS",
+        "ru": "Martell VS"
+    },
+    {
+        "translationid": "dish_51",
+        "en": "Port wine",
+        "es": "Port wine",
+        "de": "Port wine",
+        "no": "Port wine",
+        "ru": "Port wine"
+    },
+    {
+        "translationid": "dish_52",
+        "en": "Sherry",
+        "es": "Sherry",
+        "de": "Sherry",
+        "no": "Sherry",
+        "ru": "Sherry"
+    },
+    {
+        "translationid": "dish_53",
+        "en": "Pizza Margarita",
+        "es": "Pizza Margarita",
+        "de": "Pizza Margarita",
+        "no": "Pizza Margarita",
+        "ru": "Пицца Маргарита"
+    },
+    {
+        "translationid": "dish_54",
+        "en": "Sausages with mashed potato",
+        "es": "Salchichas con puré de papa",
+        "de": "Würstchen mit Kartoffelpüree",
+        "no": "Pølser med potetmos",
+        "ru": "Сосиски с картофельным пюре"
+    },
+    {
+        "translationid": "dish_55",
+        "en": "Pasta with tomato",
+        "es": "Espagueti con tomates",
+        "de": "Nudeln mit Tomaten",
+        "no": "Pasta med tomat",
+        "ru": "Паста с томатами"
+    },
+    {
+        "translationid": "dish_56",
+        "en": "Pizza Barbeque",
+        "es": "Pizza Barbeque",
+        "de": "Pizza Barbeque",
+        "no": "Pizza Barbeque",
+        "ru": "Пицца Барбекю"
+    },
+    {
+        "translationid": "dish_57",
+        "en": "Chicken nuggets with potato chips",
+        "es": "Nuggets de pollo with patata frita",
+        "de": "Hühnernuggets mit Kartoffelchips",
+        "no": "Kyllingnuggets med potetgull",
+        "ru": "Куринные наггетсы с картофелем фри"
+    },
+    {
+        "translationid": "dish_58",
+        "en": "Pumpkin and Curry cream soup",
+        "es": "Sopa de calabaza con curry",
+        "de": "Kürbis-Curry-Cremesuppe",
+        "no": "Kremet gresskar suppe med karri",
+        "ru": "Тыквенный суп с карри"
+    },
+    {
+        "translationid": "dish_59",
+        "en": "Dry aged Duck breast with peach and caramelized nuts",
+        "es": "Jamón de Magret de pato curado con melocotón y nuez caramelizada",
+        "de": "Gealterte Entenbrust mit Pfirsich und karamellisierten Nüssen trocknen",
+        "no": "Skinke av tørket andebryst med fersken og karameliserte hvalnøtter",
+        "ru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
+    },
+    {
+        "translationid": "dish_60",
+        "en": "Tartar of fresh Salmon and avocado",
+        "es": "Tartar de salmón fresco y aguacate",
+        "de": "Tartar aus frischem Lachs und Avocado",
+        "no": "Tartar av fersk laks og avokado",
+        "ru": "Тартар из свежего лосося с авокадо"
+    },
+    {
+        "translationid": "dish_61",
+        "en": "Large sautéed prawns",
+        "es": "Gambones salteadas",
+        "de": "Große sautierte Garnelen",
+        "no": "Store sauterte reker",
+        "ru": "Жареные креветки"
+    },
+    {
+        "translationid": "dish_62",
+        "en": "Cod with mashed potatoes, pumpkin cream and bacon",
+        "es": "Bacalao con puré de patatas, crema de calabaza y beicon",
+        "de": "Kabeljau mit Kartoffelpüree, Kürbiscreme und Speck",
+        "no": "Torskerygg med potetpure, gresskar creme og bacon",
+        "ru": "Треска с картофельным пюре, тыквенным кремом и беконом"
+    },
+    {
+        "translationid": "dish_63",
+        "en": "Fillet steak Rossini with goose liver and fruit wine sauce",
+        "es": "Solomillo de ternera Rossini con foie y salsa de fruta y vino",
+        "de": "Filetsteak „Rossini“ mit Foie und Kirsch-Rotweinsauce",
+        "no": "Indrefillet Rossini med gåselever og frukt og vinsaus",
+        "ru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
+    },
+    {
+        "translationid": "dish_64",
+        "en": "Tiramisu",
+        "es": "Tiramisu",
+        "de": "Tiramisu",
+        "no": "Tiramisu",
+        "ru": "Тирамису"
+    },
+    {
+        "translationid": "dish_65",
+        "en": "Chocolate mousse",
+        "es": "Mousse de chocolate",
+        "de": "Schokoladenmousse",
+        "no": "Sjokolademousse",
+        "ru": "Шоколадный мусс"
+    },
+    {
+        "translationid": "insider_001",
+        "en": "Caramelized Octopus: Grilled and Caramelized Octopus with potato purée and chips is definitely the best choice for foodfans! It’s a fusion style of classic Spanish famous dish Galician octopus. The mixture of the tender potato puree and slightly sweet taste of caramelized octopus will surprise any gourmand."
+    },
+    {
+        "translationid": "insider_002",
+        "en": "Fillet steak “Rossini”: The meat fans should try the steak “Rossini” which is made by the special recipe of our Norwegian chef who, definitely, knows all about meat. The flavors mix of the slightly fried meat with foie- gra and the berry red wine source makes your meal experience unforgeable."
+    },
+    {
+        "translationid": "insider_003",
+        "en": "Mussel Casserole: For seafood lovers we advise to discover the new taste of fresh mussels, but just with cheese gorgonzola sauce. Have you ever tried it? Then, it will, definitely, one of your best meal experiences!"
+    },
+    {
+        "translationid": "insider_004",
+        "en": "Grilled fresh Scallops:  Grilled fresh Scallops with truffle cauliflower cream is one more famous signature of our chef for seafood lovers. The tender favour of the truffle cauliflower mousse is a perfect complement of the freshest galician scallops. Just taste it!"
+    },
+    {
+        "translationid": "insider_005",
+        "en": "Duck foie: Are you a foie fan? Then, you should try our duck foie with caramelized apple which is made by our chef competently. Just the rightest mixture of the sweet berry sauce with slightly salty foie flavor makes it so special meal experience."
+    },
+    {
+        "translationid": "insider_006",
+        "en": "Affogato al Café: The famous dessert Affogato al Café perfectly complements your meal experience with us. Vanilla ice mixed with coffee liqueur, caramelized walnuts and espresso coffee just turns into the most delicious light dessert which gets the hearts."
+    },
+    {
+        "translationid": "insider_007",
+        "en": "Borsch: Borsch is the most famous Russian traditional dish. It’s a hot soup cooked with meat and different type of vegetables. We serve it with sour cream and garlic croutons."
+    },
+    {
+        "translationid": "insider_008",
+        "en": "Dumplings with meat: Dumplings with meat is probably the most common home-made meal in Russia. We cook this plate according to the most traditional recipe and serve it with sour cream or with meat broth, just on your taste."
+    },
+    {
+        "translationid": "insider_009",
+        "en": "Pilaf: Pilaf is a traditional dish in asian part of Russia which got the hearts of all Russia! It’s a rice plate fried and cooked with lamb pieces, carrot and garlic on the open fire. We cook it with our traditional family recipe."
+    },
+    {
+        "translationid": "insider_010",
+        "en": "Eggplants with vegetables and garlic is perfect meal experience for vegetable lovers. We offer it with rice garnish as a great vegetarian dish. "
+    },
+    {
+        "translationid": "insider_011",
+        "en": "Je with the fish: It’s a spicy Korean salad with fresh marinated fish by the special recipe with cucumbers and onion. This is a Korean dish really got loved in asian part of Russia during many years."
+    },
+    {
+        "translationid": "insider_012",
+        "en": "Manti: Manti is a traditional plate of East Asian cuisine. We cook it with a filling of lamb and pumpkin."
+    },
+    {
+        "translationid": "insider_013",
+        "en": "Chak Chak: Chak Chak is a oriental sweetness made of fried dough pieces in honey syrup and walnuts. Traditionally, it becomes a part of the tea ceremony."
+    },
+    {
+        "translationid": "empty_order",
+        "en": " Your order is empty. The selected plate should be added to an order."
+    },
+    {
+        "translationid": "comments",
+        "en": "comments",
+        "es": "comentarios",
+        "ru": "коментариев"
+    },
+    {
+        "translationid": "Reviews",
+        "en": "Reviews",
+        "ru": "Обзоры"
     }
 ]

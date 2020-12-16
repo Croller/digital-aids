@@ -6,7 +6,7 @@
         "categorytitlegr": "Κρύα ορεκτικά",
         "categorytitleit": "Antipasti freddi",
         "categorytitlede": "Kalte Vorspeisen",
-        "categorytitlefr": "Tapas froides",
+        "categorytitlefr": "Apéritifs froids",
         "categorytitleno": "Kalde forretter",
         "categorytitlejp": "冷たい前菜",
         "categorytitleko": "차가운 전채",
@@ -17,13 +17,13 @@
         "categoryid": "hot_app",
         "categorytitleen": "Hot Appetizers",
         "categorytitlees": "Tapas Calientes",
-        "categorytitlegr": "Καυτό τάπας",
-        "categorytitleit": "Tapas calde",
+        "categorytitlegr": "Ζεστά ορεκτικά",
+        "categorytitleit": "Antipasti caldi",
         "categorytitlede": "Heiße Tapas",
-        "categorytitlefr": "Tapas chaudes",
+        "categorytitlefr": "Apéritifs chauds",
         "categorytitleno": "Varm tapas",
-        "categorytitlejp": "ホットタパス",
-        "categorytitleko": "뜨거운 타파스",
+        "categorytitlejp": "ホット前菜",
+        "categorytitleko": "뜨거운 전채",
         "categorytitleru": "Горячие закуски",
         "categorytitlech": "热开胃菜"
     },
@@ -70,13 +70,18 @@
         "categorytitlech": "甜点"
     },
     {
-        "categoryid": "our_strong_des",
-        "categorytitleen": "Our Strong Desserts",
-        "categorytitlees": "Postres Fuertes",
-        "categorytitlede": "Starke Desserts",
-        "categorytitlefr": "Desserts forts",
-        "categorytitleno": "Sterke desserter",
-        "categorytitleru": "Крепкие десерты"
+        "categoryid": "drinks",
+        "categorytitleen": "Drinks",
+        "categorytitlees": "Bebidas",
+        "categorytitlegr": "Ποτά",
+        "categorytitleit": "Bevande",
+        "categorytitlede": "Getränke",
+        "categorytitlefr": "Breuvages",
+        "categorytitleno": "Drikker",
+        "categorytitlejp": "飲み物",
+        "categorytitleko": "음료수",
+        "categorytitleru": "Напитки",
+        "categorytitlech": "饮料"
     },
     {
         "categoryid": "children",
@@ -93,20 +98,6 @@
         "categorytitlech": "儿童菜单"
     },
     {
-        "categoryid": "drinks",
-        "categorytitleen": "Drinks",
-        "categorytitlees": "Bebidas",
-        "categorytitlegr": "Αναψυκτικά",
-        "categorytitleit": "Bevande",
-        "categorytitlede": "Getränke",
-        "categorytitlefr": "Boissons",
-        "categorytitleno": "Drikker",
-        "categorytitlejp": "飲み物",
-        "categorytitleko": "음료수",
-        "categorytitleru": "Напитки",
-        "categorytitlech": "饮料"
-    },
-    {
         "categoryid": "daily_menu_app",
         "categorytitleen": "Daily Menu",
         "categorytitlees": "Menú del día",
@@ -119,54 +110,6 @@
         "categorytitleko": "일일 메뉴",
         "categorytitleru": "Меню дня",
         "categorytitlech": "每日菜单"
-    },
-    {
-        "categoryid": "daily_menu_main_dish"
-    },
-    {
-        "categoryid": "daily_menu_dessert"
-    },
-    {
-        "categoryid": "degustation_menu",
-        "categorytitleen": "Degustation menu",
-        "categorytitlees": "Menú degustación",
-        "categorytitlegr": "Μενού απογύμνωσης",
-        "categorytitleit": "Menu degustazione",
-        "categorytitlede": "Degustationsmenü",
-        "categorytitlefr": "Menu de dégustation",
-        "categorytitleno": "Degustasjonsmeny",
-        "categorytitlejp": "テイスティングメニュー",
-        "categorytitleko": "테이스팅 메뉴",
-        "categorytitleru": "Дегустационное меню",
-        "categorytitlech": "品尝菜单"
-    },
-    {
-        "categoryid": "chef_dishes",
-        "categorytitleen": "Chef dishes",
-        "categorytitlees": "Platos del Chef",
-        "categorytitlegr": "Σεφ πιάτα",
-        "categorytitleit": "I piatti dello Chef",
-        "categorytitlede": "Die Gerichte des Chef",
-        "categorytitlefr": "Les plats du Chef",
-        "categorytitleno": "Kokkens retter",
-        "categorytitlejp": "シェフの名物",
-        "categorytitleko": "셰프의 특선 요리",
-        "categorytitleru": "Фирменные блюда от шеф-повара",
-        "categorytitlech": "厨师菜"
-    },
-    {
-        "categoryid": "salads",
-        "categorytitleen": "Salads",
-        "categorytitlees": "Ensaladas",
-        "categorytitlegr": "Σαλάτες",
-        "categorytitleit": "Insalate",
-        "categorytitlede": "Salate",
-        "categorytitlefr": "Salades",
-        "categorytitleno": "Salater",
-        "categorytitlejp": "サラダ",
-        "categorytitleko": "샐러드",
-        "categorytitleru": "Салаты",
-        "categorytitlech": "沙律"
     },
     {
         "categoryid": "wine",
@@ -197,47 +140,59 @@
         "categorytitlech": "啤"
     },
     {
-        "categoryid": "cocktails",
-        "categorytitleen": "Cocktails",
-        "categorytitlees": "Cócteles",
-        "categorytitlegr": "Κοκτέιλ",
-        "categorytitleit": "Cocktail",
-        "categorytitlede": "Cocktails",
-        "categorytitlefr": "Сocktails",
-        "categorytitleno": "Cocktailer",
-        "categorytitlejp": "カクテル",
-        "categorytitleko": "칵테일",
-        "categorytitleru": "Коктели",
-        "categorytitlech": "鸡尾酒"
+        "categoryid": "licor",
+        "categorytitleen": "Liqueurs",
+        "categorytitlees": "Licores",
+        "categorytitlegr": "Λικέρ",
+        "categorytitleit": "Liquori",
+        "categorytitlede": "Liköre",
+        "categorytitlefr": "Liqueurs",
+        "categorytitleno": "Likører",
+        "categorytitlejp": "リキュール",
+        "categorytitleko": "리큐어",
+        "categorytitleru": "Ликеры",
+        "categorytitlech": "酒"
     },
     {
-        "categoryid": "our_strong_dessert_licor",
-        "categorytitleen": "Licors",
-        "categorytitlees": "Licors",
-        "categorytitlede": "Licors",
-        "categorytitlefr": "Licors",
-        "categorytitleno": "Licors",
-        "categorytitleru": "Ликеры"
-    },
-    {
-        "categoryid": "our_strong_dessert_brandy",
+        "categoryid": "brandy",
         "categorytitleen": "Brandy",
         "categorytitlees": "Brandy",
+        "categorytitlegr": "μπράντυ",
+        "categorytitleit": "Brandy",
         "categorytitlede": "Brandy",
         "categorytitlefr": "Brandy",
         "categorytitleno": "Brandy",
-        "categorytitleru": "Бренди"
+        "categorytitlejp": "ブランデー",
+        "categorytitleko": "브랜디",
+        "categorytitleru": "Бренди",
+        "categorytitlech": "白兰地"
     },
     {
-        "categoryid": "main_dishes",
-        "categorytitleen": "Main DIshes"
+        "categoryid": "tea_coffee",
+        "categorytitleen": "Tea&Coffee",
+        "categorytitlees": "Te&Cafe",
+        "categorytitlegr": "Τσάι&Kαφές",
+        "categorytitleit": "Tè&Caffè",
+        "categorytitlede": "Tee&Kaffee",
+        "categorytitlefr": "Thé&Café",
+        "categorytitleno": "Te&Kaffe",
+        "categorytitlejp": "紅茶とコーヒー",
+        "categorytitleko": "차와 커피",
+        "categorytitleru": "Чай&Кофе",
+        "categorytitlech": "茶和咖啡"
     },
     {
-        "categoryid": "pre_order_plates",
-        "categorytitleen": "Pre-order"
-    },
-    {
-        "categoryid": "garnish",
-        "categorytitleen": "Garnish"
+        "categoryid": "beverages",
+        "categorytitleen": "Beverages",
+        "categorytitlees": "Refrescos",
+        "categorytitlegr": "Αναψυκτικά",
+        "categorytitleit": "Bevande analcoliche",
+        "categorytitlede": "Alkoholfreie Getränke",
+        "categorytitlefr": "Boissons non alcoolisées",
+        "categorytitleno": "Drikkevarer",
+        "categorytitlejp": "ソフトドリンク",
+        "categorytitleko": "청량 음료",
+        "categorytitleru": "Безалкогольный напиток",
+        "categorytitlech": "软饮料"
     }
 ]
