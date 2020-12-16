@@ -1,17 +1,19 @@
 import React from 'react'
 import './style.scss'
-import {Paper, Grid, Container, Button} from '@material-ui/core'
 import {
-    LocationOnOutlined as Location, 
-    FastfoodOutlined as Food,
-    PhoneInTalkOutlined as Phone,
-    AccessTimeOutlined as Time,
-    // WarningOutlined as Info
-} from '@material-ui/icons'
+    // Paper, Grid, 
+    Container, Button} from '@material-ui/core'
+// import {
+//     LocationOnOutlined as Location, 
+//     FastfoodOutlined as Food,
+//     PhoneInTalkOutlined as Phone,
+//     AccessTimeOutlined as Time,
+//     // WarningOutlined as Info
+// } from '@material-ui/icons'
 import {Exclamation, World} from '../../template/common/icons'
 import Redirect from '../../template/common/redirect'
 import Service from '../../../services/restaurants'
-import TranslService, {_T} from '../../../services/translations'
+import TranslService, {tr} from '../../../services/translations'
 import A from '../../../redux/actionTypes'
 import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
@@ -34,49 +36,51 @@ class HamburgerMenu extends React.Component{
         translations: null
     }
 
-    componentDidMount(){
+    // componentDidMount(){
        
 
-        this.fetchData()
-    }
+        // this.fetchData()
+    // }
     
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language 
-            || this.props.match.slug !== prevProps.match.slug ){
-            this.fetchData()
-        }
-    }
+    // componentDidUpdate( prevProps ){
+    //     if( prevProps.language !== this.props.language 
+    //         || this.props.computedMatch.slug !== prevProps.computedMatch.slug ){
+    //         this.fetchData()
+    //     }
+    // }
 
     async fetchData(){
-        console.log("Fetching data")
-        const {slug} = this.props.match.params
-        const {language} = this.props
-        const restaurant = await Service.getRestaurant( slug, language )
-        if( restaurant ){
-            const translations = await TranslService.getByKeys(
-                [
-                    "Menu", "reglament_1169"
-                ],
-                language, restaurant.defaultlanguage
-            )
-            this.setState({restaurant, translations})
-        } else {
-            this.setState({restaurant})
-        }
+        // console.log("Fetching data")
+        // const {slug} = this.props.computedMatch.params
+        // const {language} = this.props
+        // const restaurant = await Service.getRestaurant( slug, language )
+        // if( restaurant ){
+        //     const translations = await TranslService.getByKeys(
+        //         [
+        //             "Menu", "reglament_1169", "Reservation"
+        //         ],
+        //         language, restaurant.defaultlanguage
+        //     )
+        //     this.setState({restaurant, translations})
+        // } else {
+        //     this.setState({restaurant})
+        // }
     }
 
 
     render(){
 
-        const {restaurant, selected, translations } = this.state
+        // const {restaurant, selected, translations } = this.state
+        const {selected } = this.state
+        const {slug, restaurant, translations, restState } = this.props
         
         
 
-        const {language, lang, setFilter } = this.props
+        const {language, setCategory } = this.props
 
         
 
-        const {slug} = this.props.match.params
+        // const {slug} = this.props.computedMatch.params
         
         if( selected ) 
             return <Redirect to={`/${slug}`} />
@@ -88,17 +92,17 @@ class HamburgerMenu extends React.Component{
         }
 
         const selectCategory = cid => {
-            setFilter(slug, cid)
+            setCategory(slug, cid)
             this.setState({selected: true})
 
         }
 
         if( restaurant ){
-            const _t = _T(translations, language, restaurant.defaultlanguage )
+            const _t = key => tr(key, language, translations )
             const langData = restaurant.languages.find( l => l.id === language )
             const langTitle = langData ? langData.nativeName : language
 
-            console.debug("Translate", _t("Menu", 1))
+            // console.debug("Translate", _t("Menu", 1))
             return(
                 <Container className="hamburger-menu">
                     <TopBar 
@@ -107,17 +111,20 @@ class HamburgerMenu extends React.Component{
                     showHamburger={false}
                     showMenuButton={true}
                     closeButtonLink={`/${restaurant.slug}`}
+                    restState={restState}
                     />
                     <div className="flex column">
-                        <div className="main-title">{_t("Menu", 1)}</div>
-                        {restaurant.categories && restaurant.categories.map( (c, ind) => {
-    
-                        return(
-                        <Button className="cat-button panel flex column py-1" key={`cat-btn-${ind}`} onClick={() => selectCategory(c.id)} >
-                            <div className="title">{c.title}</div>
-                            <div className="default-title">{c.titledefault}</div>
-                        </Button>)
-                        })}    
+                        <div className="main-title">{_t("Menu")}</div>
+                        {restaurant.menus.map( menu => {
+                            {menu.categories && menu.categories.map( (c, ind) => {
+        
+                            return(
+                            <Button className="cat-button panel flex column py-1" key={`cat-btn-${ind}`} onClick={() => selectCategory(c.id)} >
+                                <div className="title">{c.title}</div>
+                                <div className="default-title">{c.titledefault}</div>
+                            </Button>)
+                            })}    
+                        })}
                         <div className="separator"></div>
                         <Button component={Link} to={`/${slug}/reglament-1169`} className="cat-button panel flex column py-1" >
                             <div className="flex row align-items-center flex-grow">
@@ -128,8 +135,12 @@ class HamburgerMenu extends React.Component{
                                 </div>
                             </div>
                         </Button>
-                        <Button className="cat-button panel flex column py-1 bg-light-gray-2" onClick={() => lang(null) }>
+                        {/* <Button className="cat-button panel flex column py-1 bg-light-gray-2" onClick={() => lang(null) }> */}
+                        <Button className="cat-button panel flex column py-1 bg-light-gray-2" component={Link} to={`/${slug}/language`} >
                             <div className="title flex row align-items-center"><World className="icon mr-1" />{langTitle}</div>                            
+                        </Button>
+                        <Button className="cat-button panel flex column py-1 bg-light-gray-2" component={Link} to={`/${slug}/details`}>
+                            <div className="title flex row align-items-center">{_t("Reservation")}</div>                            
                         </Button>
                         <Button component={Link} to={`/${slug}/insider`} className="cat-button bg-green panel flex column py-1" >
                             <div className="title c-white">FOODFANS INSIDER</div>                            
@@ -148,9 +159,10 @@ class HamburgerMenu extends React.Component{
 }
 
 export default connect(
-    state => state,
+    state => ({...state.app, translations: state.translation }),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        setFilter: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "category", value} } )
+        setCategory: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "category", value} } ),
+        setMenu: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "menu", value} } )
     })
 )(HamburgerMenu)

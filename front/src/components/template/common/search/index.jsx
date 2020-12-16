@@ -8,7 +8,7 @@ let searchTimeout
 
 class Search extends React.Component{
 
-    state = { value: null }
+    state = { value: "" }
 
     componentDidMount(){
         const {value} = this.props 
@@ -39,6 +39,7 @@ class Search extends React.Component{
             inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
             IconElement = Icon,
             iconProps = { className: "search-icon" },
+            onSearch, // cut it away from props
             ...other
         } = this.props
 

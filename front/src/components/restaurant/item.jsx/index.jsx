@@ -26,7 +26,7 @@ class Menu extends React.Component{
 
     async fetchData(){
         console.log("Fetching data")
-        const {slug} = this.props.match.params
+        const {slug} = this.props.computedMatch.params
         const {language} = this.props
         const restaurant = await Service.getRestaurant( slug, language )
         this.setState({restaurant})
@@ -38,7 +38,7 @@ class Menu extends React.Component{
         const {restaurant} = this.state
         
         const {language} = this.props
-        const {slug} = this.props.match.params
+        const {slug} = this.props.computedMatch.params
 
         return(
             restaurant ? 
@@ -95,7 +95,7 @@ class Menu extends React.Component{
 
 
 export default connect(
-    state => state,
+    state => state.app,
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
     })

@@ -3,7 +3,19 @@
 #root{
     .main{
 
+        .empty-cart-message{
+            padding: 30px;
+            text-align: center;
+
+            a{
+                background-color: $light-gray;
+                height: 60px;
+                width: 206px;
+            }
+        }
+
         .cart {
+
 
             .breadcrumbs {
                 margin: 1em 0;
@@ -71,5 +83,16 @@
                 // }
             }
         }
+    }
+}
+
+.dialog{
+    .text{
+        font-size: 18px;
+        font-weight: 600;
+    }
+    button{
+        min-width: 144px;
+        margin: 0 0 12px;
     }
 }

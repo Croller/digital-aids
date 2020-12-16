@@ -1,0 +1,83 @@
+.css-carousel{
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    position: relative;
+    padding-top: 16px; // to left place for dots.
+    &.hide-dots{
+        padding-top: 0;
+
+        ul.dots {
+            display: none;
+        }
+    }
+
+    ul.dots{
+        display: flex;
+        flex-direction: row;
+        // margin: 0.2em 0;
+        top: 0;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        li.dot{
+            // width: 10px;
+            // height: 10px;
+            // background: rgba(0,0,0,0.3);
+            // border-radius: 50%;
+            // display: inline-flex;
+            // margin: 0.2em;
+            transition: opacity .25s ease-in;
+            opacity: .3;
+            filter: alpha(opacity=30);
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.9);
+            background: #bababa;
+            border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            cursor: pointer;
+            display: inline-block;
+            margin: 0 8px;
+
+            &.active  {
+                background-color: black;
+                box-shadow: 1px 1px 2px rgba(0,0,0,1);
+            }
+        }
+    }
+    .slides {
+        display: flex;
+        max-width: 100%;
+        flex-grow: 1;
+        align-self: stretch;
+
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        
+        
+        
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        & > div {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100%;
+            min-height: 100px;
+            // max-width: 100vw;
+            // margin-right: 50px;
+            // border-radius: 10px;
+            background: white;
+            
+            position: relative;
+            
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; // starting with top of the slide
+            align-items: center;
+            // font-size: 100px;
+        }
+    }
+}

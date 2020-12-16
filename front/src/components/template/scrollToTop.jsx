@@ -100,9 +100,11 @@ class ScrollToTopRoute extends Component {
 
   render() {
     const { component: Component, revealProps = {}, ...rest } = this.props;
+    // const { exact, path, component: Component, revealProps = {}, ...rest } = this.props;
     // const {revealProps } = this.state
-
-    return <Route {...rest} render={props => (<Component {...props} />)} />;
+    console.debug("Route props:", rest )
+    return <Route {...rest} render={props => (<Component {...props} {...rest} />)} />;
+    // return <Route exact={exact} path={path} render={props => (<Component {...{...props, ...rest}} />)} />;
   }
 }
 

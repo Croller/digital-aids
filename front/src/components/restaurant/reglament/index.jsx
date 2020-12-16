@@ -7,12 +7,12 @@ import {
     PhoneInTalkOutlined as Phone,
     AccessTimeOutlined as Time
 } from '@material-ui/icons'
-import {PhoneCall, Chef} from '../../template/common/icons'
+// import {PhoneCall, Chef} from '../../template/common/icons'
 import Social from '../social'
 import {Redirect} from 'react-router-dom'
-import Service from '../../../services/restaurants'
+// import Service from '../../../services/restaurants'
 import TagsService from '../../../services/tags'
-import TranslService from '../../../services/translations'
+import TranslService, {tr} from '../../../services/translations'
 import A from '../../../redux/actionTypes'
 import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
@@ -31,9 +31,7 @@ const txt = {
 class Reglament extends React.Component{
 
     state ={
-        restaurant: null,
-        tags: null,
-        translations: null
+
     }
 
     componentDidMount(){
@@ -44,29 +42,36 @@ class Reglament extends React.Component{
     
     componentDidUpdate( prevProps ){
         if( prevProps.language !== this.props.language 
-            || this.props.match.slug !== prevProps.match.slug ){
+            || this.props.slug !== prevProps.slug ){
             this.fetchData()
         }
     }
 
     async fetchData(){
         console.log("Fetching data")
-        const {slug} = this.props.match.params
-        const {language} = this.props
-        const restaurant = await Service.getRestaurant( slug, language )
-        if( restaurant ){
-            const tags = await TagsService.getAll(slug, language, restaurant.defaultlanguage )
-            
-            const translations = await TranslService.getByKeys(
-                [
-                    "reglament_text_1", 
-                    "reglament_text_2",
-                    "reglament_1169"
-                ]    
-                , language, restaurant.defaultlanguage )
+        
+        const {slug, language, restaurant } = this.props
+        
+        TranslService.getByKeys([
+            "reglament_text_1",
+            "reglament_text_2",
+            "reglament_1169"
+        ], language, restaurant ? restaurant.defaultlanguage : null )
+
+        // const restaurant = await Service.getRestaurant( slug, language )
+        
+        const tags = await TagsService.getAll(slug, language, restaurant ? restaurant.defaultlanguage : "en" );
+        this.setState({tags})
+        //     const translations = await TranslService.getByKeys(
+        //         [
+        //             "reglament_text_1", 
+        //             "reglament_text_2",
+        //             "reglament_1169"
+        //         ]    
+        //         , language, restaurant.defaultlanguage )
                 
-                this.setState({restaurant, tags, translations})
-            }
+        //         this.setState({restaurant, tags, translations})
+        //     }
         
     }
 
@@ -74,15 +79,17 @@ class Reglament extends React.Component{
     render(){
 
         
-        const {restaurant, tags, translations} = this.state
+        const {tags} = this.state
         
         
-        const {language, lang} = this.props
+        const {restaurant, language, translations, restState } = this.props
         
-        const _t = key => translations[key] ? translations[key][language] || key : key
-        const _t1 = key => translations[key] ? translations[key][restaurant.defaultlanguage] || key : key
+        // const _t = key => translations[key] ? translations[key][language] || key : key
+        // const _t1 = key => translations[key] ? translations[key][restaurant.defaultlanguage] || key : key
 
-        const {slug} = this.props.match.params
+        const _t = (key) => tr(key, language, translations ) 
+        const _t1 = (key) => tr(key, restaurant.defaultlanguage , translations ) 
+        const {slug} = this.props //.computedMatch.params
         
         
         if( !language){
@@ -100,16 +107,18 @@ class Reglament extends React.Component{
                 showHamburger={false}
                 showMenuButton={true}
                 closeButtonLink={`/${restaurant.slug}`}
+                restState={restState}
                 />
             
                 <h1 className="flex column">
                     <span>{_t("reglament_1169")}</span>
-                    <span>{_t1("reglament_1169")}</span>
+                    { language !== restaurant.defaultlanguage && 
+                        <span>{_t1("reglament_1169")}</span>
+                    }
                 </h1>
 
                 <div>
                     <p>{_t("reglament_text_1")}</p>
-                    <p>{_t("reglament_text_2")}</p>
                 </div>
 
                 <div className="allergen-list flex column">
@@ -125,19 +134,23 @@ class Reglament extends React.Component{
                         : ""
                     )) }
                 </div>
+
+                <div>
+                    <p>{_t("reglament_text_2")}</p>
+                </div>
                 
             </Container>
             <Social {...{...restaurant}} />
             
             </>
-            : restaurant === null ? <Spinner/> : <ErrorPage/>    
+            : restaurant === false || tags === false || translations === false ? <ErrorPage/> : <Spinner/>
         
         )
     }
 }
 
 export default connect(
-    state => state,
+    state => ({...state.app, translations: state.translation }),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
     })

@@ -90,7 +90,7 @@ export function removePrefix( str, prefix ){
 
 /**
  * Populates target object's fields recursively from corresponding fields in source object. 
- * If field is not present in source, it is not changed in target object. 
+ * Only fields already existing in target object are updated.
  * If target field type is object, the function is called recursively to populate the field.
  * If source object is null, target is returned unchanged.
  * If target object is null, null is returned.
@@ -101,24 +101,68 @@ export function removePrefix( str, prefix ){
 export function populateObjectRecursively( target, source ){
     if(source === null || target === null ) return target
 
+
+    
+
     if( typeof target === "object" && typeof source === "object" ){
+        let result = {}
+
         Object.keys(target).map( key => {
             if( source.hasOwnProperty( key ) )
                 switch( typeof target[key] ){
                     case "object":
                         if( typeof source[key] === "object" ) // recursion
-                            target[key] = populateObjectRecursively( target[key], source[key] )
+                            result[key] = populateObjectRecursively( target[key], source[key] )
                         else
-                            target[key] = source[key]
+                            result[key] = source[key]
                         break;
                     default:
-                        target[key] = source[key]
+                        result[key] = source[key]
                         break;
                 }
         } )
+        // repopulated object
+        return result
     } 
+    // orginal value
     return target
 }
+
+
+/**
+ * Debounce function factory.
+ * Receives debounce delay and callback. 
+ * Returns a debounced event handler that will call the callback 
+ * once the period between handler calls is larger than debounce delay.
+ * @param {*} delay in ms
+ * @param {*} callback event handler
+ * @usage Show left scroll once the scrollng is stopped:
+ * el.addEventListener("scroll", debounce(300, ev => console.debug(ev.target.scrollLeft)) )
+ */
+export function debounce( delay=200, callback = console.debug ){
+    let timer
+    return ev => {
+        
+        console.debug("Debounce: received event: ", ev )
+        // debounce
+        if( timer )
+            clearTimeout(timer);
+    
+        // set timer again
+        timer = setTimeout( () => {
+            console.debug("Debounce: Debounced event: ", ev )
+            callback(ev)
+        } , delay )
+    }
+
+}
+
+/**
+ * Returns whether object obj has property key
+ * @param {*} obj 
+ * @param {*} key 
+ */
+export const has = (obj, key) => typeof obj === "object" && obj.hasOwnProperty(key)
 
 // module.exports = {
 //     slugify, 
@@ -127,3 +171,11 @@ export function populateObjectRecursively( target, source ){
 //     loadScript,
 //     textFormat
 // }
+
+
+/**
+ * Creates key for translations object from translation key and language
+ * @param {*} key 
+ * @param {*} language 
+ */
+export const tkey = (key, language) => `${key}+${language}`

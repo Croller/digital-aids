@@ -21,12 +21,15 @@ import {ReactComponent as World} from '../../../assets/svg/world.svg'
 import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
 import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
 import {ReactComponent as Exclamation} from '../../../assets/svg/exclamation.svg'
+import {ReactComponent as Hamburger} from '../../../assets/svg/hamburger.svg'
 
 // social
 import {ReactComponent as FacebookIcon} from '../../../assets/svg/facebook.svg'
 import {ReactComponent as InstagramIcon} from '../../../assets/svg/instagram.svg'
 import {ReactComponent as TheForkIcon} from '../../../assets/svg/thefork.svg'
 import {ReactComponent as TripadvisorIcon} from '../../../assets/svg/tripadvisor.svg'
+import {ReactComponent as TripadvisorRatingCheck} from '../../../assets/svg/tripadvisor-rating-check.svg'
+import {ReactComponent as TripadvisorRatingEmpty} from '../../../assets/svg/tripadvisor-rating-empty.svg'
 import {ReactComponent as Trash} from '../../../assets/svg/trash.svg'
 import {ReactComponent as Plate} from '../../../assets/svg/plate.svg'
 
@@ -52,6 +55,7 @@ export {
     ChefHead,
     Cloche,
     Exclamation,
+    Hamburger,
     Plate,
     Search,
     PhoneCall,

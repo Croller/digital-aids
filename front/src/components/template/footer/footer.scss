@@ -1,6 +1,13 @@
 @import "../../../variables.scss";
 #root{
+
+    &.scrolling-down .footer {
+        transform: translateY(80px);
+    }
+
     .footer{
+        transition: 0.4s ease-out transform;
+
         background: white;
         // padding: 0.5em;
         z-index: 100;
@@ -11,7 +18,22 @@
     //   width: 100%;
         justify-content: center;
 
-        max-height: 64px;
+        height: $footerHeight;
+        max-height: $footerHeight;
+
+
+        // compensate bottom "dash"  on iPhones X and newer
+        @media only screen 
+        and (-webkit-device-pixel-ratio: 3)
+        and (device-height: 812px), // iPhone 12 Mini, iPhone 11 Pro
+        (device-height: 844px), // iPhone 12 and iPhone 12 Pro
+        (device-height: 926px), // iPhone 12 Pro Max 
+        (device-height: 896px)  // iPhone 11, Phone 11 Pro Max
+        {
+            padding-bottom: 12px;
+            max-height: #{$footerHeight + 12px};
+        }
+
 
         @media screen and(max-width: $bp_1) {
             position: sticky;

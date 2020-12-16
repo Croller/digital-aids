@@ -1,161 +1,172 @@
-import { Button, Container, Paper } from '@material-ui/core'
-import {Link} from 'react-router-dom'
-import {ChevronLeft} from '@material-ui/icons'
+import { Button, Container, Dialog, DialogContent } from '@material-ui/core'
+// import {Link} from 'react-router-dom'
+// import {ChevronLeft} from '@material-ui/icons'
 import React from 'react'
-import Service from '../../services/restaurants'
-import TranslService, {_T} from '../../services/translations'
+// import Service from '../../services/restaurants'
+import TranslService, {_T, transl, tr} from '../../services/translations'
 import Spinner from '../template/common/Spinner'
 import ErrorPage from '../template/common/error-loading'
-import Topbar from '../restaurant/topbar'
-import Menu from '../restaurant/menu'
+// import Topbar from '../restaurant/topbar'
+// import Menu from '../restaurant/menu'
 import {connect} from 'react-redux'
 import A from '../../redux/actionTypes'
-import {getRestaurant} from '../../redux/reducers'
-import Redirect from '../template/common/redirect'
+// import {getRestaurant} from '../../redux/reducers'
+// import Redirect from '../template/common/redirect'
 
 import './cart.scss'
-import { Trash } from '../template/common/icons'
-import Footer from '../template/footer'
+import { Trash, ChefHead } from '../template/common/icons'
+// import Footer from '../template/footer'
 import Social from '../restaurant/social'
+import CartList from './cart-list'
+import { Link } from 'react-router-dom'
 
+
+const EmptyOrder = ({menu_link, button_text = "Menu", text}) => 
+    <div className="panel empty-cart-message">
+        <p>
+            {text}
+        </p>
+
+        <Button component={Link} to={menu_link}>{button_text}</Button>
+    </div>
 
 
 class Cart extends React.Component{
 
     state = {
-        restaurant: null,
+        // restaurant: null,
         translations: null,
-        _t: null
+        showClearDialog: false
     }
     componentDidMount(){
-        this.fetchRestaurant( {} )
+        console.debug("cart componentDidMount is called")
+        // this.fetchRestaurant( {} )
+        this.fetchTranslations()
         
     }
 
     componentDidUpdate(prevProps){
-        if(this.props.match.params.slug !== prevProps.match.params.slug ){
-            this.fetchRestaurant( prevProps )
+        console.debug("cart componentDidUpdate is called")
+        // const {slug} =  this.props.computedMatch.params
+        const {restaurant, language} = this.props
+        
+        // const {slug: old_slug} = prevProps
+        const {language: old_language, restaurant: old_restaurant } = prevProps
+        console.debug("cart language:", language, old_language)
+        if( 
+            // slug !== old_slug  || 
+            restaurant !== old_restaurant ||
+            language !== old_language ){
+            // this.fetchRestaurant( prevProps )
+            this.fetchTranslations()
         }
     }
 
-    async fetchTranslations( default_lang ){
-        const { language } = this.props
-        if( language ){
-            const translations = await TranslService.getByKeys(
+    async fetchTranslations( ){
+        console.debug("cart Fetchtranslations is called")
+        const { language, restaurant } = this.props
+
+        const default_lang = restaurant ? restaurant.defaultlanguage : "en"
+
+        // if( language ){
+            // const translations = await TranslService.getByKeys(
+            TranslService.getByKeys(
                 [
                     "MyOrder",
                     "Total", 
-                    "ThankForOrder"
+                    "ThankForOrder",
+                    "ThankYou",
+                    "WantToClearEntireOrder",
+                    "Remove",
+                    "No",
+                    "empty_order"
                 ],
                 language, default_lang
             )
 
-            return translations
-        } else {
-            return false
-        }
+            // this.setState({translations})
+        // } else {
+        //     return false
+        // }
     }
 
-    async fetchRestaurant( prevProps ){
-        const {language} = this.props 
-        const {slug} = this.props.match.params
-        const restaurant = await Service.getRestaurant( slug )
-
-        let {translations} = this.state 
-
-        if( restaurant ){
-            if( !translations || translations && ( language !== prevProps.language) ){
-                
-                translations = await this.fetchTranslations( restaurant.defaultlangage )
-
-                // get translation function
-                const _t = _T(translations, language, restaurant.defaultlangage )
-
-                this.setState({restaurant, translations, _t })
-                
-    
-            } else {
-    
-                this.setState({restaurant})
-            }
-        } else {
-            this.setState({restaurant})            
-        }
-
-    }
+  
 
 
     render(){
 
-        const {restaurant, translations, _t } = this.state
+        const {showClearDialog } = this.state
+        const {language, restaurant, restState, emptyCart, slug, translations } = this.props
         
-        const {language, emptyCart } = this.props
-
-        
-        const {slug} = this.props.match.params
-
-        
-        
-        if( !language){
-            // redirect to language selector
-            return <Redirect to={`/${slug}/language`} back={window.location.pathname} />
-        }
-
-        const restState = getRestaurant( this.props, slug )
-        
-        // const {cart, cartPrice} = this.props
-        // const menu = cart[slug] || []
         const {cart, cartPrice} = restState
+        const cartIsEmpty = !cart || cart.length === 0
 
-        console.debug("MEnu", cart)
+        // console.debug("Cart slug:", slug, "props: ", this.props)
         if( !restaurant || !translations ){
-            return restaurant === null || translations === null ? <Spinner/> : <ErrorPage />
+            return restaurant === null  ? <Spinner/> : <ErrorPage />
         }
         
+        // translation function for current language
+        const _tt = (key) => tr(key, language, translations)
+        // const _tdef = key => transl( key, restaurant.defaultlanguage)
 
-        // get all category ids within the cart
-        const category_ids = cart.reduce( (r, i) =>{ return r.includes(i.dishcategoryid ) ? r : [...r, i.dishcategoryid] }, [] )
-        console.debug("filtered caegory ids:", category_ids)
-
-        // get all corresponding categories
-        console.debug("all categories:", restaurant.categories)
-        const categories = restaurant.categories.filter( c => category_ids.includes(c.id) )
-        console.debug("filtered categories:", categories)
+        console.debug("Translations:", translations);
+        // shortcuts for dialog handling
+        const closeDialog = () => this.setState({showClearDialog: false})
+        const showDialog = () => this.setState({showClearDialog: true})
 
         return(
            
             <>
-                <Topbar {...{restaurant, language}} 
-                showHamburger={false}
-                showSearch={false}
-                closeButtonLink={`/${slug}`}
-                />
+                
                 <Container key={`cart-${slug}`} className="cart flex-grow">
                     <div className="flex row align-items-center space-between mb-3">
                         <div className="title">
-                            {_t("MyOrder", 1)}
+                            {_tt("MyOrder")}
                         </div>
-                        <Button aria-label="Empty cart" className="empty-cart" onClick={() => emptyCart(slug)}><Trash/></Button>
+                        {cart.length > 0 &&
+                        <Button aria-label="Empty cart" className="empty-cart" onClick={showDialog}><Trash/></Button>
+                        }
                     </div>
                     { restaurant ? 
+                        !cartIsEmpty ?
                         <>
-                            <Menu {...{menu: cart, slug, categories, show_categories: false }}/>
+                            {/* <Menu {...{menu: cart, slug, categories, show_categories: false }}/> */}
+                            <CartList items={cart} restState={{cart}} slug={slug} item_type={restaurant.defaulttemplate}/>
                             <div className="total flex row align-items-center space-between">
                                 <span>
-                                    {_t("Total", 1)}:
+                                    {_tt("Total")}:
                                 </span>
                                 <span className="button ">
                                     {(cartPrice * 1).toFixed(2)}€
                                 </span>
                             </div>
                         </>
+                        :
+                        <EmptyOrder 
+                        text={_tt("empty_order")} 
+                        menu_link={`/${slug}`}
+                        /> 
+
                         : <Spinner />
                     }
                     
                         
                 </Container>
-                <Social {...{...restaurant}} message={_t("ThankForOrder", 1)} />
-                <Footer {...{...restaurant}} />
+                <Social {...{...restaurant}} message={ cartIsEmpty ? _tt("ThankYou") : _tt("ThankForOrder")} />
+                <Dialog 
+                    open={showClearDialog}
+                    onClose={closeDialog}  
+                    className="dialog" 
+                >
+                    <DialogContent className="text">
+                        { _tt('WantToClearEntireOrder')}
+                    </DialogContent>
+                    <div  style={{display: "flex", flexDirection: "column", alignSelf: "center"}}>
+                        <Button className="bg-black c-white" onClick={() => { emptyCart(slug); closeDialog() }}>{_tt('Remove')}</Button>
+                        <Button className="bg-light-gray" onClick={closeDialog}>{_tt('No')}</Button>
+                    </div>
+                </Dialog>
             </>
         )
     }
@@ -163,7 +174,7 @@ class Cart extends React.Component{
 
 
 export default connect(
-    state => state,
+    state => ({...state.app, translations: state.translation } ),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
         emptyCart: payload => dispatch( {type: A.CLEAR_CART, payload } )

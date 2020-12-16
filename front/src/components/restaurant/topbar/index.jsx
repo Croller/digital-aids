@@ -1,22 +1,23 @@
 import React from 'react'
 import './topbar.scss'
+import Service, {tr} from '../../../services/translations'
 
 import {
     AppBar, 
     Button, 
     Container, 
-    Grid, 
+    // Grid, 
     MenuList, 
     MenuItem, 
-    Select, 
-    Paper, 
+    // Select, 
+    // Paper, 
     Popper, 
     Grow,
     ClickAwayListener
 } from '@material-ui/core'
 
-import {LanguageOutlined, Menu as Hamburger, CloseRounded as Cancel, RestaurantMenuOutlined as RestMenu} from '@material-ui/icons';
-import {ReactComponent as SearchIcon } from "../../../assets/svg/magnif.svg";
+import {CloseRounded as Cancel, RestaurantMenuOutlined as RestMenu} from '@material-ui/icons';
+
 import Spinner from '../../template/common/Spinner';
 import Search from '../../template/common/search';
 // import CartWidget from '../../cart/cart-widget'
@@ -25,21 +26,39 @@ import A from '../../../redux/actionTypes'
 import {getRestaurant} from '../../../redux/reducers'
 
 import {Link } from 'react-router-dom'
-import { PhoneCall } from '../../template/common/icons';
+import { PhoneCall, World, Search as SearchIcon, Hamburger } from '../../template/common/icons';
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
 
-const txt = {
-    "txt_menu": "Menu"
-}
+// const txt = {
+//     "txt_menu": "Menu"
+// }
 
-const _t = key => txt[key] ? txt[key] : key
+// const _t = key => txt[key] ? txt[key] : key
 
 class TopBar extends React.Component{
 
     state={
         showDropdownMenu : false,
         anchorEl: null
+    }
+
+    componentDidMount(){
+        this.fetchTranslations();
+    }
+
+    componentDidUpdate( prevProps ){
+        if(prevProps.language !== this.props.language ){
+            this.fetchTranslations()
+        }
+    }
+
+    fetchTranslations(){
+        Service.getByKeys([
+            "Menu",
+            "Reservation",
+            "reglament_1169"
+        ], this.props.language )
     }
 
 
@@ -60,18 +79,22 @@ class TopBar extends React.Component{
             showPhone = true,
             showMenuButton = false,
             closeButtonLink,
-            onSearchUpdate= v => console.debug(" search" , v) 
+            onSearchUpdate= v => console.debug(" search" , v) ,
+            translations,
+            restState
         } = this.props 
 
         if( !restaurant )
             return <Spinner />
 
-        const restState = getRestaurant(this.props, restaurant.slug)
+        // const restState = getRestaurant(this.props, restaurant.slug)
         const {search = null } = restState.filters
 
         const {showDropdownMenu, anchorEl } = this.state
         // const anchorRef = React.createRef();
         const handleClose = () => this.setState({showDropdownMenu: false, anchorEl: null })
+
+        const _t = key => tr(key, language, translations );
 
         return(
 
@@ -99,12 +122,13 @@ class TopBar extends React.Component{
                             }
                             {/* <CartWidget slug={restaurant.slug } className="hide-on-mobile"/> */}
                             {showPhone && restaurant.phone &&
-                                <a className="button panel flex row align-items-center" href={`tel:${restaurant.phone}`}><PhoneCall /> +{restaurant.phone}</a>                            
+                                <a className="button panel flex row align-items-center icon-left" href={`tel:${restaurant.phone}`}><PhoneCall /> +{restaurant.phone}</a>                            
                             }
 
                             {showMenuButton &&
                             <Button className="panel button" component={Link} to={`/${restaurant.slug}`}>
-                                <RestMenu /> {_t("txt_menu")}
+                                {/* <RestMenu />  */}
+                                {_t("Menu")}
                             </Button>                            
                             }
                             
@@ -129,8 +153,8 @@ class TopBar extends React.Component{
                                         >
                                             <ClickAwayListener onClickAway={handleClose}>
                                                 <MenuList autoFocusItem={showDropdownMenu}>
-                                                    <MenuItem component={Link} to={`/${restaurant.slug}/reglament-1169`} onClick={handleClose}>Reglament (EU) №1169/2011 </MenuItem>
-                                                    <MenuItem component={Link} to={`#`} onClick={handleClose}>Reservation</MenuItem>
+                                <MenuItem component={Link} to={`/${restaurant.slug}/reglament-1169`} onClick={handleClose}>{_t("reglament_1169")}</MenuItem>
+                                                    <MenuItem component={Link} to={`#`} onClick={handleClose}>{_t("Reservation")}</MenuItem>
                                                     <MenuItem component={Link} to={`/${restaurant.slug}/insider`} onClick={handleClose}>Foodans Insider</MenuItem>
                                                 </MenuList>
                                             </ClickAwayListener>
@@ -145,9 +169,12 @@ class TopBar extends React.Component{
                             {restaurant.languages &&
                                 <>
                                     <Button 
-                                    className="button panel row align-items-center"
-                                    onClick={() => lang(null) }>
-                                        <LanguageOutlined />{language}
+                                    className="button panel row align-items-center icon-left"
+                                    // onClick={() => lang(null) }>
+                                    component={Link}
+                                    to={`/${restaurant.slug}/language`}
+                                    >
+                                        <World />{language}
                                     </Button>
                                 </>
                             }
@@ -171,7 +198,7 @@ class TopBar extends React.Component{
 
 // export default TopBar
 export default connect(
-    state => ({...state}),
+    state => ({...state.app, translations: state.translation}),
     // null,
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),

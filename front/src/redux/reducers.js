@@ -1,5 +1,5 @@
 import A from './actionTypes'
-import Actions from './actions'
+// import Actions from './actions'
 const localStorageKey = "food&fans-digital-menus"
 
 let localStorageState 
@@ -12,10 +12,10 @@ try {
 
 
 const initialRestaurantState = {
-    cart: [],
-    filters: {},
-    cartCount: 0,
-    cartPrice: 0,
+    cart: [], // restaurant's cart
+    filters: {}, // filters
+    cartCount: 0, // items in cart
+    cartPrice: 0, // cart total price
     cartHasItemsWithNoPrice: false
 }
 
@@ -43,8 +43,9 @@ const initialState =
 
 // returns restaurant by its slug if exists or initial state if not.
 export const getRestaurant = (_state, slug) => {
-    console.debug("getRestaurant:", slug, initialRestaurantState, _state.restaurants )
-    const result =  _state.restaurants[slug] || {...initialRestaurantState}   /// _state.restaurants[slug] ? {..._state.restaurants[slug] } : {...initialRestaurantState}
+    console.debug("getRestaurant _state:", _state)
+    console.debug("getRestaurant slug:", slug )
+    const result = _state && _state.restaurants ? _state.restaurants[slug] || {...initialRestaurantState}  : {...initialRestaurantState}  /// _state.restaurants[slug] ? {..._state.restaurants[slug] } : {...initialRestaurantState}
     console.debug("getRestaurant result:", result)
     return result
 }
@@ -52,6 +53,7 @@ export const getRestaurant = (_state, slug) => {
 export default function root( state = initialState, action ) { 
 
     let newState = {...state}
+    
     // let {messages} = state
     // let now = Date.now()
     const {type: payloadType, payload } = action

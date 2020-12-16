@@ -1,5 +1,5 @@
 $headerHeight: 60px;
-$footerHeight: 40px;
+$footerHeight: 64px;
 $sidebarWidth: 240px;
 
 $mainTopMargin: 20px;
@@ -22,10 +22,27 @@ $red: #F43658;
 
 $borderRadius: 6px;
 
+
 $bp_1: "600px";
 $bp_2: "762px";
 $bp_3: "992px";
 $bp_3: "1200px";
 
+$containerMaxWidth: 1280px;
 
 
+$headerMaxWidth: 1114px;
+$lgMarginsX: 95.5px;  // 83px + 12.5px
+
+$categoryXmargin: 27px;
+
+
+$colors: (
+      "white": white,
+      "green": $green, 
+      "gray": $gray,
+      "black": black,
+      "light-gray": $light-gray,
+      "light-gray-2": $light-gray-2,
+      
+    ); 

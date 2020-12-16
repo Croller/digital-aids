@@ -1,8 +1,16 @@
 @import "../../../variables.scss";
-#root{
-    .main{
+// #root{
+//     .main{
+
+        .category-body{
+            .social-container{
+                margin: 130px -27px 0;
+            }
+        }
+
         .social-container {
             margin-top: 130px;
+
             .social-footer {
                 display: flex;
                 flex-direction: column;
@@ -38,5 +46,5 @@
                 }
             }
         }
-    }
-}
+//     }
+// }

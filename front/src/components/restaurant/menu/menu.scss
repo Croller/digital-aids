@@ -8,36 +8,53 @@
                 display: none;
             }
            
-            margin: 0 -1.4em 0;
+            margin: 0;
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             flex-wrap: wrap;
             position: sticky;
-            top: 60px;
+            top: 0px;
             background: white;
             z-index: 20;
             font-size: 18px;
-            padding: 1em;
+            width: 100%;
+            // padding: 0 12px 12px;
             /* backdrop-filter: blur(5px); */
-            box-shadow: 0 10px 10px white;
+            // box-shadow: 0 10px 10px white;
+            
+            // margin: 0 -1.4em 0;
+            // display: flex;
+            // flex-direction: row;
+            // justify-content: flex-start;
+            // flex-wrap: wrap;
+            // position: sticky;
+            // top: 60px;
+            // background: white;
+            // z-index: 20;
+            // font-size: 18px;
+            // padding: 1em;
+            // /* backdrop-filter: blur(5px); */
+            // box-shadow: 0 10px 10px white;
 
-            &:after {
-                content: " ";
-                flex-grow: 2;
-            }
+            // &:after {
+            //     content: " ";
+            //     flex-grow: 2;
+            // }
         }
 
         .category-button{
         
             border: 1px solid $gray;
             border-radius: 6px;
-            margin: 0.4em;
+            margin: 0 12px 12px 0;
             font-size: 16px;
             font-weight: 600;
             padding: 0.4em 1em;
             min-height: 68px;
             flex-grow: 1;
+
+            max-width: 33%; // limit button expanding
 
             &.selected{
                 background-color: $light-gray;

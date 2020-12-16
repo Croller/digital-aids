@@ -9,7 +9,10 @@ const RoutesComponent = props => {
 
     return (
         <Switch>            
-            {routes.map( (route, ind) => <Route {...{...route, key: `route-${ind}`}} /> )}
+            {routes.map( (route, ind) => {
+                console.debug("Routes route:", route )
+            return <Route {...{...route, key: `route-${ind}`}} />
+            } )}
         </Switch>
     )
 }

@@ -10,7 +10,7 @@ import {NavLink as Link, Link as ALink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import A from '../../../redux/actionTypes'
 import {getRestaurant} from '../../../redux/reducers'
-import Service, {_T} from '../../../services/translations'
+import Service, {_T, tr} from '../../../services/translations'
 import './footer.scss'
 
 
@@ -40,7 +40,7 @@ class Footer extends React.Component{
     async fetchData(){
         const translations = await Service.getByKeys(
             [
-                "CallUs",
+                // "CallUs",
                 "Order", 
             ],
             this.props.language,
@@ -51,39 +51,42 @@ class Footer extends React.Component{
     }
 
     render(){
-        const {slug, lang, language, defaultlanguage, phone } = this.props
+        const {slug, lang, language, defaultlanguage, phone, translations } = this.props
 
         const restState = getRestaurant( this.props, slug )
         console.debug("footer restState:", restState )
         const { cartCount} = restState
 
-        const translations = this.state.translations || {}
+        // const translations = this.state.translations || {}
 
-        const _t = _T( translations, language, defaultlanguage )
+        // const _t = _T( translations, language, defaultlanguage )
+        const _tt = (key, defaultValue) => tr(key, language, translations, defaultValue)
 
         return(
-            <Box className="footer panel rectangular" >
+            <Box className="footer panel rectangular show-on-mobile" >
                 {/* &copy;&nbsp;Food & Fans, 2020 */}
                 <Container>
                 <div className="mobile-footer">
-                    <Button component={Link} to={`/${slug}/insider`}><Plate/><span>FOODFANS</span></Button>
-                    <Button onClick={() => lang(null)}><World/>
-                        <span>
-                            {language}
-                        </span>
-                    </Button>
+                    <Button component={Link} to={`/${slug}/insider`}><Plate/><span>FOODTIPS</span></Button>
+                    
                     <Button component={Link} to={`/${slug}/cart`}>
                         <Badge badgeContent={cartCount} showZero={false} className="badge-quantity">
                             <Cloche/>
                         </Badge>
                         <span>
-                            {_t("Order", 1)}
+                            {_tt("Order")}
                         </span>
                     </Button>
-                    <Button component={ALink} to={`tel: +${phone}`}>
+
+                    <Button component={Link} to={`/${slug}/language`}><World/>
+                        <span>
+                            {language}
+                        </span>
+                    </Button>
+                    {/* <Button component={ALink} to={`tel: +${phone}`}>
                         <Phone/>
                         <span>{_t("CallUs", 1)}</span>
-                    </Button>
+                    </Button> */}
                 </div>
                 </Container>
             </Box>
@@ -92,7 +95,7 @@ class Footer extends React.Component{
 }
 
 export default connect(
-    state => state, //({language: state.language, cart: state.cart }),
+    state => ({...state.app, translations: state.translation}), //({language: state.language, cart: state.cart }),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
     })

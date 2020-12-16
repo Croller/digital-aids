@@ -1,0 +1,12 @@
+@import "../../../variables.scss";
+#root{
+    .ff-carousel{
+
+        .carousel{
+            .slide{
+                background: inherit;
+                color: $darker;
+            }
+        }
+    }
+}

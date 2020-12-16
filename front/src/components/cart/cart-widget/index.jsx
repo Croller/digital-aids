@@ -24,5 +24,5 @@ class CartWidget extends React.Component{
 }
 
 export default connect(
-    state =>  ({ count: state.cartCount, language: state.language } )
+    state =>  ({ count: state.app.cartCount, language: state.app.language } )
 )(CartWidget)

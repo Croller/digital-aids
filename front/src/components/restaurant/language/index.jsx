@@ -23,28 +23,25 @@ class LanguageSelector extends React.Component{
 
 
     state ={
-        restaurant: null,
         selected: false
     }
 
-    componentDidMount(){
-        this.fetchData()
-    }
+    // componentDidMount(){
+    //     this.fetchData()
+    // }
     
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language 
-            || this.props.match.slug !== prevProps.match.slug ){
-            this.fetchData()
-        }
-    }
+    // componentDidUpdate( prevProps ){
+    //     if( prevProps.language !== this.props.language 
+    //         || this.props.match.slug !== prevProps.match.slug ){
+    //         this.fetchData()
+    //     }
+    // }
 
-    async fetchData(){
-        console.log("Fetching data")
-        const {slug} = this.props.match.params
-        const {language} = this.props
-        const restaurant = await Service.getRestaurant( slug, language )
-        this.setState({restaurant})
-    }
+    // async fetchData(){
+    //     console.log("Fetching data")
+    //     const {slug} = this.props.match.params
+    //     const {language} = this.props
+    // }
 
     selectLanguage = language => {
         console.debug(" Selecting:", language)
@@ -54,7 +51,10 @@ class LanguageSelector extends React.Component{
     }
 
     render(){
-        const {restaurant, selected } = this.state
+
+        console.debug("Lang props", this.props)
+        const {selected } = this.state
+        const {restaurant, slug} = this.props
         
         if( ! restaurant ) 
             return <Spinner />
@@ -73,7 +73,6 @@ class LanguageSelector extends React.Component{
         
         return(
             <div className="language-selector">
-                <TopBar restaurant={restaurant} showSearch={false} showHamburger={false} />
                 <Container>
                     <div className="panel lang-list">
                         {restaurant.languages.map( l => <LangItem {...l} onClick={() => this.selectLanguage(l.id) } /> )}
@@ -85,7 +84,7 @@ class LanguageSelector extends React.Component{
 }
 
 export default connect(
-    state => ({...state}),
+    state => ({...state.app}),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
     })

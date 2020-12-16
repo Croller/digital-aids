@@ -7,10 +7,13 @@ import {
     TripadvisorIcon,
     TheForkIcon } from '../../template/common/icons'
 import { Container } from '@material-ui/core'
-import { _T } from '../../../services/translations'
+import { 
+    // _T, 
+    tr } from '../../../services/translations'
 import Spinner from '../../template/common/Spinner'
 import Service from '../../../services/translations'
 import {connect} from 'react-redux'
+
 
 const txt = {
     "thank-you": "Thanks for your order!",
@@ -34,32 +37,38 @@ class Social extends React.Component{
     }
     
     async fetchData(){
-        const translations = await Service.getByKeys(
+        // const translations = await Service.getByKeys(
+        Service.getByKeys(
             [
-                "YourOpinionIs"
-            ]
+                "YourOpinionIs",
+                // "ThankForOrder"
+            ],
+            this.props.language
         )
 
-        this.setState({translations})
+        // this.setState({translations})
     }
     
     render(){
         const { facebook, instagram, tripadvisor, thefork,
             language, defaultlanguage,
-            message
+            message, translations
          } = this.props
 
          console.debug("Social props:", this.props)
 
-        const {translations } = this.state 
+        // const {translations } = this.state 
 
         if( !translations )
          return <Spinner />
 
-        const _t = _T( translations , language, defaultlanguage);
+        // const _t = _T( translations , language, defaultlanguage);
+
+        // translate with current translations
+        const _t = (key, lang) => tr(key, lang, translations)
 
         return(
-            <div className="panel social-container">
+            <div className="panel social-container rectangular">
                 <Container className="social-footer">
                     <ThumbsUp className="thumbs-up" />
                     {message && 
@@ -68,30 +77,30 @@ class Social extends React.Component{
                         </div>
                     }
                     <div className="opinion">
-                        { _t("YourOpinionIs", 1) }
+                        { _t("YourOpinionIs", language) }
                     </div>
                     <div className="icons">
                         {
                             instagram &&
-                            <a href={instagram} target="_blank">
+                            <a href={instagram} target="_blank" rel="no-referrer">
                                 <InstagramIcon/>
                             </a>
                         }
                         {
                             facebook &&
-                            <a href={facebook} target="_blank">
+                            <a href={facebook} target="_blank" rel="no-referrer">
                                  <FacebookIcon/>
                             </a>
                         }
                         {
                             tripadvisor &&
-                            <a href={tripadvisor} target="_blank">
+                            <a href={tripadvisor} target="_blank" rel="no-referrer">
                                 <TripadvisorIcon/>
                             </a>
                         }
                         {
                             thefork &&
-                            <a href={thefork} target="_blank">
+                            <a href={thefork} target="_blank" rel="no-referrer">
                                 <TheForkIcon/>
                             </a>
                         }
@@ -106,5 +115,5 @@ class Social extends React.Component{
 }
 
 export default connect(
-    state => ({ language: state.language })
+    state => ({ language: state.app.language, translations: state.translation})
 )(Social)

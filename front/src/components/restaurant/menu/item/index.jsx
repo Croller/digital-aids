@@ -33,33 +33,35 @@ class RestMenuItem extends React.Component{
         let {
             slug,
             dishid, 
-            dishtitle, 
-            dishtitledefault, 
+            title, 
+            default_title, 
             dishprice, 
             dishcategoryid,
             tags,
             index, 
             // add, 
-            reduxState
+            // reduxState
+            restState
             // filters = {},
             // quantity 
             // cartItem,
             // cart
         } = this.props
         // console.debug("Item slug:", slug, " props: ", this.props)
-        const restState = getRestaurant( reduxState, slug)
+        // const restState = getRestaurant( reduxState, slug)
         // console.debug("restState", restState)
         let quantity
         
         // get the required cart
         const {cart} = restState
 
+        // TODO: refactor this it's not optimal at all
         const cartItem = cart.find( i => i.dishid === dishid )
         
         if(cartItem) 
             ({quantity} = cartItem )
 
-        const item = { dishid, dishtitle, dishcategoryid, dishtitledefault, dishprice, tags, quantity: 1 }
+        const item = { dishid, title, dishcategoryid, default_title, dishprice, tags, quantity: 1 }
         const isOrdered = quantity > 0
         // console.debug("menu item render. quantity: ", quantity )
         
@@ -70,37 +72,30 @@ class RestMenuItem extends React.Component{
                     <div className="dish-index">
                         {index}
                     </div>
-                    <div className="flex column">
+                    <div className="flex column text-align-left">
 
                         <Grid container key={`dish-${dishid}` }>
                             <Grid item xs={12} md={9} className="dish-title-box">
                                 <div className="title-main">
-                                    {dishtitle}
+                                    {title}
                                 </div>
-                                <div className="title-default">
-                                    {dishtitledefault}
-                                </div>
+                                {
+                                    <div className="title-default">
+                                        {default_title}
+                                    </div>
+                                }
                             </Grid>
                             { Array.isArray(tags) && <Grid item xs={12} className="tags">
                                     {tags.map( t => {
-                                        return <img src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
+                                        return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
                                     })}
                                 </Grid>
                             }
-                            
-                            {/* <Grid item xs={12} md={3} className="price-container"> */}
                             <Grid item xs={12} md={3}>
+                                {dishprice &&  
                                 <Quantity {...{item, slug, quantity}} />
-                                {/* <div className="increment show-on-mobile">
-                                        {dishprice &&  
-                                        <>
-                                            <div className="button square plus"  onClick={ () => add( item, slug ) }>+</div>
-                                                <div className={`button square black qty`}>{quantity || 0}</div> 
-                                            <div className="button square" onClick={ ev => isOrdered ? this.remove(dishid, ev) : null }>-</div>
-                                        </>
-                                        }
-                                </div>
-                                        <div className="button price">{`${dishprice}€`}</div> */}
+                                 }   
+                                
                                 
                                 
                             </Grid>
@@ -116,7 +111,7 @@ class RestMenuItem extends React.Component{
 
 export default connect(
     // state => ({cart: state.cart, filters: state.filters}),
-    state => ({reduxState: state}),
+    state => ({reduxState: state.app, language: state.app.language }),
     dispatch => ({
         add: (item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
         delete: (dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )

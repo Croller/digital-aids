@@ -118,9 +118,15 @@ body{
     .main{
       flex-grow: 1;
       flex-direction: column;
-      transition: 255ms padding-left;
+      // transition: 255ms padding-left;
       padding-top: #{$headerHeight + $mainTopMargin};
+      // justify-content: stretch;
+      justify-content: space-between;
 
+      // overflow: hidden; // prevents scrolling of menu headers up and down.
+
+      padding-top: 80px;
+      // max-height: calc(100vh - 80px);
       &.drawer-open{
         padding-left: $sidebarWidth;
       }
@@ -185,14 +191,7 @@ body{
       
     }
 
-    $colors: (
-      "white": white,
-      "green": $green, 
-      "gray": $gray,
-      "light-gray": $light-gray,
-      "light-gray-2": $light-gray-2,
-      
-    ); 
+    
     
     @each $var, $val in $colors {
       .bg-#{$var}{
@@ -203,6 +202,14 @@ body{
         color: $val!important;
       }
     }
+
+    $alignment: "left" "right" "center";
+
+    @each $al in $alignment {
+      .text-align-#{$al}{
+        text-align: #{$al};
+      }
+    } 
 
 
     // color spinner
@@ -224,4 +231,40 @@ body{
   }
 
   
+}
+
+@each $var, $val in $colors {
+  .bg-#{$var}{
+    background-color: $val!important;
+  }
+
+  .c-#{$var}{
+    color: $val!important;
+    svg {
+      fill: $val!important;
+    }
+  }
+}
+
+
+.disable-scrollbars {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* Chrome/Safari/Webkit */
+  }
+}
+
+@each $var, $val in $colors {
+  .bg-#{$var}{
+    background-color: $val;
+  }
+
+  .c-#{$var}{
+    color: $val!important;
+    svg: {
+      fill: $val!important;
+    }
+  }
 }

@@ -1,7 +1,7 @@
 
 @import "../../../../variables.scss";
 
-
+$imageHeight: 177px;
 
 #root {
     .main{
@@ -22,7 +22,7 @@
                 overflow: hidden;
     
                 .card-container{
-                    min-height: 140px;
+                    min-height: $imageHeight;
                     .dish-index{
                         background: $dark;
                         width: 30px;
@@ -39,8 +39,28 @@
                         align-self: flex-start; // align to top
                     }
 
+                    .title-main {
+                        font-size: 18px;
+                        text-align: left;
+                        font-weight: 500;
+                        margin-bottom: 4px;
+                    }
+                    
+                    .title-default {
+                        font-size: 16px;
+                        color: #969696;
+                        text-align: left;
+                    }
+
+                    .title-allergens{
+                        font-size:15px;
+                        font-weight: 700;
+                        margin-top: 9px;
+                    }
+
 
                     .dish-image{
+                        min-height: $imageHeight;
                         background-size: cover;
                         background-position: center;
                         @media screen and (max-width:$bp_2) {

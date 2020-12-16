@@ -27,33 +27,33 @@ class RestaurantComponent extends React.Component{
         restaurant: null
     }
 
-    componentDidMount(){
+    // componentDidMount(){
        
 
-        this.fetchData()
-    }
+    //     this.fetchData()
+    // }
     
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language 
-            || this.props.match.slug !== prevProps.match.slug ){
-            this.fetchData()
-        }
-    }
+    // componentDidUpdate( prevProps ){
+    //     if( prevProps.language !== this.props.language 
+    //         || this.props.match.slug !== prevProps.match.slug ){
+    //         this.fetchData()
+    //     }
+    // }
 
-    async fetchData(){
-        console.log("Fetching data")
-        const {slug} = this.props.match.params
-        const {language} = this.props
-        const restaurant = await Service.getRestaurant( slug, language )
-        this.setState({restaurant})
-    }
+    // async fetchData(){
+    //     console.log("Fetching data")
+    //     const {slug} = this.props.match.params
+    //     const {language} = this.props
+    //     const restaurant = await Service.getRestaurant( slug, language )
+    //     this.setState({restaurant})
+    // }
 
 
     render(){
 
-        const {restaurant} = this.state
+        // const {restaurant} = this.state
         
-        const {language, lang} = this.props
+        const {language, lang, restaurant, restState = {} } = this.props
 
 
         
@@ -61,8 +61,9 @@ class RestaurantComponent extends React.Component{
         
         
         // if( !language ) return <Lang {...{restaurant}} />
+        // const {slug} = this.props.match.params
         const {slug} = this.props.match.params
-        
+        console.debug("Match: ", this.props.match)
         
         if( !language){
             // redirect to language selector
@@ -72,12 +73,12 @@ class RestaurantComponent extends React.Component{
         return(
             restaurant ? 
             <>
-                <Topbar {...{restaurant, language, lang}} />
-                <Container key={slug} className="flex-grow">
-                    <Menu slug={slug} {...restaurant} />
-                </Container>
-                <Social {...restaurant} />
-                <Footer {...restaurant} />
+                {/* <Topbar {...{restaurant, language, lang}} /> */}
+                <div key={slug} className="flex-grow">
+                    <Menu {...{slug, restaurant, restState }} />
+                </div>
+                {/* <Social {...restaurant} /> */}
+                {/* <Footer {...restaurant} /> */}
             </>
             : restaurant === null ? <Spinner/> : <ErrorPage {...{slug, language}} /> // <h2>Error loading data</h2>
         )
@@ -86,7 +87,7 @@ class RestaurantComponent extends React.Component{
 
 
 export default connect(
-    state => state,
+    state => state.app,
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
     })

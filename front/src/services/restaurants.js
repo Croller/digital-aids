@@ -1,8 +1,8 @@
 import Base from './baseClientService'
-import rests from '../data/restaurants.json'
-import cuisines_list from '../data/cuisines.json'
+// import rests from '../data/restaurants.json'
+// import cuisines_list from '../data/cuisines.json'
 import dishes from '../data/dishes.json'
-import categories_list from '../data/categories.json'
+// import categories_list from '../data/categories.json'
 
 
 class RestaurantsService extends Base {
@@ -17,6 +17,8 @@ class RestaurantsService extends Base {
                 this.Error(e.response.data)  
             else
                 this.Error(e.message)
+
+            return false
         }
         
         // let rest = rests.find( r => r.slug === slug )
