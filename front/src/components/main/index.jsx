@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import Routes from '../routes'
 import routes from '../../data/routes'
-import {debounce} from '../../utils/functions'
+// import {debounce} from '../../utils/functions'
 // import Footer from '../template/footer'
 
 // import A from '../../redux/actionTypes'

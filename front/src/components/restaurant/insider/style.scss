@@ -113,12 +113,12 @@
         @media screen and (max-width: $bp_2) {
             // move arrows to picture container
             position: absolute; 
-            top: -48px;
-            right: 0;
+            top: 230px;
+            right: 10px;
             color: white;
 
             &.left{
-                right: 40px;
+                right: 50px;
             }
         }
     }

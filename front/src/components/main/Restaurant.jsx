@@ -95,7 +95,7 @@ class Restaurant extends React.Component{
 
         return (<>
             <TopBar {...{restaurant, closeButtonLink, showSearch, restState}}/>
-                <div className="page-content flex column flex-grow">
+                <div className="page-content flex-grow">
                     
                     <Routes 
                         routes ={
