@@ -77,7 +77,7 @@ $imageHeight: 177px;
                     // }
 
                     .price-container{
-                        padding: $item-padding;
+                        padding: 0 #{$item-padding} #{$item-padding};
                         .button {
                             height: 33px;
                             

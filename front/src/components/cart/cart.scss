@@ -16,6 +16,12 @@
 
         .cart {
 
+            .cart-header{
+                @include sticky;
+                top: #{$headerHeight - 1px};
+                padding: 20px;
+                margin: 0 -24px 0;
+            }
 
             .breadcrumbs {
                 margin: 1em 0;
@@ -63,7 +69,8 @@
                     border-radius: 6px;
                     border: 1px solid $light-gray;
                     padding: 0 0.5em;
-                    width: calc(81px - 1em);
+                    // width: calc(81px - 1em);
+                    min-width: 81px;
                 }
                 // padding-right: 80px;
                 // span{

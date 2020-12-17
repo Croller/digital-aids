@@ -77,6 +77,7 @@ class Cart extends React.Component{
                     "ThankForOrder",
                     "ThankYou",
                     "WantToClearEntireOrder",
+                    "askToConfirm",
                     "Remove",
                     "No",
                     "empty_order"
@@ -120,7 +121,7 @@ class Cart extends React.Component{
             <>
                 
                 <Container key={`cart-${slug}`} className="cart flex-grow">
-                    <div className="flex row align-items-center space-between mb-3">
+                    <div className="cart-header flex row align-items-center space-between bg-white">
                         <div className="title">
                             {_tt("MyOrder")}
                         </div>
@@ -131,6 +132,9 @@ class Cart extends React.Component{
                     { restaurant ? 
                         !cartIsEmpty ?
                         <>
+                            <div className="bg-light-gray p2 rounded">
+                                {_tt("askToConfirm")}
+                            </div>
                             {/* <Menu {...{menu: cart, slug, categories, show_categories: false }}/> */}
                             <CartList items={cart} restState={{cart}} slug={slug} item_type={restaurant.defaulttemplate}/>
                             <div className="total flex row align-items-center space-between">

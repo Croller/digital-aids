@@ -192,6 +192,7 @@ class CssCarousel extends React.Component{
             useJs,
             children,
             hideSingleDot = true,
+            scrollDebounceValue = 10,
             ...other
         } = this.props
 
@@ -218,7 +219,7 @@ class CssCarousel extends React.Component{
                 }
                 <div 
                 ref={this._slides} 
-                onScroll={debounce( 150, this.markCurentlyActiveDot )} 
+                onScroll={debounce( scrollDebounceValue, this.markCurentlyActiveDot )} 
                 className={`slides ${slidesCssClass || ""}`}
                 >
                     {children}

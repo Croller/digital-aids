@@ -9,12 +9,13 @@ class CartList extends React.Component{
         const {items = [], item_type="text", restState = {}, slug } = this.props
         console.debug("CartList slug:", slug)
         return(
-            items.map((item, index) => <div className={`menu-item-container ${ item_type==="images" ? 'template-images' : "" }`}>
-                {item_type === "text" ?  
-                <ItemText key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug}/> : 
-                <ItemImage key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug} /> }
-            </div>)
-            
+            <div className="menu-items-list">
+                {items.map((item, index) => <div key={`cart-item-${index}`} className={`menu-item-container ${ item_type==="images" ? 'template-images' : "" }`}>
+                    {item_type === "text" ?  
+                    <ItemText key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug}/> : 
+                    <ItemImage key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug} /> }
+                </div>)}
+            </div>            
         )
     }
 }

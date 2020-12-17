@@ -1,8 +1,21 @@
 @import "../../variables.scss";
 
+
+
+body #root.scrolling-down{
+    #menus-carousel .menu-body > .dots{
+        bottom: 24px;
+    }
+}
+
 body{
     background-image: none;
     #root{
+
+        // both types of carousels in menu page
+        div#menus-carousel, .css-carousel.menu-body{
+            padding-top: 0;
+        }
 
         div#menus-carousel{
 
@@ -28,6 +41,7 @@ body{
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             
+            
 
             @media screen and(min-width: $bp_1) {
                 // margin: 0 $lgMarginsX;
@@ -39,10 +53,13 @@ body{
                 font-size: 20px;
                 margin: 0 0 20px;
             }
-            .dots{                
+            
+            > .dots{                
                 position: absolute;
                 z-index: 60;
-                // top: 100px;
+                @media screen and(max-width: $bp_2) {
+                    top: 25px;
+                }
             }
 
             .slides {
@@ -58,7 +75,19 @@ body{
                 max-width: 100vw;
                 // scroll-snap-align: start;
                 // flex-shrink: 0;
-                
+                > h1{
+                    margin :0;
+                }
+            }
+
+            .menu-body {
+                > .dots {
+                    // move dots to the bottom of the page
+                    top: inherit; 
+                    bottom: calc(10px + #{$footerHeight});
+                    transition: 0.3s bottom ease-out;
+                    z-index: 100;
+                }
             }
 
             .carousel{
@@ -89,7 +118,7 @@ body{
 
             @media screen and (max-width: $bp_2){
                 
-                max-height: calc(100vh - 170px); // TODO: find the exact height to diff
+                max-height: calc(100vh - 130px); // TODO: find the exact height to diff
             }
             @media screen and (min-width: $bp_2){
                 
@@ -104,7 +133,8 @@ body{
                 left: 0;
                 background: white;
                 // height: 24px;
-                padding: 0 0 24px;
+                padding: 0 0 4px;
+                margin-bottom: 16px; // to show top part of the shadow of top menu item
                 // padding: 0 0 24px $categoryXmargin;
                 display: flex;
                 flex-direction: column;
@@ -149,7 +179,7 @@ body{
         }
 
 
-        .card-menu-item{
+        .menu-items-list{
             // for all templates, including cart
             .tags{
                 margin-top: 4px;
@@ -160,6 +190,11 @@ body{
                     height: 32px;
                     margin-right: 2px;
                 }
+            }
+
+            .card-menu-item {
+                margin: 12px 0;
+
             }
         }
 

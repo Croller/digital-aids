@@ -1,10 +1,10 @@
 import React from 'react'
-import './menu.scss'
+import './restaurant.scss'
 import A from '../../redux/actionTypes'
 import {connect } from 'react-redux'
-import Service from '../../services/restaurants'
-import Footer from '../template/footer'
-import { CircularProgress, Container, Grid, Select, MenuItem, Button, Paper, AppBar } from '@material-ui/core'
+// import Service from '../../services/restaurants'
+// import Footer from '../template/footer'
+// import { CircularProgress, Container, Grid, Select, MenuItem, Button, Paper, AppBar } from '@material-ui/core'
 // import {
 //     LocationOnOutlined as Location, 
 //     FastfoodOutlined as Food,
@@ -14,10 +14,10 @@ import { CircularProgress, Container, Grid, Select, MenuItem, Button, Paper, App
 
 import {Redirect} from 'react-router-dom'
 import Menu from './menu'
-import Topbar from './topbar'
+// import Topbar from './topbar'
 import Spinner from '../template/common/Spinner'
-import Lang from '../restaurant/language'
-import Social from './social'
+// import Lang from '../restaurant/language'
+// import Social from './social'
 import ErrorPage from '../template/common/error-loading'
 
 

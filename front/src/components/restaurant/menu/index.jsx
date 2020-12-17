@@ -276,49 +276,52 @@ class RestaurantMenu extends React.Component {
                                                 onScroll={ ev => debounce(100, this.updateScroll )(ev.target) }
                                                 // onScroll={ev => console.debug("Scroll event:", ev.currentTarget, ev.target)}
                                                 >
-                                                    <div className="category-header">
-                                                        <h2 className="fw-600">{cat.title}</h2>
-                                                        <div className="category-subtitle">{cat.titledefault}</div>
-                                                    </div>
-                                                    <Paper className="category-body panel" >
-                                                        <Grid container spacing={2} className="menu-items-list">
-                                                            {items.filter(d => d.dishcategoryid === cat.id &&
-                                                                (
-                                                                    // etiher search is empty
-                                                                    !search
-                                                                    // or 
-                                                                    ||
-                                                                    // title or default title include search term  
+                                                   <div> {/* need  this div here to fix sticky header on safari*/ }
+                                                   
+                                                        <div className="category-header">
+                                                            <h2 className="fw-600">{cat.title}</h2>
+                                                            <div className="category-subtitle">{cat.titledefault}</div>
+                                                        </div>
+                                                        <Paper className="category-body panel" >
+                                                            <Grid container spacing={2} className="menu-items-list">
+                                                                {items.filter(d => d.dishcategoryid === cat.id &&
                                                                     (
-                                                                        d.title.toLowerCase().includes(search) ||
-                                                                        d.default_title.toLowerCase().includes(search)
+                                                                        // etiher search is empty
+                                                                        !search
+                                                                        // or 
+                                                                        ||
+                                                                        // title or default title include search term  
+                                                                        (
+                                                                            d.title.toLowerCase().includes(search) ||
+                                                                            d.default_title.toLowerCase().includes(search)
+                                                                        )
                                                                     )
-                                                                )
-                                                            ).map(
-                                                                (dish, index) => {
-                                                                    // let cartItem = cart.find( i => i.dishid === dish.dishid )
-                                                                    // cartItem = {...cartItem} //copy...
-                                                                    // const quantity = cartItem ? cartItem.quantity : null;
+                                                                ).map(
+                                                                    (dish, index) => {
+                                                                        // let cartItem = cart.find( i => i.dishid === dish.dishid )
+                                                                        // cartItem = {...cartItem} //copy...
+                                                                        // const quantity = cartItem ? cartItem.quantity : null;
 
-                                                                    return (
-                                                                        <Grid item xs={12} key={`menuitem-${index}`} className="menu-item-container" >
-                                                                            {/* <Item                                                 */}
-                                                                            <ItemComponent
-                                                                                index={index + 1}
-                                                                                // cartItem={cartItem}
-                                                                                // quantity={quantity} 
-                                                                                restState={restState}
-                                                                                needSecondTranslation={needSecondTranslation}
-                                                                                slug={restaurant.slug}
-                                                                                {...dish}
-                                                                            />
-                                                                        </Grid>
-                                                                    )
-                                                                }
-                                                            )}
-                                                        </Grid>
-                                                        <Social {...restaurant}/>
-                                                    </Paper>
+                                                                        return (
+                                                                            <Grid item xs={12} key={`menuitem-${index}`} className="menu-item-container" >
+                                                                                {/* <Item                                                 */}
+                                                                                <ItemComponent
+                                                                                    index={index + 1}
+                                                                                    // cartItem={cartItem}
+                                                                                    // quantity={quantity} 
+                                                                                    restState={restState}
+                                                                                    needSecondTranslation={needSecondTranslation}
+                                                                                    slug={restaurant.slug}
+                                                                                    {...dish}
+                                                                                />
+                                                                            </Grid>
+                                                                        )
+                                                                    }
+                                                                )}
+                                                            </Grid>
+                                                            <Social {...restaurant}/>
+                                                        </Paper>
+                                                   </div>
                                                 </div>
                                             ))
                                             }
