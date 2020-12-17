@@ -1629,5 +1629,11 @@
         "en": "Including bread and drinks",
         "es": "Incluye pan y bebidas",
         "ru": "Хлеб и напитки включены"
+    },
+    {
+        "translationid": "Search",
+        "en": "Search",
+        "es": "Buscar",
+        "ru": "Поиск"
     }
 ]

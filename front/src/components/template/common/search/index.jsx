@@ -34,14 +34,30 @@ class Search extends React.Component{
     }
 
     render(){
+        // const { 
+        //     className = "search-container" ,
+        //     inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
+        //     IconElement = Icon,
+        //     iconProps = { className: "search-icon" },
+        //     onSearch, // cut it away from props
+        //     ...other
+        // } = this.props
+
         const { 
-            className = "search-container" ,
-            inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
+            placeholderText = "Search",
+            inputBaseProps = { className : "search-input", type: "search" },
+            // inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
             IconElement = Icon,
-            iconProps = { className: "search-icon" },
+            iconProps = { className: "icon-btn" },
             onSearch, // cut it away from props
             ...other
         } = this.props
+
+        let {
+            className = "search-container mobile-search" 
+        } = this.props
+
+        inputBaseProps.placeholder = inputBaseProps.placeholder || placeholderText;
 
         const {value} = this.state
         return(

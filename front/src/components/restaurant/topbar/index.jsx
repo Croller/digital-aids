@@ -20,6 +20,7 @@ import {CloseRounded as Cancel, RestaurantMenuOutlined as RestMenu} from '@mater
 
 import Spinner from '../../template/common/Spinner';
 import Search from '../../template/common/search';
+import MobileSearch from '../../template/common/search/mobile';
 // import CartWidget from '../../cart/cart-widget'
 import {connect} from 'react-redux'
 import A from '../../../redux/actionTypes'
@@ -57,7 +58,8 @@ class TopBar extends React.Component{
         Service.getByKeys([
             "Menu",
             "Reservation",
-            "reglament_1169"
+            "reglament_1169",
+            "Search"
         ], this.props.language )
     }
 
@@ -115,7 +117,7 @@ class TopBar extends React.Component{
                             <Search 
                             className="search-container reverse" 
                             // onChange={onSearchUpdate} 
-                            placeholder={"Search"} 
+                            placeholderText={ _t("Search") } 
                             value={search}
                             onSearch = {this.onSearch}
                             />
@@ -181,7 +183,11 @@ class TopBar extends React.Component{
                         </div>
                         <div className="mobile-buttons show-on-mobile">
                             {showSearch && 
-                            <Button><SearchIcon/></Button>
+                              <MobileSearch
+                                placeholderText={ _t("Search") } 
+                                value={search}
+                                onSearch = {this.onSearch}
+                              />
                             }
                             {showHamburger &&
                             <Button component={Link} to={`/${restaurant.slug}/options`}><Hamburger /></Button>                            
