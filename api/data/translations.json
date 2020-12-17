@@ -499,10 +499,12 @@
         "ch": "是"
     },
     {
+        "translationid": "askToConfirm",
         "en": "Please, ask the waiter to confirm your order",
         "es": "Por favor, pide al camarero confirmar su pedido"
     },
     {
+        "translationid": "empty_order",
         "en": "Your order is empty.The selected plate should be added to an order.",
         "es": "Su pedido está vacío. El plato seleccionada debe ser agregado a un pedido."
     },
@@ -1612,10 +1614,6 @@
         "en": "Chak Chak: Chak Chak is a oriental sweetness made of fried dough pieces in honey syrup and walnuts. Traditionally, it becomes a part of the tea ceremony."
     },
     {
-        "translationid": "empty_order",
-        "en": " Your order is empty. The selected plate should be added to an order."
-    },
-    {
         "translationid": "comments",
         "en": "comments",
         "es": "comentarios",
@@ -1625,5 +1623,11 @@
         "translationid": "Reviews",
         "en": "Reviews",
         "ru": "Обзоры"
+    },
+    {
+        "translationid": "includingBreadAndDrinks",
+        "en": "Including bread and drinks",
+        "es": "Incluye pan y bebidas",
+        "ru": "Хлеб и напитки включены"
     }
 ]

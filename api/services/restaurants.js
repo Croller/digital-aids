@@ -314,6 +314,7 @@ class RestService extends baseService{
                     )
 
                 // menu_dishes.filter(d => 
+                ii = 0;
                 while( ii < selected_dishes.length ){
                     const d = selected_dishes[ii];
 
@@ -365,6 +366,7 @@ class RestService extends baseService{
                 
                 console.debug("Unique categories:", uniqueCategories)
                 let categories = [] ;
+                iii = 0;
                 while( iii < uniqueCategories.length ){
                     const c = uniqueCategories[iii];
 
@@ -379,6 +381,7 @@ class RestService extends baseService{
                             title, titledefault
                         }
                     ]
+                    console.debug("Packed categories:", categories)
                     iii += 1
                 }
                 
