@@ -61,12 +61,12 @@ class Restaurant extends React.Component{
         const {slug, page} = this.props.computedMatch.params
         const {language} = this.props
 
-        console.debug("Restaurant: match", this.props.computedMatch.params)
-        console.debug("Restaurant slug:", slug)
-         
+        // console.debug("Restaurant: match", this.props.computedMatch.params)
+        // console.debug("Restaurant slug:", slug)
+         console.debug("Restaurant: restaurant", restaurant )
 
         if( restaurant === false ){
-            console.debug("Returning 404")
+            console.debug("Restaurant: Returning 404")
             return <P404 />
         }
         /*
@@ -77,6 +77,12 @@ class Restaurant extends React.Component{
             closeButtonLink
          */
 
+
+        const showHamburger = [
+            "cart",
+            "options",
+        ].includes( page ) ? false : true;
+        
         // will show the close button on the next pages:
         let closeButtonLink = 
         [
@@ -94,7 +100,7 @@ class Restaurant extends React.Component{
         if( !restaurant  || !restState) return <Spinner />
 
         return (<>
-            <TopBar {...{restaurant, closeButtonLink, showSearch, restState}}/>
+            <TopBar {...{restaurant, closeButtonLink, showSearch, restState, showHamburger}}/>
                 <div className="page-content flex-grow">
                     
                     <Routes 
