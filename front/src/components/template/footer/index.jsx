@@ -7,11 +7,13 @@ import {
 } from '@material-ui/icons'
 import {Cloche, PhoneCall as Phone, World, Plate } from '../common/icons'
 import {NavLink as Link, Link as ALink} from 'react-router-dom'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 import A from '../../../redux/actionTypes'
 import {getRestaurant} from '../../../redux/reducers'
-import Service, {_T, tr} from '../../../services/translations'
+// import Service, {_T, tr} from '../../../services/translations'
 import './footer.scss'
+import DefaultComponent, {connect} from '../../DefaultComponent'
+
 
 
 const txt = {
@@ -20,47 +22,53 @@ const txt = {
 
 }
 
-class Footer extends React.Component{
+// class Footer extends React.Component{
+class Footer extends DefaultComponent{
     
-    state = {
-        translations: null
-    }
+    constructor(props){
+        super(props);
 
-    componentDidMount(){
-        this.fetchData()
-    
+        this.setTranslations(["Order"])
     }
-    
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language){
-            this.fetchData()
-        }    
-    }
-    
-    async fetchData(){
-        const translations = await Service.getByKeys(
-            [
-                // "CallUs",
-                "Order", 
-            ],
-            this.props.language,
-            this.props.defaultlanguage
-        )
+    // state = {
+    //     translations: null
+    // }
 
-        this.setState({translations})
-    }
+    // componentDidMount(){
+    //     this.fetchData()
+    
+    // }
+    
+    // componentDidUpdate( prevProps ){
+    //     if( prevProps.language !== this.props.language){
+    //         this.fetchData()
+    //     }    
+    // }
+    
+    // async fetchData(){
+    //     const translations = await Service.getByKeys(
+    //         [
+    //             // "CallUs",
+    //             "Order", 
+    //         ],
+    //         this.props.language,
+    //         this.props.defaultlanguage
+    //     )
+
+    //     this.setState({translations})
+    // }
 
     render(){
-        const {slug, lang, language, defaultlanguage, phone, translations } = this.props
+        const {slug, language, translations } = this.props
 
         const restState = getRestaurant( this.props, slug )
-        console.debug("footer restState:", restState )
+        // console.debug("footer restState:", restState )
         const { cartCount} = restState
 
         // const translations = this.state.translations || {}
 
         // const _t = _T( translations, language, defaultlanguage )
-        const _tt = (key, defaultValue) => tr(key, language, translations, defaultValue)
+        const _tt = (key, defaultValue) => this._tr(key, language, translations, defaultValue)
 
         return(
             <Box className="footer panel rectangular show-on-mobile" >
@@ -78,7 +86,7 @@ class Footer extends React.Component{
                         </span>
                     </Button>
 
-                    <Button component={Link} to={`/${slug}/language`}><World/>
+                    <Button component={Link} to={`/${slug}/language`} back={`/${slug}/cart`}><World/>
                         <span>
                             {language}
                         </span>
@@ -94,9 +102,11 @@ class Footer extends React.Component{
     }
 }
 
-export default connect(
-    state => ({...state.app, translations: state.translation}), //({language: state.language, cart: state.cart }),
-    dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
-    })
-)(Footer)
+export default connect(Footer)
+
+// export default connect(
+//     state => ({...state.app, translations: state.translation}), //({language: state.language, cart: state.cart }),
+//     dispatch => ({
+//         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
+//     })
+// )(Footer)

@@ -57,9 +57,9 @@ class Restaurant extends React.Component{
     }
 
     render(){
-        const {restaurant, previousPage, restState } = this.state;
+        const {restaurant, restState } = this.state;
         const {slug, page} = this.props.computedMatch.params
-        const {language} = this.props
+        const {language, previousPage} = this.props
 
         // console.debug("Restaurant: match", this.props.computedMatch.params)
         // console.debug("Restaurant slug:", slug)
@@ -81,6 +81,7 @@ class Restaurant extends React.Component{
         const showHamburger = [
             "cart",
             "options",
+            "language"
         ].includes( page ) ? false : true;
         
         // will show the close button on the next pages:

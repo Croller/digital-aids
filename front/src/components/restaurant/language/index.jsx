@@ -54,7 +54,7 @@ class LanguageSelector extends React.Component{
 
         console.debug("Lang props", this.props)
         const {selected } = this.state
-        const {restaurant, slug} = this.props
+        const {restaurant, slug } = this.props
         
         if( ! restaurant ) 
             return <Spinner />

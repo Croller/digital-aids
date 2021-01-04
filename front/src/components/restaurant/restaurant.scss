@@ -65,6 +65,12 @@ body{
                     scroll-snap-align: none center;
                     overflow: visible; // to show even long text
                     background: none;
+                    opacity: 0.4;
+                    transition: 0.4s;
+
+                    &.active{
+                        opacity: 1;
+                    }
 
 
                     

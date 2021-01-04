@@ -16,9 +16,14 @@
 
         .cart {
 
+            max-height: calc(100vh - #{$headerHeight});
+            overflow-y: auto;
+
             .cart-header{
                 @include sticky;
-                top: #{$headerHeight - 1px};
+                // top: #{$headerHeight - 1px};
+                top: -2px;
+                padding: 20px;
                 padding: 20px;
                 margin: 0 -24px 0;
             }
@@ -88,6 +93,12 @@
                 //     font-weight: 600;
                 //     margin-left: 0.5em;
                 // }
+            }
+
+            .social-container {
+                margin-left: -26px;
+                margin-right: -26px;
+                // margin-bottom: -16px;
             }
         }
     }

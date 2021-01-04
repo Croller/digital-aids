@@ -178,4 +178,32 @@ export const has = (obj, key) => typeof obj === "object" && obj.hasOwnProperty(k
  * @param {*} key 
  * @param {*} language 
  */
-export const tkey = (key, language) => `${key}+${language}`
+export const tkey = (key, language) => `${key}+${language}`;
+
+
+export const updateScroll =  (target, root, lastScrollTop, scrollingTreshold = 6) => {
+
+    console.debug("updateScroll: ", lastScrollTop, target, root )
+
+    if( !root || !target )
+        return false;
+
+
+    // let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+    let st = target.scrollTop;
+
+    // console.debug("Scrolling..", st)
+    if (st > lastScrollTop + scrollingTreshold && root.classList){
+        // downscroll
+        root.classList.remove("scrolling-up")    
+        root.classList.add("scrolling-down")    
+    } else {
+        if (st < lastScrollTop - scrollingTreshold ){
+        // upscroll code
+        root.classList.remove("scrolling-down")    
+        root.classList.add("scrolling-up")    
+        } 
+    }
+    // lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    return st <= 0 ? 0 : st; // For Mobile or negative scrolling
+}

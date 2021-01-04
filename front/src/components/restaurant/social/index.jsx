@@ -7,65 +7,77 @@ import {
     TripadvisorIcon,
     TheForkIcon } from '../../template/common/icons'
 import { Container } from '@material-ui/core'
-import { 
-    // _T, 
-    tr } from '../../../services/translations'
+// import { 
+//     // _T, 
+//     tr } from '../../../services/translations'
 import Spinner from '../../template/common/Spinner'
 import Service from '../../../services/translations'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
+import DefaultComponent, {connect} from '../../DefaultComponent'
 
 
 const txt = {
     "thank-you": "Thanks for your order!",
     "yopinion": "Your opinion is very important for us, please, let us know it!"
 }
-class Social extends React.Component{
+class Social extends DefaultComponent {
 
-    state = {
-        translations: null
+    state ={
+        translationsReady: false
     }
 
-    componentDidMount(){
-        this.fetchData()
-    
-    }
-    
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language){
-            this.fetchData()
-        }    
-    }
-    
-    async fetchData(){
-        // const translations = await Service.getByKeys(
-        Service.getByKeys(
-            [
-                "YourOpinionIs",
-                // "ThankForOrder"
-            ],
-            this.props.language
-        )
+    constructor(props){
+        super(props)
 
-        // this.setState({translations})
+        this.setTranslations([
+            "YourOpinionIs"
+            // () => this.setState({translationsReady: true})
+        ])
     }
+
+    // componentDidMount(){
+    //     this.fetchData()
+    
+    // }
+    
+    // componentDidUpdate( prevProps ){
+    //     if( prevProps.language !== this.props.language){
+    //         this.fetchData()
+    //     }    
+    // }
+    
+    // async fetchData(){
+    //     // const translations = await Service.getByKeys(
+    //     Service.getByKeys(
+    //         [
+    //             "YourOpinionIs",
+    //             // "ThankForOrder"
+    //         ],
+    //         this.props.language
+    //     )
+
+    //     // this.setState({translations})
+    // }
     
     render(){
+        const {translationsReady} = this.state;
+
         const { facebook, instagram, tripadvisor, thefork,
-            language, defaultlanguage,
+            language, 
             message, translations
          } = this.props
 
-         console.debug("Social props:", this.props)
+        //  console.debug("Social props:", this.props)
 
         // const {translations } = this.state 
 
-        if( !translations )
-         return <Spinner />
+        // if( !translationsReady )
+        //  return <Spinner />
 
         // const _t = _T( translations , language, defaultlanguage);
 
         // translate with current translations
-        const _t = (key, lang) => tr(key, lang, translations)
+        const _t = (key, lang) => this._tr(key, lang, translations)
 
         return(
             <div className="panel social-container rectangular">
@@ -114,6 +126,8 @@ class Social extends React.Component{
     }
 }
 
-export default connect(
-    state => ({ language: state.app.language, translations: state.translation})
-)(Social)
+// export default connect(
+//     state => ({ language: state.app.language, translations: state.translation})
+// )(Social)
+
+export default connect(Social)

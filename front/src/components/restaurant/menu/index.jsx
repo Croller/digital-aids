@@ -17,6 +17,7 @@ import Service from '../../../services/translations'
 import {debounce} from '../../../utils/functions'
 import DefaultComponent, {connect} from '../../DefaultComponent'
 import { Redirect } from 'react-router-dom'
+import {updateScroll} from '../../../utils/functions'
 
 const templates = {
     text: Item,
@@ -149,7 +150,7 @@ class RestaurantMenu extends DefaultComponent {
             this.fetchTranslations()
         }
 
-        if( prevProps.menu !== this.props.menu || this.prevProps.category !== this.props.category ){
+        if( prevProps.menu !== this.props.menu || prevProps.category !== this.props.category ){
             this.selectMenu()
         }
 
@@ -215,7 +216,7 @@ class RestaurantMenu extends DefaultComponent {
                 } else {
                     console.debug("selectMenuAndCategory: no slide index or no carousel")
                 }
-            }, 100)
+            }, 150)
         } )
 
         
@@ -239,34 +240,37 @@ class RestaurantMenu extends DefaultComponent {
     //     // this.setState({categoryid: id})
     // }
 
-    updateScroll =  target => {
+    updateScroll = target => {
+        lastScrollTop = updateScroll(target, root, lastScrollTop )
+    }
+    // updateScroll =  target => {
 
-        // console.debug("Scroll target:", target )
+    //     // console.debug("Scroll target:", target )
 
-        // const {target} = ev;
+    //     // const {target} = ev;
         
 
-        // let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-        let st = target.scrollTop;
+    //     // let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+    //     let st = target.scrollTop;
 
-        // console.debug("Scrolling..", st)
-        if (st > lastScrollTop + scrollingTreshold ){
-            // downscroll
-            root.classList.remove("scrolling-up")    
-            root.classList.add("scrolling-down")    
-        } else {
-            if (st < lastScrollTop - scrollingTreshold ){
-            // upscroll code
-            root.classList.add("scrolling-up")    
-            root.classList.remove("scrolling-down")    
-            } else {
-                // clear scrolling class 
-                // root.classList.remove("scrolling-up")
-                // root.classList.remove("scrolling-down")
-            }
-        }
-        lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-    }
+    //     // console.debug("Scrolling..", st)
+    //     if (st > lastScrollTop + scrollingTreshold ){
+    //         // downscroll
+    //         root.classList.remove("scrolling-up")    
+    //         root.classList.add("scrolling-down")    
+    //     } else {
+    //         if (st < lastScrollTop - scrollingTreshold ){
+    //         // upscroll code
+    //         root.classList.add("scrolling-up")    
+    //         root.classList.remove("scrolling-down")    
+    //         } else {
+    //             // clear scrolling class 
+    //             // root.classList.remove("scrolling-up")
+    //             // root.classList.remove("scrolling-down")
+    //         }
+    //     }
+    //     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    // }
 
     selectCategory = ind => {
         if( this._nestedCarouselRef.current ){

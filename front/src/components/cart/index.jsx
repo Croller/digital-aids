@@ -19,7 +19,13 @@ import { Trash, ChefHead } from '../template/common/icons'
 import Social from '../restaurant/social'
 import CartList from './cart-list'
 import { Link } from 'react-router-dom'
+import {updateScroll} from '../../utils/functions'
 
+
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
+
+// root element
+const root = document.getElementById("root")
 
 const EmptyOrder = ({menu_link, button_text = "Menu", text}) => 
     <div className="panel empty-cart-message">
@@ -120,7 +126,11 @@ class Cart extends React.Component{
            
             <>
                 
-                <Container key={`cart-${slug}`} className="cart flex-grow">
+                <Container key={`cart-${slug}`} className="cart flex-grow"
+                onScroll={({target}) => {
+                    lastScrollTop = updateScroll(target, root, lastScrollTop )
+                }}
+                >
                     <div className="cart-header flex row align-items-center space-between bg-white">
                         <div className="title">
                             {_tt("MyOrder")}
@@ -155,9 +165,8 @@ class Cart extends React.Component{
                         : <Spinner />
                     }
                     
-                        
+                    <Social {...{...restaurant}} message={ cartIsEmpty ? _tt("ThankYou") : _tt("ThankForOrder")} />
                 </Container>
-                <Social {...{...restaurant}} message={ cartIsEmpty ? _tt("ThankYou") : _tt("ThankForOrder")} />
                 <Dialog 
                     open={showClearDialog}
                     onClose={closeDialog}  

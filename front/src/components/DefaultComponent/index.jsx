@@ -64,11 +64,12 @@ class DefaultComponent extends React.Component{
  * export default connect(Ancestor)
  * @param {*} C 
  */
-export const connect = C => 
+export const connect = (C, otherActions = {} ) => 
 cn(
     state => ({ ...state.app, translations: state.translation }),
     dispatch => ({
-        setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } })
+        setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } }),
+        ...otherActions
     })
 )(C);
 
