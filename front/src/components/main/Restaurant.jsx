@@ -99,26 +99,34 @@ class Restaurant extends React.Component{
 
         if( !restaurant  || !restState) return <Spinner />
 
+        let menu_ids = []
+        if( restaurant.menus.map ){
+            menu_ids = restaurant.menus.map( m => m.menuid);
+        }
+
+        console.debug("Menu ids:", menu_ids)
+
         return (<>
             <TopBar {...{restaurant, closeButtonLink, showSearch, restState, showHamburger}}/>
-                <div className="page-content flex-grow">
-                    
-                    <Routes 
-                        routes ={
-                            [
-                                {exact: true, path:`/${slug}`, component: Menus,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/cart`, component: Cart,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/details`, component: Details,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/options`, component: Options,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/insider`, component: Insider,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/language`, component: Lang,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/reglament-1169`, component: Reglament,  restaurant, slug, restState },
-                                {exact: true, path:`/${slug}/*`, component: P404,  restaurant, slug, restState },
-                            ]
-                        }
-                    />
+            <div className="page-content flex-grow">
+                
+                <Routes 
+                    routes ={
+                        [
+                            {exact: true, path:`/${slug}`, component: Menus,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/cart`, component: Cart,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/details`, component: Details,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/options`, component: Options,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/insider`, component: Insider,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/language`, component: Lang,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/reglament-1169`, component: Reglament,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/:menu(${menu_ids.join("|")})/:category?`, component: Menus,  restaurant, slug, restState },
+                            {exact: true, path:`/${slug}/*`, component: P404,  restaurant, slug, restState },
+                        ]
+                    }
+                />
 
-                </div>
+            </div>
             <Footer {...{...restaurant, slug}}/>
         </>)
     }

@@ -1,6 +1,6 @@
 @import "../../variables.scss";
 
-
+$categoriesMobileHeight: 83px;
 
 body #root.scrolling-down{
     #menus-carousel .menu-body > .dots{
@@ -34,6 +34,65 @@ body{
         // display: flex;
         // flex-direction: column;
         // align-items: center;
+
+        .categories-carousel{
+            display: flex;
+            width: 100%;
+            // flex-grow: 1;
+            height: $categoriesMobileHeight;
+            // margin-top: #{$headerHeight + $mainTopMargin};
+
+            ul.dots{
+                li{
+                    height: 6px;
+                    width: 6px;
+                    transition: 0.4s;
+                    box-shadow: none;
+                    &.active{
+                        width: 8px;
+                        height: 8px;
+                        background-color: $green;
+                        opacity: 1;
+                        margin: 0 12px;
+                    }
+                }
+            }
+
+            .slides {
+                > div{
+                    min-height: inherit;
+                    width: 50%; // to show previous and next items
+                    scroll-snap-align: none center;
+                    overflow: visible; // to show even long text
+                    background: none;
+
+
+                    
+
+                    &:first-child{
+                        width: 75%;
+                        padding-left: 25%;
+                    }
+
+                    &:last-child{
+                        width: 75%;
+                        padding-right: 25%;
+                    }
+
+
+
+                    > span{
+                        font-weight: 600;
+                        white-space: nowrap; // not break he line
+                        
+
+                        &:nth-child(2){
+                            color: $gray;
+                        }
+                    }
+                }
+            }
+        }
 
         #menus-carousel{
             display: flex;
@@ -114,15 +173,18 @@ body{
             justify-content: flex-start; // important so that the category starts at the top of the page.
             // margin: 0   ;
             // overflow-y: auto;
+            // margin-top: #{$headerHeight + $mainTopMargin};
             @include v-scroll;
 
             @media screen and (max-width: $bp_2){
                 
-                max-height: calc(100vh - 130px); // TODO: find the exact height to diff
+                // max-height: calc(100vh - 130px); // TODO: find the exact height to diff
+                max-height: calc(100vh - #{$headerHeight + $mainTopMargin}); // TODO: find the exact height to diff
             }
             @media screen and (min-width: $bp_2){
                 
-                max-height: calc(100vh - 230px); // TODO: find the exact height to diff
+                // max-height: calc(100vh - 230px); // TODO: find the exact height to diff
+                max-height: calc(100vh - #{$headerHeight + $mainTopMargin}); // TODO: find the exact height to diff
             }
 
             .category-header{

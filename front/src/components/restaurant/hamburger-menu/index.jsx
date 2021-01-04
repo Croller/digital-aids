@@ -72,11 +72,11 @@ class HamburgerMenu extends React.Component{
 
         // const {restaurant, selected, translations } = this.state
         const {selected } = this.state
-        const {slug, restaurant, translations, restState } = this.props
+        const {slug, restaurant, translations, restState, language } = this.props
         
         
 
-        const {language, setCategory } = this.props
+        // const {language, setCategory } = this.props
 
         
 
@@ -91,18 +91,21 @@ class HamburgerMenu extends React.Component{
             return <Redirect to={`/${slug}/language`} back={window.location.pathname} />
         }
 
-        const selectCategory = cid => {
-            setCategory(slug, cid)
-            this.setState({selected: true})
+        // const selectCategory = cid => {
+        //     setCategory(slug, cid)
+        //     this.setState({selected: true})
 
-        }
+        // }
+
+        const secondTranslationNeeded = language !== restaurant.defaultlanguage;
 
         if( restaurant ){
             const _t = key => tr(key, language, translations )
             const langData = restaurant.languages.find( l => l.id === language )
             const langTitle = langData ? langData.nativeName : language
 
-            // console.debug("Translate", _t("Menu", 1))
+            console.debug("Options: restaurant ", restaurant );
+            
             return(
                 <Container className="hamburger-menu">
                     <TopBar 
@@ -114,16 +117,34 @@ class HamburgerMenu extends React.Component{
                     restState={restState}
                     />
                     <div className="flex column">
-                        <div className="main-title">{_t("Menu")}</div>
-                        {restaurant.menus.map( menu => {
+                        <h1 className="main-title">{_t("Menu")}</h1>
+                        { 
+                        restaurant.menus.map.length > 1 &&  
+                        restaurant.menus.map( 
+                            (menu, menuIndex) => 
+                                <Button className="cat-button panel flex column py-1" 
+                                component={Link} 
+                                to={`/${slug}/${menuIndex + 1}`}
+                                >{`${menu.title}`}</Button>
+                        )   
+                        }
+                        {restaurant.menus.map( (menu, menuIndex) => {
+                            return <>
+                            <h2>{menu.title}</h2>
                             {menu.categories && menu.categories.map( (c, ind) => {
         
                             return(
-                            <Button className="cat-button panel flex column py-1" key={`cat-btn-${ind}`} onClick={() => selectCategory(c.id)} >
+                            <Button className="cat-button panel flex column py-1" 
+                            key={`cat-btn-${ind}`} 
+                            component={Link}
+                            to={`/${slug}/${menuIndex + 1}/${c.id}` }
+                            // onClick={() => selectCategory(c.id)} 
+                            >
                                 <div className="title">{c.title}</div>
-                                <div className="default-title">{c.titledefault}</div>
+                                { secondTranslationNeeded && <div className="default-title">{c.titledefault}</div>}
                             </Button>)
                             })}    
+                            </>
                         })}
                         <div className="separator"></div>
                         <Button component={Link} to={`/${slug}/reglament-1169`} className="cat-button panel flex column py-1" >
@@ -131,7 +152,7 @@ class HamburgerMenu extends React.Component{
                                 <Exclamation className="icon mr-1" />
                                 <div>
                                     <div className="title">{_t("reglament_1169",1)}</div>
-                                    <div className="default-title">{_t("reglament_1169")}</div>
+                                    { secondTranslationNeeded && <div className="default-title">{_t("reglament_1169")}</div>}
                                 </div>
                             </div>
                         </Button>

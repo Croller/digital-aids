@@ -13,7 +13,10 @@ import {connect } from 'react-redux'
 // } from '@material-ui/icons'
 
 import {Redirect} from 'react-router-dom'
+
 import Menu from './menu'
+// import Menu from './menu/index2'
+
 // import Topbar from './topbar'
 import Spinner from '../template/common/Spinner'
 // import Lang from '../restaurant/language'
@@ -62,7 +65,7 @@ class RestaurantComponent extends React.Component{
         
         // if( !language ) return <Lang {...{restaurant}} />
         // const {slug} = this.props.match.params
-        const {slug} = this.props.match.params
+        const {slug, menu, category } = this.props.match.params
         console.debug("Match: ", this.props.match)
         
         if( !language){
@@ -75,7 +78,7 @@ class RestaurantComponent extends React.Component{
             <>
                 {/* <Topbar {...{restaurant, language, lang}} /> */}
                 {/* <div key={slug} className="flex-grow"> */}
-                    <Menu key={slug} className="flex-grow" {...{slug, restaurant, restState }} />
+                    <Menu key={slug} className="flex-grow" {...{slug, menu, restaurant, category, restState }} />
                 {/* </div> */}
                 {/* <Social {...restaurant} /> */}
                 {/* <Footer {...restaurant} /> */}

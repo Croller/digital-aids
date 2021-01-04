@@ -18,6 +18,10 @@ class RestaurantsService extends Base {
             else
                 this.Error(e.message)
 
+            // TODO: catch 404 and other errors separately
+            // if( e.response ){
+            //     switch(e.response.status )
+            // }
             return false
         }
         

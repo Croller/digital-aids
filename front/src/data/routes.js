@@ -30,6 +30,7 @@ export const routes = [
     { exact: true, path: "/test" , component: components["Test"]  },
     // { exact: true, path: "/:slug" , component: components["RestaurantBase"]  },
     { exact: true, path: "/:slug/:page(cart|language|details|options|reglament-1169|insider)?" , component: components["RestaurantBase"]  },
+    { exact: true, path: "/:slug/:menu?/:category?" , component: components["RestaurantBase"]  },
     // { exact: true, path: "/:slug/cart" , component: components["Cart"]  },
     // { exact: true, path: "/:slug/language" , component: components["Lang"]  },
     // { exact: true, path: "/:slug/details" , component: components["Details"]  },

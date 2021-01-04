@@ -1,3 +1,5 @@
+$dotsHeight: 16px ;
+
 .css-carousel{
     display: flex;
     overflow: hidden;
@@ -5,12 +7,23 @@
     align-items: center;
     max-width: 100%;
     position: relative;
-    padding-top: 16px; // to left place for dots.
+    padding-top: $dotsHeight; // to left place for dots.
+    align-items: center;
+
     &.hide-dots{
         padding-top: 0;
 
         ul.dots {
             display: none;
+        }
+    }
+
+    &.dots-bottom {
+        padding-top: 0;
+        padding-bottom: $dotsHeight;
+        ul.dots {
+            bottom: 0;
+            top: inherit;
         }
     }
 
@@ -23,6 +36,9 @@
         margin: 0;
         padding: 0;
         position: absolute;
+        height: $dotsHeight;
+        align-items: center;
+        
         li.dot{
             // width: 10px;
             // height: 10px;
@@ -56,13 +72,13 @@
 
         overflow-x: auto;
         scroll-snap-type: x mandatory;
-        
+        // scroll-snap-align: none center;
         
         
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         & > div {
-            scroll-snap-align: start;
+            scroll-snap-align: none center; // horizontally snap to center of element
             flex-shrink: 0;
             width: 100%;
             min-height: 100px;
@@ -78,6 +94,21 @@
             justify-content: flex-start; // starting with top of the slide
             align-items: center;
             // font-size: 100px;
+        }
+    }
+
+    &.debug {
+        .slides{
+            &::after{
+                content: "";
+                display: block;
+                position: absolute;
+                width: 1px;
+                height: 100%;
+                top: 0;
+                background: rgba(100,100,255,0.7);
+                left: 50%;
+            }
         }
     }
 }

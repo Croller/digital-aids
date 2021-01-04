@@ -3,8 +3,9 @@ import { Grid, Button, Typography, Paper } from '@material-ui/core'
 import './menu.scss'
 import Item from './item'
 import ItemImages from './item_images'
-import { connect } from 'react-redux'
-import A from '../../../redux/actionTypes'
+
+// import { connect } from 'react-redux'
+// import A from '../../../redux/actionTypes'
 // import { getRestaurant } from '../../../redux/reducers'
 // import { Carousel } from 'react-responsive-carousel';
 // import Carousel from '../../template/carousel'
@@ -14,6 +15,8 @@ import Spinner from '../../template/common/Spinner'
 
 import Service from '../../../services/translations'
 import {debounce} from '../../../utils/functions'
+import DefaultComponent, {connect} from '../../DefaultComponent'
+import { Redirect } from 'react-router-dom'
 
 const templates = {
     text: Item,
@@ -28,94 +31,217 @@ let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
 // root element
 const root = document.getElementById("root")
 
-class RestaurantMenu extends React.Component {
+
+// class RestaurantMenu extends React.Component {
+class RestaurantMenu extends DefaultComponent {
 
 
     state = {
         categoryid: null,
         restState: null,
         restaurant: null,
-        translationLoaded: false
+        translationLoaded: false, 
+        menu: null,
+        category: null,
+        category_to_slide: null,
+        redirect: null
     }
+
+    // top level carousel
+    _Carousel = React.createRef();
+    _CatsCarousel = React.createRef();
+    _nestedCarouselRef = React.createRef();
+    _test = React.createRef();
+
+    // constructor(props){
+    //     super(props);
+
+    //     // ref to category carousel
+    //     // this._categoryCarousel = React.createRef();
+    // }
+   
+    _nestedCarousels = [];
+
+    // constructor(props){
+    //     super(props);
+
+    //     // this._Carousel = React.createRef();
+    // }
+
 
     constructor(props){
         super(props);
 
-        // ref to category carousel
-        // this._categoryCarousel = React.createRef();
+        // pass translations to parent and set flag after they are loaded.
+        this.setTranslations([
+            "Allergens", "YourOpinionIs"
+        ]
+        , () => this.setState({translationLoaded: true})
+        );
     }
-   
+
+    addNestedCarousel =  ()  => {
+        const newLength = this._nestedCarousels.push( React.createRef() )
+        return this._nestedCarousels[newLength - 1];
+    }
+
+    goTo( slide_1, slide_2){
+        // console.debug("goTo:" , slide_1, slide_2)
+        // console.debug("goTo: current" , this._Carousel.current)
+
+        if(this._Carousel.current){
+
+            // scroll first level
+            this._Carousel.current.goToSlide(slide_1);
+            
+            // scroll second level
+            this.goToNested(slide_1, slide_2);
+        } else {
+            console.error("goTo: could not find primary carousel. Ref:", this._Carousel)
+        }
+    }
+
+
+    goToNested( index, slide ){
+        const carousel = this._nestedCarousels[index];
+        if( carousel.current ){
+            carousel.current.goToSlide(slide);
+        } else {
+            console.error("goToNested: could not find nested carousel", index);
+        }
+         
+    }
 
     componentDidMount() {
-        this.fetchTranslations()
+        
+        super.componentDidMount();
+        // this.fetchTranslations()
+        // select category
+
+        const {menu, category} = this.props;
+        
+        // if( category ){
+            //TODO: get category index in array and call slider's goTo method
+            // const index = this.props.restaurant.
+            this.selectMenu()
+        // }
+
+        // console.debug("componentDidMount props", this.props)
+
+        // console.debug("componentDidMount:  carousel:", this._Carousel);
+        // console.debug("componentDidMount:  test:", this._test);
+
+        // this doesn't seem to fire at all: 
+        // first the Spinner is rendered and the refs are not set.
+        // if( this.props.menu && this._Carousel.current )
+        //     this.goTo( this.props.menu - 1, 0); // go to first element of selected menu
+
+
+        
     }
 
-    componentDidUpdate(prevProps){
+    componentDidUpdate( prevProps ){
+        // console.debug("componentDidUpdate:  props:", this.props);
+        // console.debug("componentDidUpdate:  prev props:", prevProps);
+        // console.debug("componentDidUpdate:  carousel :", this._Carousel.current );
         if( prevProps.language !== this.props.language ){
             this.setState({translationLoaded: false} )
             this.fetchTranslations()
         }
+
+        if( prevProps.menu !== this.props.menu || this.prevProps.category !== this.props.category ){
+            this.selectMenu()
+        }
+
+        // if( this.props.menu && this._Carousel.current && 
+        //     // if what's selected is not current slide - change it
+        //     this._Carousel.current.state.currentSlide !== this.props.menu - 1 ){
+        //     console.debug("componentDidUpdate: going to menu", this.props.menu)
+        //     // TODO: if category selected, go to that category
+
+
+
+        //     // category not selected: go to the first in list
+        //     this.goTo( this.props.menu - 1, 0); // go to first element of selected menu
+
+        // }
     }
 
-    fetchTranslations = async () => {
-        // preload allergens for nested elments
-        await Service.getByKeys([
-            "Allergens", "YourOpinionIs"
-        ],
-        this.props.language
-        )
-        this.setState({translationLoaded: true})
-    }
+    // fetchTranslations = async () => {
+    //     // preload allergens for nested elments
+    //     await Service.getByKeys([
+    //         "Allergens", "YourOpinionIs"
+    //     ],
+    //     this.props.language
+    //     )
+    //     this.setState({translationLoaded: true})
+    // }
 
-    // componentDidUpdate(prevProps) {
-        // console.debug("Updated!");
-        // const prev = getRestaurant(prevProps, this.props.slug);
-        // const now = getRestaurant(this.props, this.props.slug);
 
-        // console.debug("prev and now:", prev, now);
+    selectMenu = () => {
+        let {menu: menu_id, category, restaurant } = this.props
+        // cast menu id to integer
+        menu_id = parseInt(menu_id);
 
-        // /// THIS IS AWFUL (((((
-        // if (prev.filters.caterory !== now.filters.caterory) {
-        //     this.getRestaurantState()
+        // console.debug("selectMenuAndCategory: menu_id", menu_id, "menus:", restaurant.menus)
+        const menu = restaurant.menus.find( m => m.menuid === menu_id ); // || restaurant.menus[0] ;
+
+        // if just the menu was selected, use the first category in menu
+        // if( !category){
+        //     category = menu.categories ? menu.categories[0] ? menu.categories.id :
         // }
 
-        // if (prevProps.slug !== this.props.slug) {
-        //     this.fetchRestaurant()
-        // }
-        // )
-    // }
 
-    // async fetchRestaurant() {
-    //     const { slug, language } = this.props
-    //     const restaurant = await Service.getRestaurant(slug, language)
-    //     this.setState({ restaurant })
-    // }
+        // prepare an object of slide indexes hashed by category id
+        let category_to_slide
+        if( menu){
+             category_to_slide = menu.categories.reduce( (res,c,ind)=>({
+                ...res, [c.id]: ind 
+            }), {} )
 
-    // getRestaurantState() {
-    //     const { slug, language } = this.props
-    //     const restState = getRestaurant(this.props, slug)
-    //     this.setState({ restState })
-    // }
 
-    toggleCategory = id => {
-        const { slug, restState } = this.props
-        // const restState = getRestaurant(this.props, slug)
+        }
 
-        const { category } = restState.filters
+        this.setState( {menu, category_to_slide}, () => {
+            // go to selected category
+            const slideIndex = category_to_slide ? category_to_slide[category] : null
+            
+            // console.debug("selectMenuAndCategory", "slide index:", slideIndex, "menu:", menu, "category:",  category )
+            
+            // TODO this is a hack, have to find a way to subscribe to carousel reference addition
+            setTimeout( () => {
+                if( slideIndex &&  this._CatsCarousel.current ){
+                    this._CatsCarousel.current.goToSlide(slideIndex)
+                } else {
+                    console.debug("selectMenuAndCategory: no slide index or no carousel")
+                }
+            }, 100)
+        } )
 
-        console.debug("toggling category", id)
-
-        if (category === id)
-            // this.setState({categoryid: null})
-            this.props.setFilter(slug, null)
-        else
-            this.props.setFilter(slug, id)
-        // this.setState({categoryid: id})
+        
     }
+
+    
+
+    // toggleCategory = id => {
+    //     const { slug, restState } = this.props
+    //     // const restState = getRestaurant(this.props, slug)
+
+    //     const { category } = restState.filters
+
+    //     console.debug("toggling category", id)
+
+    //     if (category === id)
+    //         // this.setState({categoryid: null})
+    //         this.props.setFilter(slug, null)
+    //     else
+    //         this.props.setFilter(slug, id)
+    //     // this.setState({categoryid: id})
+    // }
 
     updateScroll =  target => {
 
-        console.debug("Scroll target:", target )
+        // console.debug("Scroll target:", target )
 
         // const {target} = ev;
         
@@ -123,7 +249,7 @@ class RestaurantMenu extends React.Component {
         // let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
         let st = target.scrollTop;
 
-        console.debug("Scrolling..", st)
+        // console.debug("Scrolling..", st)
         if (st > lastScrollTop + scrollingTreshold ){
             // downscroll
             root.classList.remove("scrolling-up")    
@@ -142,30 +268,81 @@ class RestaurantMenu extends React.Component {
         lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     }
 
+    selectCategory = ind => {
+        if( this._nestedCarouselRef.current ){
+            this._nestedCarouselRef.current.goToSlide(ind)
+        }  else {
+            console.debug("could not find nested carousel reference:", this._nestedCarouselRef)
+        }
+    }
+
 
     render() {
         const {
             slug,
+            // category,
             // categories, 
-            // menu, 
             show_categories = true,
             // , cart 
             language,
             // translations
+            restState,
+            restaurant,
+            menu: menu_id, 
+            category
+            
         } = this.props
 
-        const {translationLoaded} = this.state
-        if( !translationLoaded )
-            return <Spinner /> 
+        // get menu and category from state
+        const {
+            translationLoaded, 
+            // category,
+            menu,
+            category_to_slide,
+            redirect
+        } = this.state
 
-        const { restState = {}, restaurant } = this.props // getRestaurant( this.props, slug )
-        let { category: selectedCategory, search } = (restState.filters || {})
+
+        // handle redirects
+        if( redirect ){
+            // reset redirect
+            this.setState({redirect: null})
+            // go to url
+            return <Redirect to={redirect} />
+        }
+
+        if( !restaurant){
+            // console.debug("No element: restaurant")
+            return <Spinner /> 
+        }
+
+
+        if( !menu_id || !category ){
+            const to = `/${slug}/${restaurant.menus[0].menuid}/${restaurant.menus[0].categories[0].id}`
+            // console.debug("No element: menu or category. Redirect to ")
+            // redirect to first categry in first menu in the restaurant
+            return <Redirect to={ to } />
+        }
+
+
+        if( !translationLoaded ){
+            // console.debug("No element: translation not loaded ")
+            return <Spinner /> 
+        }
+
+
+            
+
+        // const { restState = {}, restaurant } = this.props // getRestaurant( this.props, slug )
+        let { 
+            // category: selectedCategory, 
+            search } = (restState.filters || {})
         search = search ? search.toLowerCase() : search
 
         const needSecondTranslation = language !== restaurant.defaultlanguage
 
-        console.debug("Render selectedCategory", selectedCategory)
-        console.debug("Menu restaurant:", restaurant)
+        // console.debug("Render selectedCategory", selectedCategory)
+        // console.debug("Menu restaurant:", restaurant)
 
         // const filteredCategories = selectedCategory ? categories.filter(c => c.id === selectedCategory) : categories
 
@@ -178,56 +355,106 @@ class RestaurantMenu extends React.Component {
 
         // const carouselRef = this._categoryCarousel.current;
 
+        // let menu_id = this.props.menu || restaurant ? restaurant.menus[0].menuid : null;
+
+        // const menu = restaurant ? restaurant.menus.find( m => m.menuid === menu_id ) : restaurant.menus[0] ;
+
+        const { items = [], categories = [] } = menu || {}
+
+                        
+        // console.debug("Menu index:", menu_id);
+        // console.debug("Menu data:", menu);
+
+        // reference to use in categories click handlers
+        // console.debug("this._Carousel", this._Carousel);
+        // const _nestedCarouselRef = this._Carousel.current ? this._Carousel.current.addNestedCarousel() : null;  // React.createRef();
+        
+        // const _nestedCarouselRef = React.createRef(); // this.addNestedCarousel();  // React.createRef();
+        // const _nestedCarouselRef = React.createRef();
+
+        // reference to category buttons container
+        const _catButtons = React.createRef(); 
+
         return (
             // categories && restaurant ?
             restaurant ?
-                <div className={`template-${restaurant.defaulttemplate} flex column align-items-center flex-grow`}>
-
-                    {/* <ul className="menu-list">
-                        {
-                            restaurant.menus && restaurant.menus.map((menu, menuIndex) =>
-                                <li><a href={`#menu-${menuIndex}`}>{menu.title}</a></li>
-
-                            )
-                        }
-                    </ul> */}
-
-                    {/* <div id="menus-carousel"> */}
-                    { restaurant.menus && 
-                    <CSSCarousel 
-                    useJs
-                    slidesCssClass="disable-scrollbars" 
-                    id="menus-carousel"
-                    >
-                        { restaurant.menus.map((menu, menuIndex) => {
-                                const { items = [], categories = [] } = menu
+                <div id="menus-carousel" className={`template-${restaurant.defaulttemplate} flex column align-items-center flex-grow`} ref={this._test}>
+                    { 
+                    menu &&
+                    // restaurant.menus && 
+                    // <CSSCarousel 
+                    // // <TwoLevelCarousel 
+                    // useJs
+                    // slidesCssClass="disable-scrollbars" 
+                    // id="menus-carousel"
+                    // ref={this._Carousel}
+                    // >
+                        //{ 
+                           // restaurant.menus.map((menu, menuIndex) => 
+                        <>
+                           {
+                               
+                                // const { items = [], categories = [] } = menu
 
                                 
-                                // reference to use in categories click handlers
-                                const _nestedCarouselRef = React.createRef();
+                                // // reference to use in categories click handlers
+                                // console.debug("this._Carousel", this._Carousel);
+                                // // const _nestedCarouselRef = this._Carousel.current ? this._Carousel.current.addNestedCarousel() : null;  // React.createRef();
+                                // const _nestedCarouselRef = this.addNestedCarousel();  // React.createRef();
+                                // // const _nestedCarouselRef = React.createRef();
                                 
-                                // reference to category buttons container
-                                const _catButtons = React.createRef(); 
+                                // // reference to category buttons container
+                                // const _catButtons = React.createRef(); 
 
-                                return (
-                                    <div className="menu-wrapper" key={`rest-menu-${menuIndex}`} >
-                                        <h1>{menu.title}</h1>
+                                // return (
+                                    // <div className="menu-wrapper" key={`rest-menu-${menuIndex}`} >
+                                    <div className="menu-wrapper">
+                                        {/* <h1>{menu.title}</h1> */}
                                         {
                                             show_categories &&
+                                            <>
+                                            <div className="categories-carousel show-on-mobile">
+                                                <CSSCarousel
+                                                id="cats"
+                                                ref={this._CatsCarousel}
+                                                className="dots-bottom"
+                                                useJs
+                                                onSlideClick = {(i) => this._CatsCarousel.current && this._CatsCarousel.current.goToSlide(i) }
+                                                onSlideChange = { 
+                                                    slide => {
+                                                        // console.debug("Category slide changed to", slide);
+                                                        if( this._nestedCarouselRef.current )
+                                                            this._nestedCarouselRef.current.goToSlide(slide)
+                                                        else 
+                                                            console.debug("_nestedCarouselRef.current is not set");
+                                                }}
+                                                onScrollStop = { 
+                                                    slide => {
+                                                        // console.debug("Category scroll stopped at", slide);
+                                                        if( this._nestedCarouselRef.current )
+                                                            this._nestedCarouselRef.current.goToSlide(slide)
+                                                        else 
+                                                            console.debug("_nestedCarouselRef.current is not set");
+                                                }}
+                                                >
+                                                    {categories.map((cat, ind) => (
+                                                        <div key={`mobile-cat-${ind}`}>
+                                                            <span>{cat.title}</span>
+                                                            <span>{cat.titledefault}</span>
+                                                        </div>
+                                                    ))}
+                                                </CSSCarousel>
+                                            </div>
                                             <div className="categories" ref={_catButtons}>
                                                 {categories.map((cat, ind) => (
                                                     <Button
                                                         key={`cat-button-${ind}`}
-                                                        className={`category-button${(cat.id === selectedCategory) ? " selected" : ""}`}
+                                                        // className={`category-button${(cat.id === selectedCategory) ? " selected" : ""}`}
+                                                        className={`category-button${(ind === category) ? " selected" : ""}`}
                                                         // onClick={() => this.toggleCategory(cat.id)}
                                                         onClick={() => {
                                                             
-                                                            if( _nestedCarouselRef.current ){
-
-                                                                _nestedCarouselRef.current.goToSlide(ind)
-                                                            }  else {
-                                                                console.debug("could not find nested carousel reference:", _nestedCarouselRef)
-                                                            }
+                                                            this.selectCategory(ind)
                                                         } }
                                                     >
                                                         {
@@ -242,17 +469,16 @@ class RestaurantMenu extends React.Component {
                                                     </Button>
                                                 ))}
                                             </div>
+
+                                            </>
                                         }
-                                        {/* <div className="menus"> */}
-                                        {/* <Carousel className="menu-body category-carousel"
-                                            showThumbs={false}
-                                        > */}
                                         <CSSCarousel 
+                                            id="body"
                                             className="menu-body category-carousel"
                                             useJs
                                             slidesCssClass="disable-scrollbars"
                                             // items={categories}
-                                            ref={_nestedCarouselRef}
+                                            ref={this._nestedCarouselRef}
                                             onSlideChange= {
                                                 // update buttons, selecting the active one
                                                 currentSlide => {
@@ -266,8 +492,20 @@ class RestaurantMenu extends React.Component {
                                                             _catButtons.current.children[currentSlide].classList.add("selected")
                                                         }
                                                     } 
+
+                                                    if( this._CatsCarousel.current )
+                                                        this._CatsCarousel.current.goToSlide(currentSlide)
+                                                    else 
+                                                        console.debug("this._CatsCarousel.current not set")
                                                 }
                                             }
+                                            onScrollStop = { currentSlide => {
+                                                // console.debug("Menu scroll stopped at slide", currentSlide);
+                                                if( this._CatsCarousel.current )
+                                                    this._CatsCarousel.current.goToSlide(currentSlide)
+                                                else 
+                                                    console.debug("this._CatsCarousel.current not set")
+                                            }}
                                         >
                                             {/* {filteredCategories.map((cat, ind) => ( */}
                                             {categories.map((cat, ind) => (
@@ -278,10 +516,10 @@ class RestaurantMenu extends React.Component {
                                                 >
                                                    <div> {/* need  this div here to fix sticky header on safari*/ }
                                                    
-                                                        <div className="category-header">
+                                                        {/* <div className="category-header">
                                                             <h2 className="fw-600">{cat.title}</h2>
                                                             <div className="category-subtitle">{cat.titledefault}</div>
-                                                        </div>
+                                                        </div> */}
                                                         <Paper className="category-body panel" >
                                                             <Grid container spacing={2} className="menu-items-list">
                                                                 {items.filter(d => d.dishcategoryid === cat.id &&
@@ -332,23 +570,23 @@ class RestaurantMenu extends React.Component {
 
 
 
-                                )
-                            })
+                                // )
+                            // })
                         }
-                    </CSSCarousel> 
+                        {/* } */}
+                        </>
+                        // {/* </CSSCarousel> */}
                     }
-                        
-                    {/* </div> */}
-
-
                 </div> : <Typography>No data obtained</Typography>
         )
     }
 }
 
-export default connect(
-    state => ({ ...state.app, translations: state.translation }),
-    dispatch => ({
-        setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } })
-    })
-)(RestaurantMenu)
+export default connect( RestaurantMenu );
+
+// export default connect(
+//     state => ({ ...state.app, translations: state.translation }),
+//     dispatch => ({
+//         setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } })
+//     })
+// )(RestaurantMenu)
