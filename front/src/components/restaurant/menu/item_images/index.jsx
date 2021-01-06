@@ -15,17 +15,17 @@ class RestMenuItem extends React.Component{
         tag_list: null
     }
     
-    componentDidMount() {
-        this.fetchTranslations()
-    }
+    // componentDidMount() {
+    //     this.fetchTranslations()
+    // }
 
-    fetchTranslations = () => {
-        Service.getByKeys([
-            "Allergens"
-        ],
-        this.props.language
-        )
-    }
+    // fetchTranslations = () => {
+    //     Service.getByKeys([
+    //         "Allergens"
+    //     ],
+    //     this.props.language
+    //     )
+    // }
 
 
     remove = (dishid, ev) => {

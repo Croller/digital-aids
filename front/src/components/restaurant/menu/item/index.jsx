@@ -1,10 +1,14 @@
-import { Badge, Button, Grid } from '@material-ui/core'
-import {Check, RoomService as Lid} from '@material-ui/icons'
+
+import { 
+    // Badge, Button, 
+Grid 
+} from '@material-ui/core'
+// import {Check, RoomService as Lid} from '@material-ui/icons'
 import React from 'react'
 import './style.scss'
 import A from '../../../../redux/actionTypes'
-import {getRestaurant} from '../../../../redux/reducers'
-import TagsService from '../../../../services/tags'
+// import {getRestaurant} from '../../../../redux/reducers'
+// import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
 import Quantity from '../quantity'
 

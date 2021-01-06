@@ -4,7 +4,7 @@ $categoriesMobileHeight: 83px;
 
 body #root.scrolling-down{
     #menus-carousel .menu-body > .dots{
-        bottom: 24px;
+        // top: 50px;
     }
 }
 
@@ -21,7 +21,7 @@ body{
 
             @media screen and (min-width: $bp_2) {
                 > .dots {
-                    top: 24px;
+                    // top: 24px;
                 }
             }
         } 
@@ -103,8 +103,10 @@ body{
         #menus-carousel{
             display: flex;
             flex-direction: column;            
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
+            overflow: visible;
+            margin-top: -14px;
+            // overflow-x: auto;
+            // scroll-snap-type: x mandatory;
             
             
 
@@ -114,16 +116,59 @@ body{
                 max-width: calc(100% - #{$lgMarginsX * 2}); //$headerMaxWidth; // to keep the same width as header
             }
 
+            .category-header{
+                > span{
+                    font-weight: 600;
+                    white-space: nowrap; // not break he line
+                    
+                    // this makes them spill to the next column
+                    position: absolute;
+                    right: 0;
+                    z-index: 200;
+                    transform: translateX(50%);
+                    transition: 0.4s;
+                    
+                    // this makes them look small and semitransparent
+                    font-size: 0.8em;
+                    opacity: 0.4;
+
+
+                    &:nth-child(1){
+                        top: 2px;
+                    }
+                    &:nth-child(2){
+                        top: 20px;
+                        color: $gray;
+                    }
+
+                    
+                }
+            }
+
             h1{
                 font-size: 20px;
                 margin: 0 0 20px;
             }
             
-            > .dots{                
+            .dots{                
                 position: absolute;
                 z-index: 60;
                 @media screen and(max-width: $bp_2) {
-                    top: 25px;
+                    // top: 25px;
+                }
+
+                li{
+                    height: 6px;
+                    width: 6px;
+                    transition: 0.4s;
+                    box-shadow: none;
+                    &.active{
+                        width: 8px;
+                        height: 8px;
+                        background-color: $green;
+                        opacity: 1;
+                        margin: 0 12px;
+                    }
                 }
             }
 
@@ -148,8 +193,10 @@ body{
             .menu-body {
                 > .dots {
                     // move dots to the bottom of the page
-                    top: inherit; 
-                    bottom: calc(10px + #{$footerHeight});
+                    // top: inherit; 
+                    // top: calc(40px + #{$headerHeight});
+                    // bottom: calc(10px + #{$footerHeight});
+                    top: 40px;
                     transition: 0.3s bottom ease-out;
                     z-index: 100;
                 }
@@ -170,82 +217,125 @@ body{
                     }
                 }
             } 
-        }
 
-        .category-content{
 
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; // important so that the category starts at the top of the page.
-            // margin: 0   ;
-            // overflow-y: auto;
-            // margin-top: #{$headerHeight + $mainTopMargin};
-            @include v-scroll;
+            .category-content{
 
-            @media screen and (max-width: $bp_2){
-                
-                // max-height: calc(100vh - 130px); // TODO: find the exact height to diff
-                max-height: calc(100vh - #{$headerHeight + $mainTopMargin}); // TODO: find the exact height to diff
-            }
-            @media screen and (min-width: $bp_2){
-                
-                // max-height: calc(100vh - 230px); // TODO: find the exact height to diff
-                max-height: calc(100vh - #{$headerHeight + $mainTopMargin}); // TODO: find the exact height to diff
-            }
-
-            .category-header{
-                // position: sticky;
-                @include sticky;
-
-                top: 0; //#{$headerHeight + $mainTopMargin};
-                left: 0;
-                background: white;
-                // height: 24px;
-                padding: 0 0 4px;
-                margin-bottom: 16px; // to show top part of the shadow of top menu item
-                // padding: 0 0 24px $categoryXmargin;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
+                justify-content: flex-start; // important so that the category starts at the top of the page.
+                // margin: 0   ;
+                // overflow-y: auto;
+                // margin-top: #{$headerHeight + $mainTopMargin};
+                // @include v-scroll;
+    
+    
+    
+                &.active {
+    
+                    .category-header{
+    
+                        // to make active header centered and bright
+                        > span{
+                            right: 50%;
+                            opacity: 1;
+                            font-size: 1em;
+                        }
+                    }
 
-                h2{
-                    margin: 0 4px 0 0;
-                    @media screen and(min-width: $bp_3){
-                        font-size: 20px;
-                        align-self: flex-start;
-                        text-align: left;
-                        font-weight: 600;
-                        // margin-left:  $categoryXmargin;
+                    & + div {
+                        .category-header{
+    
+                            // to make active header centered and bright
+                            > span{
+                                left: 0%;
+                                right: inherit;
+                                transform: translateX(-50%);
+                            }
+                        }
                     }
                 }
-                .category-subtitle{
-                    color: $dark;
-
-                    @media screen and(min-width: $bp_3){
-                        font-size: 16px;
-                        align-self: flex-start;
-                        text-align: left;
-                        font-weight: 600;
-                        // margin-left:  $categoryXmargin;
+    
+    
+    
+                .menu-items-list{
+                    position: relative;
+                    @include v-scroll;
+    
+                    @media screen and (max-width: $bp_2){
+                    
+                        // max-height: calc(100vh - 130px); // TODO: find the exact height to diff
+                        max-height: calc(100vh - #{$headerHeight + $mainTopMargin}); // TODO: find the exact height to diff
+                    }
+                    @media screen and (min-width: $bp_2){
+                        
+                        // max-height: calc(100vh - 230px); // TODO: find the exact height to diff
+                        max-height: calc(100vh - #{$headerHeight + $mainTopMargin}); // TODO: find the exact height to diff
+                    }
+    
+                    .menu-item-container{
+                        margin: 0 24px;
                     }
                 }
-
-
-                
-            }
-            .category-body{
-                padding: 1em;
-                margin: 0 #{$categoryXmargin};
-                @media screen and (min-width: $bp_2){
-                    margin: 0; // #{$categoryXmargin};
+    
+                .category-header{
+                    // position: sticky;
+                    // @include sticky;
+                    position: relative;
+    
+                    // top: 0; //#{$headerHeight + $mainTopMargin};
+                    // left: 0;
+                    // background: white;
+                    // height: 24px;
+                    // padding: 0 0 4px;
+                    // margin-bottom: 16px; // to show top part of the shadow of top menu item
+                    // padding: 0 0 24px $categoryXmargin;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 50px;
+    
+                    h2{
+                        margin: 0 4px 0 0;
+                        @media screen and(min-width: $bp_3){
+                            font-size: 20px;
+                            align-self: flex-start;
+                            text-align: left;
+                            font-weight: 600;
+                            // margin-left:  $categoryXmargin;
+                        }
+                    }
+                    .category-subtitle{
+                        color: $dark;
+    
+                        @media screen and(min-width: $bp_3){
+                            font-size: 16px;
+                            align-self: flex-start;
+                            text-align: left;
+                            font-weight: 600;
+                            // margin-left:  $categoryXmargin;
+                        }
+                    }
+    
+    
+                    
                 }
-                // border-radius: 10px;
-
+                .category-body{
+                    padding: 1em;
+                    margin: 0 #{$categoryXmargin};
+                    @media screen and (min-width: $bp_2){
+                        margin: 0; // #{$categoryXmargin};
+                    }
+                    // border-radius: 10px;
+    
+                }
             }
+    
         }
 
+        
 
         .menu-items-list{
             // for all templates, including cart

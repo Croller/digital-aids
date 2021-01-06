@@ -11,6 +11,10 @@ class DefaultComponent extends React.Component{
     ]
     _afterTranslation = null;
 
+    state = {
+        translationLoaded: false
+    }
+
     constructor(props){
 
         super(props);
@@ -30,12 +34,22 @@ class DefaultComponent extends React.Component{
         this.fetchTranslations().then( 
             // call the callback, if any
             () => {
+
+                this.setState({translationLoaded: true })
+
                 console.debug("fetchTranslations callback:" , this._afterTranslation)
                 // 
                 if( this._afterTranslation )
                     this._afterTranslation() 
             }
             )
+    }
+
+    componentDidUpdate( prevProps ){
+        if( prevProps.language !== this.props.language ){
+            this.setState({translationLoaded: false })
+            this.fetchTranslations();
+        }
     }
 
     async fetchTranslations( ){
