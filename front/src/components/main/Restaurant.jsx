@@ -26,8 +26,6 @@ class Restaurant extends React.Component{
     }
 
     componentDidMount(){
-       
-
         this.fetchData()
     }
     
@@ -56,10 +54,23 @@ class Restaurant extends React.Component{
         }
     }
 
+    updateOverlay = overlay => {
+        const {slug} = this.props.computedMatch.params;
+        if( slug ){
+            this.props.setOverlay({slug, overlay});
+        } else {
+            console.error("setOverlay: slug not found!")
+        }
+    }
+
     render(){
         const {restaurant, restState } = this.state;
         const {slug, page} = this.props.computedMatch.params
-        const {language, previousPage} = this.props
+        const {
+            language, 
+            previousPage,
+            languageSelected
+        } = this.props
 
         // console.debug("Restaurant: match", this.props.computedMatch.params)
         // console.debug("Restaurant slug:", slug)
@@ -78,11 +89,23 @@ class Restaurant extends React.Component{
          */
 
 
+       
+        
+        
+        
+        
+        
+        if( !restaurant  || !restState) return <Spinner />
+        
+        const {overlay} = restState;
+        
+        let showSearch = overlay || page ? false : true;
+        
         const showHamburger = [
             "cart",
             "options",
             "language"
-        ].includes( page ) ? false : true;
+        ].includes( overlay ) ? false : true;
         
         // will show the close button on the next pages:
         let closeButtonLink = 
@@ -90,15 +113,11 @@ class Restaurant extends React.Component{
             "cart", 
             "options",
             "language"
-        ].includes( page ) ? previousPage || `/${slug}` : false; 
+        ].includes( overlay ) ? previousPage || `/${slug}` : false; 
         
-        let showSearch = page ? false : true;
 
-        if( page === "language" && language === null )
+        if( (page === "language" || overlay === "language") && !languageSelected )
             closeButtonLink = false
-
-
-        if( !restaurant  || !restState) return <Spinner />
 
         let menu_ids = []
         if( restaurant.menus.map ){
@@ -109,17 +128,25 @@ class Restaurant extends React.Component{
 
         return (<>
             <TopBar {...{restaurant, closeButtonLink, showSearch, restState, showHamburger}}/>
+            {overlay && 
+                <div className="overlay">
+                    { overlay === "cart"  && <Cart {...{restaurant, slug, restState}} />}
+                    { overlay === "hamburger"  && <Options {...{restaurant, slug, restState}} />}
+                    { overlay === "language"  && <Lang {...{restaurant, slug, restState}} />}
+                </div>
+            }
+            
             <div className="page-content flex-grow">
                 
                 <Routes 
                     routes ={
                         [
                             {exact: true, path:`/${slug}`, component: Menus,  restaurant, slug, restState },
-                            {exact: true, path:`/${slug}/cart`, component: Cart,  restaurant, slug, restState },
+                            // {exact: true, path:`/${slug}/cart`, component: Cart,  restaurant, slug, restState },
                             {exact: true, path:`/${slug}/details`, component: Details,  restaurant, slug, restState },
-                            {exact: true, path:`/${slug}/options`, component: Options,  restaurant, slug, restState },
+                            // {exact: true, path:`/${slug}/options`, component: Options,  restaurant, slug, restState },
                             {exact: true, path:`/${slug}/insider`, component: Insider,  restaurant, slug, restState },
-                            {exact: true, path:`/${slug}/language`, component: Lang,  restaurant, slug, restState },
+                            // {exact: true, path:`/${slug}/language`, component: Lang,  restaurant, slug, restState },
                             {exact: true, path:`/${slug}/reglament-1169`, component: Reglament,  restaurant, slug, restState },
                             {exact: true, path:`/${slug}/:menu(${menu_ids.join("|")})/:category?`, component: Menus,  restaurant, slug, restState },
                             {exact: true, path:`/${slug}/*`, component: P404,  restaurant, slug, restState },
@@ -128,6 +155,7 @@ class Restaurant extends React.Component{
                 />
 
             </div>
+            
             <Footer {...{...restaurant, slug}}/>
         </>)
     }
@@ -136,6 +164,9 @@ class Restaurant extends React.Component{
 export default connect(
     state => state.app ,
     dispatch => ({
-        setLanguage: payload => dispatch( {type: A.SET_LANGUAGE, payload })
+        setLanguage: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+        // payload must be: {slug, overlay}
+        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+
     })
 )(Restaurant)

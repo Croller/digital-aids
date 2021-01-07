@@ -27,13 +27,14 @@ let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
 // root element
 const root = document.getElementById("root")
 
-const EmptyOrder = ({menu_link, button_text = "Menu", text}) => 
+const EmptyOrder = ({closeCart, button_text = "Menu", text}) => 
     <div className="panel empty-cart-message">
         <p>
             {text}
         </p>
 
-        <Button component={Link} to={menu_link}>{button_text}</Button>
+        {/* <Button component={Link} to={menu_link}>{button_text}</Button> */}
+        <Button onClick={closeCart}>{button_text}</Button>
     </div>
 
 
@@ -159,7 +160,8 @@ class Cart extends React.Component{
                         :
                         <EmptyOrder 
                         text={_tt("empty_order")} 
-                        menu_link={`/${slug}`}
+                        // menu_link={`/${slug}`}
+                        closeCart = {() => this.props.setOverlay({overlay: null, slug})}
                         /> 
 
                         : <Spinner />
@@ -190,6 +192,7 @@ export default connect(
     state => ({...state.app, translations: state.translation } ),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        emptyCart: payload => dispatch( {type: A.CLEAR_CART, payload } )
+        emptyCart: payload => dispatch( {type: A.CLEAR_CART, payload } ),
+        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
     })
 )(Cart)

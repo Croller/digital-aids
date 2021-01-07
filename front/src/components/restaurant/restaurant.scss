@@ -105,6 +105,7 @@ body{
             flex-direction: column;            
             overflow: visible;
             margin-top: -14px;
+            width: 100%;
             // overflow-x: auto;
             // scroll-snap-type: x mandatory;
             
@@ -117,32 +118,64 @@ body{
             }
 
             .category-header{
-                > span{
-                    font-weight: 600;
-                    white-space: nowrap; // not break he line
-                    
-                    // this makes them spill to the next column
-                    position: absolute;
-                    right: 0;
-                    z-index: 200;
-                    transform: translateX(50%);
-                    transition: 0.4s;
-                    
-                    // this makes them look small and semitransparent
-                    font-size: 0.8em;
-                    opacity: 0.4;
 
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 50px;
+                > div, > a {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                   
 
-                    &:nth-child(1){
-                        top: 2px;
+                    > span{
+                        opacity: 0.4;
+                        font-size: 0.8em;
+                        font-weight: 600;
+
+                        &:first-child{
+                            color: black;
+                        }
+                        &:nth-child(2){
+                            color: $gray;
+                        }
                     }
-                    &:nth-child(2){
-                        top: 20px;
-                        color: $gray;
+
+                    &.active  {
+                        > span{
+                            position: relative;
+                            // right: 50%;
+                            opacity: 1;
+                            font-size: 1em;
+                        }
                     }
 
-                    
+                    &.prev, &.next {
+                        position: absolute;
+                        overflow: hidden;
+                        text-decoration: none;
+                    }
+
+                    &.prev{
+                        left: 0;
+                        > span {
+                            transform: translateX( -20%);
+                        }
+                    }
+                    &.next{
+                        right: 0;
+                        > span {
+                            transform: translateX( 20%);
+                        }
+                    }
                 }
+                
+
+                
             }
 
             h1{
@@ -279,23 +312,7 @@ body{
                 }
     
                 .category-header{
-                    // position: sticky;
-                    // @include sticky;
-                    position: relative;
-    
-                    // top: 0; //#{$headerHeight + $mainTopMargin};
-                    // left: 0;
-                    // background: white;
-                    // height: 24px;
-                    // padding: 0 0 4px;
-                    // margin-bottom: 16px; // to show top part of the shadow of top menu item
-                    // padding: 0 0 24px $categoryXmargin;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
-                    width: 100%;
-                    height: 50px;
+                    
     
                     h2{
                         margin: 0 4px 0 0;

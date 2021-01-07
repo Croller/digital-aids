@@ -7,6 +7,7 @@ const ActionTypes = {
 
     SET_FILTER: "SETFILTER",
     
+    SET_OVERLAY: "SETOVERLAY",
     
     SHOW_MESSAGE: "SHOW_MESSAGE",
     HIDE_MESSAGE: "HIDE_MESSAGE",

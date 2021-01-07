@@ -51,7 +51,16 @@ class MobileSearch extends React.Component{
         
         // if passed value not null and not equals current state value, change it. 
         
+        // if open, clear search value
+        if( this.state.open ){
+            // clear it
+            this.props.onSearch("");
+        }
+
         this.setState( { open: !this.state.open } )
+
+
+
         // if( val === null )
         // this.setState( { open: !this.state.open } )
         // else {
@@ -78,9 +87,9 @@ class MobileSearch extends React.Component{
 
         inputBaseProps.placeholder = inputBaseProps.placeholder || placeholderText;
 
-        const {value, open} = this.state
-
-        const hasValue = value !== "";
+        const {value , open} = this.state
+        
+        const hasValue = value !== "" && value !== null;
 
         className = `${className} ${open ? "open" : "" } ${hasValue ? "has-value" : "no-value"}`
         

@@ -27,6 +27,21 @@ body{
     align-items: stretch;
     flex-grow: 1;
 
+    .overlay {
+      position: absolute;
+      margin-top: -14px; // to fill in the top padding;
+      width: 100%;
+      height: 100%;
+      max-height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      z-index: 200;
+      background-color: white;
+    }
+
     .rectangular {
         border-radius: 0!important;
     }

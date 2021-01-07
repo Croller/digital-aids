@@ -27,43 +27,67 @@ class DefaultComponent extends React.Component{
      * @param {*} words 
      * @param {*} callback 
      */
-    setTranslations( words, callback ){ this._translations = words; this._afterTranslation = callback }
+    setTranslations( words, callback ){ 
+        this._translations = words; 
+        this._afterTranslation = callback || ( () => this.setState({translationLoaded:true} ) )
+    }
 
 
     componentDidMount(){
+        console.debug("DefaultComponent.componentDidMount")
         this.fetchTranslations().then( 
             // call the callback, if any
             () => {
 
                 this.setState({translationLoaded: true })
-
-                console.debug("fetchTranslations callback:" , this._afterTranslation)
+                
+                console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
                 // 
-                if( this._afterTranslation )
+                if( this._afterTranslation ){
+                    
+                    console.debug("DefaultComponent.fetchTranslations callback is called")
                     this._afterTranslation() 
+                }
             }
             )
-    }
-
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language ){
-            this.setState({translationLoaded: false })
-            this.fetchTranslations();
+        }
+        
+        componentDidUpdate( prevProps ){
+            console.debug("DefaultComponent.componentDidUpdate", prevProps)
+            if( prevProps.language !== this.props.language ){
+                this.setState({translationLoaded: false })
+                this.fetchTranslations().then( 
+                    // call the callback, if any
+                    () => {
+        
+                        this.setState({translationLoaded: true })
+                        
+                        console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
+                        // 
+                        if( this._afterTranslation ){
+                            
+                            console.debug("DefaultComponent.fetchTranslations callback is called")
+                            this._afterTranslation() 
+                        }
+                    }
+                )
         }
     }
 
     async fetchTranslations( ){
-        console.debug("default component fetchTranslations is called", this._translations)
+        console.debug("DefaultComponent.fetchTranslations is called", this._translations)
         const { language, restaurant } = this.props
 
         const default_lang = restaurant ? restaurant.defaultlanguage : "en"
 
         if( this._translations.length > 0 ){
-            console.debug("fetchTranslations found translations")
-            TranslService.getByKeys(
+            console.debug("DefaultComponent.fetchTranslations found translations")
+            return await TranslService.getByKeys(
                 this._translations,
                 language, default_lang
             )
+        } else {
+            return false;
         }
     }
 
@@ -83,6 +107,7 @@ cn(
     state => ({ ...state.app, translations: state.translation }),
     dispatch => ({
         setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } }),
+        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload }),
         ...otherActions
     })
 )(C);

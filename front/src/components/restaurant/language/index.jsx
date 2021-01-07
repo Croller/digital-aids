@@ -48,6 +48,7 @@ class LanguageSelector extends React.Component{
         const {lang} = this.props
         lang(language)  
         this.setState({selected: true})      
+        this.props.setOverlay({overlay: null, slug: this.props.slug})
     }
 
     render(){
@@ -60,7 +61,7 @@ class LanguageSelector extends React.Component{
             return <Spinner />
 
         // can send back link via props, fallback to menu
-        const back = this.props.location.state ? this.props.location.state.back  : `/${restaurant.slug}`;
+        const back = this.props.location && this.props.location.state ? this.props.location.state.back  : `/${restaurant.slug}`;
         
         console.debug("Back:", back, this.props);
 
@@ -86,6 +87,7 @@ class LanguageSelector extends React.Component{
 export default connect(
     state => ({...state.app}),
     dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
+        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
     })
 )(LanguageSelector)

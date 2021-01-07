@@ -14,12 +14,13 @@ import {Exclamation, World} from '../../template/common/icons'
 import Redirect from '../../template/common/redirect'
 import Service from '../../../services/restaurants'
 import TranslService, {tr} from '../../../services/translations'
-import A from '../../../redux/actionTypes'
-import {connect} from 'react-redux'
+// import A from '../../../redux/actionTypes'
+// import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
 import ErrorPage from '../../template/common/error-loading'
 import TopBar from '../topbar'
 import {Link} from 'react-router-dom'
+import DefaultComponent, {connect} from '../../DefaultComponent'
 
 const txt = {
     "reglament_1169": "Reglament (EU) №1169/2011",
@@ -28,7 +29,8 @@ const txt = {
 // const _t = key => txt[key] || key
 
 
-class HamburgerMenu extends React.Component{
+// class HamburgerMenu extends React.Component{
+class HamburgerMenu extends DefaultComponent{
 
     state ={
         restaurant: null,
@@ -67,6 +69,7 @@ class HamburgerMenu extends React.Component{
         // }
     }
 
+    updateOverlay = overlay => this.props.setOverlay({overlay, slug: this.props.slug})
 
     render(){
 
@@ -88,7 +91,8 @@ class HamburgerMenu extends React.Component{
         if( !language){
             console.debug("No language. Location:", window.location.pathname);
             // redirect to language selector
-            return <Redirect to={`/${slug}/language`} back={window.location.pathname} />
+            // return <Redirect to={`/${slug}/language`} back={window.location.pathname} />
+            // this.props.setOverlay({overlay: "language", slug})
         }
 
         // const selectCategory = cid => {
@@ -125,6 +129,7 @@ class HamburgerMenu extends React.Component{
                                 <Button className="cat-button panel flex column py-1" 
                                 component={Link} 
                                 to={`/${slug}/${menuIndex + 1}`}
+                                onClick={()=> this.updateOverlay(null)} // close overlay
                                 >{`${menu.title}`}</Button>
                         )   
                         }
@@ -138,7 +143,7 @@ class HamburgerMenu extends React.Component{
                             key={`cat-btn-${ind}`} 
                             component={Link}
                             to={`/${slug}/${menuIndex + 1}/${c.id}` }
-                            // onClick={() => selectCategory(c.id)} 
+                            onClick={()=> this.updateOverlay(null)} // close overlay
                             >
                                 <div className="title">{c.title}</div>
                                 { secondTranslationNeeded && <div className="default-title">{c.titledefault}</div>}
@@ -147,7 +152,11 @@ class HamburgerMenu extends React.Component{
                             </>
                         })}
                         <div className="separator"></div>
-                        <Button component={Link} to={`/${slug}/reglament-1169`} className="cat-button panel flex column py-1" >
+                        <Button component={Link} 
+                        to={`/${slug}/reglament-1169`} 
+                        className="cat-button panel flex column py-1"
+                        onClick={()=> this.updateOverlay(null)} // close overlay
+                         >
                             <div className="flex row align-items-center flex-grow">
                                 <Exclamation className="icon mr-1" />
                                 <div>
@@ -157,13 +166,28 @@ class HamburgerMenu extends React.Component{
                             </div>
                         </Button>
                         {/* <Button className="cat-button panel flex column py-1 bg-light-gray-2" onClick={() => lang(null) }> */}
-                        <Button className="cat-button panel flex column py-1 bg-light-gray-2" component={Link} to={`/${slug}/language`} >
+                        <Button 
+                        className="cat-button panel flex column py-1 bg-light-gray-2" 
+                        // component={Link} 
+                        // to={`/${slug}/language`} 
+                        onClick={()=> this.updateOverlay("language")}
+                        >
                             <div className="title flex row align-items-center"><World className="icon mr-1" />{langTitle}</div>                            
                         </Button>
-                        <Button className="cat-button panel flex column py-1 bg-light-gray-2" component={Link} to={`/${slug}/details`}>
+                        <Button 
+                        className="cat-button panel flex column py-1 bg-light-gray-2" 
+                        component={Link} 
+                        to={`/${slug}/details`}
+                        onClick={()=> this.updateOverlay(null)} // close overlay
+                        >
                             <div className="title flex row align-items-center">{_t("Reservation")}</div>                            
                         </Button>
-                        <Button component={Link} to={`/${slug}/insider`} className="cat-button bg-green panel flex column py-1" >
+                        <Button 
+                        component={Link} 
+                        to={`/${slug}/insider`} 
+                        className="cat-button bg-green panel flex column py-1" 
+                        onClick={()=> this.updateOverlay(null)} // close overlay
+                        >
                             <div className="title c-white">FOODFANS INSIDER</div>                            
                         </Button>
                     </div>
@@ -179,11 +203,14 @@ class HamburgerMenu extends React.Component{
     }
 }
 
-export default connect(
-    state => ({...state.app, translations: state.translation }),
-    dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        setCategory: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "category", value} } ),
-        setMenu: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "menu", value} } )
-    })
-)(HamburgerMenu)
+// export default connect(
+//     state => ({...state.app, translations: state.translation }),
+//     dispatch => ({
+//         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+//         setCategory: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "category", value} } ),
+//         setMenu: (slug, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type: "menu", value} } ),
+//         setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+//     })
+// )(HamburgerMenu)
+
+export default connect(HamburgerMenu)

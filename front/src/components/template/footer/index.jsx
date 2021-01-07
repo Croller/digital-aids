@@ -58,6 +58,8 @@ class Footer extends DefaultComponent{
     //     this.setState({translations})
     // }
 
+    setOverlay = overlay => this.props.setOverlay({overlay , slug: this.props.slug})
+
     render(){
         const {slug, language, translations } = this.props
 
@@ -77,7 +79,10 @@ class Footer extends DefaultComponent{
                 <div className="mobile-footer">
                     <Button component={Link} to={`/${slug}/insider`}><Plate/><span>FOODTIPS</span></Button>
                     
-                    <Button component={Link} to={`/${slug}/cart`}>
+                    <Button 
+                    // component={Link} to={`/${slug}/cart`}
+                    onClick={ () => this.setOverlay("cart")}
+                    >
                         <Badge badgeContent={cartCount} showZero={false} className="badge-quantity">
                             <Cloche/>
                         </Badge>
@@ -86,7 +91,10 @@ class Footer extends DefaultComponent{
                         </span>
                     </Button>
 
-                    <Button component={Link} to={`/${slug}/language`} back={`/${slug}/cart`}><World/>
+                    <Button 
+                    // component={Link} to={`/${slug}/language`} back={`/${slug}/cart`}
+                    onClick={ () => this.setOverlay("language")}
+                    ><World/>
                         <span>
                             {language}
                         </span>

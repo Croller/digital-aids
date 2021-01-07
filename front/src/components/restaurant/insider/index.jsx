@@ -87,7 +87,8 @@ class Insider extends React.Component{
         
         if( !language){
             // redirect to language selector
-            return <Redirect to={`/${slug}/language`} />
+            // return <Redirect to={`/${slug}/language`} />
+            // this.props.setOverlay({overlay:"language", slug})
         }
 
         return(
@@ -166,6 +167,7 @@ class Insider extends React.Component{
 export default connect(
     state => state.app,
     dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload })
+        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
     })
 )(Insider)

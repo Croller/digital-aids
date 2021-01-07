@@ -16,13 +16,15 @@ const initialRestaurantState = {
     filters: {}, // filters
     cartCount: 0, // items in cart
     cartPrice: 0, // cart total price
-    cartHasItemsWithNoPrice: false
+    cartHasItemsWithNoPrice: false,
+    overlay: "language"
 }
 
 const initialState = 
 {
     ...{
         language: null,
+        languageSelected: false,
         restaurants: {}
     },
     // overwrite values from local state, if any
@@ -68,7 +70,8 @@ export default function root( state = initialState, action ) {
     restCart, 
     dishid, 
     cartPrice,
-    type, 
+    type,
+    overlay, 
     value
     
 
@@ -76,7 +79,7 @@ export default function root( state = initialState, action ) {
     switch( payloadType ){
         
         case A.SET_LANGUAGE:
-            newState = {...newState, language: payload,  }
+            newState = {...newState, language: payload  }
             break;
         
         case A.CLEAR_CART:
@@ -179,7 +182,6 @@ export default function root( state = initialState, action ) {
             // update restaurat in state
             // newState.restaurants[slug] = restaurant
             
-            ({ restaurants } = newState );
             newState = {...newState, restaurants: {...restaurants, [slug]: restaurant } } 
             
             break;
@@ -268,6 +270,21 @@ export default function root( state = initialState, action ) {
             
             break;    
         
+
+        case A.SET_OVERLAY:
+            ({slug, overlay} = payload);
+            restaurant = getRestaurant( newState, slug);
+
+            if( ["cart", "hamburger", "language", null ].includes(overlay))
+                restaurant = {...restaurant, overlay }
+            else 
+                console.debug("SET OVERLAY: wrong overlay type", overlay)
+                ({restaurants} = newState);
+                restaurants = {...restaurants, [slug]: restaurant }
+                newState = {...newState, restaurants }
+            break;
+
+
         default:
             //newState = state;
             

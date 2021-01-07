@@ -1,8 +1,9 @@
 import React from 'react'
+import {Redirect} from 'react-router-dom';
 import DefaultComponent, {connect} from '../../DefaultComponent';
 import ErrorLoading from '../../template/common/error-loading'
 import Spinner from '../../template/common/Spinner';
-import MenuBody from './MenuBody';
+import MenuBody from './MenuBodyStatic';
 import "./menu.scss";
 
 
@@ -53,8 +54,20 @@ class Menu extends DefaultComponent{
 
     render(){
 
-        const {restState, language, restaurant} = this.props
-        const {menu, category, translationLoaded} = this.state
+        const {
+            menu: menu_id, 
+            category: category_id,
+            slug ,
+            restState, 
+            language, 
+            restaurant
+        } = this.props
+        
+        const {menu, translationLoaded} = this.state
+        let {category} = this.props
+
+        
+
         
         console.debug("Menu index: menu:", menu, "translationLoaded:", translationLoaded)
         if( !translationLoaded )
@@ -62,6 +75,21 @@ class Menu extends DefaultComponent{
 
         if( !menu ){
             return menu === false ? <ErrorLoading /> : <Spinner />
+        }
+
+        console.debug("Menu: id and catid:", menu_id, category_id)
+        if( !menu_id || !category_id  ){
+            
+            const tmpMenu = menu || restaurant.menus ? restaurant.menus[0] : false;
+            if( !tmpMenu ){
+                return <ErrorLoading />
+            }
+            <Redirect to={`/${slug}/${tmpMenu.menuid}/${tmpMenu.categories[0].id}`} />
+        }
+
+        if( !category ){
+            // select category
+            category = menu.categories[0].id;
         }
 
         return (

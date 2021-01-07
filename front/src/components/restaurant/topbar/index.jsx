@@ -72,6 +72,8 @@ class TopBar extends React.Component{
         }
     }
 
+    updateOverlay = overlay => this.props.setOverlay({overlay, slug: this.props.restaurant.slug})
+
     render(){
         const {
             language, lang,
@@ -190,10 +192,16 @@ class TopBar extends React.Component{
                               />
                             }
                             {showHamburger &&
-                            <Button component={Link} to={`/${restaurant.slug}/options`}><Hamburger /></Button>                            
+                            <Button 
+                            // component={Link} 
+                            // to={`/${restaurant.slug}/options`}
+                            onClick={() => this.updateOverlay("hamburger")}
+                            ><Hamburger /></Button>                            
                             }
                             {closeButtonLink &&
-                            <Button component={Link} to={closeButtonLink}><Cancel /></Button>                            
+                            <Button component={Link} to={closeButtonLink} 
+                            onClick={() => this.updateOverlay(null)}
+                            ><Cancel /></Button>                            
                             }
                         </div>
                     </Container>
@@ -208,6 +216,8 @@ export default connect(
     // null,
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        setFilter: (slug , type, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type, value} } )
+        setFilter: (slug , type, value ) => dispatch( {type: A.SET_FILTER, payload: {slug , type, value} } ),
+        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+
     })
 )(TopBar)
