@@ -324,11 +324,17 @@ class RestService extends baseService{
                             items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
                     } else {
 
+
+
                         // const title = _t(dish.translationid, 1)
                         // const default_title = _t(dish.translationid)
                         const title         = await translationService.translateOne(dish.translationid, lang)
                         const default_title = await translationService.translateOne(dish.translationid, default_lang)
-    
+                        const pricefor      = dish.pricefor ?
+                            await translationService.translateOne(dish.pricefor, default_lang)
+                            : null;
+
+                        
                         // destructure dish
                         const {
                             dishid,
@@ -336,8 +342,17 @@ class RestService extends baseService{
                             dishcategoryid,
                             image,
                             dishmenuid,
-                            tags
+                            tags,
+                            amount,
+                            viewonly,
+                            units
                         } = dish
+
+                        let amountText
+                        if( amount && units  ){
+                            const unitsTranslation = await  translationService.translateOne( units, default_lang);
+                            amountText = `${amount}${unitsTranslation}`;
+                        }
                         
                         // add dish data to items, mix in the translations
                         items = [...items, 
@@ -347,6 +362,9 @@ class RestService extends baseService{
                             dishcategoryid,
                             image,
                             dishmenuid,
+                            pricefor,
+                            amount : amountText,
+                            viewonly,
                             // tags: tags ? tags.split(",") : [],
                             tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : [],
                             title,
