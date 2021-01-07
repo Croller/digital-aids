@@ -4,12 +4,14 @@
 
         .category-body{
             .social-container{
-                margin: 130px -27px $footerHeight;
+                margin: 130px -27px;
             }
         }
 
         .social-container {
             margin-top: 130px;
+
+            padding-bottom: calc(#{$footerHeight} + 12px);
 
             .social-footer {
                 display: flex;

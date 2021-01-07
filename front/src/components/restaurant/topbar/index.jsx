@@ -199,7 +199,8 @@ class TopBar extends React.Component{
                             ><Hamburger /></Button>                            
                             }
                             {closeButtonLink &&
-                            <Button component={Link} to={closeButtonLink} 
+                            <Button 
+                            // component={Link} to={closeButtonLink} 
                             onClick={() => this.updateOverlay(null)}
                             ><Cancel /></Button>                            
                             }

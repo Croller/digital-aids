@@ -91,6 +91,7 @@ class Reglament extends React.Component{
         const _t1 = (key) => tr(key, restaurant.defaultlanguage , translations ) 
         const {slug} = this.props //.computedMatch.params
         
+
         
         if( !language){
             // redirect to language selector
@@ -98,11 +99,13 @@ class Reglament extends React.Component{
             // this.props.setOverlay({overlay: "language", slug})
         }
 
+        const secondTranslationNeeded = language !== restaurant.defaultlanguage;
+
         return(
             restaurant && tags && translations ?
             <> 
-            <Container className="flex column flex-grow reglament">
-                <TopBar 
+            <Container className="reglament">
+                {/* <TopBar 
                 restaurant={restaurant} 
                 showSearch={false} 
                 showHamburger={false}
@@ -110,10 +113,10 @@ class Reglament extends React.Component{
                 closeButtonLink={`/${restaurant.slug}`}
                 restState={restState}
                 />
-            
+             */}
                 <h1 className="flex column">
                     <span>{_t("reglament_1169")}</span>
-                    { language !== restaurant.defaultlanguage && 
+                    { secondTranslationNeeded && 
                         <span>{_t1("reglament_1169")}</span>
                     }
                 </h1>
@@ -129,7 +132,10 @@ class Reglament extends React.Component{
                             <img src={`${MEDIA}/images/tags/${t.id}.png`} alt={t.title} title={t.title}  />
                             <div className="flex column">
                                 <span>{t.title}</span>
+                                {
+                                secondTranslationNeeded &&
                                 <span className="default-title">{t.default_title}</span>
+                                }
                             </div>
                         </div>
                         : ""
@@ -140,8 +146,8 @@ class Reglament extends React.Component{
                     <p>{_t("reglament_text_2")}</p>
                 </div>
                 
+                <Social {...{...restaurant}} />
             </Container>
-            <Social {...{...restaurant}} />
             
             </>
             : restaurant === false || tags === false || translations === false ? <ErrorPage/> : <Spinner/>

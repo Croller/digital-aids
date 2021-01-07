@@ -3,10 +3,11 @@
     .main{
 
         .reglament{
-            max-height: 100vh;
+            max-height: calc(100vh - #{$footerHeight});
             @include v-scroll;
             
             h1{
+                margin: 0 0 12px;
                 span:first-child{
                     font-size: 20px;
                     font-weight: 600;
@@ -18,10 +19,6 @@
                 }
             }
 
-            .text{
-                
-            }
-
             .allergen-list  {
                 @media screen and(min-width: $bp_2){
                     flex-direction: row;
@@ -29,6 +26,8 @@
                 }
 
                 .item{
+
+                    min-height: 30px;
 
                     @media screen and(min-width: $bp_2){
                         width: 33%;
@@ -46,6 +45,16 @@
                         font-weight: 500;
                     }
                 }
+            }
+
+            // > div:last-child{
+            //     padding-bottom: 130px; // why 130?
+            // }
+
+
+            .social-container{
+                margin-left: -27px;
+                margin-right: -27px;;
             }
         }
         

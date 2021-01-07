@@ -103,7 +103,7 @@ class Restaurant extends React.Component{
         
         const showHamburger = [
             "cart",
-            "options",
+            "hamburger",
             "language"
         ].includes( overlay ) ? false : true;
         
@@ -111,7 +111,7 @@ class Restaurant extends React.Component{
         let closeButtonLink = 
         [
             "cart", 
-            "options",
+            "hamburger",
             "language"
         ].includes( overlay ) ? previousPage || `/${slug}` : false; 
         
