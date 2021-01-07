@@ -13,7 +13,8 @@ const Quantity = props => {
         del, 
         item = {},
         slug,
-        quantity
+        quantity,
+        viewonly
     } = props
 
     // console.debug("quantity props:", props)
@@ -30,16 +31,16 @@ const Quantity = props => {
 
     return (
     <div className="price-container">
+         {dishprice && !viewonly &&
+         <>
         <div className="increment show-on-mobile">   
-        {dishprice &&  
-        <>
-            <div className="button square plus"  onClick={ () => add( item, slug ) }>+</div>
-            <div className={`button square black qty`}>{quantity || 0}</div> 
-            <div className="button square" onClick={ ev => isOrdered ? remove(dishid, ev) : null }>-</div>
-        </>
-        }
+                <div className="button square plus"  onClick={ () => add( item, slug ) }>+</div>
+                <div className={`button square black qty`}>{quantity || 0}</div> 
+                <div className="button square" onClick={ ev => isOrdered ? remove(dishid, ev) : null }>-</div>
         </div>
         <div></div>
+        </>
+        }
         <div className="button price">{`${dishprice}€`}</div>
     </div>
 )}

@@ -78,7 +78,8 @@ $dotsHeight: 16px ;
         scroll-behavior: smooth;
         -webkit-overflow-scrolling: touch;
         & > div {
-            scroll-snap-align: none center; // horizontally snap to center of element
+            // scroll-snap-align: none center; // horizontally snap to center of element
+            scroll-snap-align: center; // horizontally snap to center of element
             flex-shrink: 0;
             width: 100%;
             min-height: 100px;

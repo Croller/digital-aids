@@ -308,6 +308,10 @@ body{
     
                     .menu-item-container{
                         margin: 0 24px;
+
+                        .amount, .pricefor {
+                            font-weight: 700;
+                        }
                     }
                 }
     

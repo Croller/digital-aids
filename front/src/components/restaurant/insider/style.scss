@@ -1,7 +1,7 @@
 @import "../../../variables.scss";
 
 .insider-modal{
-    displaY:flex;
+    display:flex;
     flex-direction: row;
     align-items: center;
     justify-content: center; 
@@ -56,13 +56,32 @@
         padding-top: 0;
         ul.dots{
             z-index: 100;
-            top: 10px;
+            top: inherit;
+            bottom: 20px;
+            @media screen and (max-width: $bp_2){
+                bottom: inherit;
+                top: 304px;
+            }
+            
+            li.dot{
+                opacity: 1;
+                width: 8px;
+                height: 8px;
+                box-shadow: none;
+                
+                &.active{
+                    box-shadow: none;
+                    width: 10px;
+                    height: 10px;
+                    background-color: $green;
+                }
+            }
         }
     }
 
 
     .text-block{
-        padding: 0 22px;
+        padding: 50px 28px 28px;
         // position: relative;
 
         h2{
@@ -93,9 +112,9 @@
             
     
             p{
-                text-align: left;
                 font-size: 18px;
                 font-weight: 400;
+                text-align: justify;
             }
         }
     }
@@ -143,20 +162,22 @@
         border-top: 1px solid $gray;
 
         padding: 24px 0 0;
+        margin-top: 30px;
 
         text-align: center;
-        text-transform: uppercase;
+        
 
         .text{
-            font-size: 20px;
+            font-size: 14px;
             font-weight: 600;
             margin-bottom: 11px;
         }
         .foodfans-signature{
-            font-size: 22px;
+            font-size: 16px;
             font-weight: 600;
             color: $green;
             margin-bottom: 20px;
+            text-transform: uppercase;
         }
 
         .social-icons{

@@ -3,7 +3,9 @@ import { Badge, Button, Grid } from '@material-ui/core'
 import React from 'react'
 import './style.scss'
 import A from '../../../../redux/actionTypes'
-import Service, {tr} from '../../../../services/translations'
+import 
+// Service, 
+{tr} from '../../../../services/translations'
 // import {getRestaurant} from '../../../../redux/reducers'
 // import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
@@ -47,6 +49,8 @@ class RestMenuItem extends React.Component{
             dishprice, 
             dishcategoryid,
             image = "no-image.jpg",
+            pricefor, 
+            amount,
             tags,
             index, 
             add, 
@@ -115,6 +119,21 @@ class RestMenuItem extends React.Component{
                                     </div>
                                     }
                                     </>
+                                }
+
+                                {
+                                    pricefor && 
+                                    <div className="pricefor">
+                                        {pricefor}
+                                    </div>
+                                    
+                                }
+                                {
+                                    amount && 
+                                    <div className="amount">
+                                        {amount}
+                                    </div>
+                                    
                                 }
                             </div>
                         

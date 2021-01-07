@@ -1,7 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { updateScroll } from '../../../../utils/functions';
 import Social from '../../social';
 import './style.scss';
+
+// scroll top tracker
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+// root element
+const root = document.getElementById("root")
 
 class MenuItemList extends React.Component{
 
@@ -16,7 +22,8 @@ class MenuItemList extends React.Component{
             menu_id,
             needSecondTranslation,
             className,
-            restaurant
+            restaurant,
+            language,
         } = this.props;
 
         console.debug("MenuItemList: prevCat, nextCat:", prevCategory, nextCategory)
@@ -43,7 +50,11 @@ class MenuItemList extends React.Component{
                         {needSecondTranslation && <span className="active">{nextCategory.titledefault}</span>}
                     </Link>}
                 </div>
-                <div className="menu-items-list">
+                <div className="menu-items-list"
+                    onScroll={({target}) => {
+                        lastScrollTop = updateScroll(target, root, lastScrollTop )
+                    }}
+                >
                     {items.map( (dish, index)=> 
                         <div className={`menu-item-container ${className}`}>
                             <Item 
@@ -52,6 +63,7 @@ class MenuItemList extends React.Component{
                                 restState={restState}
                                 needSecondTranslation={needSecondTranslation}
                                 slug={slug}
+                                language = {language}
                                 {...dish}
                             />
                         </div>

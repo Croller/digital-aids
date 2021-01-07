@@ -11,6 +11,7 @@ import A from '../../../../redux/actionTypes'
 // import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
 import Quantity from '../quantity'
+import {tr} from '../../../../services/translations'
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
@@ -43,13 +44,19 @@ class RestMenuItem extends React.Component{
             dishcategoryid,
             tags,
             index, 
+            needSecondTranslation,
+            pricefor,
+            amount,
+            viewonly,
             // add, 
             // reduxState
-            restState
+            restState,
             // filters = {},
             // quantity 
             // cartItem,
             // cart
+            language,
+            translations
         } = this.props
         // console.debug("Item slug:", slug, " props: ", this.props)
         // const restState = getRestaurant( reduxState, slug)
@@ -65,9 +72,18 @@ class RestMenuItem extends React.Component{
         if(cartItem) 
             ({quantity} = cartItem )
 
-        const item = { dishid, title, dishcategoryid, default_title, dishprice, tags, quantity: 1 }
+        const item = { 
+            dishid, 
+            title, 
+            dishcategoryid, 
+            default_title, 
+            dishprice, 
+            tags, 
+            quantity: 1 
+        }
         const isOrdered = quantity > 0
         // console.debug("menu item render. quantity: ", quantity )
+        const _t = key => tr(key, language, translations)
         
         return( 
             
@@ -84,20 +100,44 @@ class RestMenuItem extends React.Component{
                                     {title}
                                 </div>
                                 {
+                                    needSecondTranslation && 
                                     <div className="title-default">
                                         {default_title}
                                     </div>
                                 }
+
+                                { Array.isArray(tags) && <div className="tags">
+                                        {tags.map( t => {
+                                            return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
+                                        })}
+                                    </div>
+                                }
+                                {
+                                    pricefor && 
+                                    <div className="pricefor">
+                                        {pricefor}
+                                    </div>
+                                    
+                                }
+                                {
+                                    amount && 
+                                    <div className="amount">
+                                        {amount}
+                                    </div>
+                                    
+                                }
                             </Grid>
-                            { Array.isArray(tags) && <Grid item xs={12} className="tags">
-                                    {tags.map( t => {
-                                        return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
-                                    })}
-                                </Grid>
-                            }
+                                {/* { Array.isArray(tags) && <Grid item xs={12} className="tags">
+                                        {tags.map( t => {
+                                            return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
+                                        })}
+                                    </Grid>
+                                } */}
+                            
+                            
                             <Grid item xs={12} md={3}>
-                                {dishprice &&  
-                                <Quantity {...{item, slug, quantity}} />
+                                {dishprice && 
+                                <Quantity {...{item, slug, quantity, viewonly}} />
                                  }   
                                 
                                 
@@ -115,7 +155,7 @@ class RestMenuItem extends React.Component{
 
 export default connect(
     // state => ({cart: state.cart, filters: state.filters}),
-    state => ({reduxState: state.app, language: state.app.language }),
+    state => ({reduxState: state.app, language: state.app.language, translations: state.translation }),
     dispatch => ({
         add: (item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
         delete: (dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )
