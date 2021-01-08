@@ -7,10 +7,10 @@ import {
     ChevronLeft, ChevronRight, Close
 } from '@material-ui/icons'
 import {
-    InstagramIcon, FacebookIcon
+    InstagramIcon, FacebookIcon, TheForkIcon
 } from '../../template/common/icons'
 // import Social from '../social'
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 // import Service from '../../../services/restaurants'
 // import TagsService from '../../../services/tags'
 import A from '../../../redux/actionTypes'
@@ -21,6 +21,9 @@ import ErrorPage from '../../template/common/error-loading'
 // import Footer from '../../template/footer'
 import CSSCarousel from '../../template/common/css-carousel'
 const {REACT_APP_MEDIA : MEDIA} = process.env 
+
+
+const ALink = props => <a rel="noreferrer" target="_blank" href={props.to}>{props.children}</a>
 
 
 
@@ -80,9 +83,14 @@ class Insider extends React.Component{
         const {slug} = this.props //.computedMatch.params
         prevPage = prevPage || `/${slug}`
         
-        const {insiders = [] } = restaurant
+        const {
+            insiders = [] ,
+            instagram, facebook, thefork
+        } = restaurant
         console.debug("insiders:", insiders)
         console.debug("insider restaurant:", restaurant)
+
+    
         
         
         if( !language){
@@ -128,13 +136,13 @@ class Insider extends React.Component{
 
                                             <h2>{imagetext}</h2>
                                             <div className="main-text">
-                                                <span onClick={this.prevSlide} className="arrow left"><ChevronLeft/></span>
+                                                {/* <span onClick={this.prevSlide} className="arrow left"><ChevronLeft/></span> */}
                                                 <div>
                                                     <p>
                                                         {text}
                                                     </p>
                                                 </div>
-                                                <span onClick={this.nextSlide} className="arrow right"><ChevronRight/></span>
+                                                {/* <span onClick={this.nextSlide} className="arrow right"><ChevronRight/></span> */}
                                             </div>
                                             <div className="social-insider">
                                                 <div className="text">
@@ -145,8 +153,11 @@ class Insider extends React.Component{
                                                 Foodfans Insider
                                                 </div>
                                                 <div className="social-icons">
-                                                    <InstagramIcon component={Link} to="#!" />
-                                                    <FacebookIcon component={Link} to="#!" />
+                                                    { instagram && <ALink to={instagram}><InstagramIcon /></ALink> }
+                                                    { thefork && <ALink to={thefork}><TheForkIcon /></ALink> }
+                                                    { facebook && <ALink to={facebook}><FacebookIcon /></ALink> }
+                                                    {/* <InstagramIcon component={Link} to="#!" />
+                                                    <FacebookIcon component={Link} to="#!" /> */}
                                                 </div>
                                             </div>
                                         </div>
