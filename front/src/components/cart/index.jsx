@@ -143,7 +143,7 @@ class Cart extends React.Component{
                     { restaurant ? 
                         !cartIsEmpty ?
                         <>
-                            <div className="bg-light-gray p2 rounded">
+                            <div className="bg-light-gray p2 rounded top-message">
                                 {_tt("askToConfirm")}
                             </div>
                             {/* <Menu {...{menu: cart, slug, categories, show_categories: false }}/> */}

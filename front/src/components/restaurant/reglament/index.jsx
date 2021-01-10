@@ -143,7 +143,7 @@ class Reglament extends DefaultComponent {
                     }
                 </h1>
 
-                <div>
+                <div className="reglament-text">
                     <p>{_t("reglament_text_1")}</p>
                 </div>
 
@@ -164,7 +164,7 @@ class Reglament extends DefaultComponent {
                     )) }
                 </div>
 
-                <div>
+                <div className="reglament-text">
                     <p>{_t("reglament_text_2")}</p>
                 </div>
                 

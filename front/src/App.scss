@@ -26,6 +26,10 @@ body{
   font-family: Montserrat, sans-serif;
   padding-top: #{$headerHeight + $mainTopMargin}; // offset for header
   
+  .rectangular {
+    border-radius: 0!important;
+  }
+  
   #root{
     display: flex;
     flex-direction: column;

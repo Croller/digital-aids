@@ -2,14 +2,16 @@
 // #root{
 //     .main{
 
+$socialTopMargin: 26px;
+
         .category-body{
             .social-container{
-                margin: 130px -27px;
+                margin: $socialTopMargin -27px;
             }
         }
 
         .social-container {
-            margin-top: 130px;
+            margin-top: $socialTopMargin;
 
             padding-bottom: calc(#{$footerHeight} + 12px);
 
@@ -29,8 +31,9 @@
                 }
     
                 svg.thumbs-up {
-                    margin-top: -25px;
+                    margin-top: -15px;
                     margin-bottom: 13px;
+                    height: 41px; // the icon is 60x61, so have to scale it down
                 }
                 
                 .thank-you {

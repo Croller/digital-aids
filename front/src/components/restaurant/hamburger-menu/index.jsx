@@ -51,7 +51,7 @@ class HamburgerMenu extends DefaultComponent{
     //     }
     // }
 
-    async fetchData(){
+    // async fetchData(){
         // console.log("Fetching data")
         // const {slug} = this.props.computedMatch.params
         // const {language} = this.props
@@ -67,7 +67,7 @@ class HamburgerMenu extends DefaultComponent{
         // } else {
         //     this.setState({restaurant})
         // }
-    }
+    // }
 
     updateOverlay = overlay => this.props.setOverlay({overlay, slug: this.props.slug})
 
@@ -135,7 +135,7 @@ class HamburgerMenu extends DefaultComponent{
                         }
                         {restaurant.menus.map( (menu, menuIndex) => {
                             return <>
-                            <h2>{menu.title}</h2>
+                            {/* <h2>{menu.title}</h2> */}
                             {menu.categories && menu.categories.map( (c, ind) => {
         
                             return(

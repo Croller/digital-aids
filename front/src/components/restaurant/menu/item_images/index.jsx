@@ -197,7 +197,7 @@ class RestMenuItem extends React.Component{
                                 {/* </Badge> */}
                                 {/* <div className={ isOrdered ? `button quantity positive` : 'button quantity'}>{isOrdered ? <Check /> : "" }</div> */}
                             </div>
-                            <div className="button price">{`${dishprice}€`}</div>                            
+                            <div className="button price">{`${parseFloat(dishprice).toFixed(2)}€`}</div>                            
                             
                         </Grid>
                         

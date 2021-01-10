@@ -19,6 +19,12 @@
             max-height: calc(100vh - #{$headerHeight});
             overflow-y: auto;
 
+            .top-message {
+                padding: 12px;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
             .cart-header{
                 @include sticky;
                 // top: #{$headerHeight - 1px};

@@ -21,7 +21,8 @@ class Menu extends DefaultComponent{
             "Allergens", 
             "YourOpinionIs", 
             "PriceFor",
-            "reglament_text_2"
+            "reglament_text_2",
+            "ThankYou"
         ], () => this.setState({translationLoaded: true})
         )
     }
@@ -63,7 +64,8 @@ class Menu extends DefaultComponent{
             slug ,
             restState, 
             language, 
-            restaurant
+            restaurant,
+            translations
         } = this.props
         
         const {menu, translationLoaded} = this.state
@@ -95,8 +97,10 @@ class Menu extends DefaultComponent{
             category = menu.categories[0].id;
         }
 
+        const socialMessage = this._tr( "ThankYou", language, translations )
+
         return (
-            <MenuBody  {...{menu, language, restState, restaurant, category}} />
+            <MenuBody  {...{menu, language, restState, restaurant, category, socialMessage}} />
         )
     }
 }

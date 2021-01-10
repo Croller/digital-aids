@@ -24,7 +24,8 @@ class MenuBody extends React.Component {
             restState,
             restaurant,
             language,
-            category
+            category,
+            socialMessage // message to show at the bottom of each category in social block
         } = this.props;
 
         let {
@@ -85,7 +86,8 @@ class MenuBody extends React.Component {
                                 Item,
                                 category: cat,
                                 prevCategory, nextCategory,
-                                language
+                                language,
+                                socialMessage
                             }}
                         />
                     </div>

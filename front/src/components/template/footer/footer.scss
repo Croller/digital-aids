@@ -54,6 +54,15 @@
             flex-grow: 1;
 
             button, [ role="button" ] {
+
+                // position and resize red dot on badge
+                .MuiBadge-badge{
+                    right: 0px;
+                    top: 9px;
+                    width: 20px;
+                    height: 20px;
+                }
+
                 span {
                     color: $gray;
                     font-size: 13px;

@@ -24,6 +24,7 @@ class MenuItemList extends React.Component{
             className,
             restaurant,
             language,
+            socialMessage
         } = this.props;
 
         console.debug("MenuItemList: prevCat, nextCat:", prevCategory, nextCategory)
@@ -70,7 +71,7 @@ class MenuItemList extends React.Component{
                         </div>
                     )}  
 
-                    <Social {...{ ...restaurant }} message=""/>                  
+                    <Social {...{ ...restaurant }} message={socialMessage} />                  
                 </div>
             </div>
         )
