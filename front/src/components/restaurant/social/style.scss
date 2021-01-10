@@ -13,7 +13,9 @@ $socialTopMargin: 26px;
         .social-container {
             margin-top: $socialTopMargin;
 
-            padding-bottom: calc(#{$footerHeight} + 12px);
+            // padding-bottom: calc(#{$footerHeight} + 12px);
+            padding-bottom: 12px;
+
 
             .social-footer {
                 display: flex;

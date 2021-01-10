@@ -29,6 +29,9 @@ const root = document.getElementById("root")
 
 const EmptyOrder = ({closeCart, button_text = "Menu", text}) => 
     <div className="panel empty-cart-message">
+        <div className="round-icon">
+            <ChefHead/>
+        </div>
         <p>
             {text}
         </p>

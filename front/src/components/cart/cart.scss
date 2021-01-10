@@ -4,13 +4,20 @@
     .main{
 
         .empty-cart-message{
-            padding: 30px;
+            margin-top: 60px;
+            padding: 100px 30px 60px;
             text-align: center;
+            position: relative;
 
             a, button{
                 background-color: $light-gray;
                 height: 60px;
                 width: 206px;
+            }
+
+            p{
+                margin: 0 0 70px;
+                font-weight: 600;
             }
         }
 

@@ -7,7 +7,10 @@ import {
     ChevronLeft, ChevronRight, Close
 } from '@material-ui/icons'
 import {
-    InstagramIcon, FacebookIcon, TheForkIcon
+    InstagramIcon, 
+    FacebookIcon, 
+    // TheForkIcon
+    TripadvisorIcon
 } from '../../template/common/icons'
 // import Social from '../social'
 import {Link} from 'react-router-dom'
@@ -85,7 +88,10 @@ class Insider extends React.Component{
         
         const {
             insiders = [] ,
-            instagram, facebook, thefork
+            instagram, 
+            facebook, 
+            tripadvisor
+            // thefork
         } = restaurant
         console.debug("insiders:", insiders)
         console.debug("insider restaurant:", restaurant)
@@ -154,7 +160,8 @@ class Insider extends React.Component{
                                                 </div>
                                                 <div className="social-icons">
                                                     { instagram && <ALink to={instagram}><InstagramIcon /></ALink> }
-                                                    { thefork && <ALink to={thefork}><TheForkIcon /></ALink> }
+                                                    {/* { thefork && <ALink to={thefork}><TheForkIcon /></ALink> } */}
+                                                    { tripadvisor && <ALink to={tripadvisor}><TripadvisorIcon /></ALink> }
                                                     { facebook && <ALink to={facebook}><FacebookIcon /></ALink> }
                                                     {/* <InstagramIcon component={Link} to="#!" />
                                                     <FacebookIcon component={Link} to="#!" /> */}
