@@ -546,7 +546,7 @@
     },
     {
         "translationid": "empty_order",
-        "en": "Your order is empty.The selected plate should be added to an order.",
+        "en": "Your order is empty. The selected plate should be added to an order.",
         "es": "Su pedido está vacío. El plato seleccionada debe ser agregado a un pedido.",
         "el": "Η παραγγελία σας είναι κενή. Επιλεγμένα πιάτα θα πρέπει να προστεθούν στην παραγγελία.",
         "it": "Il Suo ordine è vuoto. I piatti selezionati devono essere aggiunti all’ordine.",
