@@ -57,6 +57,8 @@ class RestService extends baseService{
                     
 
                     rest.languages = await translationService.languagesByRestaurant(slug)
+
+                    rest.tags = await tagService.getAll( slug, lang, defaultlanguage );
                     
                     // const menus = await this.getRestaurantMenus(
                     const menus = await this.getRestaurantMenusAsync(

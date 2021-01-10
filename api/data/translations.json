@@ -31,9 +31,10 @@
         "translationid": "TakeAwayMenu",
         "en": "Takeaway menu",
         "es": "Menú para llevar",
-        "it": "Takeaway menu",
+        "el": "Μενού Takeaway",
+        "it": "Menù takeaway",
         "de": "Menü zum Mitnehmen",
-        "fr": "Plats à emporter",
+        "fr": "Menu takeaway",
         "no": "Takeaway-meny",
         "jp": "テイクアウトメニュー",
         "ko": "테이크 아웃 메뉴",
@@ -100,7 +101,7 @@
         "translationid": "dessert",
         "en": "Desserts",
         "es": "Postres",
-        "el": "Επιδόρπιο",
+        "el": "Επιδόρπια",
         "it": "Dolci",
         "de": "Nachspeisen",
         "fr": "Dessert",
@@ -128,8 +129,8 @@
         "translationid": "children",
         "en": "Children's Menu",
         "es": "Menú infantil",
-        "el": "Παιδικό μενού",
-        "it": "Menu per bambini",
+        "el": "Μενού για παιδιά",
+        "it": "Menù bambini",
         "de": "Kindermenü",
         "fr": "Menu enfant",
         "no": "Barnemeny",
@@ -142,7 +143,7 @@
         "translationid": "daily_menu_app",
         "en": "Daily Menu",
         "es": "Menú del día",
-        "el": "Καθημερινό μενού",
+        "el": "Κατάλογος της ημέρας",
         "it": "Menù giornaliero",
         "de": "Tagesmenü",
         "fr": "Menu du jour",
@@ -156,7 +157,7 @@
         "translationid": "degustation_menu",
         "en": "Degustation menu",
         "es": "Menú degustación",
-        "el": "Μενού απογύμνωσης",
+        "el": "Μενού γευσιγνωσίας",
         "it": "Menù degustazione",
         "de": "Degustationsmenü",
         "fr": "Menu de dégustation",
@@ -170,7 +171,7 @@
         "translationid": "chef_dishes",
         "en": "Chef dishes",
         "es": "Platos del Chef",
-        "el": "Σεφ πιάτα",
+        "el": "Πιάτα του σεφ",
         "it": "Piatti dello Chef",
         "de": "Gerichte des Chef",
         "fr": "Plats du Chef",
@@ -233,7 +234,7 @@
         "no": "Cocktailer",
         "jp": "カクテル",
         "ko": "칵테일",
-        "ru": "Коктели",
+        "ru": "Коктейли",
         "ch": "鸡尾酒"
     },
     {
@@ -282,7 +283,7 @@
         "translationid": "brandy",
         "en": "Brandy",
         "es": "Brandy",
-        "el": "μπράντυ",
+        "el": "Μπράντυ",
         "it": "Brandy",
         "de": "Brandy",
         "fr": "Brandy",
@@ -310,8 +311,8 @@
         "translationid": "1pc",
         "en": "1 piece",
         "es": "1 pz",
-        "el": "1 κομμάτι",
-        "it": "1 pezzo",
+        "el": "1 τεμ.",
+        "it": "1 pz",
         "de": "1 Stück",
         "fr": "1 pièce",
         "no": "1 stk",
@@ -352,7 +353,7 @@
         "translationid": "price",
         "en": "Price ",
         "es": "Precio ",
-        "el": "Τιμή ",
+        "el": "Τιμή",
         "it": "Prezzo",
         "de": "Preis ",
         "fr": "Prix ",
@@ -366,55 +367,71 @@
         "translationid": "reglament_1169",
         "en": "Reglament (EU) №1169/2011",
         "es": "Reglament EU №1169/2011",
-        "el": "Reglament (EU) №1169/2011",
+        "el": "Κανονισμός (ΕΚ) αριθ. 1169/2011",
         "it": "Regolamento (CE) №1169 / 2011",
         "de": "Reglament (EU) №1169/2011",
         "fr": "Règlement (UE) 691169/2011",
         "no": "Reglament (EU) №1169 / 2011",
-        "jp": "規制（EU）№1169/ 2011",
-        "ko": "규제 (EU) №1169 / 2011",
+        "jp": "規則(EU) No 1169/2011",
+        "ko": "규정(EU) No. 1169/2011",
         "ru": "Регламент (EС) №1169/2011",
-        "ch": "法规（EU）№1169/ 2011"
+        "ch": "1169/2011号规程（欧盟）"
     },
     {
         "translationid": "reglament_text_1",
         "en": "Establishment with available information on food allergies and intolerances. ",
         "es": "Establecimiento con información disponible sobre ingredientes alérgenos e intolerancia alimentarias en los productos que elabora.",
-        "ru": "Согласно единому европейскому регламенту, ниже приведена маркировка пищевых продуктов, которые могут вызвать аллергию."
+        "el": "Διάταγμα με τις διαθέσιμες πληροφορίες σχετικά με τα αλλεργιογόνα τρόφιμα και δυσανεξίες.  ",
+        "it": "Ordinanza con informazioni disponibili su allergeni e intolleranze alimentari.",
+        "de": "Wichtige Informationen zu Lebensmittelallergien und -unverträglichkeiten. ",
+        "fr": "L’Ordonnance avec les informations disponibles sur les allergies et intolérances alimentaires. ",
+        "no": "En oppløsning med tilgjengelig informasjon om mat allergener og intoleranser. ",
+        "jp": "食物アレルゲンとこの不耐症に関する情報確定。",
+        "ko": "식품 알레르기와 편협함에 대한 정보를 이용할 수 있는 설립. ",
+        "ru": "Согласно единому европейскому регламенту, ниже приведена маркировка пищевых продуктов, которые могут вызвать аллергию.",
+        "ch": "关于食物过敏和不耐受性可用信息规定"
     },
     {
         "translationid": "reglament_text_2",
         "en": "We remind you that this table is indicative and that we cannot guarantee the absence of 100% allergens in all our products. In case you have any allergy, please, ask the waiter for more detailed information about our dishes. ",
         "es": "Te recordamos que esta tabla es orientativa y que no podemos garantizar la ausencia de alérgenos al 100% en todos nuestros productos. En caso de que tenga alguna alergia, consulte al camarero para obtener información más detallada sobre nuestros platos.",
-        "ru": "Пожалуйста, уточните у официанта состав блюд, если у вас есть аллергия на какие либо продукты питания."
+        "el": "Yπενθυμίζουμε ότι ο παρόν πίνακας είναι ενδεικτικός και δεν μπορούμε να εγγυηθούμε ότι όλα τα προϊόντα είναι 100% απαλλαγμένα από αλλεργιογόνα. Σε περίπτωση εάν έχετε αλλεργίες, επικοινωνήστε με τον σερβιτόρο εκ των προτέρων για περισσότερες πληροφορίες σχετικά με τα πιάτα μας.",
+        "it": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti.",
+        "de": "Wir erinnern Sie daran, dass diese Tabelle indikativ ist und dass wir die Abwesenheit von 100% Allergenen in allen unseren Produkten nicht garantieren können. Falls Sie eine Allergie haben, fragen Sie bitte die Kellnerin/den Kellner nach genaueren Informationen über unsere Gerichte.",
+        "fr": "Nous vous rappelons que ce tableau est fourni à titre informatif et que nous ne pouvons pas vous garantir l’absence complète d’allergènes dans tous nos produits. Si vous êtes allergique, veuillez demander au serveur les informations plus détaillées sur nos plats.",
+        "no": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. Hvis du har allergier, spør kelneren på forhånd for mer informasjon om våre retter.\r\n\r\n",
+        "jp": "この表は参考表であり、すべての食品にアレルゲンが100％含まれていないことを保証できません。アレルギーがあったら、 私達の料理に関する詳細情報はウェイターにお尋ねください。",
+        "ko": "이 표는 암시적이며 모든 제품에 100% 알레르겐이 없음을 보증할 수 없음을 알려드립니다. 알레르기가 있으신 분은 웨이터에게 요리에 대한 더 자세한 정보를 부탁하십시오.",
+        "ru": "Мы напоминаем Вам, что данная информация является ориентировачной и не можем гарантировать на 100%, что используемые нами продукты не содержат пищивых ингредиентов. Пожалуйста, уточните у официанта состав блюд, если у вас есть аллергия на какие либо продукты питания.",
+        "ch": "请注意这表格数据是大概的，我们不能保证产品中100%没有过敏原。如果您对产品有过敏，请通知服务员，我们会提供更详细的信息关于我们产品。"
     },
     {
         "translationid": "MyOrder",
         "en": "My Order",
         "es": "Mi pedido",
-        "el": "My Order",
-        "it": "Mio ordine",
+        "el": "Η παραγγελία μου",
+        "it": "Il mio ordine",
         "de": "Meine Bestellung",
-        "fr": "My Order",
+        "fr": "Ma commande",
         "no": "Min bestilling",
-        "jp": "My Order",
-        "ko": "My Order",
+        "jp": "私の注文",
+        "ko": "내 주문",
         "ru": "Мой заказ",
-        "ch": "My Order"
+        "ch": "我的订单"
     },
     {
         "translationid": "Order",
         "en": "Order",
         "es": "Pedido",
-        "el": "Order",
+        "el": "Παραγγελία",
         "it": "Ordine",
         "de": "Bestellung",
-        "fr": "Ordre",
+        "fr": "Commande",
         "no": "Bestilling",
-        "jp": "Ordre",
-        "ko": "Ordre",
+        "jp": "注文",
+        "ko": "주문",
         "ru": "Заказ",
-        "ch": "Ordre"
+        "ch": "订单"
     },
     {
         "translationid": "Total",
@@ -436,13 +453,13 @@
         "es": "Llámanos",
         "el": "Καλέστε μας",
         "it": "Chiamaci",
-        "de": "Rufen ",
+        "de": "Rufenuns",
         "fr": "Appelez nous",
         "no": "Ring oss",
-        "jp": "Call Us",
-        "ko": "Call Us",
+        "jp": "お電話ください",
+        "ko": "전화주세요",
         "ru": "Позвонить",
-        "ch": "Call Us"
+        "ch": "给我们打电话"
     },
     {
         "translationid": "ThankYou",
@@ -462,27 +479,42 @@
         "translationid": "ThankForOrder",
         "en": "Thank you for your order!",
         "es": "Gracias por su pedido!",
+        "el": "Ευχαριστούμε για την παραγγελία σας!",
+        "it": "Grazie per il Suo ordine!",
+        "de": "Vielen Dank für Ihre Bestellung!",
+        "fr": "Merci de votre commande!",
+        "no": "Takk for din bestilling!",
+        "jp": "ご注文ありがとうございます！",
+        "ko": "주문해 주셔서 감사합니다!",
         "ru": "Спасибо за ваш заказ!"
     },
     {
         "translationid": "YourOpinionIs",
         "en": "Your opinion is very important for us, please, let us know it! ",
         "es": "Su opinión es muy importante para nosotros, por favor déjenos saberla!",
-        "el": "γνώμη σας είναι πολύ σημαντική για εμάς, παρακαλώ, ενημερώστε μας!",
-        "it": "Tua opinione è molto importante per noi, faccelo sapere!",
-        "de": "Ihre Meinung ist sehr wichtig für uns, bitte, lassen Sie uns wissen!",
-        "fr": "Votre avis est très important pour nous, merci de nous le faire savoir!",
-        "no": "Din mening er veldig viktig for oss, gi oss beskjed!",
-        "jp": "Your opinion is very important for us, please, let us know it! ",
-        "ko": "Your opinion is very important for us, please, let us know it! ",
+        "el": "Η γνώμη σας είναι πολύτιμη για εμάς. Παρακαλώ μοιραστείτε μαζί μας!",
+        "it": "Il Suo parere è molto importante per noi, per favore, lo condivida con noi!",
+        "de": "Ihre Meinung ist für uns sehr wichtig, bitte teilen Sie uns sie mit! ",
+        "fr": "Votre avis est très important pour nous. S’il vous plaît, faites-le nous savoir!",
+        "no": "Din tilbakemelding er veldig viktig for oss, vær så snill og del med oss!",
+        "jp": "私達はお客様の声に常に耳を傾け、ご意見をお聞かせください！ ",
+        "ko": "고객님 의견은 우리에게 매우 중요합니다. 알려주십시오! ",
         "ru": "Ваше мнение очень важно для нас, пожалуйста поделитесь с нами!",
-        "ch": "Your opinion is very important for us, please, let us know it! "
+        "ch": "您的意见对我们非常很重要，请评价！ "
     },
     {
         "translationid": "WantToClearEntireOrder",
         "en": "Are you sure you want to remove your entire order?",
         "es": "Estas seguro de que quiere borrar su orden completo?",
-        "ru": "Вы уверены, что готовы удалить весь свой заказ?"
+        "el": "Είστε σίγουροι ότι θέλετε να διαγράψετε όλη την παραγγελία σας;",
+        "it": "Sei sicuro di voler rimuovere l'intero ordine?",
+        "de": "Sind Sie sicher, dass Sie Ihre gesamte Bestellung löschen möchten?",
+        "fr": "Êtes-vous sûr(e) de vouloir supprimer toute votre commande?",
+        "no": "Er du sikker på at du vil slette hele bestillingen?",
+        "jp": "ご注文をすべて削除してもよろしいですか?",
+        "ko": "전체 주문을 삭제하시겠습니까?",
+        "ru": "Вы уверены, что готовы удалить весь свой заказ?",
+        "ch": "确认要删除全部订单？"
     },
     {
         "translationid": "Yes",
@@ -501,24 +533,42 @@
     {
         "translationid": "askToConfirm",
         "en": "Please, ask the waiter to confirm your order",
-        "es": "Por favor, pide al camarero confirmar su pedido"
+        "es": "Por favor, pide al camarero confirmar su pedido",
+        "el": "Παρακαλώ ζητήστε από τον σερβιτόρο να επιβεβαιώσει την παραγγελία σας.",
+        "it": "Si prega di rivolgersi al cameriere per confermare il Suo ordine.",
+        "de": "Bitten Sie die Kellnerin/den Kellner, Ihre Bestellung zu bestätigen.",
+        "fr": "Veuillez demander au serveur de confirmer votre commande!",
+        "no": "Spør kelneren om å bekrefte bestillingen.",
+        "jp": "ウェイターにご注文の確認をお受けください。",
+        "ko": "웨이터에게 주문 확인을 부탁하십시오.",
+        "ru": "Пожалуйста, попросите официанта подтвердить Ваш заказ.",
+        "ch": "请服务员确认您的订单！"
     },
     {
         "translationid": "empty_order",
         "en": "Your order is empty.The selected plate should be added to an order.",
-        "es": "Su pedido está vacío. El plato seleccionada debe ser agregado a un pedido."
+        "es": "Su pedido está vacío. El plato seleccionada debe ser agregado a un pedido.",
+        "el": "Η παραγγελία σας είναι κενή. Επιλεγμένα πιάτα θα πρέπει να προστεθούν στην παραγγελία.",
+        "it": "Il Suo ordine è vuoto. I piatti selezionati devono essere aggiunti all’ordine.",
+        "de": "Ihre Bestellung ist leer. Das ausgewählte Gericht muss einer Bestellung hinzugefügt werden.",
+        "fr": "Votre commande est vide. Le plat sélectionné doit être ajouté à la commande.",
+        "no": "Bestillingen din er tom. De utvalgte retter må legges til bestillingen.",
+        "jp": "ご注文の中身は空です。選択された料理を注文に加えてください。",
+        "ko": "주문이 비어 있습니다. 선택한 요리 품목을 주문한 것에 추가해야 합니다.",
+        "ru": "Ваш заказ пуст. Выбранные блюда необходимо добавить в заказ.",
+        "ch": "您订单是空的。请将选好的菜添加到你的订单。"
     },
     {
         "translationid": "Cancel",
         "en": "Cancel",
         "es": "Cancelar",
-        "el": "Ακυρώστε",
+        "el": "Ακύρωση",
         "it": "Cancellare",
-        "de": "Löschen",
+        "de": "Absage",
         "fr": "Annuler",
         "no": "Slette",
-        "jp": "キャンセルします",
-        "ko": "취소하다",
+        "jp": "キャンセル",
+        "ko": "취소",
         "ru": "Отмена",
         "ch": "取消"
     },
@@ -545,6 +595,7 @@
         "de": "Nein",
         "fr": "Non",
         "no": "Nei",
+        "jp": "しない",
         "ko": "아니",
         "ru": "Нет",
         "ch": "不"
@@ -587,7 +638,7 @@
         "fr": "kilo",
         "no": "kilo",
         "jp": "キログラム",
-        "ko": "킬로그램",
+        "ko": "kg",
         "ru": "кг.",
         "ch": "公斤"
     },
@@ -609,7 +660,15 @@
         "translationid": "errorText",
         "en": "Oops! It seems that something went wrong, but we are here to help you! Press the button to retry.",
         "es": "¡Ups! Parece que algo ha salido mal, pero estamos aquí para ayudarte! Presiona el botón para volver a intentarlo.",
-        "ru": "Упс! Похоже что-то пошло не так. Но мы здесь, чтобы помочь вам! Нажмите кнопку, чтобы попробовать ещё раз."
+        "el": "Ούπς! Κάτι πήγε στραβά, αλλά είμαστε εδώ για να σας βοηθήσουμε! ΠΑΡΑΚΑΛΩ προσπαθησε ξανα.",
+        "it": "Ops! Sembra che qualcosa sia andato storto, ma siamo qui per aiutarLa! Si prega di riprovare.",
+        "de": "Ups! Es scheint, dass etwas falsch gelaufen ist, aber wir sind hier, um Ihnen zu helfen! Drücken Sie die Taste, um es erneut zu versuchen.",
+        "fr": "Ouille! Il semble que quelque chose ne va pas, mais nous sommes ici pour vous aider! S’il vous plaît appuyer sur le bouton pour réessayer.",
+        "no": "Oops! Det ser ut til at noe gikk galt, men vi er her for å hjelpe deg! Vennligst prøv igjen.",
+        "jp": "おっと、何かがうまくいかなかったようです。でも私たちはあなたを助けるためにここにいます！もう一度お試しください。",
+        "ko": "앗! 뭔가 잘못 된 것 같은데, 우리가 도와주러 왔어요! 다시 시도하려면 버튼을 누르십시오.",
+        "ru": "Упс! Похоже что-то пошло не так. Но мы здесь, чтобы помочь вам! Нажмите кнопку, чтобы попробовать ещё раз.",
+        "ch": "哎呀，这一次出了意外，但是我们会帮你的忙！请稍后再试。"
     },
     {
         "translationid": "tryAgain",
@@ -621,7 +680,7 @@
         "fr": "Réessayer",
         "no": "Prøv igjen",
         "jp": "再試行",
-        "ko": "다시 해 보다",
+        "ko": "다시 해보자",
         "ru": "Повторить попытку",
         "ch": "再试一次"
     },
@@ -643,15 +702,15 @@
         "translationid": "Bon Appetit",
         "en": "Bon Appetit!",
         "es": "¡Bon Appetit!",
-        "el": "Bon Appetit!",
-        "it": "Bon Appetit!",
+        "el": "Καλή όρεξη!",
+        "it": "Buon appetito!",
         "de": "Bon Appetit!",
         "fr": "Bon Appetit!",
-        "no": "Bon Appetit!",
-        "jp": "Bon Appetit!",
-        "ko": "Bon Appetit!",
+        "no": "God appetitt!",
+        "jp": "どうぞお召し上がりください！",
+        "ko": "맛있게 드세요!",
         "ru": "Bon Appetit!",
-        "ch": "Bon Appetit!",
+        "ch": "慢慢吃！",
         "undefined": "Bon Appetit!"
     },
     {
@@ -659,6 +718,7 @@
         "en": "Spicy Korean salad with beef, fresh cucumbers and paprika",
         "es": "Ensalada coreana picante con ternera, pepino y pimentón",
         "de": "Würziger koreanischer Salat mit Rindfleisch, Gurke und Paprika",
+        "fr": "Salade coréenne épicée avec du bœuf, des concombres et du paprika\t ",
         "ru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем"
     },
     {
@@ -666,6 +726,7 @@
         "en": "Spicy Korean salad with special marinated beef and carrot",
         "es": "Je: ensalada coreana picante con ternera marinada y zanahoria",
         "de": "Je: würziger koreanischer Salat mit mariniertem Rindfleisch und Karotten",
+        "fr": "Heh : une salade coréenne épicée au bœuf mariné et aux carottes ",
         "ru": "Хе с мясом: острый корейский салат с маринованной говядиной и морковкой"
     },
     {
@@ -673,6 +734,7 @@
         "en": "Spicy Korean salad with special marinated fish, cucumbers and onion",
         "es": "Je con pescado: ensalada coreana picante con pescado marinado, pepino y cebolla",
         "de": "Je mit Fisch: Würziger koreanischer Salat mit mariniertem Fisch, Gurke und Zwiebel",
+        "fr": "Heh au poisson : une salade coréenne épicée au poisson blanc mariné, concombres et oignons",
         "ru": "Хе с рыбой: острый корейский салат с маринованной белой рыбой, огурцом и луком"
     },
     {
@@ -680,6 +742,7 @@
         "en": "Eggplants with vegetables and garlic",
         "es": "Ensalada de berenjena con verduras y ajo",
         "de": "Auberginensalat mit Gemüse und Knoblauch",
+        "fr": "\r\nSalade d’aubergines aux légumes et à l’ail \r\n",
         "ru": "Баклажаны с овощами и чесноком"
     },
     {
@@ -687,6 +750,7 @@
         "en": "Korean style spicy salted cabbage",
         "es": "Kimchi: repollo salado y picante al estilo coreano",
         "de": "Kimchi: Bohnenkraut Salat nach koreanischer Art aus würziger Kohl",
+        "fr": "\r\nKimchi : choux salés et épicés à la coréenne \r\n",
         "ru": "Ким Чи:  острая соленная капуста по- корейски"
     },
     {
@@ -694,6 +758,7 @@
         "en": "Homemade pickled tomatoes",
         "es": "Tomates caseros en escabeche de su propio jugo",
         "de": "Hausgemachte eingelegte Tomaten im eigenen Saft",
+        "fr": "Tomates marinées maison dans leur propre jus ",
         "ru": "Домашние маринованные помидоры в собственном соку"
     },
     {
@@ -701,6 +766,7 @@
         "en": "Kuk si: Korean noodles with vegetables and beef",
         "es": "Kuksi: fideos coreanos con verduras y carne de ternera",
         "de": "Kuksi: Koreanische Nudeln mit Gemüse und Rindfleisch    ",
+        "fr": "Kuksi : des nouilles coréennes aux légumes et au bœuf   ",
         "ru": "Кук Си: Корейская лапша с овощами и мясом говядины"
     },
     {
@@ -708,6 +774,7 @@
         "en": "Lagman: Asian noodles with beef and vegetable gravy",
         "es": "Laghman: fideos asiáticos con salsa de carne de ternera y verdura",
         "de": "Laghman: Asiatische Nudeln mit Rind- und Gemüsesauce   ",
+        "fr": "Laghman : des nouilles asiatiques avec de la sauce au bœuf et aux légumes   ",
         "ru": "Лагман: с подливом из мяса говядины и овощей"
     },
     {
@@ -715,6 +782,7 @@
         "en": "Dumplings with meat",
         "es": "Pelimeni: Plato tradicional ruso “ravioli” con carne",
         "de": "Pelimeni: Traditionelles russisches Gericht mit Fleisch nach “Ravioli-Art”  ",
+        "fr": "Pelmeni : un plat russe traditionnel ressemblant à des raviolis à la viande ",
         "ru": "Пельмени c мясом"
     },
     {
@@ -722,6 +790,7 @@
         "en": "Vareniki: stuffed dough with potato",
         "es": "Vareniki: Plato tradicional ruso “ravioli” con patata",
         "de": "Vareniki: Traditionelles russisches Gericht mit Kartoffeln nach \"Ravioli-Art\"",
+        "fr": "Vareniki : un plat russe traditionnel ressemblant à des raviolis aux pommes de terre",
         "ru": "Вареники с картошкой"
     },
     {
@@ -729,6 +798,7 @@
         "en": "Chicken cutlets with potato or rice",
         "es": "Chuletas de la carne picado de pollo con patata o arroz",
         "de": "Hackfleisch Kotelett mit Kartoffeln oder Reis ",
+        "fr": "Escalopes de poulet hachées garnies avec de pommes de terre ou de riz ",
         "ru": "Куриные котлетки с картошкой или рисом"
     },
     {
@@ -736,6 +806,7 @@
         "en": "Hamburger with chicken cutlet",
         "es": "Hamburguesa de pollo",
         "de": "Hähnchen Burger  ",
+        "fr": "Burger au poulet",
         "ru": "Гамбургер с куриной котлетой"
     },
     {
@@ -743,6 +814,7 @@
         "en": "Hot pasties stuffed with beef meat",
         "es": "Empanadas calientes con carne de ternera",
         "de": "Rindfleischpasteten ",
+        "fr": "Chebureks à la viande de bœuf",
         "ru": "Чебуреки с мясом говядины"
     },
     {
@@ -750,6 +822,7 @@
         "en": "Pilaf: rice with lamb pieces and carrot",
         "es": "Pilaf: arroz de receta asiática con cordero y zanahoria",
         "de": "Pilaw ein Gericht der orientalischen Küche, Reis mit Lamm und Karotte",
+        "fr": "Pilaf : un plat de riz recette asiatique à l’agneau et aux carottes ",
         "ru": "Плов с бараниной"
     },
     {
@@ -757,6 +830,7 @@
         "en": "Shashlik: Fried pieces of marinated pork meat",
         "es": "Shashlik: pinchitos fritos de la carne del cerdo",
         "de": "Gebratene Schweinefleisch Spieße",
+        "fr": "Chachlik : des brochettes de porc frites",
         "ru": "Шашлык из свинины"
     },
     {
@@ -764,6 +838,7 @@
         "en": "Shashlik: Fried pieces of marinated lamb meat",
         "es": "Shashlik: pinchitos fritos de la carne del cordero",
         "de": "Gebratene Fleischspieße",
+        "fr": "Chachlik : des brochettes d'agneau frites",
         "ru": "Шашлык из баранины"
     },
     {
@@ -771,6 +846,7 @@
         "en": "Mixed shashlik (pork and lamb) for 2 persons",
         "es": "Pinchos de cerdo y de cordero para 2 personas",
         "de": "Schweinefleisch- und Lammspieße für 2 ",
+        "fr": "Brochettes de porc et d’agneau pour 2 personnes  ",
         "ru": "Микс шашлык (свинина и баранина) на 2"
     },
     {
@@ -778,6 +854,7 @@
         "en": "Spicy Korean soup with potato and beef",
         "es": "La sopa Coreana picante con patata y ternera",
         "de": "Würzige koreanische Suppe mit Kartoffeln und Rindfleisch   ",
+        "fr": "Soupe coréenne épicée aux pommes de terre et au bœuf   ",
         "ru": "Острый корейский суп с картошкой и мясом говядины"
     },
     {
@@ -785,6 +862,7 @@
         "en": "Borscht: Russian traditional soup with beef and vegetables",
         "es": "Borscht: la sopa mas tradicional rusa con ternera y verduras",
         "de": "Borschtsch: die traditionellste russische Suppe mit Rindfleisch und Gemüse    ",
+        "fr": "Bortsch : une soupe russe traditionnelle au veau et aux légumes     ",
         "ru": "Борщ из говядины"
     },
     {
@@ -792,6 +870,7 @@
         "en": "Yoghurt- berry cake",
         "es": "Pastel de yogur y bayas",
         "de": "Joghurt-Beeren-Kuchen ",
+        "fr": "Gâteau au yogourt et aux baies",
         "ru": "Ягодно-йогуртовое"
     },
     {
@@ -799,6 +878,7 @@
         "en": "Chak Chak: oriental sweetness, fried dough pieces in honey syrup and walnuts",
         "es": "Chak Chak: dulzura de asia oriental, trozos de masa fritos en almíbar de miel y nueces",
         "de": "Chak Chak: Ostasiatische Süße, gebratene Teigstücke in Honig und Walnuss Sirup  ",
+        "fr": "Tchak tchak : une friandise est-asiatique, des morceaux de pâte frits au sirop de miel avec des noix   ",
         "ru": "Чак Чак: восточная сладость, обжаренные кусочки теста в медовом сиропе с грецким орехом"
     },
     {
@@ -806,6 +886,7 @@
         "en": "Napoleon cake: puff pastry cake with buttercream",
         "es": "Pastel Napoleon: pastel de hojaldre con crema de mantequilla",
         "de": "Napoleon-Kuchen: Blätterteig Kuchen mit Buttercreme   ",
+        "fr": "Gâteau Napoléon : un gâteau feuilleté à la crème au beurre   ",
         "ru": "Торт Наполеон: торт из слоеного теста со сливочным кремом"
     },
     {
@@ -813,6 +894,7 @@
         "en": "Carrot biscuit",
         "es": "Bizcocho de zanahoria",
         "de": "Karottenkeks                                                                                             ",
+        "fr": "Gâteau aux carottes",
         "ru": "Морковный бисквит"
     },
     {
@@ -820,6 +902,7 @@
         "en": "Manti: dough stuffed with lamb meat and pumpkin",
         "es": "Manti: masa rellena de cordero y calabaza",
         "de": "Manti: Teig gefüllt mit Lamm und Kürbis    ",
+        "fr": "Manti : de la pâte farcie d’agneau et de citrouilles    ",
         "ru": "Манты: тесто фаршированное начинкой из баранины и тыквы"
     },
     {
@@ -827,218 +910,287 @@
         "en": "Baked leg of lamb",
         "es": "Pierna de cordero al horno",
         "de": "Pier Gebackene Lammkeule    ",
+        "fr": "Gigot d’agneau cuit au four",
         "ru": "Запеченная баранья нога"
     },
     {
         "translationid": "dish_91",
         "en": "Homemade pickled tomatoes  ",
-        "es": "Tomates caseros en escabeche (precio por 1 kilo)",
+        "es": "Tomates caseros en escabeche ",
         "de": "Hausgemachte eingelegte Tomaten im eigenen Saft",
+        "fr": "Tomates marinées maison dans leur propre jus ",
         "ru": "Домашние маринованные помидоры в собственном соку (стоимость за 1 кг)"
     },
     {
         "translationid": "dish_92",
         "en": "Hot pasties with minced beef meat ",
-        "es": "Empanadas calientes con carne picada de ternera (precio por 1 pieza)",
+        "es": "Empanadas calientes con carne picada de ternera ",
+        "de": "Rindfleischpasteten ",
+        "fr": "Chebureks à la viande de bœuf",
         "ru": "Чебуреки с мясом говядины"
     },
     {
         "translationid": "dish_93",
         "en": "Stuffed pancakes with minced beef meat ",
-        "es": "Panqueques rellenos con carne picada de ternera (precio por 1 pieza)",
-        "ru": "Фаршированные блины с мясом говядины (стоимость за 1 шт)"
+        "es": "Panqueques rellenos con carne picada de ternera ",
+        "de": "Gefüllte Pfannkuchen mit Rinderhackfleisch",
+        "fr": "Crêpes farcies au boeuf haché",
+        "ru": "Фаршированные блины с мясом говядины"
     },
     {
         "translationid": "dish_94",
         "en": "Stuffed pancakes with cabbage ",
-        "es": "Panqueques rellenos con repollo (precio por 1 pieza)",
-        "ru": "Фаршированные блины с капустой (стоимость за 1 шт)"
+        "es": "Panqueques rellenos con repollo ",
+        "de": "Gefüllte Pfannkuchen mit Kohl",
+        "fr": "Crêpes farcies au chou",
+        "ru": "Фаршированные блины с капустой"
     },
     {
         "translationid": "dish_95",
         "en": "Pancakes  ",
         "es": "Panqueques  ",
-        "ru": "Блины (стоимость за 1 шт)"
+        "de": "Pfannkuchen",
+        "fr": "Crêpes",
+        "ru": "Блины"
     },
     {
         "translationid": "dish_96",
         "en": "Spicy Korean style carrot  ",
-        "es": "Ensalada de zanahoria picante estilo coreano (precio por 1 kilo)",
-        "ru": "Острая морковка по- корейски (стоимость за 1кг)"
+        "es": "Ensalada de zanahoria picante estilo coreano ",
+        "de": "Würzige Karotte nach koreanischer Art",
+        "fr": "Carotte épicée à la coréenne",
+        "ru": "Острая морковка по- корейски"
     },
     {
         "translationid": "dish_97",
         "en": "Eggplants with beef and garlic ",
-        "es": "Ensalada de berenjenas con ternera y ajo (precio por 1 kilo)",
-        "ru": "Баклажаны с мясом говядины и чесноком (стоимость за 1кг)"
+        "es": "Ensalada de berenjenas con ternera y ajo ",
+        "de": "Auberginen mit Rindfleisch und Knoblauch",
+        "fr": "Aubergine au boeuf et ail",
+        "ru": "Баклажаны с мясом говядины и чесноком"
     },
     {
         "translationid": "dish_98",
         "en": "Eggplants with vegetables and garlic ",
-        "es": "Ensalada de berenjenas con verduras y ajo (precio por 1 kilol)",
-        "ru": "Баклажаны с овощами и чесноком (стоимость за 1кг)"
+        "es": "Ensalada de berenjenas con verduras y ajo",
+        "de": "Auberginen mit Gemüse und Knoblauch",
+        "fr": "Aubergines aux légumes et ail",
+        "ru": "Баклажаны с овощами и чесноком"
     },
     {
         "translationid": "dish_99",
         "en": "Russian traditional salad “Olivie” with meat",
-        "es": "Ensalada tradicional rusa \"Olivie\" con carne (precio por 1 kilo)",
-        "ru": "Оливье с мясом (стоимость за 1кг)"
+        "es": "Ensalada tradicional rusa \"Olivie\" con carne",
+        "de": "Russischer traditioneller Salat \"Olivie\" mit Fleisch",
+        "fr": "Salade traditionnelle russe \"Olivie\" avec de la viande",
+        "ru": "Оливье с мясом "
     },
     {
         "translationid": "dish_100",
         "en": "Spicy Korean salad with beef, fresh cucumbers and paprika ",
-        "es": "Ensalada coreana picante con ternera, pepinos frescos y pimentón (precio por 1 kilo",
-        "ru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем (стоимость за 1кг)"
+        "es": "Ensalada coreana picante con ternera, pepinos frescos y pimentón ",
+        "de": "Würziger koreanischer Salat mit Rindfleisch, frischen Gurken und Paprika",
+        "fr": "Salade coréenne épicée avec du bœuf, des concombres et du paprika",
+        "ru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем "
     },
     {
         "translationid": "dish_101",
         "en": "Kam di cha: Asian salad of semi-raw marinated potato with soy sauce and spices",
-        "es": "Kam di cha: Ensalada asiática de patata semi-cruda con salsa de soja y especias (precio por 1 kilo)",
-        "ru": "Кам ди ча: азиатский салат из полусырого картофеля маринованного в соевом соусе со специями (стоимость за 1кг)"
+        "es": "Kam di cha: Ensalada asiática de patata semi-cruda con salsa de soja y especias ",
+        "de": "Kam di Cha: Asiatischer Salat aus halb rohen marinierten Kartoffeln mit Sojasauce und Gewürzen",
+        "fr": "Kam di Cha: salade asiatique à base de pommes de terre marinées semi-crues avec sauce soja et épices",
+        "ru": "Кам ди ча: азиатский салат из полусырого картофеля маринованного в соевом соусе со специями "
     },
     {
         "translationid": "dish_102",
         "en": "Funchose: asian rice noodles with beef, peper and carrot ",
-        "es": "Ensalada asiática de fideos de arroz funchose con ternera, pimiento y zanahoria (precio por 1 kilo)",
-        "ru": "Салат из фунчозы с мясом говядины и овощами (стоимость за 1кг)"
+        "es": "Ensalada asiática de fideos de arroz funchose con ternera, pimiento y zanahoria",
+        "de": "Funchose: asiatische Reisnudeln mit Rindfleisch, Pfeffer und Karotten",
+        "fr": "Funchose: nouilles de riz asiatiques au boeuf, poivre et carottes",
+        "ru": "Салат из фунчозы с мясом говядины и овощами"
     },
     {
         "translationid": "dish_103",
         "en": "He: Spicy Korean salad with carrot and special marinated beef meat or fish",
-        "es": "Je: Ensalada coreana picante con zanahoria y carne de la ternera marinada o con pescado, de tu elección (precio por 1 kilo)",
-        "ru": "Хе с мясом или рыбой: острый корейский салат с морковью и маринованным мясом говядины или белой рыбой, на ваш выбор (стоимость за 1кг)"
+        "es": "Je: Ensalada coreana picante con zanahoria y carne de la ternera marinada o con pescado, de tu elección ",
+        "de": "Würziger koreanischer Salat mit Karotten und speziell mariniertem Rindfleisch oder Fisch",
+        "fr": "Heh : une salade coréenne épicée au bœuf mariné et aux carottes  ou avec du poisson",
+        "ru": "Хе с мясом или рыбой: острый корейский салат с морковью и маринованным мясом говядины или белой рыбой, на ваш выбор "
     },
     {
         "translationid": "dish_104",
         "en": "Spicy Korean soup with potato and beef ",
-        "es": "Sopa coreana picante con patata y ternera (precio por 1 litro)",
-        "ru": "Острый корейский суп с картошкой и мясом говядины (стоимость за 1 литр)"
+        "es": "Sopa coreana picante con patata y ternera ",
+        "de": "Würzige koreanische Suppe mit Kartoffeln und Rindfleisch",
+        "fr": "Soupe coréenne épicée aux pommes de terre et au bœuf ",
+        "ru": "Острый корейский суп с картошкой и мясом говядины"
     },
     {
         "translationid": "dish_105",
         "en": "Borscht: Russian traditional soup with beef meat and vegetables ",
-        "es": "Borscht: Sopa tradicional rusa con carne de ternera y verduras (precio por 1 litro)",
-        "ru": "Борщ из говядины (стоимость за 1 литр)"
+        "es": "Borscht: Sopa tradicional rusa con carne de ternera y verduras ",
+        "de": "Borsch: Russische traditionelle Suppe mit Rindfleisch und Gemüse",
+        "fr": "Bortsch : une soupe russe traditionnelle au veau et aux légumes ",
+        "ru": "Борщ из говядины "
     },
     {
         "translationid": "dish_106",
         "en": "Spicy Asian soup with fish and seafood ",
-        "es": "Sopa asiática picante con pescado y mariscos (precio de 1 litro)",
-        "ru": "Острый азиатский суп с рыбой и морепродуктами (стоимость за 1 литр)"
+        "es": "Sopa asiática picante con pescado y mariscos",
+        "de": "Würzige asiatische Suppe mit Fisch und Meeresfrüchten",
+        "fr": "Soupe asiatique épicée aux poissons et fruits de mer",
+        "ru": "Острый азиатский суп с рыбой и морепродуктами "
     },
     {
         "translationid": "dish_107",
         "en": "Okroshka: Russian traditional cold soup with meat, eggs and vegetables ",
-        "es": "Okroshka: sopa tradicional rusa, fresca y fría con carne, huevos y verduras (precio por 1 litro)",
-        "ru": "Окрошка на квасе с колбасой (стоимость за 1 литр)"
+        "es": "Okroshka: sopa tradicional rusa, fresca y fría con carne, huevos y verduras ",
+        "de": "Okroschka: Russische traditionelle kalte Suppe mit Fleisch, Eiern und Gemüse",
+        "fr": "Okroshka: soupe froide traditionnelle russe avec viande, œufs et légumes",
+        "ru": "Окрошка на квасе с колбасой "
     },
     {
         "translationid": "dish_108",
         "en": "Dumplings with meat ",
-        "es": "Pelmeni: Plato tradicional ruso “ravioli” con carne (precio por 1 kilo)",
-        "ru": "Пельмени c мясом (стоимость за 1кг)"
+        "es": "Pelmeni: Plato tradicional ruso “ravioli” con carne ",
+        "de": "Pelmeni: Traditionelles russisches Gericht \"Ravioli\" mit Fleisch",
+        "fr": "Pelmeni : un plat russe traditionnel ressemblant à des raviolis à la viande",
+        "ru": "Пельмени c мясом"
     },
     {
         "translationid": "dish_109",
         "en": "Vareniki: dough stuffed with potatoes ",
         "es": "Vareniki: Plato tradicional ruso “ravioli” con patata (precio por 1 kilo)",
-        "ru": "Вареники с картошкой (стоимость за 1кг)"
+        "de": "Wareniki: Teig gefüllt mit Kartoffeln",
+        "fr": "Vareniki : un plat russe traditionnel ressemblant à des raviolis aux pommes de terre",
+        "ru": "Вареники с картошкой"
     },
     {
         "translationid": "dish_110",
-        "en": "Dough stuffed with lamb meat and pumpkin ",
-        "es": "Manti: masa rellena de cordero y calabaza (precio por 1 pieza)",
-        "ru": "Манты: тесто фаршированное начинкой из баранины и тыквы (стоимость за 1 шт)"
+        "en": "Manti: Dough stuffed with lamb meat and pumpkin ",
+        "es": "Manti: masa rellena de cordero y calabaza ",
+        "de": "Manti ist ein traditioneller Teller der ostasiatischen Küche- mit Lammfleisch und Kürbis gefüllter Teig. ",
+        "fr": "Manti : de la pâte farcie d’agneau et de citrouilles ",
+        "ru": "Манты: тесто фаршированное начинкой из баранины и тыквы "
     },
     {
         "translationid": "dish_111",
         "en": "Pilaf: rice with pieces of lamb and carrot ",
-        "es": "Pilaf: arroz de receta asiática con cordero y zanahoria (precio por 1 kilo)",
-        "ru": "Плов с бараниной (стоимость за 1 кг)"
+        "es": "Pilaf: arroz de receta asiática con cordero y zanahoria ",
+        "de": "Pilaw: Reis mit Lamm- und Karottenstücken",
+        "fr": "Pilaf : un plat de riz recette asiatique à l’agneau et aux carottes ",
+        "ru": "Плов с бараниной "
     },
     {
         "translationid": "dish_112",
         "en": "Lagman: Asian noodles with beef and vegetable gravy ",
-        "es": "Lagman: fideos asiáticos con salsa de carne de ternera y verdura (precio por 1 ración)",
-        "ru": "Лагман: среднеазиатская лапша с подливом из мяса говядины и овощей (стоимость за 1 порцию)"
+        "es": "Lagman: fideos asiáticos con salsa de carne de ternera y verdura",
+        "de": "Lagman: Asiatische Nudeln mit Rind- und Gemüse Sauce",
+        "fr": "Laghman : des nouilles asiatiques avec de la sauce au bœuf et aux légumes",
+        "ru": "Лагман: среднеазиатская лапша с подливом из мяса говядины и овощей "
     },
     {
         "translationid": "dish_113",
         "en": "Kuk Si: Korean noodles with vegetables and beef ",
-        "es": "Kuk Si: fideos coreanos con verduras y carne de ternera (precio por 1 ración)",
-        "ru": "Кук Си: Корейская лапша с овощами и мясом говядины (стоимость за 1 порцию)"
+        "es": "Kuk Si: fideos coreanos con verduras y carne de ternera ",
+        "de": "Kuksi: Koreanische Nudeln mit Gemüse und Rindfleisch",
+        "fr": "Kuksi : des nouilles coréennes aux légumes et au bœuf",
+        "ru": "Кук Си: Корейская лапша с овощами и мясом говядины "
     },
     {
         "translationid": "dish_114",
         "en": "Chicken cutlets ",
-        "es": "Chuletas de la carne picado de pollo (precio por 1 pieza)",
+        "es": "Chuletas de la carne picado de pollo",
+        "de": "Gehacktes Hühnerschnitzel",
+        "fr": "Escalope de poulet hachée",
         "ru": "Куриные котлетки"
     },
     {
         "translationid": "dish_115",
         "en": "Baked pork  ",
-        "es": "Cerdo al horno (precio por 1 kilo)",
-        "ru": "Запеченная свинина (стоимость за 1 кг)"
+        "es": "Cerdo al horno ",
+        "de": "Gebackenes Schweinefleisch",
+        "fr": "Porc au four",
+        "ru": "Запеченная свинина "
     },
     {
         "translationid": "dish_116",
         "en": "Baked leg of lamb (price for leg)",
         "es": "Pierna de cordero al horno (precio por pierna)",
+        "de": "Gebackene Lammkeule (Preis für Bein)",
+        "fr": "Gigot d'agneau au four (prix de la jambe)",
         "ru": "Запеченная баранья нога (стоимость за ногу)"
     },
     {
         "translationid": "dish_117",
         "en": "Rice with vegetables and spices ",
         "es": "Arroz frito con verduras y especias (precio por 1 kilo)",
-        "ru": "Жареный рис с овощами и пряностями (Стоимость за 1 кг)"
+        "de": "Reis mit Gemüse und Gewürzen",
+        "fr": "Riz aux légumes et épices",
+        "ru": "Жареный рис с овощами и пряностями "
     },
     {
         "translationid": "dish_118",
         "en": "Stuffed peppers with minced beef meat and rice ",
-        "es": "Pimientos rellenos con carne picada de ternera y arroz (precio por 1 pieza)",
-        "ru": "Фаршированные перцы с мясом говядины и рисом (стоимость за 1 шт)"
+        "es": "Pimientos rellenos con carne picada de ternera y arroz ",
+        "de": "Gefüllte Paprika mit Rinderhackfleisch und Reis",
+        "fr": "Poivrons farcis au boeuf haché et riz",
+        "ru": "Фаршированные перцы с мясом говядины и рисом "
     },
     {
         "translationid": "dish_119",
         "en": "Mashed potato ",
-        "es": "Puré de patata (precio por 1 kilo)",
-        "ru": "Картофельное пюре (стоимость за 1кг)"
+        "es": "Puré de patata ",
+        "de": "Kartoffelbrei",
+        "fr": "Kartoffelpüree",
+        "ru": "Картофельное пюре "
     },
     {
         "translationid": "dish_120",
         "en": "Fried potato ",
         "es": "Patata frita (precio por 1 kilo)",
-        "ru": "Жаренная картошка (стоимость за 1кг)"
+        "de": "Gebratene Kartoffel",
+        "fr": "Pomme de terre frite",
+        "ru": "Жаренная картошка "
     },
     {
         "translationid": "dish_121",
         "en": "Rice  ",
-        "es": "Arroz (precio por 1 kilo)",
-        "ru": "Рис  (стоимость за 1кг)"
+        "es": "Arroz ",
+        "de": "Reis",
+        "fr": "Riz",
+        "ru": "Рис  "
     },
     {
         "translationid": "dish_122",
         "en": "Grilled vegetables ",
-        "es": "Verduras asadas  (precio por 1 kilo)",
-        "ru": "Овощи на гриле (стоимость за 1 кг)"
+        "es": "Verduras asadas  ",
+        "de": "Gegrilltes Gemüse",
+        "fr": "Légumes grillés",
+        "ru": "Овощи на гриле "
     },
     {
         "translationid": "dish_123",
         "en": "Yogurt-berry cake  ",
-        "es": "Pastel de yogur y bayas (precio por 1 ración)",
-        "ru": "Йогуртово-ягодное пирожное (стоимость за 1 порцию)"
+        "es": "Pastel de yogur y bayas",
+        "de": "Joghurt-Beeren-Kuchen",
+        "fr": "Gâteau au yogourt et aux baies",
+        "ru": "Йогуртово-ягодное пирожное "
     },
     {
         "translationid": "dish_124",
         "en": "Chak Chak: oriental sweetness, fried dough pieces in honey syrup and walnuts                                                                ",
-        "es": "Chak Chak: dulzura de asia oriental, trozos de masa fritos en almíbar de miel y nueces (precio por 1 kilo)",
-        "ru": "Чак Чак: восточная сладость, обжаренные кусочки теста в медовом сиропе и с грецким орехом (стоимость за 1 кг)"
+        "es": "Chak Chak: dulzura de asia oriental, trozos de masa fritos en almíbar de miel y nueces.",
+        "de": "Chak Chak ist eine orientalische Süßigkeit aus frittierten Teigstücken in Honigsirup und Walnüssen. Traditionell wird es ein Teil der Teezeremonie.",
+        "fr": "Tchak tchak : une friandise est-asiatique, des morceaux de pâte frits au sirop de miel avec des noix ",
+        "ru": "Чак Чак: восточная сладость, обжаренные кусочки теста в медовом сиропе и с грецким орехом "
     },
     {
         "translationid": "dish_125",
         "en": "Honey cake ",
-        "es": "Pastel de miel (precio por 1 ración)",
-        "ru": "Медовый торт (стоимость за 1 порцию)"
+        "es": "Pastel de miel",
+        "de": "Honigkuchen",
+        "ru": "Медовый торт "
     },
     {
         "translationid": "pre_order_plates",
@@ -1047,8 +1199,10 @@
         "el": "Προπαραγγελία",
         "it": "Preordinare",
         "de": "Vorbestellung",
-        "fr": "Précommander",
+        "fr": "Pré-commande",
         "no": "Forhåndsbestille",
+        "jp": "事前注文",
+        "ko": "선주문",
         "ru": "Предзаказ"
     },
     {
@@ -1563,77 +1717,188 @@
     },
     {
         "translationid": "insider_001",
-        "en": "Caramelized Octopus: Grilled and Caramelized Octopus with potato purée and chips is definitely the best choice for foodfans! It’s a fusion style of classic Spanish famous dish Galician octopus. The mixture of the tender potato puree and slightly sweet taste of caramelized octopus will surprise any gourmand."
+        "en": "Caramelized Octopus: Grilled and Caramelized Octopus with potato purée and chips is definitely the best choice for foodfans! It’s a fusion style of classic famous Spanish dish Galician octopus. The mixture of the tender potato puree and slightly sweet taste of caramelized octopus will surprise any gourmand.",
+        "es": "Pulpo caramelizado: Pulpo a la plancha caramelizado con puré de papas y patatas chips, ¡es sin duda la mejor opción! Es una variación del famoso plato típico español \"Pulpo a la Gallega\" al estilo fusión. La combinación del suave puré de papas y del sabor ligeramente dulce del pulpo caramelizado le dejará impresionado a cualquier gourmet.",
+        "de": "Karamellisierter Oktopus: Gegrillter und karamellisierter Oktopus mit Kartoffelpüree und Chips ist sicherlich die beste Wahl für Foodfans! Es ist ein Fusionsstil des klassischen spanischen berühmten Gerichts Galizischer Oktopus. Die Mischung aus dem zarten Kartoffelpüree und dem leicht süßen Geschmack des karamellisierten Oktopus wird jeden Feinschmecker überraschen.",
+        "no": "Karamellisert Blekksprut: grillet og karamellisert blekksprut med potetmos og chips er utvilsomt det beste valget! Denne retten er en blanding av kjente klassiske spanske rett \"blekksprut Galisisk\". Kombinasjonen av anbud potetmos og søt smak av karamellisert blekksprut vil overraske noen gourmet.",
+        "ru": "Карамелизированный Осьминог: Жаренный на гриле и карамелизированный осьминог с картофельным пюре и чипсами ― несомненно лучший выбор! Это блюдо в стиле фьюжн знаменитого классического испанского блюда «Осьминог по-галисийски». Сочетание нежного картофельного пюре и сладковатого вкуса карамелизированного осьминога удивит любого гурмана."
     },
     {
         "translationid": "insider_002",
-        "en": "Fillet steak “Rossini”: The meat fans should try the steak “Rossini” which is made by the special recipe of our Norwegian chef who, definitely, knows all about meat. The flavors mix of the slightly fried meat with foie- gra and the berry red wine source makes your meal experience unforgeable."
+        "en": "Fillet steak “Rossini”: The meat fans should try the steak “Rossini” which is made by the special recipe of our Norwegian chef who, definitely, knows all about meat. The flavors mix of the slightly fried meat with foie- gra and the berry red wine source makes your meal experience unforgeable.",
+        "es": "Filete \"Rossini\": Para los amantes de la carne, es imprescindible probar el filete \"Rossini\"; se cocina según la receta especial de nuestro chef noruego que, sin duda, es muy conocedor de la carne. La combinación de sabores de la carne ligeramente asada, foie gras y salsa de vino con bayas, se convertirá en una experiencia inolvidable para cada gourmet.",
+        "de": "Filetsteak \"Rossini\": Die Fleischfans sollten das Steak \"Rossini\" probieren, das nach dem speziellen Rezept unseres norwegischen Küchenchefs zubereitet wird, der sich definitiv mit Fleisch auskennt. Die Geschmacksmischung des leicht gebratenen Fleisches mit Foie-Gra und der Beeren-Rotweinquelle macht Ihr Essenserlebnis unvergesslich.",
+        "no": "Rossini biff: kjøtt elskere bør definitivt prøve Rossini biff, den er utarbeidet i henhold til en spesiell oppskrift av våre norske kokken, som definitivt vet mye om kjøtt. Kombinasjonen av lett stekt kjøtt, foie Gras og bær-vin sausen vil bli en uforglemmelig opplevelse for alle gourmet.",
+        "ru": "Стейк «Россини»: Любителям мяса непременно стоит попробовать стейк «Россини», он готовится по особому рецепту нашего норвежского шеф-повара, который, определенно, знает толк в мясе. Сочетание вкусов слегка обжаренного мяса, фуа-гра и ягодно-винного соуса станет незабываемым опытом для каждого гурмана."
     },
     {
         "translationid": "insider_003",
-        "en": "Mussel Casserole: For seafood lovers we advise to discover the new taste of fresh mussels, but just with cheese gorgonzola sauce. Have you ever tried it? Then, it will, definitely, one of your best meal experiences!"
+        "en": "Mussel Casserole: For seafood lovers we advise to discover the new taste of fresh mussels, but just with cheese gorgonzola sauce. Have you ever tried it? Then, it will, definitely, one of your best meal experiences!",
+        "es": "Mejillones Casserole: Para los amantes de mariscos recomendamos probar nuestra especialidad de mejillones frescos con salsa de queso gorgonzola. ¿Ha probado alguna vez algo similar? Entonces, seguramente, ¡será uno de sus mejores descubrimientos culinarios!",
+        "de": "Muschel-Auflauf: Für Liebhaber von Meeresfrüchten raten wir, den neuen Geschmack von frischen Muscheln zu entdecken, aber nur mit Käse-Gorgonzola-Sauce. Haben Sie es schon einmal probiert? Dann wird es zweifellos eines Ihrer besten Essenserlebnisse sein!",
+        "no": "Caserole blåskjell: sjømat elskere rådes til å prøve vår signatur rett av ferske blåskjell med Gorgonzola ost saus. Har du noen gang prøvd noe sånt som dette? Så det vil helt sikkert bli en av dine beste kulinariske oppdagelser!",
+        "ru": "Мидии Касероле: Любителям морепродуктов советуем отведать наше фирменное блюдо из свежих мидий с сырным соусом горгонзола. Вы когда-нибудь пробовали нечто подобное? Тогда это несомненно станет одним из ваших лучших кулинарных открытий!"
     },
     {
         "translationid": "insider_004",
-        "en": "Grilled fresh Scallops:  Grilled fresh Scallops with truffle cauliflower cream is one more famous signature of our chef for seafood lovers. The tender favour of the truffle cauliflower mousse is a perfect complement of the freshest galician scallops. Just taste it!"
+        "en": "Grilled fresh Scallops: Grilled fresh Scallops with truffle cauliflower cream is one more famous signature of our chef for seafood lovers. The tender flavor of the truffle cauliflower mousse is a perfect complement of the freshest galician scallops. Just taste it!",
+        "es": "Vieiras a la plancha: Las vieiras frescas a la plancha con crema de trufa de coliflor son otra de las famosas especialidades de nuestro chef para los amantes de mariscos. El sabor suave de la mousse de trufa de coliflor complementa perfectamente las más frescas vieiras a la gallega. ¡Solo pruébelo!",
+        "de": "Gegrillte frische Jakobsmuscheln: Gegrillte frische Kammmuscheln mit Trüffel-Blumenkohl-Creme ist noch eine berühmte Spezialität unseres Küchenchefs für Liebhaber von Meeresfrüchten. Der zarte Geschmack der Trüffel-Blumenkohl-Mousse ist eine perfekte Ergänzung zu den frischesten galizischen Kammmuscheln. Probieren Sie es einfach!",
+        "no": "Grillet kamskjell: Fersk grillet kamskjell med blomkål trøffel cream er en annen velkjent spesialitet av vår kjøkkensjef for sjømat elskere. Delikat smak av blomkål trøffel mousse er et perfekt komplement til de ferskeste Galisisk kamskjell. Bare prøv det ut!",
+        "ru": "\r\nМорские гребешки на гриле: Свежие морские гребешки на гриле с трюфельным кремом из цветной капусты ― еще одно известное фирменное блюдо нашего шеф-повара для любителей морепродуктов. Нежный вкус трюфельного мусса из цветной капусты идеально дополняет наисвежайшие морские гребешки по-галисийски. Просто попробуйте это!\r\n"
     },
     {
         "translationid": "insider_005",
-        "en": "Duck foie: Are you a foie fan? Then, you should try our duck foie with caramelized apple which is made by our chef competently. Just the rightest mixture of the sweet berry sauce with slightly salty foie flavor makes it so special meal experience."
+        "en": "Duck foie: Are you a foie fan? Then, you should try our duck foie with caramelized apple which is made by our chef competently. Just the rightest mixture of the sweet berry sauce with slightly salty foie flavor makes it so special meal experience.",
+        "es": "Foie gras: ¿Es un fan del foie gras? Entonces, sin lugar a dudas, pruebe nuestro foie gras con manzanas caramelizadas, cocinado según la receta especial de nuestro chef. La proporción perfecta de la combinación de los sabores de la salsa de frutas del bosque ligeramente dulce y del foie, lo convierten en un plato especial.",
+        "de": "Gänsestopfleber: Sind Sie ein Gänsestopfleber-Fan? Dann sollten Sie unsere Gänsestopfleber mit karamellisiertem Apfel probieren, die von unserem Chefkoch fachmännisch zubereitet wird. Genau die richtige Mischung aus der süßen Beerensauce mit leicht salzigem Foie-Geschmack macht es zu einem besonderen Essenserlebnis.",
+        "no": "Duck foie: Er du en fan av Duck foie? Så, for all del, prøv vår Duck foie med karamelliserte epler, utarbeidet i henhold til en spesiell oppskrift av vår kjøkkensjef. De riktige proporsjoner av kombinasjonen av smaker litt søte bær saus og Duck foie gjøre denne retten spesielle.",
+        "ru": "\rФуа-гра: Вы фан фуа-гра? Тогда, непременно, попробуйте наше фуа-гра с карамелизированными яблоками, приготовленное по особому рецепту нашего шеф-повара. Правильные пропорции сочетания вкусов слегка сладковатого ягодного соуса и фуа-гра делает это блюдо особенным.\r\nуснейший легкий десерт, который покоряет сердца.\r\n"
     },
     {
         "translationid": "insider_006",
-        "en": "Affogato al Café: The famous dessert Affogato al Café perfectly complements your meal experience with us. Vanilla ice mixed with coffee liqueur, caramelized walnuts and espresso coffee just turns into the most delicious light dessert which gets the hearts."
+        "en": "Affogato al Café: The famous dessert Affogato al Café perfectly complements your meal experience with us. Vanilla ice mixed with coffee liqueur, caramelized walnuts and espresso coffee just turns into the most delicious light dessert which gets the hearts.",
+        "es": "Postre de Affogato: El famoso postre a base del café de Affogato complementará su experiencia de sabor de una manera inmejorable. El hielo de vainilla mezclado con licor de café, nueces caramelizadas y café expreso, se convierte en un postre delicioso y ligero que conquista corazones en todo el mundo.",
+        "de": "Affogato al Café: Das berühmte Dessert Affogato al Café ergänzt perfekt Ihr Essenserlebnis bei uns. Vanilleeis gemischt mit Kaffeelikör, karamellisierten Walnüssen und Espresso-Kaffee verwandelt sich einfach in das köstlichste leichte Dessert, das die meisten Herzen gewinnt.",
+        "no": "Affogato dessert: den berømte Affogato kaffe-basert dessert vil passe perfekt til din smak opplevelse. Vanilje is blandet med kaffe-likør, karamelliserte valnøtter og espresso kaffe blir til en deilig lett dessert som vinner hjerter.",
+        "ru": "\r\nДесерт Аффогато: Знаменитый десерт на основе кофе Аффогато прекрасно дополнит ваши вкусовые впечатления. Ванильный лед, смешанный с кофейным ликером, карамелизированными грецкими орехами и кофе эспрессо, превращается во вкуснейший легкий десерт, который покоряет сердца.\r\n"
     },
     {
         "translationid": "insider_007",
-        "en": "Borsch: Borsch is the most famous Russian traditional dish. It’s a hot soup cooked with meat and different type of vegetables. We serve it with sour cream and garlic croutons."
+        "en": "Borsch: Borsch is the most famous Russian traditional dish. It’s a hot soup cooked with meat and different type of vegetables. We serve it with sour cream and garlic croutons.",
+        "es": "Borsch: Borsch es quizás el plato más famoso de la cocina tradicional rusa. Es una sopa caliente de carne y verduras, se acompaña de crema agria y picatostes de ajo.",
+        "de": "Borschtsch: Borschtsch ist die bekannteste russische traditionelle Spezialität. Es ist eine heiße Suppe, die mit Fleisch und verschiedenen Gemüsesorten gekocht wird. Wir servieren es mit saurer Sahne und Knoblauch-Croutons.",
+        "fr": "Bortsch: Le bortsch est le plat russe traditionnel le plus célèbre. C’est une soupe chaude avec de la viande et différents types de légumes. Nous le servons avec de la crème aigre et des croûtons à l’ail.",
+        "ru": "\r\nБорщ: Борщ, пожалуй, самое знаменитое традиционное русское блюдо. Это горячий мясной суп с овощами, подается со сметаной и чесночными гренками.\r\n"
     },
     {
         "translationid": "insider_008",
-        "en": "Dumplings with meat: Dumplings with meat is probably the most common home-made meal in Russia. We cook this plate according to the most traditional recipe and serve it with sour cream or with meat broth, just on your taste."
+        "en": "Dumplings with meat: Dumplings with meat is probably the most common home-made meal in Russia. We cook this plate according to the most traditional recipe and serve it with sour cream or with meat broth, just on your taste.",
+        "es": "Pelmeni: Pelmeni con carne son, probablemente, el plato más típico de la cocina casera rusa. Cocinamos este plato según la receta rusa más tradicional y lo acompañamos de crema agria o de caldo de carne, a su elección.",
+        "de": "Teigtaschen mit Fleisch: Teigtaschen mit Fleisch sind wahrscheinlich das am häufigsten zu Hause gekochte Gericht in Russland. Wir kochen dieses Gericht nach dem traditionellsten Rezept und servieren es mit saurer Sahne oder mit Fleischbrühe, ganz nach Ihrem Geschmack.",
+        "fr": "Pelmeni à la viande : Les pelmeni (quenelles) à la viande sont probablement le plus populaire plat fait maison en Russie. Nous cuisinons ce plat selon la recette la plus traditionnelle et le servons avec de la crème aigre ou avec du bouillon de viande, juste à votre goût.",
+        "ru": "\r\nПельмени: пельмени с мясом – это, наверно, самое распространенное блюдо домашней кухни в России. Мы готовим это блюдо по самому традиционному русскому рецепту и подаем со сметаной или с мясным бульоном на ваш вкус.\r\n"
     },
     {
         "translationid": "insider_009",
-        "en": "Pilaf: Pilaf is a traditional dish in asian part of Russia which got the hearts of all Russia! It’s a rice plate fried and cooked with lamb pieces, carrot and garlic on the open fire. We cook it with our traditional family recipe."
+        "en": "Pilaf: Pilaf is a traditional dish in asian part of Russia which got the hearts of all Russia! It’s a rice plate fried and cooked with lamb pieces, carrot and garlic on the open fire. We cook it with our traditional family recipe.",
+        "es": "\nPlov: es uno de los platos tradicionales de la parte asiática de Rusia, que ha conquistado los corazones de todo el país. Se cocina a base de arroz añadiendo trozos de cordero, zanahorias y ajo asados sobre fuego abierto. Preparamos este plato según nuestra receta familiar tradicional.\n",
+        "de": "\nPilaw: Pilaw ist ein traditionelles Gericht im asiatischen Teil Russlands, das die Herzen von ganz Russland erobert hat! Es ist eine Reisplatte, die mit Lammfleischstücken, Karotten und Knoblauch auf dem offenen Feuer gebraten und gekocht wird. Wir kochen es nach unserem traditionellen Familienrezept.\n",
+        "fr": "\nPilaf : Le pilaf est un plat traditionnel dans la partie asiatique de la Russie qui a gagné les cœurs de tout le pays ! C’est un plat de riz frit et cuit avec des morceaux d’agneau, des carottes et de l’ail au feu ouvert. Nous le cuisinons selon notre recette de famille traditionnelle.\n",
+        "ru": "\nПлов: Плов - одно из традиционных блюд азиатской части России, покорившее сердца всей страны! Оно готовится из риса с добавлением кусочков баранины, моркови и чеснока, обжаренных на открытом огне. Мы готовим это блюдо по нашему традиционному семейному рецепту."
     },
     {
         "translationid": "insider_010",
-        "en": "Eggplants with vegetables and garlic is perfect meal experience for vegetable lovers. We offer it with rice garnish as a great vegetarian dish. "
+        "en": "Eggplants with vegetables and garlic is perfect meal experience for vegetable lovers. We offer it with rice garnish as a great vegetarian dish. ",
+        "es": "Berenjenas: Las berenjenas con verduras y ajo es un plato perfecto para los amantes de las verduras. Acompañamos este plato vegetariano de una guarnición de arroz.",
+        "de": "Auberginen mit Gemüse und Knoblauch ist ein perfektes Essenserlebnis für Gemüseliebhaber. Wir bieten es mit Reisbeilage als tolles vegetarisches Gericht an. ",
+        "fr": "Les aubergines aux légumes: Les aubergines aux légumes et à l’ail sont une excellente expérience culinaire pour les amateurs de légumes. Nous les proposons avec une garniture de riz en tant qu’excellent plat végétarien. ",
+        "ru": "\r\nБаклажаны: Баклажаны с овощами и чесноком - идеальное блюдо для любителей овощей. Мы подаем это вегетарианское блюдо с гарниром из риса.\r\n"
     },
     {
         "translationid": "insider_011",
-        "en": "Je with the fish: It’s a spicy Korean salad with fresh marinated fish by the special recipe with cucumbers and onion. This is a Korean dish really got loved in asian part of Russia during many years."
+        "en": "Je with the fish: It’s a spicy Korean salad with fresh marinated fish by the special recipe with cucumbers and onion. This is a Korean dish really got loved in asian part of Russia during many years.",
+        "es": "Je con pescado: Ensalada coreana picante de pescado fresco marinado según una receta especial, con pepino y cebolla. Este plato coreano lleva muchos años gozando de gran popularidad en la parte asiática de Rusia.",
+        "de": "Je mit dem Fisch: Das ist ein würziger koreanischer Salat mit frischem mariniertem Fisch nach einem speziellen Rezept mit Gurken und Zwiebeln. Das ist ein koreanisches Gericht, das im asiatischen Teil Russlands seit vielen Jahren sehr beliebt ist.",
+        "fr": "Heh au poisson: C’est une salade coréenne épicée avec du poisson frais mariné selon la recette spéciale avec des concombres et des oignons. Ce plat coréen est très populaire dans la partie asiatique de la Russie depuis longtemps.",
+        "ru": "\r\nХе с рыбой: Хе с рыбой это острый корейский салат из свежей маринованной рыбы по особому рецепту с огурцами и луком. Это корейское блюдо вот уже много лет пользуется большой популярностью в азиатской части России.\r\n"
     },
     {
         "translationid": "insider_012",
-        "en": "Manti: Manti is a traditional plate of East Asian cuisine. We cook it with a filling of lamb and pumpkin."
+        "en": "Manti: Manti is a traditional plate of East Asian cuisine. We cook it with a filling of lamb and pumpkin.",
+        "es": "\r\nManti: Manti son un plato tradicional de la cocina de Asia Oriental. Cocinamos este plato con relleno de cordero y calabaza.\r\n",
+        "de": "Manti: Manti ist ein traditioneller Teller der ostasiatischen Küche. Wir kochen es mit einer Füllung aus Lammfleisch und Kürbis.\n",
+        "fr": "Manti : Les manti est un plat traditionnel de la cuisine est-asiatique. Nous le cuisinons avec un remplissage d’agneau et de citrouilles.\n",
+        "ru": "Манты: Манты- традиционное блюдо восточноазиатской кухни. Мы готовим это блюдо с начинкой из баранины и тыквы.\n"
     },
     {
         "translationid": "insider_013",
-        "en": "Chak Chak: Chak Chak is a oriental sweetness made of fried dough pieces in honey syrup and walnuts. Traditionally, it becomes a part of the tea ceremony."
+        "en": "Chak Chak: Chak Chak is a oriental sweetness made of fried dough pieces in honey syrup and walnuts. Traditionally, it becomes a part of the tea ceremony.",
+        "es": "Chak-chak: Chak-chak es un dulce oriental elaborado de trozos de masa asados y mezclados con nueces y jarabe de miel. Tradicionalmente, se sirve para la ceremonia del té.",
+        "de": "Chak Chak: Chak Chak ist eine orientalische Süßigkeit aus frittierten Teigstücken in Honigsirup und Walnüssen. Traditionell wird es ein Teil der Teezeremonie.",
+        "fr": "Tchak tchak : Tchak tchak est une friandise orientale faite de morceaux de pâte frits au sirop de miel avec des noix. C’est une partie traditionnelle de la cérémonie du thé.",
+        "ru": "Чак-чак: Чак-чак ― восточная сладость, приготовленная из обжаренных кусочков теста, перемешанных с грецкими орехами и медовым сиропом. Традиционно, подается к чайной церемонии."
     },
     {
         "translationid": "comments",
         "en": "comments",
         "es": "comentarios",
-        "ru": "коментариев"
+        "el": "σχόλια",
+        "de": "Komentarien",
+        "fr": "Commentaires",
+        "no": "Kommentarer",
+        "jp": "コメント",
+        "ko": "코멘트",
+        "ru": "Комментарии",
+        "ch": "评论"
     },
     {
         "translationid": "Reviews",
         "en": "Reviews",
-        "ru": "Обзоры"
+        "es": "Reviews",
+        "el": "Κριτικές",
+        "de": "Bewertungen",
+        "fr": "Reviews",
+        "no": "Anmeldelser",
+        "jp": "レビュー",
+        "ko": "리뷰",
+        "ru": "Отзывы",
+        "ch": "阅"
     },
     {
         "translationid": "includingBreadAndDrinks",
         "en": "Including bread and drinks",
         "es": "Incluye pan y bebidas",
-        "ru": "Хлеб и напитки включены"
+        "el": "Περιλαμβάνονται ψωμί και ποτά",
+        "de": "Einschließlich Brot und Getränke",
+        "fr": "Y compris le pain et les boissons",
+        "no": "Inkludert brød og drikke",
+        "jp": "パンと飲み物が含ま",
+        "ko": "빵과 음료 포함",
+        "ru": "Хлеб и напитки включены",
+        "ch": "包括面包和饮料"
     },
     {
         "translationid": "Search",
         "en": "Search",
         "es": "Buscar",
-        "ru": "Поиск"
+        "el": "Αναζήτηση",
+        "de": "Suche",
+        "fr": "Chercher",
+        "no": "Søk",
+        "jp": "探す",
+        "ko": "검색",
+        "ru": "Поиск",
+        "ch": "搜索"
+    },
+    {
+        "translationid": "oferta_1_t1",
+        "en": "We invite you to celebrate it with us and promise you a special magic night with the excellent food!",
+        "de": "Wir laden Sie ein, es mit uns zu feiern und versprechen Ihnen eine besondere magische Nacht mit dem ausgezeichneten Essen! ",
+        "fr": "Nous vous invitons à le célébrer avec nous et vous promettons une soirée magique exclusive avec une excellente cuisine! ",
+        "no": "Vi inviterer deg til å møte ham med oss, og lover en fantastisk kveld og en uforglemmelig middag! ",
+        "ru": "Мы приглашаем Вас встретить его с нами и обещаем сказочную ночь и незабываемый ужин!"
+    },
+    {
+        "translationid": "oferta_1_t2",
+        "en": "Price: 70€ per person incl 1 bottle of cava (minimum 2 persons)",
+        "de": "Preis: 70€ pro Person inkl. 1 Flasche Cava (mindestens 2 Personen)\r\n\r",
+        "fr": "Prix : 70 € par personne avec 1 bouteille de vin mousseux (minimum 2 personnes)\n\n",
+        "no": "Kostnadene: 70 Euro per person, inkludert en flaske champagne (minst 2 personer)\n\n",
+        "ru": "Стоимость: 70евро на человека, вкл бутылку шампанского (минимум 2 человека)\n\n"
+    },
+    {
+        "translationid": "oferta_1_title",
+        "en": "CHRISTMAS IS COMING!",
+        "de": "WEIHNACHTEN STEHT VOR DER TÜR!",
+        "fr": "Noël approche! ",
+        "no": "Julen kommer!",
+        "ru": "Рождество приближается!"
+    },
+    {
+        "translationid": "PriceFor",
+        "en": "Price for",
+        "es": "Precio por",
+        "ru": "Цена за"
     }
 ]
