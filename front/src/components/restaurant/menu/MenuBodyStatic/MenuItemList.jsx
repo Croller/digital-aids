@@ -64,6 +64,7 @@ class MenuItemList extends React.Component{
                                 needSecondTranslation={needSecondTranslation}
                                 slug={slug}
                                 language = {language}
+                                tags_list={restaurant.tags}
                                 {...dish}
                             />
                         </div>

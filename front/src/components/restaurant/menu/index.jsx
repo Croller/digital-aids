@@ -18,7 +18,10 @@ class Menu extends DefaultComponent{
         super(props);
 
         this.setTranslations([
-            "Allergens", "YourOpinionIs", "PriceFor"
+            "Allergens", 
+            "YourOpinionIs", 
+            "PriceFor",
+            "reglament_text_2"
         ], () => this.setState({translationLoaded: true})
         )
     }

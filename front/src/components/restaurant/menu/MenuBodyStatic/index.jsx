@@ -13,7 +13,9 @@ const templates = {
 }
 
 
-
+/**
+ * Renders just one category at a time.
+ */
 class MenuBody extends React.Component {
 
     render() {

@@ -22,7 +22,8 @@ class Restaurant extends React.Component{
     state ={
         restaurant: null,
         previousPage: null,
-        restState: null
+        restState: null,
+        tags_list: null
     }
 
     componentDidMount(){
@@ -47,6 +48,8 @@ class Restaurant extends React.Component{
         const {language, setLanguage} = this.props
         let restaurant = await Service.getRestaurant( slug, language )
         let restState = getRestaurant( this.props, slug )
+
+
         this.setState({restaurant, restState})
 
         if( language === null ){

@@ -132,15 +132,16 @@
         }
 
         @media screen and (max-width: $bp_2) {
+            display: none;
             // move arrows to picture container
-            position: absolute; 
-            top: 230px;
-            right: 10px;
-            color: white;
+            // position: absolute; 
+            // top: 230px;
+            // right: 10px;
+            // color: white;
 
-            &.left{
-                right: 50px;
-            }
+            // &.left{
+            //     right: 50px;
+            // }
         }
     }
     img{

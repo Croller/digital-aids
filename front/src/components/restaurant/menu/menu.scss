@@ -94,5 +94,82 @@
                 }
             }
         }
+
+        .allergens-button {
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            height: 28px;
+
+
+            box-shadow: none;
+            span{
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+            }
+        }
     }
 }
+
+
+.allergens-dialog{
+     [role=dialog] {
+        // max-width: 400px;
+
+        // @media screen and (max-width: $bp_2 ){
+        //     width: 80%;
+        // }
+
+         h2{
+             font-weight: 700;
+             font-size: 15px;
+
+             svg {
+                 position: absolute;
+                 right: 24px;
+             }
+
+            }
+        ul.allergens{
+            li{
+                list-style: none;
+                display: flex;
+                align-items: center;
+                margin-bottom: 20px;
+
+                img {
+                    width: 37px;
+                    height: 37px;
+                    margin-right: 12px;
+                }
+
+                div {
+                    display: flex;
+                    flex-direction: column;
+                    font-weight: 500;
+
+                    span:first-child{
+                        font-size: 16px;    
+                    }
+                    span:nth-child(2){
+                        font-size: 14px;
+                        color: $gray;    
+                    }
+                }
+            }
+        }
+
+        p{
+            margin: 12px 0 20px;
+        }
+
+        svg.close-allergens-button{
+            color: $gray;   
+        }
+     }
+}
+

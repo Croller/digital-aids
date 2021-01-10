@@ -9,12 +9,15 @@ import
 // import {getRestaurant} from '../../../../redux/reducers'
 // import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
+import Allergens from '../allergens';
+
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
 class RestMenuItem extends React.Component{
 
     state = {
-        tag_list: null
+        // tag_list: null,
+        showDialog: false
     }
     
     // componentDidMount() {
@@ -39,7 +42,7 @@ class RestMenuItem extends React.Component{
     render(){
         // const {slug} = this.props
 
-        const {tags_list} = this.state
+        const {showDialog} = this.state
         
         let {
             slug,
@@ -56,6 +59,8 @@ class RestMenuItem extends React.Component{
             add, 
             needSecondTranslation = true,
             restState = {},
+            
+            tags_list,  // list of all allergens, translated to current language
 
             language, 
             translations
@@ -81,7 +86,7 @@ class RestMenuItem extends React.Component{
         const _tt = key => tr(key, language, translations )
 
         return( 
-            
+                <>
                 <div className={`card-menu-item${ isOrdered  ? ' ordered' : "" }`} >
 
                     
@@ -92,12 +97,12 @@ class RestMenuItem extends React.Component{
                             className="dish-image"
                             style={{backgroundImage: `url(${MEDIA}/images/restaurants/${slug}/dishes/${image})`}}
                         >
-                        </Grid>
-                        <Grid item xs={12} md={6} className="dish-title-box flex row p2">
                             <div className="dish-index">
                                 {index}
                             </div>
-                            <div className="titles flex column align-items-start p-2">
+                        </Grid>
+                        <Grid item xs={12} md={6} className="dish-title-box flex column grow-children-1">
+                            <div className="titles flex column">
                                 <div className="title-main">
                                     {title}
                                 </div>
@@ -107,7 +112,46 @@ class RestMenuItem extends React.Component{
                                         {default_title}
                                     </div>
                                 }
-                                {
+
+                                <div className="flex row justify-between mt-1 align-items-end">
+                                    <div>
+                                        { tags && tags.length > 0 && 
+                                            <Badge
+                                            badgeContent={tags.length}
+                                            color="secondary"
+                                            >
+
+                                                <Button 
+                                                    onClick={()=> this.setState({showDialog: true })}
+                                                    className="allergens-button"
+                                                    variant="contained"
+                                                >{_tt("Allergens")}</Button>
+                                            </Badge>
+                                        }
+                                    </div>
+                                    {/* { Array.isArray(tags) && <div className="tags">
+                                            {tags.map( t => {
+                                                return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
+                                            })}
+                                        </div>
+                                    } */}
+                                    {
+                                        pricefor && 
+                                        <div className="pricefor">
+                                            {pricefor}
+                                        </div>
+                                        
+                                    }
+                                    {
+                                        amount && 
+                                        <div className="amount">
+                                            {amount}
+                                        </div>
+                                        
+                                    }
+                                </div>
+
+                                {/* {
 
                                     tags.length > 0 && 
                                     <>
@@ -134,7 +178,7 @@ class RestMenuItem extends React.Component{
                                         {amount}
                                     </div>
                                     
-                                }
+                                } */}
                             </div>
                         
                         </Grid>
@@ -160,6 +204,15 @@ class RestMenuItem extends React.Component{
 
                     </Grid>
                 </div>
+                <Allergens 
+                    open={showDialog}
+                    onClose = {() => this.setState({showDialog: false})}
+                    tags={tags}
+                    tags_list = {tags_list}
+                    _t = {_tt}
+                    dishid={dishid}
+                />
+                </>
             
         )
     }

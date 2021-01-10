@@ -26,6 +26,7 @@
                 padding: 20px;
                 padding: 20px;
                 margin: 0 -24px 0;
+                z-index: 20; // make it float over the content
             }
 
             .breadcrumbs {

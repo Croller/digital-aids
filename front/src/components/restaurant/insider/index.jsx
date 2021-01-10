@@ -136,13 +136,13 @@ class Insider extends React.Component{
 
                                             <h2>{imagetext}</h2>
                                             <div className="main-text">
-                                                {/* <span onClick={this.prevSlide} className="arrow left"><ChevronLeft/></span> */}
+                                                <span onClick={this.prevSlide} className="arrow left"><ChevronLeft/></span>
                                                 <div>
                                                     <p>
                                                         {text}
                                                     </p>
                                                 </div>
-                                                {/* <span onClick={this.nextSlide} className="arrow right"><ChevronRight/></span> */}
+                                                <span onClick={this.nextSlide} className="arrow right"><ChevronRight/></span>
                                             </div>
                                             <div className="social-insider">
                                                 <div className="text">

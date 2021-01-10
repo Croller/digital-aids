@@ -1,23 +1,30 @@
 import React from 'react'
 import './style.scss'
-import {Paper, Grid, Container, Button} from '@material-ui/core'
 import {
-    LocationOnOutlined as Location, 
-    FastfoodOutlined as Food,
-    PhoneInTalkOutlined as Phone,
-    AccessTimeOutlined as Time
-} from '@material-ui/icons'
+    // Paper, Grid, 
+    Container, 
+    // Button
+} from '@material-ui/core'
+// import {
+//     LocationOnOutlined as Location, 
+//     FastfoodOutlined as Food,
+//     PhoneInTalkOutlined as Phone,
+//     AccessTimeOutlined as Time
+// } from '@material-ui/icons'
 // import {PhoneCall, Chef} from '../../template/common/icons'
 import Social from '../social'
-import {Redirect} from 'react-router-dom'
+// import {Redirect} from 'react-router-dom'
 // import Service from '../../../services/restaurants'
-import TagsService from '../../../services/tags'
-import TranslService, {tr} from '../../../services/translations'
-import A from '../../../redux/actionTypes'
-import {connect} from 'react-redux'
+// import TagsService from '../../../services/tags'
+import 
+// TranslService, 
+{tr} from '../../../services/translations'
+// import A from '../../../redux/actionTypes'
+// import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
-import TopBar from '../topbar'
+// import TopBar from '../topbar'
 import ErrorPage from '../../template/common/error-loading'
+import DefaultComponent, {connect} from '../../DefaultComponent'
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
@@ -28,58 +35,73 @@ const txt = {
 
 // const _t = key => txt[key] || key
 
-class Reglament extends React.Component{
+class Reglament extends DefaultComponent {
 
-    state ={
 
-    }
 
-    componentDidMount(){
+    // state ={
+
+    // }
+
+
+
+    // componentDidMount(){
        
 
-        this.fetchData()
-    }
+    //     this.fetchData()
+    // }
     
-    componentDidUpdate( prevProps ){
-        if( prevProps.language !== this.props.language 
-            || this.props.slug !== prevProps.slug ){
-            this.fetchData()
-        }
-    }
+    // componentDidUpdate( prevProps ){
+    //     if( prevProps.language !== this.props.language 
+    //         || this.props.slug !== prevProps.slug ){
+    //         this.fetchData()
+    //     }
+    // }
 
-    async fetchData(){
-        console.log("Fetching data")
+    // async fetchData(){
+    //     console.log("Fetching data")
         
-        const {slug, language, restaurant } = this.props
+    //     const {slug, language, restaurant } = this.props
         
-        TranslService.getByKeys([
-            "reglament_text_1",
-            "reglament_text_2",
-            "reglament_1169"
-        ], language, restaurant ? restaurant.defaultlanguage : null )
+    //     TranslService.getByKeys([
+    //         "reglament_text_1",
+    //         "reglament_text_2",
+    //         "reglament_1169"
+    //     ], language, restaurant ? restaurant.defaultlanguage : null )
 
-        // const restaurant = await Service.getRestaurant( slug, language )
+    //     // const restaurant = await Service.getRestaurant( slug, language )
         
-        const tags = await TagsService.getAll(slug, language, restaurant ? restaurant.defaultlanguage : "en" );
-        this.setState({tags})
-        //     const translations = await TranslService.getByKeys(
-        //         [
-        //             "reglament_text_1", 
-        //             "reglament_text_2",
-        //             "reglament_1169"
-        //         ]    
-        //         , language, restaurant.defaultlanguage )
+    //     const tags = await TagsService.getAll(slug, language, restaurant ? restaurant.defaultlanguage : "en" );
+    //     this.setState({tags})
+    //     //     const translations = await TranslService.getByKeys(
+    //     //         [
+    //     //             "reglament_text_1", 
+    //     //             "reglament_text_2",
+    //     //             "reglament_1169"
+    //     //         ]    
+    //     //         , language, restaurant.defaultlanguage )
                 
-        //         this.setState({restaurant, tags, translations})
-        //     }
+    //     //         this.setState({restaurant, tags, translations})
+    //     //     }
         
-    }
+    // }
 
+    constructor(props){
+        super(props)
+
+        this.setTranslations(
+            [
+                "reglament_text_1", 
+                "reglament_text_2",
+                "reglament_1169"
+            ]  
+        )
+    }
 
     render(){
 
         
-        const {tags} = this.state
+        // const {tags} = this.state
         
         
         const {restaurant, language, translations, restState } = this.props
@@ -93,16 +115,16 @@ class Reglament extends React.Component{
         
 
         
-        if( !language){
-            // redirect to language selector
-            // return <Redirect to={`/${slug}/language`} />
-            // this.props.setOverlay({overlay: "language", slug})
-        }
+        // if( !language){
+        //     // redirect to language selector
+        //     // return <Redirect to={`/${slug}/language`} />
+        //     // this.props.setOverlay({overlay: "language", slug})
+        // }
 
         const secondTranslationNeeded = language !== restaurant.defaultlanguage;
 
         return(
-            restaurant && tags && translations ?
+            restaurant && restaurant.tags && translations ?
             <> 
             <Container className="reglament">
                 {/* <TopBar 
@@ -126,7 +148,7 @@ class Reglament extends React.Component{
                 </div>
 
                 <div className="allergen-list flex column">
-                    {tags.map( t => (
+                    {restaurant.tags.map( t => (
                         t.type === "allergen" ?
                         <div className="item flex row align-items-center">
                             <img src={`${MEDIA}/images/tags/${t.id}.png`} alt={t.title} title={t.title}  />
@@ -150,16 +172,17 @@ class Reglament extends React.Component{
             </Container>
             
             </>
-            : restaurant === false || tags === false || translations === false ? <ErrorPage/> : <Spinner/>
+            : restaurant === false || restaurant.tags === false || translations === false ? <ErrorPage/> : <Spinner/>
         
         )
     }
 }
+export default connect(Reglament )
 
-export default connect(
-    state => ({...state.app, translations: state.translation }),
-    dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
-    })
-)(Reglament)
+// export default connect(
+//     state => ({...state.app, translations: state.translation }),
+//     dispatch => ({
+//         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+//         setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+//     })
+// )(Reglament)

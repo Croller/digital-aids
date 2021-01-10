@@ -52,7 +52,7 @@ class CssCarousel extends React.Component{
 
     state={
         carouselId: null,
-        currentSlide: 0,
+        currentSlide: null,
         offset: 0,
         items: [],
         dots: null,
@@ -83,9 +83,12 @@ class CssCarousel extends React.Component{
 
     componentDidMount(){
 
-        this.populateItems();
+        this.populateItems(
+            // once the items are populated, mark the dot.
+            // this.markCurentlyActiveDot
+        );
+            this.markCurentlyActiveDot();
 
-        this.markCurentlyActiveDot();
 
         // set id
         const { id: carouselId = uniquid('carousel-')} = this.props
@@ -95,10 +98,11 @@ class CssCarousel extends React.Component{
     /**
      * prepare an array of slides.
      */ 
-    populateItems = () => {
+    populateItems = callback => {
         if( this._slides.current && this._slides.current.children ){
             this._items = [...this._slides.current.children];
             this._items.forEach( (i, ind) => i.addEventListener("click", ev => this.slideClick( ind, ev ) ))
+            callback && callback();
         }
     }
 
@@ -170,7 +174,7 @@ class CssCarousel extends React.Component{
      */
     markCurentlyActiveDot = () => {
         const slides = this._slides.current
-        // console.debug("marking active dot", slides, this._items)
+        console.debug("markCurentlyActiveDot", slides, this._items)
         if( slides && this._items ){
             // if( this._items ){
 
