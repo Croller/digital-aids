@@ -16,8 +16,11 @@
             }
 
             p{
-                margin: 0 0 70px;
                 font-weight: 600;
+
+                &:nth-child(3){
+                    margin: 0 0 70px;
+                }
             }
         }
 

@@ -13,15 +13,18 @@
 // import tag_soya from '../../../assets/png/tags/soya.png'; 
 // import tag_sulphite from '../../../assets/png/tags/sulphite.png'; 
 
-import {ReactComponent as PhoneCall} from '../../../assets/svg/phone-call.svg'
+import {ReactComponent as Clock} from '../../../assets/svg/clock.svg'
 import {ReactComponent as Chef} from '../../../assets/svg/chef.svg'
 import {ReactComponent as ChefHead} from '../../../assets/svg/chef-head.svg'
 import {ReactComponent as Cloche} from '../../../assets/svg/cloche.svg'
-import {ReactComponent as World} from '../../../assets/svg/world.svg'
-import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
-import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
 import {ReactComponent as Exclamation} from '../../../assets/svg/exclamation.svg'
 import {ReactComponent as Hamburger} from '../../../assets/svg/hamburger.svg'
+import {ReactComponent as MapMarker} from '../../../assets/svg/map-marker.svg'
+import {ReactComponent as PhoneCall} from '../../../assets/svg/phone-call.svg'
+import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
+import {ReactComponent as Tag} from '../../../assets/svg/tag.svg'
+import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
+import {ReactComponent as World} from '../../../assets/svg/world.svg'
 
 // social
 import {ReactComponent as FacebookIcon} from '../../../assets/svg/facebook.svg'
@@ -53,12 +56,15 @@ export {
 
     Chef,
     ChefHead,
+    Clock,
     Cloche,
     Exclamation,
     Hamburger,
+    MapMarker,
     Plate,
     Search,
     PhoneCall,
+    Tag,
     ThumbsUp,
     Trash,
     World,
@@ -66,5 +72,9 @@ export {
     FacebookIcon,
     InstagramIcon,
     TripadvisorIcon,
-    TheForkIcon
+    TripadvisorRatingCheck,
+    TripadvisorRatingEmpty,
+    TheForkIcon,
+
+    
 };

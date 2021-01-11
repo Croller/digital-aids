@@ -2,17 +2,18 @@ import React from 'react'
 import './style.scss'
 import { Paper, Grid, Container, Button, Modal } from '@material-ui/core'
 import {
-    LocationOnOutlined as Location,
-    // FastfoodOutlined as Food,
-    // PhoneInTalkOutlined as Phone,
-    AccessTimeOutlined as Time
+    ChevronLeft, ChevronRight
+//     LocationOnOutlined as Location,
+//     // FastfoodOutlined as Food,
+//     // PhoneInTalkOutlined as Phone,
+//     AccessTimeOutlined as Time
 } from '@material-ui/icons'
 import ErrorPage from '../../template/common/error-loading'
 import Social from '../social'
 import { Link, Redirect } from 'react-router-dom'
 import Service, {tr} from '../../../services/translations'
-import A from '../../../redux/actionTypes'
-import { connect } from 'react-redux'
+// import A from '../../../redux/actionTypes'
+// import { connect } from 'react-redux'
 import Spinner from '../../template/common/Spinner'
 // import TopBar from '../topbar'
 import { Link as ALink } from 'react-dom'
@@ -21,9 +22,15 @@ import {
     PhoneCall as Phone, 
     Chef,
     TheForkIcon,
-    TripadvisorIcon
+    TripadvisorIcon,
+    Clock as Time,
+    Tag,
+    MapMarker as Location,
+    TripadvisorRatingCheck, TripadvisorRatingEmpty
 } from '../../template/common/icons'
-import GoogleMaps from "simple-react-google-maps";  
+import GoogleMaps from "simple-react-google-maps/lib/index-updated";  
+import DefaultComponent, {connect} from '../../DefaultComponent'
+// import GoogleMaps from "../../GoogleMap";  
 
 const MEDIA = process.env.REACT_APP_MEDIA
 const MAP_API = process.env.REACT_APP_GOOGLE_API
@@ -35,7 +42,7 @@ const TheForkWidget = ({ link, rating, comments, comments_text = "comments", rev
         <div>
             <div className="rating-container" >
                 <TheForkIcon className="c-green" />
-                    {rating && <span className="rating">{rating}/10</span>}
+                    {rating && <div className="rating"><span>{rating}</span>/10</div>}
             </div>
             <div className="comments">{comments} {comments_text}</div>
         </div>
@@ -50,7 +57,11 @@ const TripadvisorWidget = ({ link, rating, comments, comments_text="comments", r
         <div>
             <div className="rating-container">
                 <TripadvisorIcon className="c-green" />   
-                {rating && <span className="rating">{rating}/5</span>} 
+                {rating && <div className="rating">
+                    {[1,2,3,4,5].map( ind => 
+                        ind <= rating ? <TripadvisorRatingCheck/> : <TripadvisorRatingEmpty />
+                        )}
+                    </div>} 
             </div>
             <div className="comments">{comments} {comments_text}</div>
         </div>
@@ -60,33 +71,56 @@ const TripadvisorWidget = ({ link, rating, comments, comments_text="comments", r
 }
 
 
-class RestaurantDetails extends React.Component {
+// class RestaurantDetails extends React.Component {
+class RestaurantDetails extends DefaultComponent {
 
     state = {
         restaurant: null
     }
 
-    componentDidMount() {
+    _carousel = React.createRef(); // top carousel
 
+    constructor(props){
+        super(props)
 
-        this.fetchData()
+        this.setTranslations(
+            [
+                "CallUs",
+                "comments",
+                "Reviews",
+                "average_price"
+            ]
+        )
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.language !== this.props.language
-            || this.props.slug !== prevProps.slug) {
-            this.fetchData()
-        }
+    // componentDidMount() {
+
+
+    //     this.fetchData()
+    // }
+
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.language !== this.props.language
+    //         || this.props.slug !== prevProps.slug) {
+    //         this.fetchData()
+    //     }
+    // }
+
+    // async fetchData() {
+    //     Service.getByKeys([
+    //         "CallUs", 
+    //         "comments",
+    //         "Reviews"
+    //     ])
+    // }
+
+    nextSlide = () => {
+        this._carousel && this._carousel.current && this._carousel.current.nextSlide() 
     }
 
-    async fetchData() {
-        Service.getByKeys([
-            "CallUs", 
-            "comments",
-            "Reviews"
-        ])
+    prevSlide = () => {
+        this._carousel && this._carousel.current && this._carousel.current.prevSlide() 
     }
-
 
     render() {
 
@@ -106,22 +140,28 @@ class RestaurantDetails extends React.Component {
         const {
             thefork, theforkrating, theforkcomments,  
             tripadvisor, tripadvisorrating, tripadvisorcomments,
-            lat, lng
+            lat, lng,
+            averageprice
         } = restaurant
 
         return (
             restaurant ?
                 <Modal open className="details-modal">
-                    <Paper elevation="3" className="wrapper" >
+                    <Paper elevation="3" className="wrapper  rectangular" >
 
                         <Container className="restaurant flex column flex-grow">
                             <h1 className="top-title">
                                 {restaurant.title}
+                                <div className="arrows">
+                                    <ChevronLeft className="arrow left"  onClick={ this.prevSlide }/>
+                                    <ChevronRight className="arrow right" onClick={ this.nextSlide } />
+                                </div>
                             </h1>
                             <CSSCarousel
                                 id={"restaurant-images"}
                                 useJs={true}
                                 slidesCssClass="disable-scrollbars"
+                                ref={this._carousel}
                             >
                                 {restaurant.photos.map((p, pInd) => {
                                     return (
@@ -134,15 +174,18 @@ class RestaurantDetails extends React.Component {
                             </CSSCarousel>
                             <Paper className="restaurant-details panel">
                                 <Grid container>
-                                    <Grid item xs={6} className="details-text">
+                                    <Grid item xs={12} className="details-text">
                                         <div>
-                                            <Chef /> {restaurant.cuisines.join(", ")}
+                                            <Chef className="details-icon"/> {restaurant.cuisines.join(", ")}
                                         </div>
                                         <div>
-                                            <Time /> {restaurant.workinghours}
+                                            <Time className="details-icon"/> {restaurant.workinghours}
+                                        </div>
+                                        <div>
+                                            <Tag className="details-icon"/>{_t("average_price")} <span className="green">  ~{restaurant.averageprice}&euro;</span>
                                         </div>
                                     </Grid>
-                                    <Grid item xs={6} className="call-buttons align-item-end hide-on-mobile">
+                                    <Grid item xs={12} className="call-buttons align-item-end hide-on-mobile">
                                         <Button component={Link} to={`/${slug}`} className="bg-light-gray"> Menu </Button>
                                         <Button className="bg-green c-white"
                                         component={ALink}
@@ -164,16 +207,20 @@ class RestaurantDetails extends React.Component {
                                 <div className="details-text">
                                     <div className="restaurant-title">{restaurant.title}</div>
                                     <div>
-                                        <Location /> {restaurant.address}
+                                        <Location className="details-icon" /> {restaurant.address}
                                     </div>
                                 </div>
                                 {/* <div className="map"></div> */}
                                 <GoogleMaps
                                     apiKey={MAP_API}
-                                    style={{height: "400px", width: "100%"}}
+                                    style={{height: "200px", width: "100%"}}
                                     zoom={15}
                                     center={{lat, lng}}
                                     markers={{lat, lng}}
+                                    // disableDefaultUI={true}
+                                    additionalProps={{
+                                        disableDefaultUI:true
+                                    }}
                                     />
                             </Paper>
                             
@@ -207,11 +254,11 @@ class RestaurantDetails extends React.Component {
         )
     }
 }
-
-export default connect(
-    state => ({...state.app, translations: state.translation }),
-    dispatch => ({
-        lang: payload => dispatch({ type: A.SET_LANGUAGE, payload }),
-        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
-    })
-)(RestaurantDetails)
+export default connect(RestaurantDetails)
+// export default connect(
+//     state => ({...state.app, translations: state.translation }),
+//     dispatch => ({
+//         lang: payload => dispatch({ type: A.SET_LANGUAGE, payload }),
+//         setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+//     })
+// )(RestaurantDetails)

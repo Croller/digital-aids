@@ -27,13 +27,16 @@ let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
 // root element
 const root = document.getElementById("root")
 
-const EmptyOrder = ({closeCart, button_text = "Menu", text}) => 
+const EmptyOrder = ({closeCart, button_text = "Menu", text, text2}) => 
     <div className="panel empty-cart-message">
         <div className="round-icon">
             <ChefHead/>
         </div>
         <p>
             {text}
+        </p>
+        <p>
+            {text2}
         </p>
 
         {/* <Button component={Link} to={menu_link}>{button_text}</Button> */}
@@ -90,7 +93,8 @@ class Cart extends React.Component{
                     "askToConfirm",
                     "Remove",
                     "No",
-                    "empty_order"
+                    "empty_order_text1",
+                    "empty_order_text2"
                 ],
                 language, default_lang
             )
@@ -162,7 +166,8 @@ class Cart extends React.Component{
                         </>
                         :
                         <EmptyOrder 
-                        text={_tt("empty_order")} 
+                        text={_tt("empty_order_text1")}
+                        text2= {_tt("empty_order_text2")}
                         // menu_link={`/${slug}`}
                         closeCart = {() => this.props.setOverlay({overlay: null, slug})}
                         /> 
