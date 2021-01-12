@@ -1848,7 +1848,7 @@
         "ru": "Шоколадный мусс"
     },
     {
-        "translationid": "dish_67",
+        "translationid": "beverage_67",
         "en": "Homemade red wine/glass",
         "es": "Vino tinto de casa/ copa",
         "de": "Hausgemachter Rotweinglas",
@@ -1856,7 +1856,7 @@
         "ru": "Красное домашние вино/ бокал"
     },
     {
-        "translationid": "dish_68",
+        "translationid": "beverage_68",
         "en": "Spanish red wine Rioja/ bottle",
         "es": "Vino tinto Rioja / botella",
         "de": "Spanischer Rotwein Rioja / Flasche",
@@ -1864,7 +1864,7 @@
         "ru": "Испанское красное вино Rioja/ бутылка"
     },
     {
-        "translationid": "dish_69",
+        "translationid": "beverage_69",
         "en": "Homemade white wine/glass",
         "es": "Vino blanco de casa/ copa",
         "de": "Hausgemachter Weißwein / Glas",
@@ -1872,7 +1872,7 @@
         "ru": "Белое домашние вино/ бокал"
     },
     {
-        "translationid": "dish_70",
+        "translationid": "beverage_70",
         "en": "Spanish white wine Verdejo/ bottle",
         "es": "Vino blanco Verdejo/ botella",
         "de": "Spanischer Weißwein Verdejo / Flasche",
@@ -1880,7 +1880,7 @@
         "ru": "Испанское белое вино Verdejo/ бутылка"
     },
     {
-        "translationid": "dish_71",
+        "translationid": "beverage_71",
         "en": "Beer Estrella Galicia/ bottle",
         "es": "Cerveza Estrella Galicia/ botella",
         "de": "Bier Estrella Galizien / Flasche",
@@ -1888,7 +1888,7 @@
         "ru": "Испанское пиво Estrella Galicia/ бутылка"
     },
     {
-        "translationid": "dish_72",
+        "translationid": "beverage_72",
         "en": "German beer Erdinger/ bottle",
         "es": "Cerveza alemana Erdinger/ botella",
         "de": "Deutsches Bier Erdinger / Flasche",
@@ -1896,7 +1896,7 @@
         "ru": "Немецкое пиво Erdinger/ бутылка"
     },
     {
-        "translationid": "dish_73",
+        "translationid": "beverage_73",
         "en": "Heineken beer/ bottle",
         "es": "Cerveza Heineken/ botella",
         "de": "Heineken Bier / Flasche",
@@ -1904,7 +1904,7 @@
         "ru": "Пиво Heineken/ бутылка"
     },
     {
-        "translationid": "dish_74",
+        "translationid": "beverage_74",
         "en": "Tea: black, green, fruit, flower",
         "es": "Te: negro, verde, manzanilla, frutas",
         "de": "Tee: schwarz, grün, Obst, Blume",
@@ -1912,7 +1912,7 @@
         "ru": "Чай: черный, зеленый, фруктовый, цветочный"
     },
     {
-        "translationid": "dish_75",
+        "translationid": "beverage_75",
         "en": "Cappuccino",
         "es": "Capuchino",
         "de": "Cappuccino",
@@ -1920,7 +1920,7 @@
         "ru": "Капучино"
     },
     {
-        "translationid": "dish_76",
+        "translationid": "beverage_76",
         "en": "Black Coffee",
         "es": "Café solo",
         "de": "Schwarzer Kaffee",
@@ -1928,7 +1928,7 @@
         "ru": "Черный кофе"
     },
     {
-        "translationid": "dish_77",
+        "translationid": "beverage_77",
         "en": "Fresh orange juice",
         "es": "Zumo de naranja natural",
         "de": "Frischer Orangensaft",
@@ -1936,7 +1936,7 @@
         "ru": "Свежевыжатый апельсиновый сок"
     },
     {
-        "translationid": "dish_78",
+        "translationid": "beverage_78",
         "en": "Coca-cola, Fanta, bottle juice",
         "es": "Coca-cola, Fanta, zumo de botella",
         "de": "Coca-Cola, Fanta, Flaschensaft",
@@ -1944,7 +1944,7 @@
         "ru": "Кока-кола, Фанта, сок в бутылках"
     },
     {
-        "translationid": "dish_79",
+        "translationid": "beverage_79",
         "en": "Mineral water",
         "es": "Agua mineral",
         "de": "Mineralwasser",
@@ -2257,5 +2257,17 @@
         "en": "average price",
         "es": "recibo promedio",
         "ru": "средний чек"
+    },
+    {
+        "translationid": "drinks_with_alcohol",
+        "en": "Alcohol beverages",
+        "es": "Bebidas alcohólicas",
+        "ru": "Алкогольные напитки"
+    },
+    {
+        "translationid": "drinks_no_alcohol",
+        "en": "Beverages",
+        "es": "Bebidas sin alcohól",
+        "ru": "Напитки"
     }
 ]

@@ -455,7 +455,7 @@
         "dishtitleru": "Шоколадный брауни с мороженным"
     },
     {
-        "dishid": 29,
+        "dishid": 28,
         "dishprice": 6,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3700,
@@ -471,7 +471,7 @@
         "dishtitleru": "Лимонный сорбет с шампанским"
     },
     {
-        "dishid": 30,
+        "dishid": 29,
         "dishprice": 5.5,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3700,
@@ -488,7 +488,7 @@
         "dishtitleru": "Шоколадный мусс"
     },
     {
-        "dishid": 32,
+        "dishid": 30,
         "dishprice": 5.5,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3700,
@@ -505,7 +505,7 @@
         "dishtitleru": "Тирамису"
     },
     {
-        "dishid": 53,
+        "dishid": 31,
         "dishprice": 5,
         "dishcategoryid": "children",
         "dishrestaurtantid": 3700,
@@ -522,7 +522,7 @@
         "dishtitleru": "Пицца Маргарита"
     },
     {
-        "dishid": 54,
+        "dishid": 32,
         "dishprice": 6,
         "dishcategoryid": "children",
         "dishrestaurtantid": 3700,
@@ -539,7 +539,7 @@
         "dishtitleru": "Сосиски с картофельным пюре"
     },
     {
-        "dishid": 55,
+        "dishid": 33,
         "dishprice": 7.5,
         "dishcategoryid": "children",
         "dishrestaurtantid": 3700,
@@ -556,7 +556,7 @@
         "dishtitleru": "Паста с томатами"
     },
     {
-        "dishid": 56,
+        "dishid": 34,
         "dishprice": 6.5,
         "dishcategoryid": "children",
         "dishrestaurtantid": 3700,
@@ -573,7 +573,7 @@
         "dishtitleru": "Пицца Барбекю"
     },
     {
-        "dishid": 57,
+        "dishid": 35,
         "dishprice": 7,
         "dishcategoryid": "children",
         "dishrestaurtantid": 3700,
@@ -590,7 +590,7 @@
         "dishtitleru": "Куринные наггетсы с картофелем фри"
     },
     {
-        "dishid": 58,
+        "dishid": 36,
         "dishcategoryid": "daily_menu_app",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -606,7 +606,7 @@
         "dishtitleru": "Тыквенный суп с карри"
     },
     {
-        "dishid": 59,
+        "dishid": 37,
         "dishcategoryid": "daily_menu_app",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -622,7 +622,7 @@
         "dishtitleru": "Хамон из утиной грудки с персиком и карамелизированными орехами"
     },
     {
-        "dishid": 60,
+        "dishid": 38,
         "dishcategoryid": "daily_menu_app",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -638,7 +638,7 @@
         "dishtitleru": "Тартар из свежего лосося с авокадо"
     },
     {
-        "dishid": 61,
+        "dishid": 39,
         "dishcategoryid": "daily_menu_app",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -654,7 +654,7 @@
         "dishtitleru": "Жареные креветки"
     },
     {
-        "dishid": 62,
+        "dishid": 40,
         "dishcategoryid": "daily_menu_main_dish",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -670,7 +670,7 @@
         "dishtitleru": "Треска с картофельным пюре, тыквенным кремом и беконом"
     },
     {
-        "dishid": 63,
+        "dishid": 41,
         "dishcategoryid": "daily_menu_main_dish",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -685,7 +685,7 @@
         "dishtitleru": "Говяжий стейк «Rossini» с фуа-гра и фруктово-винным соусом"
     },
     {
-        "dishid": 64,
+        "dishid": 42,
         "dishcategoryid": "daily_menu_dessert",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -701,7 +701,7 @@
         "dishtitleru": "Тирамису"
     },
     {
-        "dishid": 65,
+        "dishid": 43,
         "dishcategoryid": "daily_menu_dessert",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
@@ -717,13 +717,13 @@
         "dishtitleru": "Шоколадный мусс"
     },
     {
-        "dishid": 67,
+        "dishid": 44,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id85.jpg",
-        "translationid": "dish_67",
+        "translationid": "beverage_67",
         "en": "Homemade red wine/glass",
         "es": "Vino tinto de casa/ copa",
         "de": "Hausgemachter Rotweinglas",
@@ -731,13 +731,13 @@
         "dishtitleru": "Красное домашние вино/ бокал"
     },
     {
-        "dishid": 68,
+        "dishid": 45,
         "dishprice": 12.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id86.jpg",
-        "translationid": "dish_68",
+        "translationid": "beverage_68",
         "en": "Spanish red wine Rioja/ bottle",
         "es": "Vino tinto Rioja / botella",
         "de": "Spanischer Rotwein Rioja / Flasche",
@@ -745,13 +745,13 @@
         "dishtitleru": "Испанское красное вино Rioja/ бутылка"
     },
     {
-        "dishid": 69,
+        "dishid": 46,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id85.jpg",
-        "translationid": "dish_69",
+        "translationid": "beverage_69",
         "en": "Homemade white wine/glass",
         "es": "Vino blanco de casa/ copa",
         "de": "Hausgemachter Weißwein / Glas",
@@ -759,13 +759,13 @@
         "dishtitleru": "Белое домашние вино/ бокал"
     },
     {
-        "dishid": 70,
+        "dishid": 47,
         "dishprice": 12.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id86.jpg",
-        "translationid": "dish_70",
+        "translationid": "beverage_70",
         "en": "Spanish white wine Verdejo/ bottle",
         "es": "Vino blanco Verdejo/ botella",
         "de": "Spanischer Weißwein Verdejo / Flasche",
@@ -773,13 +773,13 @@
         "dishtitleru": "Испанское белое вино Verdejo/ бутылка"
     },
     {
-        "dishid": 71,
+        "dishid": 48,
         "dishprice": 2,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id84.jpg",
-        "translationid": "dish_71",
+        "translationid": "beverage_71",
         "en": "Beer Estrella Galicia/ bottle",
         "es": "Cerveza Estrella Galicia/ botella",
         "de": "Bier Estrella Galizien / Flasche",
@@ -787,13 +787,13 @@
         "dishtitleru": "Испанское пиво Estrella Galicia/ бутылка"
     },
     {
-        "dishid": 72,
+        "dishid": 49,
         "dishprice": 2,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id87.jpg",
-        "translationid": "dish_72",
+        "translationid": "beverage_72",
         "en": "German beer Erdinger/ bottle",
         "es": "Cerveza alemana Erdinger/ botella",
         "de": "Deutsches Bier Erdinger / Flasche",
@@ -801,13 +801,13 @@
         "dishtitleru": "Немецкое пиво Erdinger/ бутылка"
     },
     {
-        "dishid": 73,
+        "dishid": 50,
         "dishprice": 2,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id88.jpg",
-        "translationid": "dish_73",
+        "translationid": "beverage_73",
         "en": "Heineken beer/ bottle",
         "es": "Cerveza Heineken/ botella",
         "de": "Heineken Bier / Flasche",
@@ -815,13 +815,13 @@
         "dishtitleru": "Пиво Heineken/ бутылка"
     },
     {
-        "dishid": 74,
+        "dishid": 51,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id89.jpg",
-        "translationid": "dish_74",
+        "translationid": "beverage_74",
         "en": "Tea: black, green, fruit, flower",
         "es": "Te: negro, verde, manzanilla, frutas",
         "de": "Tee: schwarz, grün, Obst, Blume",
@@ -829,13 +829,13 @@
         "dishtitleru": "Чай: черный, зеленый, фруктовый, цветочный"
     },
     {
-        "dishid": 75,
+        "dishid": 52,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id90.jpg",
-        "translationid": "dish_75",
+        "translationid": "beverage_75",
         "en": "Cappuccino",
         "es": "Capuchino",
         "de": "Cappuccino",
@@ -843,13 +843,13 @@
         "dishtitleru": "Капучино"
     },
     {
-        "dishid": 76,
+        "dishid": 53,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id91.jpg",
-        "translationid": "dish_76",
+        "translationid": "beverage_76",
         "en": "Black Coffee",
         "es": "Café solo",
         "de": "Schwarzer Kaffee",
@@ -857,13 +857,13 @@
         "dishtitleru": "Черный кофе"
     },
     {
-        "dishid": 77,
+        "dishid": 54,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id92.jpg",
-        "translationid": "dish_77",
+        "translationid": "beverage_77",
         "en": "Fresh orange juice",
         "es": "Zumo de naranja natural",
         "de": "Frischer Orangensaft",
@@ -871,13 +871,13 @@
         "dishtitleru": "Свежевыжатый апельсиновый сок"
     },
     {
-        "dishid": 78,
+        "dishid": 55,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id93.jpg",
-        "translationid": "dish_78",
+        "translationid": "beverage_78",
         "en": "Coca-cola, Fanta, bottle juice",
         "es": "Coca-cola, Fanta, zumo de botella",
         "de": "Coca-Cola, Fanta, Flaschensaft",
@@ -885,13 +885,13 @@
         "dishtitleru": "Кока-кола, Фанта, сок в бутылках"
     },
     {
-        "dishid": 79,
+        "dishid": 56,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id94.jpg",
-        "translationid": "dish_79",
+        "translationid": "beverage_79",
         "en": "Mineral water",
         "es": "Agua mineral",
         "de": "Mineralwasser",
@@ -899,7 +899,7 @@
         "dishtitleru": "Минеральная вода"
     },
     {
-        "dishid": 66,
+        "dishid": 57,
         "dishprice": 6.6,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -914,7 +914,7 @@
         "dishtitleru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем"
     },
     {
-        "dishid": 67,
+        "dishid": 58,
         "dishprice": 7.2,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -929,7 +929,7 @@
         "dishtitleru": "Хе с мясом: острый корейский салат с маринованной говядиной и морковкой"
     },
     {
-        "dishid": 68,
+        "dishid": 59,
         "dishprice": 7.2,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -944,7 +944,7 @@
         "dishtitleru": "Хе с рыбой: острый корейский салат с маринованной белой рыбой, огурцом и луком"
     },
     {
-        "dishid": 69,
+        "dishid": 60,
         "dishprice": 7.1,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -959,7 +959,7 @@
         "dishtitleru": "Баклажаны с овощами и чесноком"
     },
     {
-        "dishid": 70,
+        "dishid": 61,
         "dishprice": 8.5,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -973,7 +973,7 @@
         "dishtitleru": "Ким Чи:  острая соленная капуста по- корейски"
     },
     {
-        "dishid": 71,
+        "dishid": 62,
         "dishprice": 4.4,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -987,7 +987,7 @@
         "dishtitleru": "Домашние маринованные помидоры в собственном соку"
     },
     {
-        "dishid": 72,
+        "dishid": 63,
         "dishprice": 6.5,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1002,7 +1002,7 @@
         "dishtitleru": "Кук Си: Корейская лапша с овощами и мясом говядины"
     },
     {
-        "dishid": 73,
+        "dishid": 64,
         "dishprice": 7.4,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1017,7 +1017,7 @@
         "dishtitleru": "Лагман: с подливом из мяса говядины и овощей"
     },
     {
-        "dishid": 74,
+        "dishid": 65,
         "dishprice": 5.7,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1032,7 +1032,7 @@
         "dishtitleru": "Пельмени c мясом"
     },
     {
-        "dishid": 75,
+        "dishid": 66,
         "dishprice": 4.2,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1047,7 +1047,7 @@
         "dishtitleru": "Вареники с картошкой"
     },
     {
-        "dishid": 76,
+        "dishid": 67,
         "dishprice": 6.9,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1062,7 +1062,7 @@
         "dishtitleru": "Куриные котлетки с картошкой или рисом"
     },
     {
-        "dishid": 77,
+        "dishid": 68,
         "dishprice": 8.2,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1077,7 +1077,7 @@
         "dishtitleru": "Гамбургер с куриной котлетой"
     },
     {
-        "dishid": 78,
+        "dishid": 69,
         "dishprice": 3.2,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1092,7 +1092,7 @@
         "dishtitleru": "Чебуреки с мясом говядины"
     },
     {
-        "dishid": 79,
+        "dishid": 70,
         "dishprice": 9.7,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1106,7 +1106,7 @@
         "dishtitleru": "Плов с бараниной"
     },
     {
-        "dishid": 80,
+        "dishid": 71,
         "dishprice": 8.5,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1120,7 +1120,7 @@
         "dishtitleru": "Шашлык из свинины"
     },
     {
-        "dishid": 81,
+        "dishid": 72,
         "dishprice": 14,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1134,7 +1134,7 @@
         "dishtitleru": "Шашлык из баранины"
     },
     {
-        "dishid": 82,
+        "dishid": 73,
         "dishprice": 20,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1148,7 +1148,7 @@
         "dishtitleru": "Микс шашлык (свинина и баранина) на 2"
     },
     {
-        "dishid": 83,
+        "dishid": 74,
         "dishprice": 7.2,
         "dishcategoryid": "soups",
         "dishrestaurtantid": 3701,
@@ -1162,7 +1162,7 @@
         "dishtitleru": "Острый корейский суп с картошкой и мясом говядины"
     },
     {
-        "dishid": 84,
+        "dishid": 75,
         "dishprice": 4,
         "dishcategoryid": "soups",
         "dishrestaurtantid": 3701,
@@ -1176,7 +1176,7 @@
         "dishtitleru": "Борщ из говядины"
     },
     {
-        "dishid": 85,
+        "dishid": 76,
         "dishprice": 4,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3701,
@@ -1191,7 +1191,7 @@
         "dishtitleru": "Ягодно-йогуртовое"
     },
     {
-        "dishid": 86,
+        "dishid": 77,
         "dishprice": 3.5,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3701,
@@ -1206,7 +1206,7 @@
         "dishtitleru": "Чак Чак: восточная сладость, обжаренные кусочки теста в медовом сиропе с грецким орехом"
     },
     {
-        "dishid": 87,
+        "dishid": 78,
         "dishprice": 4,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3701,
@@ -1221,7 +1221,7 @@
         "dishtitleru": "Торт Наполеон: торт из слоеного теста со сливочным кремом"
     },
     {
-        "dishid": 88,
+        "dishid": 79,
         "dishprice": 2.5,
         "dishcategoryid": "dessert",
         "dishrestaurtantid": 3701,
@@ -1236,7 +1236,7 @@
         "dishtitleru": "Морковный бисквит"
     },
     {
-        "dishid": 89,
+        "dishid": 80,
         "dishprice": 12,
         "dishcategoryid": "pre_order_plates",
         "dishrestaurtantid": 3701,
@@ -1251,7 +1251,7 @@
         "dishtitleru": "Манты: тесто фаршированное начинкой из баранины и тыквы"
     },
     {
-        "dishid": 90,
+        "dishid": 81,
         "dishprice": 55,
         "dishcategoryid": "pre_order_plates",
         "dishrestaurtantid": 3701,
@@ -1265,7 +1265,7 @@
         "dishtitleru": "Запеченная баранья нога"
     },
     {
-        "dishid": 91,
+        "dishid": 82,
         "dishprice": 27,
         "dishcategoryid": "cold_app",
         "dishrestaurtantid": 3701,
@@ -1278,7 +1278,7 @@
         "dishtitleru": "Домашние маринованные помидоры в собственном соку (стоимость за 1 кг)"
     },
     {
-        "dishid": 92,
+        "dishid": 83,
         "dishprice": 1.5,
         "dishcategoryid": "cold_app",
         "dishrestaurtantid": 3701,
@@ -1292,7 +1292,7 @@
         "dishtitleru": "Чебуреки с мясом говядины"
     },
     {
-        "dishid": 93,
+        "dishid": 84,
         "dishprice": 2,
         "dishcategoryid": "hot_app",
         "dishrestaurtantid": 3701,
@@ -1306,7 +1306,7 @@
         "dishtitleru": "Фаршированные блины с мясом говядины (стоимость за 1 шт)"
     },
     {
-        "dishid": 94,
+        "dishid": 85,
         "dishprice": 1.2,
         "dishcategoryid": "hot_app",
         "dishrestaurtantid": 3701,
@@ -1320,7 +1320,7 @@
         "dishtitleru": "Фаршированные блины с капустой (стоимость за 1 шт)"
     },
     {
-        "dishid": 95,
+        "dishid": 86,
         "dishprice": 0.8,
         "dishcategoryid": "hot_app",
         "dishrestaurtantid": 3701,
@@ -1334,7 +1334,7 @@
         "dishtitleru": "Блины (стоимость за 1 шт)"
     },
     {
-        "dishid": 96,
+        "dishid": 87,
         "dishprice": 15,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1348,7 +1348,7 @@
         "dishtitleru": "Острая морковка по- корейски (стоимость за 1кг)"
     },
     {
-        "dishid": 97,
+        "dishid": 88,
         "dishprice": 20,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1362,7 +1362,7 @@
         "dishtitleru": "Баклажаны с мясом говядины и чесноком (стоимость за 1кг)"
     },
     {
-        "dishid": 98,
+        "dishid": 89,
         "dishprice": 20,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1376,7 +1376,7 @@
         "dishtitleru": "Баклажаны с овощами и чесноком (стоимость за 1кг)"
     },
     {
-        "dishid": 99,
+        "dishid": 90,
         "dishprice": 25,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1390,7 +1390,7 @@
         "dishtitleru": "Оливье с мясом (стоимость за 1кг)"
     },
     {
-        "dishid": 100,
+        "dishid": 91,
         "dishprice": 25,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1404,7 +1404,7 @@
         "dishtitleru": "Острый корейский салат с говядиной, свежими огурцами и красным перцем (стоимость за 1кг)"
     },
     {
-        "dishid": 101,
+        "dishid": 92,
         "dishprice": 18,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1417,7 +1417,7 @@
         "dishtitleru": "Кам ди ча: азиатский салат из полусырого картофеля маринованного в соевом соусе со специями (стоимость за 1кг)"
     },
     {
-        "dishid": 102,
+        "dishid": 93,
         "dishprice": 25,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1431,7 +1431,7 @@
         "dishtitleru": "Салат из фунчозы с мясом говядины и овощами (стоимость за 1кг)"
     },
     {
-        "dishid": 103,
+        "dishid": 94,
         "dishprice": 25,
         "dishcategoryid": "salads",
         "dishrestaurtantid": 3701,
@@ -1444,7 +1444,7 @@
         "dishtitleru": "Хе с мясом или рыбой: острый корейский салат с морковью и маринованным мясом говядины или белой рыбой, на ваш выбор (стоимость за 1кг)"
     },
     {
-        "dishid": 104,
+        "dishid": 95,
         "dishprice": 22,
         "dishcategoryid": "soups",
         "dishrestaurtantid": 3701,
@@ -1457,7 +1457,7 @@
         "dishtitleru": "Острый корейский суп с картошкой и мясом говядины (стоимость за 1 литр)"
     },
     {
-        "dishid": 105,
+        "dishid": 96,
         "dishprice": 20,
         "dishcategoryid": "soups",
         "dishrestaurtantid": 3701,
@@ -1470,7 +1470,7 @@
         "dishtitleru": "Борщ из говядины (стоимость за 1 литр)"
     },
     {
-        "dishid": 106,
+        "dishid": 97,
         "dishprice": 30,
         "dishcategoryid": "soups",
         "dishrestaurtantid": 3701,
@@ -1484,7 +1484,7 @@
         "dishtitleru": "Острый азиатский суп с рыбой и морепродуктами (стоимость за 1 литр)"
     },
     {
-        "dishid": 107,
+        "dishid": 98,
         "dishprice": 20,
         "dishcategoryid": "soups",
         "dishrestaurtantid": 3701,
@@ -1498,7 +1498,7 @@
         "dishtitleru": "Окрошка на квасе с колбасой (стоимость за 1 литр)"
     },
     {
-        "dishid": 108,
+        "dishid": 99,
         "dishprice": 25,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1512,7 +1512,7 @@
         "dishtitleru": "Пельмени c мясом (стоимость за 1кг)"
     },
     {
-        "dishid": 109,
+        "dishid": 100,
         "dishprice": 18,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1526,7 +1526,7 @@
         "dishtitleru": "Вареники с картошкой (стоимость за 1кг)"
     },
     {
-        "dishid": 110,
+        "dishid": 101,
         "dishprice": 2,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1539,7 +1539,7 @@
         "dishtitleru": "Манты: тесто фаршированное начинкой из баранины и тыквы (стоимость за 1 шт)"
     },
     {
-        "dishid": 111,
+        "dishid": 102,
         "dishprice": 30,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1553,7 +1553,7 @@
         "dishtitleru": "Плов с бараниной (стоимость за 1 кг)"
     },
     {
-        "dishid": 112,
+        "dishid": 103,
         "dishprice": 7.4,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1566,7 +1566,7 @@
         "dishtitleru": "Лагман: среднеазиатская лапша с подливом из мяса говядины и овощей (стоимость за 1 порцию)"
     },
     {
-        "dishid": 113,
+        "dishid": 104,
         "dishprice": 11.3,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1580,7 +1580,7 @@
         "dishtitleru": "Кук Си: Корейская лапша с овощами и мясом говядины (стоимость за 1 порцию)"
     },
     {
-        "dishid": 114,
+        "dishid": 105,
         "dishprice": 3,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1593,7 +1593,7 @@
         "dishtitleru": "Куриные котлетки"
     },
     {
-        "dishid": 115,
+        "dishid": 106,
         "dishprice": 25,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1606,7 +1606,7 @@
         "dishtitleru": "Запеченная свинина (стоимость за 1 кг)"
     },
     {
-        "dishid": 116,
+        "dishid": 107,
         "dishprice": 48,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1619,7 +1619,7 @@
         "dishtitleru": "Запеченная баранья нога (стоимость за ногу)"
     },
     {
-        "dishid": 117,
+        "dishid": 108,
         "dishprice": 14,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1632,7 +1632,7 @@
         "dishtitleru": "Жареный рис с овощами и пряностями (Стоимость за 1 кг)"
     },
     {
-        "dishid": 118,
+        "dishid": 109,
         "dishprice": 3.5,
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
@@ -1645,7 +1645,7 @@
         "dishtitleru": "Фаршированные перцы с мясом говядины и рисом (стоимость за 1 шт)"
     },
     {
-        "dishid": 119,
+        "dishid": 110,
         "dishprice": 10,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1658,7 +1658,7 @@
         "dishtitleru": "Картофельное пюре (стоимость за 1кг)"
     },
     {
-        "dishid": 120,
+        "dishid": 111,
         "dishprice": 12,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1671,7 +1671,7 @@
         "dishtitleru": "Жаренная картошка (стоимость за 1кг)"
     },
     {
-        "dishid": 121,
+        "dishid": 112,
         "dishprice": 10,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1684,7 +1684,7 @@
         "dishtitleru": "Рис  (стоимость за 1кг)"
     },
     {
-        "dishid": 122,
+        "dishid": 113,
         "dishprice": 12,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1697,7 +1697,7 @@
         "dishtitleru": "Овощи на гриле (стоимость за 1 кг)"
     },
     {
-        "dishid": 123,
+        "dishid": 114,
         "dishprice": 4,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1711,7 +1711,7 @@
         "dishtitleru": "Йогуртово-ягодное пирожное (стоимость за 1 порцию)"
     },
     {
-        "dishid": 124,
+        "dishid": 115,
         "dishprice": 25,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1725,7 +1725,7 @@
         "dishtitleru": "Чак Чак: восточная сладость, обжаренные кусочки теста в медовом сиропе и с грецким орехом (стоимость за 1 кг)"
     },
     {
-        "dishid": 125,
+        "dishid": 116,
         "dishprice": 6,
         "dishcategoryid": "garnish",
         "dishrestaurtantid": 3701,
@@ -1739,7 +1739,7 @@
         "dishtitleru": "Медовый торт (стоимость за 1 порцию)"
     },
     {
-        "dishid": 126,
+        "dishid": 117,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1751,7 +1751,7 @@
         "dishtitleru": "Красное вино/ бокал"
     },
     {
-        "dishid": 127,
+        "dishid": 118,
         "dishprice": 11.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1763,7 +1763,7 @@
         "dishtitleru": "Красное вино/ бутылка"
     },
     {
-        "dishid": 128,
+        "dishid": 119,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1775,7 +1775,7 @@
         "dishtitleru": "Белое вино/ бокал"
     },
     {
-        "dishid": 129,
+        "dishid": 120,
         "dishprice": 11.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1787,7 +1787,7 @@
         "dishtitleru": "Белое вино/ бутылка"
     },
     {
-        "dishid": 130,
+        "dishid": 121,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3701,
@@ -1799,7 +1799,7 @@
         "dishtitleru": "Чай: черный, зеленый, фруктовый, цветочный"
     },
     {
-        "dishid": 131,
+        "dishid": 122,
         "dishprice": 2,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3701,
@@ -1811,7 +1811,7 @@
         "dishtitleru": "Капучино"
     },
     {
-        "dishid": 132,
+        "dishid": 123,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3701,
@@ -1823,7 +1823,7 @@
         "dishtitleru": "Черный кофе"
     },
     {
-        "dishid": 133,
+        "dishid": 124,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3701,
@@ -1835,7 +1835,7 @@
         "dishtitleru": "Свежевыжатый апельсиновый сок"
     },
     {
-        "dishid": 134,
+        "dishid": 125,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3701,
@@ -1847,7 +1847,7 @@
         "dishtitleru": "Кока-кола, Фанта, сок в бутылках"
     },
     {
-        "dishid": 135,
+        "dishid": 126,
         "dishprice": 1.5,
         "dishcategoryid": "drinks_no_alcohol",
         "dishrestaurtantid": 3701,
@@ -1859,7 +1859,7 @@
         "dishtitleru": "Минеральная вода"
     },
     {
-        "dishid": 136,
+        "dishid": 127,
         "dishprice": 2,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1871,7 +1871,7 @@
         "dishtitleru": "Испанское пиво Estrella Galicia/ бутылка"
     },
     {
-        "dishid": 137,
+        "dishid": 128,
         "dishprice": 2.5,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1883,7 +1883,7 @@
         "dishtitleru": "Немецкое пиво Erdinger/ бутылка"
     },
     {
-        "dishid": 138,
+        "dishid": 129,
         "dishprice": 2,
         "dishcategoryid": "drinks_with_alcohol",
         "dishrestaurtantid": 3701,
@@ -1895,7 +1895,7 @@
         "dishtitleru": "Пиво Heineken/ бутылка"
     },
     {
-        "dishid": 139,
+        "dishid": 130,
         "dishprice": "10=appetizers 24|5|8|61;main_courses 13|18;desserts 32|30",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2

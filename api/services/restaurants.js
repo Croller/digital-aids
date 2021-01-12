@@ -85,6 +85,7 @@ class RestService extends baseService{
 
                
             } catch(e){
+                console.log(e);
                 console.error("Error fetching single restaurant: ", e.message )
                 this.Error("Database error")
                 return false;
@@ -334,8 +335,10 @@ class RestService extends baseService{
 
                         // const title = _t(dish.translationid, 1)
                         // const default_title = _t(dish.translationid)
-                        const title         = await translationService.translateOne(dish.translationid, lang)
-                        const default_title = await translationService.translateOne(dish.translationid, default_lang)
+                        
+                        // check for translationid is needed for not to get error on json parse
+                        const title         = dish.translationid ? await translationService.translateOne(dish.translationid, lang) : null
+                        const default_title = dish.translationid ? await translationService.translateOne(dish.translationid, default_lang) : null 
                         const pricefor      = dish.pricefor ?
                             await translationService.translateOne(dish.pricefor, default_lang)
                             : null;
@@ -360,6 +363,7 @@ class RestService extends baseService{
                             amountText = `${amount}${unitsTranslation}`;
                         }
                         
+                        console.debug(">", dishid, dishcategoryid );
                         // add dish data to items, mix in the translations
                         items = [...items, 
                             {
@@ -382,6 +386,7 @@ class RestService extends baseService{
                 }  
 
                 const uniqueCategories = items.reduce( (cats, item) => {
+                    console.debug(item.dishid, item.dishcategoryid, cats.includes(item.dishcategoryid) );
                     if( !cats.includes(item.dishcategoryid) )
                         return [...cats, item.dishcategoryid ]
                     else
@@ -393,18 +398,22 @@ class RestService extends baseService{
                 iii = 0;
                 while( iii < uniqueCategories.length ){
                     const c = uniqueCategories[iii];
+                    
+                    // for the time being, skip empty categories.
+                    if( c ){
+                        // const title = _t(c, 1)
+                        // const titledefault = _t(c)
+                        const title         = c ? await translationService.translateOne(c, lang) : ""
+                        const titledefault  = c ? await translationService.translateOne(c, default_lang) : ""
+    
+                        categories = [...categories,
+                            {
+                                id: c || "", 
+                                title, titledefault
+                            }
+                        ]
+                    }
 
-                    // const title = _t(c, 1)
-                    // const titledefault = _t(c)
-                    const title         = c ? await translationService.translateOne(c, lang) : ""
-                    const titledefault  = c ? await translationService.translateOne(c, default_lang) : ""
-
-                    categories = [...categories,
-                        {
-                            id: c || "", 
-                            title, titledefault
-                        }
-                    ]
                     iii += 1
                 }
                 console.debug("Packed categories:", categories)

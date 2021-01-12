@@ -93,6 +93,7 @@ class Reglament extends DefaultComponent {
             [
                 "reglament_text_1", 
                 "reglament_text_2",
+                "reglament_text_3",
                 "reglament_1169"
             ]  
         )
@@ -166,6 +167,7 @@ class Reglament extends DefaultComponent {
 
                 <div className="reglament-text">
                     <p>{_t("reglament_text_2")}</p>
+                    <p>{_t("reglament_text_3")}</p>
                 </div>
                 
                 <Social {...{...restaurant}} />
