@@ -47,19 +47,20 @@ class RestService extends baseService{
                     // populate cuisines list
                     const {cuisines, defaultlanguage  = lang, photos } = rest
                     // console.log( "cuisines:", cuisines)
-
+                    // console.debug("cuisines", "check")
                     rest.cuisines = cuisines.split(",").map ( 
                         c => {
-
+                            
                             const cuisine = cuisines_list.find( c1=> c1.cuisineid === c )
                             return cuisine[lang] || cuisine[defaultLang]
                         }) 
-                    
-
+                        
+                        
                     rest.languages = await translationService.languagesByRestaurant(slug)
+                    // console.debug("languages", "check")
 
                     rest.tags = await tagService.getAll( slug, lang, defaultlanguage );
-                    
+                    // console.debug("tags", "check")
                     // const menus = await this.getRestaurantMenus(
                     const menus = await this.getRestaurantMenusAsync(
                         rest.id, 
@@ -67,8 +68,11 @@ class RestService extends baseService{
                         lang, defaultlanguage
                     );
 
+                    // console.debug("menus", "check")
+
                     const insiders = await this.getRestaurantInsiders(rest.id);
-                    
+                    // console.debug("insiders", "check")
+
                     rest = {
                         ...rest, 
                         menus,  
@@ -275,9 +279,9 @@ class RestService extends baseService{
 
         // fetch only ids of allergns 
         let allergens = await tagService.getAll()
-        console.debug("allergen:", allergens);
+        // console.debug("allergen:", allergens);
         allergens = Array.isArray(allergens) ? allergens.map( t => t.id) : []
-        console.debug("allergen:", allergens);
+        // console.debug("allergen:", allergens);
 
 
         // Select menus that are currently active
@@ -392,18 +396,18 @@ class RestService extends baseService{
 
                     // const title = _t(c, 1)
                     // const titledefault = _t(c)
-                    const title         = await translationService.translateOne(c, lang)
-                    const titledefault  = await translationService.translateOne(c, default_lang)
+                    const title         = c ? await translationService.translateOne(c, lang) : ""
+                    const titledefault  = c ? await translationService.translateOne(c, default_lang) : ""
 
                     categories = [...categories,
                         {
-                            id: c, 
+                            id: c || "", 
                             title, titledefault
                         }
                     ]
-                    console.debug("Packed categories:", categories)
                     iii += 1
                 }
+                console.debug("Packed categories:", categories)
                 
                
                 // add the whole shebang to the menus array
