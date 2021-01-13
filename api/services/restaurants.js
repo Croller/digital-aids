@@ -70,7 +70,23 @@ class RestService extends baseService{
 
                     // console.debug("menus", "check")
 
-                    const insiders = await this.getRestaurantInsiders(rest.id);
+                    let insiders = await this.getRestaurantInsiders(rest.id);
+
+                    // populate insiders with dishes
+                    insiders = insiders.map( i => {
+                        let dish
+                        let m_ind = 0
+                        // search all the menus till the dish is found 
+                        // (to get the already translated dish)
+                        while( !dish && m_ind < menus.length  ){
+                            const current_menu = menus[m_ind]
+                            dish = current_menu && current_menu.items ? 
+                                current_menu.items.find( d => d.dishid === i.dishid ) : null
+                            m_ind ++ 
+                        }
+                        return {...i, dish }
+                    })
+
                     // console.debug("insiders", "check")
 
                     rest = {

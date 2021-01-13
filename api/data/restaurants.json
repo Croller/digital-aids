@@ -6,7 +6,7 @@
         "image": "logo.png",
         "photos": "01.jpg,02.jpg,03.jpg,04.jpg,05.jpg",
         "averageprice": 25,
-        "cuisines": "inter,medi,euro",
+        "cuisines": "medi,fusion",
         "defaulttemplate": "images",
         "languages": "en,de,no,es,ru",
         "defaultlanguage": "es",
@@ -20,9 +20,6 @@
         "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html",
         "tripadvisorrating": 3,
         "tripadvisorcomments": 74,
-        "thefork": "#!",
-        "theforkrating": 9.4,
-        "theforkcomments": 84,
         "lat": 37.9764644942575,
         "lng": -0.787014502283371
     },
@@ -33,7 +30,7 @@
         "image": "logo-galacafe.jpg",
         "photos": "01.jpg,02.jpg",
         "averageprice": 25,
-        "cuisines": "korean,asian",
+        "cuisines": "russian, korean,asian",
         "defaulttemplate": "text",
         "languages": "en,de,fr,es,ru",
         "defaultlanguage": "ru",
@@ -44,9 +41,6 @@
         "facebook": "https://www.facebook.com/galacafe.restaurant",
         "tripadvisor": "https://www.tripadvisor.ru/Restaurant_Review-g609043-d8684373-Reviews-Galacafe-Denia_Costa_Blanca_Province_of_Alicante_Valencian_Country.html",
         "tripadvisorcomments": 67,
-        "thefork": "#!",
-        "theforkrating": 8.4,
-        "theforkcomments": 63,
         "lat": 38.836347565087,
         "lng": 0.117865111235874
     }
