@@ -78,6 +78,19 @@
                     justify-content: space-between;
                 }
 
+                .share {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 22px;
+                    height: 22px;
+                    background: rgba(255,255,255,0.2);
+                    border-radius: 50%;
+                    position: absolute;
+                    right: 0;
+                    top: -104px;
+                }
+
                 @media screen and (min-width: $bp_3){
                     margin-top: 495px;
                 }

@@ -87,7 +87,9 @@ class MenuBody extends React.Component {
                                 category: cat,
                                 prevCategory, nextCategory,
                                 language,
-                                socialMessage
+                                socialMessage,
+                                categories: menu.categories,
+                                catIndex
                             }}
                         />
                     </div>

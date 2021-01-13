@@ -16,13 +16,14 @@ import {
 import {Link} from 'react-router-dom'
 // import Service from '../../../services/restaurants'
 // import TagsService from '../../../services/tags'
-import A from '../../../redux/actionTypes'
-import {connect} from 'react-redux'
+// import A from '../../../redux/actionTypes'
+// import {connect} from 'react-redux'
 import Spinner from '../../template/common/Spinner'
 // import TopBar from '../topbar'
 import ErrorPage from '../../template/common/error-loading'
 // import Footer from '../../template/footer'
 import CSSCarousel from '../../template/common/css-carousel'
+import DefaultComponent, {connect} from '../../DefaultComponent'
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
 
@@ -37,10 +38,19 @@ const txt = {
 
 const _t = key => txt[key] || key
 
-class Insider extends React.Component{
+// class Insider extends React.Component{
+class Insider extends DefaultComponent{
 
 
     _Carousel = React.createRef();
+
+    constructor(props){
+        super(props);
+
+        this.setTranslations([
+            "Total"
+        ])
+    }
 
     // componentDidMount(){
        
@@ -81,7 +91,9 @@ class Insider extends React.Component{
     render(){
 
         
-        let {language, restaurant, prevPage } = this.props
+        let {language, restaurant, prevPage, translations } = this.props
+
+
 
         const {slug} = this.props //.computedMatch.params
         prevPage = prevPage || `/${slug}`
@@ -97,13 +109,14 @@ class Insider extends React.Component{
         console.debug("insider restaurant:", restaurant)
 
     
+        // tranlsate
+        const _t = key => this._tr(key, language, translations )
         
-        
-        if( !language){
-            // redirect to language selector
-            // return <Redirect to={`/${slug}/language`} />
-            // this.props.setOverlay({overlay:"language", slug})
-        }
+        // if( !language){
+        //     // redirect to language selector
+        //     // return <Redirect to={`/${slug}/language`} />
+        //     // this.props.setOverlay({overlay:"language", slug})
+        // }
 
         return(
             restaurant ?
@@ -123,7 +136,7 @@ class Insider extends React.Component{
                     >
                         {insiders.map( (insider, ind) => {
                             console.debug("insider item:", insider);
-                            const {insiderid, text, imagetext, image, dishid, price } = insider;
+                            const {insiderid, text, imagetext, image, dish, price } = insider;
 
                             return <div className="insider-item" key={`insider-${insiderid}`}>
                                 <Grid container>
@@ -147,6 +160,12 @@ class Insider extends React.Component{
                                                     <p>
                                                         {text}
                                                     </p>
+                                                    { dish && 
+                                                        <div className="price-block">
+                                                            <span>{_t("Total")}:</span>
+                                                            <span>{dish.dishprice}&euro;</span>
+                                                        </div>
+                                                    }
                                                 </div>
                                                 <span onClick={this.nextSlide} className="arrow right"><ChevronRight/></span>
                                             </div>
@@ -182,10 +201,12 @@ class Insider extends React.Component{
     }
 }
 
-export default connect(
-    state => state.app,
-    dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
-    })
-)(Insider)
+export default connect(Insider)
+
+// export default connect(
+//     state => state.app,
+//     dispatch => ({
+//         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+//         setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+//     })
+// )(Insider)

@@ -55,6 +55,7 @@ const Allergens = props => {
                                 )}
                             </ul>}
                             <p>{_t("reglament_text_2")}</p>
+                            <p>{_t("reglament_text_3")}</p>
                     </DialogContent>
                 </>
             }

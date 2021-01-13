@@ -20,6 +20,7 @@ import Social from '../restaurant/social'
 import CartList from './cart-list'
 import { Link } from 'react-router-dom'
 import {updateScroll} from '../../utils/functions'
+import { Close } from '@material-ui/icons'
 
 
 let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
@@ -182,6 +183,7 @@ class Cart extends React.Component{
                     onClose={closeDialog}  
                     className="dialog" 
                 >
+                    <Close className="close-button" onClick={closeDialog} />
                     <DialogContent className="text">
                         { _tt('WantToClearEntireOrder')}
                     </DialogContent>

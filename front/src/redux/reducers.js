@@ -82,6 +82,10 @@ export default function root( state = initialState, action ) {
             newState = {...newState, language: payload  }
             break;
         
+        case A.SET_LANGUAGE_SELECTED:
+            newState = {...newState, languageSelected: true  }
+            break;
+        
         case A.CLEAR_CART:
             console.debug("clearing cart for" , payload  )
             restaurant = getRestaurant( newState, payload)

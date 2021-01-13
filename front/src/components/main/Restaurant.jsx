@@ -102,7 +102,8 @@ class Restaurant extends React.Component{
         
         const {overlay} = restState;
         
-        let showSearch = overlay || page ? false : true;
+        // let showSearch = overlay || page ? false : true;
+        let showSearch = false // removing the search altogether
         
         const showHamburger = [
             "cart",

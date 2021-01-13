@@ -22,6 +22,7 @@ class Menu extends DefaultComponent{
             "YourOpinionIs", 
             "PriceFor",
             "reglament_text_2",
+            "reglament_text_3",
             "ThankYou"
         ], () => this.setState({translationLoaded: true})
         )

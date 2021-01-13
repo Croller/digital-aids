@@ -113,20 +113,20 @@ class RestMenuItem extends React.Component{
                                     </div>
                                 }
 
-                                <div className="flex row justify-between mt-1 align-items-end">
+                                <div className="flex row justify-between mt-2 align-items-end">
                                     <div>
                                         { tags && tags.length > 0 && 
-                                            <Badge
-                                            badgeContent={tags.length}
-                                            color="secondary"
-                                            >
+                                            // <Badge
+                                            // badgeContent={tags.length}
+                                            // color="secondary"
+                                            // >
 
                                                 <Button 
                                                     onClick={()=> this.setState({showDialog: true })}
                                                     className="allergens-button"
                                                     variant="contained"
                                                 >{_tt("Allergens")}</Button>
-                                            </Badge>
+                                            // </Badge>
                                         }
                                     </div>
                                     {/* { Array.isArray(tags) && <div className="tags">

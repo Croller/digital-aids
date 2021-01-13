@@ -49,6 +49,7 @@ class LanguageSelector extends React.Component{
         lang(language)  
         this.setState({selected: true})      
         this.props.setOverlay({overlay: null, slug: this.props.slug})
+        this.props.langSelected();
     }
 
     render(){
@@ -88,6 +89,7 @@ export default connect(
     state => ({...state.app}),
     dispatch => ({
         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+        langSelected: () => dispatch( {type: A.SET_LANGUAGE_SELECTED}),
         setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
     })
 )(LanguageSelector)

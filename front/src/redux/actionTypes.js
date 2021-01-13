@@ -1,5 +1,6 @@
 const ActionTypes = {
     SET_LANGUAGE: "LANG",
+    SET_LANGUAGE_SELECTED: "LANGSELECTED",
     
     ADD_TO_CART: "ADD",
     DELETE_FROM_CART: "DELETE",

@@ -26,7 +26,8 @@ import {
     Clock as Time,
     Tag,
     MapMarker as Location,
-    TripadvisorRatingCheck, TripadvisorRatingEmpty
+    TripadvisorRatingCheck, TripadvisorRatingEmpty,
+    External
 } from '../../template/common/icons'
 import GoogleMaps from "simple-react-google-maps/lib/index-updated";  
 import DefaultComponent, {connect} from '../../DefaultComponent'
@@ -152,6 +153,23 @@ class RestaurantDetails extends DefaultComponent {
                         <Container className="restaurant flex column flex-grow">
                             <h1 className="top-title">
                                 {restaurant.title}
+
+                                    <div className="share"
+                                        onClick={() => 
+
+                                            navigator.share && navigator.share({
+                                                title: restaurant.title,
+                                                url: window.location
+                                            }).then( () => {
+                                                console.log('Thanks for sharing!');
+                                            })
+                                            .catch(console.error)
+                                        
+                                        }
+                                    >
+                                        <External />
+                                    </div>
+                                
                                 <div className="arrows">
                                     <ChevronLeft className="arrow left"  onClick={ this.prevSlide }/>
                                     <ChevronRight className="arrow right" onClick={ this.nextSlide } />

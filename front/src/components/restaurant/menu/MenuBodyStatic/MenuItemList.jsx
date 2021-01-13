@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { updateScroll } from '../../../../utils/functions';
 import Social from '../../social';
+import CategoriesTop from './CategoriesTop';
 import './style.scss';
 
 // scroll top tracker
@@ -24,7 +25,8 @@ class MenuItemList extends React.Component{
             className,
             restaurant,
             language,
-            socialMessage
+            socialMessage,
+            categories, catIndex
         } = this.props;
 
         console.debug("MenuItemList: prevCat, nextCat:", prevCategory, nextCategory)
@@ -33,7 +35,13 @@ class MenuItemList extends React.Component{
 
         return(
             <div className="category-content disable-scrollbars">
-                <div className="category-header">
+                <CategoriesTop 
+                    categories={categories}
+                    currentIndex={catIndex}
+                    menu_id={menu_id}
+                    slug={slug}
+                />
+                {/* <div className="category-header">
                     { prevCategory && 
                     <Link to={`${baseRoot}${prevCategory.id}`} className="prev">
                         <span className="active">{prevCategory.title}</span>
@@ -50,7 +58,7 @@ class MenuItemList extends React.Component{
                         <span className="active">{nextCategory.title}</span>
                         {needSecondTranslation && <span className="active">{nextCategory.titledefault}</span>}
                     </Link>}
-                </div>
+                </div> */}
                 <div className="menu-items-list"
                     onScroll={({target}) => {
                         lastScrollTop = updateScroll(target, root, lastScrollTop )

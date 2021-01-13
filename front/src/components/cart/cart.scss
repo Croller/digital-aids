@@ -122,9 +122,24 @@
 }
 
 .dialog{
+    .MuiDialog-paper{
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+    
+    .close-button{
+        color: $gray;
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        height: 24px;
+        font-size: 24px;
+    }
     .text{
         font-size: 18px;
         font-weight: 600;
+        margin-bottom: 27px;
+        text-align: center;
     }
     button{
         min-width: 144px;
