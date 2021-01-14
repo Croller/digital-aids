@@ -48,7 +48,8 @@ class RestService extends baseService{
                     const {cuisines, defaultlanguage  = lang, photos } = rest
                     // console.log( "cuisines:", cuisines)
                     // console.debug("cuisines", "check")
-                    rest.cuisines = cuisines.split(",").map ( 
+                    // rest.cuisines = cuisines.split(",").map ( 
+                    rest.cuisines = cuisines.split(/[, ]+/).map ( 
                         c => {
                             
                             const cuisine = cuisines_list.find( c1=> c1.cuisineid === c )
@@ -92,7 +93,8 @@ class RestService extends baseService{
                     rest = {
                         ...rest, 
                         menus,  
-                        photos: photos? photos.split(",") : [] ,
+                        // photos: photos? photos.split(",") : [] ,
+                        photos: photos? photos.split(/[, ]+/) : [] ,
                         insiders
                     }
                 } 
@@ -392,7 +394,8 @@ class RestService extends baseService{
                             amount : amountText,
                             viewonly,
                             // tags: tags ? tags.split(",") : [],
-                            tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : [],
+                            // tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : [],
+                            tags: tags ? tags.split(/[, ]+/).filter( t => allergens.includes(t) ) : [],
                             title,
                             default_title
                             }
