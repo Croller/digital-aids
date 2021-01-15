@@ -378,6 +378,15 @@
         "ch": "1169/2011号规程（欧盟）"
     },
     {
+        "translationid": "takeAwayMenu_notification",
+        "en": "Minimum order is 250gr or 5 pieces. \nPlease, ask the waiter to make an order.",
+        "es": "El pedido mínimo es de 250 gr o 5 piezas. Por favor, pide al camarero confirmar su pedido.",
+        "de": "Die Mindestbestellmenge beträgt 250 gr oder 5 Stück. Bitte bitten Sie den Kellner/Kellnerin, Ihre Bestellung zu bestätigen.",
+        "fr": "La commande minimum est de 250 gr ou 5 pièces. Veuillez demander au serveur de confirmer votre commande.",
+        "no": "Minste bestillingsmengde er 250 gr eller 5 stykker. Be servitøren / servitøren om å bekrefte bestillingen din.",
+        "ru": "Минимальный заказ 250гр или 5шт. Пожалуйста, попросите официанта подтвердить Ваш заказ."
+    },
+    {
         "translationid": "reglament_text_1",
         "en": "Establishment with available information on food allergies and intolerances. ",
         "es": "Establecimiento con información disponible sobre ingredientes alérgenos e intolerancia alimentarias en los productos que elabora.",
@@ -402,7 +411,7 @@
         "no": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. \n\n",
         "jp": "この表は参考表であり、すべての食品にアレルゲンが100％含まれていないことを保証できません。",
         "ko": "이 표는 암시적이며 모든 제품에 100% 알레르겐이 없음을 보증할 수 없음을 알려드립니다. ",
-        "ru": "Мы напоминаем Вам, что данная информация является ориентировачной и не можем гарантировать на 100%, что используемые нами продукты не содержат пищивых ингредиентов. ",
+        "ru": "Мы напоминаем Вам, что данная информация является ориентировачной и не можем гарантировать на 100%, что используемые нами продукты не содержат пищивых аллергенов. ",
         "ch": "请注意这表格数据是大概的，我们不能保证产品中100%没有过敏原。"
     },
     {
@@ -546,8 +555,8 @@
     },
     {
         "translationid": "askToConfirm",
-        "en": "Ask the waiter to confirm your order",
-        "es": "Pide al camarero confirmar tu pedido",
+        "en": "Please, ask the waiter to confirm your order",
+        "es": "Por favor, pide al camarero confirmar el pedido",
         "el": "ζητήστε από τον σερβιτόρο να επιβεβαιώσει την παραγγελία σας.",
         "it": "Rivolgersi al cameriere per confermare il Suo ordine.",
         "de": "Bitten Sie die Kellnerin/den Kellner, Ihre Bestellung zu bestätigen.",
@@ -615,17 +624,17 @@
         "ch": "去掉"
     },
     {
-        "translationid": "No",
-        "en": "No",
-        "es": "No",
-        "el": "Οχι",
-        "it": "No",
-        "de": "Nein",
-        "fr": "Non",
-        "no": "Nei",
+        "translationid": "Do Not",
+        "en": "Do Not",
+        "es": "Guardar",
+        "el": "Μην διαγράψετε",
+        "it": "Non cancellare",
+        "de": "Nicht abbrechen",
+        "fr": "Ne pas annuler",
+        "no": "Ikke avbestill",
         "jp": "しない",
         "ko": "아니",
-        "ru": "Нет",
+        "ru": "Не удалять",
         "ch": "不"
     },
     {
@@ -1401,11 +1410,11 @@
     },
     {
         "translationid": "dish_7",
-        "en": "Carpaccio of Beef with black truffle oil and parmesan cheese",
-        "es": "Carpacho de ternera con trufa y parmesano",
-        "de": "Carpaccio vom Rind mit schwarzem Trüffelöl und Parmesan",
-        "no": "Okse carpaccio med trøffelolje og parmesan",
-        "ru": "Карпаччо из говядины с трюфелем и сыром пармезан"
+        "en": "Cod carpaccio with black truffle oil and parmesan cheese",
+        "es": "Carpacho de bacalao con trufa y parmesano",
+        "de": "Carpaccio vom Kabeljau mit schwarzem Trüffelöl und Parmesan",
+        "no": "Torsk carpaccio med trøffelolje og parmesan",
+        "ru": "Карпаччо из трески с трюфельно- оливковым маслом и сыром пармезан"
     },
     {
         "translationid": "dish_8",
@@ -1434,16 +1443,16 @@
     {
         "translationid": "dish_11",
         "en": "Meatballs with Tomato sauce or Mushroom sauce",
-        "es": "Albóndigas con salsa de tomate o setas con trufa",
+        "es": "Albóndigas con salsa de tomate o con salsa de setas ",
         "de": "Fleischbällchen mit Tomatensauce oder Pilzsauce",
         "no": "Kjøttboller med enten tomat eller sopp saus",
-        "ru": "Мясные фрикадельки с томатным или с трюфельно-грибным соусом"
+        "ru": "Мясные фрикадельки с томатным или с грибным соусом"
     },
     {
         "translationid": "dish_12",
-        "en": "Grilled and Caramelized Octopus with potato purée and chips",
+        "en": "Grilled and Caramelized Octopus with potato purée",
         "es": "Pulpo caramelizado con puré de patata",
-        "de": "Gegrillter und karamellisierter Tintenfisch mit Kartoffelpüree und Pommes",
+        "de": "Gegrillter und karamellisierter Tintenfisch mit Kartoffelpüree ",
         "no": "Grillet og karamellisert Blekksprut med potet pure",
         "ru": "Карамелизированный осьминог с картофельным пюре"
     },
@@ -1592,158 +1601,6 @@
         "ru": "Тирамису"
     },
     {
-        "translationid": "dish_34",
-        "en": "Grand Marinier",
-        "es": "Grand Marinier",
-        "de": "Grand Marinier",
-        "no": "Grand Marinier",
-        "ru": "Grand Marinier"
-    },
-    {
-        "translationid": "dish_35",
-        "en": "Baylies",
-        "es": "Baylies",
-        "de": "Baylies",
-        "no": "Baylies",
-        "ru": "Baylies"
-    },
-    {
-        "translationid": "dish_36",
-        "en": "Tia Maria",
-        "es": "Tia Maria",
-        "de": "Tia Maria",
-        "no": "Tia Maria",
-        "ru": "Tia Maria"
-    },
-    {
-        "translationid": "dish_37",
-        "en": "Licor 43",
-        "es": "Licor 43",
-        "de": "Licor 43",
-        "no": "Licor 43",
-        "ru": "Licor 43"
-    },
-    {
-        "translationid": "dish_38",
-        "en": "Drambuie",
-        "es": "Drambuie",
-        "de": "Drambuie",
-        "no": "Drambuie",
-        "ru": "Drambuie"
-    },
-    {
-        "translationid": "dish_39",
-        "en": "Jagermaister",
-        "es": "Jagermaister",
-        "de": "Jagermaister",
-        "no": "Jagermaister",
-        "ru": "Jagermaister"
-    },
-    {
-        "translationid": "dish_40",
-        "en": "Anis Cream",
-        "es": "Anis Cream",
-        "de": "Anis Cream",
-        "no": "Anis Cream",
-        "ru": "Anis Cream"
-    },
-    {
-        "translationid": "dish_41",
-        "en": "Ponche Caballero",
-        "es": "Ponche Caballero",
-        "de": "Ponche Caballero",
-        "no": "Ponche Caballero",
-        "ru": "Ponche Caballero"
-    },
-    {
-        "translationid": "dish_42",
-        "en": "Licor de Café",
-        "es": "Licor de Café",
-        "de": "Licor de Café",
-        "no": "Licor de Café",
-        "ru": "Licor de Café"
-    },
-    {
-        "translationid": "dish_43",
-        "en": "Orujo de Hierbas",
-        "es": "Orujo de Hierbas",
-        "de": "Orujo de Hierbas",
-        "no": "Orujo de Hierbas",
-        "ru": "Orujo de Hierbas"
-    },
-    {
-        "translationid": "dish_44",
-        "en": "Orujo blanco",
-        "es": "Orujo blanco",
-        "de": "Orujo blanco",
-        "no": "Orujo blanco",
-        "ru": "Orujo blanco"
-    },
-    {
-        "translationid": "dish_45",
-        "en": "Cardinal Mendoza",
-        "es": "Cardinal Mendoza",
-        "de": "Cardinal Mendoza",
-        "no": "Cardinal Mendoza",
-        "ru": "Cardinal Mendoza"
-    },
-    {
-        "translationid": "dish_46",
-        "en": "Carlos I",
-        "es": "Carlos I",
-        "de": "Carlos I",
-        "no": "Carlos I",
-        "ru": "Carlos I"
-    },
-    {
-        "translationid": "dish_47",
-        "en": "Carlos III",
-        "es": "Carlos III",
-        "de": "Carlos III",
-        "no": "Carlos III",
-        "ru": "Carlos III"
-    },
-    {
-        "translationid": "dish_48",
-        "en": "Torres 10",
-        "es": "Torres 10",
-        "de": "Torres 10",
-        "no": "Torres 10",
-        "ru": "Torres 10"
-    },
-    {
-        "translationid": "dish_49",
-        "en": "Gran Duque de Alba",
-        "es": "Gran Duque de Alba",
-        "de": "Gran Duque de Alba",
-        "no": "Gran Duque de Alba",
-        "ru": "Gran Duque de Alba"
-    },
-    {
-        "translationid": "dish_50",
-        "en": "Martell VS",
-        "es": "Martell VS",
-        "de": "Martell VS",
-        "no": "Martell VS",
-        "ru": "Martell VS"
-    },
-    {
-        "translationid": "dish_51",
-        "en": "Port wine",
-        "es": "Port wine",
-        "de": "Port wine",
-        "no": "Port wine",
-        "ru": "Port wine"
-    },
-    {
-        "translationid": "dish_52",
-        "en": "Sherry",
-        "es": "Sherry",
-        "de": "Sherry",
-        "no": "Sherry",
-        "ru": "Sherry"
-    },
-    {
         "translationid": "dish_53",
         "en": "Pizza Margarita",
         "es": "Pizza Margarita",
@@ -1850,18 +1707,18 @@
     {
         "translationid": "beverage_67",
         "en": "Homemade red wine/glass",
-        "es": "Vino tinto de casa/ copa",
+        "es": "Vino tinto de la casa/ copa",
         "de": "Hausgemachter Rotweinglas",
         "no": "Hjemmelaget rødvin / glass",
         "ru": "Красное домашние вино/ бокал"
     },
     {
         "translationid": "beverage_68",
-        "en": "Spanish red wine Rioja/ bottle",
-        "es": "Vino tinto Rioja / botella",
-        "de": "Spanischer Rotwein Rioja / Flasche",
-        "no": "Spansk rødvin Rioja / flaske",
-        "ru": "Испанское красное вино Rioja/ бутылка"
+        "en": "Red wine Cuatro Pasos from bodega Martín Codax / bottle",
+        "es": "Vino rojo Cuatro Pasos de bodega Martín Códax/ bottella",
+        "de": "Rotwein Cuatro Pasos aus der Bodega Martín Codax / Flasche",
+        "no": "Rødvin Cuatro Pasos fra Bodega Martín Codax / flaske",
+        "ru": "Красное вино Cuatro Pasos из винного погреба Martín Códax / бутылка"
     },
     {
         "translationid": "beverage_69",
@@ -1873,11 +1730,11 @@
     },
     {
         "translationid": "beverage_70",
-        "en": "Spanish white wine Verdejo/ bottle",
-        "es": "Vino blanco Verdejo/ botella",
-        "de": "Spanischer Weißwein Verdejo / Flasche",
-        "no": "Spansk hvitvin Verdejo / flaske",
-        "ru": "Испанское белое вино Verdejo/ бутылка"
+        "en": "White wine albariño D.O. Rías Baixas from bodega Martín Códax/ bottle",
+        "es": "Vino albariño D.O. Rías Baixas de bodega Martín Códax/ bottella",
+        "de": "Weißwein albariño D.O. Rías Baixas aus der Bodega Martín Códax / Flasche",
+        "no": "Hvitvin albariño D.O. Rías Baixas fra Bodega Martín Codax / flaske",
+        "ru": "Белое испанское вино albariño D.O. Rías Baixas из винного погреба Martín Códax / бутылка"
     },
     {
         "translationid": "beverage_71",
@@ -1953,11 +1810,11 @@
     },
     {
         "translationid": "insider_001",
-        "en": "Grilled and Caramelized Octopus with potato purée and chips is definitely the best choice for foodfans! It’s a fusion style of classic famous Spanish dish Galician octopus. The mixture of the tender potato puree and slightly sweet taste of caramelized octopus will surprise any gourmand.",
-        "es": "Pulpo a la plancha caramelizado con puré de papas y patatas chips, ¡es sin duda la mejor opción! Es una variación del famoso plato típico español \"Pulpo a la Gallega\" al estilo fusión. La combinación del suave puré de papas y del sabor ligeramente dulce del pulpo caramelizado le dejará impresionado a cualquier gourmet.",
-        "de": "Gegrillter und karamellisierter Oktopus mit Kartoffelpüree und Chips ist sicherlich die beste Wahl für Foodfans! Es ist ein Fusionsstil des klassischen spanischen berühmten Gerichts Galizischer Oktopus. Die Mischung aus dem zarten Kartoffelpüree und dem leicht süßen Geschmack des karamellisierten Oktopus wird jeden Feinschmecker überraschen.",
-        "no": "Grillet og karamellisert blekksprut med potetmos og chips er utvilsomt det beste valget! Denne retten er en blanding av kjente klassiske spanske rett \"blekksprut Galisisk\". Kombinasjonen av anbud potetmos og søt smak av karamellisert blekksprut vil overraske noen gourmet.",
-        "ru": "Карамелизированный осьминог  на гриле с картофельным пюре и чипсами ― несомненно лучший выбор! Это блюдо в стиле фьюжн знаменитого классического испанского блюда «Осьминог по-галисийски». Сочетание нежного картофельного пюре и сладковатого вкуса карамелизированного осьминога удивит любого гурмана."
+        "en": "Grilled and Caramelized Octopus with potato purée is definitely the best choice for foodfans! It’s a fusion style of classic famous Spanish dish Galician octopus. The mixture of the tender potato puree and slightly sweet taste of caramelized octopus will surprise any gourmand.",
+        "es": "Pulpo a la plancha caramelizado con puré de papas, ¡es sin duda la mejor opción! Es una variación del famoso plato típico español \"Pulpo a la Gallega\" al estilo fusión. La combinación del suave puré de papas y del sabor ligeramente dulce del pulpo caramelizado le dejará impresionado a cualquier gourmet.",
+        "de": "Gegrillter und karamellisierter Oktopus mit Kartoffelpüree ist sicherlich die beste Wahl für Foodfans! Es ist ein Fusionsstil des klassischen spanischen berühmten Gerichts Galizischer Oktopus. Die Mischung aus dem zarten Kartoffelpüree und dem leicht süßen Geschmack des karamellisierten Oktopus wird jeden Feinschmecker überraschen.",
+        "no": "Grillet og karamellisert blekksprut med potetmos er utvilsomt det beste valget! Denne retten er en blanding av kjente klassiske spanske rett \"blekksprut Galisisk\". Kombinasjonen av anbud potetmos og søt smak av karamellisert blekksprut vil overraske noen gourmet.",
+        "ru": "Карамелизированный осьминог  на гриле с картофельным пюре ― несомненно лучший выбор! Это блюдо в стиле фьюжн знаменитого классического испанского блюда «Осьминог по-галисийски». Сочетание нежного картофельного пюре и сладковатого вкуса карамелизированного осьминога удивит любого гурмана."
     },
     {
         "translationid": "insider_002",
@@ -2166,14 +2023,14 @@
     },
     {
         "translationid": "alcohol_notification_tex2",
-        "en": "Please, confirm that you are over 21 years old",
+        "en": "Please, confirm that you are over 18 years old",
         "es": "Por favor, confirme que es mayor de edad",
         "de": "Bitte bestätigen Sie, dass Sie volljährig sind",
         "fr": "Veuillez confirmer que vous êtes majeur",
         "no": "Bekreft at du er myndig",
-        "jp": "Please, confirm that you are over 21 years old",
-        "ko": "Please, confirm that you are over 21 years old",
-        "ru": "Пожалуйста, подтвердите, что вам есть 21 год",
+        "jp": "Please, confirm that you are over 18 years old",
+        "ko": "Please, confirm that you are over 18 years old",
+        "ru": "Пожалуйста, подтвердите, что вам есть 18 лет",
         "ch": "Please, confirm that you are over 21 years old"
     },
     {
@@ -2237,37 +2094,30 @@
         "undefined": "Bon Appetit!"
     },
     {
-        "translationid": "search_error_tex1",
-        "en": "There is no any plates in this category with “pan” reference.",
-        "es": "No hay platos en esta categoría con la referencia de \"pan\"",
-        "de": "Es gibt keine Gerichte in dieser Kategorie mit dem Verweis \"pan\"",
-        "no": "Det er ingen retter i denne kategorien med referansen \"pan\"",
-        "ru": "В данной категории не найдено блюд со словом \"pan\" "
-    },
-    {
-        "translationid": "search_error_tex2",
-        "en": "Please, try a new request or change a dish category.",
-        "es": "Por favor, intenta una nueva solicitud o elige otra categoría de platos.",
-        "de": "Bitte, versuchen Sie es mit einer neuen Anfrage oder ändern Sie eine Gerichtskategorie.",
-        "no": "Prøv en ny forespørsel eller endre en kategori.",
-        "ru": "Пожалуйста, попробуйте новый запрос или выберите другую категорию блюд."
-    },
-    {
         "translationid": "average_price",
-        "en": "average price",
-        "es": "recibo promedio",
-        "ru": "средний чек"
+        "en": "Average price",
+        "es": "Precio promedio",
+        "de": "Durchschnittlicher Preis",
+        "fr": "Prix moyen",
+        "no": "Gjennomsnittspris",
+        "ru": "Cредний чек"
     },
     {
         "translationid": "drinks_with_alcohol",
-        "en": "Alcohol beverages",
+        "en": "Alcohol drinks",
         "es": "Bebidas alcohólicas",
+        "de": "Alkoholische Getränke",
+        "fr": "Boissons alcoolisées",
+        "no": "Alkohol drikker",
         "ru": "Алкогольные напитки"
     },
     {
         "translationid": "drinks_no_alcohol",
         "en": "Beverages",
-        "es": "Bebidas sin alcohól",
+        "es": "Bebidas",
+        "de": "Getränke",
+        "fr": "Breuvages",
+        "no": "Drikkevarer",
         "ru": "Напитки"
     }
 ]
