@@ -96,20 +96,55 @@ class DefaultComponent extends React.Component{
 
 /**
  * Redux connector.
- * @usage 
- * import DefaultComponent, {connect} from DefaultComponent; 
- * class Ancestor extends DefaultComponent{...} 
- * export default connect(Ancestor)
+ * ### Usage 
+ * `
+ * import DefaultComponent, {connect} from DefaultComponent;
+ * class Ancestor extends DefaultComponent{...};
+ * export default connect(Ancestor);`
+ * - Or, if you need to pass other actions: 
+ * `connect( SomeClass, { showModal: (dispatch, payload) => dispatch({type: "SHOWMODAL", payload }) })`
+ * ### Params:
  * @param {*} C 
+ * @param {object|null} otherActions - object holding named action dispatchers 
+ * that receive  dispatch as first argument: 
+ * `(dispatch, arg1, arg2, ...argn ) => { 
+ * // payoad preparations here, if needed
+ * // then return 
+ *  return dispatch({type, payload})
+ * }`
+ * 
  */
-export const connect = (C, otherActions = {} ) => 
-cn(
-    state => ({ ...state.app, translations: state.translation }),
-    dispatch => ({
-        setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } }),
-        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload }),
-        ...otherActions
-    })
-)(C);
+export const connect = (C, otherActions = {} ) => {
+
+
+    const dispatchAction = (dispatch, actions) => {
+
+        return Object.keys(actions).reduce(
+            (res, key) =>  (
+                // returning an object
+                {...res, 
+                    // hashed by original key from otherActions
+                    [key]: (...args) => {
+                    // result: action dispatcher that passes dispatch as first argument
+                    // and all passed arguments sends afterwards
+                        return actions[key](dispatch, ...args)
+                    }
+                }
+            ), 
+            // empty object to build on
+            {}
+        )
+    }
+
+    return cn(
+        state => ({ ...state.app, translations: state.translation }),
+        dispatch => ({
+            setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } }),
+            setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload }),
+            // call dispatch creator
+            ...dispatchAction(dispatch, otherActions )
+        })
+    )(C);
+}
 
 export default DefaultComponent;
