@@ -21,6 +21,8 @@
         height: $footerHeight;
         max-height: $footerHeight;
 
+        z-index: 190; // makes it float over cart window
+
 
         // compensate bottom "dash"  on iPhones X and newer
         @media only screen 

@@ -70,6 +70,10 @@ body{
       justify-content: flex-start;
       z-index: 200;
       background-color: white;
+
+      &.under-bottom-menu{
+        z-index: 170;
+      }
     }
 
     .rectangular {

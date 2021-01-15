@@ -3,12 +3,12 @@ import { Button, Container, Dialog, DialogContent } from '@material-ui/core'
 // import {ChevronLeft} from '@material-ui/icons'
 import React from 'react'
 // import Service from '../../services/restaurants'
-import TranslService, {_T, transl, tr} from '../../services/translations'
+// import TranslService, {_T, transl, tr} from '../../services/translations'
 import Spinner from '../template/common/Spinner'
 import ErrorPage from '../template/common/error-loading'
 // import Topbar from '../restaurant/topbar'
 // import Menu from '../restaurant/menu'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 import A from '../../redux/actionTypes'
 // import {getRestaurant} from '../../redux/reducers'
 // import Redirect from '../template/common/redirect'
@@ -18,9 +18,10 @@ import { Trash, ChefHead } from '../template/common/icons'
 // import Footer from '../template/footer'
 import Social from '../restaurant/social'
 import CartList from './cart-list'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import {updateScroll} from '../../utils/functions'
 import { Close } from '@material-ui/icons'
+import DefaultComponent, {connect} from '../DefaultComponent'
 
 
 let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
@@ -45,69 +46,32 @@ const EmptyOrder = ({closeCart, button_text = "Menu", text, text2}) =>
     </div>
 
 
-class Cart extends React.Component{
+// class Cart extends React.Component{
+class Cart extends DefaultComponent{
 
     state = {
         // restaurant: null,
         translations: null,
         showClearDialog: false
     }
-    componentDidMount(){
-        console.debug("cart componentDidMount is called")
-        // this.fetchRestaurant( {} )
-        this.fetchTranslations()
-        
+
+    constructor(props){
+        super(props)
+        this.setTranslations(
+            [
+                "MyOrder",
+                "Total", 
+                "ThankForOrder",
+                "ThankYou",
+                "WantToClearEntireOrder",
+                "askToConfirm",
+                "Remove",
+                "Do Not",
+                "empty_order_text1",
+                "empty_order_text2"
+            ]
+        )
     }
-
-    componentDidUpdate(prevProps){
-        console.debug("cart componentDidUpdate is called")
-        // const {slug} =  this.props.computedMatch.params
-        const {restaurant, language} = this.props
-        
-        // const {slug: old_slug} = prevProps
-        const {language: old_language, restaurant: old_restaurant } = prevProps
-        console.debug("cart language:", language, old_language)
-        if( 
-            // slug !== old_slug  || 
-            restaurant !== old_restaurant ||
-            language !== old_language ){
-            // this.fetchRestaurant( prevProps )
-            this.fetchTranslations()
-        }
-    }
-
-    async fetchTranslations( ){
-        console.debug("cart Fetchtranslations is called")
-        const { language, restaurant } = this.props
-
-        const default_lang = restaurant ? restaurant.defaultlanguage : "en"
-
-        // if( language ){
-            // const translations = await TranslService.getByKeys(
-            TranslService.getByKeys(
-                [
-                    "MyOrder",
-                    "Total", 
-                    "ThankForOrder",
-                    "ThankYou",
-                    "WantToClearEntireOrder",
-                    "askToConfirm",
-                    "Remove",
-                    "No",
-                    "empty_order_text1",
-                    "empty_order_text2"
-                ],
-                language, default_lang
-            )
-
-            // this.setState({translations})
-        // } else {
-        //     return false
-        // }
-    }
-
-  
-
 
     render(){
 
@@ -121,12 +85,15 @@ class Cart extends React.Component{
         if( !restaurant || !translations ){
             return restaurant === null  ? <Spinner/> : <ErrorPage />
         }
+
+        if( !this.state.translationLoaded )
+            return <Spinner />
         
         // translation function for current language
-        const _tt = (key) => tr(key, language, translations)
-        // const _tdef = key => transl( key, restaurant.defaultlanguage)
+        // const _tt = (key) => tr(key, language, translations)
+        const _tt = (key) => this._tr(key, language, translations)
 
-        console.debug("Translations:", translations);
+        // console.debug("Translations:", translations);
         // shortcuts for dialog handling
         const closeDialog = () => this.setState({showClearDialog: false})
         const showDialog = () => this.setState({showClearDialog: true})
@@ -155,7 +122,14 @@ class Cart extends React.Component{
                                 {_tt("askToConfirm")}
                             </div>
                             {/* <Menu {...{menu: cart, slug, categories, show_categories: false }}/> */}
-                            <CartList items={cart} restState={{cart}} slug={slug} item_type={restaurant.defaulttemplate}/>
+                            <CartList 
+                                items={cart} 
+                                restState={{cart}} 
+                                slug={slug} 
+                                item_type={restaurant.defaulttemplate}
+                                restaurant={restaurant}
+                                language={language}
+                            />
                             <div className="total flex row align-items-center space-between">
                                 <span>
                                     {_tt("Total")}:
@@ -189,7 +163,7 @@ class Cart extends React.Component{
                     </DialogContent>
                     <div  style={{display: "flex", flexDirection: "column", alignSelf: "center"}}>
                         <Button className="bg-black c-white" onClick={() => { emptyCart(slug); closeDialog() }}>{_tt('Remove')}</Button>
-                        <Button className="bg-light-gray" onClick={closeDialog}>{_tt('No')}</Button>
+                        <Button className="bg-light-gray" onClick={closeDialog}>{_tt('Do Not')}</Button>
                     </div>
                 </Dialog>
             </>
@@ -198,11 +172,15 @@ class Cart extends React.Component{
 }
 
 
-export default connect(
-    state => ({...state.app, translations: state.translation } ),
-    dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        emptyCart: payload => dispatch( {type: A.CLEAR_CART, payload } ),
-        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
-    })
-)(Cart)
+// export default connect(
+//     state => ({...state.app, translations: state.translation } ),
+//     dispatch => ({
+//         lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
+//         emptyCart: payload => dispatch( {type: A.CLEAR_CART, payload } ),
+//         setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
+//     })
+// )(Cart)
+
+export default connect(Cart, {
+    emptyCart: (dispatch, payload) => dispatch( {type: A.CLEAR_CART, payload } )
+})

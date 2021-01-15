@@ -14,7 +14,8 @@ const templates = {
 
 
 /**
- * Renders just one category at a time.
+ * Renders just one category at a time, no carousel.
+ * Created to replace the non-yet-working carousel template in MenuBody component
  */
 class MenuBody extends React.Component {
 

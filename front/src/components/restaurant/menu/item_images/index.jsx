@@ -79,8 +79,20 @@ class RestMenuItem extends React.Component{
         if(cartItem) 
             ({quantity} = cartItem )
 
-        const item = { dishid, title, dishcategoryid, default_title, image, dishprice, tags, quantity: 1 }
+        const item = { 
+            dishid, 
+            title, 
+            dishcategoryid, 
+            default_title, 
+            image, 
+            dishprice,
+            pricefor, 
+            amount,
+            tags, 
+            quantity: 1 
+        }
         const isOrdered = quantity > 0
+
         // console.debug("menu item render. quantity: ", quantity )
         
         const _tt = key => tr(key, language, translations )

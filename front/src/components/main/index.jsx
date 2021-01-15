@@ -51,7 +51,7 @@ class Main extends React.Component {
     //     lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     // }
 
-    componentDidMount(){
+    // componentDidMount(){
         // mark main element with last scroll direction
 
         
@@ -82,7 +82,7 @@ class Main extends React.Component {
         // lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling    
         // }
         // , false);
-    }
+    // }
 
     render() {
         const { showDrawer } = this.props
