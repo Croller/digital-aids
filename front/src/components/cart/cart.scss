@@ -36,8 +36,9 @@
             }
 
             .cart-header{
-                @include sticky;
+                // @include sticky;
                 // top: #{$headerHeight - 1px};
+                
                 top: -2px;
                 padding: 20px;
                 padding: 20px;

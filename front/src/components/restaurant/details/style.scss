@@ -1,6 +1,11 @@
 @import "../../../variables.scss";
 // #root {
 //     .main{
+
+    $detailsPadding: 28px;
+
+    .details-modal{
+
         .wrapper{
             position: relative;
         }
@@ -13,11 +18,29 @@
             
             height: 100%;
             max-height: 100vh;
+            padding: 0 #{$detailsPadding};
             // overflow-y: auto;
             @include v-scroll;
             position: relative;
 
            
+            .share {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 35px;
+                height: 35px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 50%;
+                position: absolute;
+                right: $detailsPadding;
+                top: $detailsPadding;
+                z-index: 10;
+                svg{
+                    width: 16px;
+                    height: 16px;
+                }
+            }
             
             .css-carousel{
                 position: absolute;
@@ -78,18 +101,7 @@
                     justify-content: space-between;
                 }
 
-                .share {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    width: 22px;
-                    height: 22px;
-                    background: rgba(255,255,255,0.2);
-                    border-radius: 50%;
-                    position: absolute;
-                    right: 0;
-                    top: -104px;
-                }
+                
 
                 @media screen and (min-width: $bp_3){
                     margin-top: 495px;
@@ -116,9 +128,13 @@
     
                 svg {
                         
-                    margin-right: 0.2em;
-                    font-size: 20px;
-                    fill: $gray;
+                    // margin-right: 0.2em;
+                    // font-size: 20px;
+                    // fill: $gray;
+
+                    min-width: 21px;
+                    padding-right: 5px;
+                    min-height: 17px;
                 }
     
     
@@ -238,6 +254,11 @@
                 align-items: center;
                 // flex-wrap: wrap;
                 flex-grow: 1;
+
+                // if there's only one element, show it as row
+                &:first-child:last-child{
+                    flex-direction: row;
+                }
                 
                 > div {
                     display: flex;
@@ -321,5 +342,12 @@
             border-radius: 5px;
         }
         
+
+        .social-container{
+            // compensate MuiContainer-root margins
+            margin-left: -#{$detailsPadding};
+            margin-right: -#{$detailsPadding};
+        }
 //     }
 // }
+    }

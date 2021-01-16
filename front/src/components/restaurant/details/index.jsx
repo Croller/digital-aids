@@ -152,29 +152,27 @@ class RestaurantDetails extends DefaultComponent {
 
                         <Container className="restaurant flex column flex-grow">
                             <h1 className="top-title">
-                                {restaurant.title}
-
-                                    <div className="share"
-                                        onClick={() => 
-
-                                            navigator.share && navigator.share({
-                                                title: restaurant.title,
-                                                url: window.location
-                                            }).then( () => {
-                                                console.log('Thanks for sharing!');
-                                            })
-                                            .catch(console.error)
-                                        
-                                        }
-                                    >
-                                        <External />
-                                    </div>
-                                
+                                {restaurant.title}                                
                                 <div className="arrows">
                                     <ChevronLeft className="arrow left"  onClick={ this.prevSlide }/>
                                     <ChevronRight className="arrow right" onClick={ this.nextSlide } />
                                 </div>
                             </h1>
+                            <div className="share"
+                                onClick={() => 
+
+                                    navigator.share && navigator.share({
+                                        title: restaurant.title,
+                                        url: window.location
+                                    }).then( () => {
+                                        console.log('Thanks for sharing!');
+                                    })
+                                    .catch(console.error)
+                                
+                                }
+                            >
+                                <External />
+                            </div>
                             <CSSCarousel
                                 id={"restaurant-images"}
                                 useJs={true}

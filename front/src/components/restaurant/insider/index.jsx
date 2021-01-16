@@ -2,7 +2,8 @@ import React from 'react'
 import './style.scss'
 import {Paper, Grid, 
     // Container, Button, 
-    Modal} from '@material-ui/core'
+    Modal
+    } from '@material-ui/core'
 import {
     ChevronLeft, ChevronRight, Close
 } from '@material-ui/icons'
@@ -139,8 +140,9 @@ class Insider extends DefaultComponent{
                             const {insiderid, text, imagetext, image, dish, price } = insider;
 
                             return <div className="insider-item" key={`insider-${insiderid}`}>
-                                <Grid container>
-                                    <Grid item xs={12} md={6}
+                                <div className="insider-container">
+                                    {/* <Grid item xs={12} md={6} */}
+                                    <div
                                     className="image-holder"
                                         style={{
                                             backgroundImage: `url(${MEDIA}/images/restaurants/${slug}/dishes/${image})`
@@ -149,8 +151,10 @@ class Insider extends DefaultComponent{
                                         {/* <img src={`${MEDIA}/images/restaurants/${slug}/dishes/${image}`} 
                                         title={imagetext} 
                                         alt={imagetext}/> */}
-                                    </Grid>
-                                    <Grid item xs={12} md={6}>
+                                    {/* </Grid> */}
+                                    </div>
+                                    {/* <Grid item xs={12} md={6}> */}
+                                    <div>
                                         <div className="text-block">
 
                                             <h2>{imagetext}</h2>
@@ -163,7 +167,7 @@ class Insider extends DefaultComponent{
                                                     { dish && 
                                                         <div className="price-block">
                                                             <span>{_t("Total")}:</span>
-                                                            <span>{dish.dishprice}&euro;</span>
+                                                            <span>{ (dish.dishprice * 1).toFixed(2) }&euro;</span>
                                                         </div>
                                                     }
                                                 </div>
@@ -187,8 +191,9 @@ class Insider extends DefaultComponent{
                                                 </div>
                                             </div>
                                         </div>
-                                    </Grid>
-                                </Grid>
+                                    {/* </Grid> */}
+                                    </div>
+                                </div>
                                 
                             </div>
                         })}

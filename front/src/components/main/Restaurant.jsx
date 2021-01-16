@@ -134,7 +134,7 @@ class Restaurant extends React.Component{
             <TopBar {...{restaurant, closeButtonLink, showSearch, restState, showHamburger}}/>
             {overlay && 
             // additional class is added to show bottom menu over the overlay
-                <div className={`overlay${overlay === "cart" ? ' under-bottom-menu' : "" } `}>
+                <div className={`overlay showing-${overlay}${overlay === "cart" ? ' under-bottom-menu' : "" } `}>
                     { overlay === "cart"  && <Cart {...{restaurant, slug, restState}} />}
                     { overlay === "hamburger"  && <Options {...{restaurant, slug, restState}} />}
                     { overlay === "language"  && <Lang {...{restaurant, slug, restState}} />}

@@ -29,6 +29,7 @@
                 font-size: 16px;
                 text-align: center;
                 text-transform: uppercase;
+                margin-top: 12px; // separate topmost menu title from header
             }
     
             .cat-button {
@@ -40,6 +41,17 @@
                 text-transform: none;
                 min-height: 60px;
     
+                &.big {
+                    margin-top: 16px;
+                    &.first{
+                        margin-top: 31px;
+                    }
+
+                    &:last-child{
+                        margin-bottom: 30px;
+                    }
+                }
+
                 .icon{
                     // color: $green;
                     fill: $gray;

@@ -167,7 +167,7 @@ class HamburgerMenu extends DefaultComponent{
                         </Button>
                         {/* <Button className="cat-button panel flex column py-1 bg-light-gray-2" onClick={() => lang(null) }> */}
                         <Button 
-                        className="cat-button panel flex column py-1 bg-light-gray-2" 
+                        className="cat-button big first panel flex column py-1 bg-light-gray-2" 
                         // component={Link} 
                         // to={`/${slug}/language`} 
                         onClick={()=> this.updateOverlay("language")}
@@ -175,7 +175,7 @@ class HamburgerMenu extends DefaultComponent{
                             <div className="title flex row align-items-center"><World className="icon mr-1" />{langTitle}</div>                            
                         </Button>
                         <Button 
-                        className="cat-button panel flex column py-1 bg-light-gray-2" 
+                        className="cat-button big panel flex column py-1 bg-light-gray-2" 
                         component={Link} 
                         to={`/${slug}/details`}
                         onClick={()=> this.updateOverlay(null)} // close overlay
@@ -185,7 +185,7 @@ class HamburgerMenu extends DefaultComponent{
                         <Button 
                         component={Link} 
                         to={`/${slug}/insider`} 
-                        className="cat-button bg-green panel flex column py-1" 
+                        className="cat-button big bg-green panel flex column py-1" 
                         onClick={()=> this.updateOverlay(null)} // close overlay
                         >
                             <div className="title c-white">FOODFANS INSIDER</div>                            
