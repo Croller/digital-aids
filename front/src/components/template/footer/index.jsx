@@ -82,9 +82,10 @@ class Footer extends DefaultComponent{
                     <Button 
                     // component={Link} to={`/${slug}/cart`}
                     onClick={ () => this.setOverlay("cart")}
+                    className={cartCount > 0 ? "cart-has-dishes" : "" }
                     >
                         <Badge badgeContent={cartCount} showZero={false} className="badge-quantity">
-                            <Cloche/>
+                            <Cloche />
                         </Badge>
                         <span>
                             {_tt("Order")}

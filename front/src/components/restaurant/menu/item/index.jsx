@@ -41,7 +41,7 @@ class RestMenuItem extends React.Component{
     render(){
         // const {slug} = this.props
 
-        const {tags_list, showDialog} = this.state
+        const { showDialog} = this.state
         
         let {
             slug,
@@ -64,7 +64,8 @@ class RestMenuItem extends React.Component{
             // cartItem,
             // cart
             language,
-            translations
+            translations,
+            tags_list
         } = this.props
         // console.debug("Item slug:", slug, " props: ", this.props)
         // const restState = getRestaurant( reduxState, slug)
@@ -80,15 +81,27 @@ class RestMenuItem extends React.Component{
         if(cartItem) 
             ({quantity} = cartItem )
 
+        // const item = { 
+        //     dishid, 
+        //     title, 
+        //     dishcategoryid, 
+        //     default_title, 
+        //     dishprice, 
+        //     tags, 
+        //     quantity: 1 
+        // }
         const item = { 
             dishid, 
             title, 
             dishcategoryid, 
             default_title, 
-            dishprice, 
+            dishprice,
+            pricefor, 
+            amount,
             tags, 
             quantity: 1 
         }
+
         const isOrdered = quantity > 0
         // console.debug("menu item render. quantity: ", quantity )
         const _t = key => tr(key, language, translations)
@@ -116,17 +129,11 @@ class RestMenuItem extends React.Component{
                                 <div className="flex row justify-between mt-1">
                                     <div>
                                         { tags && tags.length > 0 && 
-                                            <Badge
-                                            badgeContent={tags.length}
-                                            color="secondary"
-                                            >
-
-                                                <Button 
-                                                    onClick={()=> this.setState({showDialog: true })}
-                                                    className="allergens-button"
-                                                    variant="contained"
-                                                >{_t("Allergens")}</Button>
-                                            </Badge>
+                                            <Button 
+                                                onClick={()=> this.setState({showDialog: true })}
+                                                className="allergens-button"
+                                                variant="contained"
+                                            >{_t("Allergens")}</Button>
                                         }
                                     </div>
                                     {/* { Array.isArray(tags) && <div className="tags">

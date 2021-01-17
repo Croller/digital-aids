@@ -159,7 +159,7 @@ class HamburgerMenu extends DefaultComponent{
                          >
                             <div className="flex row align-items-center flex-grow">
                                 <Exclamation className="icon mr-1" />
-                                <div>
+                                <div className="reglament-button">
                                     <div className="title">{_t("reglament_1169",1)}</div>
                                     { secondTranslationNeeded && <div className="default-title">{_t("reglament_1169")}</div>}
                                 </div>

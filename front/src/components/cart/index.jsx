@@ -98,11 +98,13 @@ class Cart extends DefaultComponent{
         const closeDialog = () => this.setState({showClearDialog: false})
         const showDialog = () => this.setState({showClearDialog: true})
 
+        const type = (restaurant && restaurant.defaulttemplate) ? restaurant.defaulttemplate : "text"
+
         return(
            
             <>
                 
-                <Container key={`cart-${slug}`} className="cart flex-grow"
+                <div key={`cart-${slug}`} className={`cart flex-grow template-${type}`}
                 onScroll={({target}) => {
                     lastScrollTop = updateScroll(target, root, lastScrollTop )
                 }}
@@ -129,15 +131,19 @@ class Cart extends DefaultComponent{
                                 item_type={restaurant.defaulttemplate}
                                 restaurant={restaurant}
                                 language={language}
+
+                                total={
+                                    <div className="total flex row align-items-center space-between">
+                                        <span>
+                                            {_tt("Total")}:
+                                        </span>
+                                        <span className="button ">
+                                            {(cartPrice * 1).toFixed(2)}€
+                                        </span>
+                                    </div>
+                                }
                             />
-                            <div className="total flex row align-items-center space-between">
-                                <span>
-                                    {_tt("Total")}:
-                                </span>
-                                <span className="button ">
-                                    {(cartPrice * 1).toFixed(2)}€
-                                </span>
-                            </div>
+                            
                         </>
                         :
                         <EmptyOrder 
@@ -151,7 +157,7 @@ class Cart extends DefaultComponent{
                     }
                     
                     <Social {...{...restaurant}} message={ cartIsEmpty ? _tt("ThankYou") : _tt("ThankForOrder")} />
-                </Container>
+                </div>
                 <Dialog 
                     open={showClearDialog}
                     onClose={closeDialog}  

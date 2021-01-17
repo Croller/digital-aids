@@ -103,20 +103,22 @@ class MenuItemList extends React.Component{
                         lastScrollTop = updateScroll(target, root, lastScrollTop )
                     }}
                 >
-                    {items.map( (dish, index)=> 
-                        <div className={`menu-item-container ${className}`}>
-                            <Item 
-                                key={`dish-item-${dish.dishid}`}
-                                index={index + 1}
-                                restState={restState}
-                                needSecondTranslation={needSecondTranslation}
-                                slug={slug}
-                                language = {language}
-                                tags_list={restaurant.tags}
-                                {...dish}
-                            />
-                        </div>
-                    )}  
+                    <div className="item-list-inside">
+                        {items.map( (dish, index)=> 
+                            <div className={`menu-item-container ${className}`}>
+                                <Item 
+                                    key={`dish-item-${dish.dishid}`}
+                                    index={index + 1}
+                                    restState={restState}
+                                    needSecondTranslation={needSecondTranslation}
+                                    slug={slug}
+                                    language = {language}
+                                    tags_list={restaurant.tags}
+                                    {...dish}
+                                />
+                            </div>
+                        )}  
+                    </div>
 
                     <Social {...{ ...restaurant }} message={socialMessage} />                  
                 </div>

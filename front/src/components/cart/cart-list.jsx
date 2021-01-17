@@ -12,7 +12,8 @@ class CartList extends React.Component{
             restState = {}, 
             slug, 
             language,
-            restaurant
+            restaurant,
+            total
         } = this.props
 
         const needSecondTranslation = restaurant ? restaurant.defaultlanguage !== language : true;
@@ -22,22 +23,27 @@ class CartList extends React.Component{
         console.debug("CartList slug:", slug)
         return(
             <div className="menu-items-list">
-                {items.map((item, index) => <div key={`cart-item-${index}`} className={`menu-item-container ${ item_type==="images" ? 'template-images' : "" }`}>
-                    <Item 
-                        key={`cart-item-${item.dishid}`}
-                        index={index + 1}
-                        restState={restState}
-                        needSecondTranslation={needSecondTranslation}
-                        slug={slug}
-                        language = {language}
-                        tags_list={restaurant.tags}
-                        {...item}
-                    />
-                    {/* {item_type === "text" ?  
-                    <ItemText key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug}/> : 
-                    <ItemImage key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug} /> 
-                    } */}
-                </div>)}
+                <div className="item-list-inside">
+                    {items.map((item, index) => <div key={`cart-item-${index}`} className={`menu-item-container ${ item_type==="images" ? 'template-images' : "" }`}>
+                        <Item 
+                            key={`cart-item-${item.dishid}`}
+                            index={index + 1}
+                            restState={restState}
+                            needSecondTranslation={needSecondTranslation}
+                            slug={slug}
+                            language = {language}
+                            tags_list={restaurant.tags}
+                            {...item}
+                        />
+                        {/* {item_type === "text" ?  
+                        <ItemText key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug}/> : 
+                        <ItemImage key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug} /> 
+                        } */}
+                        
+                    </div>)}
+                        
+                    {total}
+                </div>
             </div>            
         )
     }

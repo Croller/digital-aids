@@ -104,19 +104,28 @@
                         width: 22px;
                         height: 22px;
                         right: -3px;
-                        color: white;
+                        color: white!important;
                         font-weight: 600;
+                    }
+                }
+
+                &.cart-has-dishes{
+                    svg path {
+                        fill: black;
+                    }
+                    span {
+                        color: black;
                     }
                 }
             }
         }
 
 
-        svg {
-            fill: black;
-        }
-        path {
-            fill: black;
-        }
+        // svg {
+        //     fill: black;
+        // }
+        // path {
+        //     fill: black;
+        // }
     }
 }

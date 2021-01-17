@@ -18,10 +18,17 @@
                     font-weight: 500;
                 }
             }
+
+            p{
+                margin-bottom: 24px;
+                text-align: justify;
+            }
+            
             .reglament-text{
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 19.5px;
+                
             }
             .allergen-list  {
                 @media screen and(min-width: $bp_2){

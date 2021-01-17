@@ -89,7 +89,8 @@ class RestaurantDetails extends DefaultComponent {
                 "CallUs",
                 "comments",
                 "Reviews",
-                "average_price"
+                "average_price",
+                "Menu"
             ]
         )
     }
@@ -202,7 +203,7 @@ class RestaurantDetails extends DefaultComponent {
                                         </div>
                                     </Grid>
                                     <Grid item xs={12} className="call-buttons align-item-end hide-on-mobile">
-                                        <Button component={Link} to={`/${slug}`} className="bg-light-gray"> Menu </Button>
+                                        <Button component={Link} to={`/${slug}`} className="bg-light-gray">{_t("Menu")}</Button>
                                         <Button className="bg-green c-white"
                                         component={ALink}
                                         href={`tel:+${restaurant.phone}`}
