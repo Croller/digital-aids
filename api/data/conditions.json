@@ -1,0 +1,10 @@
+[
+    {
+        "conditionid": 1,
+        "restaurantid": 3700,
+        "texttranslationid": "alcohol_notification_tex1",
+        "prompttranlsationid": "alcohol_notification_tex2",
+        "confirmbuttontid": "Yes, I am",
+        "declinebuttontid": "No, I am not"
+    }
+]

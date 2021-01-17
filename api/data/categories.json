@@ -1,198 +1,48 @@
 [
     {
-        "categoryid": "cold_app",
-        "categorytitleen": "Cold Appetizers",
-        "categorytitlees": "Tapas Frías",
-        "categorytitlegr": "Κρύα ορεκτικά",
-        "categorytitleit": "Antipasti freddi",
-        "categorytitlede": "Kalte Vorspeisen",
-        "categorytitlefr": "Apéritifs froids",
-        "categorytitleno": "Kalde forretter",
-        "categorytitlejp": "冷たい前菜",
-        "categorytitleko": "차가운 전채",
-        "categorytitleru": "Холодные закуски",
-        "categorytitlech": "冷开胃菜"
+        "categoryid": "children"
     },
     {
-        "categoryid": "hot_app",
-        "categorytitleen": "Hot Appetizers",
-        "categorytitlees": "Tapas Calientes",
-        "categorytitlegr": "Ζεστά ορεκτικά",
-        "categorytitleit": "Antipasti caldi",
-        "categorytitlede": "Heiße Tapas",
-        "categorytitlefr": "Apéritifs chauds",
-        "categorytitleno": "Varm tapas",
-        "categorytitlejp": "ホット前菜",
-        "categorytitleko": "뜨거운 전채",
-        "categorytitleru": "Горячие закуски",
-        "categorytitlech": "热开胃菜"
+        "categoryid": "cold_app"
     },
     {
-        "categoryid": "pasta",
-        "categorytitleen": "Pasta",
-        "categorytitlees": "Pastas",
-        "categorytitlegr": "Ζυμαρικά",
-        "categorytitleit": "Pasta",
-        "categorytitlede": "Pasta",
-        "categorytitlefr": "Pâtes",
-        "categorytitleno": "Pasta",
-        "categorytitlejp": "パスタ",
-        "categorytitleko": "파스타",
-        "categorytitleru": "Паста",
-        "categorytitlech": "意大利面"
+        "categoryid": "daily_menu_app"
     },
     {
-        "categoryid": "soups",
-        "categorytitleen": "Soups",
-        "categorytitlees": "Sopas",
-        "categorytitlegr": "Σούπες",
-        "categorytitleit": "Zuppe",
-        "categorytitlede": "Suppen",
-        "categorytitlefr": "Soupes",
-        "categorytitleno": "Supper",
-        "categorytitlejp": "スープ",
-        "categorytitleko": "수프",
-        "categorytitleru": "Супы",
-        "categorytitlech": "汤类"
+        "categoryid": "daily_menu_dessert"
     },
     {
-        "categoryid": "dessert",
-        "categorytitleen": "Desserts",
-        "categorytitlees": "Postres",
-        "categorytitlegr": "Επιδόρπιο",
-        "categorytitleit": "Dessert",
-        "categorytitlede": "Dessert",
-        "categorytitlefr": "Dessert",
-        "categorytitleno": "Dessert",
-        "categorytitlejp": "デザート",
-        "categorytitleko": "디저트",
-        "categorytitleru": "Десерты",
-        "categorytitlech": "甜点"
+        "categoryid": "daily_menu_main_dish"
     },
     {
-        "categoryid": "drinks",
-        "categorytitleen": "Drinks",
-        "categorytitlees": "Bebidas",
-        "categorytitlegr": "Ποτά",
-        "categorytitleit": "Bevande",
-        "categorytitlede": "Getränke",
-        "categorytitlefr": "Breuvages",
-        "categorytitleno": "Drikker",
-        "categorytitlejp": "飲み物",
-        "categorytitleko": "음료수",
-        "categorytitleru": "Напитки",
-        "categorytitlech": "饮料"
+        "categoryid": "dessert"
     },
     {
-        "categoryid": "children",
-        "categorytitleen": "Children's Menu",
-        "categorytitlees": "Menu de Niños",
-        "categorytitlegr": "Παιδικό μενού",
-        "categorytitleit": "Menu per bambini",
-        "categorytitlede": "Kindermenü",
-        "categorytitlefr": "Menu enfant",
-        "categorytitleno": "Barnemeny",
-        "categorytitlejp": "キッズメニュー",
-        "categorytitleko": "어린이 메뉴",
-        "categorytitleru": "Меню для детей",
-        "categorytitlech": "儿童菜单"
+        "categoryid": "drinks_no_alcohol"
     },
     {
-        "categoryid": "daily_menu_app",
-        "categorytitleen": "Daily Menu",
-        "categorytitlees": "Menú del día",
-        "categorytitlegr": "Καθημερινό μενού",
-        "categorytitleit": "Menù giornaliero",
-        "categorytitlede": "Tagesmenü",
-        "categorytitlefr": "Menu du jour",
-        "categorytitleno": "Daglig meny",
-        "categorytitlejp": "日替わりメニュー",
-        "categorytitleko": "일일 메뉴",
-        "categorytitleru": "Меню дня",
-        "categorytitlech": "每日菜单"
+        "categoryid": "drinks_with_alcohol",
+        "conditions": 1
     },
     {
-        "categoryid": "wine",
-        "categorytitleen": "Wine",
-        "categorytitlees": "Vino",
-        "categorytitlegr": "Κρασί",
-        "categorytitleit": "Vino",
-        "categorytitlede": "Wein",
-        "categorytitlefr": "Du vin",
-        "categorytitleno": "Vin",
-        "categorytitlejp": "ワイン",
-        "categorytitleko": "포도주",
-        "categorytitleru": "Вино",
-        "categorytitlech": "葡萄酒"
+        "categoryid": "garnish"
     },
     {
-        "categoryid": "beer",
-        "categorytitleen": "Beer",
-        "categorytitlees": "Cerveza",
-        "categorytitlegr": "Μπύρα",
-        "categorytitleit": "Birra",
-        "categorytitlede": "Bier",
-        "categorytitlefr": "Bière",
-        "categorytitleno": "Øl",
-        "categorytitlejp": "ビール",
-        "categorytitleko": "발포성 음료",
-        "categorytitleru": "Пиво",
-        "categorytitlech": "啤"
+        "categoryid": "hot_app"
     },
     {
-        "categoryid": "licor",
-        "categorytitleen": "Liqueurs",
-        "categorytitlees": "Licores",
-        "categorytitlegr": "Λικέρ",
-        "categorytitleit": "Liquori",
-        "categorytitlede": "Liköre",
-        "categorytitlefr": "Liqueurs",
-        "categorytitleno": "Likører",
-        "categorytitlejp": "リキュール",
-        "categorytitleko": "리큐어",
-        "categorytitleru": "Ликеры",
-        "categorytitlech": "酒"
+        "categoryid": "main_courses"
     },
     {
-        "categoryid": "brandy",
-        "categorytitleen": "Brandy",
-        "categorytitlees": "Brandy",
-        "categorytitlegr": "μπράντυ",
-        "categorytitleit": "Brandy",
-        "categorytitlede": "Brandy",
-        "categorytitlefr": "Brandy",
-        "categorytitleno": "Brandy",
-        "categorytitlejp": "ブランデー",
-        "categorytitleko": "브랜디",
-        "categorytitleru": "Бренди",
-        "categorytitlech": "白兰地"
+        "categoryid": "pasta"
     },
     {
-        "categoryid": "tea_coffee",
-        "categorytitleen": "Tea&Coffee",
-        "categorytitlees": "Te&Cafe",
-        "categorytitlegr": "Τσάι&Kαφές",
-        "categorytitleit": "Tè&Caffè",
-        "categorytitlede": "Tee&Kaffee",
-        "categorytitlefr": "Thé&Café",
-        "categorytitleno": "Te&Kaffe",
-        "categorytitlejp": "紅茶とコーヒー",
-        "categorytitleko": "차와 커피",
-        "categorytitleru": "Чай&Кофе",
-        "categorytitlech": "茶和咖啡"
+        "categoryid": "pre_order_plates"
     },
     {
-        "categoryid": "beverages",
-        "categorytitleen": "Beverages",
-        "categorytitlees": "Refrescos",
-        "categorytitlegr": "Αναψυκτικά",
-        "categorytitleit": "Bevande analcoliche",
-        "categorytitlede": "Alkoholfreie Getränke",
-        "categorytitlefr": "Boissons non alcoolisées",
-        "categorytitleno": "Drikkevarer",
-        "categorytitlejp": "ソフトドリンク",
-        "categorytitleko": "청량 음료",
-        "categorytitleru": "Безалкогольный напиток",
-        "categorytitlech": "软饮料"
+        "categoryid": "salads"
+    },
+    {
+        "categoryid": "soups"
     }
 ]

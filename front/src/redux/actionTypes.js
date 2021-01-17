@@ -5,6 +5,8 @@ const ActionTypes = {
     ADD_TO_CART: "ADD",
     DELETE_FROM_CART: "DELETE",
     CLEAR_CART: "CLEARC",
+    
+    ACCEPT_CONDITION: "ACCEPTCOND",
 
     SET_FILTER: "SETFILTER",
     

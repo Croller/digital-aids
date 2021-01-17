@@ -10,7 +10,8 @@ const defaultLang = "en"
 const rests             = require( '../data/restaurants.json')
 const cuisines_list     = require( '../data/cuisines.json')
 const dishes            = require( '../data/dishes.json')
-// const categories_list   = require( '../data/categories.json')
+const categories_list   = require( '../data/categories.json')
+const _conditions       = require( '../data/conditions.json')
 const menus             = require( '../data/menus.json')
 const menu_dishes       = require( '../data/menu-dishes.json')
 const insider_list      = require( '../data/insiders.json')
@@ -412,7 +413,7 @@ class RestService extends baseService{
                         return cats
                 }, [])
                 
-                console.debug("Unique categories:", uniqueCategories)
+                // console.debug("Unique categories:", uniqueCategories)
                 let categories = [] ;
                 iii = 0;
                 while( iii < uniqueCategories.length ){
@@ -425,10 +426,44 @@ class RestService extends baseService{
                         const title         = c ? await translationService.translateOne(c, lang) : ""
                         const titledefault  = c ? await translationService.translateOne(c, default_lang) : ""
     
+                        // add conditions, if any
+                        const cat_in_list = categories_list.find(ct => ct.categoryid === c )
+                        let conditions = []
+                        if( cat_in_list && cat_in_list.conditions ){
+                            // split string into ids
+                            const condition_list = cat_in_list.conditions.toString().split(/[, .;]+/)
+                            console.debug("category", cat_in_list, condition_list)
+                            if ( Array.isArray(condition_list) ){
+
+                                let i = 0
+                                while( i < condition_list.length){
+
+                                    const condition_id = parseInt( condition_list[i] );
+                                    // find condition in condition list and add it to categorie's conditions
+                                    const condition = _conditions.find( cnd => cnd.conditionid === condition_id );
+                                    if( condition ){
+
+                                        // translate condition
+                                        condition.title     = condition.titletranslationid ? await translationService.translateOne(condition.titletranslationid, lang) : null
+                                        condition.text      = condition.texttranslationid ? await translationService.translateOne(condition.texttranslationid, lang) : null
+                                        condition.prompt    = condition.prompttranlsationid ? await translationService.translateOne(condition.prompttranlsationid, lang) : null
+                                        condition.confirm_button    = condition.confirmbuttontid ? await translationService.translateOne(condition.confirmbuttontid, lang) : null
+                                        condition.decline_button    = condition.declinebuttontid ? await translationService.translateOne(condition.declinebuttontid, lang) : null
+
+                                        conditions = [...conditions, condition ];
+
+                                    }
+                                    i++
+                                }
+                            } 
+                        }
+
+
                         categories = [...categories,
                             {
                                 id: c || "", 
-                                title, titledefault
+                                title, titledefault,
+                                conditions
                             }
                         ]
                     }

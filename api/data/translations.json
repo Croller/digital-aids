@@ -1366,7 +1366,7 @@
         "es": "Pan, alioli y tomate rallado con aceite y sal",
         "de": "Brot, Aioli und geriebene Tomaten mit Olivenöl und Salz",
         "no": "Brød, aioli, reven tomat med oliven olje og salt",
-        "ru": "Свежий хлеб с олиоли, томатами и оливковым маслом"
+        "ru": "Свежий хлеб с айоли, томатами и оливковым маслом"
     },
     {
         "translationid": "dish_2",
@@ -1486,7 +1486,7 @@
         "es": "Mejillones al vapor con salsa de gorgonzola",
         "de": "Muschelauflauf mit Gorgonzolasauce",
         "no": "Blåskjell med gorgonzola saus",
-        "ru": "Мидии с соусом гарганзола (молочно-сырный соус)"
+        "ru": "Мидии с соусом горгонзола (молочно-сырный соус)"
     },
     {
         "translationid": "dish_17",
@@ -2034,7 +2034,7 @@
         "ch": "Please, confirm that you are over 21 years old"
     },
     {
-        "translationid": "alcohol_notification_tex3",
+        "translationid": "Yes, I am",
         "en": "Yes, I am",
         "es": "Confirmo",
         "de": "Ich bestätige",
@@ -2046,7 +2046,7 @@
         "ch": "我確定"
     },
     {
-        "translationid": "alcohol_notification_tex4",
+        "translationid": "No, I am not",
         "en": "No, I am not",
         "es": "No confirmo",
         "de": "Ich bestätige nicht",
@@ -2070,7 +2070,7 @@
         "ch": "GET TO KNOW OUR PRODUCTS,"
     },
     {
-        "translationid": "advertisement_notification_tex2",
+        "translationid": "check_products",
         "en": "CHECK PRODUCTS",
         "es": "VER PRODUCTOS",
         "de": "SIEHE PRODUKTE",

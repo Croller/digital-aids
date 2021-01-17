@@ -17,7 +17,8 @@ const initialRestaurantState = {
     cartCount: 0, // items in cart
     cartPrice: 0, // cart total price
     cartHasItemsWithNoPrice: false,
-    overlay: "language"
+    overlay: "language",
+    conditions: {} // accepted conditions: { condition_id: result, ... }
 }
 
 const initialState = 
@@ -58,21 +59,23 @@ export default function root( state = initialState, action ) {
     
     // let {messages} = state
     // let now = Date.now()
-    const {type: payloadType, payload } = action
+    const {type: payloadType, payload } = action;
     
     let 
     restaurant, restaurants,
     cart, 
     cartCount, 
+    condition_id,
     index, 
     item, 
     slug, 
     restCart, 
+    result,
     dishid, 
     cartPrice,
     type,
     overlay, 
-    value
+    value;
     
 
     console.debug("Dispatch type and payload:", payloadType, payload)
@@ -288,7 +291,20 @@ export default function root( state = initialState, action ) {
                 newState = {...newState, restaurants }
             break;
 
+        case A.ACCEPT_CONDITION:
+            ({ condition_id, result, slug } = payload);
+            ({restaurants} = newState);
+            let rest = restaurants[slug]
+            if( rest ){
 
+                const {conditions = {} } = rest
+                rest = {...rest, conditions: {...conditions, [condition_id]: result } }
+
+                restaurants = {...restaurants, [slug]: rest }
+    
+                newState = { ...newState, restaurants }
+            }
+            break;
         default:
             //newState = state;
             

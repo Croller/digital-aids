@@ -16,6 +16,18 @@
             width: 100%;
             height: 50px;
 
+            &.left{
+                justify-content: flex-start;
+                padding-left: 24px;
+                padding-right: 24px;
+                .active {
+                    margin: 0;
+                    span{
+                        line-height: 1.1em;
+                    }
+                }
+            }
+
             & > div {
                 // flex-grow: 1;
                 width: 33.33%; // jut one third for everybody
@@ -58,6 +70,9 @@
                 flex-direction: column;
                 align-items: center;
                
+                &.left{
+                    align-items: flex-start;
+                }
 
                 span{
                     opacity: 0.4;
@@ -104,6 +119,66 @@
             
 
             
+        }
+    }
+}
+
+.conditions-dialog{
+    z-index: 10!important; // put dialog background below top and bottom menu
+    .MuiBackdrop-root{
+        backdrop-filter: blur(5px); // blur category in background
+        background-color: rgba(255,255,255,0.3);
+    }
+    &.hide {
+        // if condition result was set to false (not accepted), then hide the dialog, only show the blurred background
+        .MuiPaper-root{
+            background: transparent;
+            box-shadow: none;
+        }
+    }
+
+    .logo{
+        max-width: 60%;
+        max-height: 50px;
+        margin: 0 auto 25px;
+    }
+
+    .text, .prompt{
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 21.9px;
+        margin-bottom: 33px;
+    }
+    .prompt{
+        font-weight: 600;
+    }
+
+    // center everything
+    .MuiDialogContent-root{ 
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .confirm, .decline {
+        background: $light-gray;
+        width: 174px;
+        height: 53px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15;
+        font-weight: 600;
+        margin-bottom: 14px;
+
+        &.confirm{
+            background-color: $green;
+            color: white;
+        }
+
+        &.decline{
+            box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
+            margin-bottom: 36px;
         }
     }
 }

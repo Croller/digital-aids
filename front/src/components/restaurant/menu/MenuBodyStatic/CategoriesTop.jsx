@@ -48,4 +48,4 @@ const CategoriesTop = props => {
 }
 
 
-export default CategoriesTop
+export default CategoriesTop;
