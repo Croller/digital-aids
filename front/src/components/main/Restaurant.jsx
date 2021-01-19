@@ -143,6 +143,10 @@ class Restaurant extends React.Component{
             
             <div className="page-content flex-grow">
                 
+                { 
+                // show routes only if not overlaying
+                !overlay && 
+                // (it is neded so that the oferta that shows for the first time don't pop over the overlay)
                 <Routes 
                     routes ={
                         [
@@ -158,6 +162,7 @@ class Restaurant extends React.Component{
                         ]
                     }
                 />
+                 }
 
             </div>
             

@@ -12,6 +12,7 @@ const cuisines_list     = require( '../data/cuisines.json')
 const dishes            = require( '../data/dishes.json')
 const categories_list   = require( '../data/categories.json')
 const _conditions       = require( '../data/conditions.json')
+const _ofertas          = require( '../data/ofertas.json')
 const menus             = require( '../data/menus.json')
 const menu_dishes       = require( '../data/menu-dishes.json')
 const insider_list      = require( '../data/insiders.json')
@@ -89,14 +90,16 @@ class RestService extends baseService{
                         return {...i, dish }
                     })
 
-                    // console.debug("insiders", "check")
+                    // get ofertas
+                    const ofertas = await this.getRestaurantOfertas( rest.id, lang );
 
                     rest = {
                         ...rest, 
                         menus,  
                         // photos: photos? photos.split(",") : [] ,
                         photos: photos? photos.split(/[, ]+/) : [] ,
-                        insiders
+                        insiders,
+                        ofertas
                     }
                 } 
                 // console.log("Rest:" , rest)
@@ -470,8 +473,7 @@ class RestService extends baseService{
 
                     iii += 1
                 }
-                console.debug("Packed categories:", categories)
-                
+                console.debug("Packed categories:", categories)                
                
                 // add the whole shebang to the menus array
                 rest_menus_result = 
@@ -485,6 +487,72 @@ class RestService extends baseService{
         return rest_menus_result;
     }
     
+
+    
+    /**
+     * Returns a hashed by category id object of arrays of restaurant's ofertas, translated to given language, 
+     * @param {*} id 
+     * @param {*} language 
+     */
+    static async getRestaurantOfertas( id, language ){
+
+        let ofertas = _ofertas.filter( o => o.restaurantid === id );
+        // TODO filter by active date
+
+        
+
+        let result = []
+        let i=0;
+        while( i < ofertas.length){
+            const o = { ...ofertas[i] } // copy to avoid changes in original 
+            
+            // title - big green header under the image
+            o.header         = o.headertranslationid ? await translationService.translateOne(o.headertranslationid, language) : null
+            // first paragraph of text 
+            o.text1         = o.text1translationid ? await translationService.translateOne(o.text1translationid, language) : null
+            // optional second paragraph of text
+            o.text2         = o.text2translationid ? await translationService.translateOne(o.text2translationid, language) : null
+            // conditions - text in the bottom part of the oferta window, in gray field.
+            o.conditions    = o.conditionstranslationid ? await translationService.translateOne(o.conditionstranslationid, language) : null
+            // button text
+            o.call_to_action= o.calltoactiontranslationid ? await translationService.translateOne(o.calltoactiontranslationid, language) : null
+            
+            // ids of categories the oferta will be shown in.
+            // if omitted, it will be shown when user enters the menu for the first time 
+            // when more than 1 oferta is present within category (or with no category)
+            // one of them is randomly chosen to show.
+            console.debug('o.categoryids', o.categoryids)
+            o.categoryids = o.categoryids ? o.categoryids.split(/[,.;| ]+/) : null;
+            result = [...result, o]
+            i++;
+        }
+
+        // hash result by category id
+        return result.reduce( (res, o) => {
+            
+            if (Array.isArray(o.categoryids)){
+
+                o.categoryids.map( cid => {
+                    // if result of category id is not empty (already an array)
+                    res[cid] = res[cid] ? 
+                    // it's added the oferta
+                    [...res[cid], o] :  
+                    // otherwise an array with single element is created
+                    [o]
+                })
+            } else {
+                // if result of empty string (reserved for no-category ofertas) is not empty (already an array)
+                res[""] = res[""] ? 
+                // it's added the oferta
+                [...res[""], o] : 
+                // otherwise an array with single element is created
+                [o]
+            }
+
+            return res;
+            
+        }, {} );
+    }
 }
 
 baseService.extend(RestService)

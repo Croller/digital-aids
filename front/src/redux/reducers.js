@@ -18,7 +18,8 @@ const initialRestaurantState = {
     cartPrice: 0, // cart total price
     cartHasItemsWithNoPrice: false,
     overlay: "language",
-    conditions: {} // accepted conditions: { condition_id: result, ... }
+    conditions: {}, // accepted conditions: { condition_id: result, ... },
+    ofertaIsShown: false // flag that an oferta pop-up on entering the menu was shown
 }
 
 const initialState = 
@@ -69,7 +70,8 @@ export default function root( state = initialState, action ) {
     index, 
     item, 
     slug, 
-    restCart, 
+    rest,
+    // restCart, 
     result,
     dishid, 
     cartPrice,
@@ -294,7 +296,7 @@ export default function root( state = initialState, action ) {
         case A.ACCEPT_CONDITION:
             ({ condition_id, result, slug } = payload);
             ({restaurants} = newState);
-            let rest = restaurants[slug]
+            rest = restaurants[slug]
             if( rest ){
 
                 const {conditions = {} } = rest
@@ -302,6 +304,23 @@ export default function root( state = initialState, action ) {
 
                 restaurants = {...restaurants, [slug]: rest }
     
+                newState = { ...newState, restaurants }
+            }
+            break;
+
+        case A.OFERTA_IS_SHOWN:
+            // payload is the restaurant's slug.
+
+            ({restaurants} = newState);
+            // find restaurant
+            rest = restaurants[payload]
+
+            if( rest ){
+                // update value                
+                rest = {...rest, ofertaIsShown: true }
+                // update restaurants
+                restaurants = {...restaurants, [payload]: rest }
+                // update state
                 newState = { ...newState, restaurants }
             }
             break;

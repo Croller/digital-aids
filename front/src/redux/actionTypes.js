@@ -7,6 +7,8 @@ const ActionTypes = {
     CLEAR_CART: "CLEARC",
     
     ACCEPT_CONDITION: "ACCEPTCOND",
+    
+    OFERTA_IS_SHOWN: "OFERTASHOWN",
 
     SET_FILTER: "SETFILTER",
     

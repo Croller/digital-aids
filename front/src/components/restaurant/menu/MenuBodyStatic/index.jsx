@@ -6,6 +6,12 @@ import SimpleItem from '../item'
 import ImageItem from '../item_images'
 import MenuItemList from './MenuItemList'
 import ErrorLoading from '../../../template/common/error-loading'
+// import A from '../../../../redux/actionTypes'
+import DefaultComponent, {connect} from '../../../DefaultComponent'
+// import { Dialog, DialogContent } from '@material-ui/core'
+// import { randomFromArray } from '../../../../utils/functions'
+// import Oferta from '../../oferta'
+
 
 const templates = {
     text: SimpleItem,
@@ -17,7 +23,56 @@ const templates = {
  * Renders just one category at a time, no carousel.
  * Created to replace the non-yet-working carousel template in MenuBody component
  */
-class MenuBody extends React.Component {
+// class MenuBody extends React.Component {
+class MenuBody extends DefaultComponent {
+
+    // state = {
+    //     oferta: null
+    // }
+
+    // componentDidMount(){
+    //     this.selectOferta()
+    // }
+    // componentDidUpdate(oldProps){
+    //     if( oldProps.category !== this.props.category ){
+    //         this.selectOferta()
+    //     }
+    // }
+
+    // selectOferta(){
+
+    //     const {
+    //         restState,
+    //         restaurant,
+    //         category            
+    //     } = this.props;
+
+    //     const {ofertaIsShown} = restState
+    //     console.debug("oferta category:", category )
+
+    //     // ofertas are either ofertas for this category...
+    //     const ofertas = 
+    //     restaurant.ofertas[category] ?   
+    //     restaurant.ofertas[category] :
+    //     // or, if oferta hasn't been shown, 
+    //     !ofertaIsShown ? 
+    //     // ofertas for no category
+    //     restaurant.ofertas[""] : 
+    //     // otherwise, just nothing
+    //     null
+
+    //     console.debug("ofertas array:", ofertas)
+    //     // if ofertas is not empty, select one randomly
+    //     if( ofertas && ofertas.length > 0 ){
+    //         const oferta = randomFromArray( ofertas, 1 )[0];
+    //         if( oferta ){
+    //             // set redux value
+    //             this.props.showOferta(restaurant.slug);
+    //         }
+    //         this.setState({oferta})
+    //     } else 
+    //         this.setState({oferta: false})
+    // }
 
     render() {
         const {
@@ -62,12 +117,14 @@ class MenuBody extends React.Component {
                 )
             )
         ); 
-            
+
+        // get oferta to show, if any
+        // const {oferta} = this.state            
 
         return (
+            <>
             <div id="menus-carousel" >
                 <div className="menu-wrapper">
-
                     <div
                         id="menu-carousel-body"
                         // useJs
@@ -96,8 +153,23 @@ class MenuBody extends React.Component {
                     </div>
                 </div>
             </div>
+            {/* <Dialog
+                open={Boolean(oferta)}
+                onClose={() => this.setState({oferta: false })}
+                fullWidth
+                className="oferta-dialog"
+            >
+                <DialogContent>
+                    <Oferta {...oferta} slug={restaurant.slug} onClose={() => this.setState({oferta: false })} />
+                </DialogContent>
+            </Dialog> */}
+            </>
         )
     }
 }
 
-export default MenuBody
+export default connect(MenuBody, 
+    // {
+    //     showOferta: (dispatch, payload) => dispatch({type: A.OFERTA_IS_SHOWN, payload })
+    // }
+)

@@ -9,6 +9,8 @@ import {connect} from 'react-redux'
 import A from '../../../../redux/actionTypes'
 import { Button, Dialog, DialogContent } from '@material-ui/core';
 import {Forbidden} from '../../../template/common/icons'
+import { randomFromArray } from '../../../../utils/functions'
+import Oferta from '../../oferta'
 
 // MEDIA root
 const {REACT_APP_MEDIA : MEDIA} = process.env 
@@ -19,6 +21,97 @@ let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 const root = document.getElementById("root")
 
 class MenuItemList extends React.Component{
+
+    state = {
+        oferta: null,
+        conditionsAccepted: true,
+        // categoryConditionsNotAccepted: null, 
+        categoryConditionsAcceptance: true,
+        firstCondition: null, 
+        cat: null
+    }
+
+    componentDidMount(){
+        this.selectOferta()
+        this.checkConditions()
+    }
+    componentDidUpdate(oldProps){
+        if( oldProps.category.id !== this.props.category.id ){
+            this.selectOferta()
+            this.checkConditions()
+        }
+    }
+
+    selectOferta(){
+
+        const {
+            restState,
+            restaurant,
+            category            
+        } = this.props;
+
+        const {ofertaIsShown} = restState
+        console.debug("oferta category:", category.id )
+        
+
+        // ofertas are either ofertas for this category...
+        const ofertas = 
+        restaurant.ofertas[category.id] ?   
+        restaurant.ofertas[category.id] :
+        // or, if oferta hasn't been shown, 
+        !ofertaIsShown ? 
+        // ofertas for no category
+        restaurant.ofertas[""] : 
+        // otherwise, just nothing
+        null
+
+        console.debug("ofertas array:", ofertas)
+        // if ofertas is not empty, select one randomly
+        if( ofertas && ofertas.length > 0 ){
+            const oferta = randomFromArray( ofertas, 1 )[0];
+            if( oferta ){
+                // set redux value
+                console.debug("selected oferta:", oferta)
+                this.props.showOferta(restaurant.slug);
+            }
+            this.setState({oferta})
+        } else 
+            this.setState({oferta: false})
+    }
+
+    checkConditions(){
+        const {
+            categories, 
+            catIndex,
+            restState 
+        } = this.props
+
+        const cat = categories[catIndex] || {}
+        const {conditions: category_conditions = null } = cat 
+        
+        
+        const {conditions = {}} = restState;
+
+        console.debug("state conditions:", conditions)
+        console.debug("category_conditions:", category_conditions)
+        const unacceptedConditions = category_conditions.filter(
+            cond => !conditions[ cond.conditionid.toString() ]
+        )
+        // add the result to the unaccepted conditions, if any
+        .map( cond => ({...cond, result: conditions[ cond.conditionid.toString() ] }) )
+
+        console.debug("unacceptedConditions:", unacceptedConditions)
+
+        const categoryConditionsNotAccepted = unacceptedConditions.length > 0
+        const firstCondition = unacceptedConditions[0]
+
+        this.setState({
+            categoryConditionsNotAccepted, 
+            firstCondition, 
+            cat,
+            categoryConditionsAcceptance: categoryConditionsNotAccepted ? null : true // acceptance is empty if there is a condition to accept
+        })
+    }
 
     render(){
         const {
@@ -43,24 +136,20 @@ class MenuItemList extends React.Component{
 
         const baseRoot = `/${slug}/${menu_id}/`;
 
-        const cat = categories[catIndex] || {}
-        const {conditions: category_conditions = null } = cat 
         
+
+        // get oferta to show, if any,
+        // get conditions details,
+        // get category itself
+        const {
+            oferta,
+            // categoryConditionsNotAccepted, 
+            categoryConditionsAcceptance,
+            firstCondition,
+            cat = {}
+        } = this.state 
+
         
-        const {conditions = {}} = restState;
-
-        console.debug("state conditions:", conditions)
-        console.debug("category_conditions:", category_conditions)
-        const unacceptedConditions = category_conditions.filter(
-            cond => !conditions[ cond.conditionid.toString() ]
-        )
-        // add the result to the unaccepted conditions, if any
-        .map( cond => ({...cond, result: conditions[ cond.conditionid.toString() ] }) )
-
-        console.debug("unacceptedConditions:", unacceptedConditions)
-
-        const categoryConditionsNotAccepted = unacceptedConditions.length > 0
-        const firstCondition = unacceptedConditions[0]
 
         return(
             <div className="category-content disable-scrollbars">
@@ -73,12 +162,17 @@ class MenuItemList extends React.Component{
                     slug={slug}
                 /> */}
 
-            <div className="category-top left">
-                <div className="category-title active left">
-                    <span>{cat.title}</span>
-                    {cat.title!== cat.titledefault && <span>{cat.titledefault}</span>}
+            { 
+                // only if category is fetched
+                cat &&
+            
+                <div className="category-top left">
+                    <div className="category-title active left">
+                        <span>{cat.title}</span>
+                        {cat.title!== cat.titledefault && <span>{cat.titledefault}</span>}
+                    </div>
                 </div>
-            </div>
+            }
 
                 {/* <div className="category-header">
                     { prevCategory && 
@@ -127,9 +221,12 @@ class MenuItemList extends React.Component{
                     // Condition accept dialog
                 <Dialog
                 className={`conditions-dialog${firstCondition && firstCondition.result === false ? ' hide' : '' }`}
-                open={categoryConditionsNotAccepted}
+                // open={categoryConditionsNotAccepted}
+                open={ categoryConditionsAcceptance !== true }
                 >
-                    {firstCondition && firstCondition.result === false ? 
+                    {/* Uncomment the next line to get the thing working with redux state, multiple conditions and once per session */}
+                    {/* {firstCondition && firstCondition.result === false ?  */}
+                    { categoryConditionsAcceptance === false ? 
                     <Forbidden />
                     :     
                     <DialogContent>
@@ -148,17 +245,35 @@ class MenuItemList extends React.Component{
                         {/* <div className="buttons"> */}
                             <Button 
                             className="confirm" 
-                            onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, true, slug )}
+                            // There was a decision to make the condition appear every time user gets to the category.
+                            // To make it accepted once per session, uncomment the next line and comment the setState one.
+                            // onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, true, slug )}
+                            onClick={() => this.setState({categoryConditionsAcceptance: true }) }
                             >{firstCondition && firstCondition.confirm_button}</Button>
                             <Button 
                             className="decline"
-                            onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, false, slug )}
+                            // There was a decision to make the condition appear every time user gets to the category.
+                            // To make it accepted once per session, uncomment the next line and comment the setState one.
+                            // onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, false, slug )}
+                            onClick={() => this.setState({categoryConditionsAcceptance: false })}
                             >{firstCondition && firstCondition.decline_button}</Button>
                         {/* </div> */}
                     </DialogContent>
                 }
                 </Dialog>
                 }
+
+                <Dialog
+                    // show if there is an oferta + conditions were accepted with true
+                    open={Boolean(oferta) && categoryConditionsAcceptance === true }
+                    onClose={() => this.setState({oferta: false })}
+                    fullWidth
+                    className="oferta-dialog"
+                >
+                    <DialogContent>
+                        <Oferta {...oferta} slug={restaurant.slug} onClose={() => this.setState({oferta: false })} />
+                    </DialogContent>
+                </Dialog>
             </div>
         )
     }
@@ -167,6 +282,7 @@ class MenuItemList extends React.Component{
 export default connect(
     null,
     dispatch => ({
-        acceptCondition: (condition_id, result, slug) => dispatch({type: A.ACCEPT_CONDITION, payload: {condition_id, result, slug}})
+        acceptCondition: (condition_id, result, slug) => dispatch({type: A.ACCEPT_CONDITION, payload: {condition_id, result, slug}}),
+        showOferta: payload => dispatch({type: A.OFERTA_IS_SHOWN, payload })
     })
 )(MenuItemList)

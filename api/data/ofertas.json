@@ -1,0 +1,45 @@
+[
+    {
+        "ofertaid": 1,
+        "restaurantid": 3700,
+        "headertranslationid": "oferta_1_title",
+        "text1translationid": "oferta_1_t1",
+        "conditionstranslationid": "oferta_1_t2",
+        "image": "oferta_01.jpg",
+        "activefrom": "2020-12-17T22:00:00.000Z",
+        "activeto": "2021-02-27T22:00:00.000Z"
+    },
+    {
+        "ofertaid": 2,
+        "restaurantid": 3700,
+        "text1translationid": "advertisement_notification_tex1",
+        "text2translationid": "advertisement_notification_tex3",
+        "calltoactiontranslationid": "check_products",
+        "image": "oferta_02.jpg",
+        "activefrom": "2020-12-17T22:00:00.000Z",
+        "activeto": "2021-02-27T22:00:00.000Z",
+        "categoryids": "drinks_with_alcohol"
+    },
+    {
+        "ofertaid": 3,
+        "restaurantid": 3700,
+        "text1translationid": "advertisement_notification_tex1",
+        "text2translationid": "advertisement_notification_tex3",
+        "calltoactiontranslationid": "check_products",
+        "image": "oferta_03.jpg",
+        "activefrom": "2020-12-17T22:00:00.000Z",
+        "activeto": "2021-02-27T22:00:00.000Z",
+        "categoryids": "drinks_no_alcohol"
+    },
+    {
+        "ofertaid": 4,
+        "restaurantid": 3700,
+        "text1translationid": "advertisement_notification_tex1",
+        "text2translationid": "advertisement_notification_tex3",
+        "calltoactiontranslationid": "check_products",
+        "image": "oferta_04.jpg",
+        "activefrom": "2020-12-17T22:00:00.000Z",
+        "activeto": "2021-02-27T22:00:00.000Z",
+        "categoryids": "drinks_with_alcohol"
+    }
+]
