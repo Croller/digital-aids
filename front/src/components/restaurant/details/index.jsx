@@ -29,7 +29,16 @@ import {
     TripadvisorRatingCheck, TripadvisorRatingEmpty,
     External
 } from '../../template/common/icons'
+
+// =======================!!!!!! WARNING !!!! ========================
+// WARNING! This is a link to manually updated file from simple-react-google-maps project.
+// It won't be available in a clean install and I didn't have time to fork the project or whatever.
+// The updated file is stored as /src/assets/changed_node_files/index-updated.js 
+// Either paste it into the path below (which is really a bad idea) or solve it somehow.
 import GoogleMaps from "simple-react-google-maps/lib/index-updated";  
+
+
+
 import DefaultComponent, {connect} from '../../DefaultComponent'
 // import GoogleMaps from "../../GoogleMap";  
 
