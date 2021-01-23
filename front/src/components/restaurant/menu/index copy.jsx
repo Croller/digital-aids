@@ -32,6 +32,10 @@ let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;;
 // root element
 const root = document.getElementById("root")
 
+/**
+ * This is the second iteration of carousel, which also didn't make it to production.
+ */
+
 
 // class RestaurantMenu extends React.Component {
 class RestaurantMenu extends DefaultComponent {

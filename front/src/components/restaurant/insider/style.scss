@@ -1,5 +1,15 @@
 @import "../../../variables.scss";
 
+$imageHeightMobile: 273px;
+$imageToDotsOffset: 19px;
+$dotsHeight: 16px;
+$dotsToTextOffset: 16px;
+
+$arrowsHeight: 40px;
+$arrowsBottomOffset: 20px;
+
+$titleBottomOffset: 27px;
+
 .insider-modal{
     display:flex;
     flex-direction: row;
@@ -67,10 +77,11 @@
         ul.dots{
             z-index: 100;
             top: inherit;
-            bottom: 20px;
+            height: $dotsHeight;
+            // bottom: 20px;
             @media screen and (max-width: $bp_2){
-                bottom: inherit;
-                top: 304px;
+                // bottom: inherit;
+                top: #{$imageHeightMobile + $imageToDotsOffset};
             }
             
             li.dot{
@@ -91,7 +102,8 @@
 
 
     .text-block{
-        padding: 50px 28px 28px;
+        // padding: 50px 28px 28px;
+        padding: #{$imageToDotsOffset + $dotsHeight + $dotsToTextOffset} 28px 28px;
         // position: relative;
 
         h2{
@@ -102,7 +114,8 @@
             @media screen and (max-width: $bp_2) {
                 position: absolute;
                 color: white;
-                top: 243px;
+                // top: 243px;
+                top: #{$imageHeightMobile - $titleBottomOffset };
                 text-shadow: 1px 1px 4px black;
                 font-size: 18px;
                 text-align: left;
@@ -142,16 +155,16 @@
         }
 
         @media screen and (max-width: $bp_2) {
-            display: none;
+            // display: none;
             // move arrows to picture container
-            // position: absolute; 
-            // top: 230px;
-            // right: 10px;
-            // color: white;
+            position: absolute; 
+            top: #{$imageHeightMobile - $arrowsHeight - $arrowsBottomOffset };
+            right: 10px;
+            color: white;
 
-            // &.left{
-            //     right: 50px;
-            // }
+            &.left{
+                right: 50px;
+            }
         }
     }
     img{
@@ -164,7 +177,7 @@
         min-height: 273px;
         border-radius: 6px;
         @media screen and (max-width: $bp_2){
-            height: 273px;
+            height: $imageHeightMobile;
             border-radius: 0;
         }
     }
@@ -198,7 +211,7 @@
         
 
         .text{
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             margin-bottom: 5px; // puts it closer to the next paragraph
         }

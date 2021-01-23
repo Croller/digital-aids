@@ -21,6 +21,7 @@ class Menu extends DefaultComponent{
             "Allergens", 
             "YourOpinionIs", 
             "PriceFor",
+            "reglament_1169",
             "reglament_text_2",
             "reglament_text_3",
             "ThankYou"

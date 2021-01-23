@@ -6,6 +6,10 @@ import MenuBody from './MenuBody';
 import "./menu.scss";
 
 
+/**
+ * This is a carousel slider version of menu.
+ * It was opted out due to cross-browser buggy behavior.
+ */
 class Menu extends DefaultComponent{
 
     state = {

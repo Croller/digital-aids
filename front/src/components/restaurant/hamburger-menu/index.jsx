@@ -22,9 +22,9 @@ import TopBar from '../topbar'
 import {Link} from 'react-router-dom'
 import DefaultComponent, {connect} from '../../DefaultComponent'
 
-const txt = {
-    "reglament_1169": "Reglament (EU) №1169/2011",
-}
+// const txt = {
+//     "reglament_1169": "Reglament (EU) №1169/2011",
+// }
 
 // const _t = key => txt[key] || key
 
@@ -161,7 +161,8 @@ class HamburgerMenu extends DefaultComponent{
                                 <Exclamation className="icon mr-1" />
                                 <div className="reglament-button">
                                     <div className="title">{_t("reglament_1169",1)}</div>
-                                    { secondTranslationNeeded && <div className="default-title">{_t("reglament_1169")}</div>}
+                                    { secondTranslationNeeded && <div className="default-title">{
+                                    this._tr("reglament_1169", restaurant.defaultlanguage, translations )}</div>}
                                 </div>
                             </div>
                         </Button>

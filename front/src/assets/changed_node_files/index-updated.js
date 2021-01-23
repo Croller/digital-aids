@@ -14,6 +14,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+
+// !!!!!! 
+// This line prevents react from throwng error whencompiling.
+// It wasn't in the original code!.
+let google = window.google;
+
 var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
