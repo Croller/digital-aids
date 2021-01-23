@@ -17,6 +17,7 @@ class Oferta extends React.Component{
             header,
             text1,
             text2,
+            link,
             conditions,
             call_to_action,
             onClose
@@ -40,7 +41,13 @@ class Oferta extends React.Component{
                     {text1 && <div className="text">{text1}</div>}
                     {text2 && <div className="text">{text2}</div>}
                     {conditions && <div className="conditions">{conditions}</div>}
-                    {call_to_action && <Button className="call-to-action" onClick={onClose}>{call_to_action}</Button>}
+                    {call_to_action && !link && <Button className="call-to-action" onClick={onClose}>{call_to_action}</Button>}
+                    {
+                    // if call to action AND link are set, render an outside link 
+                    call_to_action && link && <a className="call-to-action" 
+                    onClick={onClose} href={link} 
+                    rel="no-referrer"
+                    target="_blank"><span>{call_to_action}</span></a>}
                 </div>
 
             </div>

@@ -16,7 +16,8 @@ const Allergens = props => {
         _t, // translation tool of function(key):string
         onClose = console.debug, // onClose handler (should change the showDialog value outside)
         tags_list, // the list of tags data, [ {id, title, default_title, type}, ...]
-        dishid // int, id of the dish
+        dishid, // int, id of the dish
+        needSecondTranslation = true
     } = props
     return (
 
@@ -46,7 +47,8 @@ const Allergens = props => {
                                         <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
                                         <div>
                                             {tag && tag.title ? <span>{tag.title}</span> : <span>{t}</span>}
-                                            {tag && tag.default_title !== tag.title  ?  
+                                            {/* {tag && tag.default_title !== tag.title  ?   */}
+                                            {tag && needSecondTranslation  ?  
                                             <span>{tag.default_title}</span>
                                             : "" }
                                         </div>

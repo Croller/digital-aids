@@ -10,7 +10,8 @@
     width: 100%;
 
     .image-holder {
-        margin: -24px -24px 16px;
+        // margin: -24px -24px 16px;
+        margin: 0 0 16px;
         background-size: cover;
         background-position: center center;
         height: 222px;
@@ -37,6 +38,7 @@
         display: flex;
         flex-direction: column;
         align-items: stretch;
+        text-align: center;
 
         .title{
             color: $green;
@@ -60,11 +62,21 @@
             background: $green;
             span{
                 color: white;
+                font-size: 15px;
+                color: white;
+                margin: 0 12px;
+                font-weight: 600;
             }
     
             margin: 19px 0 13px;
             height: 48px;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border-radius: 8px;
+            align-self: center; // makes width not grow
+            
         }
 
         .conditions {

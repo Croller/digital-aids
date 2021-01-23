@@ -186,6 +186,7 @@ class RestMenuItem extends React.Component{
                     tags_list = {tags_list}
                     _t = {_t}
                     dishid={dishid}
+                    needSecondTranslation={needSecondTranslation}
                 />
                 {/* <Dialog 
                 open={showDialog} 

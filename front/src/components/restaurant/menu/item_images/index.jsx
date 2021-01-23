@@ -223,6 +223,7 @@ class RestMenuItem extends React.Component{
                     tags_list = {tags_list}
                     _t = {_tt}
                     dishid={dishid}
+                    needSecondTranslation={needSecondTranslation}
                 />
                 </>
             

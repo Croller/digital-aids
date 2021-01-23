@@ -124,10 +124,24 @@
 }
 
 .conditions-dialog{
-    z-index: 10!important; // put dialog background below top and bottom menu
-    .MuiBackdrop-root{
-        backdrop-filter: blur(5px); // blur category in background
-        background-color: rgba(255,255,255,0.3);
+    z-index: 2000!important; // put dialog background above everything
+    
+    &.declined{
+        // declined is rendered under menus
+        z-index: 10!important; // put dialog background below top and bottom menu
+        
+
+        .MuiBackdrop-root{
+            // and is rendered with white blurred background.
+            background-color: rgba(255,255,255,0.3);    backdrop-filter: blur(5px); // blur category in background
+            background-color: rgba(255,255,255,0.3);
+        }
+
+        // this removes dialog background and shadow to leave only the "prohibited" icon
+        .MuiDialog-paper {
+            background: transparent;
+            box-shadow: none;
+        }
     }
     &.hide {
         // if condition result was set to false (not accepted), then hide the dialog, only show the blurred background
@@ -148,16 +162,26 @@
         font-weight: 500;
         line-height: 21.9px;
         margin-bottom: 33px;
+        text-align: center;
     }
     .prompt{
         font-weight: 600;
     }
 
     // center everything
-    .MuiDialogContent-root{ 
+    .MuiDialogContent-root { 
         align-items: center;
         display: flex;
         flex-direction: column;
+    }
+
+    .dialog-content{ 
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        padding: 12px 27px;
+        border-radius: 8px;
+        overflow: hidden;
     }
 
     .confirm, .decline {

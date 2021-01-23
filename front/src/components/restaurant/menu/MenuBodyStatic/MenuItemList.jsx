@@ -7,7 +7,7 @@ import Social from '../../social';
 import './style.scss';
 import {connect} from 'react-redux'
 import A from '../../../../redux/actionTypes'
-import { Button, Dialog, DialogContent } from '@material-ui/core';
+import { Button, Dialog } from '@material-ui/core';
 import {Forbidden} from '../../../template/common/icons'
 import { randomFromArray } from '../../../../utils/functions'
 import Oferta from '../../oferta'
@@ -19,6 +19,11 @@ const {REACT_APP_MEDIA : MEDIA} = process.env
 let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 // root element
 const root = document.getElementById("root")
+
+
+const DialogContent = props => <div className="dialog-content content">{props.children}</div>
+
+
 
 class MenuItemList extends React.Component{
 
@@ -220,7 +225,11 @@ class MenuItemList extends React.Component{
                 {
                     // Condition accept dialog
                 <Dialog
-                className={`conditions-dialog${firstCondition && firstCondition.result === false ? ' hide' : '' }`}
+                className={
+                    `conditions-dialog${firstCondition && firstCondition.result === false ? ' hide' : 
+                    categoryConditionsAcceptance === false ? ' declined'
+                    : '' }
+                    `}
                 // open={categoryConditionsNotAccepted}
                 open={ categoryConditionsAcceptance !== true }
                 >
