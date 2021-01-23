@@ -2142,5 +2142,63 @@
         "de": "BESTELLEN",
         "fr": "COMMANDER",
         "ru": "ЗАКАЗАТЬ"
+    },
+    {
+        "translationid": "Caramelized Octopus",
+        "en": "Caramelized Octopus"
+    },
+    {
+        "translationid": "Fillet steak “Rossini”",
+        "en": "Fillet steak “Rossini”"
+    },
+    {
+        "translationid": "Mussel Casserole",
+        "en": "Mussel Casserole"
+    },
+    {
+        "translationid": "Grilled fresh Scallops",
+        "en": "Grilled fresh Scallops"
+    },
+    {
+        "translationid": "Duck foie",
+        "en": "Duck foie"
+    },
+    {
+        "translationid": "Affogato al Café",
+        "en": "Affogato al Café"
+    },
+    {
+        "translationid": "Borsch",
+        "en": "Borsch",
+        "ru": "Борщ"
+    },
+    {
+        "translationid": "Dumplings with meat",
+        "en": "Dumplings with meat",
+        "ru": "Пельмени с мясом"
+    },
+    {
+        "translationid": "Pilaf",
+        "en": "Pilaf",
+        "ru": "Плов"
+    },
+    {
+        "translationid": "Eggplants",
+        "en": "Eggplants",
+        "ru": "Баклажаны"
+    },
+    {
+        "translationid": "Je with the fish",
+        "en": "Je with the fish"
+    },
+    {
+        "translationid": "Manti",
+        "en": "Manti",
+        "ru": "Манты"
+    },
+    {
+        "translationid": "Chak Chak",
+        "en": "Chak Chak",
+        "ru": "Чак-Чак"
     }
 ]

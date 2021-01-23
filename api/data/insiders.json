@@ -5,7 +5,7 @@
         "translationid": "insider_001",
         "imagetext": "Caramelized Octopus",
         "dishid": 12,
-        "imageid": "id12.jpg"
+        "image": "id12.jpg"
     },
     {
         "insiderid": 2,
@@ -13,7 +13,7 @@
         "translationid": "insider_002",
         "imagetext": "Fillet steak “Rossini”",
         "dishid": 18,
-        "imageid": "id18.jpg"
+        "image": "id18.jpg"
     },
     {
         "insiderid": 3,
@@ -21,7 +21,7 @@
         "translationid": "insider_003",
         "imagetext": "Mussel Casserole",
         "dishid": 16,
-        "imageid": "id16.jpg"
+        "image": "id16.jpg"
     },
     {
         "insiderid": 4,
@@ -29,7 +29,7 @@
         "translationid": "insider_004",
         "imagetext": "Grilled fresh Scallops",
         "dishid": 20,
-        "imageid": "id20.jpg"
+        "image": "id20.jpg"
     },
     {
         "insiderid": 5,
@@ -37,7 +37,7 @@
         "translationid": "insider_005",
         "imagetext": "Duck foie",
         "dishid": 9,
-        "imageid": "id9.jpg"
+        "image": "id9.jpg"
     },
     {
         "insiderid": 6,
@@ -45,62 +45,62 @@
         "translationid": "insider_006",
         "imagetext": "Affogato al Café",
         "dishid": 26,
-        "imageid": "id26.jpg"
+        "image": "id26.jpg"
     },
     {
         "insiderid": 7,
         "restaurantid": 3701,
         "translationid": "insider_007",
         "imagetext": "Borsch",
-        "dishid": 84,
-        "imageid": "id100.jpg"
+        "dishid": 75,
+        "image": "id100.jpg"
     },
     {
         "insiderid": 8,
         "restaurantid": 3701,
         "translationid": "insider_008",
         "imagetext": "Dumplings with meat",
-        "dishid": 74,
-        "imageid": "Rectangle 41.jpg"
+        "dishid": 65,
+        "image": "Rectangle_41.jpg"
     },
     {
         "insiderid": 9,
         "restaurantid": 3701,
         "translationid": "insider_009",
         "imagetext": "Pilaf",
-        "dishid": 79,
-        "imageid": "Rectangle 44.jpg"
+        "dishid": 70,
+        "image": "Rectangle_44.jpg"
     },
     {
         "insiderid": 10,
         "restaurantid": 3701,
         "translationid": "insider_010",
         "imagetext": "Eggplants",
-        "dishid": 69,
-        "imageid": "Rectangle 39.jpg"
+        "dishid": 60,
+        "image": "Rectangle_39.jpg"
     },
     {
         "insiderid": 11,
         "restaurantid": 3701,
         "translationid": "insider_011",
         "imagetext": "Je with the fish",
-        "dishid": 68,
-        "imageid": "Rectangle 40.jpg"
+        "dishid": 59,
+        "image": "Rectangle_40.jpg"
     },
     {
         "insiderid": 12,
         "restaurantid": 3701,
         "translationid": "insider_012",
         "imagetext": "Manti",
-        "dishid": 89,
-        "imageid": "Rectangle 42.jpg"
+        "dishid": 80,
+        "image": "Rectangle_42.jpg"
     },
     {
         "insiderid": 13,
         "restaurantid": 3701,
-        "translationid": "insider_012",
+        "translationid": "insider_013",
         "imagetext": "Chak Chak",
-        "dishid": 124,
-        "imageid": "Rectangle 43.jpg"
+        "dishid": 115,
+        "image": "Rectangle_43.jpg"
     }
 ]

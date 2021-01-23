@@ -73,22 +73,22 @@ class RestService extends baseService{
 
                     // console.debug("menus", "check")
 
-                    let insiders = await this.getRestaurantInsiders(rest.id);
+                    let insiders = await this.getRestaurantInsiders(rest.id, lang);
 
                     // populate insiders with dishes
-                    insiders = insiders.map( i => {
-                        let dish
-                        let m_ind = 0
-                        // search all the menus till the dish is found 
-                        // (to get the already translated dish)
-                        while( !dish && m_ind < menus.length  ){
-                            const current_menu = menus[m_ind]
-                            dish = current_menu && current_menu.items ? 
-                                current_menu.items.find( d => d.dishid === i.dishid ) : null
-                            m_ind ++ 
-                        }
-                        return {...i, dish }
-                    })
+                    // insiders = insiders.map( i => {
+                    //     let dish
+                    //     let m_ind = 0
+                    //     // search all the menus till the dish is found 
+                    //     // (to get the already translated dish)
+                    //     while( !dish && m_ind < menus.length  ){
+                    //         const current_menu = menus[m_ind]
+                    //         dish = current_menu && current_menu.items ? 
+                    //             current_menu.items.find( d => d.dishid === i.dishid ) : null
+                    //         m_ind ++ 
+                    //     }
+                    //     return {...i, dish }
+                    // })
 
                     // get ofertas
                     const ofertas = await this.getRestaurantOfertas( rest.id, lang );
@@ -156,7 +156,7 @@ class RestService extends baseService{
     }
 
 
-    static async getRestaurantInsiders( id ){
+    static async getRestaurantInsiders( id, lang ){
 
         // gather
         const _insiders = insider_list.filter( i => i.restaurantid === id );
@@ -165,13 +165,17 @@ class RestService extends baseService{
         let i=0
         while( i < _insiders.length){
             const insider = _insiders[i];
-            const text = await  translationService.translateOne( insider.translationid );
-            const dish = dishes.find( d => d.dishid === insider.dishid )
+            const imagetext = await  translationService.translateOne( insider.imagetext, lang );
+            const text = await  translationService.translateOne( insider.translationid, lang );
+            const dish = dishes.find( d => d.dishid === parseInt(insider.dishid) )
             _insiders[i] = 
             {..._insiders[i], 
                 text,
-                image: dish ? dish.image : null,
-                price: dish ? dish.price : null
+                imagetext,
+                // image: dish ? dish.image : null,
+                
+                price: dish ? dish.price : null,
+                dish
              }
             i+=1;
         }
