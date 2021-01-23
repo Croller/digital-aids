@@ -16,6 +16,7 @@
         "text2translationid": "advertisement_notification_tex3",
         "calltoactiontranslationid": "check_products",
         "image": "oferta_02.jpg",
+        "link": "https://estrellagalicia.es/tienda/?gclid=CjwKCAiA6aSABhApEiwA6Cbm_xcLhQSKthoDQVJVq-6nax2YOMk9Jd-Nt86ctJrtqwYA717Fh2hgVhoCLqEQAvD_BwE",
         "activefrom": "2020-12-17T22:00:00.000Z",
         "activeto": "2021-02-27T22:00:00.000Z",
         "categoryids": "drinks_with_alcohol"
@@ -38,6 +39,7 @@
         "text2translationid": "advertisement_notification_tex3",
         "calltoactiontranslationid": "check_products",
         "image": "oferta_04.jpg",
+        "link": "https://www.martincodax.com/es/",
         "activefrom": "2020-12-17T22:00:00.000Z",
         "activeto": "2021-02-27T22:00:00.000Z",
         "categoryids": "drinks_with_alcohol"
