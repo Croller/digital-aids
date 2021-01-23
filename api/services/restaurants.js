@@ -495,10 +495,31 @@ class RestService extends baseService{
      * @param {*} language 
      */
     static async getRestaurantOfertas( id, language ){
+        
+        // TODO: fetch GMT offset for each restaurant and create the date using the offset.
+        const now = new Date();
 
-        let ofertas = _ofertas.filter( o => o.restaurantid === id );
-        // TODO filter by active date
+        let ofertas = _ofertas.filter( o => 
+            // {
 
+            //     const from = new Date(o.activefrom)
+            //     const to = new Date(o.activeto)
+
+            //     console.debug("from <= now:", from <=now, from , now)
+            //     console.debug("to >= now:", to >=now, to , now)
+
+            //     return o.restaurantid === id &&
+            //     // filter by active date
+            //     from <= now  &&
+            //     to >= now
+            // }
+
+            // This is the short way
+            o.restaurantid === id &&
+            // filter by active date
+            new Date(o.activefrom) <= now  &&
+            new Date(o.activeto) >= now
+            )
         
 
         let result = []

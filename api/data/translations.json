@@ -768,7 +768,7 @@
     },
     {
         "translationid": "dish_68",
-        "en": "Spicy Korean salad with special marinated fish, cucumbers and onion",
+        "en": "He: Spicy Korean salad with special marinated fish, cucumbers and onion",
         "es": "Je con pescado: ensalada coreana picante con pescado marinado, pepino y cebolla",
         "de": "Je mit Fisch: Würziger koreanischer Salat mit mariniertem Fisch, Gurke und Zwiebel",
         "fr": "Heh au poisson : une salade coréenne épicée au poisson blanc mariné, concombres et oignons",
@@ -1279,11 +1279,11 @@
     },
     {
         "translationid": "dish_132",
-        "en": "Black Coffee",
+        "en": "Espresso",
         "es": "Café solo",
-        "de": "Schwarzer Kaffee",
-        "fr": "Café noir",
-        "ru": "Черный кофе"
+        "de": "Espresso",
+        "fr": "Expresso",
+        "ru": "Эспрессо"
     },
     {
         "translationid": "dish_133",
@@ -1335,7 +1335,7 @@
     },
     {
         "translationid": "pre_order_plates",
-        "en": "Pre-order",
+        "en": "Pre-order plates",
         "es": "Pedido Previo",
         "el": "Προπαραγγελία",
         "it": "Preordinare",
@@ -1534,7 +1534,7 @@
         "es": "Tagliatelle con salmón y salsa gorgonzola",
         "de": "Tagliatelle mit frischem Lachs und Gorgonzolasauce",
         "no": "Tagliatelle med fersk laks og gorgonzola saus",
-        "ru": "Тальятелле с лососем и соусом гарганзола (молочно-сырный соус)"
+        "ru": "Тальятелле с лососем и соусом горгонзола (молочно-сырный соус)"
     },
     {
         "translationid": "dish_23",
@@ -1542,7 +1542,7 @@
         "es": "Tagliatelle con salsa de setas con trufa",
         "de": "Tagliatelle mit Wildpilz-Trüffelsauce               ",
         "no": "Tagliatelle med skogsopp og sort trøffel saus",
-        "ru": "Тальятелле трюфельно-грибным  соусом"
+        "ru": "Тальятелле с трюфельно-грибным  соусом"
     },
     {
         "translationid": "dish_24",
@@ -1566,7 +1566,7 @@
         "es": "“Affogato al Café” Helado de vainilla, licor de café, nuez caramelizada y café solo   ",
         "de": "“Affogato al Café” Vanilleeis, Kaffeelikör, karamellisierte Walnüsse und Espresso         ",
         "no": "“Affogato al Café” Vaniljeis, kaffelikør, karamelliserte valnøtter og espresso",
-        "ru": "Affogato al Café ванильный лед, кофейный ликер, карамелизированные грецкие орехи и кофе "
+        "ru": "Affogato al Café ванильное мороженое, кофейный ликер, карамелизированные грецкие орехи и кофе "
     },
     {
         "translationid": "dish_27",
@@ -1706,7 +1706,7 @@
     },
     {
         "translationid": "beverage_67",
-        "en": "Homemade red wine/glass",
+        "en": "Homemade red wine/ glass",
         "es": "Vino tinto de la casa/ copa",
         "de": "Hausgemachter Rotweinglas",
         "no": "Hjemmelaget rødvin / glass",
@@ -1722,7 +1722,7 @@
     },
     {
         "translationid": "beverage_69",
-        "en": "Homemade white wine/glass",
+        "en": "Homemade white wine/ glass",
         "es": "Vino blanco de casa/ copa",
         "de": "Hausgemachter Weißwein / Glas",
         "no": "Hjemmelaget hvitvin / glass",
@@ -1966,27 +1966,24 @@
     },
     {
         "translationid": "oferta_1_t1",
-        "en": "We invite you to celebrate it with us and promise you a special magic night with the excellent food!",
-        "de": "Wir laden Sie ein, es mit uns zu feiern und versprechen Ihnen eine besondere magische Nacht mit dem ausgezeichneten Essen! ",
-        "fr": "Nous vous invitons à le célébrer avec nous et vous promettons une soirée magique exclusive avec une excellente cuisine! ",
-        "no": "Vi inviterer deg til å møte ham med oss, og lover en fantastisk kveld og en uforglemmelig middag! ",
-        "ru": "Мы приглашаем Вас встретить его с нами и обещаем сказочную ночь и незабываемый ужин!"
+        "en": "We invite you to celebrate your special events with us and promise you a special magic day with an excellent food!",
+        "de": "Wir laden Sie ein, Ihre besonderen Ereignisse mit uns zu feiern und versprechen Ihnen einen besonderen magischen Tag mit einem ausgezeichneten Essen!",
+        "no": "Vi inviterer deg til å feire dine spesielle arrangementer med oss ​​og lover deg en spesiell magisk dag med utmerket mat!",
+        "ru": "Мы приглашаем Вас отметить особые торжественные события для Вас с нами и обещаем Вам сказочный вечер и незабываемый ужин!"
     },
     {
         "translationid": "oferta_1_t2",
-        "en": "Price: 70€ per person incl 1 bottle of cava (minimum 2 persons)",
-        "de": "Preis: 70€ pro Person inkl. 1 Flasche Cava (mindestens 2 Personen)\r\n\r",
-        "fr": "Prix : 70 € par personne avec 1 bouteille de vin mousseux (minimum 2 personnes)\n\n",
-        "no": "Kostnadene: 70 Euro per person, inkludert en flaske champagne (minst 2 personer)\n\n",
-        "ru": "Стоимость: 70евро на человека, вкл бутылку шампанского (минимум 2 человека)\n\n"
+        "en": "Special Day Menu: 35€ per person incl 1 bottle of cava (minimum for 2 persons)",
+        "de": "Spezielles Urlaubsmenü: 35€ pro Person inkl. 1 Flasche Cava (mindestens 2 Personen)\n\n",
+        "no": "Spesiell høytidsmeny: 35 Euro per person, inkludert en flaske champagne (minst 2 personer)\n\n",
+        "ru": "Праздничное меню: 35евро на человека, вкл бутылку шампанского (минимум 2 человека)\n\n"
     },
     {
         "translationid": "oferta_1_title",
-        "en": "CHRISTMAS IS COMING!",
-        "de": "WEIHNACHTEN STEHT VOR DER TÜR!",
-        "fr": "Noël approche! ",
-        "no": "Julen kommer!",
-        "ru": "Рождество приближается!"
+        "en": "CELEBRATE WITH US",
+        "de": "FEIERN SIE MIT UNS",
+        "no": "FEIR MED OSS",
+        "ru": "ПРАЗДНУЙТЕ С НАМИ"
     },
     {
         "translationid": "PriceFor",
@@ -2008,6 +2005,22 @@
         "fr": "Du lundi au vendredi à partir de 12 h à 17 h",
         "no": "Mandag til fredag fra kl 12 til 17.00",
         "ru": "С понедельника по пятницу с 12.00 до 17.00"
+    },
+    {
+        "translationid": "daily_menu_notification_tex1",
+        "en": "Daily Menu Price is 10 euro PP including bread and drinks.",
+        "es": "El Precio del menu del dia es 10 euros por persona incluido pan y bebidas.",
+        "de": "Tagesmenü beträgt 10 Euro pp inklusive Brot und Getränke.",
+        "no": "Daglig meny Pris er 10 euro PP inkludert brød og drikke. ",
+        "ru": "Стоимость меню дня 10 евро на человека, включая хлеб и напитки."
+    },
+    {
+        "translationid": "daily_menu_notification_tex2",
+        "en": "Please, choose one dish from each category. ",
+        "es": "Por favor, elija un plato de cada categoría.",
+        "de": "Bitte, wählen Sie ein Gericht aus jeder Kategorie.",
+        "no": "Velg en rett fra hver kategori.",
+        "ru": "Пожалуйста, выберите одно блюдо из каждой категории."
     },
     {
         "translationid": "alcohol_notification_tex1",
@@ -2059,24 +2072,21 @@
     },
     {
         "translationid": "advertisement_notification_tex1",
-        "en": "GET TO KNOW OUR PRODUCTS,",
-        "es": "CONOZCA NUESTROS PRODUCTOS,",
-        "de": "LERNEN SIE UNSERE PRODUKTE KENNEN,",
-        "fr": "CONNAÎTRE NOS PRODUITS,",
-        "no": "KJENN VÅRE PRODUKTER,",
-        "jp": "GET TO KNOW OUR PRODUCTS,",
-        "ko": "GET TO KNOW OUR PRODUCTS,",
-        "ru": "ПОЗНАКОМЬТЕСЬ С НАШИМИ ПРЕДЛОЖЕНИЯМИ,",
-        "ch": "GET TO KNOW OUR PRODUCTS,"
+        "en": "Enjoy your meal,",
+        "es": "¡Provecho!",
+        "de": "Guten Appetit!",
+        "fr": "Bon appétit!",
+        "no": "Nyt måltidet!",
+        "ru": "Приятного аппетита!"
     },
     {
         "translationid": "check_products",
-        "en": "CHECK PRODUCTS",
-        "es": "VER PRODUCTOS",
-        "de": "SIEHE PRODUKTE",
-        "fr": "VOIR PRODUITS",
-        "no": "TJEK UT PRODUKTENE",
-        "ru": "ПОСМОТРЕТЬ "
+        "en": "CHECK OUR NEW PRODUCTS",
+        "es": "VER NUEVOS PRODUCTOS",
+        "de": "UNSERE NEUEN PRODUKTE",
+        "fr": "NOS NOUVEAUX PRODUITS",
+        "no": "VÅRE NYE PRODUKTER",
+        "ru": "НАШИ НОВЫЕ ПРОДУКТЫ"
     },
     {
         "translationid": "advertisement_notification_tex3",
@@ -2084,12 +2094,9 @@
         "es": "¡BON APPETIT!",
         "el": "Καλή όρεξη!",
         "it": "BUON APPETITO!",
-        "de": "BON APPETIT!",
-        "fr": "BON APPETIT!",
         "no": "GOD APPETIT! ",
         "jp": "どうぞお召し上がりください！",
         "ko": "맛있게 드세요!",
-        "ru": "BON APPETIT!",
         "ch": "慢慢吃！",
         "undefined": "Bon Appetit!"
     },
@@ -2119,5 +2126,21 @@
         "fr": "Breuvages",
         "no": "Drikkevarer",
         "ru": "Напитки"
+    },
+    {
+        "translationid": "oferta_5_text",
+        "en": "We offer you a special deal for today to try our most favorite dish “Borscht”",
+        "es": "Plato del dia \"Borsch\" pruebalo hoy",
+        "de": "Wir bieten Ihnen für heute ein Sonderangebot, um unser Lieblingsgericht „Borscht“ zu probieren.",
+        "fr": "Nous vous proposons une offre spéciale pour aujourd'hui pour essayer notre plat préféré «Bortsch»",
+        "ru": "Мы предлагаем Вам сегодня отведать наше фирменное блюдо \"Домашний Борщ\""
+    },
+    {
+        "translationid": "oferta_5_order",
+        "en": "ORDER",
+        "es": "PEDIR",
+        "de": "BESTELLEN",
+        "fr": "COMMANDER",
+        "ru": "ЗАКАЗАТЬ"
     }
 ]

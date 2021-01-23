@@ -41,5 +41,14 @@
         "activefrom": "2020-12-17T22:00:00.000Z",
         "activeto": "2021-02-27T22:00:00.000Z",
         "categoryids": "drinks_with_alcohol"
+    },
+    {
+        "ofertaid": 5,
+        "restaurantid": 3701,
+        "headertranslationid": "oferta_5_text",
+        "text1translationid": "oferta_5_text",
+        "calltoactiontranslationid": "oferta_5_order",
+        "activefrom": "2020-12-31T22:00:00.000Z",
+        "activeto": "2021-02-28T22:00:00.000Z"
     }
 ]
