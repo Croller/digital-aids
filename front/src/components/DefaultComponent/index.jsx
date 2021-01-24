@@ -12,7 +12,7 @@ class DefaultComponent extends React.Component{
     _afterTranslation = null;
 
     state = {
-        translationLoaded: false
+        translationLoaded: null
     }
 
     constructor(props){
@@ -29,7 +29,8 @@ class DefaultComponent extends React.Component{
      */
     setTranslations( words, callback ){ 
         this._translations = words; 
-        this._afterTranslation = callback || ( () => this.setState({translationLoaded:true} ) )
+        // this._afterTranslation = callback || ( () => this.setState({translationLoaded:true} ) )
+        this._afterTranslation = callback 
     }
 
 
@@ -37,11 +38,11 @@ class DefaultComponent extends React.Component{
         console.debug("DefaultComponent.componentDidMount")
         this.fetchTranslations().then( 
             // call the callback, if any
-            () => {
+            result => {
 
-                this.setState({translationLoaded: true })
+                this.setState({translationLoaded: result })
                 
-                console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
+                // console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
                 // 
                 if( this._afterTranslation ){
                     
@@ -58,11 +59,11 @@ class DefaultComponent extends React.Component{
                 this.setState({translationLoaded: false })
                 this.fetchTranslations().then( 
                     // call the callback, if any
-                    () => {
+                    result => {
         
-                        this.setState({translationLoaded: true })
+                        this.setState({translationLoaded: result })
                         
-                        console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
+                        // console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
                         // 
                         if( this._afterTranslation ){
                             
@@ -86,6 +87,7 @@ class DefaultComponent extends React.Component{
                 this._translations,
                 language, default_lang
             )
+        
         } else {
             return false;
         }

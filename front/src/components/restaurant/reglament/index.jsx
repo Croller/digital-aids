@@ -25,6 +25,7 @@ import Spinner from '../../template/common/Spinner'
 // import TopBar from '../topbar'
 import ErrorPage from '../../template/common/error-loading'
 import DefaultComponent, {connect} from '../../DefaultComponent'
+import { updateScroll } from '../../../utils/functions'
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
@@ -32,6 +33,11 @@ const txt = {
     "reglament_1169": "Reglament (EU) №1169/2011",
 
 }
+
+// scroll top tracker
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+// root element
+const root = document.getElementById("root")
 
 // const _t = key => txt[key] || key
 
@@ -101,11 +107,17 @@ class Reglament extends DefaultComponent {
 
     render(){
 
-        
-        // const {tags} = this.state
-        
-        
         const {restaurant, language, translations, restState } = this.props
+        
+        const {translationLoaded} = this.state
+
+        console.debug("reglament translationLoaded:", translationLoaded)
+        if( translationLoaded === null ) return <Spinner />
+        if( translationLoaded === false ) return <ErrorPage image={restaurant ? restaurant.logo: false}/>
+
+
+        
+        
         
         // const _t = key => translations[key] ? translations[key][language] || key : key
         // const _t1 = key => translations[key] ? translations[key][restaurant.defaultlanguage] || key : key
@@ -127,7 +139,11 @@ class Reglament extends DefaultComponent {
         return(
             restaurant && restaurant.tags && translations ?
             <> 
-            <Container className="reglament">
+            <Container className="reglament"
+                onScroll={({target}) => {
+                    lastScrollTop = updateScroll(target, root, lastScrollTop )
+                }}
+            >
                 {/* <TopBar 
                 restaurant={restaurant} 
                 showSearch={false} 

@@ -17,16 +17,16 @@
                 margin-bottom: 63px;
             }
 
-            div{
+            // div{
 
-                button{
+                button, a.button{
                     background-color: $light-gray;
                     padding: 20px;
                     span{
                         color: $gray;
                     }
                 }
-            }
+            // }
         }
     }
 }

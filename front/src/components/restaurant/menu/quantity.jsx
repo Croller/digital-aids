@@ -41,7 +41,8 @@ const Quantity = props => {
         <div></div>
         </>
         }
-        <div className="button price">{`${dishprice}€`}</div>
+        {/* <div className="button price">{`${dishprice}€`}</div> */}
+        <div className="button price">{`${parseFloat(dishprice).toFixed(2)}€`}</div>
     </div>
 )}
 

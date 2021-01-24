@@ -2200,5 +2200,13 @@
         "translationid": "Chak Chak",
         "en": "Chak Chak",
         "ru": "Чак-Чак"
+    },
+    {
+        "translationid": "The page cannot be found",
+        "en": "The page cannot be found. Please, start on menu page\nto try again. "
+    },
+    {
+        "translationid": "Hmm, you've got lost",
+        "en": "Hmm, you have got lost! \nThe page you have requested cannot be found. \nPlease, try a new request."
     }
 ]

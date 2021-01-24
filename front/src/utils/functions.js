@@ -183,7 +183,7 @@ export const tkey = (key, language) => `${key}+${language}`;
 
 export const updateScroll =  (target, root, lastScrollTop, scrollingTreshold = 6) => {
 
-    console.debug("updateScroll: ", lastScrollTop, target, root )
+    // console.debug("updateScroll: ", lastScrollTop, target, root )
 
     if( !root || !target )
         return false;
