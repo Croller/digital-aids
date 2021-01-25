@@ -25,6 +25,10 @@ WHERE %where% \
 %groupby% \
 %limit%";
 
+/**
+ * This service fetches and returns restaurant data.
+ * Everything's async here for future use of DB.
+ */
 class RestService extends baseService{
 
     
@@ -118,42 +122,60 @@ class RestService extends baseService{
     }
 
 
-    static async getRestorauntMenu( id, lang = defaultLang, default_lang = defaultLang ){
+    static async getAllergenIds(){
+        const cacheId = "a-ids";
+        if( !this.cacheExists(cacheId) ){
+            // not stored in cache, build it and store it
 
+             // fetch only ids of allergns 
+            let allergens = await tagService.getAll()
+            allergens = Array.isArray(allergens) ? allergens.map( t => t.id) : []
 
-        // fetch only ids of allergns 
-        let allergens = await tagService.getAll()
-        allergens = Array.isArray(allergens) ? allergens.map( t => t.tagid) : []
+            // cache it
+            this.cache( cacheId, allergens );
 
-        
-        console.debug(lang, default_lang)
-        let result = dishes.filter( d => d.dishrestaurtantid === id )
-        .map( dish => { 
-            const {
-            dishid,
-            dishprice,
-            dishcategoryid,
-            dishmenuid,
-            image,
-            tags
-            } = dish
-            console.debug("image:", image)
-            return { dishid,
-                dishprice,
-                dishcategoryid,
-                image,
-                dishmenuid,
-                dishtitle: dish[`dishtitle${lang}`] || dish["dishtitleen"],
-                dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`],
-                tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : []
-                }
-            }
-        )
-
-        
-
-        return result;
+            return this.getCached(cacheId);
+        } else {
+            return this.getCached(cacheId);
+        }
     }
+
+    // static async getRestorauntMenu( id, lang = defaultLang, default_lang = defaultLang ){
+
+
+    //     // fetch only ids of allergns 
+    //     let allergens = await tagService.getAll()
+    //     allergens = Array.isArray(allergens) ? allergens.map( t => t.tagid) : []
+
+        
+    //     console.debug(lang, default_lang)
+    //     let result = dishes.filter( d => d.dishrestaurtantid === id )
+    //     .map( dish => { 
+    //         const {
+    //         dishid,
+    //         dishprice,
+    //         dishcategoryid,
+    //         dishmenuid,
+    //         image,
+    //         tags
+    //         } = dish
+    //         console.debug("image:", image)
+    //         return { dishid,
+    //             dishprice,
+    //             dishcategoryid,
+    //             image,
+    //             dishmenuid,
+    //             dishtitle: dish[`dishtitle${lang}`] || dish["dishtitleen"],
+    //             dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`],
+    //             tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : []
+    //             }
+    //         }
+    //     )
+
+        
+
+    //     return result;
+    // }
 
 
     static async getRestaurantInsiders( id, lang ){
@@ -184,109 +206,234 @@ class RestService extends baseService{
         return _insiders;
     }
 
+
     /**
+     * pricedetails is a string containing description of a complex dish:
+     * several categories with an option to select only one dish within each category.
+     * E.g. a daily menu
      * 
-     * @param {*} id 
-     * @param {Date} now Date object. Time for which to choose the menus.
-     * @param {*} lang string two-letter ISO language code, main language to translate the menu into
-     * @param {*} default_lang string two-letter ISO language code, default language of the restaurant
+     * @param {*} details string to parse
+     * @param {*} lang currently selcted menu language
+     * @param {*} default_lang restaurant's default language
      */
-    static async getRestaurantMenus( id, now, lang = defaultLang, default_lang = defaultLang ){
-        // TODO: validate 'now' type
+    static async breakDishPriceDetails( details, lang, default_lang ){
 
-        // TODO: offset GMT for each restaurant.
-        const weekday = now.getDay() + 1
-        const daytime = now.getHours() * 60 + now.getMinutes() // convert time to integer
+        // details consist of several categories separated by ';'
+        let categories = typeof details === "string" ? details.split(";") : [];
 
-        // console.log( "weekday:", weekday, "daytime:", daytime)
-        let rest_menus = menus.filter( m => 
-            m.restaurantid === id &&
-            (!m.activedays || m.activedays === weekday) &&
-            (!m.hourfrom || m.hourfrom * 60 <= daytime ) && // comparing time * 60 with converted daytime
-            (!m.hourto || m.hourto * 60 >= daytime )
-        );
+        let i = 0;
+        let result = []
+        while(i<categories.length){
+            let cat  = categories[i];
+            
+            // each category consists of category title translation_id and dish list, separated by non-zero amount of spaces
+            const [translation_id, inner_dishes] =  typeof cat === "string" ? cat.split(/[ ]+/) : [];
+            
+            // if translation id and dish list is a string, continue 
+            if( translation_id && typeof inner_dishes === "string" ){
 
-        if( Array.isArray(rest_menus) && rest_menus.length > 0 ){
+                // translate title in two languages
+                const title         = await translationService.translateOne(translation_id, lang)
+                const default_title = await translationService.translateOne(translation_id, default_lang)
 
-            rest_menus = rest_menus.map (  m => {
+                // split dish ids
+                const dish_ids =  inner_dishes.split(/[|]+/);
 
-                const _t = translationService._T( lang, default_lang )
-                
-                const title = _t(m.titletranslationid, 1)
-                const default_title = _t(m.titletranslationid)
-                // const title         = translationService.translateOne(m.titletranslationid, lang)
-                // const default_title = translationService.translateOne(m.titletranslationid, default_lang)
+                console.debug("breakDishPriceDetails: split dish ids", inner_dishes, "result:", dish_ids )
 
-                const items = menu_dishes.filter(d => 
-                d.restaurantid === id &&
-                d.menuid === m.menuid 
-                ).map( d => {
-                    const dish = dishes.find( dd => d.dishid === dd.dishid )
-                    // let translated = await translationService.getByKeys( [ dish.translationid ], lang, default_lang )
-                    // console.debug("translated:", translated)
-                    if( !dish ){
-                            return { dishid: d.dishid, title: "Dish was not found" }
-                    }
-                    const title = _t(dish.translationid, 1)
-                    const default_title = _t(dish.translationid)
-                    // const title         = translationService.translateOne(dish.translationid, lang)
-                    // const default_title = translationService.translateOne(dish.translationid, default_lang)
+                // collect dishes
+                let ii = 0, items = []
+                while( ii < dish_ids.length ){
+                    const id = parseInt(dish_ids[ii]);
+                    const collected_dish = await this.parseDish( id, lang, default_lang )
+                    items = [ ...items, collected_dish ? collected_dish : {dishid: id, title: "Dish not found!" } ];
+                    ii ++;
+                }
 
-                    const {
-                        dishid,
-                        dishprice,
-                        dishcategoryid,
-                        image,
-                        dishmenuid,
-                        photos,
-                        tags
-                    } = dish
-                    return {
-                        dishid,
-                        dishprice,
-                        dishcategoryid,
-                        image,
-                        photos: photos? photos.split(",") : [] ,
-                        dishmenuid,
-                        tags: tags ? tags.split(",") : [],
+                result = [ ...result, 
+                    {
+                        translation_id,
                         title,
-                        default_title
-                    }
-                })  
-
-                const uniqueCategories = items.reduce( (cats, item) => {
-                    if( !cats.includes(item.dishcategoryid) )
-                        return [...cats, item.dishcategoryid ]
-                    else
-                        return cats
-                }, [])
-                
-                console.debug("Unique categories:", uniqueCategories)
-                
-                const categories = uniqueCategories.map( 
-                    c => {
-
-                        const title = _t(c, 1)
-                        const titledefault = _t(c)
-                        // const title         = translationService.translateOne(c, lang)
-                        // const titledefault  = translationService.translateOne(c, default_lang)
-
-
-
-                        return {
-                            id: c, 
-                            title, titledefault
-                        }
-                    }
-                )
-
-                
-
-                return {...m, title, default_title, categories,  items}
-            })
+                        default_title,
+                        items
+                    } 
+                ]
+            }
+            i++;
         }
-        // console.debug(rest_menus)
-        return rest_menus;
+        
+        return result.length > 0 ? result : null ;
+    }
+
+    // /**
+    //  * 
+    //  * @param {*} id 
+    //  * @param {Date} now Date object. Time for which to choose the menus.
+    //  * @param {*} lang string two-letter ISO language code, main language to translate the menu into
+    //  * @param {*} default_lang string two-letter ISO language code, default language of the restaurant
+    //  */
+    // static async getRestaurantMenus( id, now, lang = defaultLang, default_lang = defaultLang ){
+    //     // TODO: validate 'now' type
+
+    //     // TODO: offset GMT for each restaurant.
+    //     const weekday = now.getDay() + 1
+    //     const daytime = now.getHours() * 60 + now.getMinutes() // convert time to integer
+
+    //     // console.log( "weekday:", weekday, "daytime:", daytime)
+    //     let rest_menus = menus.filter( m => 
+    //         m.restaurantid === id &&
+    //         (!m.activedays || m.activedays === weekday) &&
+    //         (!m.hourfrom || m.hourfrom * 60 <= daytime ) && // comparing time * 60 with converted daytime
+    //         (!m.hourto || m.hourto * 60 >= daytime )
+    //     );
+
+    //     if( Array.isArray(rest_menus) && rest_menus.length > 0 ){
+
+    //         rest_menus = rest_menus.map (  m => {
+
+    //             const _t = translationService._T( lang, default_lang )
+                
+    //             const title = _t(m.titletranslationid, 1)
+    //             const default_title = _t(m.titletranslationid)
+    //             // const title         = translationService.translateOne(m.titletranslationid, lang)
+    //             // const default_title = translationService.translateOne(m.titletranslationid, default_lang)
+
+    //             const items = menu_dishes.filter(d => 
+    //             d.restaurantid === id &&
+    //             d.menuid === m.menuid 
+    //             ).map( d => {
+    //                 const dish = dishes.find( dd => d.dishid === dd.dishid )
+    //                 // let translated = await translationService.getByKeys( [ dish.translationid ], lang, default_lang )
+    //                 // console.debug("translated:", translated)
+    //                 if( !dish ){
+    //                         return { dishid: d.dishid, title: "Dish was not found" }
+    //                 }
+    //                 const title = _t(dish.translationid, 1)
+    //                 const default_title = _t(dish.translationid)
+    //                 // const title         = translationService.translateOne(dish.translationid, lang)
+    //                 // const default_title = translationService.translateOne(dish.translationid, default_lang)
+
+    //                 const {
+    //                     dishid,
+    //                     dishprice,
+    //                     dishcategoryid,
+    //                     image,
+    //                     dishmenuid,
+    //                     photos,
+    //                     tags
+    //                 } = dish
+    //                 return {
+    //                     dishid,
+    //                     dishprice,
+    //                     dishcategoryid,
+    //                     image,
+    //                     photos: photos? photos.split(",") : [] ,
+    //                     dishmenuid,
+    //                     tags: tags ? tags.split(",") : [],
+    //                     title,
+    //                     default_title
+    //                 }
+    //             })  
+
+    //             const uniqueCategories = items.reduce( (cats, item) => {
+    //                 if( !cats.includes(item.dishcategoryid) )
+    //                     return [...cats, item.dishcategoryid ]
+    //                 else
+    //                     return cats
+    //             }, [])
+                
+    //             console.debug("Unique categories:", uniqueCategories)
+                
+    //             const categories = uniqueCategories.map( 
+    //                 c => {
+
+    //                     const title = _t(c, 1)
+    //                     const titledefault = _t(c)
+    //                     // const title         = translationService.translateOne(c, lang)
+    //                     // const titledefault  = translationService.translateOne(c, default_lang)
+
+
+
+    //                     return {
+    //                         id: c, 
+    //                         title, titledefault
+    //                     }
+    //                 }
+    //             )
+
+                
+
+    //             return {...m, title, default_title, categories,  items}
+    //         })
+    //     }
+    //     // console.debug(rest_menus)
+    //     return rest_menus;
+    // }
+
+
+    /**
+     * Parse dish, including translation and details parse.
+     * @param {*} dish_id 
+     * @param {*} lang 
+     * @param {*} default_lang 
+     */
+    static async parseDish( dish_id, lang, default_lang ){
+
+        const dish = dishes.find( dd => dish_id === dd.dishid );
+        console.debug("parseDish: finding ", dish_id, "in dishes: ", Boolean(dish));
+
+        if( dish ){
+
+            // check for translationid is needed for not to get error on json parse.
+            const title         = dish.translationid ? await translationService.translateOne(dish.translationid, lang) : null
+            const default_title = dish.translationid ? await translationService.translateOne(dish.translationid, default_lang) : null 
+            const pricefor      = dish.pricefor ?
+                await translationService.translateOne(dish.pricefor, default_lang)
+                : null;
+
+            const allergens = await this.getAllergenIds();
+            
+            // destructure dish
+            let {
+                dishid,
+                dishprice,
+                pricedetails,
+                dishcategoryid,
+                image,
+                dishmenuid,
+                tags,
+                amount,
+                viewonly,
+                units
+            } = dish
+
+            let amountText
+            if( amount && units  ){
+                const unitsTranslation = await  translationService.translateOne( units, default_lang);
+                amountText = `${amount}${unitsTranslation}`;
+            }
+
+            // split price details 
+            pricedetails = await this.breakDishPriceDetails( pricedetails, lang, default_lang );
+            
+            
+            const result = {
+                dishid,
+                dishprice,
+                pricedetails,
+                dishcategoryid,
+                image,
+                dishmenuid,
+                pricefor,
+                amount : amountText,
+                viewonly,
+                tags: tags ? tags.split(/[, ]+/).filter( t => allergens.includes(t) ) : [],
+                title,
+                default_title
+            }
+            return result;
+
+        } else return false;
     }
 
     /**
@@ -304,11 +451,11 @@ class RestService extends baseService{
         const daytime = now.getHours() * 60 + now.getMinutes() // convert time to integer
 
 
-        // fetch only ids of allergns 
-        let allergens = await tagService.getAll()
-        // console.debug("allergen:", allergens);
-        allergens = Array.isArray(allergens) ? allergens.map( t => t.id) : []
-        // console.debug("allergen:", allergens);
+        // // fetch only ids of allergns 
+        // let allergens = await tagService.getAll()
+        // // console.debug("allergen:", allergens);
+        // allergens = Array.isArray(allergens) ? allergens.map( t => t.id) : []
+        // // console.debug("allergen:", allergens);
 
 
         // Select menus that are currently active
@@ -319,7 +466,7 @@ class RestService extends baseService{
             (!m.hourto || m.hourto * 60 >= daytime )
         );
 
-        console.debug("filered menus:", rest_menus);
+        // console.debug("filered menus:", rest_menus);
 
         let rest_menus_result = []
 
@@ -341,74 +488,83 @@ class RestService extends baseService{
 
                 
                 let items = []
+                // find dihes by menu/dish xref menu_dishes
                 const selected_dishes = menu_dishes.filter(d => 
                     d.restaurantid === id &&
                     d.menuid === m.menuid 
                     )
 
-                // menu_dishes.filter(d => 
+                
                 ii = 0;
                 while( ii < selected_dishes.length ){
                     const d = selected_dishes[ii];
+                    const dish = await this.parseDish( parseInt(d.dishid), lang, default_lang );
 
-                    const dish = dishes.find( dd => d.dishid === dd.dishid )
-
+                    // add dish to items
                     if( !dish ){
-                            items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
+                        items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
                     } else {
-
-
-
-                        // const title = _t(dish.translationid, 1)
-                        // const default_title = _t(dish.translationid)
-                        
-                        // check for translationid is needed for not to get error on json parse
-                        const title         = dish.translationid ? await translationService.translateOne(dish.translationid, lang) : null
-                        const default_title = dish.translationid ? await translationService.translateOne(dish.translationid, default_lang) : null 
-                        const pricefor      = dish.pricefor ?
-                            await translationService.translateOne(dish.pricefor, default_lang)
-                            : null;
-
-                        
-                        // destructure dish
-                        const {
-                            dishid,
-                            dishprice,
-                            dishcategoryid,
-                            image,
-                            dishmenuid,
-                            tags,
-                            amount,
-                            viewonly,
-                            units
-                        } = dish
-
-                        let amountText
-                        if( amount && units  ){
-                            const unitsTranslation = await  translationService.translateOne( units, default_lang);
-                            amountText = `${amount}${unitsTranslation}`;
-                        }
-                        
-                        console.debug(">", dishid, dishcategoryid );
-                        // add dish data to items, mix in the translations
-                        items = [...items, 
-                            {
-                            dishid,
-                            dishprice,
-                            dishcategoryid,
-                            image,
-                            dishmenuid,
-                            pricefor,
-                            amount : amountText,
-                            viewonly,
-                            // tags: tags ? tags.split(",") : [],
-                            // tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : [],
-                            tags: tags ? tags.split(/[, ]+/).filter( t => allergens.includes(t) ) : [],
-                            title,
-                            default_title
-                            }
-                        ]
+                        items = [...items, dish ]
                     }
+
+                    // const dish = dishes.find( dd => d.dishid === dd.dishid )
+
+                    // if( !dish ){
+                    //         items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
+                    // } else {
+                        
+                    //     // check for translationid is needed for not to get error on json parse
+                    //     const title         = dish.translationid ? await translationService.translateOne(dish.translationid, lang) : null
+                    //     const default_title = dish.translationid ? await translationService.translateOne(dish.translationid, default_lang) : null 
+                    //     const pricefor      = dish.pricefor ?
+                    //         await translationService.translateOne(dish.pricefor, default_lang)
+                    //         : null;
+
+                        
+                    //     // destructure dish
+                    //     let {
+                    //         dishid,
+                    //         dishprice,
+                    //         pricedetails,
+                    //         dishcategoryid,
+                    //         image,
+                    //         dishmenuid,
+                    //         tags,
+                    //         amount,
+                    //         viewonly,
+                    //         units
+                    //     } = dish
+
+                    //     let amountText
+                    //     if( amount && units  ){
+                    //         const unitsTranslation = await  translationService.translateOne( units, default_lang);
+                    //         amountText = `${amount}${unitsTranslation}`;
+                    //     }
+
+                    //     // split price details 
+                    //     pricedetails = await this.breakDishPriceDetails( pricedetails );
+                        
+                    //     console.debug(">", dishid, dishcategoryid );
+                    //     // add dish data to items, mix in the translations
+                    //     items = [...items, 
+                    //         {
+                    //         dishid,
+                    //         dishprice,
+                    //         pricedetails,
+                    //         dishcategoryid,
+                    //         image,
+                    //         dishmenuid,
+                    //         pricefor,
+                    //         amount : amountText,
+                    //         viewonly,
+                    //         // tags: tags ? tags.split(",") : [],
+                    //         // tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : [],
+                    //         tags: tags ? tags.split(/[, ]+/).filter( t => allergens.includes(t) ) : [],
+                    //         title,
+                    //         default_title
+                    //         }
+                    //     ]
+                    // }
                     ii+=1
                 }  
 
@@ -487,8 +643,9 @@ class RestService extends baseService{
                 i+=1;
             }
         }
-        // console.debug(rest_menus)
-        return rest_menus_result;
+        
+        // order menus by ordering column
+        return  rest_menus_result.sort( (a,b) => a.ordering - b.ordering );
     }
     
 

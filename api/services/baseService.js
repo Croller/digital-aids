@@ -2,6 +2,12 @@ const db = require("../db/remote")
 const _f = require("fetsch")
 const crypto = require("crypto")
 
+/**
+ * Base service incapsulates:
+ * - caching ( cache, getCached, cacheExists, clearCache, printCache )
+ * - mysql db connection ( baseService.DB, getRecords )
+ * - error storing ( .Error() function, .error property )
+ */
 class baseService {
     
     static cache( index, value){

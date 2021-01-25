@@ -1,0 +1,47 @@
+@import '../../../../variables.scss';
+
+
+#root {
+
+    .complex-item{
+        // compensate menu-item-container padding
+        margin: 0 -24px;
+
+        .price-container{
+            display: none;
+        }
+
+        .titles{
+
+            .checkmark{
+                display: flex!important;
+                .button{
+                    // override price box sizes
+                    width: 24px!important;
+                    height: 24px!important;
+                    min-width: 24px!important;
+                    svg{
+                        color: white;
+                        display: none;
+                    }
+                
+                }
+
+            }
+        }
+
+        .selected {
+            .titles{
+                .checkmark {
+                    .button{
+                        background: black;    
+                        svg{
+                            display: block;
+                        }
+                    
+                    }
+                }
+            }
+        }
+    }
+}

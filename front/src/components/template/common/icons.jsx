@@ -25,6 +25,7 @@ import {ReactComponent as MapMarker} from '../../../assets/svg/map-marker.svg'
 import {ReactComponent as PhoneCall} from '../../../assets/svg/phone-call.svg'
 import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
 import {ReactComponent as Tag} from '../../../assets/svg/tag.svg'
+import {ReactComponent as Tick} from '../../../assets/svg/tick.svg'
 import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
 import {ReactComponent as World} from '../../../assets/svg/world.svg'
 
@@ -69,6 +70,7 @@ export {
     Search,
     PhoneCall,
     Tag,
+    Tick,
     ThumbsUp,
     Trash,
     World,

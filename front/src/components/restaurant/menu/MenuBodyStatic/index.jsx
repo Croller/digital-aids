@@ -5,7 +5,9 @@ import '../../../template/common/css-carousel/css-carousel.scss'
 import SimpleItem from '../item'
 import ImageItem from '../item_images'
 import MenuItemList from './MenuItemList'
-import ErrorLoading from '../../../template/common/error-loading'
+
+// import ErrorLoading from '../../../template/common/error-loading'
+import Page404 from '../../../template/404'
 // import A from '../../../../redux/actionTypes'
 import DefaultComponent, {connect} from '../../../DefaultComponent'
 // import { Dialog, DialogContent } from '@material-ui/core'
@@ -14,8 +16,8 @@ import DefaultComponent, {connect} from '../../../DefaultComponent'
 
 
 const templates = {
-    text: SimpleItem,
-    images: ImageItem
+    'text': SimpleItem,
+    'images': ImageItem
 }
 
 
@@ -100,8 +102,9 @@ class MenuBody extends DefaultComponent {
         const nextCategory = catIndex >= 0 ? menu.categories[catIndex + 1] : null;
         
         if( !cat) {
-            console.debug("MenuBody: category not found: ", category, cat)
-            return <ErrorLoading {...{restaurant}} />
+            console.debug("MenuBody " , menu.menuid, "category not found: ", category, cat, menu.categories)
+            // return <ErrorLoading {...{restaurant}} />
+            return <Page404 {...{restaurant}} />
         }
 
         const items = menu.items.filter(d => d.dishcategoryid === category &&

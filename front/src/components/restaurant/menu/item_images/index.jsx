@@ -10,6 +10,8 @@ import
 // import TagsService from '../../../../services/tags'
 import {connect} from 'react-redux'
 import Allergens from '../allergens';
+import {Tick} from '../../../template/common/icons';
+
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
@@ -62,6 +64,9 @@ class RestMenuItem extends React.Component{
             
             tags_list,  // list of all allergens, translated to current language
 
+            onSelect = console.debug, // callback for ComplexItem nested items.
+            isSelected = false, // comes from ComplexItem and indicates whether the item is currently selected.
+
             language, 
             translations
             
@@ -99,7 +104,7 @@ class RestMenuItem extends React.Component{
 
         return( 
                 <>
-                <div className={`card-menu-item${ isOrdered  ? ' ordered' : "" }`} >
+                <div className={`card-menu-item${ isOrdered  ? ' ordered' : "" }${ isSelected ? ` selected` : ''}`} >
 
                     
                     <Grid className="card-container" container key={`dish-${dishid}` }>
@@ -108,6 +113,7 @@ class RestMenuItem extends React.Component{
                             md={3} 
                             className="dish-image"
                             style={{backgroundImage: `url(${MEDIA}/images/restaurants/${slug}/dishes/${image})`}}
+                            onClick={() => onSelect(item) }
                         >
                             <div className="dish-index">
                                 {index}
@@ -115,15 +121,26 @@ class RestMenuItem extends React.Component{
                         </Grid>
                         <Grid item xs={12} md={6} className="dish-title-box flex column grow-children-1">
                             <div className="titles flex column">
-                                <div className="title-main">
-                                    {title}
-                                </div>
-                                {
-                                    needSecondTranslation &&
-                                    <div className="title-default">
-                                        {default_title}
+                                <div className="flex row justify-between"
+                                onClick={() => onSelect(item) }
+                                >
+                                    <div className="titles-inside">
+                                        <div className="title-main">
+                                            {title}
+                                        </div>
+                                        {
+                                            needSecondTranslation &&
+                                            <div className="title-default">
+                                                {default_title}
+                                            </div>
+                                        }
                                     </div>
-                                }
+                                    <div className="checkmark">
+                                        <div className={`button square`}>
+                                            <Tick />
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div className="flex row justify-between mt-2 align-items-end">
                                     <div>
