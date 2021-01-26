@@ -6,7 +6,7 @@
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id1.jpg",
-        "tags": "eggs,gluten.",
+        "tags": "eggs,gluten",
         "amount": 200,
         "units": "g",
         "translationid": "dish_1",
@@ -1082,7 +1082,7 @@
         "dishcategoryid": "main_courses",
         "dishrestaurtantid": 3701,
         "dishmenuid": 1,
-        "tags": "gluten",
+        "tags": "gluten,eggs",
         "amount": 200,
         "units": "g",
         "translationid": "dish_78",
@@ -1901,8 +1901,10 @@
     },
     {
         "dishid": 130,
-        "dishprice": "10=appetizers 24|5|8|61;main_courses 13|18;desserts 32|30",
+        "dishprice": 10,
+        "dishcategoryid": "DailyMenu",
         "dishrestaurtantid": 3700,
-        "dishmenuid": 2
+        "dishmenuid": 2,
+        "pricedetails": "appetizers 24|5|8|61;main_courses 13|18;dessert 29|30"
     }
 ]

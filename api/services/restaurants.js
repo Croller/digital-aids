@@ -145,7 +145,7 @@ class RestService extends baseService{
                 dishmenuid,
                 dishtitle: dish[`dishtitle${lang}`] || dish["dishtitleen"],
                 dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`],
-                tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : []
+                tags: tags ? tags.split(/[,. ]+/).filter( t => allergens.includes(t) ) : []
                 }
             }
         )
