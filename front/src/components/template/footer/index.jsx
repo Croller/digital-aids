@@ -16,12 +16,6 @@ import DefaultComponent, {connect} from '../../DefaultComponent'
 
 
 
-const txt = {
-    'my_order': "My order",
-    "callus": "Call us"
-
-}
-
 // class Footer extends React.Component{
 class Footer extends DefaultComponent{
     
@@ -30,54 +24,25 @@ class Footer extends DefaultComponent{
 
         this.setTranslations(["Order"])
     }
-    // state = {
-    //     translations: null
-    // }
-
-    // componentDidMount(){
-    //     this.fetchData()
-    
-    // }
-    
-    // componentDidUpdate( prevProps ){
-    //     if( prevProps.language !== this.props.language){
-    //         this.fetchData()
-    //     }    
-    // }
-    
-    // async fetchData(){
-    //     const translations = await Service.getByKeys(
-    //         [
-    //             // "CallUs",
-    //             "Order", 
-    //         ],
-    //         this.props.language,
-    //         this.props.defaultlanguage
-    //     )
-
-    //     this.setState({translations})
-    // }
-
+  
     setOverlay = overlay => this.props.setOverlay({overlay , slug: this.props.slug})
 
     render(){
-        const {slug, language, translations } = this.props
+        const {slug, language } = this.props
 
         const restState = getRestaurant( this.props, slug )
         // console.debug("footer restState:", restState )
         const { cartCount} = restState
-
-        // const translations = this.state.translations || {}
-
-        // const _t = _T( translations, language, defaultlanguage )
-        const _tt = (key, defaultValue) => this._tr(key, language, translations, defaultValue)
 
         return(
             <Box className="footer panel rectangular show-on-mobile" >
                 {/* &copy;&nbsp;Food & Fans, 2020 */}
                 <Container>
                 <div className="mobile-footer">
-                    <Button component={Link} to={`/${slug}/insider`}><Plate/><span>FOODTIPS</span></Button>
+                    <Button component={Link} to={`/${slug}/insider`}
+                    // to close other overlays, if any
+                    onClick={ () => this.setOverlay(null)}
+                    ><Plate/><span>FOODTIPS</span></Button>
                     
                     <Button 
                     // component={Link} to={`/${slug}/cart`}
@@ -88,7 +53,7 @@ class Footer extends DefaultComponent{
                             <Cloche />
                         </Badge>
                         <span>
-                            {_tt("Order")}
+                            {this.TR("Order")}
                         </span>
                     </Button>
 

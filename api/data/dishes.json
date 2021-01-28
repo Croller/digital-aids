@@ -1905,6 +1905,7 @@
         "dishcategoryid": "DailyMenu",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
-        "pricedetails": "appetizers 24|5|8|61;main_courses 13|18;dessert 29|30"
+        "translationid": "DailyMenu",
+        "pricedetails": "appetizers 24|5|8|19;main_courses 13|18;dessert 29|30"
     }
 ]

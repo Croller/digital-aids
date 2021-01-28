@@ -11,6 +11,7 @@ import { Button, Dialog } from '@material-ui/core';
 import {Forbidden} from '../../../template/common/icons'
 import { randomFromArray } from '../../../../utils/functions'
 import Oferta from '../../oferta'
+import ComplexItem from '../complex_item'
 
 // MEDIA root
 const {REACT_APP_MEDIA : MEDIA} = process.env 
@@ -205,16 +206,33 @@ class MenuItemList extends React.Component{
                     <div className="item-list-inside">
                         {items.map( (dish, index)=> 
                             <div className={`menu-item-container ${className}`}>
-                                <Item 
-                                    key={`dish-item-${dish.dishid}`}
-                                    index={index + 1}
-                                    restState={restState}
-                                    needSecondTranslation={needSecondTranslation}
-                                    slug={slug}
-                                    language = {language}
-                                    tags_list={restaurant.tags}
-                                    {...dish}
-                                />
+                                {
+                                    // if no price details - use the passed item.
+                                    dish.pricedetails === null ? 
+                                    <Item 
+                                        key={`dish-item-${dish.dishid}`}
+                                        index={index + 1}
+                                        restState={restState}
+                                        needSecondTranslation={needSecondTranslation}
+                                        slug={slug}
+                                        language = {language}
+                                        tags_list={restaurant.tags}
+                                        {...dish}
+                                    />
+                                    :
+                                    <ComplexItem
+                                        key={`dish-item-${dish.dishid}`}
+                                        index={index + 1}
+                                        restState={restState}
+                                        needSecondTranslation={needSecondTranslation}
+                                        slug={slug}
+                                        language = {language}
+                                        tags_list={restaurant.tags}
+                                        // pass the Item component to complex dish
+                                        Item={Item}
+                                        {...dish}
+                                    />
+                                }
                             </div>
                         )}  
                     </div>

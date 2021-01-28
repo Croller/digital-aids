@@ -5,17 +5,20 @@ import '../../../template/common/css-carousel/css-carousel.scss'
 import SimpleItem from '../item'
 import ImageItem from '../item_images'
 import MenuItemList from './MenuItemList'
-import ErrorLoading from '../../../template/common/error-loading'
+
+// import ErrorLoading from '../../../template/common/error-loading'
+import Page404 from '../../../template/404'
 // import A from '../../../../redux/actionTypes'
 import DefaultComponent, {connect} from '../../../DefaultComponent'
+import Spinner from '../../../template/common/Spinner'
 // import { Dialog, DialogContent } from '@material-ui/core'
 // import { randomFromArray } from '../../../../utils/functions'
 // import Oferta from '../../oferta'
 
 
 const templates = {
-    text: SimpleItem,
-    images: ImageItem
+    'text': SimpleItem,
+    'images': ImageItem
 }
 
 
@@ -26,54 +29,7 @@ const templates = {
 // class MenuBody extends React.Component {
 class MenuBody extends DefaultComponent {
 
-    // state = {
-    //     oferta: null
-    // }
-
-    // componentDidMount(){
-    //     this.selectOferta()
-    // }
-    // componentDidUpdate(oldProps){
-    //     if( oldProps.category !== this.props.category ){
-    //         this.selectOferta()
-    //     }
-    // }
-
-    // selectOferta(){
-
-    //     const {
-    //         restState,
-    //         restaurant,
-    //         category            
-    //     } = this.props;
-
-    //     const {ofertaIsShown} = restState
-    //     console.debug("oferta category:", category )
-
-    //     // ofertas are either ofertas for this category...
-    //     const ofertas = 
-    //     restaurant.ofertas[category] ?   
-    //     restaurant.ofertas[category] :
-    //     // or, if oferta hasn't been shown, 
-    //     !ofertaIsShown ? 
-    //     // ofertas for no category
-    //     restaurant.ofertas[""] : 
-    //     // otherwise, just nothing
-    //     null
-
-    //     console.debug("ofertas array:", ofertas)
-    //     // if ofertas is not empty, select one randomly
-    //     if( ofertas && ofertas.length > 0 ){
-    //         const oferta = randomFromArray( ofertas, 1 )[0];
-    //         if( oferta ){
-    //             // set redux value
-    //             this.props.showOferta(restaurant.slug);
-    //         }
-    //         this.setState({oferta})
-    //     } else 
-    //         this.setState({oferta: false})
-    // }
-
+    
     render() {
         const {
             menu,
@@ -84,6 +40,8 @@ class MenuBody extends DefaultComponent {
             socialMessage // message to show at the bottom of each category in social block
         } = this.props;
 
+        if( !restaurant ) return <Spinner />
+
         let {
             search } = (restState.filters || {})
         search = search ? search.toLowerCase() : search
@@ -93,18 +51,28 @@ class MenuBody extends DefaultComponent {
         const type = (restaurant && restaurant.defaulttemplate) ? restaurant.defaulttemplate : "text"
         const Item = templates[type];
 
-        // const cat = menu.categories.find( c => c.id === category )
+        
         const catIndex = menu.categories.findIndex( c => c.id === category )
         const cat = catIndex >= 0 ? menu.categories[catIndex] : null;
         const prevCategory = catIndex >= 0 ? menu.categories[catIndex - 1] : null;
         const nextCategory = catIndex >= 0 ? menu.categories[catIndex + 1] : null;
         
         if( !cat) {
-            console.debug("MenuBody: category not found: ", category, cat)
-            return <ErrorLoading {...{restaurant}} />
+            console.debug("MenuBody " , menu.menuid, "category not found: ", category, cat, menu.categories)
+            // return <ErrorLoading {...{restaurant}} />
+            return <Page404 {...{restaurant}} />
         }
 
-        const items = menu.items.filter(d => d.dishcategoryid === category &&
+        const {all_dishes = {} } = restaurant || {};
+
+        const items = menu.items
+        .map( 
+            // fetch dish from dishes list
+            d => all_dishes[d.dishid] 
+            // if not found - use the original object
+            // TODO: do something with this, there should be an error or something.
+            || d )
+        .filter(d => d.dishcategoryid === category &&
             (
                 // etiher search is empty
                 !search
@@ -116,10 +84,8 @@ class MenuBody extends DefaultComponent {
                     d.default_title.toLowerCase().includes(search)
                 )
             )
-        ); 
+        ) 
 
-        // get oferta to show, if any
-        // const {oferta} = this.state            
 
         return (
             <>

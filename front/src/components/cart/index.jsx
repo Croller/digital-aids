@@ -68,7 +68,10 @@ class Cart extends DefaultComponent{
                 "Remove",
                 "Do Not",
                 "empty_order_text1",
-                "empty_order_text2"
+                "empty_order_text2",
+                "Allergens",
+                "reglament_text_2",
+                "reglament_text_3",
             ]
         )
     }
@@ -89,11 +92,6 @@ class Cart extends DefaultComponent{
         if( !this.state.translationLoaded )
             return <Spinner />
         
-        // translation function for current language
-        // const _tt = (key) => tr(key, language, translations)
-        const _tt = (key) => this._tr(key, language, translations)
-
-        // console.debug("Translations:", translations);
         // shortcuts for dialog handling
         const closeDialog = () => this.setState({showClearDialog: false})
         const showDialog = () => this.setState({showClearDialog: true})
@@ -111,7 +109,7 @@ class Cart extends DefaultComponent{
                 >
                     <div className="cart-header flex row align-items-center space-between bg-white">
                         <div className="title">
-                            {_tt("MyOrder")}
+                            {this.TR("MyOrder")}
                         </div>
                         {cart.length > 0 &&
                         <Button aria-label="Empty cart" className="empty-cart" onClick={showDialog}><Trash/></Button>
@@ -121,7 +119,7 @@ class Cart extends DefaultComponent{
                         !cartIsEmpty ?
                         <>
                             <div className="bg-light-gray p2 rounded top-message">
-                                {_tt("askToConfirm")}
+                                {this.TR("askToConfirm")}
                             </div>
                             {/* <Menu {...{menu: cart, slug, categories, show_categories: false }}/> */}
                             <CartList 
@@ -135,7 +133,7 @@ class Cart extends DefaultComponent{
                                 total={
                                     <div className="total flex row align-items-center space-between">
                                         <span>
-                                            {_tt("Total")}:
+                                            {this.TR("Total")}:
                                         </span>
                                         <span className="button ">
                                             {(cartPrice * 1).toFixed(2)}€
@@ -147,8 +145,8 @@ class Cart extends DefaultComponent{
                         </>
                         :
                         <EmptyOrder 
-                        text={_tt("empty_order_text1")}
-                        text2= {_tt("empty_order_text2")}
+                        text={this.TR("empty_order_text1")}
+                        text2= {this.TR("empty_order_text2")}
                         // menu_link={`/${slug}`}
                         closeCart = {() => this.props.setOverlay({overlay: null, slug})}
                         /> 
@@ -156,7 +154,7 @@ class Cart extends DefaultComponent{
                         : <Spinner />
                     }
                     
-                    <Social {...{...restaurant}} message={ cartIsEmpty ? _tt("ThankYou") : _tt("ThankForOrder")} />
+                    <Social {...{...restaurant}} message={ cartIsEmpty ? this.TR("ThankYou") : this.TR("ThankForOrder")} />
                 </div>
                 <Dialog 
                     open={showClearDialog}
@@ -165,11 +163,11 @@ class Cart extends DefaultComponent{
                 >
                     <Close className="close-button" onClick={closeDialog} />
                     <DialogContent className="text">
-                        { _tt('WantToClearEntireOrder')}
+                        { this.TR('WantToClearEntireOrder')}
                     </DialogContent>
                     <div  style={{display: "flex", flexDirection: "column", alignSelf: "center"}}>
-                        <Button className="bg-black c-white" onClick={() => { emptyCart(slug); closeDialog() }}>{_tt('Remove')}</Button>
-                        <Button className="bg-light-gray" onClick={closeDialog}>{_tt('Do Not')}</Button>
+                        <Button className="bg-black c-white" onClick={() => { emptyCart(slug); closeDialog() }}>{this.TR('Remove')}</Button>
+                        <Button className="bg-light-gray" onClick={closeDialog}>{this.TR('Do Not')}</Button>
                     </div>
                 </Dialog>
             </>

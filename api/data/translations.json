@@ -2208,5 +2208,11 @@
     {
         "translationid": "Hmm, you've got lost",
         "en": "Hmm, you have got lost! \nThe page you have requested cannot be found. \nPlease, try a new request."
+    },
+    {
+        "translationid": "appetizers",
+        "en": "Appetizers",
+        "es": "Tapas",
+        "ru": "Закуски"
     }
 ]

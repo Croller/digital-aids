@@ -27,6 +27,11 @@ body{
   background-color: $bgLight;
   font-family: Montserrat, sans-serif;
   padding-top: #{$headerHeight + $mainTopMargin}; // offset for header
+
+  // reset Mui font family
+  .MuiButton-root{
+    font-family: 'Montserrat';
+  }
   
 
   .round-icon {

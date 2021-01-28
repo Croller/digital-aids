@@ -88,7 +88,7 @@ class Menu extends DefaultComponent{
         if( !menu_id || !category_id  ){
             
             const tmpMenu = menu || restaurant.menus ? restaurant.menus[0] : false;
-            if( !tmpMenu ){
+            if( !tmpMenu || tmpMenu && !tmpMenu.categories[0] ){
                 return <ErrorLoading />
             }
             <Redirect to={`/${slug}/${tmpMenu.menuid}/${tmpMenu.categories[0].id}`} />

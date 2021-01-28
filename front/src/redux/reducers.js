@@ -67,6 +67,8 @@ export default function root( state = initialState, action ) {
     cart, 
     cartCount, 
     condition_id,
+    details,
+    details_index,
     index, 
     item, 
     slug, 
@@ -132,17 +134,29 @@ export default function root( state = initialState, action ) {
             // the portion of the cart that relates to the given restaurant
             // restCart = cart[slug] ? [ ...cart[slug] ] : []
 
-            const increment = item.quantity || 1
+            const increment = item.quantity || 1;
 
             // find if the item already exists in cart
-            index = cart.findIndex( i => i.dishid === item.dishid )
-            console.debug("Found index:", index)
+            index = cart.findIndex( i => i.dishid === item.dishid );
+            console.debug("Found index:", index);
+
+            // get details if any
+            ({details} = item );
+
+            console.debug("ADD_TO_CART: details found", details)
+            
+
 
             // if there is already one in the cart...
             if( index >=0 ){
-                
-                // ...then use it as item
+
+                // ...use the found item it as item
                 item = cart[index]
+
+                // if details are passed, add them to item's details
+                if( details ){
+                    item.details = [...item.details, details];
+                }
  
                 console.debug("found existing item:", item)
                 
@@ -167,6 +181,13 @@ export default function root( state = initialState, action ) {
                 
                 if( !item.quantity ){
                     item.quantity = increment
+                }
+
+                // if details are passed, put them inside an array
+                // because for the same complex item there may be more than one
+                // set of details (e.g. user can order more than one daily menu combinations)
+                if( details ){
+                    item.details = [details];
                 }
 
                 // increment count
@@ -196,7 +217,12 @@ export default function root( state = initialState, action ) {
             break;
 
         case A.DELETE_FROM_CART:
-            ({slug, dishid} = payload);
+            ({
+                slug, 
+                dishid , 
+                details_index 
+            } = payload);
+
             restaurant = getRestaurant( newState, slug);
             ({cart, cartCount, cartPrice } = restaurant );
 
@@ -214,36 +240,64 @@ export default function root( state = initialState, action ) {
             if( index >=0 ){
                 item = cart[index]
                 console.debug("Found to delete:", item)
-                
-                // decrement quantity...
-                item.quantity = item.quantity - 1
 
-                console.debug("Quantity reduced to", item.quantity )
-                // ...and count
-                cartCount = cartCount - 1
-                console.debug("Count reduced to:", cartCount)
-                
-                // decrement price
-                console.debug("Cart price", cartPrice)
-                cartPrice -= item.dishprice ? item.dishprice : 0
-                console.debug("Decrementing cart price by: ", item.dishprice ? item.dishprice : 0)
-                console.debug("Cart price after decrement", cartPrice)
+                // flag - whether the quantity will really change
+                let quantity_will_change = true;
 
-                if(item.quantity <= 0){
-                    console.debug("Item depleted. Removing from cart")
-                    // if zero, remove
-                    cart.splice(index, 1)
+                // if details_index passed, check if there's a details item with this index
+                if( details_index >= 0 ){
+
+                    // get the details
+                    ({details} = item);
+
+                    // if there's an item with given index...
+                    if( details && details[details_index]){
+                        // remove details item
+                        details.splice(details_index, 1);
+                        // overwrite details
+                        item.details = details;
+                    } else {
+                        // ...otherwise - item actually not found - there was an error
+                        console.error("DELETE_FROM_CART: details item not found - ", details_index);
+                        quantity_will_change = false;
+                    }
+                } 
+
+                if( quantity_will_change ){
+
+                    // decrement quantity...
+                    item.quantity = item.quantity - 1
+    
+    
+    
+                    // ...and count
+                    cartCount = cartCount - 1
+                    
+                    console.debug("Quantity reduced to", item.quantity )
+                    console.debug("Count reduced to:", cartCount)
+                    // decrement price
+                    console.debug("Cart price", cartPrice)
+                    cartPrice -= item.dishprice ? item.dishprice : 0
+                    console.debug("Decrementing cart price by: ", item.dishprice ? item.dishprice : 0)
+                    console.debug("Cart price after decrement", cartPrice)
+    
+                    if(item.quantity <= 0){
+                        console.debug("Item depleted. Removing from cart")
+                        // if zero, remove
+                        cart.splice(index, 1)
+                    }
+    
+    
+                    // update item in cart object
+                    // cart = {...cart, [slug]: restCart }
+                    restaurant = {...restaurant, cart, cartCount, cartPrice}
+    
+                    console.debug("After removing: ", restaurant );
+                    // newState = { ...newState, cart, cartCount, cartPrice}
+                    ({ restaurants } = newState );
+                    newState = {...newState, restaurants: {...restaurants, [slug]: restaurant } } 
                 }
 
-
-                // update item in cart object
-                // cart = {...cart, [slug]: restCart }
-                restaurant = {...restaurant, cart, cartCount, cartPrice}
-
-                console.debug("After removing: ", restaurant );
-                // newState = { ...newState, cart, cartCount, cartPrice}
-                ({ restaurants } = newState );
-                newState = {...newState, restaurants: {...restaurants, [slug]: restaurant } } 
             }
             break;
 

@@ -23,6 +23,14 @@ $imageHeight: 177px;
     
                 .card-container{
                     min-height: $imageHeight;
+
+
+                    .titles{
+                        .checkmark{
+                            display: none;
+                        }
+                    }
+
                     .dish-index{
                         position: absolute;
                         bottom: -1px;
@@ -92,42 +100,45 @@ $imageHeight: 177px;
                     //     }
                     // }
 
+
+                    .button {
+                        height: 33px;
+                        
+                        margin-right: 16px;                            
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 600;
+                        border-radius: 6px;
+                        border: 1px solid;
+                        font-size: 2em;
+
+                        &:last-child{
+                            margin-right: 0;
+                        }
+                        &.square {                            
+                            width: 35px;                                
+                            min-width: 35px;
+                        }
+
+                        &.invisible {
+                            color: transparent;
+                            border-color: transparent;
+                        }
+
+                        &.black {
+                            background: $darker;
+                            color: white;
+                        }
+
+                        &.qty{
+                            font-size: 1em;
+                        }
+                    }
+
                     .price-container{
                         padding: 0 #{$item-padding} #{$item-padding};
-                        .button {
-                            height: 33px;
-                            
-                            margin-right: 16px;                            
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            font-weight: 600;
-                            border-radius: 6px;
-                            border: 1px solid;
-                            font-size: 2em;
-
-                            &:last-child{
-                                margin-right: 0;
-                            }
-                            &.square {                            
-                                width: 35px;                                
-                                min-width: 35px;
-                            }
-
-                            &.invisible {
-                                color: transparent;
-                                border-color: transparent;
-                            }
-
-                            &.black {
-                                background: $darker;
-                                color: white;
-                            }
-
-                            &.qty{
-                                font-size: 1em;
-                            }
-                        }
+                        
                         .price{
                             background: $darker;
                             height: 35px;
