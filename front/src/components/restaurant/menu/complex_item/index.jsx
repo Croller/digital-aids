@@ -35,11 +35,19 @@ class ComplexItem extends DefaultComponent{
         console.debug("ComplexItem selected:", dish)
         let {selected, selected_ids} = this.state
 
-        // update selected items
-        selected = {
-            ...selected,
-            [dish.dishcategoryid] : dish.dishid // one item per category
+        if( selected[dish.dishcategoryid] === dish.dishid ){
+            // dish is already selected - deselect it
+            delete selected[dish.dishcategoryid]
+        } else {
+            // update selected items
+            selected = 
+            {
+                ...selected,
+                [dish.dishcategoryid] : dish.dishid // one item per category
+            }
         }
+
+        console.debug("Selected:", selected);
 
         selected_ids = Object.values(selected)
 
