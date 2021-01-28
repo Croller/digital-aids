@@ -87,10 +87,15 @@
 
                 }
 
-                svg path {
-                    fill: $gray;
-
-                }
+                svg{
+                    g{
+                        // deals with clipping path issues on plate icon
+                        clip-path: none; 
+                    }
+                    path {
+                        fill: $gray;       
+                    }
+                } 
 
                 > span:first-child{
                     display: flex;

@@ -16,6 +16,7 @@ const _ofertas          = require( '../data/ofertas.json')
 const menus             = require( '../data/menus.json')
 const menu_dishes       = require( '../data/menu-dishes.json')
 const insider_list      = require( '../data/insiders.json')
+const { cacheExists } = require("./baseService")
 
 
 qRestaurants = 
@@ -97,13 +98,17 @@ class RestService extends baseService{
                     // get ofertas
                     const ofertas = await this.getRestaurantOfertas( rest.id, lang );
 
+                    // get all dishes in restaurant
+                    const all_dishes = await this.getRestaurantDishes( rest.id, lang, defaultlanguage)
+
                     rest = {
                         ...rest, 
                         menus,  
                         // photos: photos? photos.split(",") : [] ,
                         photos: photos? photos.split(/[, ]+/) : [] ,
                         insiders,
-                        ofertas
+                        ofertas,
+                        all_dishes
                     }
                 } 
                 // console.log("Rest:" , rest)
@@ -121,6 +126,31 @@ class RestService extends baseService{
         }
     }
 
+    static async getRestaurantDishes( restaurant_id, lang , default_lang ){
+
+        const cacheIndex = `restaurant_dishes_${restaurant_id}_${lang}_${default_lang}`;
+
+        if( !this.cacheExists(cacheIndex )){
+
+            const ids = dishes.filter( d => d.dishrestaurtantid === restaurant_id ).map( d => d.dishid );
+            // console.debug("Comparing", restaurant_id, "to dishes. e.g.", dishes[0],  "fetched ids:", ids )
+            // parse dishes
+            let i = 0;
+            let result = {};
+            while( i < ids.length){
+                const d = await this.parseDish( ids[i], lang, default_lang );
+                result = {...result, [ids[i]] : d };
+                i++;
+            }
+
+            // return result;
+            this.cache(cacheIndex, result)
+            return this.getCached(cacheIndex)
+        } else {
+            return this.getCached(cacheIndex)
+        }
+        
+    }
 
     static async getAllergenIds(){
         const cacheId = "a-ids";
@@ -245,8 +275,14 @@ class RestService extends baseService{
                 let ii = 0, items = []
                 while( ii < dish_ids.length ){
                     const id = parseInt(dish_ids[ii]);
-                    const collected_dish = await this.parseDish( id, lang, default_lang )
-                    items = [ ...items, collected_dish ? collected_dish : {dishid: id, title: "Dish not found!" } ];
+                    let collected_dish = await this.parseDish( id, lang, default_lang )
+
+                    if( collected_dish ){
+                        // update category id to category within complex item
+                        collected_dish.dishcategoryid = translation_id // translation id and category id is the same (at least, at this point, 2021/01)
+                        items = [ ...items, collected_dish ];
+                    }
+
                     ii ++;
                 }
 
@@ -265,111 +301,7 @@ class RestService extends baseService{
         return result.length > 0 ? result : null ;
     }
 
-    // /**
-    //  * 
-    //  * @param {*} id 
-    //  * @param {Date} now Date object. Time for which to choose the menus.
-    //  * @param {*} lang string two-letter ISO language code, main language to translate the menu into
-    //  * @param {*} default_lang string two-letter ISO language code, default language of the restaurant
-    //  */
-    // static async getRestaurantMenus( id, now, lang = defaultLang, default_lang = defaultLang ){
-    //     // TODO: validate 'now' type
-
-    //     // TODO: offset GMT for each restaurant.
-    //     const weekday = now.getDay() + 1
-    //     const daytime = now.getHours() * 60 + now.getMinutes() // convert time to integer
-
-    //     // console.log( "weekday:", weekday, "daytime:", daytime)
-    //     let rest_menus = menus.filter( m => 
-    //         m.restaurantid === id &&
-    //         (!m.activedays || m.activedays === weekday) &&
-    //         (!m.hourfrom || m.hourfrom * 60 <= daytime ) && // comparing time * 60 with converted daytime
-    //         (!m.hourto || m.hourto * 60 >= daytime )
-    //     );
-
-    //     if( Array.isArray(rest_menus) && rest_menus.length > 0 ){
-
-    //         rest_menus = rest_menus.map (  m => {
-
-    //             const _t = translationService._T( lang, default_lang )
-                
-    //             const title = _t(m.titletranslationid, 1)
-    //             const default_title = _t(m.titletranslationid)
-    //             // const title         = translationService.translateOne(m.titletranslationid, lang)
-    //             // const default_title = translationService.translateOne(m.titletranslationid, default_lang)
-
-    //             const items = menu_dishes.filter(d => 
-    //             d.restaurantid === id &&
-    //             d.menuid === m.menuid 
-    //             ).map( d => {
-    //                 const dish = dishes.find( dd => d.dishid === dd.dishid )
-    //                 // let translated = await translationService.getByKeys( [ dish.translationid ], lang, default_lang )
-    //                 // console.debug("translated:", translated)
-    //                 if( !dish ){
-    //                         return { dishid: d.dishid, title: "Dish was not found" }
-    //                 }
-    //                 const title = _t(dish.translationid, 1)
-    //                 const default_title = _t(dish.translationid)
-    //                 // const title         = translationService.translateOne(dish.translationid, lang)
-    //                 // const default_title = translationService.translateOne(dish.translationid, default_lang)
-
-    //                 const {
-    //                     dishid,
-    //                     dishprice,
-    //                     dishcategoryid,
-    //                     image,
-    //                     dishmenuid,
-    //                     photos,
-    //                     tags
-    //                 } = dish
-    //                 return {
-    //                     dishid,
-    //                     dishprice,
-    //                     dishcategoryid,
-    //                     image,
-    //                     photos: photos? photos.split(",") : [] ,
-    //                     dishmenuid,
-    //                     tags: tags ? tags.split(",") : [],
-    //                     title,
-    //                     default_title
-    //                 }
-    //             })  
-
-    //             const uniqueCategories = items.reduce( (cats, item) => {
-    //                 if( !cats.includes(item.dishcategoryid) )
-    //                     return [...cats, item.dishcategoryid ]
-    //                 else
-    //                     return cats
-    //             }, [])
-                
-    //             console.debug("Unique categories:", uniqueCategories)
-                
-    //             const categories = uniqueCategories.map( 
-    //                 c => {
-
-    //                     const title = _t(c, 1)
-    //                     const titledefault = _t(c)
-    //                     // const title         = translationService.translateOne(c, lang)
-    //                     // const titledefault  = translationService.translateOne(c, default_lang)
-
-
-
-    //                     return {
-    //                         id: c, 
-    //                         title, titledefault
-    //                     }
-    //                 }
-    //             )
-
-                
-
-    //             return {...m, title, default_title, categories,  items}
-    //         })
-    //     }
-    //     // console.debug(rest_menus)
-    //     return rest_menus;
-    // }
-
+   
 
     /**
      * Parse dish, including translation and details parse.
@@ -380,7 +312,7 @@ class RestService extends baseService{
     static async parseDish( dish_id, lang, default_lang ){
 
         const dish = dishes.find( dd => dish_id === dd.dishid );
-        console.debug("parseDish: finding ", dish_id, "in dishes: ", Boolean(dish));
+        // console.debug("parseDish: finding ", dish_id, "in dishes: ", Boolean(dish));
 
         if( dish ){
 
@@ -444,6 +376,11 @@ class RestService extends baseService{
      * @param {*} default_lang string two-letter ISO language code, default language of the restaurant
      */
     static async getRestaurantMenusAsync( id, now, lang = defaultLang, default_lang = defaultLang ){
+
+
+        // prepare all dishrestaurtantid
+        const all_dishes = await this.getRestaurantDishes( id, lang, default_lang );
+
         // TODO: validate 'now' type
 
         // TODO: offset GMT for each restaurant.
@@ -495,81 +432,35 @@ class RestService extends baseService{
                     )
 
                 
+                // select id and category id from dish.
                 ii = 0;
                 while( ii < selected_dishes.length ){
                     const d = selected_dishes[ii];
-                    const dish = await this.parseDish( parseInt(d.dishid), lang, default_lang );
+                    
+                    // fetch all dish data to get its category id
+                    const _dish = all_dishes[d.dishid];
+
+                    // we only need dish id and category id to populate menu
+                    const dish = {
+                        dishid: d.dishid,
+                        dishcategoryid: _dish.dishcategoryid
+                    }
+                    // console.debug("getRestaurantMenusAsync: dish found and dish stored:", d, dish)
+                    // const dish = await this.parseDish( parseInt(d.dishid), lang, default_lang );
 
                     // add dish to items
-                    if( !dish ){
-                        items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
-                    } else {
-                        items = [...items, dish ]
-                    }
-
-                    // const dish = dishes.find( dd => d.dishid === dd.dishid )
-
                     // if( !dish ){
-                    //         items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
+                    //     items = [...items, { dishid: d.dishid, title: "Dish was not found" } ]
                     // } else {
-                        
-                    //     // check for translationid is needed for not to get error on json parse
-                    //     const title         = dish.translationid ? await translationService.translateOne(dish.translationid, lang) : null
-                    //     const default_title = dish.translationid ? await translationService.translateOne(dish.translationid, default_lang) : null 
-                    //     const pricefor      = dish.pricefor ?
-                    //         await translationService.translateOne(dish.pricefor, default_lang)
-                    //         : null;
-
-                        
-                    //     // destructure dish
-                    //     let {
-                    //         dishid,
-                    //         dishprice,
-                    //         pricedetails,
-                    //         dishcategoryid,
-                    //         image,
-                    //         dishmenuid,
-                    //         tags,
-                    //         amount,
-                    //         viewonly,
-                    //         units
-                    //     } = dish
-
-                    //     let amountText
-                    //     if( amount && units  ){
-                    //         const unitsTranslation = await  translationService.translateOne( units, default_lang);
-                    //         amountText = `${amount}${unitsTranslation}`;
-                    //     }
-
-                    //     // split price details 
-                    //     pricedetails = await this.breakDishPriceDetails( pricedetails );
-                        
-                    //     console.debug(">", dishid, dishcategoryid );
-                    //     // add dish data to items, mix in the translations
-                    //     items = [...items, 
-                    //         {
-                    //         dishid,
-                    //         dishprice,
-                    //         pricedetails,
-                    //         dishcategoryid,
-                    //         image,
-                    //         dishmenuid,
-                    //         pricefor,
-                    //         amount : amountText,
-                    //         viewonly,
-                    //         // tags: tags ? tags.split(",") : [],
-                    //         // tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : [],
-                    //         tags: tags ? tags.split(/[, ]+/).filter( t => allergens.includes(t) ) : [],
-                    //         title,
-                    //         default_title
-                    //         }
-                    //     ]
+                    items = [...items, dish ]
                     // }
+
+                   
                     ii+=1
                 }  
 
                 const uniqueCategories = items.reduce( (cats, item) => {
-                    console.debug(item.dishid, item.dishcategoryid, cats.includes(item.dishcategoryid) );
+                    // console.debug( item.dishid, item.dishcategoryid, cats.includes(item.dishcategoryid) );
                     if( !cats.includes(item.dishcategoryid) )
                         return [...cats, item.dishcategoryid ]
                     else
@@ -595,7 +486,7 @@ class RestService extends baseService{
                         if( cat_in_list && cat_in_list.conditions ){
                             // split string into ids
                             const condition_list = cat_in_list.conditions.toString().split(/[, .;]+/)
-                            console.debug("category", cat_in_list, condition_list)
+                            // console.debug("category", cat_in_list, condition_list)
                             if ( Array.isArray(condition_list) ){
 
                                 let i = 0
@@ -633,7 +524,7 @@ class RestService extends baseService{
 
                     iii += 1
                 }
-                console.debug("Packed categories:", categories)                
+                console.debug("Packed categories:", categories.map(c => c.id))                
                
                 // add the whole shebang to the menus array
                 rest_menus_result = 

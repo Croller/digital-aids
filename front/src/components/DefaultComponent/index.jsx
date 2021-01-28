@@ -103,7 +103,7 @@ class DefaultComponent extends React.Component{
      * Translates the passed translation id into current language
      * @param {*} key 
      */
-    TR( key ) {
+    TR = ( key ) => {
         const {translations, language} = this.props;
         return this._tr(key, language, translations);
     }
@@ -113,7 +113,7 @@ class DefaultComponent extends React.Component{
      * Translates the passed translation id into restaurant's default language
      * @param {*} key 
      */
-    TRD( key ) {
+    TRD = ( key ) => {
         const {translations, language, restaurant} = this.props;
         const {defaultlanguage} = restaurant ? restaurant.defaultlanguage : language ;
         return this._tr(key, defaultlanguage, translations);

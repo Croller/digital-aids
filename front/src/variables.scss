@@ -58,3 +58,7 @@ $colors: (
   overflow-y: scroll; /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
 }
+
+@mixin shadowed{
+  box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
+}

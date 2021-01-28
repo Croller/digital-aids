@@ -1,21 +1,26 @@
-import { Badge, Button, Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 // import {Check, RoomService as Lid} from '@material-ui/icons'
 import React from 'react'
 import './style.scss'
 import A from '../../../../redux/actionTypes'
-import 
 // Service, 
-{tr} from '../../../../services/translations'
+// {tr} from '../../../../services/translations'
 // import {getRestaurant} from '../../../../redux/reducers'
 // import TagsService from '../../../../services/tags'
-import {connect} from 'react-redux'
+// import {connect} from 'react-redux'
 import Allergens from '../allergens';
 import {Tick} from '../../../template/common/icons';
+import DefaultComponent, {connect} from '../../../DefaultComponent'
 
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
-class RestMenuItem extends React.Component{
+
+/**
+ * Menu item for 'images' template
+ */
+// class RestMenuItem extends React.Component{
+class RestMenuItem extends DefaultComponent{
 
     state = {
         // tag_list: null,
@@ -64,7 +69,7 @@ class RestMenuItem extends React.Component{
             
             tags_list,  // list of all allergens, translated to current language
 
-            onSelect = console.debug, // callback for ComplexItem nested items.
+            onSelect = () => {} , // callback for ComplexItem nested items.
             isSelected = false, // comes from ComplexItem and indicates whether the item is currently selected.
 
             language, 
@@ -100,11 +105,13 @@ class RestMenuItem extends React.Component{
 
         // console.debug("menu item render. quantity: ", quantity )
         
-        const _tt = key => tr(key, language, translations )
+        // const _tt = key => tr(key, language, translations )
 
         return( 
                 <>
-                <div className={`card-menu-item${ isOrdered  ? ' ordered' : "" }${ isSelected ? ` selected` : ''}`} >
+                <div className={`card-menu-item${ isOrdered  ? ' ordered' : "" }${ isSelected ? ` selected` : ''}`} 
+                onClick={() => onSelect(item) }
+                >
 
                     
                     <Grid className="card-container" container key={`dish-${dishid}` }>
@@ -113,7 +120,6 @@ class RestMenuItem extends React.Component{
                             md={3} 
                             className="dish-image"
                             style={{backgroundImage: `url(${MEDIA}/images/restaurants/${slug}/dishes/${image})`}}
-                            onClick={() => onSelect(item) }
                         >
                             <div className="dish-index">
                                 {index}
@@ -122,7 +128,7 @@ class RestMenuItem extends React.Component{
                         <Grid item xs={12} md={6} className="dish-title-box flex column grow-children-1">
                             <div className="titles flex column">
                                 <div className="flex row justify-between"
-                                onClick={() => onSelect(item) }
+                                // onClick={() => onSelect(item) }
                                 >
                                     <div className="titles-inside">
                                         <div className="title-main">
@@ -151,19 +157,18 @@ class RestMenuItem extends React.Component{
                                             // >
 
                                                 <Button 
-                                                    onClick={()=> this.setState({showDialog: true })}
+                                                    onClick={ ev => {
+                                                        ev.stopPropagation(); // to avoid calling onSelect
+                                                        this.setState({showDialog: true });
+                                                    }}
                                                     className="allergens-button"
                                                     variant="contained"
-                                                >{_tt("Allergens")}</Button>
+                                                >{this.TR("Allergens")}</Button>
+                                                // >{_tt("Allergens")}</Button>
                                             // </Badge>
                                         }
                                     </div>
-                                    {/* { Array.isArray(tags) && <div className="tags">
-                                            {tags.map( t => {
-                                                return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
-                                            })}
-                                        </div>
-                                    } */}
+                                    
                                     {
                                         pricefor && 
                                         <div className="pricefor">
@@ -176,7 +181,6 @@ class RestMenuItem extends React.Component{
                                         <div className="amount">
                                             {amount}
                                         </div>
-                                        
                                     }
                                 </div>
 
@@ -238,7 +242,7 @@ class RestMenuItem extends React.Component{
                     onClose = {() => this.setState({showDialog: false})}
                     tags={tags}
                     tags_list = {tags_list}
-                    _t = {_tt}
+                    _t = {this.TR}
                     dishid={dishid}
                     needSecondTranslation={needSecondTranslation}
                 />
@@ -248,12 +252,18 @@ class RestMenuItem extends React.Component{
     }
 }
 
-export default connect(
-    // state => ({cart: state.cart, filters: state.filters}),
-    // state => ({reduxState: state}),
-    state => ({language: state.app.language, translations: state.translation}),
-    dispatch => ({
-        add: (item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
-        delete: (dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )
-    })
-)(RestMenuItem)
+export default connect(RestMenuItem,
+    {
+        add: (dispatch, item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
+        delete: (dispatch, dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )
+    }
+)
+// export default connect(
+//     // state => ({cart: state.cart, filters: state.filters}),
+//     // state => ({reduxState: state}),
+//     state => ({language: state.app.language, translations: state.translation}),
+//     dispatch => ({
+//         add: (item, slug) => dispatch( { type: A.ADD_TO_CART, payload: {item, slug} } ),
+//         delete: (dishid, slug) => dispatch( { type: A.DELETE_FROM_CART, payload: {dishid, slug} } )
+//     })
+// )(RestMenuItem)

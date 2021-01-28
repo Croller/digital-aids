@@ -18,7 +18,9 @@ import Allergens from '../allergens'
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
-
+/**
+ * Menu item for 'text only' template 
+ */
 class RestMenuItem extends React.Component{
 
     state = {
@@ -65,7 +67,8 @@ class RestMenuItem extends React.Component{
             // cart
             language,
             translations,
-            tags_list
+            tags_list,
+            isSelected = false // comes from ComplexItem
         } = this.props
         // console.debug("Item slug:", slug, " props: ", this.props)
         // const restState = getRestaurant( reduxState, slug)
@@ -99,7 +102,7 @@ class RestMenuItem extends React.Component{
             pricefor, 
             amount,
             tags, 
-            quantity: 1 
+            quantity: 1
         }
 
         const isOrdered = quantity > 0
@@ -108,7 +111,7 @@ class RestMenuItem extends React.Component{
         
         return( 
                 <>
-                <div className={`rest-menu-item${ isOrdered  ? ' ordered' : "" }`} >
+                <div className={`rest-menu-item${ isOrdered  ? ' ordered' : "" }${ isSelected ? ` selected` : ''}`} >
 
                     <div className="dish-index">
                         {index}
