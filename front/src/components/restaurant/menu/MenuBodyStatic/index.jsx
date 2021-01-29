@@ -13,7 +13,7 @@ import DefaultComponent, {connect} from '../../../DefaultComponent'
 import Spinner from '../../../template/common/Spinner'
 import { Link } from 'react-router-dom'
 import {ChevronLeft} from '../../../template/common/icons'
-import { makeMenuLink } from '../../../../utils/functions'
+import { makeMenuLink, updateScroll } from '../../../../utils/functions'
 // import { Dialog, DialogContent } from '@material-ui/core'
 // import { randomFromArray } from '../../../../utils/functions'
 // import Oferta from '../../oferta'
@@ -23,6 +23,11 @@ const templates = {
     'text': SimpleItem,
     'images': ImageItem
 }
+
+// scroll top tracker
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+// root element
+const root = document.getElementById("root")
 
 
 /**
@@ -86,15 +91,25 @@ class MenuBody extends DefaultComponent {
         }
 
         const showBackToMainMenuButton = 
-            // is not a main menu
+            // show the button if:
+            // it is not a main menu
             menu.mainmenu !== 1 && 
-            // and has more than once category
+            // and it has more than one category
             menu.categories.length > 1;
 
 
         return (
             <>
-            <div id="menus-carousel" >
+            <div id="menus-carousel" className={ showBackToMainMenuButton ? 'secondary-menu' : ''} 
+            onScroll={
+                ({target}) => {
+                    // only detect scroll if the menu is a secondary menu:
+                    // in this case it has to scroll together with top titles
+                    if( showBackToMainMenuButton )
+                        lastScrollTop = updateScroll(target, root, lastScrollTop )
+                }
+            }
+            >
                 <div className="menu-wrapper">
                     <div
                         id="menu-carousel-body"

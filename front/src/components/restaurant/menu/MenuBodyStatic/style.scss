@@ -3,6 +3,27 @@
 #root {
     .main{
 
+        #menus-carousel.secondary-menu{
+
+            @media screen and (max-width: $bp_2) {
+                
+                .menu-wrapper{
+                    // in case it's a secondary menu - scroll it with the category name and everything.
+                    // viewport height minus top menu
+                    max-height: calc(100vh - #{$headerHeight + $mainTopMargin});
+                    overflow-y: auto;
+                }
+    
+                .category-content{
+    
+                    .menu-items-list{
+                        max-height: inherit;
+                        overflow-y: inherit;
+                    }
+                }
+            }
+        }
+
         .menu-wrapper{
 
             .menu-title{
@@ -20,128 +41,129 @@
                 align-items: center;
                 svg{
                     padding-right: 12px;
+                    width: 26px;
                 }
             }
 
-            .category-top{
-    
-                a {
-                    text-decoration: none;
-                }
-                position: relative;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: center;
-                width: 100%;
-                height: 50px;
-    
-                &.left{
-                    justify-content: flex-start;
-                    padding-left: 24px;
-                    padding-right: 24px;
-                    .active {
-                        margin: 0;
-                        span{
-                            line-height: 1.1em;
-                        }
-                    }
-                }
-    
-                & > div {
-                    // flex-grow: 1;
-                    width: 33.33%; // jut one third for everybody
-    
-    
-                    &.active {
-                        flex-grow: 0;
-                        margin: 0 11px;
-                    }
-    
-                    &.side {
-                        overflow: hidden;
-    
-                        .frame {
-                            display: inline-flex;
-                            a {
-                                margin: 0 11px;
-                            }
-                        }
-    
-                        &.left {
-    
-                            .frame{
-                                float: right;
-                            }
-                        }
-                        &.right {
-    
-                            .frame{
-                                float: left;
-                            }
-                        }
-                    }
-                }
-    
-                
-    
-                .category-title {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                   
-                    &.left{
-                        align-items: flex-start;
-                    }
-    
-                    span{
-                        opacity: 0.4;
-                        font-size: 0.8em;
-                        font-weight: 600;
-                        white-space: nowrap;
-    
-                        &:first-child{
-                            color: black;
-                        }
-                        &:nth-child(2){
-                            color: $gray;
-                        }
-                    }
-    
-                    &.active  {
-                        > span{
-                            position: relative;
-                            // right: 50%;
-                            opacity: 1;
-                            font-size: 1em;
-                        }
-                    }
-    
-                    // &.prev, &.next {
-                    //     position: absolute;
-                    //     overflow: hidden;
-                    //     text-decoration: none;
-                    // }
-    
-                    // &.prev{
-                    //     left: 0;
-                    //     > span {
-                    //         transform: translateX( -20%);
-                    //     }
-                    // }
-                    // &.next{
-                    //     right: 0;
-                    //     > span {
-                    //         transform: translateX( 20%);
-                    //     }
-                    // }
-                }
-                
-    
-                
-            }
+            
         }
+        .category-top{
 
+            a {
+                text-decoration: none;
+            }
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 50px;
+
+            &.left{
+                justify-content: flex-start;
+                padding-left: 24px;
+                padding-right: 24px;
+                .active {
+                    margin: 0;
+                    span{
+                        line-height: 1.1em;
+                    }
+                }
+            }
+
+            & > div {
+                // flex-grow: 1;
+                width: 33.33%; // jut one third for everybody
+
+
+                &.active {
+                    flex-grow: 0;
+                    margin: 0 11px;
+                }
+
+                &.side {
+                    overflow: hidden;
+
+                    .frame {
+                        display: inline-flex;
+                        a {
+                            margin: 0 11px;
+                        }
+                    }
+
+                    &.left {
+
+                        .frame{
+                            float: right;
+                        }
+                    }
+                    &.right {
+
+                        .frame{
+                            float: left;
+                        }
+                    }
+                }
+            }
+
+            
+
+            .category-title {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+               
+                &.left{
+                    align-items: flex-start;
+                }
+
+                span{
+                    opacity: 0.4;
+                    font-size: 0.8em;
+                    font-weight: 600;
+                    white-space: nowrap;
+
+                    &:first-child{
+                        color: black;
+                    }
+                    &:nth-child(2){
+                        color: $gray;
+                    }
+                }
+
+                &.active  {
+                    > span{
+                        position: relative;
+                        // right: 50%;
+                        opacity: 1;
+                        font-size: 1em;
+                    }
+                }
+
+                // &.prev, &.next {
+                //     position: absolute;
+                //     overflow: hidden;
+                //     text-decoration: none;
+                // }
+
+                // &.prev{
+                //     left: 0;
+                //     > span {
+                //         transform: translateX( -20%);
+                //     }
+                // }
+                // &.next{
+                //     right: 0;
+                //     > span {
+                //         transform: translateX( 20%);
+                //     }
+                // }
+            }
+            
+
+            
+        }
     }
 }
 
