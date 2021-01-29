@@ -16,6 +16,7 @@
 import {ReactComponent as Clock} from '../../../assets/svg/clock.svg'
 import {ReactComponent as Chef} from '../../../assets/svg/chef.svg'
 import {ReactComponent as ChefHead} from '../../../assets/svg/chef-head.svg'
+import {ReactComponent as ChevronLeft} from '../../../assets/svg/chevron-left.svg'
 import {ReactComponent as Cloche} from '../../../assets/svg/cloche.svg'
 import {ReactComponent as External} from '../../../assets/svg/external.svg'
 import {ReactComponent as Exclamation} from '../../../assets/svg/exclamation.svg'
@@ -59,6 +60,7 @@ export {
 
     Chef,
     ChefHead,
+    ChevronLeft,
     Clock,
     Cloche,
     External,

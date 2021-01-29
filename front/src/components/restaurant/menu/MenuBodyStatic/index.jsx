@@ -11,6 +11,9 @@ import Page404 from '../../../template/404'
 // import A from '../../../../redux/actionTypes'
 import DefaultComponent, {connect} from '../../../DefaultComponent'
 import Spinner from '../../../template/common/Spinner'
+import { Link } from 'react-router-dom'
+import {ChevronLeft} from '../../../template/common/icons'
+import { makeMenuLink } from '../../../../utils/functions'
 // import { Dialog, DialogContent } from '@material-ui/core'
 // import { randomFromArray } from '../../../../utils/functions'
 // import Oferta from '../../oferta'
@@ -65,26 +68,28 @@ class MenuBody extends DefaultComponent {
 
         const {all_dishes = {} } = restaurant || {};
 
-        const items = menu.items
-        .map( 
+        let items = menu.items
+        .filter(d => d.dishcategoryid === category            
+        ) .map( 
             // fetch dish from dishes list
             d => all_dishes[d.dishid] 
             // if not found - use the original object
             // TODO: do something with this, there should be an error or something.
             || d )
-        .filter(d => d.dishcategoryid === category &&
-            (
-                // etiher search is empty
-                !search
-                // or 
-                ||
-                // title or default title include search term  
-                (
+
+        // Search if search is activated
+        if( search ){
+            items = items.filter( d => 
                     d.title.toLowerCase().includes(search) ||
                     d.default_title.toLowerCase().includes(search)
-                )
             )
-        ) 
+        }
+
+        const showBackToMainMenuButton = 
+            // is not a main menu
+            menu.mainmenu !== 1 && 
+            // and has more than once category
+            menu.categories.length > 1;
 
 
         return (
@@ -96,7 +101,16 @@ class MenuBody extends DefaultComponent {
                         // useJs
                         className={`menu-body category-carousel template-${type}` }
                         // slidesCssClass="disable-scrollbars"
-                    >                            
+                    >           
+                        {
+                            showBackToMainMenuButton &&
+                            <div className="menu-title">
+                                <Link className="back-button" to={makeMenuLink(restaurant.slug)}>
+                                    <ChevronLeft />
+                                </Link>
+                                {menu.title}
+                            </div>
+                        }                 
                         <MenuItemList
                             className={``}
                             // key={`menu-item-list-${ind}`}

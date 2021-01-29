@@ -207,3 +207,13 @@ export const updateScroll =  (target, root, lastScrollTop, scrollingTreshold = 6
     // lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     return st <= 0 ? 0 : st; // For Mobile or negative scrolling
 }
+
+/**
+ * Creates link to a menu hierarchy page, either default page (main menu), specific menu or specific category
+ * @param {*} slug restaurant slug
+ * @param {*} menu_id menu id
+ * @param {*} category_id category id
+ */
+export const makeMenuLink = (slug, menu_id, category_id ) => {
+    return `/${slug}${menu_id ? `/${slug && menu_id}` : ''}${ slug && menu_id && category_id ? `/${category_id}` : '' }`
+}
