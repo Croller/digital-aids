@@ -65,6 +65,7 @@
                 flex-direction: row;
                 justify-content: flex-start;
                 span:first-child{
+                    font-weight: bold;
                     margin-right: 12px;
                 }
             }
@@ -76,6 +77,9 @@
                 margin-bottom: 22px;
                 &:disabled{
                     background-color: $light-gray;
+                    span{
+                        color: $gray;
+                    }
                 }
                 span{
                     color: white;

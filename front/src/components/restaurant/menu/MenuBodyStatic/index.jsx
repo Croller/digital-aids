@@ -11,6 +11,7 @@ import Page404 from '../../../template/404'
 // import A from '../../../../redux/actionTypes'
 import DefaultComponent, {connect} from '../../../DefaultComponent'
 import Spinner from '../../../template/common/Spinner'
+import ErrorPage from '../../../template/common/error-loading'
 import { Link } from 'react-router-dom'
 import {ChevronLeft} from '../../../template/common/icons'
 import { makeMenuLink, updateScroll } from '../../../../utils/functions'
@@ -37,6 +38,39 @@ const root = document.getElementById("root")
 // class MenuBody extends React.Component {
 class MenuBody extends DefaultComponent {
 
+    componentDidMount(){
+        this.prepareNotificationsTranslation()
+    }
+
+    componentDidUpdate( prevProps ){
+        if( prevProps.menu !== this.props.menu ){
+            this.prepareNotificationsTranslation()
+        }
+    }
+
+    prepareNotificationsTranslation(){
+        // these are two menu-level notifications that are shown within category.
+        // have to translate them here and send down the chain to all categories.
+        const {
+            timetranslationid,
+            notificationtranslationid
+        } = this.props.menu || {}
+
+        if( timetranslationid || notificationtranslationid ){
+
+            // set the translations to be fetched
+            this.setTranslations([
+                timetranslationid,
+                notificationtranslationid
+            ].filter( Boolean ) // remove empty elements
+            )
+
+            // fetch them and update state when done
+            this.fetchTranslations().then( 
+                result => this.setState({translationLoaded: Boolean(result) })
+            )
+        }
+    }
     
     render() {
         const {
@@ -97,6 +131,29 @@ class MenuBody extends DefaultComponent {
             // and it has more than one category
             menu.categories.length > 1;
 
+        const {
+            timetranslationid,
+            notificationtranslationid
+        } = menu;
+
+        const {translationLoaded} = this.state;
+        console.debug( 
+            "MenuBodyStatic: translations",
+            timetranslationid,
+            notificationtranslationid,
+            translationLoaded 
+            )
+        if( (timetranslationid || notificationtranslationid) && !translationLoaded )
+            return translationLoaded === false ? <ErrorPage /> : <Spinner />
+
+        // translate working hours and notifiaction messages.
+        let timeText, notificationText; 
+        if( timetranslationid ) 
+            timeText = this.TR(timetranslationid);
+
+        if( notificationtranslationid ) 
+            notificationText = this.TR(notificationtranslationid);
+
 
         return (
             <>
@@ -122,8 +179,8 @@ class MenuBody extends DefaultComponent {
                             <div className="menu-title">
                                 <Link className="back-button" to={makeMenuLink(restaurant.slug)}>
                                     <ChevronLeft />
+                                    {menu.title}
                                 </Link>
-                                {menu.title}
                             </div>
                         }                 
                         <MenuItemList
@@ -140,9 +197,13 @@ class MenuBody extends DefaultComponent {
                                 category: cat,
                                 prevCategory, nextCategory,
                                 language,
-                                socialMessage,
                                 categories: menu.categories,
-                                catIndex
+                                catIndex,
+
+                                // messages
+                                socialMessage,
+                                timeText, 
+                                notificationText
                             }}
                         />
                     </div>

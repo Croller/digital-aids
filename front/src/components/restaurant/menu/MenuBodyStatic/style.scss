@@ -24,7 +24,31 @@
             }
         }
 
+
+        
         .menu-wrapper{
+
+            .top-message {
+                background: $light-gray;
+                padding: 12px;
+                font-size: 16px;
+                font-weight: 600;
+                margin-bottom: 14px; // offset to top of dish list
+                line-height: 19.5px;
+                border-radius: $borderRadius;
+                margin: 12px #{$categoryXmargin} 22px;
+                display: flex;
+                align-items: center;
+
+                svg {
+                    width: 18px; // for some reason, t has to be 18px wide for the image to be 14px wide!
+                    height: 14px;
+                    margin-right: 12px;
+                    path {
+                        fill: $gray;
+                    }
+                }
+            }
 
             .menu-title{
                 font-size: 16px;
@@ -39,6 +63,8 @@
             .back-button{
                 display: flex;
                 align-items: center;
+                color: $gray;
+                text-decoration: none;
                 svg{
                     padding-right: 12px;
                     width: 26px;
@@ -62,8 +88,8 @@
 
             &.left{
                 justify-content: flex-start;
-                padding-left: 24px;
-                padding-right: 24px;
+                padding-left: $categoryXmargin;
+                padding-right: $categoryXmargin;
                 .active {
                     margin: 0;
                     span{
@@ -164,6 +190,22 @@
 
             
         }
+
+        .menu-wrapper {
+            .template-images {
+                    .top-message {
+                        margin: 12px #{$imageCategoryXmargin} 22px;
+                    }
+                
+    
+                .category-top {
+                    &.left {
+                        padding-left: $imageCategoryXmargin;
+                        padding-right: $imageCategoryXmargin;
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -225,19 +267,23 @@
         flex-direction: column;
         padding: 12px 27px;
         border-radius: 8px;
-        overflow: hidden;
+        overflow-y: auto;
     }
 
     .confirm, .decline {
         background: $light-gray;
         width: 174px;
-        height: 53px;
+        max-width: 174px;
+        min-height: 53px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 15;
+        font-size: 15px;
         font-weight: 600;
         margin-bottom: 14px;
+        padding: 12px;
+
+        line-height: 18px;
 
         &.confirm{
             background-color: $green;

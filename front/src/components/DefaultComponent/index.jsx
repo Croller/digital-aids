@@ -88,7 +88,7 @@ class DefaultComponent extends React.Component{
         const default_lang = restaurant ? restaurant.defaultlanguage : "en"
 
         if( this._translations.length > 0 ){
-            console.debug("DefaultComponent.fetchTranslations found translations")
+            console.debug( `DefaultComponent.fetchTranslations found ${this._translations.length} translations` )
             return await TranslService.getByKeys(
                 this._translations,
                 language, default_lang
