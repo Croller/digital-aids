@@ -58,6 +58,7 @@ body{
 
   #root{
     display: flex;
+    display: -webkit-box; // FIX FOR JUMPING BOTTOM MENU! (and a lot of Safari troubles)
     flex-direction: column;
     align-items: stretch;
     flex-grow: 1;
