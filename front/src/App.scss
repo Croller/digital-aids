@@ -24,9 +24,12 @@ html{
 
 body{
   flex-grow: 1;
-  background-color: $bgLight;
+  // background-color: $bgLight;
   font-family: Montserrat, sans-serif;
   padding-top: #{$headerHeight + $mainTopMargin}; // offset for header
+
+  @include fill-height-or-more;
+
 
   // reset Mui font family
   .MuiButton-root{
@@ -57,10 +60,15 @@ body{
   }
 
   #root{
-    display: flex;
-    display: -webkit-box; // FIX FOR JUMPING BOTTOM MENU! (and a lot of Safari troubles)
-    flex-direction: column;
-    align-items: stretch;
+    // display: flex;
+    // display: -webkit-box; // FIX FOR JUMPING BOTTOM MENU! (and a lot of Safari troubles)
+    // flex-direction: column;
+    // align-items: stretch;
+
+    // cross-browse flex
+    @include flex-it;
+    @include flex-col;
+    @include flex-align-item-stretch;
     flex-grow: 1;
     
     .overlay {
@@ -70,10 +78,15 @@ body{
       height: 100%;
       max-height: 100vh;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
+      // display: flex;
+      // flex-direction: column;
+      // align-items: center;
+      // justify-content: flex-start;
+      @include flex-it;
+      @include flex-col;
+      @include flex-align-center;
+      @include flex-justify-start;
+      
       z-index: 200;
       background-color: white;
 
@@ -355,4 +368,6 @@ body{
   box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+
+
 
