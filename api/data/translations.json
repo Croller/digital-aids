@@ -652,45 +652,45 @@
         "ch": "过敏原"
     },
     {
-        "translationid": "gr",
-        "en": "gr",
-        "es": "gramo",
+        "translationid": "g",
+        "en": "g",
+        "es": "g",
         "el": "γρ",
-        "it": "gr",
-        "de": "GR",
-        "fr": "gr",
-        "no": "gr",
+        "it": "g",
+        "de": "g",
+        "fr": "g",
+        "no": "g",
         "jp": "グラム",
-        "ko": "gr",
-        "ru": "гр.",
+        "ko": "g",
+        "ru": "г",
         "ch": "公克"
     },
     {
         "translationid": "kg",
         "en": "kg",
-        "es": "kilo",
-        "el": "κιλό",
-        "it": "chilo",
-        "de": "Kilo",
-        "fr": "kilo",
+        "es": "kg",
+        "el": "κγ",
+        "it": "kg",
+        "de": "kg",
+        "fr": "kg",
         "no": "kilo",
         "jp": "キログラム",
         "ko": "kg",
-        "ru": "кг.",
+        "ru": "кг",
         "ch": "公斤"
     },
     {
         "translationid": "L",
-        "en": "liter",
-        "es": "litro",
-        "el": "λίτρο",
-        "it": "litro",
-        "de": "Liter",
-        "fr": "litre",
+        "en": "L",
+        "es": "L",
+        "el": "L",
+        "it": "L",
+        "de": "L",
+        "fr": "L",
         "no": "liter",
         "jp": "リットル",
         "ko": "리터",
-        "ru": "лтр",
+        "ru": "л",
         "ch": "公升"
     },
     {
@@ -1817,28 +1817,12 @@
         "ru": "Карамелизированный осьминог  на гриле с картофельным пюре ― несомненно лучший выбор! Это блюдо в стиле фьюжн знаменитого классического испанского блюда «Осьминог по-галисийски». Сочетание нежного картофельного пюре и сладковатого вкуса карамелизированного осьминога удивит любого гурмана."
     },
     {
-        "translationid": "insider_001_head_name",
-        "en": "Grilled and Caramelized Octopus",
-        "es": "Pulpo a la plancha caramelizado",
-        "de": "Gegrillter und karamellisierter Oktopus",
-        "no": "Grillet og karamellisert blekksprut",
-        "ru": "Карамелизированный осьминог на гриле"
-    },
-    {
         "translationid": "insider_002",
         "en": "The meat fans should try the steak “Rossini” which is made by the special recipe of our Norwegian chef who, definitely, knows all about meat. The flavors mix of the slightly fried meat with foie- gra and the berry red wine source makes your meal experience unforgeable.",
         "es": "Para los fans de la carne, es imprescindible probar el filete \"Rossini\" se cocina según la receta especial de nuestro chef noruego que, sin duda, es muy conocedor de la carne. La combinación de los sabores de la carne ligeramente asada, foie gras y salsa de vino con bayas, ¡Se convertirá en una experiencia inolvidable!",
         "de": "Die Fleischfans sollten das Steak \"Rossini\" probieren, das nach dem speziellen Rezept unseres norwegischen Küchenchefs zubereitet wird, der sich definitiv mit Fleisch auskennt. Die Geschmacksmischung des leicht gebratenen Fleisches mit Foie-Gra und der Beeren-Rotweinquelle macht Ihr Essenserlebnis unvergesslich.",
         "no": "Kjøtt elskere bør definitivt prøve Rossini biff, den er utarbeidet i henhold til en spesiell oppskrift av våre norske kokken, som definitivt vet mye om kjøtt. Kombinasjonen av lett stekt kjøtt, foie Gras og bær-vin sausen vil bli en uforglemmelig opplevelse for alle gourmet.",
         "ru": "Любителям мяса непременно стоит попробовать стейк «Россини», он готовится по особому рецепту нашего норвежского шеф-повара, который, определенно, знает толк в мясе. Сочетание вкусов слегка обжаренного мяса, фуа-гра и ягодно-винного соуса станет незабываемым опытом для каждого гурмана."
-    },
-    {
-        "translationid": "insider_002_head_name",
-        "en": "Steak “Rossini”",
-        "es": "Filete \"Rossini\"",
-        "de": "Das Steak \"Rossini\"",
-        "no": "\"Rossini\" biff",
-        "ru": "Стейк \"Rossini\" biff"
     },
     {
         "translationid": "insider_003",
@@ -1849,28 +1833,12 @@
         "ru": "Любителям морепродуктов советуем отведать наше фирменное блюдо из свежих мидий с сырным соусом горгонзола. Вы когда-нибудь пробовали нечто подобное? Тогда это несомненно станет одним из ваших лучших кулинарных открытий!"
     },
     {
-        "translationid": "insider_003_head_name",
-        "en": "Mussel Casserole",
-        "es": "Mejillones con salsa gorgonzola",
-        "de": "Muschelauflauf mit Gorgonzolasauce",
-        "no": "Blåskjell med gorgonzola saus",
-        "ru": "Свежии мидии с соусом горгонзола"
-    },
-    {
         "translationid": "insider_004",
         "en": "Grilled fresh Scallops with truffle cauliflower cream is one more famous signature of our chef for seafood lovers. The tender flavor of the truffle cauliflower mousse is a perfect complement of the freshest galician scallops. Just taste it!",
         "es": "Las vieiras frescas a la plancha con crema de trufa y coliflor son otra de las famosas especialidades de nuestro chef para los amantes de mariscos. El sabor suave de la mousse de trufa y coliflor complementa perfectamente las más frescas vieiras gallegas. ¡Pruébalo!",
         "de": "Gegrillte frische Kammmuscheln mit Trüffel-Blumenkohl-Creme ist noch eine berühmte Spezialität unseres Küchenchefs für Liebhaber von Meeresfrüchten. Der zarte Geschmack der Trüffel-Blumenkohl-Mousse ist eine perfekte Ergänzung zu den frischesten galizischen Kammmuscheln. Probieren Sie es einfach!",
         "no": "Fersk grillet kamskjell med blomkål trøffel cream er en annen velkjent spesialitet av vår kjøkkensjef for sjømat elskere. Delikat smak av blomkål trøffel mousse er et perfekt komplement til de ferskeste Galisisk kamskjell. Bare prøv det ut!",
         "ru": "Свежие морские гребешки на гриле с трюфельным кремом и пюре из цветной капусты ― еще одно известное фирменное блюдо нашего шеф-повара для любителей морепродуктов. Нежный вкус трюфельного мусса из цветной капусты идеально дополняет наисвежайшие морские гребешки по-галисийски. Просто попробуйте это!\n"
-    },
-    {
-        "translationid": "insider_004_head_name",
-        "en": "Scallops with truffle cauliflower cream",
-        "es": "Vieiras con crema de trufa y coliflor",
-        "de": "Kammmuscheln mit Trüffel-Blumenkohl-Creme",
-        "no": "Kamskjell med blomkål trøffel cream",
-        "ru": "Морские гребешки с пюре из цветной капусты"
     },
     {
         "translationid": "insider_005",
@@ -1881,28 +1849,12 @@
         "ru": "Вы фан фуа-гра? Тогда, непременно, попробуйте наше фуа-гра с карамелизированными яблоками, приготовленное по особому рецепту нашего шеф-повара. Правильные пропорции сочетания вкусов слегка сладковатого ягодного соуса и фуа-гра делает это блюдо особенным.\nуснейший легкий десерт, который покоряет сердца.\n"
     },
     {
-        "translationid": "insider_005_head_name",
-        "en": "Foie with caramelized apple",
-        "es": "Foie con manzana caramelizada",
-        "de": "Foie mit karamellisiertem Apfel",
-        "no": "Foie med karamelliserte epler",
-        "ru": "Фуа-гра с карамелизированными яблоками"
-    },
-    {
         "translationid": "insider_006",
         "en": "The famous dessert Affogato al Café perfectly complements your meal experience with us. Vanilla ice mixed with coffee liqueur, caramelized walnuts and espresso coffee just turns into the most delicious light dessert which gets the hearts.",
         "es": "El famoso postre a base del café de Affogato complementará su experiencia de sabor de una manera inmejorable. El helado de vainilla mezclado con licor de café, nueces caramelizadas y café expreso, se convierte en un postre delicioso y ligero que ha conquistado los corazones en todo el mundo.",
         "de": "Das berühmte Dessert Affogato al Café ergänzt perfekt Ihr Essenserlebnis bei uns. Vanilleeis gemischt mit Kaffeelikör, karamellisierten Walnüssen und Espresso-Kaffee verwandelt sich einfach in das köstlichste leichte Dessert, das die meisten Herzen gewinnt.",
         "no": "Den berømte Affogato kaffe-basert dessert vil passe perfekt til din smak opplevelse. Vanilje is blandet med kaffe-likør, karamelliserte valnøtter og espresso kaffe blir til en deilig lett dessert som vinner hjerter.",
         "ru": "Знаменитый десерт на основе кофе Аффогато прекрасно дополнит ваши вкусовые впечатления. Ванильный лед, смешанный с кофейным ликером, карамелизированными грецкими орехами и кофе эспрессо, превращается во вкуснейший легкий десерт, который покоряет сердца.\n"
-    },
-    {
-        "translationid": "insider_006_head_name",
-        "en": "Dessert Affogato al Café",
-        "es": "Postre Affogato al Café",
-        "de": "Dessert Affogato al Café",
-        "no": "Dessert Affogato al Café",
-        "ru": "Десерт Affogato al Café"
     },
     {
         "translationid": "insider_007",
@@ -1913,28 +1865,12 @@
         "ru": "Борщ, пожалуй, самое знаменитое традиционное русское блюдо. Это горячий мясной суп с овощами, подается со сметаной и чесночными гренками.\n"
     },
     {
-        "translationid": "insider_007_head_name",
-        "en": "Russian traditional dish \"Borsch\"",
-        "es": "Plato tradicional ruso 'Borsch\"",
-        "de": "Russische traditionelle Spezialität \"Borschtsch\"",
-        "fr": "Plat russe traditionnel \"Bortsch\"",
-        "ru": "Традиционное русское блюдо \"Борщ\""
-    },
-    {
         "translationid": "insider_008",
         "en": "Dumplings with meat is probably the most common home-made meal in Russia. We cook this plate according to the most traditional recipe and serve it with sour cream or with meat broth, just on your taste.",
         "es": "Pelmeni con carne son, probablemente, el plato más típico de la cocina casera rusa. Cocinamos este plato según la receta rusa más tradicional y lo acompañamos de crema agria o de caldo de carne, a su elección.",
         "de": "Teigtaschen mit Fleisch sind wahrscheinlich das am häufigsten zu Hause gekochte Gericht in Russland. Wir kochen dieses Gericht nach dem traditionellsten Rezept und servieren es mit saurer Sahne oder mit Fleischbrühe, ganz nach Ihrem Geschmack.",
         "fr": "Les pelmeni (quenelles) à la viande sont probablement le plus populaire plat fait maison en Russie. Nous cuisinons ce plat selon la recette la plus traditionnelle et le servons avec de la crème aigre ou avec du bouillon de viande, juste à votre goût.",
         "ru": "\nПельмени с мясом – это, наверно, самое распространенное блюдо домашней кухни в России. Мы готовим это блюдо по самому традиционному русскому рецепту и подаем со сметаной или с мясным бульоном на ваш вкус.\n"
-    },
-    {
-        "translationid": "insider_008_head_name",
-        "en": "Dumplings with meat",
-        "es": "Plato tradicional ruso 'Pelmeni\"",
-        "de": "Pelimeni: Traditionelles russisches Gericht",
-        "fr": "Pelmeni: un plat russe traditionnel",
-        "ru": "Домашние пельмени"
     },
     {
         "translationid": "insider_009",
@@ -1945,28 +1881,12 @@
         "ru": "Плов - одно из традиционных блюд азиатской части России, покорившее сердца всей страны! Оно готовится из риса с добавлением кусочков баранины, моркови и чеснока, обжаренных на открытом огне. Мы готовим это блюдо по нашему традиционному семейному рецепту."
     },
     {
-        "translationid": "insider_009_head_name",
-        "en": "Pilaf- traditional Russian dish",
-        "es": "Plov- un plato muy tradicional",
-        "de": "Pilaw- ein traditionelles Gericht",
-        "fr": "Pilaf- un plat traditionnel",
-        "ru": "Плов "
-    },
-    {
         "translationid": "insider_010",
         "en": "Eggplants with vegetables and garlic is perfect meal experience for vegetable lovers. We offer it with rice garnish as a great vegetarian dish. ",
         "es": "Las berenjenas con verduras y ajo es un plato perfecto para los amantes de las verduras. Acompañamos este plato vegetariano de una guarnición de arroz.",
         "de": "Auberginen mit Gemüse und Knoblauch ist ein perfektes Essenserlebnis für Gemüseliebhaber. Wir bieten es mit Reisbeilage als tolles vegetarisches Gericht an. ",
         "fr": "Les aubergines aux légumes et à l’ail sont une excellente expérience culinaire pour les amateurs de légumes. Nous les proposons avec une garniture de riz en tant qu’excellent plat végétarien.",
         "ru": "Баклажаны с овощами и чесноком - идеальное блюдо для любителей овощей. Мы подаем это вегетарианское блюдо с гарниром из риса.\n"
-    },
-    {
-        "translationid": "insider_010_head_name",
-        "en": "Eggplants with vegetables",
-        "es": "Berenjenas con verduras",
-        "de": "Auberginen mit Gemüse",
-        "fr": "Les aubergines aux légumes ",
-        "ru": "Баклажаны с овощами"
     },
     {
         "translationid": "insider_011",
@@ -1977,14 +1897,6 @@
         "ru": "Хе с рыбой это острый корейский салат из свежей маринованной рыбы по особому рецепту с огурцами и луком. Это корейское блюдо вот уже много лет пользуется большой популярностью в азиатской части России.\n"
     },
     {
-        "translationid": "insider_011_head_name",
-        "en": "Je with fish",
-        "es": "Je con pescado",
-        "de": "Je mit dem Fisch",
-        "fr": "\"Heh\" au poisson",
-        "ru": "Хе с рыбой"
-    },
-    {
         "translationid": "insider_012",
         "en": "Manti is a traditional plate of East Asian cuisine. We cook it with a filling of lamb and pumpkin.",
         "es": "Manti son un plato tradicional de la cocina de Asia Oriental. Cocinamos este plato con relleno de cordero y calabaza.\n",
@@ -1993,28 +1905,12 @@
         "ru": " Манты- традиционное блюдо восточноазиатской кухни. Мы готовим это блюдо с начинкой из баранины и тыквы.\n"
     },
     {
-        "translationid": "insider_012_head_name",
-        "en": "Manti",
-        "es": "Manti",
-        "de": "Manti",
-        "fr": "Manti",
-        "ru": "Манты"
-    },
-    {
         "translationid": "insider_013",
         "en": "Chak Chak is a oriental sweetness made of fried dough pieces in honey syrup and walnuts. Traditionally, it becomes a part of the tea ceremony.",
         "es": "Chak-chak es un dulce oriental elaborado de trozos de masa asados y mezclados con nueces y jarabe de miel. Tradicionalmente, se sirve para la ceremonia del té.",
         "de": "Chak Chak ist eine orientalische Süßigkeit aus frittierten Teigstücken in Honigsirup und Walnüssen. Traditionell wird es ein Teil der Teezeremonie.",
         "fr": "Chak Chak est une friandise orientale faite de morceaux de pâte frits au sirop de miel avec des noix. C’est une partie traditionnelle de la cérémonie du thé.",
         "ru": "Чак-чак ― восточная сладость, приготовленная из обжаренных кусочков теста, перемешанных с грецкими орехами и медовым сиропом. Традиционно, подается к чайной церемонии."
-    },
-    {
-        "translationid": "insider_013_head_name",
-        "en": "Chak Chak",
-        "es": "Chak Chak",
-        "de": "Chak Chak",
-        "fr": "Chak Chak",
-        "ru": "Чак-чак "
     },
     {
         "translationid": "comments",
@@ -2045,7 +1941,7 @@
     {
         "translationid": "includingBreadAndDrinks",
         "en": "Including bread and drinks",
-        "es": "Incluye pan y bebidas",
+        "es": "incluido pan y bebidas",
         "el": "Περιλαμβάνονται ψωμί και ποτά",
         "de": "Einschließlich Brot und Getränke",
         "fr": "Y compris le pain et les boissons",
@@ -2104,11 +2000,11 @@
     {
         "translationid": "daily_menu_working_hours",
         "en": "Mo to Fri from 12.00 till 17.00",
-        "es": "De lunes a viernes de 12.00 a 17.00",
-        "de": "Montag bis Freitag von 12.00 bis 17.00 Uhr",
-        "fr": "Du lundi au vendredi à partir de 12 h à 17 h",
-        "no": "Mandag til fredag fra kl 12 til 17.00",
-        "ru": "С понедельника по пятницу с 12.00 до 17.00"
+        "es": "De Lun a Vie de 12.00 hasta 17.00",
+        "de": "Mon bis Fre von 12.00 bis 17.00",
+        "fr": "Du Lun au Ven à partir de 12.00 h à 17.00",
+        "no": "Man til Fre fra kl 12.00 til 17.00",
+        "ru": "С Пон по Пят с 12.00 до 17.00"
     },
     {
         "translationid": "daily_menu_notification_tex1",
@@ -2249,60 +2145,104 @@
     },
     {
         "translationid": "Caramelized Octopus",
-        "en": "Caramelized Octopus"
+        "en": "Grilled and Caramelized Octopus",
+        "es": "Pulpo a la plancha caramelizado",
+        "de": "Gegrillter und karamellisierter Oktopus",
+        "no": "Grillet og karamellisert blekksprut",
+        "ru": "Карамелизированный осьминог на гриле"
     },
     {
         "translationid": "Fillet steak “Rossini”",
-        "en": "Fillet steak “Rossini”"
+        "en": "Steak “Rossini”",
+        "es": "Filete \"Rossini\"",
+        "de": "Das Steak \"Rossini\"",
+        "no": "\"Rossini\" biff",
+        "ru": "Стейк \"Rossini\" biff"
     },
     {
         "translationid": "Mussel Casserole",
-        "en": "Mussel Casserole"
+        "en": "Mussel Casserole",
+        "es": "Mejillones con salsa gorgonzola",
+        "de": "Muschelauflauf mit Gorgonzolasauce",
+        "no": "Blåskjell med gorgonzola saus",
+        "ru": "Свежии мидии с соусом горгонзола"
     },
     {
         "translationid": "Grilled fresh Scallops",
-        "en": "Grilled fresh Scallops"
+        "en": "Scallops with truffle cauliflower cream",
+        "es": "Vieiras con crema de trufa y coliflor",
+        "de": "Kammmuscheln mit Trüffel-Blumenkohl-Creme",
+        "no": "Kamskjell med blomkål trøffel cream",
+        "ru": "Морские гребешки с пюре из цветной капусты"
     },
     {
         "translationid": "Duck foie",
-        "en": "Duck foie"
+        "en": "Foie with caramelized apple",
+        "es": "Foie con manzana caramelizada",
+        "de": "Foie mit karamellisiertem Apfel",
+        "no": "Foie med karamelliserte epler",
+        "ru": "Фуа-гра с карамелизированными яблоками"
     },
     {
         "translationid": "Affogato al Café",
-        "en": "Affogato al Café"
+        "en": "Dessert Affogato al Café",
+        "es": "Postre Affogato al Café",
+        "de": "Dessert Affogato al Café",
+        "no": "Dessert Affogato al Café",
+        "ru": "Десерт Affogato al Café"
     },
     {
         "translationid": "Borsch",
-        "en": "Borsch",
-        "ru": "Борщ"
+        "en": "Russian traditional dish \"Borsch\"",
+        "es": "Plato tradicional ruso 'Borsch\"",
+        "de": "Russische traditionelle Spezialität \"Borschtsch\"",
+        "fr": "Plat russe traditionnel \"Bortsch\"",
+        "ru": "Традиционное русское блюдо \"Борщ\""
     },
     {
         "translationid": "Dumplings with meat",
         "en": "Dumplings with meat",
-        "ru": "Пельмени с мясом"
+        "es": "Plato tradicional ruso 'Pelmeni\"",
+        "de": "Pelimeni: Traditionelles russisches Gericht",
+        "fr": "Pelmeni: un plat russe traditionnel",
+        "ru": "Домашние пельмени"
     },
     {
         "translationid": "Pilaf",
-        "en": "Pilaf",
+        "en": "Pilaf- traditional Russian dish",
+        "es": "Plov- un plato muy tradicional",
+        "de": "Pilaw- ein traditionelles Gericht",
+        "fr": "Pilaf- un plat traditionnel",
         "ru": "Плов"
     },
     {
         "translationid": "Eggplants",
-        "en": "Eggplants",
-        "ru": "Баклажаны"
+        "en": "Eggplants with vegetables",
+        "es": "Berenjenas con verduras",
+        "de": "Auberginen mit Gemüse",
+        "fr": "Les aubergines aux légumes ",
+        "ru": "Баклажаны с овощами"
     },
     {
         "translationid": "Je with the fish",
-        "en": "Je with the fish"
+        "en": "Je with fish",
+        "es": "Je con pescado",
+        "de": "Je mit dem Fisch",
+        "fr": "\"Heh\" au poisson",
+        "ru": "Хе с рыбой"
     },
     {
         "translationid": "Manti",
         "en": "Manti",
+        "de": "Manti",
+        "fr": "Manti",
         "ru": "Манты"
     },
     {
         "translationid": "Chak Chak",
         "en": "Chak Chak",
+        "de": "Chak Chak",
+        "fr": "Chak Chak",
         "ru": "Чак-Чак"
     },
     {
@@ -2316,13 +2256,19 @@
     {
         "translationid": "appetizers",
         "en": "Appetizers",
-        "es": "Tapas",
+        "es": "Entradas",
+        "de": "Vorspeisen",
+        "fr": "Apéritifs",
+        "no": "Forretter",
         "ru": "Закуски"
     },
     {
         "translationid": "Add to my order",
         "en": "Add to my order",
         "es": "Agregar al pedido",
+        "de": "Hinzufügen",
+        "fr": "Ajouter à commande",
+        "no": "Legg til på bestilling",
         "ru": "Добавить в заказ"
     }
 ]

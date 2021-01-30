@@ -170,44 +170,6 @@ class RestService extends baseService{
         }
     }
 
-    // static async getRestorauntMenu( id, lang = defaultLang, default_lang = defaultLang ){
-
-
-    //     // fetch only ids of allergns 
-    //     let allergens = await tagService.getAll()
-    //     allergens = Array.isArray(allergens) ? allergens.map( t => t.tagid) : []
-
-        
-    //     console.debug(lang, default_lang)
-    //     let result = dishes.filter( d => d.dishrestaurtantid === id )
-    //     .map( dish => { 
-    //         const {
-    //         dishid,
-    //         dishprice,
-    //         dishcategoryid,
-    //         dishmenuid,
-    //         image,
-    //         tags
-    //         } = dish
-    //         console.debug("image:", image)
-    //         return { dishid,
-    //             dishprice,
-    //             dishcategoryid,
-    //             image,
-    //             dishmenuid,
-    //             dishtitle: dish[`dishtitle${lang}`] || dish["dishtitleen"],
-    //             dishtitledefault:  lang === default_lang ? null : dish[`dishtitle${default_lang}`],
-    //             tags: tags ? tags.split(",").filter( t => allergens.includes(t) ) : []
-    //             }
-    //         }
-    //     )
-
-        
-
-    //     return result;
-    // }
-
-
     static async getRestaurantInsiders( id, lang ){
 
         // gather
@@ -320,7 +282,7 @@ class RestService extends baseService{
             const title         = dish.translationid ? await translationService.translateOne(dish.translationid, lang) : null
             const default_title = dish.translationid ? await translationService.translateOne(dish.translationid, default_lang) : null 
             const pricefor      = dish.pricefor ?
-                await translationService.translateOne(dish.pricefor, default_lang)
+                await translationService.translateOne(dish.pricefor, lang, default_lang)
                 : null;
 
             const allergens = await this.getAllergenIds();
@@ -341,7 +303,7 @@ class RestService extends baseService{
 
             let amountText
             if( amount && units  ){
-                const unitsTranslation = await  translationService.translateOne( units, default_lang);
+                const unitsTranslation = await  translationService.translateOne( units, lang, default_lang);
                 amountText = `${amount}${unitsTranslation}`;
             }
 
