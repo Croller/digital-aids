@@ -425,13 +425,36 @@ body{
     body #root #menus-carousel .category-content .menu-items-list{
         max-height: calc(100vh - #{$headerHeight + $footerHeight  + $mainTopMargin}) !important;
     }
-    
+
     // fix social links below bottom edge in cart
     body #root .main .cart{
       max-height: calc(100vh -  #{$footerHeight  + $mainTopMargin});
     }
 }}
 
+
+// attempt to fix bottom menu on iphone11 sing new iPhone versions override 
+@media only screen 
+        and (-webkit-device-pixel-ratio: 3)
+        and (device-height: 812px), // iPhone 12 Mini, iPhone 11 Pro
+        (device-height: 844px), // iPhone 12 and iPhone 12 Pro
+        (device-height: 926px), // iPhone 12 Pro Max 
+        (device-height: 896px)  // iPhone 11, Phone 11 Pro Max
+        {
+          #root .footer{
+            bottom: 120px!important;
+          }
+
+          // fix social links below bottom edge in menu category
+          body #root #menus-carousel .category-content .menu-items-list{
+              max-height: calc(100vh - #{$headerHeight + $footerHeight  + $mainTopMargin + 12px }) !important;
+          }
+
+          // fix social links below bottom edge in cart
+          body #root .main .cart{
+            max-height: calc(100vh -  #{$footerHeight  + $mainTopMargin + 12px });
+          }
+        }
 
 
 

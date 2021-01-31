@@ -202,6 +202,12 @@
                     // max-width: 360px;
                     flex-grow: 1;
                     text-transform: none;
+                    font-size: 13px;
+                    font-weight: 700;
+
+                    &.call{
+                        font-size: 12px;
+                    }
                     svg {
                         color: white;
                         height: 17px;        
@@ -326,6 +332,8 @@
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
+                    font-size: 12px;
+                    font-weight: 700;
                 }
             }
         }

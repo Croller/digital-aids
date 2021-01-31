@@ -7,6 +7,9 @@
     [role="dialog"]{
         // fix the window scrolling
         overflow: hidden;
+
+        // make dialog stretch to content (there's a 600px limit in standard small dialog)
+        max-height: inherit;
     }
 }
 .oferta {
