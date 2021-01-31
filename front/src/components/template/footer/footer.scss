@@ -39,16 +39,16 @@
 
         // FIXES FOR IOS SAFARI footer bottom position.
         // safari 11+
-        @media not all and (min-resolution:.001dpcm)
-        { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-            bottom: 74px;
-        }}
+        // @media not all and (min-resolution:.001dpcm)
+        // { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+        //     bottom: 74px;
+        // }}
 
-        // safari 10.1
-        @media not all and (min-resolution:.001dpcm)
-        { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-            bottom: 74px;
-        }}
+        // // safari 10.1
+        // @media not all and (min-resolution:.001dpcm)
+        // { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+        //     bottom: 74px;
+        // }}
 
         @media screen and(max-width: $bp_1) {
             // position: sticky;

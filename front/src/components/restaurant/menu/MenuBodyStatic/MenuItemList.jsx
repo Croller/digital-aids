@@ -276,22 +276,24 @@ class MenuItemList extends React.Component{
                         <div className="prompt">
                             {firstCondition && firstCondition.prompt}
                         </div>
-                        {/* <div className="buttons"> */}
-                            <Button 
-                            className="confirm" 
-                            // There was a decision to make the condition appear every time user gets to the category.
-                            // To make it accepted once per session, uncomment the next line and comment the setState one.
-                            // onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, true, slug )}
-                            onClick={() => this.setState({categoryConditionsAcceptance: true }) }
-                            >{firstCondition && firstCondition.confirm_button}</Button>
-                            <Button 
-                            className="decline"
-                            // There was a decision to make the condition appear every time user gets to the category.
-                            // To make it accepted once per session, uncomment the next line and comment the setState one.
-                            // onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, false, slug )}
-                            onClick={() => this.setState({categoryConditionsAcceptance: false })}
-                            >{firstCondition && firstCondition.decline_button}</Button>
-                        {/* </div> */}
+                        <div className="buttons">
+                            {/* <div className="buttons"> */}
+                                <Button 
+                                className="confirm" 
+                                // There was a decision to make the condition appear every time user gets to the category.
+                                // To make it accepted once per session, uncomment the next line and comment the setState one.
+                                // onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, true, slug )}
+                                onClick={() => this.setState({categoryConditionsAcceptance: true }) }
+                                >{firstCondition && firstCondition.confirm_button}</Button>
+                                <Button 
+                                className="decline"
+                                // There was a decision to make the condition appear every time user gets to the category.
+                                // To make it accepted once per session, uncomment the next line and comment the setState one.
+                                // onClick={() => firstCondition && acceptCondition( firstCondition.conditionid, false, slug )}
+                                onClick={() => this.setState({categoryConditionsAcceptance: false })}
+                                >{firstCondition && firstCondition.decline_button}</Button>
+                            {/* </div> */}
+                        </div>
                     </DialogContent>
                 }
                 </Dialog>
