@@ -3,6 +3,11 @@
 
 .oferta-dialog{
     z-index: 10;
+
+    [role="dialog"]{
+        // fix the window scrolling
+        overflow: hidden;
+    }
 }
 .oferta {
     display: flex;

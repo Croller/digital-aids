@@ -277,8 +277,7 @@
 
         .confirm, .decline {
             background: $light-gray;
-            width: 174px;
-            max-width: 174px;
+            min-width: 174px;
             min-height: 53px;
             display: flex;
             align-items: center;

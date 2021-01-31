@@ -405,7 +405,12 @@ body{
 
     // fix social links below bottom edge in menu category
     body #root #menus-carousel .category-content .menu-items-list{
-      max-height: calc(100vh - #{$headerHeight + $footerHeight})!important;
+      max-height: calc(100vh - #{$headerHeight + $footerHeight + $mainTopMargin})!important;
+    }
+
+    // fix social links below bottom edge in cart
+    body #root .main .cart{
+      max-height: calc(100vh -  #{$footerHeight  + $mainTopMargin});
     }
 }}
 
@@ -418,7 +423,12 @@ body{
 
     // fix social links below bottom edge in menu category
     body #root #menus-carousel .category-content .menu-items-list{
-        max-height: calc(100vh - #{$headerHeight + $footerHeight}) !important;
+        max-height: calc(100vh - #{$headerHeight + $footerHeight  + $mainTopMargin}) !important;
+    }
+    
+    // fix social links below bottom edge in cart
+    body #root .main .cart{
+      max-height: calc(100vh -  #{$footerHeight  + $mainTopMargin});
     }
 }}
 
