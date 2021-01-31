@@ -1,13 +1,17 @@
 
 @import "./variables.scss";
 @import "./normalize.scss";
+@import "./webkit.scss";
 
 // @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 html, body{
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
+  // display: flex;
+  // flex-direction: column;
+  @include flex-it;
+  @include flex-col;
+
+  // min-height: 100%;
   overflow: hidden;
 }
 
@@ -28,7 +32,11 @@ body{
   font-family: Montserrat, sans-serif;
   padding-top: #{$headerHeight + $mainTopMargin}; // offset for header
 
+  @include flex-it;
+  @include flex-col;
+
   @include fill-height-or-more;
+  // @include webkit-box;
 
 
   // reset Mui font family
@@ -61,14 +69,22 @@ body{
 
   #root{
     // display: flex;
-    // display: -webkit-box; // FIX FOR JUMPING BOTTOM MENU! (and a lot of Safari troubles)
     // flex-direction: column;
     // align-items: stretch;
-
+    
     // cross-browse flex
     @include flex-it;
+    
+    // display: -webkit-box; // FIX FOR JUMPING BOTTOM MENU! (and a lot of Safari troubles)
+    // -webkit-box-align: stretch;
+    // -webkit-box-direction: normal;
+    // -webkit-box-orient: vertical;
+
     @include flex-col;
     @include flex-align-item-stretch;
+    
+    // for some reason it didn't mix in from previous mixins
+
     flex-grow: 1;
     
     .overlay {
@@ -86,7 +102,7 @@ body{
       @include flex-col;
       @include flex-align-center;
       @include flex-justify-start;
-      
+
       z-index: 200;
       background-color: white;
 
@@ -206,12 +222,19 @@ body{
     }
 
     .main{
+
+      @include flex-it;
+      @include flex-col;
+      @include flex-justify-between;
+      // flex-direction: column;
+      // justify-content: space-between;
+
       flex-grow: 1;
-      flex-direction: column;
+
+
       // transition: 255ms padding-left;
       // padding-top: #{$headerHeight + $mainTopMargin};
       // justify-content: stretch;
-      justify-content: space-between;
 
       // overflow: hidden; // prevents scrolling of menu headers up and down.
 
@@ -368,6 +391,37 @@ body{
   box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+
+
+
+// SAFARI FIXES
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    // fix footer below bottom edge 
+    #root .footer{
+        bottom: 74px;
+    }
+
+    // fix social links below bottom edge in menu category
+    body #root #menus-carousel .category-content .menu-items-list{
+      max-height: calc(100vh - #{$headerHeight + $footerHeight});
+    }
+}}
+
+@media not all and (min-resolution:.001dpcm)
+{ @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+    // fix footer below bottom edge 
+    #root .footer{
+        bottom: 74px;
+    }
+
+    // fix social links below bottom edge in menu category
+    body #root #menus-carousel .category-content .menu-items-list{
+        max-height: calc(100vh - #{$headerHeight + $footerHeight});
+    }
+}}
+
 
 
 

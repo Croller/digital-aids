@@ -254,6 +254,9 @@
                 align-items: center;
                 // flex-wrap: wrap;
                 flex-grow: 1;
+                padding: 12px 20px;
+                box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
 
                 // if there's only one element, show it as row
                 &:first-child:last-child{
@@ -307,9 +310,7 @@
                     flex-direction: column;
                 }
     
-                padding: 35px 20px;
-                box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
-                border-radius: 8px;
+                
 
                 a{
                     background: $green;
