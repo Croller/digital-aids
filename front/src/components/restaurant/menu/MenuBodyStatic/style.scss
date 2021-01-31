@@ -213,6 +213,14 @@
 .conditions-dialog{
     z-index: 2000!important; // put dialog background above everything
     
+    [role="dialog"] {
+        // remove max height constraint
+        max-height: inherit;
+        
+        // lower down margins
+        margin: 24px;
+    }
+
     &.declined{
         // declined is rendered under menus
         z-index: 10!important; // put dialog background below top and bottom menu

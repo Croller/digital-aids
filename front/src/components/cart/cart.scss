@@ -34,9 +34,11 @@
             overflow-y: auto;
             padding: 0 27px;
 
-            &.template-images{
+            // &.template-images{
                 
-            }
+            // }
+
+
 
             &.template-text { 
                 // text template category styling
@@ -108,6 +110,12 @@
             }
             .cart{
                 padding-top: 2em;
+            }
+
+            .menu-title{
+                margin-top: 32px;
+                font-size: 20px;
+                font-weight: 600;
             }
     
             .title{

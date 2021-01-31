@@ -15,6 +15,7 @@ import ErrorPage from '../../../template/common/error-loading'
 import { Link } from 'react-router-dom'
 import {ChevronLeft} from '../../../template/common/icons'
 import { makeMenuLink, updateScroll } from '../../../../utils/functions'
+import { Button } from '@material-ui/core'
 // import { Dialog, DialogContent } from '@material-ui/core'
 // import { randomFromArray } from '../../../../utils/functions'
 // import Oferta from '../../oferta'
@@ -79,7 +80,9 @@ class MenuBody extends DefaultComponent {
             restaurant,
             language,
             category,
-            socialMessage // message to show at the bottom of each category in social block
+            socialMessage, // message to show at the bottom of each category in social block
+
+            setOverlay // from DefaultComponent 
         } = this.props;
 
         if( !restaurant ) return <Spinner />
@@ -177,10 +180,14 @@ class MenuBody extends DefaultComponent {
                         {
                             showBackToMainMenuButton &&
                             <div className="menu-title">
-                                <Link className="back-button" to={makeMenuLink(restaurant.slug)}>
+                                <Button className="back-button" onClick={() => setOverlay( { overlay: "hamburger", slug: restaurant.slug})}>
                                     <ChevronLeft />
                                     {menu.title}
-                                </Link>
+                                </Button>
+                                {/* <Link className="back-button" to={makeMenuLink(restaurant.slug, )}>
+                                    <ChevronLeft />
+                                    {menu.title}
+                                </Link> */}
                             </div>
                         }                 
                         <MenuItemList

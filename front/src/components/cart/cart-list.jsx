@@ -54,7 +54,7 @@ class CartList extends React.Component{
 
         const Item = item_type === "text" ? ItemText : ItemImage;
 
-        const {all_dishes} = restaurant;
+        const {all_dishes, menus} = restaurant;
 
         // update items fom all_dishes
         items = items.map( i => (
@@ -71,46 +71,64 @@ class CartList extends React.Component{
         return(
             <div className="menu-items-list">
                 <div className="item-list-inside">
-                    {items.map((item, index) => <div key={`cart-item-${index}`} className={`menu-item-container ${ item_type==="images" ? 'template-images' : "" }`}>
-                        {
-                            item.details && item.details.map ? 
-                            // details is an array of complex items details. 
-                            // So iterate through it.
-                            item.details.map( (details_item, details_index) => 
-                                <ComplexCartItem 
-                                    key={`cart-item-${item.dishid}-detail-${details_index}`}
-                                    details_index={details_index}
-                                    restState={restState}
-                                    needSecondTranslation={needSecondTranslation}
-                                    slug={slug}
-                                    language = {language}
-                                    Item= {Item}
-                                    restaurant = {restaurant}
-                                    // pass item itself as parent item...
-                                    {...item}
-                                    // ...but details from the iteration as details
-                                    details={details_item}
-                                />
-                                )
-                            :
+                    {
+                        menus.map && menus.map( menu => {
+                            // get only this menu's items
+                            const menu_items = items.filter( i => i.dishmenuid == menu.menuid );
 
-                            <Item 
-                                key={`cart-item-${item.dishid}`}
-                                index={index + 1}
-                                restState={restState}
-                                needSecondTranslation={needSecondTranslation}
-                                slug={slug}
-                                language = {language}
-                                tags_list={restaurant.tags}
-                                {...item}
-                            />
-                        }
-                        {/* {item_type === "text" ?  
-                        <ItemText key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug}/> : 
-                        <ItemImage key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug} /> 
-                        } */}
-                        
-                    </div>)}
+                            return(
+                                <>
+                                {/* if more than one category, state menu name in one language */}
+                                { menu.categories && menu.categories.length > 1 &&
+                                    <div className="menu-title">{menu.title}</div>}
+
+                                        {
+                                        menu_items.length > 0 && menu_items.map((item, index) => 
+                                        <div key={`cart-item-${index}`} className={`menu-item-container ${ item_type==="images" ? 'template-images' : "" }`}>
+                                        {
+                                            item.details && item.details.map ? 
+                                            // details is an array of complex items details. 
+                                            // So iterate through it.
+                                            item.details.map( (details_item, details_index) => 
+                                                <ComplexCartItem 
+                                                    key={`cart-item-${item.dishid}-detail-${details_index}`}
+                                                    details_index={details_index}
+                                                    restState={restState}
+                                                    needSecondTranslation={needSecondTranslation}
+                                                    slug={slug}
+                                                    language = {language}
+                                                    Item= {Item}
+                                                    restaurant = {restaurant}
+                                                    // pass item itself as parent item...
+                                                    {...item}
+                                                    // ...but details from the iteration as details
+                                                    details={details_item}
+                                                />
+                                                )
+                                            :
+
+                                            <Item 
+                                                key={`cart-item-${item.dishid}`}
+                                                index={index + 1}
+                                                restState={restState}
+                                                needSecondTranslation={needSecondTranslation}
+                                                slug={slug}
+                                                language = {language}
+                                                tags_list={restaurant.tags}
+                                                {...item}
+                                            />
+                                        }
+                                        {/* {item_type === "text" ?  
+                                        <ItemText key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug}/> : 
+                                        <ItemImage key={`cart-item-${index}`} {...{...item, restState}} index={index+1} slug={slug} /> 
+                                        } */}
+                                        
+                                    </div>)}
+                                </>
+                            )
+                        })
+                    }
+                            
                         
                     {total}
                 </div>

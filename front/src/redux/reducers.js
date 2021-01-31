@@ -338,13 +338,15 @@ export default function root( state = initialState, action ) {
             ({slug, overlay} = payload);
             restaurant = getRestaurant( newState, slug);
 
-            if( ["cart", "hamburger", "language", null ].includes(overlay))
-                restaurant = {...restaurant, overlay }
-            else 
-                console.debug("SET OVERLAY: wrong overlay type", overlay)
+            if( ["cart", "hamburger", "language", null ].includes(overlay)){
+                restaurant = {...restaurant, overlay };
+
                 ({restaurants} = newState);
-                restaurants = {...restaurants, [slug]: restaurant }
-                newState = {...newState, restaurants }
+                restaurants = {...restaurants, [slug]: restaurant };
+                newState = {...newState, restaurants };
+            } else {
+                console.debug("SET OVERLAY: wrong overlay type", overlay)
+            } 
             break;
 
         case A.ACCEPT_CONDITION:
