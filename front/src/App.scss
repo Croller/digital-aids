@@ -400,12 +400,12 @@ body{
 { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
     // fix footer below bottom edge 
     #root .footer{
-        bottom: 74px;
+        bottom: 74px!important;
     }
 
     // fix social links below bottom edge in menu category
     body #root #menus-carousel .category-content .menu-items-list{
-      max-height: calc(100vh - #{$headerHeight + $footerHeight});
+      max-height: calc(100vh - #{$headerHeight + $footerHeight})!important;
     }
 }}
 
@@ -413,12 +413,12 @@ body{
 { @supports (-webkit-appearance:none) and (stroke-color:transparent) {
     // fix footer below bottom edge 
     #root .footer{
-        bottom: 74px;
+        bottom: 74px!important;
     }
 
     // fix social links below bottom edge in menu category
     body #root #menus-carousel .category-content .menu-items-list{
-        max-height: calc(100vh - #{$headerHeight + $footerHeight});
+        max-height: calc(100vh - #{$headerHeight + $footerHeight}) !important;
     }
 }}
 
