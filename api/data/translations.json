@@ -1974,9 +1974,9 @@
     {
         "translationid": "oferta_1_t2",
         "en": "SPECIAL DAY MENU: 35€ PP, INCL 1 BOTTLE OF CAVA (minimum for 2 persons)",
-        "de": "Spezielles Urlaubsmenü: 35€ pro Person inkl. 1 Flasche Cava (mindestens 2 Personen)\n\n",
-        "no": "Spesiell høytidsmeny: 35 Euro per person, inkludert en flaske champagne (minst 2 personer)\n\n",
-        "ru": "Праздничное меню: 35евро на человека, вкл бутылку шампанского (минимум 2 человека)\n\n"
+        "de": "SPEZIALTAGSMENÜ: 35 € PP, INKL. 1 FLASCHE CAVA (mindestens 2 Personen)",
+        "no": "SPESIAL MENY: 35€ PP, INKL. 1 FLASKE CAVA (minimum for 2 personer)",
+        "ru": "ПРАЗДНИЧНОЕ МЕНЮ: 35 € НА ЧЕЛ, ВКЛ БУТЫЛКУ ШАМПАНСКОГО (минимум 2 человека)\n\n"
     },
     {
         "translationid": "oferta_1_title",
@@ -2146,9 +2146,9 @@
     {
         "translationid": "Caramelized Octopus",
         "en": "Grilled and Caramelized Octopus",
-        "es": "Pulpo a la plancha caramelizado",
-        "de": "Gegrillter und karamellisierter Oktopus",
-        "no": "Grillet og karamellisert blekksprut",
+        "es": "Pulpo a la plancha con puré",
+        "de": "Gegrillter Oktopus mit Kartoffelpüree",
+        "no": "Grillet oktopust med potetmos",
         "ru": "Карамелизированный осьминог на гриле"
     },
     {
@@ -2157,7 +2157,7 @@
         "es": "Filete \"Rossini\"",
         "de": "Das Steak \"Rossini\"",
         "no": "\"Rossini\" biff",
-        "ru": "Стейк \"Rossini\" biff"
+        "ru": "Стейк \"Rossini\" "
     },
     {
         "translationid": "Mussel Casserole",
