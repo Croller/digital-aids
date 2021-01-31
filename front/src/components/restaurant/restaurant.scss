@@ -259,7 +259,7 @@ body{
                     // text template category styling
                     .menu-items-list{
                         .item-list-inside{
-                            margin: 12px 27px;
+                            margin: 12px #{$categoryXmargin};
                             box-shadow: none;
         
                             // panel style

@@ -122,33 +122,41 @@ class HamburgerMenu extends DefaultComponent{
                     />
                     <div className="flex column">
                         <h1 className="main-title">{_t("Menu")}</h1>
-                        { 
-                        restaurant.menus.map.length > 1 &&  
+                        {/* { 
+                        restaurant.menus.length > 1 &&  
                         restaurant.menus.map( 
                             (menu, menuIndex) => 
                                 <Button className="cat-button panel flex column py-1" 
                                 component={Link} 
-                                to={`/${slug}/${menuIndex + 1}`}
+                                to={`/${slug}/${menu.menuid}`}
                                 onClick={()=> this.updateOverlay(null)} // close overlay
                                 >{`${menu.title}`}</Button>
                         )   
-                        }
+                        } */}
                         {restaurant.menus.map( (menu, menuIndex) => {
                             return <>
-                            {/* <h2>{menu.title}</h2> */}
+                            {/* <div className="menu-list-container"> */}
+                                
+                            { 
+                            // if menu is NOT the main menu
+                            // and there's more than one category in it - show its title.
+                            // Main menu won't have title.
+                            // Menus with only one category won't have title.
+                            menu.mainmenu !== 1 && menu.categories.length > 1 && <h2 className="main-title">{menu.title}</h2> }
                             {menu.categories && menu.categories.map( (c, ind) => {
         
                             return(
                             <Button className="cat-button panel flex column py-1" 
                             key={`cat-btn-${ind}`} 
                             component={Link}
-                            to={`/${slug}/${menuIndex + 1}/${c.id}` }
+                            to={`/${slug}/${menu.menuid}/${c.id}` }
                             onClick={()=> this.updateOverlay(null)} // close overlay
                             >
                                 <div className="title">{c.title}</div>
                                 { secondTranslationNeeded && <div className="default-title">{c.titledefault}</div>}
                             </Button>)
                             })}    
+                            {/* </div> */}
                             </>
                         })}
                         <div className="separator"></div>

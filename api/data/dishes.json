@@ -6,7 +6,7 @@
         "dishrestaurtantid": 3700,
         "dishmenuid": 1,
         "image": "id1.jpg",
-        "tags": "eggs,gluten",
+        "tags": "gluten",
         "amount": 200,
         "units": "g",
         "translationid": "dish_1",
@@ -347,6 +347,7 @@
         "image": "id21.jpg",
         "tags": "crustacean,shellfish,gluten",
         "amount": 250,
+        "units": "g",
         "translationid": "dish_21",
         "en": "Spaghetti with prawns and  mussels with tomato sauce",
         "es": "Espagueti con mariscos y salsa de tomate casero",
@@ -363,6 +364,7 @@
         "image": "id22.jpg",
         "tags": "fish,dairy,gluten",
         "amount": 250,
+        "units": "g",
         "translationid": "dish_22",
         "en": "Tagliatelle with fresh Salmon and Gorgonzola sauce",
         "es": "Tagliatelle con salmón y salsa gorgonzola",
@@ -379,6 +381,7 @@
         "image": "id23.jpg",
         "tags": "gluten,dairy,eggs",
         "amount": 250,
+        "units": "g",
         "translationid": "dish_23",
         "en": "Tagliatelle with wild mushroom truffle sauce",
         "es": "Tagliatelle con salsa de setas con trufa",
@@ -1905,6 +1908,7 @@
         "dishcategoryid": "DailyMenu",
         "dishrestaurtantid": 3700,
         "dishmenuid": 2,
-        "pricedetails": "appetizers 24|5|8|61;main_courses 13|18;dessert 29|30"
+        "translationid": "DailyMenu",
+        "pricedetails": "appetizers 24|5|8|19;main_courses 13|18;dessert 29|30"
     }
 ]

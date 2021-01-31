@@ -36,6 +36,7 @@ $headerMaxWidth: 1114px;
 $lgMarginsX: 95.5px;  // 83px + 12.5px
 
 $categoryXmargin: 27px;
+$imageCategoryXmargin: 24px;
 
 
 $colors: (
@@ -57,4 +58,8 @@ $colors: (
 @mixin v-scroll{
   overflow-y: scroll; /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
+}
+
+@mixin shadowed{
+  box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.1);
 }

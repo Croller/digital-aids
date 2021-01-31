@@ -16,6 +16,7 @@
 import {ReactComponent as Clock} from '../../../assets/svg/clock.svg'
 import {ReactComponent as Chef} from '../../../assets/svg/chef.svg'
 import {ReactComponent as ChefHead} from '../../../assets/svg/chef-head.svg'
+import {ReactComponent as ChevronLeft} from '../../../assets/svg/chevron-left.svg'
 import {ReactComponent as Cloche} from '../../../assets/svg/cloche.svg'
 import {ReactComponent as External} from '../../../assets/svg/external.svg'
 import {ReactComponent as Exclamation} from '../../../assets/svg/exclamation.svg'
@@ -25,6 +26,7 @@ import {ReactComponent as MapMarker} from '../../../assets/svg/map-marker.svg'
 import {ReactComponent as PhoneCall} from '../../../assets/svg/phone-call.svg'
 import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
 import {ReactComponent as Tag} from '../../../assets/svg/tag.svg'
+import {ReactComponent as Tick} from '../../../assets/svg/tick.svg'
 import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
 import {ReactComponent as World} from '../../../assets/svg/world.svg'
 
@@ -58,6 +60,7 @@ export {
 
     Chef,
     ChefHead,
+    ChevronLeft,
     Clock,
     Cloche,
     External,
@@ -69,6 +72,7 @@ export {
     Search,
     PhoneCall,
     Tag,
+    Tick,
     ThumbsUp,
     Trash,
     World,

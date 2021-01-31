@@ -13,7 +13,6 @@
             .rest-menu-item{
 
                 
-
                 display: flex;
                 /* background: #eee; */
                 /* border: 1px solid #999; */
@@ -24,11 +23,27 @@
                 justify-content: stretch;
                 align-items: center;
                 cursor: pointer;
-
+                
+                
                 @media screen and (max-width: $bp_1 ) {
                     // justify-content: space-between;
                     // margin-top: 1em;
                     padding: 20px 0;
+                }
+                
+                &.viewonly{
+                    .item-actions{
+                        .allergens-and-buttons , .amount-and-price{
+                            > div {
+                                // shrink margins on view-only item
+                                margin-top: 8px;
+                            }
+                        }
+                    }
+                }
+                .index-and-titles{
+                    display: flex;
+                    flex-direction: row;
                 }
 
                 .dish-index{
@@ -71,40 +86,39 @@
                     }
                 }
 
-
-                
-
-                .price-container{
+                .item-actions{
                     display: flex;
                     flex-direction: row;
-                    align-items: center;
-                    justify-content: flex-end;
-                    flex-grow: 1;
 
-                    @media screen and (max-width: $bp_1 ) {
-                        justify-content: space-between;
-                        margin-top: 1em;
+                    .allergens-and-buttons , .amount-and-price{
+                        > div {
+                            margin-top: 22px;
+                        }
                     }
 
-                    .increment{
+                    .allergens-and-buttons {
                         display: flex;
-                        flex-direction: row;
-                        justify-content: flex-start;
-                        // flex-grow: 1;
-
-                        @media screen and (max-width: $bp_1 ) {
-                            justify-content: space-between;
-                    
-                        }
-                        
-                        > div, > span {
-                            margin-right: 6px; 
-                            &:last-child{
-                                margin-right: 0;
-                            }
-                        }
+                        flex-direction: column;
+                        align-items: flex-start;
+                        justify-content: flex-end;
+                        flex-grow: 1;
                     }
 
+                    .button-container{
+                        display: flex;
+                        height: 35px;
+                        min-height: 35px;
+                        align-items: center;
+                        justify-content: flex-start;
+                    }
+
+                    .amount-and-price {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        justify-content: flex-end;
+                        flex-grow: 1;
+                    }
 
                     .button {
                         height: 33px;
@@ -136,6 +150,7 @@
                             font-size: 1em;
                         }
                     }
+
                     .price {
                         
                         
@@ -149,41 +164,124 @@
                         color: white;
                         font-weight: 600;                        
                     }
-                    .quantity-badge {
-                        .lid{
-                            font-size: 1em;
-                        }
-                        .MuiBadge-badge{
-                            background-color: $green;
-                            color: rgba(255,255,255,0.6);
-                            right: 5px;
-                        }
-                    } 
-                    .quantity{
-                        
-                        display: flex;
-                        color: $darker;
-                        border: solid $darker;
-                        border-radius: 6px;
-                        &.positive{
-                            background: $accent;
-                            border-color: $accent;
-                            color: white;
 
-                            svg {
-                                font-size: 2em;
+                    .increment{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: flex-start;
+                        width: 137px; // 35 x 3 (squares) + 16 x 12 (gaps)
+
+                        // flex-grow: 1;
+    
+                        @media screen and (max-width: $bp_1 ) {
+                            justify-content: space-between;
+                    
+                        }
+                        
+                        > div, > span {
+                            margin-right: 6px; 
+                            &:last-child{
+                                margin-right: 0;
                             }
                         }
                     }
-
-                    .remove-dish{
-                        color: white;
-                        background: $danger;
-                        border: 1px solid $danger;
-                        font-size: 2em;
-                        font-weight: 300;
-                    }
                 }
+
+
+                
+
+                // .price-container{
+                //     display: flex;
+                //     flex-direction: row;
+                //     align-items: center;
+                //     justify-content: flex-end;
+                //     flex-grow: 1;
+
+                //     @media screen and (max-width: $bp_1 ) {
+                //         justify-content: space-between;
+                //         margin-top: 1em;
+                //     }
+
+                    
+
+                //     .button {
+                //         height: 33px;
+                        
+                        
+                //         display: flex;
+                //         align-items: center;
+                //         justify-content: center;
+                //         font-weight: 600;
+                //         border-radius: 6px;
+                //         border: 1px solid;
+                //         font-size: 2em;
+                //         &.square {                            
+                //             width: 35px;                                
+                //             min-width: 35px;
+                //         }
+
+                //         &.invisible {
+                //             color: transparent;
+                //             border-color: transparent;
+                //         }
+
+                //         &.black {
+                //             background: $darker;
+                //             color: white;
+                //         }
+
+                //         &.qty{
+                //             font-size: 1em;
+                //         }
+                //     }
+                //     .price {
+                        
+                        
+
+                //         background: $darker;
+                //         height: 35px;
+                //         // width: calc(81px - 1em);
+                //         padding-left: 0.5em;
+                //         padding-right: 0.5em;
+                //         font-size: 1.1em;
+                //         color: white;
+                //         font-weight: 600;                        
+                //     }
+                //     .quantity-badge {
+                //         .lid{
+                //             font-size: 1em;
+                //         }
+                //         .MuiBadge-badge{
+                //             background-color: $green;
+                //             color: rgba(255,255,255,0.6);
+                //             right: 5px;
+                //         }
+                //     } 
+                //     .quantity{
+                        
+                //         display: flex;
+                //         color: $darker;
+                //         border: solid $darker;
+                //         border-radius: 6px;
+                //         &.positive{
+                //             background: $accent;
+                //             border-color: $accent;
+                //             color: white;
+
+                //             svg {
+                //                 font-size: 2em;
+                //             }
+                //         }
+                //     }
+
+                //     .remove-dish{
+                //         color: white;
+                //         background: $danger;
+                //         border: 1px solid $danger;
+                //         font-size: 2em;
+                //         font-weight: 300;
+                //     }
+                // }
 
 
                 // item.ordered
@@ -195,15 +293,8 @@
                         color: $darker!important;
                     }
 
-                    .dish-title-box{
-
-                        .title-default {
-                            // color: $accent;
-                        }
-                    }
-
                     
-                    .price-container{
+                    .item-actions{
 
                         .button.qty {
                             background: $light-gray;

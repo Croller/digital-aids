@@ -3,6 +3,12 @@ import {connect as cn } from 'react-redux';
 import TranslService, {tr} from '../../services/translations'
 import A from '../../redux/actionTypes'
 
+
+/**
+ * Default component incalpsulates translations.
+ * It allows to set an array of translation ids in constructor, 
+ * and then have the translations available through TR and TRD functions of _tr helper.
+ */
 class DefaultComponent extends React.Component{
 
 
@@ -82,16 +88,38 @@ class DefaultComponent extends React.Component{
         const default_lang = restaurant ? restaurant.defaultlanguage : "en"
 
         if( this._translations.length > 0 ){
-            console.debug("DefaultComponent.fetchTranslations found translations")
+            console.debug( `DefaultComponent.fetchTranslations found ${this._translations.length} translations` )
             return await TranslService.getByKeys(
                 this._translations,
                 language, default_lang
             )
-        
         } else {
             return false;
         }
     }
+
+    /**
+     * # Translation
+     * Translates the passed translation id into current language
+     * @param {*} key 
+     */
+    TR = ( key ) => {
+        const {translations, language} = this.props;
+        return this._tr(key, language, translations);
+    }
+
+    /**
+     * # Translation default
+     * Translates the passed translation id into restaurant's default language
+     * @param {*} key 
+     */
+    TRD = ( key ) => {
+        const {translations, language, restaurant} = this.props;
+        const {defaultlanguage} = restaurant ? restaurant.defaultlanguage : language ;
+        return this._tr(key, defaultlanguage, translations);
+    }
+
+
 
 
 }

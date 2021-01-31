@@ -15,10 +15,13 @@ import {connect} from 'react-redux'
 import Quantity from '../quantity'
 import {tr} from '../../../../services/translations'
 import Allergens from '../allergens'
+import ItemActions from './ItemActions'
 
 const {REACT_APP_MEDIA : MEDIA} = process.env 
 
-
+/**
+ * Menu item for 'text only' template 
+ */
 class RestMenuItem extends React.Component{
 
     state = {
@@ -65,7 +68,8 @@ class RestMenuItem extends React.Component{
             // cart
             language,
             translations,
-            tags_list
+            tags_list,
+            isSelected = false // comes from ComplexItem
         } = this.props
         // console.debug("Item slug:", slug, " props: ", this.props)
         // const restState = getRestaurant( reduxState, slug)
@@ -99,24 +103,35 @@ class RestMenuItem extends React.Component{
             pricefor, 
             amount,
             tags, 
-            quantity: 1 
+            quantity: 1
         }
 
         const isOrdered = quantity > 0
         // console.debug("menu item render. quantity: ", quantity )
         const _t = key => tr(key, language, translations)
+
+        const AllergensButton = tags && tags.length > 0 ? 
+        <div className="button-container">
+            <Button 
+                onClick={()=> this.setState({showDialog: true })}
+                className="allergens-button"
+                variant="contained"
+            >{_t("Allergens")}</Button> 
+        </div>
+        : "";
         
         return( 
-                <>
-                <div className={`rest-menu-item${ isOrdered  ? ' ordered' : "" }`} >
+            <>
+                <div className={`rest-menu-item${ isOrdered  ? ' ordered' : "" }${ isSelected ? ` selected` : ''}${ viewonly ? ` viewonly` : ''}`} >
 
-                    <div className="dish-index">
-                        {index}
-                    </div>
                     <div className="flex column text-align-left flex-grow">
-
-                        <Grid container key={`dish-${dishid}` }>
-                            <Grid item xs={12} md={9} className="dish-title-box">
+                        
+                        <div className="index-and-titles">
+                            <div className="dish-index">
+                                {index}
+                                    
+                            </div>
+                            <div className="dish-title-box">
                                 <div className="title-main">
                                     {title}
                                 </div>
@@ -126,29 +141,14 @@ class RestMenuItem extends React.Component{
                                         {default_title}
                                     </div>
                                 }
-                                <div className="flex row justify-between mt-1">
+                                {/* <div className="flex row justify-between mt-1">
                                     <div>
-                                        { tags && tags.length > 0 && 
-                                            <Button 
-                                                onClick={()=> this.setState({showDialog: true })}
-                                                className="allergens-button"
-                                                variant="contained"
-                                            >{_t("Allergens")}</Button>
+                                        { tags && tags.length > 0 && !viewonly && 
+                                        // only show allergens button here if not in view-only mode.
+                                        // otherwise it's shown next to the price.
+                                            AllergensButton
                                         }
                                     </div>
-                                    {/* { Array.isArray(tags) && <div className="tags">
-                                            {tags.map( t => {
-                                                return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
-                                            })}
-                                        </div>
-                                    } */}
-                                    {
-                                        pricefor && 
-                                        <div className="pricefor">
-                                            {pricefor}
-                                        </div>
-                                        
-                                    }
                                     {
                                         amount && 
                                         <div className="amount">
@@ -156,27 +156,49 @@ class RestMenuItem extends React.Component{
                                         </div>
                                         
                                     }
-                                </div>
-                            </Grid>
-                                {/* { Array.isArray(tags) && <Grid item xs={12} className="tags">
-                                        {tags.map( t => {
-                                            return <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
-                                        })}
-                                    </Grid>
-                                } */}
-                            
-                            
-                            <Grid item xs={12} md={3}>
+                                </div> */}
+                            </div>                            
+                        </div>
+
+                        <ItemActions
+                        {
+                        ...{item, 
+                            // restaurant slug
+                            slug, 
+                            // dish quantity
+                            quantity, 
+                            // amount in units
+                            amount,
+                            // "price for" string. Actually, means the same as amount (it didn't at first), they probably should be merged.
+                            pricefor,
+                            // whether the category is view-only
+                            viewonly, 
+                            // allergens button (to show next to the price in view-only mode)
+                            AllergensButton
+                        }} />
+                        {/* <div> */}
+                            {/* <Grid item xs={12} md={9} className="dish-title-box"> */}
+
+
+                            {/* <Grid item xs={12} md={3}> */}
+                            {/* <div>
                                 {dishprice && 
-                                <Quantity {...{item, slug, quantity, viewonly}} />
-                                 }   
-                                
-                                
-                                
-                            </Grid>
+                                <Quantity {
+                                    ...{item, 
+                                        // restaurant slug
+                                        slug, 
+                                        // dish quantity
+                                        quantity, 
+                                        // whether the category is view-only
+                                        viewonly, 
+                                        // allergens button (to show next to the price in view-only mode)
+                                        AllergensButton
+                                    }} />
+                                }  
+                            </div> */}
                             
 
-                        </Grid>
+                        {/* </div> */}
                     </div>
                 </div>
                 <Allergens 
@@ -188,38 +210,7 @@ class RestMenuItem extends React.Component{
                     dishid={dishid}
                     needSecondTranslation={needSecondTranslation}
                 />
-                {/* <Dialog 
-                open={showDialog} 
-                className="allergens-dialog" 
-                fullWidth
-                maxWidth="xs"
-                onClose={() => this.setState({showDialog: false})}
-                >
-                    {
-                        showDialog &&
-                        <>
-                            <DialogTitle>
-                                {_t("Allergens")}
-                                <Close 
-                                className="close-allergens-button"
-                                onClick={() => this.setState({showDialog: false})}
-                                />
-                            </DialogTitle>
-                            <DialogContent>
-                                    {Array.isArray(tags) && <ul className="allergens">
-                                        {tags.map( t => 
-                                        <li key={`${dishid}-tag-${t}`}>
-                                            <img key={`tag-${dishid}-${t}`} src={`${MEDIA}/images/tags/${t}.png`} alt={ tags_list && tags_list[t] ? tags_list[t].title : t } />
-                                            {tags_list && tags_list[t] ? tags_list[t].title : t}
-                                        </li>
-                                        )}
-                                    </ul>}
-                                    <p>{_t("reglament_text_2")}</p>
-                            </DialogContent>
-                        </>
-                    }
-                </Dialog> */}
-                </>
+            </>
             
         )
     }

@@ -3,7 +3,9 @@
     .main{
 
         .reglament{
-            max-height: calc(100vh - #{$footerHeight});
+            margin-top: #{-$mainTopMargin};
+            padding-top: $mainTopMargin;
+            max-height: calc(100vh - #{$footerHeight + $mainTopMargin});
             @include v-scroll;
             
             h1{

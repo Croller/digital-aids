@@ -138,7 +138,7 @@ class Reglament extends DefaultComponent {
 
         return(
             restaurant && restaurant.tags && translations ?
-            <> 
+            <div className="reglament-wrapper"> 
             <Container className="reglament"
                 onScroll={({target}) => {
                     lastScrollTop = updateScroll(target, root, lastScrollTop )
@@ -189,7 +189,7 @@ class Reglament extends DefaultComponent {
                 <Social {...{...restaurant}} />
             </Container>
             
-            </>
+            </div>
             : restaurant === false || restaurant.tags === false || translations === false ? <ErrorPage/> : <Spinner/>
         
         )

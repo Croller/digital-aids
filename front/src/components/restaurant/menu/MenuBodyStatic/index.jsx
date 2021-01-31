@@ -5,18 +5,30 @@ import '../../../template/common/css-carousel/css-carousel.scss'
 import SimpleItem from '../item'
 import ImageItem from '../item_images'
 import MenuItemList from './MenuItemList'
-import ErrorLoading from '../../../template/common/error-loading'
+
+// import ErrorLoading from '../../../template/common/error-loading'
+import Page404 from '../../../template/404'
 // import A from '../../../../redux/actionTypes'
 import DefaultComponent, {connect} from '../../../DefaultComponent'
+import Spinner from '../../../template/common/Spinner'
+import ErrorPage from '../../../template/common/error-loading'
+import { Link } from 'react-router-dom'
+import {ChevronLeft} from '../../../template/common/icons'
+import { makeMenuLink, updateScroll } from '../../../../utils/functions'
 // import { Dialog, DialogContent } from '@material-ui/core'
 // import { randomFromArray } from '../../../../utils/functions'
 // import Oferta from '../../oferta'
 
 
 const templates = {
-    text: SimpleItem,
-    images: ImageItem
+    'text': SimpleItem,
+    'images': ImageItem
 }
+
+// scroll top tracker
+let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+// root element
+const root = document.getElementById("root")
 
 
 /**
@@ -26,54 +38,40 @@ const templates = {
 // class MenuBody extends React.Component {
 class MenuBody extends DefaultComponent {
 
-    // state = {
-    //     oferta: null
-    // }
+    componentDidMount(){
+        this.prepareNotificationsTranslation()
+    }
 
-    // componentDidMount(){
-    //     this.selectOferta()
-    // }
-    // componentDidUpdate(oldProps){
-    //     if( oldProps.category !== this.props.category ){
-    //         this.selectOferta()
-    //     }
-    // }
+    componentDidUpdate( prevProps ){
+        if( prevProps.menu !== this.props.menu ){
+            this.prepareNotificationsTranslation()
+        }
+    }
 
-    // selectOferta(){
+    prepareNotificationsTranslation(){
+        // these are two menu-level notifications that are shown within category.
+        // have to translate them here and send down the chain to all categories.
+        const {
+            timetranslationid,
+            notificationtranslationid
+        } = this.props.menu || {}
 
-    //     const {
-    //         restState,
-    //         restaurant,
-    //         category            
-    //     } = this.props;
+        if( timetranslationid || notificationtranslationid ){
 
-    //     const {ofertaIsShown} = restState
-    //     console.debug("oferta category:", category )
+            // set the translations to be fetched
+            this.setTranslations([
+                timetranslationid,
+                notificationtranslationid
+            ].filter( Boolean ) // remove empty elements
+            )
 
-    //     // ofertas are either ofertas for this category...
-    //     const ofertas = 
-    //     restaurant.ofertas[category] ?   
-    //     restaurant.ofertas[category] :
-    //     // or, if oferta hasn't been shown, 
-    //     !ofertaIsShown ? 
-    //     // ofertas for no category
-    //     restaurant.ofertas[""] : 
-    //     // otherwise, just nothing
-    //     null
-
-    //     console.debug("ofertas array:", ofertas)
-    //     // if ofertas is not empty, select one randomly
-    //     if( ofertas && ofertas.length > 0 ){
-    //         const oferta = randomFromArray( ofertas, 1 )[0];
-    //         if( oferta ){
-    //             // set redux value
-    //             this.props.showOferta(restaurant.slug);
-    //         }
-    //         this.setState({oferta})
-    //     } else 
-    //         this.setState({oferta: false})
-    // }
-
+            // fetch them and update state when done
+            this.fetchTranslations().then( 
+                result => this.setState({translationLoaded: Boolean(result) })
+            )
+        }
+    }
+    
     render() {
         const {
             menu,
@@ -84,6 +82,8 @@ class MenuBody extends DefaultComponent {
             socialMessage // message to show at the bottom of each category in social block
         } = this.props;
 
+        if( !restaurant ) return <Spinner />
+
         let {
             search } = (restState.filters || {})
         search = search ? search.toLowerCase() : search
@@ -93,44 +93,96 @@ class MenuBody extends DefaultComponent {
         const type = (restaurant && restaurant.defaulttemplate) ? restaurant.defaulttemplate : "text"
         const Item = templates[type];
 
-        // const cat = menu.categories.find( c => c.id === category )
+        
         const catIndex = menu.categories.findIndex( c => c.id === category )
         const cat = catIndex >= 0 ? menu.categories[catIndex] : null;
         const prevCategory = catIndex >= 0 ? menu.categories[catIndex - 1] : null;
         const nextCategory = catIndex >= 0 ? menu.categories[catIndex + 1] : null;
         
         if( !cat) {
-            console.debug("MenuBody: category not found: ", category, cat)
-            return <ErrorLoading {...{restaurant}} />
+            console.debug("MenuBody " , menu.menuid, "category not found: ", category, cat, menu.categories)
+            // return <ErrorLoading {...{restaurant}} />
+            return <Page404 {...{restaurant}} />
         }
 
-        const items = menu.items.filter(d => d.dishcategoryid === category &&
-            (
-                // etiher search is empty
-                !search
-                // or 
-                ||
-                // title or default title include search term  
-                (
+        const {all_dishes = {} } = restaurant || {};
+
+        let items = menu.items
+        .filter(d => d.dishcategoryid === category            
+        ) .map( 
+            // fetch dish from dishes list
+            d => all_dishes[d.dishid] 
+            // if not found - use the original object
+            // TODO: do something with this, there should be an error or something.
+            || d )
+
+        // Search if search is activated
+        if( search ){
+            items = items.filter( d => 
                     d.title.toLowerCase().includes(search) ||
                     d.default_title.toLowerCase().includes(search)
-                )
             )
-        ); 
+        }
 
-        // get oferta to show, if any
-        // const {oferta} = this.state            
+        const showBackToMainMenuButton = 
+            // show the button if:
+            // it is not a main menu
+            menu.mainmenu !== 1 && 
+            // and it has more than one category
+            menu.categories.length > 1;
+
+        const {
+            timetranslationid,
+            notificationtranslationid
+        } = menu;
+
+        const {translationLoaded} = this.state;
+        console.debug( 
+            "MenuBodyStatic: translations",
+            timetranslationid,
+            notificationtranslationid,
+            translationLoaded 
+            )
+        if( (timetranslationid || notificationtranslationid) && !translationLoaded )
+            return translationLoaded === false ? <ErrorPage /> : <Spinner />
+
+        // translate working hours and notifiaction messages.
+        let timeText, notificationText; 
+        if( timetranslationid ) 
+            timeText = this.TR(timetranslationid);
+
+        if( notificationtranslationid ) 
+            notificationText = this.TR(notificationtranslationid);
+
 
         return (
             <>
-            <div id="menus-carousel" >
+            <div id="menus-carousel" className={ showBackToMainMenuButton ? 'secondary-menu' : ''} 
+            onScroll={
+                ({target}) => {
+                    // only detect scroll if the menu is a secondary menu:
+                    // in this case it has to scroll together with top titles
+                    if( showBackToMainMenuButton )
+                        lastScrollTop = updateScroll(target, root, lastScrollTop )
+                }
+            }
+            >
                 <div className="menu-wrapper">
                     <div
                         id="menu-carousel-body"
                         // useJs
                         className={`menu-body category-carousel template-${type}` }
                         // slidesCssClass="disable-scrollbars"
-                    >                            
+                    >           
+                        {
+                            showBackToMainMenuButton &&
+                            <div className="menu-title">
+                                <Link className="back-button" to={makeMenuLink(restaurant.slug)}>
+                                    <ChevronLeft />
+                                    {menu.title}
+                                </Link>
+                            </div>
+                        }                 
                         <MenuItemList
                             className={``}
                             // key={`menu-item-list-${ind}`}
@@ -145,9 +197,13 @@ class MenuBody extends DefaultComponent {
                                 category: cat,
                                 prevCategory, nextCategory,
                                 language,
-                                socialMessage,
                                 categories: menu.categories,
-                                catIndex
+                                catIndex,
+
+                                // messages
+                                socialMessage,
+                                timeText, 
+                                notificationText
                             }}
                         />
                     </div>

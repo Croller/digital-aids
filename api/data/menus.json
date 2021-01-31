@@ -2,56 +2,27 @@
     {
         "restaurantid": 3700,
         "menuid": 1,
-        "titletranslationid": "Menu"
+        "titletranslationid": "Menu",
+        "ordering": 2,
+        "mainmenu": 1
     },
     {
         "restaurantid": 3700,
         "menuid": 2,
         "titletranslationid": "DailyMenu",
-        "activedays": 1,
-        "hourfrom": 8,
-        "hourto": 17
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 2,
-        "titletranslationid": "DailyMenu",
-        "activedays": 2,
-        "hourfrom": 8,
-        "hourto": 17
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 2,
-        "titletranslationid": "DailyMenu",
-        "activedays": 3,
-        "hourfrom": 8,
-        "hourto": 17
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 2,
-        "titletranslationid": "DailyMenu",
-        "activedays": 4,
-        "hourfrom": 8,
-        "hourto": 17
-    },
-    {
-        "restaurantid": 3700,
-        "menuid": 2,
-        "titletranslationid": "DailyMenu",
-        "activedays": 5,
-        "hourfrom": 10.333333333333334,
-        "hourto": 18.333333333333332
+        "ordering": 1,
+        "timetranslationid": "daily_menu_working_hours"
     },
     {
         "restaurantid": 3701,
         "menuid": 1,
-        "titletranslationid": "Menu"
+        "titletranslationid": "Menu",
+        "mainmenu": 1
     },
     {
         "restaurantid": 3701,
         "menuid": 2,
-        "titletranslationid": "TakeAwayMenu"
+        "titletranslationid": "TakeAwayMenu",
+        "notificationtranslationid": "takeAwayMenu_notification"
     }
 ]
