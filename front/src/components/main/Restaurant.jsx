@@ -45,7 +45,7 @@ class Restaurant extends React.Component{
     async fetchData(){
         console.log("Restaurant: Fetching data", this.props.computedMatch)
         const {slug} = this.props.computedMatch.params
-        const {language, setLanguage} = this.props
+        const {language = 'en', setLanguage} = this.props
         let restaurant = await Service.getRestaurant( slug, language )
         let restState = getRestaurant( this.props, slug )
 
