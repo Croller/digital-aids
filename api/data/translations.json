@@ -364,6 +364,15 @@
         "ch": "价钱"
     },
     {
+        "translationid": "ml",
+        "en": "ml",
+        "es": "ml",
+        "de": "ml",
+        "fr": "ml",
+        "no": "ml",
+        "ru": "мл"
+    },
+    {
         "translationid": "reglament_1169",
         "en": "Reglament (EU) №1169/2011",
         "es": "Reglament EU №1169/2011",
@@ -2072,37 +2081,25 @@
     },
     {
         "translationid": "advertisement_notification_tex1",
-        "en": "ENJOY YOUR MEAL,",
-        "es": "¡PROVECHO!",
-        "de": "GUTEN APPETIT!",
-        "fr": "BON APPÉTIT!",
-        "no": "NYT MÅLTIDET!",
-        "ru": "ПРИЯТНОГО АППЕТИТА!"
+        "en": "DON'T WASTE YOUR TIME, TASTE THE WORLD EVERY DAY! ",
+        "es": "¡NO PIERDA SU TIEMPO, PRUEBE EL MUNDO CADA DÍA!",
+        "de": "VERSCHWENDEN SIE NICHT IHRE ZEIT, PROBIEREN SIE DIE WELT JEDEN TAG!",
+        "fr": "NE PERDEZ PAS VOTRE TEMPS, GOÛTEZ LE MONDE TOUS LES JOURS!",
+        "no": "IKKE KAST BORT TIDEN DIN, PRØV VERDEN HVER DAG!",
+        "ru": "НЕ ТЕРЯЙТЕ ВРЕМЯ, ПРОБУЙТЕ МИР КАЖДЫЙ ДЕНЬ!"
     },
     {
         "translationid": "check_products",
-        "en": "CHECK OUR NEW PRODUCTS",
-        "es": "VER NUEVOS PRODUCTOS",
-        "de": "UNSERE NEUEN PRODUKTE",
-        "fr": "NOS NOUVEAUX PRODUITS",
-        "no": "VÅRE NYE PRODUKTER",
-        "ru": "НАШИ НОВЫЕ ПРОДУКТЫ"
-    },
-    {
-        "translationid": "advertisement_notification_tex3",
-        "en": "BON APPETIT!",
-        "es": "¡BON APPETIT!",
-        "el": "Καλή όρεξη!",
-        "it": "BUON APPETITO!",
-        "no": "GOD APPETIT! ",
-        "jp": "どうぞお召し上がりください！",
-        "ko": "맛있게 드세요!",
-        "ch": "慢慢吃！",
-        "undefined": "Bon Appetit!"
+        "en": "GET TO KNOW US",
+        "es": "¿YA NOS CONOCES?",
+        "de": "KENNEN SIE UNS?",
+        "fr": "NOUS CONNAISSEZ?",
+        "no": "KJENNER DU OSS?",
+        "ru": "ВЫ УЖЕ ЗНАКОМЫ С НАМИ?"
     },
     {
         "translationid": "average_price",
-        "en": "Average price",
+        "en": "Taste the world every day!",
         "es": "Precio promedio",
         "de": "Durchschnittlicher Preis",
         "fr": "Prix moyen",

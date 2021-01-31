@@ -29,7 +29,7 @@
         "calltoactiontranslationid": "check_products",
         "image": "oferta_03.jpg",
         "activefrom": "2020-12-17T22:00:00.000Z",
-        "activeto": "2021-02-27T22:00:00.000Z",
+        "activeto": "+020200-12-31T22:00:00.000Z",
         "categoryids": "drinks_no_alcohol"
     },
     {
@@ -74,7 +74,7 @@
         "image": "oferta_04.jpg",
         "link": "https://www.martincodax.com/es/",
         "activefrom": "2020-12-17T22:00:00.000Z",
-        "activeto": "2021-02-27T22:00:00.000Z",
+        "activeto": "2020-12-31T22:00:00.000Z",
         "categoryids": "drinks_no_alcohol"
     }
 ]
