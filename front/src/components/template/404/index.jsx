@@ -71,4 +71,3 @@ class P404 extends DefaultComponent {
 }
 
 export default connect(P404);
-

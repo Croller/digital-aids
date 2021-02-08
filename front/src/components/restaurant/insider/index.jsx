@@ -156,8 +156,8 @@ class Insider extends DefaultComponent {
                                 <span onClick={this.prevSlide} className="arrow left"><ChevronLeft /></span>
                                 <div>
                                   <p>
-                                  {text}
-                                </p>
+                                    {text}
+                                  </p>
                                   { dish 
                                                         && (
                                                           <div className="price-block">

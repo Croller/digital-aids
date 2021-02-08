@@ -1,17 +1,17 @@
+/* eslint-disable react/destructuring-assignment */
 import React from 'react';
+import { connect } from 'react-redux';
 // import { Link } from 'react-router-dom';
-import { updateScroll } from '../../../../utils/functions';
+import { Button, Dialog } from '@material-ui/core';
 import Social from '../../social';
 // import CategoriesTop from './CategoriesTop';
 // import {Title} from './CategoriesTop';
 import './style.scss';
-import { connect } from 'react-redux';
 import A from '../../../../redux/actionTypes';
-import { Button, Dialog } from '@material-ui/core';
 import { Clock, Forbidden } from '../../../template/common/icons';
-import { randomFromArray } from '../../../../utils/functions';
 import Oferta from '../../oferta';
 import ComplexItem from '../complex_item';
+import { updateScroll, randomFromArray } from '../../../../utils/functions';
 
 // MEDIA root
 const { REACT_APP_MEDIA: MEDIA } = process.env; 
@@ -21,12 +21,12 @@ let lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 // root element
 const root = document.getElementById('root');
 
-const DialogContent = props => <div className="dialog-content content">{props.children}</div>;
+const DialogContent = ({ children }) => <div className="dialog-content content">{children}</div>;
 
 class MenuItemList extends React.Component {
     state = {
       oferta: null,
-      conditionsAccepted: true,
+      // conditionsAccepted: true,
       // categoryConditionsNotAccepted: null, 
       categoryConditionsAcceptance: true,
       firstCondition: null, 
@@ -38,8 +38,8 @@ class MenuItemList extends React.Component {
       this.checkConditions();
     }
 
-    componentDidUpdate(oldProps) {
-      if (oldProps.category.id !== this.props.category.id) {
+    componentDidUpdate({ category }) {
+      if (category.id !== this.props.category.id) {
         this.selectOferta();
         this.checkConditions();
       }
@@ -72,7 +72,7 @@ class MenuItemList extends React.Component {
         if (oferta) {
           // set redux value
           console.debug('selected oferta:', oferta);
-          this.props.showOferta(restaurant.slug);
+          // this.props.showOferta(restaurant.slug);
         }
         this.setState({ oferta });
       } else this.setState({ oferta: false });
@@ -104,7 +104,7 @@ class MenuItemList extends React.Component {
       const firstCondition = unacceptedConditions[0];
 
       this.setState({
-        categoryConditionsNotAccepted, 
+        // categoryConditionsNotAccepted, 
         firstCondition, 
         cat,
         categoryConditionsAcceptance: categoryConditionsNotAccepted ? null : true, // acceptance is empty if there is a condition to accept
@@ -114,19 +114,20 @@ class MenuItemList extends React.Component {
     render() {
       const {
         items, 
-        category,
+        // category,
         prevCategory, nextCategory,
         Item,
         restState,
         slug,
-        menu_id,
+        // menu_id,
         needSecondTranslation,
         className,
         restaurant,
         language,
-        categories, catIndex,
+        // categories,
+        // catIndex,
         // conditions = {},
-        acceptCondition,
+        // acceptCondition,
             
         // message texts
         socialMessage,

@@ -7,12 +7,11 @@ import {
 // RoomServiceOutlined as Cloche, 
 // PhoneInTalkOutlined as Phone
 } from '@material-ui/icons';
-import { NavLink as Link, Link as ALink } from 'react-router-dom';
+import { NavLink as Link } from 'react-router-dom';
 import {
-  Cloche, PhoneCall as Phone, World, Plate, 
+  Cloche, World, Plate, 
 } from '../common/icons';
 // import {connect} from 'react-redux'
-import A from '../../../redux/actionTypes';
 import { getRestaurant } from '../../../redux/reducers';
 // import Service, {_T, tr} from '../../../services/translations'
 import './footer.scss';

@@ -5,4 +5,3 @@ import translation from './translation_reducers';
 export default combineReducers(
   { app, translation },
 );
-

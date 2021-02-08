@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /**
  * cudos to https://medium.com/@mhagemann/the-ultimate-way-to-slugify-a-url-string-in-javascript-b8e4a0d849e1
  * @param {*} string 
@@ -60,7 +61,7 @@ export function loadScript(url, callback = null) {
  */
 export function textFormat(message, values) { 
   let i = 0; 
-  if (message) return message.replace(/%\w+%/g, (match, idx) => values[i++]); 
+  if (message) return message.replace(/%\w+%/g, () => values[i++]); 
     
   console.warn('textFormat: passed value is not a string, null returned.');
   return null;
@@ -94,16 +95,17 @@ export function populateObjectRecursively(target, source) {
   if (typeof target === 'object' && typeof source === 'object') {
     const result = {};
 
-    Object.keys(target).map(key => {
-      if (source.hasOwnProperty(key)) {
+    Object.keys(target).foreach(key => {
+      if (key in source) {
         switch (typeof target[key]) {
-        case 'object':
-          if (typeof source[key] === 'object') // recursion
-          { result[key] = populateObjectRecursively(target[key], source[key]); } else result[key] = source[key];
-          break;
-        default:
-          result[key] = source[key];
-          break;
+          case 'object':
+            if (typeof source[key] === 'object') {
+              result[key] = populateObjectRecursively(target[key], source[key]);
+            } else result[key] = source[key];
+            break;
+          default:
+            result[key] = source[key];
+            break;
         } 
       }
     });
@@ -144,7 +146,7 @@ export function debounce(delay = 200, callback = console.debug) {
  * @param {*} obj 
  * @param {*} key 
  */
-export const has = (obj, key) => typeof obj === 'object' && obj.hasOwnProperty(key);
+export const has = (obj, key) => typeof obj === 'object' && key in obj;
 
 // module.exports = {
 //     slugify, 

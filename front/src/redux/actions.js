@@ -1,11 +1,11 @@
 // import AuthService from "../services/auth"
-import store from './store';
-import A from './actionTypes';
+// import store from './store';
+// import A from './actionTypes';
 
-let tokenUpdateTimer;
+// let tokenUpdateTimer;
 
-const renewTokenIn = process.env.REACT_APP_TOKEN_RENEW || 1000 * 60 * 28; // ms. renew token in 28 minutes
-const usageThreshold = 1000 * 60 * 10; // renew only if used in the last 10 minutes
+// const renewTokenIn = process.env.REACT_APP_TOKEN_RENEW || 1000 * 60 * 28; // ms. renew token in 28 minutes
+// const usageThreshold = 1000 * 60 * 10; // renew only if used in the last 10 minutes
 
 class Actions {
 
@@ -64,4 +64,3 @@ Actions.isFetchingToken = false;
 Actions.counter = 0;
 
 export default Actions;
-

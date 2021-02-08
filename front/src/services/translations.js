@@ -1,3 +1,6 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-underscore-dangle */
 import Base from './baseClientService';
 import store from '../redux/store';
 import { has, tkey } from '../utils/functions';
@@ -85,18 +88,15 @@ const mergeTranslations = (target, source) => {
   let result = { ...target };
 
   if (typeof target === 'object' && typeof source === 'object') {
-    result = Object.keys(source).reduce((res, key) => 
-            
+    result = Object.keys(source).reduce((res, key) => (res.hasOwnProperty(key)             
+    // if there is such translation already...
     // every field in translations is an object, so it's pretty much safe to do this:
             
-    // if there is such translation already...
-      (res.hasOwnProperty(key)             
-            
       // merge values in it.
-        ? { ...res, [key]: Object.assign(res[key], source[key]) } 
+      ? { ...res, [key]: Object.assign(res[key], source[key]) } 
 
       // if there's no translation - add it
-        : { ...res, [key]: source[key] }), 
+      : { ...res, [key]: source[key] }), 
 
     { ...result });
   } 
@@ -119,6 +119,9 @@ const mergeTranslations = (target, source) => {
 export const addTranslations = (new_translations) => {
   translations = mergeTranslations(translations, new_translations);
 };
+
+const translate = (key) => (translations[key] ? translations[key] : {});
+
 
 export const _T = (new_translations, language, def_language) => {
   console.debug('new translations:', new_translations);
@@ -143,11 +146,9 @@ export const _T = (new_translations, language, def_language) => {
     || key);
 };
 
-const translate = (key) => (translations[key] ? translations[key] : {});
 
-export const transl = (key, language, default_lang = 'en') => 
-// returns translation in current language if found
-  translate(key)[language] 
+export const transl = (key, language, default_lang = 'en') => translate(key)[language] 
+        // returns translation in current language if found
         // ...or if not found - in default language
         || translate(key)[default_lang] 
         // ...or if not - in english
@@ -160,11 +161,9 @@ export const transl = (key, language, default_lang = 'en') =>
  * @param {*} key 
  * @param {*} lang 
  */
-export const tr = (key, lang, _translations, defaultValue) => 
-// return tranlation for given language,
-  _translations[tkey(key, lang)] 
+export const tr = (key, lang, _translations, defaultValue) => _translations[tkey(key, lang)] 
+    // return tranlation for given language,
     // or for english
     || _translations[tkey(key, 'en')] 
     // ...or default value, or just the key
     || defaultValue || key;
-

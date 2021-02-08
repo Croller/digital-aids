@@ -418,9 +418,9 @@ class RestaurantMenu extends DefaultComponent {
                                                   >
                                                     {categories.map((cat, ind) => (
                                                       <div key={`mobile-cat-${ind}`}>
-                                                      <span>{cat.title}</span>
-                                                      <span>{cat.titledefault}</span>
-                                                    </div>
+                                                        <span>{cat.title}</span>
+                                                        <span>{cat.titledefault}</span>
+                                                      </div>
                                                     ))}
                                                   </CSSCarousel>
                                                 </div>
@@ -444,8 +444,8 @@ class RestaurantMenu extends DefaultComponent {
                                                             )
                                                       }
                                                       <div>
-                                                      {cat.title}
-                                                    </div>
+                                                        {cat.title}
+                                                      </div>
                                                     </Button>
                                                   ))}
                                                 </div>

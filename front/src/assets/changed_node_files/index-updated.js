@@ -1,3 +1,4 @@
+/* eslint-disable */
 
 /**
  * This is an updated version of simple-react-google-maps script that enables passing additional props to google api.

@@ -1,7 +1,6 @@
 import React from 'react';
 import {
-  Modal, Paper, Box, Button, Typography, 
-,Fade} from '@material-ui/core';
+  Modal, Paper, Box, Button, Fade} from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { Close } from '@material-ui/icons';
 import './modal.scss'

@@ -96,21 +96,21 @@ class baseClientService {
     };
 
     switch (cache_mode) {
-    case 'cache':
-      if (this.cacheExists(url)) {
-        return this.getCached(url);
-      } 
-      return await fetchData();
+      case 'cache':
+        if (this.cacheExists(url)) {
+          return this.getCached(url);
+        } 
+        return await fetchData();
                 
-      break;
-    case 'reset':
-      this.clearCache(url);
-      return await fetchData();
-      break;
-    case 'nocache':
-    default:
-      return await fetchData();
-      break;
+        break;
+      case 'reset':
+        this.clearCache(url);
+        return await fetchData();
+        break;
+      case 'nocache':
+      default:
+        return await fetchData();
+        break;
     }
   }
 

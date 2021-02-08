@@ -169,10 +169,10 @@ class TopBar extends React.Component {
                                       >
                                         <ClickAwayListener onClickAway={handleClose}>
                                           <MenuList autoFocusItem={showDropdownMenu}>
-                                          <MenuItem component={Link} to={`/${restaurant.slug}/reglament-1169`} onClick={handleClose}>{_t('reglament_1169')}</MenuItem>
-                                          <MenuItem component={Link} to="#" onClick={handleClose}>{_t('Reservation')}</MenuItem>
-                                          <MenuItem component={Link} to={`/${restaurant.slug}/insider`} onClick={handleClose}>Foodans Insider</MenuItem>
-                                        </MenuList>
+                                            <MenuItem component={Link} to={`/${restaurant.slug}/reglament-1169`} onClick={handleClose}>{_t('reglament_1169')}</MenuItem>
+                                            <MenuItem component={Link} to="#" onClick={handleClose}>{_t('Reservation')}</MenuItem>
+                                            <MenuItem component={Link} to={`/${restaurant.slug}/insider`} onClick={handleClose}>Foodans Insider</MenuItem>
+                                          </MenuList>
                                         </ClickAwayListener>
                                       </div>
                                     </Grow>

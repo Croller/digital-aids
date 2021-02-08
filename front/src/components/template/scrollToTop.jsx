@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 // import Service from '../../services/map'

@@ -3,32 +3,6 @@ import { tkey } from '../utils/functions';
 const initialState = {
 };
 
-/**
- * Translation reducers
- * @param {*} state 
- * @param {*} action 
- */
-export default function (state = initialState, action) {
-  let newState = { ...state }; let 
-    translations;
-
-  const { type, payload } = action;
-
-  switch (type) {
-  case 'ADD_TRANSLATION':
-    console.debug('add translation reducer', payload);
-
-    translations = mergeTranslations(newState, payload);
-    console.debug('Translation reducer: translation updated to:', translations);
-    newState = { ...translations };
-    break;
-  default:
-    // do nothing
-    break;
-  }
-
-  return newState;
-}
 
 /**
  * One-level-deep merge for specific structure ( {key:object...})
@@ -38,9 +12,9 @@ export default function (state = initialState, action) {
 const mergeTranslations = (target, source) => {
   const result = { ...target };
 
-  Object.keys(source).map(key => {
+  Object.keys(source).foreach(key => {
     const t = source[key];
-    Object.keys(t).map(lang => {
+    Object.keys(t).foreach(lang => {
       result[tkey(key, lang)] = t[lang];
     });
   });
@@ -60,5 +34,32 @@ const mergeTranslations = (target, source) => {
   // } 
   return result;
 };
+
+/**
+ * Translation reducers
+ * @param {*} state 
+ * @param {*} action 
+ */
+export default function (state = initialState, action) {
+  let newState = { ...state }; let 
+    translations;
+
+  const { type, payload } = action;
+
+  switch (type) {
+    case 'ADD_TRANSLATION':
+      console.debug('add translation reducer', payload);
+
+      translations = mergeTranslations(newState, payload);
+      console.debug('Translation reducer: translation updated to:', translations);
+      newState = { ...translations };
+      break;
+    default:
+    // do nothing
+      break;
+  }
+
+  return newState;
+}
 
 // export const _T = (key, translations) => translations[key] ? translations[key] : key

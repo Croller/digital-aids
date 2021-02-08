@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import CssCarousel from '../template/common/css-carousel';
 import './style.scss';
