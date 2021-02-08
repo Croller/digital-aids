@@ -1,7 +1,6 @@
-import React from 'react'
-import './restaurant.scss'
-import A from '../../redux/actionTypes'
-import {connect } from 'react-redux'
+import React from 'react';
+import './restaurant.scss';
+import { connect } from 'react-redux';
 // import Service from '../../services/restaurants'
 // import Footer from '../template/footer'
 // import { CircularProgress, Container, Grid, Select, MenuItem, Button, Paper, AppBar } from '@material-ui/core'
@@ -12,26 +11,24 @@ import {connect } from 'react-redux'
 //     AccessTimeOutlined as Time
 // } from '@material-ui/icons'
 
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import A from '../../redux/actionTypes';
 
-import Menu from './menu'
+import Menu from './menu';
 // import Menu from './menu/index2'
 
 // import Topbar from './topbar'
-import Spinner from '../template/common/Spinner'
+import Spinner from '../template/common/Spinner';
 // import Lang from '../restaurant/language'
 // import Social from './social'
-import ErrorPage from '../template/common/error-loading'
+import ErrorPage from '../template/common/error-loading';
 
-
-class RestaurantComponent extends React.Component{
-
+class RestaurantComponent extends React.Component {
     state ={
-        restaurant: null
+      restaurant: null,
     }
 
     // componentDidMount(){
-       
 
     //     this.fetchData()
     // }
@@ -51,49 +48,51 @@ class RestaurantComponent extends React.Component{
     //     this.setState({restaurant})
     // }
 
-
-    render(){
-
-        // const {restaurant} = this.state
+    render() {
+      // const {restaurant} = this.state
         
-        const {language, lang, restaurant, restState = {} } = this.props
-
-
+      const {
+        language, lang, restaurant, restState = {}, 
+      } = this.props;
         
+      // if( !language ) return <Lang {...{restaurant}} />
+      // const {slug} = this.props.match.params
+      const { slug, menu, category } = this.props.match.params;
+      console.debug('Match: ', this.props.match);
+        
+      if (!language) {
+        // redirect to language selector
+        // return <Redirect to={`/${slug}/language`} />
+        // this.props.setOverlay({slug, overlay:"language"})
+      }
 
-        
-        
-        // if( !language ) return <Lang {...{restaurant}} />
-        // const {slug} = this.props.match.params
-        const {slug, menu, category } = this.props.match.params
-        console.debug("Match: ", this.props.match)
-        
-        if( !language){
-            // redirect to language selector
-            // return <Redirect to={`/${slug}/language`} />
-            // this.props.setOverlay({slug, overlay:"language"})
-        }
-
-        return(
-            restaurant ? 
+      return (
+        restaurant 
+          ? (
             <>
-                {/* <Topbar {...{restaurant, language, lang}} /> */}
-                {/* <div key={slug} className="flex-grow"> */}
-                    <Menu key={slug} className="flex-grow" {...{slug, menu, restaurant, category, restState }} />
-                {/* </div> */}
-                {/* <Social {...restaurant} /> */}
-                {/* <Footer {...restaurant} /> */}
+              {/* <Topbar {...{restaurant, language, lang}} /> */}
+              {/* <div key={slug} className="flex-grow"> */}
+              <Menu
+                key={slug}
+                className="flex-grow"
+                {...{
+                  slug, menu, restaurant, category, restState, 
+                }}
+              />
+              {/* </div> */}
+              {/* <Social {...restaurant} /> */}
+              {/* <Footer {...restaurant} /> */}
             </>
-            : restaurant === null ? <Spinner/> : <ErrorPage {...{slug, language}} /> // <h2>Error loading data</h2>
-        )
+          )
+          : restaurant === null ? <Spinner /> : <ErrorPage {...{ slug, language }} /> // <h2>Error loading data</h2>
+      );
     }
 }
 
-
 export default connect(
-    state => state.app,
-    dispatch => ({
-        lang: payload => dispatch( {type: A.SET_LANGUAGE, payload }),
-        setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload })
-    })
-)(RestaurantComponent)
+  state => state.app,
+  dispatch => ({
+    lang: payload => dispatch({ type: A.SET_LANGUAGE, payload }),
+    setOverlay: payload => dispatch({ type: A.SET_OVERLAY, payload }),
+  }),
+)(RestaurantComponent);

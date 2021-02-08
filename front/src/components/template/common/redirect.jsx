@@ -1,6 +1,5 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-
+import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 /**
  * Usage: <Redirect to={"/path/to/go"} back={"/path/to/return"} />
@@ -8,8 +7,11 @@ import { Redirect } from 'react-router-dom'
  * const back = props.location.state ? props.location.state.back : '/'
  */
 
-export default props => <Redirect to={{
+export default props => (
+  <Redirect to={{
     pathname: props.to,
-    state: {back: props.back}
-}} />
+    state: { back: props.back },
+  }}
+  />
+);
 

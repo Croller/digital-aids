@@ -1,11 +1,10 @@
-import React from 'react'
-import './style.scss'
+import React from 'react';
+import './style.scss';
 
-class Empty extends React.Component{
-
-    render(){
-        return("New component")
-    }
+class Empty extends React.Component {
+  render() {
+    return ('New component');
+  }
 }
 
-export default Empty
+export default Empty;

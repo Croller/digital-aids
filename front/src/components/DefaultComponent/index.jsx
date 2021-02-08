@@ -1,31 +1,28 @@
 import React from 'react';
-import {connect as cn } from 'react-redux';
-import TranslService, {tr} from '../../services/translations'
-import A from '../../redux/actionTypes'
-
+import { connect as cn } from 'react-redux';
+import TranslService, { tr } from '../../services/translations';
+import A from '../../redux/actionTypes';
 
 /**
  * Default component incalpsulates translations.
  * It allows to set an array of translation ids in constructor, 
  * and then have the translations available through TR and TRD functions of _tr helper.
  */
-class DefaultComponent extends React.Component{
-
-
+class DefaultComponent extends React.Component {
     _translations = [
 
     ]
+
     _afterTranslation = null;
 
     state = {
-        translationLoaded: null
+      translationLoaded: null,
     }
 
-    constructor(props){
+    constructor(props) {
+      super(props);
 
-        super(props);
-
-        this._tr = tr;
+      this._tr = tr;
     }
 
     /**
@@ -33,69 +30,63 @@ class DefaultComponent extends React.Component{
      * @param {*} words 
      * @param {*} callback 
      */
-    setTranslations( words, callback ){ 
-        this._translations = words; 
-        // this._afterTranslation = callback || ( () => this.setState({translationLoaded:true} ) )
-        this._afterTranslation = callback 
+    setTranslations(words, callback) { 
+      this._translations = words; 
+      // this._afterTranslation = callback || ( () => this.setState({translationLoaded:true} ) )
+      this._afterTranslation = callback; 
     }
 
-
-    componentDidMount(){
-        console.debug("DefaultComponent.componentDidMount")
-        this.fetchTranslations().then( 
-            // call the callback, if any
-            result => {
-
-                this.setState({translationLoaded: result })
+    componentDidMount() {
+      console.debug('DefaultComponent.componentDidMount');
+      this.fetchTranslations().then( 
+        // call the callback, if any
+        result => {
+          this.setState({ translationLoaded: result });
                 
-                // console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
-                // 
-                if( this._afterTranslation ){
-                    
-                    console.debug("DefaultComponent.fetchTranslations callback is called")
-                    this._afterTranslation() 
-                }
-            }
-            )
-        }
+          // console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
+          // 
+          if (this._afterTranslation) {
+            console.debug('DefaultComponent.fetchTranslations callback is called');
+            this._afterTranslation(); 
+          }
+        },
+      );
+    }
         
-        componentDidUpdate( prevProps ){
-            console.debug("DefaultComponent.componentDidUpdate", prevProps)
-            if( prevProps.language !== this.props.language ){
-                this.setState({translationLoaded: false })
-                this.fetchTranslations().then( 
-                    // call the callback, if any
-                    result => {
-        
-                        this.setState({translationLoaded: result })
+    componentDidUpdate(prevProps) {
+      console.debug('DefaultComponent.componentDidUpdate', prevProps);
+      if (prevProps.language !== this.props.language) {
+        this.setState({ translationLoaded: false });
+        this.fetchTranslations().then( 
+          // call the callback, if any
+          result => {
+            this.setState({ translationLoaded: result });
                         
-                        // console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
-                        // 
-                        if( this._afterTranslation ){
-                            
-                            console.debug("DefaultComponent.fetchTranslations callback is called")
-                            this._afterTranslation() 
-                        }
-                    }
-                )
-        }
+            // console.debug("DefaultComponent.fetchTranslations callback:" , this._afterTranslation)
+            // 
+            if (this._afterTranslation) {
+              console.debug('DefaultComponent.fetchTranslations callback is called');
+              this._afterTranslation(); 
+            }
+          },
+        );
+      }
     }
 
-    async fetchTranslations( ){
-        console.debug("DefaultComponent.fetchTranslations is called", this._translations)
-        const { language, restaurant } = this.props
+    async fetchTranslations() {
+      console.debug('DefaultComponent.fetchTranslations is called', this._translations);
+      const { language, restaurant } = this.props;
 
-        const default_lang = restaurant ? restaurant.defaultlanguage : "en"
+      const default_lang = restaurant ? restaurant.defaultlanguage : 'en';
 
-        if( this._translations.length > 0 ){
-            console.debug( `DefaultComponent.fetchTranslations found ${this._translations.length} translations` )
-            return await TranslService.getByKeys(
-                this._translations,
-                language, default_lang
-            )
-        } else {
-            return false;
-        }
+      if (this._translations.length > 0) {
+        console.debug(`DefaultComponent.fetchTranslations found ${this._translations.length} translations`);
+        return await TranslService.getByKeys(
+          this._translations,
+          language, default_lang,
+        );
+      } 
+      return false;
     }
 
     /**
@@ -103,9 +94,9 @@ class DefaultComponent extends React.Component{
      * Translates the passed translation id into current language
      * @param {*} key 
      */
-    TR = ( key ) => {
-        const {translations, language} = this.props;
-        return this._tr(key, language, translations);
+    TR = (key) => {
+      const { translations, language } = this.props;
+      return this._tr(key, language, translations);
     }
 
     /**
@@ -113,15 +104,11 @@ class DefaultComponent extends React.Component{
      * Translates the passed translation id into restaurant's default language
      * @param {*} key 
      */
-    TRD = ( key ) => {
-        const {translations, language, restaurant} = this.props;
-        const {defaultlanguage} = restaurant ? restaurant.defaultlanguage : language ;
-        return this._tr(key, defaultlanguage, translations);
+    TRD = (key) => {
+      const { translations, language, restaurant } = this.props;
+      const { defaultlanguage } = restaurant ? restaurant.defaultlanguage : language;
+      return this._tr(key, defaultlanguage, translations);
     }
-
-
-
-
 }
 
 /**
@@ -144,37 +131,33 @@ class DefaultComponent extends React.Component{
  * }`
  * 
  */
-export const connect = (C, otherActions = {} ) => {
+export const connect = (C, otherActions = {}) => {
+  const dispatchAction = (dispatch, actions) => Object.keys(actions).reduce(
+    (res, key) => (
+      // returning an object
+      {
+        ...res, 
+        // hashed by original key from otherActions
+        [key]: (...args) => 
+        // result: action dispatcher that passes dispatch as first argument
+        // and all passed arguments sends afterwards
+          actions[key](dispatch, ...args),
+                    
+      }
+    ), 
+    // empty object to build on
+    {},
+  );
 
-
-    const dispatchAction = (dispatch, actions) => {
-
-        return Object.keys(actions).reduce(
-            (res, key) =>  (
-                // returning an object
-                {...res, 
-                    // hashed by original key from otherActions
-                    [key]: (...args) => {
-                    // result: action dispatcher that passes dispatch as first argument
-                    // and all passed arguments sends afterwards
-                        return actions[key](dispatch, ...args)
-                    }
-                }
-            ), 
-            // empty object to build on
-            {}
-        )
-    }
-
-    return cn(
-        state => ({ ...state.app, translations: state.translation }),
-        dispatch => ({
-            setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: "category", value } }),
-            setOverlay: payload => dispatch( {type: A.SET_OVERLAY, payload }),
-            // call dispatch creator
-            ...dispatchAction(dispatch, otherActions )
-        })
-    )(C);
-}
+  return cn(
+    state => ({ ...state.app, translations: state.translation }),
+    dispatch => ({
+      setFilter: (slug, value) => dispatch({ type: A.SET_FILTER, payload: { slug, type: 'category', value } }),
+      setOverlay: payload => dispatch({ type: A.SET_OVERLAY, payload }),
+      // call dispatch creator
+      ...dispatchAction(dispatch, otherActions),
+    }),
+  )(C);
+};
 
 export default DefaultComponent;

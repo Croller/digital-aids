@@ -13,76 +13,73 @@
 // import tag_soya from '../../../assets/png/tags/soya.png'; 
 // import tag_sulphite from '../../../assets/png/tags/sulphite.png'; 
 
-import {ReactComponent as Clock} from '../../../assets/svg/clock.svg'
-import {ReactComponent as Chef} from '../../../assets/svg/chef.svg'
-import {ReactComponent as ChefHead} from '../../../assets/svg/chef-head.svg'
-import {ReactComponent as ChevronLeft} from '../../../assets/svg/chevron-left.svg'
-import {ReactComponent as Cloche} from '../../../assets/svg/cloche.svg'
-import {ReactComponent as External} from '../../../assets/svg/external.svg'
-import {ReactComponent as Exclamation} from '../../../assets/svg/exclamation.svg'
-import {ReactComponent as Forbidden} from '../../../assets/svg/forbidden.svg'
-import {ReactComponent as Hamburger} from '../../../assets/svg/hamburger.svg'
-import {ReactComponent as MapMarker} from '../../../assets/svg/map-marker.svg'
-import {ReactComponent as PhoneCall} from '../../../assets/svg/phone-call.svg'
-import {ReactComponent as Search} from '../../../assets/svg/magnif.svg'
-import {ReactComponent as Tag} from '../../../assets/svg/tag.svg'
-import {ReactComponent as Tick} from '../../../assets/svg/tick.svg'
-import {ReactComponent as ThumbsUp} from '../../../assets/svg/thumbs-up.svg'
-import {ReactComponent as World} from '../../../assets/svg/world.svg'
+import { ReactComponent as Clock } from '../../../assets/svg/clock.svg';
+import { ReactComponent as Chef } from '../../../assets/svg/chef.svg';
+import { ReactComponent as ChefHead } from '../../../assets/svg/chef-head.svg';
+import { ReactComponent as ChevronLeft } from '../../../assets/svg/chevron-left.svg';
+import { ReactComponent as Cloche } from '../../../assets/svg/cloche.svg';
+import { ReactComponent as External } from '../../../assets/svg/external.svg';
+import { ReactComponent as Exclamation } from '../../../assets/svg/exclamation.svg';
+import { ReactComponent as Forbidden } from '../../../assets/svg/forbidden.svg';
+import { ReactComponent as Hamburger } from '../../../assets/svg/hamburger.svg';
+import { ReactComponent as MapMarker } from '../../../assets/svg/map-marker.svg';
+import { ReactComponent as PhoneCall } from '../../../assets/svg/phone-call.svg';
+import { ReactComponent as Search } from '../../../assets/svg/magnif.svg';
+import { ReactComponent as Tag } from '../../../assets/svg/tag.svg';
+import { ReactComponent as Tick } from '../../../assets/svg/tick.svg';
+import { ReactComponent as ThumbsUp } from '../../../assets/svg/thumbs-up.svg';
+import { ReactComponent as World } from '../../../assets/svg/world.svg';
 
 // social
-import {ReactComponent as FacebookIcon} from '../../../assets/svg/facebook.svg'
-import {ReactComponent as InstagramIcon} from '../../../assets/svg/instagram.svg'
-import {ReactComponent as TheForkIcon} from '../../../assets/svg/thefork.svg'
-import {ReactComponent as TripadvisorIcon} from '../../../assets/svg/tripadvisor.svg'
-import {ReactComponent as TripadvisorRatingCheck} from '../../../assets/svg/tripadvisor-rating-check.svg'
-import {ReactComponent as TripadvisorRatingEmpty} from '../../../assets/svg/tripadvisor-rating-empty.svg'
-import {ReactComponent as Trash} from '../../../assets/svg/trash.svg'
-import {ReactComponent as Plate} from '../../../assets/svg/plate.svg'
-
-
+import { ReactComponent as FacebookIcon } from '../../../assets/svg/facebook.svg';
+import { ReactComponent as InstagramIcon } from '../../../assets/svg/instagram.svg';
+import { ReactComponent as TheForkIcon } from '../../../assets/svg/thefork.svg';
+import { ReactComponent as TripadvisorIcon } from '../../../assets/svg/tripadvisor.svg';
+import { ReactComponent as TripadvisorRatingCheck } from '../../../assets/svg/tripadvisor-rating-check.svg';
+import { ReactComponent as TripadvisorRatingEmpty } from '../../../assets/svg/tripadvisor-rating-empty.svg';
+import { ReactComponent as Trash } from '../../../assets/svg/trash.svg';
+import { ReactComponent as Plate } from '../../../assets/svg/plate.svg';
 
 export {
-    // tag_celery,
-    // tag_crustacean,
-    // tag_eggs,
-    // tag_fish,
-    // tag_gluten,
-    // tag_lupins,
-    // tag_milk,
-    // tag_mustard,
-    // tag_nuts,
-    // tag_peanuts,
-    // tag_sesame,
-    // tag_shellfish,
-    // tag_soya,
-    // tag_sulphite,
+  // tag_celery,
+  // tag_crustacean,
+  // tag_eggs,
+  // tag_fish,
+  // tag_gluten,
+  // tag_lupins,
+  // tag_milk,
+  // tag_mustard,
+  // tag_nuts,
+  // tag_peanuts,
+  // tag_sesame,
+  // tag_shellfish,
+  // tag_soya,
+  // tag_sulphite,
 
-    Chef,
-    ChefHead,
-    ChevronLeft,
-    Clock,
-    Cloche,
-    External,
-    Exclamation,
-    Forbidden,
-    Hamburger,
-    MapMarker,
-    Plate,
-    Search,
-    PhoneCall,
-    Tag,
-    Tick,
-    ThumbsUp,
-    Trash,
-    World,
+  Chef,
+  ChefHead,
+  ChevronLeft,
+  Clock,
+  Cloche,
+  External,
+  Exclamation,
+  Forbidden,
+  Hamburger,
+  MapMarker,
+  Plate,
+  Search,
+  PhoneCall,
+  Tag,
+  Tick,
+  ThumbsUp,
+  Trash,
+  World,
 
-    FacebookIcon,
-    InstagramIcon,
-    TripadvisorIcon,
-    TripadvisorRatingCheck,
-    TripadvisorRatingEmpty,
-    TheForkIcon,
-
+  FacebookIcon,
+  InstagramIcon,
+  TripadvisorIcon,
+  TripadvisorRatingCheck,
+  TripadvisorRatingEmpty,
+  TheForkIcon,
     
 };

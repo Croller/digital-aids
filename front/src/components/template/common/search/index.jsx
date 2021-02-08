@@ -1,72 +1,69 @@
-import { InputBase } from '@material-ui/core'
-import React from 'react'
-import './style.scss'
+import { InputBase } from '@material-ui/core';
+import React from 'react';
+import './style.scss';
 // import {ReactComponent as Icon} from '../../../../assets/svg/magnif.svg'
-import {Search as Icon } from '../../common/icons'
+import { Search as Icon } from '../icons';
 
-let searchTimeout
+let searchTimeout;
 
-class Search extends React.Component{
+class Search extends React.Component {
+    state = { value: '' }
 
-    state = { value: "" }
-
-    componentDidMount(){
-        const {value} = this.props 
-        if( value !== this.state.value )
-            this.setState({value})
+    componentDidMount() {
+      const { value } = this.props; 
+      if (value !== this.state.value) this.setState({ value });
     }
 
-    componentDidUpdate(prevProps){
-        if( prevProps.value !== this.props.value )
-            this.setState({value: this.props.value })
+    componentDidUpdate(prevProps) {
+      if (prevProps.value !== this.props.value) this.setState({ value: this.props.value });
     }
 
     doSearch = ev => {
-        const {value} = ev.target
-        console.debug("called onSearch with", value)
-        const {onSearch = console.debug, debounceTime = 600 } = this.props
+      const { value } = ev.target;
+      console.debug('called onSearch with', value);
+      const { onSearch = console.debug, debounceTime = 600 } = this.props;
 
-        this.setState({value})
+      this.setState({ value });
 
-        // debounce the search
-        clearTimeout(searchTimeout)
-        searchTimeout = setTimeout( () => onSearch(value), debounceTime )
+      // debounce the search
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => onSearch(value), debounceTime);
     }
 
-    render(){
-        // const { 
-        //     className = "search-container" ,
-        //     inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
-        //     IconElement = Icon,
-        //     iconProps = { className: "search-icon" },
-        //     onSearch, // cut it away from props
-        //     ...other
-        // } = this.props
+    render() {
+      // const { 
+      //     className = "search-container" ,
+      //     inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
+      //     IconElement = Icon,
+      //     iconProps = { className: "search-icon" },
+      //     onSearch, // cut it away from props
+      //     ...other
+      // } = this.props
 
-        const { 
-            placeholderText = "Search",
-            inputBaseProps = { className : "search-input", type: "search" },
-            // inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
-            IconElement = Icon,
-            iconProps = { className: "icon-btn" },
-            onSearch, // cut it away from props
-            ...other
-        } = this.props
+      const { 
+        placeholderText = 'Search',
+        inputBaseProps = { className: 'search-input', type: 'search' },
+        // inputBaseProps = { className : "search-input", placeholder: "Search", type: "search" },
+        IconElement = Icon,
+        iconProps = { className: 'icon-btn' },
+        onSearch, // cut it away from props
+        ...other
+      } = this.props;
 
-        let {
-            className = "search-container mobile-search" 
-        } = this.props
+      const {
+        className = 'search-container mobile-search', 
+      } = this.props;
 
-        inputBaseProps.placeholder = inputBaseProps.placeholder || placeholderText;
+      inputBaseProps.placeholder = inputBaseProps.placeholder || placeholderText;
 
-        const {value} = this.state
-        return(
-            <div className={className} {...other} >
-                <IconElement {...iconProps} />
-                <InputBase {...inputBaseProps } onInput = {this.doSearch} value={value} />
-            </div>
-        )
+      const { value } = this.state;
+      return (
+        <div className={className} {...other}>
+          <IconElement {...iconProps} />
+          <InputBase {...inputBaseProps} onInput={this.doSearch} value={value} />
+        </div>
+      );
     }
 }
 
-export default Search
+export default Search;

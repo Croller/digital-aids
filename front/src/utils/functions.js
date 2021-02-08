@@ -3,20 +3,19 @@
  * @param {*} string 
  */
 export function slugify(string) {
-    const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;'
-    const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------'
-    const p = new RegExp(a.split('').join('|'), 'g')
+  const a = 'àáâäæãåāăąçćčđďèéêëēėęěğǵḧîïíīįìłḿñńǹňôöòóœøōõőṕŕřßśšşșťțûüùúūǘůűųẃẍÿýžźż·/_,:;';
+  const b = 'aaaaaaaaaacccddeeeeeeeegghiiiiiilmnnnnoooooooooprrsssssttuuuuuuuuuwxyyzzz------';
+  const p = new RegExp(a.split('').join('|'), 'g');
 
-    return string.toString().toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word characters
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, '') // Trim - from end of text
+  return string.toString().toLowerCase()
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(p, c => b.charAt(a.indexOf(c))) // Replace special characters
+    .replace(/&/g, '-and-') // Replace & with 'and'
+    .replace(/[^\w\-]+/g, '') // Remove all non-word characters
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, ''); // Trim - from end of text
 }
-
 
 /**
  * Replace words wrapped with %..% with corresponding items from items{} object
@@ -27,11 +26,8 @@ export function slugify(string) {
  * @param {*} str 
  * @param {*} items 
  */
-export function strFormat( str, items ){
-    return str.replace(/%\w+%/g, key => {
-        return items[key] || key;
-     });
-     
+export function strFormat(str, items) {
+  return str.replace(/%\w+%/g, key => items[key] || key);
 }
 
 /**
@@ -39,8 +35,7 @@ export function strFormat( str, items ){
  * @param {*} array 
  * @param {*} num 
  */
-export const randomFromArray = ( array, num ) =>  array.sort(() => 0.5 - Math.random()).slice(0, num )
-
+export const randomFromArray = (array, num) => array.sort(() => 0.5 - Math.random()).slice(0, num);
 
 /**
  * Loads an external script asynchronously and optionally executes a callback once it's done.
@@ -48,16 +43,14 @@ export const randomFromArray = ( array, num ) =>  array.sort(() => 0.5 - Math.ra
  * @param {*} url 
  * @param {*} callback 
  */
-export function loadScript( url, callback = null ) {
-    const script = document.createElement("script");
-    script.src = url;
-    script.async = true;
-    if( callback && typeof callback === 'function')
-        script.onload = () => callback()
+export function loadScript(url, callback = null) {
+  const script = document.createElement('script');
+  script.src = url;
+  script.async = true;
+  if (callback && typeof callback === 'function') script.onload = () => callback();
 
-    document.body.appendChild(script);
+  document.body.appendChild(script);
 }
-
 
 /**
  * Replace anything within %..% with correponding eement from passed array
@@ -66,26 +59,23 @@ export function loadScript( url, callback = null ) {
  * @param {string[]} values 
  */
 export function textFormat(message, values) { 
-    let i = 0; 
-    if( message )
-        return message.replace(/%\w+%/g, (match, idx) => { return values[i++]; }); 
-    else {
-        console.warn("textFormat: passed value is not a string, null returned.")
-        return null
-    }
+  let i = 0; 
+  if (message) return message.replace(/%\w+%/g, (match, idx) => values[i++]); 
+    
+  console.warn('textFormat: passed value is not a string, null returned.');
+  return null;
 }
 
 /**
  * Scrolls to given element with given offset in pixels
  */
-export function scrollToElement( el, yOffset = 0, options = {behavior: 'smooth'}){    
-    const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;  
-    window.scrollTo({...options, top: y });
+export function scrollToElement(el, yOffset = 0, options = { behavior: 'smooth' }) {    
+  const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;  
+  window.scrollTo({ ...options, top: y });
 }
 
-
-export function removePrefix( str, prefix ){
-    return str.indexOf(prefix) === 0 ? str.substr(prefix.length) : str;
+export function removePrefix(str, prefix) {
+  return str.indexOf(prefix) === 0 ? str.substr(prefix.length) : str;
 }
 
 /**
@@ -98,36 +88,31 @@ export function removePrefix( str, prefix ){
  * @param {object|null} source 
  * @returns {object|null}
  */
-export function populateObjectRecursively( target, source ){
-    if(source === null || target === null ) return target
+export function populateObjectRecursively(target, source) {
+  if (source === null || target === null) return target;
 
+  if (typeof target === 'object' && typeof source === 'object') {
+    const result = {};
 
-    
-
-    if( typeof target === "object" && typeof source === "object" ){
-        let result = {}
-
-        Object.keys(target).map( key => {
-            if( source.hasOwnProperty( key ) )
-                switch( typeof target[key] ){
-                    case "object":
-                        if( typeof source[key] === "object" ) // recursion
-                            result[key] = populateObjectRecursively( target[key], source[key] )
-                        else
-                            result[key] = source[key]
-                        break;
-                    default:
-                        result[key] = source[key]
-                        break;
-                }
-        } )
-        // repopulated object
-        return result
-    } 
-    // orginal value
-    return target
+    Object.keys(target).map(key => {
+      if (source.hasOwnProperty(key)) {
+        switch (typeof target[key]) {
+        case 'object':
+          if (typeof source[key] === 'object') // recursion
+          { result[key] = populateObjectRecursively(target[key], source[key]); } else result[key] = source[key];
+          break;
+        default:
+          result[key] = source[key];
+          break;
+        } 
+      }
+    });
+    // repopulated object
+    return result;
+  } 
+  // orginal value
+  return target;
 }
-
 
 /**
  * Debounce function factory.
@@ -139,22 +124,19 @@ export function populateObjectRecursively( target, source ){
  * @usage Show left scroll once the scrollng is stopped:
  * el.addEventListener("scroll", debounce(300, ev => console.debug(ev.target.scrollLeft)) )
  */
-export function debounce( delay=200, callback = console.debug ){
-    let timer
-    return ev => {
-        
-        console.debug("Debounce: received event: ", ev )
-        // debounce
-        if( timer )
-            clearTimeout(timer);
+export function debounce(delay = 200, callback = console.debug) {
+  let timer;
+  return ev => {
+    console.debug('Debounce: received event: ', ev);
+    // debounce
+    if (timer) clearTimeout(timer);
     
-        // set timer again
-        timer = setTimeout( () => {
-            console.debug("Debounce: Debounced event: ", ev )
-            callback(ev)
-        } , delay )
-    }
-
+    // set timer again
+    timer = setTimeout(() => {
+      console.debug('Debounce: Debounced event: ', ev);
+      callback(ev);
+    }, delay);
+  };
 }
 
 /**
@@ -162,7 +144,7 @@ export function debounce( delay=200, callback = console.debug ){
  * @param {*} obj 
  * @param {*} key 
  */
-export const has = (obj, key) => typeof obj === "object" && obj.hasOwnProperty(key)
+export const has = (obj, key) => typeof obj === 'object' && obj.hasOwnProperty(key);
 
 // module.exports = {
 //     slugify, 
@@ -172,7 +154,6 @@ export const has = (obj, key) => typeof obj === "object" && obj.hasOwnProperty(k
 //     textFormat
 // }
 
-
 /**
  * Creates key for translations object from translation key and language
  * @param {*} key 
@@ -180,33 +161,27 @@ export const has = (obj, key) => typeof obj === "object" && obj.hasOwnProperty(k
  */
 export const tkey = (key, language) => `${key}+${language}`;
 
+export const updateScroll = (target, root, lastScrollTop, scrollingTreshold = 6) => {
+  // console.debug("updateScroll: ", lastScrollTop, target, root )
 
-export const updateScroll =  (target, root, lastScrollTop, scrollingTreshold = 6) => {
+  if (!root || !target) return false;
 
-    // console.debug("updateScroll: ", lastScrollTop, target, root )
+  // let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+  const st = target.scrollTop;
 
-    if( !root || !target )
-        return false;
-
-
-    // let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-    let st = target.scrollTop;
-
-    // console.debug("Scrolling..", st)
-    if (st > lastScrollTop + scrollingTreshold && root.classList){
-        // downscroll
-        root.classList.remove("scrolling-up")    
-        root.classList.add("scrolling-down")    
-    } else {
-        if (st < lastScrollTop - scrollingTreshold ){
-        // upscroll code
-        root.classList.remove("scrolling-down")    
-        root.classList.add("scrolling-up")    
-        } 
-    }
-    // lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-    return st <= 0 ? 0 : st; // For Mobile or negative scrolling
-}
+  // console.debug("Scrolling..", st)
+  if (st > lastScrollTop + scrollingTreshold && root.classList) {
+    // downscroll
+    root.classList.remove('scrolling-up');    
+    root.classList.add('scrolling-down');    
+  } else if (st < lastScrollTop - scrollingTreshold) {
+    // upscroll code
+    root.classList.remove('scrolling-down');    
+    root.classList.add('scrolling-up');    
+  }
+  // lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+  return st <= 0 ? 0 : st; // For Mobile or negative scrolling
+};
 
 /**
  * Creates link to a menu hierarchy page, either default page (main menu), specific menu or specific category
@@ -214,6 +189,4 @@ export const updateScroll =  (target, root, lastScrollTop, scrollingTreshold = 6
  * @param {*} menu_id menu id
  * @param {*} category_id category id
  */
-export const makeMenuLink = (slug, menu_id, category_id ) => {
-    return `/${slug}${menu_id ? `/${slug && menu_id}` : ''}${ slug && menu_id && category_id ? `/${category_id}` : '' }`
-}
+export const makeMenuLink = (slug, menu_id, category_id) => `/${slug}${menu_id ? `/${slug && menu_id}` : ''}${slug && menu_id && category_id ? `/${category_id}` : ''}`;
