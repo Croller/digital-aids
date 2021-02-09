@@ -32,8 +32,7 @@
         (device-height: 926px), // iPhone 12 Pro Max 
         (device-height: 896px)  // iPhone 11, Phone 11 Pro Max
         {
-            padding-bottom: 12px;
-            max-height: #{$footerHeight + 12px};
+            max-height: #{$footerHeight};
         }
 
 
