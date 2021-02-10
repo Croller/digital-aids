@@ -1,0 +1,168 @@
+require('dotenv').config();
+const path = require('path');
+const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const PwaManifestWebpackPlugin = require('webpack-pwa-manifest');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const outputDirectory = 'dist';
+const PLATFORM = process.env.NODE_ENV;
+
+let plugins = [
+  new Dotenv({ path: '.env' }),
+  new HtmlWebpackPlugin({
+    template: './public/index.html',
+    favicon: './public/favicon.ico',
+  }),
+  new webpack.HotModuleReplacementPlugin(),
+  new CopyWebpackPlugin({
+    patterns: [
+      {
+        from: path.resolve(__dirname, 'src/client/assets/fonts'),
+        to: './fonts',
+      },
+    ],
+  }),
+  new PwaManifestWebpackPlugin({
+    name: 'My Progressive Web App',
+    short_name: 'MyPWA',
+    description: 'My awesome Progressive Web App!',
+    background_color: '#ffffff',
+    crossorigin: 'use-credentials',
+    icons: [],
+  }),
+];
+
+if (PLATFORM === 'production') {
+  plugins = plugins.concat(
+    new MiniCssExtractPlugin({ filename: 'css/[name]_[hash].css' }),
+    new BundleAnalyzerPlugin({ openAnalyzer: false, analyzerMode: 'static' }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      favicon: './public/favicon.ico',
+    }),
+  );
+}
+
+if (PLATFORM === 'development') {
+  plugins = plugins.concat(
+    new BundleAnalyzerPlugin({ openAnalyzer: false, analyzerMode: 'static' }),
+  );
+}
+
+module.exports = {
+  entry: [
+    'babel-polyfill',
+    'react-hot-loader/patch',
+    './src/client/index.js',
+  ],
+  output: {
+    path: path.join(__dirname, outputDirectory),
+    filename: `js/main${PLATFORM === 'production' ? '_[hash]' : ''}.js`,
+    // publicPath: '/',
+    publicPath: `${PLATFORM === 'production' ? '/dist/' : '/'}`,
+    chunkFilename: 'js/[name].[chunkhash].js',
+  },
+  optimization: {
+    chunkIds: 'named',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 10,
+          enforce: true,
+        },
+      },
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          PLATFORM === 'production' ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          'babel-loader',
+          {
+            loader: 'react-svg-loader',
+            options: {
+              svgo: {
+                plugins: [
+                  { removeTitle: false },
+                ],
+                floatPrecision: 2,
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'images/',
+          },
+        }],
+      },
+      {
+        test: /\.(ttf|eot|woff|woff2)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/',
+          },
+        },
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+      client: path.resolve(__dirname, 'src/client'),
+      server: path.resolve(__dirname, 'src/server'),
+    },
+  },
+  devServer: {
+    publicPath: '/',
+    host: '0.0.0.0',
+    contentBase: './',
+    port: process.env.PORT_LOCAL_CLIENT,
+    open: false,
+    hot: true,
+    historyApiFallback: true,
+    proxy: {
+      '/api': `http://0.0.0.0:${process.env.PORT_LOCAL_SERVER}`,
+      secure: false,
+      changeOrigin: false,
+    },
+  },
+  plugins,
+  node: {
+    fs: 'empty',
+  },
+};
