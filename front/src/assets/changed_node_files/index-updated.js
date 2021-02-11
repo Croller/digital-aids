@@ -18,7 +18,7 @@ exports["default"] = void 0;
 // !!!!!! 
 // This line prevents react from throwng error whencompiling.
 // It wasn't in the original code!.
-let google = window.google;
+// let google = window.google;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -106,7 +106,7 @@ function (_Component) {
             try {
               for (var _iterator = this.props.markers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var i = _step.value;
-                new google.maps.Marker({
+                new window.google.maps.Marker({
                   position: i,
                   map: map
                 });
@@ -126,7 +126,7 @@ function (_Component) {
               }
             }
           } else {
-            new google.maps.Marker({
+            new window.google.maps.Marker({
               position: this.props.markers,
               map: map
             });
