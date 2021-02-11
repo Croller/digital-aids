@@ -39,7 +39,7 @@ class Oferta extends React.Component{
                 <div className="content">        
                     {header && <div className="title">{header}</div>}
                     {text1 && <div className="text">{text1}</div>}
-                    {text2 && <div className="text">{text2}</div>}
+                    {/* {text2 && <div className="text">{text2}</div>} */}
                     {conditions && <div className="conditions">{conditions}</div>}
                     {call_to_action && !link && <Button className="call-to-action" onClick={onClose}>{call_to_action}</Button>}
                     {
