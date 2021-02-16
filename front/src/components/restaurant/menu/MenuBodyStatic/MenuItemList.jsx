@@ -71,16 +71,16 @@ class MenuItemList extends React.Component{
         // otherwise, just nothing
         null
 
-        console.debug("ofertas array:", ofertas)
+        console.log("ofertas array:", ofertas)
         // if ofertas is not empty, select one randomly
         if( ofertas && ofertas.length > 0 ){
-            const oferta = randomFromArray( ofertas, 1 )[0];
+            const oferta = ofertas[0];
             if( oferta ){
                 // set redux value
                 console.debug("selected oferta:", oferta)
                 this.props.showOferta(restaurant.slug);
             }
-            this.setState({oferta})
+            this.setState({ oferta})
         } else 
             this.setState({oferta: false})
     }
