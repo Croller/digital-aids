@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Wrapper,
 } from './styled';
@@ -6,11 +7,15 @@ import {
 export const Header = ({ 
   className,
   mobile = false,
-}) => (
-  <Wrapper
-    className={className}
-    mobile={mobile}
-  >
-    Header
-  </Wrapper>
-);
+}) => {
+  const { t } = useTranslation();
+  return (
+    <Wrapper
+      className={className}
+      mobile={mobile}
+    >
+      Header
+      {t('test')}
+    </Wrapper>
+  );
+};

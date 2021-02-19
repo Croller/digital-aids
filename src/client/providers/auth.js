@@ -1,4 +1,4 @@
-import { get, post } from 'client/utils/dataProviders/common';
+import { get, post } from 'client/providers/common';
 import { removeLocalStorage } from 'client/utils/common';
 import * as Constants from '../constants';
 

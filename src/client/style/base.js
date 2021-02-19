@@ -1,187 +1,115 @@
 import { createGlobalStyle } from 'styled-components';
-import FuturaPTLight from 'client/assets/fonts/FuturaPT-Light.ttf';
-import FuturaPTBook from 'client/assets/fonts/FuturaPT-Book.ttf';
-import FuturaPTMedium from 'client/assets/fonts/FuturaPT-Medium.ttf';
-import FuturaPTBold from 'client/assets/fonts/FuturaPT-Bold.ttf';
-import ComfortaaRegular from 'client/assets/fonts/Comfortaa-Regular.ttf';
-import ComfortaaBold from 'client/assets/fonts/Comfortaa-Bold.ttf';
-import ComfortaaLight from 'client/assets/fonts/Comfortaa-Light.ttf';
-import TTNormsBoldItalic from 'client/assets/fonts/TTNorms-BoldItalic.ttf';
-import TTNormsBold from 'client/assets/fonts/TTNorms-Bold.ttf';
-import TTNormsBlackItalic from 'client/assets/fonts/TTNorms-BlackItalic.ttf';
-import TTNormsRegular from 'client/assets/fonts/TTNorms-Regular.ttf';
-import TTNormsMediumItalic from 'client/assets/fonts/TTNorms-MediumItalic.ttf';
-import TTNormsExtraLight from 'client/assets/fonts/TTNorms-ExtraLight.ttf';
-import TTNormsThinItalic from 'client/assets/fonts/TTNorms-ThinItalic.ttf';
-import TTNormsMedium from 'client/assets/fonts/TTNorms-Medium.ttf';
-import TTNormsLightItalic from 'client/assets/fonts/TTNorms-LightItalic.ttf';
-import TTNormsHeavyItalic from 'client/assets/fonts/TTNorms-HeavyItalic.ttf';
-import TTNormsBlack from 'client/assets/fonts/TTNorms-Black.ttf';
-import TTNormsExtraBoldItalic from 'client/assets/fonts/TTNorms-ExtraBoldItalic.ttf';
-import TTNormsExtraBold from 'client/assets/fonts/TTNorms-ExtraBold.ttf';
-import TTNormsExtraLightItalic from 'client/assets/fonts/TTNorms-ExtraLightItalic.ttf';
-import TTNormsLight from 'client/assets/fonts/TTNorms-Light.ttf';
-import TTNormsHeavy from 'client/assets/fonts/TTNorms-Heavy.ttf';
-import TTNormsItalic from 'client/assets/fonts/TTNorms-Italic.ttf';
-import TTNormsThin from 'client/assets/fonts/TTNorms-Thin.ttf';
+
+import MontserratThin from 'client/assets/fonts/Montserrat-Thin.ttf';
+import MontserratThinItalic from 'client/assets/fonts/Montserrat-ThinItalic.ttf';
+import MontserratExtraLight from 'client/assets/fonts/Montserrat-ExtraLight.ttf';
+import MontserratExtraLightItalic from 'client/assets/fonts/Montserrat-ExtraLightItalic.ttf';
 import MontserratLight from 'client/assets/fonts/Montserrat-Light.ttf';
-import MontserratMedium from 'client/assets/fonts/Montserrat-Medium.ttf';
-import MontserratBold from 'client/assets/fonts/Montserrat-Bold.ttf';
+import MontserratLightItalic from 'client/assets/fonts/Montserrat-LightItalic.ttf';
 import MontserratRegular from 'client/assets/fonts/Montserrat-Regular.ttf';
+import MontserratItalic from 'client/assets/fonts/Montserrat-Italic.ttf';
+import MontserratMedium from 'client/assets/fonts/Montserrat-Medium.ttf';
+import MontserratMediumItalic from 'client/assets/fonts/Montserrat-MediumItalic.ttf';
+import MontserratSemiBold from 'client/assets/fonts/Montserrat-SemiBold.ttf';
+import MontserratSemiBoldItalic from 'client/assets/fonts/Montserrat-SemiBoldItalic.ttf';
+import MontserratBold from 'client/assets/fonts/Montserrat-Bold.ttf';
+import MontserratBoldItalic from 'client/assets/fonts/Montserrat-BoldItalic.ttf';
+import MontserratExtraBold from 'client/assets/fonts/Montserrat-ExtraBold.ttf';
+import MontserratExtraBoldItalic from 'client/assets/fonts/Montserrat-ExtraBoldItalic.ttf';
+import MontserratBlack from 'client/assets/fonts/Montserrat-Black.ttf';
+import MontserratBlackItalic from 'client/assets/fonts/Montserrat-BlackItalic.ttf';
+
 import { FONTS, PALETTE, BREAKPOINTS } from './constants';
 
 export const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'FuturaPT-Light';
-    src: local('FuturaPT-Light'), url(${FuturaPTLight}) format('truetype');
+    font-family: 'MontserratThin';
+    src: local('MontserratThin'), url(${MontserratThin}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'FuturaPT-Book';
-    src: local('FuturaPT-Book'), url(${FuturaPTBook}) format('truetype');
+    font-family: 'MontserratThinItalic';
+    src: local('MontserratThinItalic'), url(${MontserratThinItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'FuturaPT-Medium';
-    src: local('FuturaPT-Medium'), url(${FuturaPTMedium}) format('truetype');
+    font-family: 'MontserratExtraLight';
+    src: local('MontserratExtraLight'), url(${MontserratExtraLight}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'FuturaPT-Bold';
-    src: local('FuturaPT-Bold'), url(${FuturaPTBold}) format('truetype');
+    font-family: 'MontserratExtraLightItalic';
+    src: local('MontserratExtraLightItalic'), url(${MontserratExtraLightItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'Comfortaa-Regular';
-    src: local('Comfortaa-Regular'), url(${ComfortaaRegular}) format('truetype');
+    font-family: 'MontserratLight';
+    src: local('MontserratLight'), url(${MontserratLight}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'Comfortaa-Bold';
-    src: local('Comfortaa-Bold'), url(${ComfortaaBold}) format('truetype');
+    font-family: 'MontserratLightItalic';
+    src: local('MontserratLightItalic'), url(${MontserratLightItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'Comfortaa-Light';
-    src: local('Comfortaa-Light'), url(${ComfortaaLight}) format('truetype');
+    font-family: 'MontserratRegular';
+    src: local('MontserratRegular'), url(${MontserratRegular}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-BoldItalic';
-    src: local('TTNorms-BoldItalic'), url(${TTNormsBoldItalic}) format('truetype');
+    font-family: 'MontserratItalic';
+    src: local('MontserratItalic'), url(${MontserratItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-Bold';
-    font-style: normal;
-    font-weight: bold;
-    src: local('TTNorms-Bold'), url(${TTNormsBold}) format('truetype');
+    font-family: 'MontserratMedium';
+    src: local('MontserratMedium'), url(${MontserratMedium}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-BlackItalic';
-    src: local('TTNorms-BlackItalic'), url(${TTNormsBlackItalic}) format('truetype');
+    font-family: 'MontserratMediumItalic';
+    src: local('MontserratMediumItalic'), url(${MontserratMediumItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-Regular';
-    font-style: normal;
-    font-weight: normal;
-    src: local('TTNorms-Regular'), url(${TTNormsRegular}) format('truetype');
+    font-family: 'MontserratSemiBold';
+    src: local('MontserratSemiBold'), url(${MontserratSemiBold}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-MediumItalic';
-    src: local('TTNorms-MediumItalic'), url(${TTNormsMediumItalic}) format('truetype');
+    font-family: 'MontserratSemiBoldItalic';
+    src: local('MontserratSemiBoldItalic'), url(${MontserratSemiBoldItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-ExtraLight';
-    src: local('TTNorms-ExtraLight'), url(${TTNormsExtraLight}) format('truetype');
+    font-family: 'MontserratBold';
+    src: local('MontserratBold'), url(${MontserratBold}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-ThinItalic';
-    src: local('TTNorms-ThinItalic'), url(${TTNormsThinItalic}) format('truetype');
+    font-family: 'MontserratBoldItalic';
+    src: local('MontserratBoldItalic'), url(${MontserratBoldItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-Medium';
-    font-style: normal;
-    font-weight: 500;
-    src: local('TTNorms-Medium'), url(${TTNormsMedium}) format('truetype');
+    font-family: 'MontserratExtraBold';
+    src: local('MontserratExtraBold'), url(${MontserratExtraBold}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-LightItalic';
-    src: local('TTNorms-LightItalic'), url(${TTNormsLightItalic}) format('truetype');
+    font-family: 'MontserratExtraBoldItalic';
+    src: local('MontserratExtraBoldItalic'), url(${MontserratExtraBoldItalic}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-HeavyItalic';
-    src: local('TTNorms-HeavyItalic'), url(${TTNormsHeavyItalic}) format('truetype');
+    font-family: 'MontserratBlack';
+    src: local('MontserratBlack'), url(${MontserratBlack}) fomat(truetype);
   }
 
   @font-face {
-    font-family: 'TTNorms-Black';
-    src: local('TTNorms-Black'), url(${TTNormsBlack}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-ExtraBoldItalic';
-    src: local('TTNorms-ExtraBoldItalic'), url(${TTNormsExtraBoldItalic}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-ExtraBold';
-    src: local('TTNorms-ExtraBold'), url(${TTNormsExtraBold}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-ExtraLightItalic';
-    src: local('TTNorms-ExtraLightItalic'), url(${TTNormsExtraLightItalic}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-Light';
-    font-style: normal;
-    font-weight: 300;
-    src: local('TTNorms-Light'), url(${TTNormsLight}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-Heavy';
-    src: local('TTNorms-Heavy'), url(${TTNormsHeavy}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-Italic';
-    src: local('TTNorms-Italic'), url(${TTNormsItalic}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'TTNorms-Thin';
-    src: local('TTNorms-Thin'), url(${TTNormsThin}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Montserrat-Light';
-    src: local('Montserrat-Light'), url(${MontserratLight}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Montserrat-Medium';
-    src: local('Montserrat-Medium'), url(${MontserratMedium}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Montserrat-Bold';
-    src: local('Montserrat-Bold'), url(${MontserratBold}) format('truetype');
-  }
-
-  @font-face {
-    font-family: 'Montserrat-Regular';
-    src: local('Montserrat-Regular'), url(${MontserratRegular}) format('truetype');
+    font-family: 'MontserratBlackItalic';
+    src: local('MontserratBlackItalic'), url(${MontserratBlackItalic}) fomat(truetype);
   }
 
   body {

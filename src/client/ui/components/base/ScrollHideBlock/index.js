@@ -30,13 +30,8 @@ export const ScrollHideBlock = ({
 
   const onScroll = () => {
     const { scrollX, scrollY } = window;
-    if (scrollY < pos.y) {
-      setShow(true);
-    }
-    if (scrollY > pos.y) {
-      setShow(false);
-    }
-
+    
+    setShow(scrollY < pos.y && scrollY < 65);
     setPos({ x: scrollX, y: scrollY });
   };
 
