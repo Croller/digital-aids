@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   background-color: ${PALETTE.white};
   height: 60px;
-  box-shadow: ${THEME.dropShadowHeader};
+  box-shadow: ${THEME.boxShadowHeader};
   padding: 0 20px 0 27px;
 
   ${p => p.mobile && css`

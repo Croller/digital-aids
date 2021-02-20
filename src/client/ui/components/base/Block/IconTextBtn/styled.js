@@ -44,7 +44,7 @@ export const Text = styled.p`
   padding: 0;
   text-align: center;
   font-size: 18px;
-  font-family: ${FONTS.medium};
+  font-family: ${FONTS.bold};
   color: ${PALETTE.black};
   margin-top: 96px;
   margin-bottom: 47px;

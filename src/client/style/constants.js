@@ -28,10 +28,10 @@ export const PALETTE = {
 
 const fontsCommon = '\'Source Sans Pro\', Helvetica, sans-serif';
 export const FONTS = {
-  light: `MontserratLight, ${fontsCommon}`,
-  regular: `MontserratRegular, ${fontsCommon}`,
-  medium: `MontserratMedium, ${fontsCommon}`,
-  bold: `MontserratSemiBold, ${fontsCommon}`,
+  light: `'MontserratLight', ${fontsCommon}`,
+  regular: `'MontserratRegular', ${fontsCommon}`,
+  medium: `'MontserratMedium', ${fontsCommon}`,
+  bold: `'MontserratSemiBold', ${fontsCommon}`,
 };
 
 export const THEME = {
