@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header';
 import { Footer } from 'client/ui/components/Footer';
 import { FooterMenu } from 'client/ui/components/Mobile/FooterMenu';
@@ -17,7 +18,13 @@ export const Layout = ({
   footer = null,
   footerMenu = null,
 }) => {
+  const history = useHistory();
   const [isMobile, setIsMobile] = useState(true);
+
+  const handleRoute = useCallback((path) => {
+    console.log('route to:', path);
+    history.push(path);
+  }, []);
 
   useEffect(() => {
     setIsMobile(window.innerWidth <= BREAKPOINTS.small);
@@ -32,7 +39,7 @@ export const Layout = ({
         </Content>
       </Cotainer>
       {!isMobile && (footer || (<Footer />))}
-      {isMobile && (footerMenu || (<FooterMenu />))}
+      {isMobile && (footerMenu || (<FooterMenu onClick={handleRoute} />))}
     </Wrapper>
   );
 };

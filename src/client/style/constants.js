@@ -22,11 +22,13 @@ export const PALETTE = {
   grey4: '#868686',
 
   green1: '#219653',
+
+  red1: '#F43658',
 };
 
 const fontsCommon = '\'Source Sans Pro\', Helvetica, sans-serif';
 export const FONTS = {
-  light: `MontserratRegular, ${fontsCommon}`,
+  light: `MontserratLight, ${fontsCommon}`,
   regular: `MontserratRegular, ${fontsCommon}`,
   medium: `MontserratMedium, ${fontsCommon}`,
   bold: `MontserratSemiBold, ${fontsCommon}`,
@@ -34,5 +36,7 @@ export const FONTS = {
 
 export const THEME = {
   bgColor: PALETTE.white,
-  // containerBoxShadow: `0 1px 10px 0 ${PALETTE.grey4}`,
+  dropShadowHeader: '0px 4px 34px rgba(0, 0, 0, 0.1)',
+  dropShodowMobileFooter: '0px -4px 24px rgba(0, 0, 0, 0.15)',
+  dropShadow1: '0px 1px 24px rgba(0, 0, 0, 0.1)',
 };

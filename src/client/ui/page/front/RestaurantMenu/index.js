@@ -10,7 +10,7 @@ const RestaurantMenu = () => {
 
   return (
     <Wrapper>
-      efefe
+      Rest Menu
     </Wrapper>
   );
 };

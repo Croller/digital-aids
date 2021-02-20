@@ -1,5 +1,9 @@
 {
-  "translations": {
-    "test": "translate"
+  "translation": {
+    "footerMobileMenu": {
+      "lng": "en",
+      "menu": "menu",
+      "order": "order"
+    }
   }
 }

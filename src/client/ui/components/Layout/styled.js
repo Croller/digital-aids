@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`
   display: block;
@@ -7,7 +6,6 @@ export const Wrapper = styled.div`
 
 export const Cotainer = styled.div`
   display: block;
-  background-color: ${PALETTE.grey1};
   height: 3000px;
   padding: 60px 0 80px;
 `;

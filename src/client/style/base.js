@@ -19,9 +19,96 @@ import MontserratExtraBoldItalic from 'client/assets/fonts/Montserrat-ExtraBoldI
 import MontserratBlack from 'client/assets/fonts/Montserrat-Black.ttf';
 import MontserratBlackItalic from 'client/assets/fonts/Montserrat-BlackItalic.ttf';
 
-import { FONTS, PALETTE, BREAKPOINTS } from './constants';
+import {
+  FONTS,
+  PALETTE,
+  BREAKPOINTS,
+} from './constants';
 
 export const GlobalStyle = createGlobalStyle`
+  body {
+    height: 100%;
+    margin: 0;
+    font-family: ${FONTS.regular} !important;
+    overflow-x: hidden;
+    background-color: ${PALETTE.white}
+  }
+
+  [ant-click-animating-without-extra-node]::after {
+    animation: 0s !important;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-button {
+    width: 0;
+    height: 0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${PALETTE.grey5};
+    border: 0 none ${PALETTE.grey5};
+    border-radius: 50px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: ${PALETTE.grey3};
+    border: 0 none ${PALETTE.grey3};
+    border-radius: 50px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${PALETTE.grey5};
+    cursor: pointer;
+  }
+
+  ::-webkit-scrollbar-track:hover {
+    background: ${PALETTE.grey3};
+    cursor: pointer;
+  }
+
+  /* input number hide arraows */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .ant-dropdown {
+    top: 196px !important;
+
+    .ant-table-filter-dropdown {
+      border-radius: 6px;
+
+      .ant-space-item {
+        button {
+          border-radius: 8px;
+        }
+      }
+    }
+
+    @media screen and (min-width: ${BREAKPOINTS.medium}) {
+      top: 144px !important;
+    }
+
+    @media screen and (min-width: ${BREAKPOINTS.large}) {
+      top: 171px !important;
+    }
+  }
+
+  /* import fronts */
+
   @font-face {
     font-family: 'MontserratThin';
     src: local('MontserratThin'), url(${MontserratThin}) fomat(truetype);
@@ -110,86 +197,6 @@ export const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'MontserratBlackItalic';
     src: local('MontserratBlackItalic'), url(${MontserratBlackItalic}) fomat(truetype);
-  }
-
-  body {
-    height: 100%;
-    margin: 0;
-    font-family: ${FONTS.regular} !important;
-    overflow-x: hidden;
-  }
-
-  [ant-click-animating-without-extra-node]::after {
-    animation: 0s !important;
-  }
-
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  ::-webkit-scrollbar-button {
-    width: 0;
-    height: 0;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: ${PALETTE.grey5};
-    border: 0 none ${PALETTE.grey5};
-    border-radius: 50px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: ${PALETTE.grey3};
-    border: 0 none ${PALETTE.grey3};
-    border-radius: 50px;
-  }
-
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${PALETTE.grey5};
-    cursor: pointer;
-  }
-
-  ::-webkit-scrollbar-track:hover {
-    background: ${PALETTE.grey3};
-    cursor: pointer;
-  }
-
-  /* input number hide arraows */
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
-
-  .ant-dropdown {
-    top: 196px !important;
-
-    .ant-table-filter-dropdown {
-      border-radius: 6px;
-
-      .ant-space-item {
-        button {
-          border-radius: 8px;
-        }
-      }
-    }
-
-    @media screen and (min-width: ${BREAKPOINTS.medium}) {
-      top: 144px !important;
-    }
-
-    @media screen and (min-width: ${BREAKPOINTS.large}) {
-      top: 171px !important;
-    }
   }
 `;
 

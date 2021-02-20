@@ -4,14 +4,13 @@ import {
   Wrapper,
 } from './styled';
 
-const Page401Component = () => (
+const Page404 = () => (
   <Wrapper>
     <Helmet>
-      <meta name="prerender-status-code" content="401" />
-      <link rel="canonical" href="https://www.triptrick.com/" />
+      <meta content="404" />
     </Helmet>
     Ooops! Такой страницы нету...
   </Wrapper>
 );
 
-export default memo(Page401Component);
+export default memo(Page404);

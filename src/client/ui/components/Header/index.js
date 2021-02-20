@@ -1,21 +1,19 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { memo } from 'react';
 import {
   Wrapper,
+  Logo, 
+  ControlWrapper,
 } from './styled';
 
-export const Header = ({ 
+export const Header = memo(({ 
   className,
   mobile = false,
-}) => {
-  const { t } = useTranslation();
-  return (
-    <Wrapper
-      className={className}
-      mobile={mobile}
-    >
-      Header
-      {t('test')}
-    </Wrapper>
-  );
-};
+}) => (
+  <Wrapper
+    className={className}
+    mobile={mobile}
+  >
+    <Logo />
+    <ControlWrapper />
+  </Wrapper>
+));
