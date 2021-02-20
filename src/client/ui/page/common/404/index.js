@@ -5,12 +5,18 @@ import {
 } from './styled';
 
 const Page404 = () => (
-  <Wrapper>
+  <React.Fragment>
     <Helmet>
       <meta content="404" />
+      <title>
+        404 - Error page
+      </title>
     </Helmet>
-    Ooops! Такой страницы нету...
-  </Wrapper>
+    <Wrapper>
+    
+      Ooops! Такой страницы нету...
+    </Wrapper>
+  </React.Fragment>
 );
 
 export default memo(Page404);

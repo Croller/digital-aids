@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import {
-  Wrapper,
-} from './styled';
+import React, { lazy, useEffect } from 'react';
+import { Layout } from 'client/ui/components/Layout';
+import { Route, Switch } from 'react-router-dom';
+
+const RestaurantMenu = lazy(() => import('client/ui/page/front/Restaurant/Menu'));
 
 export const Restaurant = () => {
   useEffect(() => {
@@ -9,9 +10,15 @@ export const Restaurant = () => {
   }, []);
 
   return (
-    <Wrapper>
-      rest
-    </Wrapper>
+    <Layout>
+      <Switch>
+        <Route path="/restaurant/:restaurantName/language" component={RestaurantMenu} />
+        <Route path="/restaurant/:restaurantName/menu" component={RestaurantMenu} />
+        <Route path="/restaurant/:restaurantName/opinion" component={RestaurantMenu} />
+        <Route path="/restaurant/:restaurantName/reglament" component={RestaurantMenu} />
+        <Route path="/restaurant/:restaurantName/information" component={RestaurantMenu} />
+      </Switch>
+    </Layout>
   );
 };
 

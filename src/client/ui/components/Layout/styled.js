@@ -6,8 +6,9 @@ export const Wrapper = styled.div`
 
 export const Cotainer = styled.div`
   display: block;
-  height: 3000px;
   padding: 60px 0 80px;
+
+  /* height: 3000px; */
 `;
 
 export const Content = styled.div`
