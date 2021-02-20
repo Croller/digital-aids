@@ -11,7 +11,7 @@ export const ScrollHideBlockStyled = styled(ScrollHideBlock)`
   width: 100%;
   z-index: ${Z_INDEX.footerMenu};
   background-color: ${PALETTE.white};
-  box-shadow: ${THEME.dropShodowMobileFooter};
+  box-shadow: ${THEME.boxShadowMobileFooter};
 `;
 
 export const Wrapper = styled.div`

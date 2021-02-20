@@ -1,8 +1,8 @@
-import LogoPng from './png/logo.png';
-import BarsSolidSvg from './svg/bars-solid.svg';
+// import LogoPng from './png/logo.png';
+import ChefSvg from './svg/chef.svg';
 
 export {
-  LogoPng,
+  // LogoPng,
 
-  BarsSolidSvg,
+  ChefSvg,
 };

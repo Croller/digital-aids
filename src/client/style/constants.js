@@ -36,7 +36,10 @@ export const FONTS = {
 
 export const THEME = {
   bgColor: PALETTE.white,
-  dropShadowHeader: '0px 4px 34px rgba(0, 0, 0, 0.1)',
-  dropShodowMobileFooter: '0px -4px 24px rgba(0, 0, 0, 0.15)',
-  dropShadow1: '0px 1px 24px rgba(0, 0, 0, 0.1)',
+  borderRadius: '8px',
+  borderRadiusBtn: '6px',
+  boxShadow1: '0px 1px 24px rgba(0, 0, 0, 0.1)',
+  boxShadowHeader: '0px 4px 34px rgba(0, 0, 0, 0.1)',
+  boxShadowMobileFooter: '0px -4px 24px rgba(0, 0, 0, 0.15)',
+  boxShadow404: '0 2px 84px rgba(0, 0, 0, 0.1)',
 };
