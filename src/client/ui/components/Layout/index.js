@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header';
 import { Footer } from 'client/ui/components/Footer';
-import { FooterMenu } from 'client/ui/components/Mobile/FooterMenu';
+import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
 
 import { 
@@ -19,11 +19,18 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
+  const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
+  const path = '/restaurant/las-cuevas';
+  
+  const handleRoute = useCallback((part) => {
+    const editPart = part === 'back' ? 'categories' : part;
 
-  const handleRoute = useCallback((path) => {
-    console.log('route to:', path);
-    history.push(path);
+    if (history.action !== 'POP' && part === 'back') {
+      history.goBack();
+      return null;
+    }
+    history.push(`${path}/${editPart}`);
   }, []);
 
   useEffect(() => {
@@ -32,14 +39,23 @@ export const Layout = ({
 
   return (
     <Wrapper className={className}>
-      {header || (<Header mobile={isMobile} />)}
+      {!['information', 'foodtops'].includes(pathname) && (
+        header || (
+          <Header
+            showClose={['language', 'menu', 'reglament', 'opinion'].includes(pathname)}
+            isMobile={isMobile}
+            onRoute={handleRoute}
+          />
+        )
+      )}
       <Cotainer>
         <Content>
           {children}
         </Content>
       </Cotainer>
-      {!isMobile && (footer || (<Footer />))}
-      {isMobile && (footerMenu || (<FooterMenu onClick={handleRoute} />))}
+      {isMobile ? (footerMenu || (
+        <MobileMenu onRoute={handleRoute} />
+      )) : (footer || (<Footer />))}
     </Wrapper>
   );
 };

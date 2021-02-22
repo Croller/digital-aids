@@ -1,9 +1,76 @@
 {
   "translation": {
+    "common": {
+      "allergens": "Allergens",
+      "reglament": "Reglament (EU) №1169/2011",
+      "language": "Language",
+      "reservation": "Reservation",
+      "opinion": "Opinion",
+      "foodtips": "Foodtips",
+      "menu": "Menu",
+      "send": "Send",
+      "comments": "Comments"
+    },
+
+    "pageMenu": {
+      "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
+    },
+    "pageAllergens": {
+      "descriptions": "Establishment with available information on food allergies and intolerances."
+    },
+    "pageOpinion": {
+      "title": "Your opinion",
+      "descriptions": "Your opinion is very important for us, help us to improve our service",
+      "rate": {
+        "service": "Service",
+        "meal": "Meal",
+        "covid": "COVID-19 protocol security",
+        "menu": "Menu service"
+      },
+      "rating": {
+        "love": "With love",
+        "satisfied": "Satisfied",
+        "disappointed": "Disappointed",
+        "angry": "Angry"
+      }
+    },
+    "page404": {
+      "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
+    },
+
+
+
+    "compAllergens": {
+      "descriptions": "We remind you that this table is indicative and that we cannot guarantee the absence of 100% allergens in all our products. \n\n In case you have any allegry, please, ask the waiter for more detailed information about our dishes.",
+      "allergens": {
+        "mustard": "Mustard",
+        "lupins": "Lupins",
+        "sesame": "Sesame",
+        "fish": "Fish",
+        "nuts": "Tree nuts",
+        "diox": "Diox, sulfur and sulfites",
+        "crustaceans": "Crustaceans",
+        "soy": "Soy",
+        "mollusks": "Mollusks",
+        "celery": "Celery",
+        "eggs": "Eggs",
+        "dairy": "Dairy products",
+        "peanuts": "Peanuts",
+        "gluten": "Gluten"
+      }
+    },
+
+    "footer": {
+      "thankyou": {
+        "title": "Thank you!",
+        "descriptions": "Your opinion is very important for \n us, please, let us know it!"
+      }
+    },
+
     "footerMobileMenu": {
-      "lng": "en",
       "menu": "menu",
-      "order": "order"
+      "order": "order",
+      "categories": "categories"
     }
   }
 }

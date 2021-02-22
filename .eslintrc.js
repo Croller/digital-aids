@@ -30,10 +30,7 @@ module.exports = {
       'error',
       'single',
     ],
-    semi: [
-      'error',
-      'always',
-    ],
+    "semi": [2, "always"],
     'import/prefer-default-export': 0,
     'react/prop-types': 0,
     'react/jsx-tag-spacing': [

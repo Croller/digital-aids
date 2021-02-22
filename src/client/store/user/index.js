@@ -4,7 +4,7 @@ import {
 } from './constants';
 
 const initState = {
-  data: null,
+  lng: 'en',
   loading: false,
   errors: null,
 };

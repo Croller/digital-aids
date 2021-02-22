@@ -30,8 +30,9 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
     font-family: ${FONTS.regular} !important;
-    overflow-x: hidden;
-    background-color: ${PALETTE.white}
+    color: ${PALETTE.black};
+    background-color: ${PALETTE.white};
+    overflow-x: hidden
   }
 
   [ant-click-animating-without-extra-node]::after {

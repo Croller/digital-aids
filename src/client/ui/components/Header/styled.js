@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { PALETTE, Z_INDEX, THEME } from 'client/style/constants';
 
-export const Wrapper = styled.div`
+export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   box-shadow: ${THEME.boxShadowHeader};
   padding: 0 20px 0 27px;
 
-  ${p => p.mobile && css`
+  ${p => p.isMobile && css`
     position: fixed;
     z-index: ${Z_INDEX.header};
     top: 0;
@@ -24,11 +24,23 @@ export const Logo = styled.div`
   width: 118;
   left: 27px;
   top: 9px;
-  border: 1px solid ${PALETTE.grey1};
+`;
+
+export const LogoImg = styled.img`
+  height: auto;
 `;
 
 export const ControlWrapper = styled.div`
+  display: flex;
+  justify-content: center;
   height: 19px;
   width: 24px;
-  border: 1px solid ${PALETTE.grey1};
+`;
+
+export const Close = styled.div`
+  display: block;
+`;
+
+export const Hamburger = styled.div`
+  display: block;
 `;

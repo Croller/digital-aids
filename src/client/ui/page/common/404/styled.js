@@ -1,11 +1,15 @@
 import styled from 'styled-components';
-import { PALETTE } from 'client/style/constants';
+import { IconTextBtn } from 'client/ui/components/_base/Block/IconTextBtn';
+import { PALETTE, FONTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+`;
+
+export const IconTextBtnStyled = styled(IconTextBtn)`
+  margin-bottom: 80px;
 `;
 
 export const Logo = styled.div`
@@ -13,5 +17,19 @@ export const Logo = styled.div`
   margin-bottom: 100px;
   height: 62px;
   width: 186px;
-  border: 1px solid ${PALETTE.grey1};
+  border: 0.5px solid ${PALETTE.grey2};
+`;
+
+export const Code = styled.h3`
+  margin-bottom: 25px;
+  font-size: 48px;
+  font-family: ${FONTS.medium};
+  color: ${PALETTE.green1};
+`;
+
+export const Text = styled.p`
+  font-size: 18px;
+  font-family: ${FONTS.medium};
+  margin: 0;
+  white-space: pre-line;
 `;
