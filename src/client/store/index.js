@@ -5,15 +5,18 @@ import createSagaMiddleware from 'redux-saga';
 import reducers from './reducers';
 import sagas from './sagas';
 
-const composeEnhancers = composeWithDevTools({
-  serialize: true,
-});
-
 export default function configureStore() {
   const sagaMiddleware = createSagaMiddleware();
+  const composeEnhancers = composeWithDevTools({
+    serialize: true,
+  });
+  const compose = process.env.NODE_ENV === 'production'
+    ? applyMiddleware(...[sagaMiddleware])
+    : composeEnhancers(applyMiddleware(...[sagaMiddleware]));
+
   const store = createStore(
     combineReducers(reducers),
-    composeEnhancers(applyMiddleware(...[sagaMiddleware])),
+    compose,
   );
   sagaMiddleware.run(sagas);
   return store;

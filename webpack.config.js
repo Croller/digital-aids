@@ -65,6 +65,7 @@ module.exports = {
   },
   optimization: {
     chunkIds: 'named',
+    minimize: true,
     splitChunks: {
       cacheGroups: {
         vendor: {
