@@ -41,11 +41,7 @@ let plugins = [
 
 if (PLATFORM === 'production') {
   plugins = plugins.concat(
-    new MiniCssExtractPlugin({ filename: 'css/[name]_[hash].css' }),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      favicon: './public/favicon.ico',
-    }),
+    new MiniCssExtractPlugin({ filename: 'css/[name].[hash].css' }),
   );
 }
 
@@ -63,9 +59,8 @@ module.exports = {
   ],
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: `js/main${PLATFORM === 'production' ? '_[hash]' : ''}.js`,
-    // publicPath: '/',
-    publicPath: `${PLATFORM === 'production' ? '/dist/' : '/'}`,
+    filename: 'bundle.js',
+    publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash].js',
   },
   optimization: {
