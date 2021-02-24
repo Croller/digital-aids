@@ -2,20 +2,103 @@ import {
   USER_LOGIN,
   // USER_LOGOUT,
 } from './constants';
+import { categories, dishes } from './mock';
 
 const initState = {
   id: 213123,
-  name: 'las-cuevas',
-  address: null,
-  geo: null,
-  phone: null,
-  workTime: null,
-  avgPrice: null,
-  raiting: null,
-  typeFood: null,
+  name: 'Las Cuevas',
+  path: 'las-cuevas',
+  address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
+  geo: [37.9763475, -0.7892281],
+  phone: ['+34600001117', '34600001117'],
+  email: 'dc-google@gmail.com',
+  manager: ['Alex U', 'Test. u'],
+  avg_price: 2.60,
+  currency: ['euro', 'rub'],
+  cuisine: ['fusion'], // i18n added all kictchen could be
+  images: [], // array of image binary
+  logo: null, 
+  laguages: ['en', 'ru'],
+  work_time: [
+    {
+      key: 'monday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+    {
+      key: 'tuesday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+    {
+      key: 'wednesday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+    {
+      key: 'thursday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+    {
+      key: 'friday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+    {
+      key: 'saturday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+    {
+      key: 'sunday',
+      from: 0,
+      to: 0,
+      dayoff: false,
+    },
+  ],
+  raiting: {
+    common: {
+      rate: 9.5,
+      comments: [
+        {
+          name: 'Alex',
+          rate: 5.5,
+          text: 'Very good',
+        },
+      ],
+    },
+    tripadvisor: {
+      rate: 4,
+      comments: [],
+    },
+  },
+  socials: [
+    {
+      key: 'instagram',
+      name: 'Instagram',
+      url: 'https://',
+    },
+    {
+      key: 'facebook',
+      name: 'FaceBook',
+      url: null,
+    },
+    {
+      key: 'tripadviser',
+      name: 'TripAdviser',
+      url: null,
+    },
+  ],
   
-  categories: null,
-  dishes: null,
+  categories,
+  dishes,
 
   loading: false,
   errors: null,

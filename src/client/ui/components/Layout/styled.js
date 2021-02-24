@@ -6,9 +6,8 @@ export const Wrapper = styled.div`
 
 export const Cotainer = styled.div`
   display: block;
-  padding: 60px 0 80px;
-
-  /* height: 3000px; */
+  padding-bottom: 80px;
+  padding-top: ${p => (p.header ? '60px' : 0)};
 `;
 
 export const Content = styled.div`

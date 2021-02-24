@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
+import { useSelector } from 'react-redux';
 import {
   Route,
   Switch,
@@ -10,13 +11,14 @@ import {
 import { ErrorBoundary } from 'client/ui/components/_base/ErrorBoundary';
 import { ScrollToTop } from 'client/ui/components/_base/ScrollToTop';
 import { Loader } from 'client/ui/components/_base/Loader';
-import { Page404 } from 'client/ui/page/common/404';
 
 const Restaurant = lazy(() => import('client/ui/page/front/Restaurant'));
+const Page404 = lazy(() => import('client/ui/page/common/404'));
 
 export const Routers = () => {
+  const { name } = useSelector(store => store.restaurant);
   const history = useHistory();
-  const handleRoute = useCallback((path) => history.push(path), []);
+  const handleRoute = useCallback(() => history.push(`/restaurant/${name}/categories`), []);
 
   return (
     <React.Fragment>
@@ -25,13 +27,13 @@ export const Routers = () => {
           Digital Carte
         </title>
       </Helmet>
-      <ErrorBoundary onClick={() => handleRoute('/restaurant/categories')}>
+      <ErrorBoundary onClick={handleRoute}>
         <ScrollToTop>
           <Suspense fallback={<Loader />}>
             <Switch>
               <Route exact path="/restaurant/*" component={Restaurant} />
               <Route path="/404">
-                <Page404 onClick={() => handleRoute('/restaurant/categories')} />
+                <Page404 onClick={handleRoute} />
               </Route>
               <Redirect to="/404" />
             </Switch>

@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import i18n from 'client/i18n';
+
 import {
   Wrapper,
   List,
@@ -29,13 +31,13 @@ const mock = [
   },
 ];
 
-const Language = ({ categories }) => {
+const Language = () => {
   const history = useHistory();
-  const path = '/restaurant/las-cuevas/categories';
-  
+  const languages = null;
+
   const handleClick = (lng) => {
-    // change state lng
-    history.push(path);
+    i18n.changeLanguage(lng);
+    history.push('categories');
   };
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const Language = ({ categories }) => {
   return (
     <Wrapper>
       <List>
-        {(categories || mock).map(({ lng, name }) => (
+        {(languages || mock).map(({ lng, name }) => (
           <ButtonStyled
             key={lng}
             onClick={() => handleClick(lng)}

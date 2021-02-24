@@ -27,9 +27,15 @@ export const IconWrapper = styled.div`
 `;
 
 export const Title = styled.h3`
-  font-size: 20px;
-  font-family: ${FONTS.bold};
-  margin-bottom: 30px;
+  font-size: 16px;
+  font-family: ${FONTS.regular};
+  margin: 0;
+  margin-top: 14px;
+`;
+
+export const Hr = styled.hr`
+  margin: 14px 0;
+  border: 0.4px solid ${PALETTE.grey7};
 `;
 
 export const Description = styled.p`
@@ -38,4 +44,5 @@ export const Description = styled.p`
   color: ${PALETTE.grey5};
   text-align: center;
   white-space: pre-line;
+  margin: 0;
 `;

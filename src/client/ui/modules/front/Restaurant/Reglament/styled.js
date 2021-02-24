@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Allergens } from 'client/ui/components/Allergens';
+import { Allergens } from 'client/ui/components/_block/Allergens';
 import { FONTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -14,12 +14,14 @@ export const Header = styled.div`
 export const Title = styled.h3`
   font-size: 20px;
   font-family: ${FONTS.bold};
+  margin: 0;
   margin-bottom: 12px;
 `;
 
 export const Description = styled.p`
   font-size: 16px;
   font-family: ${FONTS.bold};
+  text-align: justify;
 `;
 
 export const AllergensStyled = styled(Allergens)`

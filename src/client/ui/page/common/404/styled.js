@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconTextBtn } from 'client/ui/components/_base/Block/IconTextBtn';
+import { IconTextBtn } from 'client/ui/components/_block/IconTextBtn';
 import { PALETTE, FONTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -21,6 +21,7 @@ export const Logo = styled.div`
 `;
 
 export const Code = styled.h3`
+  margin-top: 20px;
   margin-bottom: 25px;
   font-size: 48px;
   font-family: ${FONTS.medium};

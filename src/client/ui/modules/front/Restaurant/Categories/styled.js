@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_base/ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button/Btn';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -11,6 +11,7 @@ export const Title = styled.h3`
   font-size: 16px;
   text-transform: uppercase;
   text-align: center;
+  margin: 0;
   margin-bottom: 12px;
 `;
 

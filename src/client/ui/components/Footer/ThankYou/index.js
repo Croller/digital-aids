@@ -5,6 +5,7 @@ import {
   Wrapper,
   IconWrapper,
   Title,
+  Hr,
   Description,
 } from './styled';
 
@@ -18,6 +19,7 @@ export const ThankYou = memo(() => {
       <Title>
         {t('footer.thankyou.title')}
       </Title>
+      <Hr />
       <Description>
         {t('footer.thankyou.descriptions')}
       </Description>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header';
 import { Footer } from 'client/ui/components/Footer';
@@ -19,11 +20,12 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
+  const { name } = useSelector(store => store.restaurant);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
-  const path = '/restaurant/las-cuevas';
   
   const handleRoute = useCallback((part) => {
+    const path = `/restaurant/${name}`;
     const editPart = part === 'back' ? 'categories' : part;
 
     if (history.action !== 'POP' && part === 'back') {
@@ -33,28 +35,40 @@ export const Layout = ({
     history.push(`${path}/${editPart}`);
   }, []);
 
+  const getShowClose = (path) => {
+    const bool = ['language', 'menu', 'reglament', 'opinion'].includes(path);
+    return bool;
+  };
+
+  const getShowHeader = (path) => {
+    const bool = !['information', 'foodtops', 'receipt'].some(f => path.indexOf(f) > -1);
+    return bool;
+  };
   useEffect(() => {
     setIsMobile(window.innerWidth <= BREAKPOINTS.small);
   }, []);
 
   return (
     <Wrapper className={className}>
-      {!['information', 'foodtops'].includes(pathname) && (
+      {getShowHeader(pathname) && (
         header || (
           <Header
-            showClose={['language', 'menu', 'reglament', 'opinion'].includes(pathname)}
+            showClose={getShowClose(pathname)}
             isMobile={isMobile}
             onRoute={handleRoute}
           />
         )
       )}
-      <Cotainer>
+      <Cotainer header={getShowHeader(pathname)}>
         <Content>
           {children}
         </Content>
       </Cotainer>
       {isMobile ? (footerMenu || (
-        <MobileMenu onRoute={handleRoute} />
+        <MobileMenu
+          pathname={pathname}
+          onRoute={handleRoute}
+        />
       )) : (footer || (<Footer />))}
     </Wrapper>
   );

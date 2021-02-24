@@ -1,13 +1,22 @@
 // svg
 import ChefSvg from './svg/chef.svg';
-import ThumbsUpGreenSvg from './svg/thumbsUpGreen.svg';
-import QuestionCircleSvg from './svg/questionCircle.svg';
-import AlertCircleSvg from './svg/alertCircle.svg';
+import ThumbsUpGreenSvg from './svg/thumbs-up-green.svg';
+import QuestionCircleSvg from './svg/question-circle.svg';
+import AlertCircleSvg from './svg/alert-circle.svg';
 import HamburgerSvg from './svg/hamburger.svg';
 import CloseSvg from './svg/close.svg';
 import GlobalSvg from './svg/global.svg';
 import DishSvg from './svg/dish.svg';
-import DishApplinesSvg from './svg/dishApplines.svg';
+import DishApplinesSvg from './svg/dish-applines.svg';
+import PhoneCallSvg from './svg/phone-call.svg';
+import ClockSvg from './svg/clock.svg';
+import TagSvg from './svg/tag.svg';
+import MapMarkerSvg from './svg/map-marker.svg';
+import LinkExternalSvg from './svg/link-external.svg';
+import RateImageSvg from './svg/rate-image.svg';
+import RateTripadvisorSvg from './svg/rate-tripadvisor.svg';
+import InstagramSvg from './svg/instagram.svg';
+import FacebookSvg from './svg/facebook.svg';
 
 // svg allergens
 import MustardSvg from './svg/allergens/mustard.svg';
@@ -33,6 +42,9 @@ import EmojiiHeartEyesPng from './png/heart-eyes.png';
 
 // temp
 import RestaurantLogoTempPng from './png/temp/restaurantLogoTemp.png';
+import PlateTempPng from './png/temp/plateTemp.png';
+import FoodTipsTempPng from './png/temp/foodTipsTemp.png';
+import RestourantInfoTempPng from './png/temp/restourantInfoTemp.png';
 
 export {
   ChefSvg,
@@ -44,6 +56,15 @@ export {
   GlobalSvg,
   DishSvg,
   DishApplinesSvg,
+  PhoneCallSvg,
+  ClockSvg,
+  TagSvg,
+  MapMarkerSvg,
+  LinkExternalSvg,
+  RateImageSvg,
+  RateTripadvisorSvg,
+  InstagramSvg,
+  FacebookSvg,
   
   MustardSvg,
   DairySvg,
@@ -65,5 +86,9 @@ export {
   EmojiiSmilingFacePng,
   EmojiiVerySadPng,
   EmojiiHeartEyesPng,
+
   RestaurantLogoTempPng,
+  PlateTempPng,
+  FoodTipsTempPng,
+  RestourantInfoTempPng,
 };

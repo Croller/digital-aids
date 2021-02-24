@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import { Button } from 'client/ui/components/_ui/Button/Btn';
 import { PALETTE, THEME, FONTS } from 'client/style/constants';
-import { Button } from 'client/ui/components/_base/ui/Button/Btn';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -31,6 +31,10 @@ export const LogoTitle = styled.div`
   > svg {
     border-radius: 29%;
     margin-top: 10px;
+
+    path {
+      fill: ${PALETTE.green1}
+    }
   }
 `;
 
@@ -41,14 +45,15 @@ export const Content = styled.div`
   justify-content: center;
 `;
 
-export const Text = styled.p`
+export const Text = styled.div`
   padding: 0;
   text-align: center;
   font-size: 18px;
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.medium};
   color: ${PALETTE.black};
   margin-top: 96px;
   margin-bottom: 47px;
+  line-height: 26px;
 `;
 
 export const ButtonStyled = styled(Button)`

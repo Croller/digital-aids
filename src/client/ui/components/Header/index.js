@@ -1,12 +1,24 @@
 import React from 'react';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { CloseSvg, HamburgerSvg, RestaurantLogoTempPng } from 'client/assets/images';
 import {
   HeaderWrapper,
-  Logo, LogoImg,
+  LogoWrapper, LogoImg,
   ControlWrapper,
   Close, Hamburger,
 } from './styled';
+
+const PATH_SHOW_CLOSE = [
+  'language',
+  'menu',
+  'reglament',
+  'opinion',
+  'categories',
+];
+
+const PATH_HIDE_CLOSE = [
+  'categories/',
+];
 
 const HeaderComponent = ({
   className,
@@ -15,14 +27,7 @@ const HeaderComponent = ({
   onRoute,
 }) => {
   const { location: { pathname } } = history;
-  const part = pathname.split('/').slice(-1)[0];
-  const showClose = [
-    'language',
-    'menu',
-    'reglament',
-    'opinion',
-    'categories',
-  ].includes(part);
+  const showClose = PATH_SHOW_CLOSE.some(key => pathname.indexOf(key) > -1) && !PATH_HIDE_CLOSE.some(key => pathname.indexOf(key) > -1);
   
   return (
     <>
@@ -30,9 +35,9 @@ const HeaderComponent = ({
         className={className}
         isMobile={isMobile}
       >
-        <Logo>
+        <LogoWrapper>
           <LogoImg src={RestaurantLogoTempPng} />
-        </Logo>
+        </LogoWrapper>
         <ControlWrapper>
           {showClose ? (
             <Close onClick={() => onRoute('back')}>

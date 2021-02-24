@@ -39,6 +39,16 @@ export const Item = styled.div`
   &:hover {
     color: ${PALETTE.black};
   }
+
+  > div > svg {
+    path {
+      fill: ${p => (p.active ? `${PALETTE.black}` : `${PALETTE.grey1}`)};
+    }
+  }
+
+  > span {
+    color: ${p => (p.active ? `${PALETTE.black}` : `${PALETTE.grey1}`)};
+  }
 `;
 
 export const IconWrapper = styled.div`

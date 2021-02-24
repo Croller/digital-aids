@@ -9,7 +9,7 @@ import {
   Text,
 } from './styled';
 
-export const Page404 = memo(({ onClick }) => {
+const Page404 = memo(({ onClick }) => {
   const [t] = useTranslation();
   return (
     <React.Fragment>
@@ -38,3 +38,4 @@ export const Page404 = memo(({ onClick }) => {
   );
 });
 
+export default Page404;

@@ -1,7 +1,7 @@
 export const BREAKPOINTS = {
   small: 420,
   medium: 768,
-  large: 1366,
+  large: 1440,
   xlarge: 1920,
 };
 
@@ -22,6 +22,9 @@ export const PALETTE = {
   grey4: '#868686',
   grey5: '#828282',
   grey6: '#C1C1C1',
+  grey7: '#F2F2F2',
+  grey8: '#DBD8DD',
+  grey9: '#4F4F4F',
   
   green1: '#219653',
 

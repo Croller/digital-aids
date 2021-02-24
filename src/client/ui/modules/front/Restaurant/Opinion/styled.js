@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_base/ui/Button/Btn';
-import { TextArea } from 'client/ui/components/_base/ui/TextArea';
+import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { TextArea } from 'client/ui/components/_ui/TextArea';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`

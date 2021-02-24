@@ -8,7 +8,6 @@ export const HeaderWrapper = styled.div`
   background-color: ${PALETTE.white};
   height: 60px;
   box-shadow: ${THEME.boxShadowHeader};
-  padding: 0 20px 0 27px;
 
   ${p => p.isMobile && css`
     position: fixed;
@@ -19,11 +18,10 @@ export const HeaderWrapper = styled.div`
   `}
 `;
 
-export const Logo = styled.div`
+export const LogoWrapper = styled.div`
   height: 38;
   width: 118;
-  left: 27px;
-  top: 9px;
+  margin-left: 20px;
 `;
 
 export const LogoImg = styled.img`
@@ -35,6 +33,7 @@ export const ControlWrapper = styled.div`
   justify-content: center;
   height: 19px;
   width: 24px;
+  margin-right: 27px;
 `;
 
 export const Close = styled.div`

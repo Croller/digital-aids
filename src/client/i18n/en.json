@@ -9,7 +9,29 @@
       "foodtips": "Foodtips",
       "menu": "Menu",
       "send": "Send",
-      "comments": "Comments"
+      "comments": "Comments",
+      "reviewies": "Reviewies",
+      "avg_price": "Average price",
+      "call_us": "Call us",
+
+      "currency": {
+        "euro": "€"
+      },
+      "unit": {
+        "kg": "kg",
+        "gr": "gr",
+        "l": "L",
+        "ml": "ml",
+        "pc": "pc",
+        "pr": "pr"
+      },
+      "kitchen": {
+        "fusion": "Fusion cuisine"
+      },
+      "laguages": {
+        "en": "English",
+        "ru": "Русский"
+      }
     },
 
     "pageMenu": {

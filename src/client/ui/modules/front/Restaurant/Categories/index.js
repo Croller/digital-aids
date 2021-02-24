@@ -50,7 +50,6 @@ const mock = [
 const Categories = ({ categories }) => {
   const history = useHistory();
   const [t] = useTranslation();
-  const path = '/restaurant/las-cuevas/categories';
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -65,7 +64,7 @@ const Categories = ({ categories }) => {
         {(categories || mock).map(({ key, name }) => (
           <ButtonStyled
             key={key}
-            onClick={() => history.push(`${path}/${key}`)}
+            onClick={() => history.push(`categories/${key}`)}
           >
             {name}
           </ButtonStyled>

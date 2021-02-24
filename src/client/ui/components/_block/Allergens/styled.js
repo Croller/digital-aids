@@ -37,4 +37,5 @@ export const Description = styled.p`
   font-size: 16px;
   font-family: ${FONTS.bold};
   white-space: pre-line;
+  text-align: justify;
 `;

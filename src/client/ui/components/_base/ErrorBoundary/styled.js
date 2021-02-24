@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconTextBtn } from 'client/ui/components/_base/Block/IconTextBtn';
+import { IconTextBtn } from 'client/ui/components/_block/IconTextBtn';
 
 export const IconTextBtnStyled = styled(IconTextBtn)`
   margin: 25% auto 80px;

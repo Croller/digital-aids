@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 import { GlobalSvg, DishSvg, DishApplinesSvg } from 'client/assets/images';
 import {
   ScrollHideBlockStyled,
@@ -11,7 +12,7 @@ import {
 } from './styled';
 
 export const MobileMenu = memo(({
-  // data = {},
+  pathname = null,
   onRoute,
 }) => {
   const [t] = useTranslation();
@@ -40,6 +41,7 @@ export const MobileMenu = memo(({
         {ITEMS.map(({ key, icon, text }, i) => (
           <Item
             key={key}
+            active={pathname.indexOf(key) > -1}
             onClick={() => onRoute(key)}
           >
             <IconWrapper>
