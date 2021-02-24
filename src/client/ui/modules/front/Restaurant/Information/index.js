@@ -106,7 +106,7 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ClockSvg />
             <IconText>
-              {t(`common.cuisine.${cuisine[0]}`)}
+              {t(`common.cuisine_type.${cuisine[0]}`)}
               &nbsp;
               {t('common.cuisine')}
             </IconText>

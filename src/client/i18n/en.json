@@ -26,8 +26,8 @@
         "pc": "pc",
         "pr": "pr"
       },
-      "kitchen": {
-        "fusion": "Fusion cuisine"
+      "cuisine_type": {
+        "fusion": "Fusion"
       },
       "laguages": {
         "en": "English",
