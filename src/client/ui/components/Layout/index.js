@@ -20,12 +20,12 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
-  const { name } = useSelector(store => store.restaurant);
+  const { urn } = useSelector(store => store.restaurant);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
   
   const handleRoute = useCallback((part) => {
-    const path = `/restaurant/${name}`;
+    const path = `/restaurant/${urn}`;
     const editPart = part === 'back' ? 'categories' : part;
 
     if (history.action !== 'POP' && part === 'back') {

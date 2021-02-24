@@ -7,7 +7,7 @@ import { categories, dishes } from './mock';
 const initState = {
   id: 213123,
   name: 'Las Cuevas',
-  path: 'las-cuevas',
+  urn: 'las-cuevas',
   address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
   geo: [37.9763475, -0.7892281],
   phone: ['+34600001117', '34600001117'],
@@ -16,51 +16,51 @@ const initState = {
   avg_price: 2.60,
   currency: ['euro', 'rub'],
   cuisine: ['fusion'], // i18n added all kictchen could be
-  images: [], // array of image binary
+  images: null, // array of image binary
   logo: null, 
   laguages: ['en', 'ru'],
   work_time: [
     {
-      key: 'monday',
+      key: 'mon',
       from: 0,
       to: 0,
       dayoff: false,
     },
     {
-      key: 'tuesday',
+      key: 'tue',
       from: 0,
       to: 0,
       dayoff: false,
     },
     {
-      key: 'wednesday',
+      key: 'wed',
       from: 0,
       to: 0,
       dayoff: false,
     },
     {
-      key: 'thursday',
+      key: 'thu',
       from: 0,
       to: 0,
       dayoff: false,
     },
     {
-      key: 'friday',
+      key: 'fri',
       from: 0,
       to: 0,
       dayoff: false,
     },
     {
-      key: 'saturday',
+      key: 'sat',
       from: 0,
       to: 0,
-      dayoff: false,
+      dayoff: true,
     },
     {
-      key: 'sunday',
+      key: 'sun',
       from: 0,
       to: 0,
-      dayoff: false,
+      dayoff: true,
     },
   ],
   raiting: {

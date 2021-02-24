@@ -13,6 +13,7 @@
       "reviewies": "Reviewies",
       "avg_price": "Average price",
       "call_us": "Call us",
+      "cuisine": "Cuisine",
 
       "currency": {
         "euro": "€"
@@ -31,6 +32,15 @@
       "laguages": {
         "en": "English",
         "ru": "Русский"
+      },
+      "week_day_short": {
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat",
+        "sun": "Sun"
       }
     },
 

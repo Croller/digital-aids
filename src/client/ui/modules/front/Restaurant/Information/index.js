@@ -1,5 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { RateCircle } from 'client/ui/components/_block/RateCircle';
 import {
@@ -32,7 +34,37 @@ import {
 } from './styled';
 
 const Information = memo(() => {
+  const {
+    name,
+    address,
+    geo,
+    phone,
+    avg_price,
+    cuisine,
+    images,
+    work_time,
+    raiting,
+  } = useSelector(store => store.restaurant);
+  const history = useHistory();
   const [t] = useTranslation();
+
+  const handleRoute = (path = 'categories', external = false) => {
+    if (external) {
+      window.open(path, '_blank').focus();
+    }
+    history.push(path);
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      await navigator.share({
+        title: 'Digital Carte',
+        url: 'https://digital-carte.com/',
+      })
+        .then(() => console.log('Successful share! 🎉'))
+        .catch(err => console.error(err));
+    }
+  };
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -40,29 +72,29 @@ const Information = memo(() => {
 
   return (
     <Wrapper>
-      <CloseButton>
+      <CloseButton onClick={() => handleRoute('categories')}>
         <CloseSvg />
       </CloseButton>
       <Slider
         autoPlay
         showThumbs={false}
       >
-        <ImgWrapper>
-          <Img src={RestourantInfoTempPng} />
-        </ImgWrapper>
-        <ImgWrapper>
-          <Img src={RestourantInfoTempPng} />
-        </ImgWrapper>
-        <ImgWrapper>
-          <Img src={RestourantInfoTempPng} />
-        </ImgWrapper>
+        {images ? images.map((src, s) => (
+          <ImgWrapper key={`_image_${s + 1}`}>
+            <Img src={src} />
+          </ImgWrapper>
+        )) : [...(new Array(5))].map((src, s) => (
+          <ImgWrapper key={`_image_${s + 1}`}>
+            <Img src={RestourantInfoTempPng} />
+          </ImgWrapper>
+        ))}
       </Slider>
       <Content>
         <Restaurant>
-          Las Cuevas
+          {name}
         </Restaurant>
         <InfoWrapper>
-          <LinkButton>
+          <LinkButton onClick={handleShare}>
             <LinkExternalSvg />
           </LinkButton>
           <IconTextWrapper>
@@ -74,7 +106,9 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ClockSvg />
             <IconText>
-              Fusion cuisine 
+              {t(`common.cuisine.${cuisine[0]}`)}
+              &nbsp;
+              {t('common.cuisine')}
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>
@@ -82,30 +116,31 @@ const Information = memo(() => {
             <IconText>
               {t('common.avg_price')} 
               <Price>
-                ~25
+                ~
+                {avg_price.toFixed(2)}
               </Price>
             </IconText>
           </IconTextWrapper>
           <InfoControls>
-            <CallButton>
+            <CallButton onClick={() => phone && handleRoute(`tel:${phone[0]}`, true)}>
               <PhoneCallSvg />
               {t('common.call_us')} 
             </CallButton>
-            <MenuButton>
+            <MenuButton onClick={() => handleRoute('categories')}>
               {t('common.menu')} 
             </MenuButton>
           </InfoControls>
         </InfoWrapper>
         <AddessWrapper>
           <RestaurantName>
-            Las Cuevas
+            {name}
           </RestaurantName>
           <Hr />
           <AddressContainer>
             <AddressTitle>
               <MapMarkerSvg />
               <Address>
-                Barrio Primero de Mayo 13 - San Miguel de Salinas
+                {address}
               </Address>
             </AddressTitle>
             <MapStyled />
@@ -116,17 +151,18 @@ const Information = memo(() => {
             <Rate>
               <RateImageSvg />
               <RateCurrent>
-                9,4
+                {raiting.common.rate.toFixed(1)}
               </RateCurrent>
               <RateMax>
                 &nbsp;/&nbsp;10
               </RateMax>
             </Rate>
             <RateComment>
-              66 &nbsp;
+              {raiting.common.comments.length}
+              &nbsp;
               {t('common.comments')} 
             </RateComment>
-            <ReviewsButton>
+            <ReviewsButton onClick={() => handleRoute('categories', true)}>
               {t('common.reviewies')} 
             </ReviewsButton>
           </RateBlock>
@@ -134,14 +170,15 @@ const Information = memo(() => {
             <Rate>
               <RateTripadvisorSvg />
               <RateCurrent>
-                <RateCircle rate={4} />
+                <RateCircle rate={raiting.tripadvisor.rate} />
               </RateCurrent>
             </Rate>
             <RateComment>
-              66 &nbsp;
+              {raiting.tripadvisor.comments.length}
+              &nbsp;
               {t('common.comments')} 
             </RateComment>
-            <ReviewsButton>
+            <ReviewsButton onClick={() => handleRoute('categories', true)}>
               {t('common.reviewies')} 
             </ReviewsButton>
           </RateBlock>
