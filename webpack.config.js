@@ -2,18 +2,18 @@ require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PwaManifestWebpackPlugin = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
-// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-// const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const outputDirectory = 'dist';
 const PLATFORM = process.env.NODE_ENV;
 
+let entry;
 let plugins = [
   new Dotenv({ path: '.env' }),
   new HtmlWebpackPlugin({
@@ -40,32 +40,41 @@ let plugins = [
 ];
 
 if (PLATFORM === 'production') {
+  entry = [
+    './src/client/index.js',
+  ];
   plugins = plugins.concat(
     new MiniCssExtractPlugin({ filename: 'css/[name].[hash].css' }),
+    new CleanWebpackPlugin(),
   );
 }
 
 if (PLATFORM === 'development') {
+  entry = [
+    'babel-polyfill',
+    'react-hot-loader/patch',
+    './src/client/index.js',
+  ];
   plugins = plugins.concat(
-    // new BundleAnalyzerPlugin({ openAnalyzer: false, analyzerMode: 'static' }),
+    new BundleAnalyzerPlugin({ openAnalyzer: false, analyzerMode: 'static' }),
   );
 }
 
 module.exports = {
-  entry: [
-    'babel-polyfill',
-    'react-hot-loader/patch',
-    './src/client/index.js',
-  ],
+  devtool: '',
+  entry,
   output: {
     path: path.join(__dirname, outputDirectory),
-    filename: 'bundle.js',
+    filename: 'js/[name].[hash].js',
     publicPath: '/',
     chunkFilename: 'js/[name].[chunkhash].js',
   },
   optimization: {
     chunkIds: 'named',
     minimize: true,
+    minimizer: [new UglifyJsPlugin({
+      include: /\.js$/,
+    })],
     splitChunks: {
       cacheGroups: {
         vendor: {
