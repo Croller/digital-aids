@@ -35,15 +35,11 @@ export const Layout = ({
     history.push(`${path}/${editPart}`);
   }, []);
 
-  const getShowClose = (path) => {
-    const bool = ['language', 'menu', 'reglament', 'opinion'].includes(path);
-    return bool;
-  };
-
   const getShowHeader = (path) => {
     const bool = !['information', 'foodtips', 'receipt'].some(f => path.indexOf(f) > -1);
     return bool;
   };
+
   useEffect(() => {
     setIsMobile(window.innerWidth <= BREAKPOINTS.small);
   }, []);
@@ -53,7 +49,6 @@ export const Layout = ({
       {getShowHeader(pathname) && (
         header || (
           <Header
-            showClose={getShowClose(pathname)}
             isMobile={isMobile}
             onRoute={handleRoute}
           />

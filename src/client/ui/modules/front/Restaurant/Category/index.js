@@ -28,11 +28,10 @@ const DISH_LIST = [...Array(8)].reduce((arr, item, i) => ([...arr, {
 }]), []);
 
 const Category = () => {
-  const { categories } = useSelector(store => store.restaurant);
-
   const history = useHistory();
   const { category } = useParams();
   const [t] = useTranslation();
+  const { categories } = useSelector(store => store.restaurant);
   const [order, setOrder] = useState([]);
 
   const handleSetOrder = (obj) => {
@@ -58,7 +57,7 @@ const Category = () => {
   };
 
   const getCategory = (key) => {
-    const cat = (categories || mock).find(f => f.key === key);
+    const cat = (categories).find(f => f.key === key);
     return cat || history.push('/404');
   };
 

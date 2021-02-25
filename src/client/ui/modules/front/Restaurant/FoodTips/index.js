@@ -79,8 +79,8 @@ const FoodTips = () => {
             {`${t('common.total')}:`}
           </Total>
           <Price>
-            {item.price.toFixed(2)}
-            {t(`common.currency.${currency[0]}`)}
+            {}
+            {`${item.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
           </Price>
         </PriceWrapper>
         <AddButton>

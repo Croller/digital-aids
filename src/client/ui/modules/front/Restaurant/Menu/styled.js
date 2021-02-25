@@ -18,7 +18,16 @@ export const ButtonStyled = styled(Button)`
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
   background-color: ${PALETTE.white};
-  text-transform: uppercase;
+
+  > svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 13px;
+
+    path {
+      fill: ${PALETTE.grey13};
+    }
+  }
 
   &:not(:last-child) {
     margin-bottom: 12px;
@@ -27,13 +36,14 @@ export const ButtonStyled = styled(Button)`
   &:last-child {
     background-color: ${PALETTE.green1};
     color: ${PALETTE.white};
+    text-transform: uppercase;
   }
 
-  :nth-child(4) {
-    text-transform: none;
+  &:nth-child(4) {
+    background-color: ${PALETTE.grey2};
   }
+`;
 
-  > svg {
-    margin-right: 13px;
-  }
+export const Text = styled.span`
+  display: block;
 `;

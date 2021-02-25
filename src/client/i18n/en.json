@@ -16,6 +16,11 @@
       "cuisine": "Cuisine",
       "add_to_order": "Add to my order",
       "total": "Total",
+      "online": "Online",
+      "order": "Order",
+      "my": "My",
+      "an": "An",
+      "create": "Create",
 
       "currency": {
         "euro": "€"

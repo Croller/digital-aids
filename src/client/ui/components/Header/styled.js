@@ -38,8 +38,26 @@ export const ControlWrapper = styled.div`
 
 export const Close = styled.div`
   display: block;
+
+  > svg {
+    width: 20px;
+    height: 20px;
+
+    path {
+      fill: ${PALETTE.grey1};
+    }
+  }
 `;
 
 export const Hamburger = styled.div`
   display: block;
+
+  > svg {
+    width: 24px;
+    height: 20px;
+
+    path {
+      fill: ${PALETTE.grey1};
+    }
+  }
 `;

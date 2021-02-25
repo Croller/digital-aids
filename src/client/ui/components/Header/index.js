@@ -14,6 +14,7 @@ const PATH_SHOW_CLOSE = [
   'reglament',
   'opinion',
   'categories',
+  'order',
 ];
 
 const PATH_HIDE_CLOSE = [

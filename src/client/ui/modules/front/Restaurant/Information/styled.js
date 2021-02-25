@@ -61,7 +61,7 @@ export const InfoWrapper = styled.div`
   position: relative;
   padding: 16px 14px 14px;
   box-shadow: ${THEME.boxShadow2};
-  margin-bottom: 18px;
+  margin-bottom: 15px;
   border-radius: ${THEME.borderRadius};
   background-color: ${PALETTE.white};
 `;
@@ -122,6 +122,8 @@ export const CallButton = styled(Button)`
   margin-right: 22px;
 
   > svg {
+    width: 18px;
+    height: 18px;
     margin-right: 5px;
 
     path {
@@ -136,6 +138,14 @@ export const MenuButton = styled(Button)`
   background-color: ${PALETTE.green1};
   color: ${PALETTE.white};
   font-size: 14px;
+`;
+
+export const ReservButton = styled(Button)`
+  text-transform: uppercase;
+  box-shadow: ${THEME.boxShadow1};
+  height: 48px;
+  font-size: 16px;
+  margin-bottom: 15px;
 `;
 
 export const AddessWrapper = styled.div`

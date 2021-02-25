@@ -8,6 +8,7 @@ import {
   CloseSvg,
   PhoneCallSvg,
   ClockSvg,
+  ChefHeadSvg,
   TagSvg,
   MapMarkerSvg,
   LinkExternalSvg,
@@ -25,6 +26,7 @@ import {
   InfoWrapper, LinkButton,
   IconTextWrapper, IconText, Price,
   InfoControls, CallButton, MenuButton,
+  ReservButton,
   AddessWrapper,
   RestaurantName, Hr,
   AddressContainer, AddressTitle, Address, MapStyled,
@@ -105,7 +107,7 @@ const Information = memo(() => {
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>
-            <ClockSvg />
+            <ChefHeadSvg />
             <IconText>
               {t(`common.cuisine_type.${cuisine[0]}`)}
               &nbsp;
@@ -133,6 +135,9 @@ const Information = memo(() => {
             </MenuButton>
           </InfoControls>
         </InfoWrapper>
+        <ReservButton>
+          {`${t('common.reservation')} ${t('common.online')}`} 
+        </ReservButton>
         <AddessWrapper>
           <RestaurantName>
             {name}

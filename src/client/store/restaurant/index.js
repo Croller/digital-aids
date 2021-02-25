@@ -11,14 +11,22 @@ const initState = {
   address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
   geo: [37.9763475, -0.7892281],
   phone: ['+34600001117', '34600001117'],
-  email: 'dc-google@gmail.com',
-  manager: ['Alex U', 'Test. u'],
+  email: ['dc-google@gmail.com', 'dc-google@gmail.com'],
   avg_price: 2.60,
-  currency: ['euro', 'rub'],
+  currency: ['euro', 'rub'], // first current currency
   cuisine: ['fusion'], // i18n added all kictchen could be
   images: null, // array of image binary
   logo: null, 
-  laguages: ['en', 'ru'],
+  laguages: ['en', 'ru'], // first current laguage
+  manager: [
+    {
+      key: 'director',
+      name: 'Alex U',
+    }, {
+      key: 'manager',
+      name: 'Test. u',
+    },
+  ],
   work_time: [
     {
       key: 'mon',
@@ -99,7 +107,9 @@ const initState = {
   
   categories,
   dishes,
-
+  order: [categories[0], categories[1], categories[2]],
+  orders: null,
+  
   loading: false,
   errors: null,
 };

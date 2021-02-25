@@ -1,43 +1,55 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { QuestionCircleSvg, AlertCircleSvg } from 'client/assets/images';
+import {
+  QuestionCircleSvg,
+  AlertCircleSvg,
+  GlobalSvg,
+} from 'client/assets/images';
 import {
   Wrapper,
   List,
   ButtonStyled,
+  Text,
 } from './styled';
 
 const Menu = () => {
   const history = useHistory();
   const [t] = useTranslation();
+  const { lng } = useSelector(store => store.user);
 
   const MENU = [
     {
-      path: 'information',
-      name: t('common.reservation'),
-    },
-    {
-      path: 'language',
-      name: t('common.language'),
+      path: 'reglament',
+      name: (
+        <>
+          <AlertCircleSvg />
+          <Text>{t('common.reglament')}</Text>
+        </>
+      ),
     },
     {
       path: 'opinion',
       name: (
         <>
           <QuestionCircleSvg />
-          {t('common.opinion')}
+          <Text>{t('common.opinion')}</Text>
         </>
       ),
     },
     {
-      path: 'reglament',
+      path: 'language',
       name: (
         <>
-          <AlertCircleSvg />
-          {t('common.reglament')}
+          <GlobalSvg />
+          <Text>{t(`common.laguages.${lng}`)}</Text>
         </>
       ),
+    },
+    {
+      path: 'information',
+      name: t('common.reservation'),
     },
     {
       path: 'foodtips',
