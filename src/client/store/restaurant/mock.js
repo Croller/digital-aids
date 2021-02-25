@@ -94,10 +94,16 @@ export const categories = [
     name: 'Drinks with alcohol',
     work: null,
     groups: null,
-    check_age: false,
+    check_age: true,
     options: null,
     dishes: [5, 6, 7], // id dishes
-    offers: null,
+    offers: [
+      {
+        src: null,
+        url: null,
+        description: 'Don\'t waste your time, \n taste the world every day!',
+      },
+    ],
   },
   {
     key: 'drinks-no-alcohol',
@@ -126,6 +132,7 @@ export const dishes = [
     id: 1,
     number: 1,
     name: 'Spicy Korean salad',
+    key: 'spicy-korean-salad',
     description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
     foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
     amount: 200,

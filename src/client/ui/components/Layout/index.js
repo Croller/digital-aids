@@ -20,12 +20,12 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
-  const { urn } = useSelector(store => store.restaurant);
+  const { key } = useSelector(store => store.restaurant);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
   
   const handleRoute = useCallback((part) => {
-    const path = `/restaurant/${urn}`;
+    const path = `/restaurant/${key}`;
     const editPart = part === 'back' ? 'categories' : part;
 
     if (history.action !== 'POP' && part === 'back') {
@@ -41,7 +41,7 @@ export const Layout = ({
   };
 
   const getShowHeader = (path) => {
-    const bool = !['information', 'foodtops', 'receipt'].some(f => path.indexOf(f) > -1);
+    const bool = !['information', 'foodtips', 'receipt'].some(f => path.indexOf(f) > -1);
     return bool;
   };
   useEffect(() => {

@@ -31,8 +31,8 @@ export const Count = styled.div`
   height: 35px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  color: ${PALETTE.white};
   border-radius: ${THEME.borderRadiusControl};
   margin-right: 16px;
-  background-color: ${PALETTE.black};
+  background-color: ${p => (p.selected ? `${PALETTE.grey2}` : `${PALETTE.black}`)};
+  color: ${p => (p.selected ? `${PALETTE.black}` : `${PALETTE.white}`)};
 `;

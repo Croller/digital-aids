@@ -9,6 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const outputDirectory = 'dist';
 const PLATFORM = process.env.NODE_ENV;
@@ -48,6 +49,20 @@ if (PLATFORM === 'production') {
     new CleanWebpackPlugin(),
   );
 }
+// if (process.env.npm_config_with_report) { // npm run build --watch-report
+//   plugins = plugins.concat(
+//     new BrowserSyncPlugin(
+//       {
+//         host: 'localhost',
+//         port: 3000,
+//         proxy: 'http://localhost:8080/',
+//       },
+//       {
+//         reload: false,
+//       },
+//     ),
+//   );
+// }
 
 if (PLATFORM === 'development') {
   entry = [
@@ -71,10 +86,10 @@ module.exports = {
   },
   optimization: {
     chunkIds: 'named',
-    minimize: true,
-    minimizer: [new UglifyJsPlugin({
-      include: /\.js$/,
-    })],
+    // minimize: true,
+    // minimizer: [new UglifyJsPlugin({
+    //   include: /\.js$/,
+    // })],
     splitChunks: {
       cacheGroups: {
         vendor: {

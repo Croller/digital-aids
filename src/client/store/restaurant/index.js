@@ -7,7 +7,7 @@ import { categories, dishes } from './mock';
 const initState = {
   id: 213123,
   name: 'Las Cuevas',
-  urn: 'las-cuevas',
+  key: 'las-cuevas',
   address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
   geo: [37.9763475, -0.7892281],
   phone: ['+34600001117', '34600001117'],
@@ -83,7 +83,7 @@ const initState = {
     {
       key: 'instagram',
       name: 'Instagram',
-      url: 'https://',
+      url: 'https://www.instagram.com/',
     },
     {
       key: 'facebook',

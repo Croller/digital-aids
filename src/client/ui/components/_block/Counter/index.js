@@ -17,7 +17,7 @@ export const Counter = memo(({
     >
       -
     </Control>
-    <Count>
+    <Count selected={count > 0}>
       {count}
     </Count>
     <Control

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { PALETTE, FONTS, THEME } from 'client/style/constants';
+import { Button } from 'client/ui/components/_ui/Button/Btn';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -34,8 +35,9 @@ export const Title = styled.h3`
 `;
 
 export const Hr = styled.hr`
+  width: 100%;
   margin: 14px 0;
-  border: 0.4px solid ${PALETTE.grey7};
+  border: 0.2px solid ${PALETTE.grey7};
 `;
 
 export const Description = styled.p`
@@ -45,4 +47,21 @@ export const Description = styled.p`
   text-align: center;
   white-space: pre-line;
   margin: 0;
+  margin-bottom: 22px;
+`;
+
+export const SocialWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SocialButton = styled(Button)`
+  height: 26px;
+  background-color: transparent;
+
+  &:not(:last-child) {
+    margin-right: 26px;
+  }
 `;

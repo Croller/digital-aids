@@ -16,9 +16,9 @@ const Restaurant = lazy(() => import('client/ui/page/front/Restaurant'));
 const Page404 = lazy(() => import('client/ui/page/common/404'));
 
 export const Routers = () => {
-  const { urn } = useSelector(store => store.restaurant);
+  const { key } = useSelector(store => store.restaurant);
   const history = useHistory();
-  const handleRoute = useCallback(() => history.push(`/restaurant/${urn}/categories`), []);
+  const handleRoute = useCallback(() => history.push(`/restaurant/${key}/categories`), []);
 
   return (
     <React.Fragment>

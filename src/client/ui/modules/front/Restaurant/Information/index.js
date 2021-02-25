@@ -37,13 +37,14 @@ const Information = memo(() => {
   const {
     name,
     address,
-    geo,
+    // geo,
     phone,
     avg_price,
     cuisine,
     images,
-    work_time,
+    // work_time,
     raiting,
+    currency,
   } = useSelector(store => store.restaurant);
   const history = useHistory();
   const [t] = useTranslation();
@@ -118,6 +119,7 @@ const Information = memo(() => {
               <Price>
                 ~
                 {avg_price.toFixed(2)}
+                {t(`common.currency.${currency[0]}`)}
               </Price>
             </IconText>
           </IconTextWrapper>

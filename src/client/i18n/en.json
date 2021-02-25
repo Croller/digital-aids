@@ -14,6 +14,8 @@
       "avg_price": "Average price",
       "call_us": "Call us",
       "cuisine": "Cuisine",
+      "add_to_order": "Add to my order",
+      "total": "Total",
 
       "currency": {
         "euro": "€"
@@ -96,6 +98,9 @@
       "thankyou": {
         "title": "Thank you!",
         "descriptions": "Your opinion is very important for \n us, please, let us know it!"
+      },
+      "dontwaste": {
+        "descriptions": "Don’t waste your time, \n Taste the world every day!"
       }
     },
 
