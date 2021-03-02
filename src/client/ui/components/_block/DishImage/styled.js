@@ -36,24 +36,12 @@ export const Content = styled.div`
   padding: 20px 12px;
 `;
 
-export const TitleWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-`;
-
-export const Title = styled.span`
+export const Title = styled.h3`
   font-size: 18px;
   font-family: ${FONTS.medium};
+  width: 80%;
+  margin: 0;
   margin-bottom: 14px;
-`;
-
-export const CheckBox = styled.div`
-  width: 24px;
-  height: 24px;
-  border-radius: ${THEME.borderRadiusControl};
-  border: 1px solid ${PALETTE.black};
 `;
 
 export const Description = styled.p`

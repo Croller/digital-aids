@@ -11,14 +11,18 @@ export const Wrapper = styled.div`
 
 export const CloseButton = styled(Button)`
   position: absolute;
-  top: 20px;
-  right: 26px;
+  top: 21px;
+  right: 29px;
   width: 20px;
   height: 20px;
+  padding: 0;
   background-color: transparent;
   z-index: 25;
 
   > svg {
+    width: 20px;
+    height: 20px;
+
     path {
       fill: ${PALETTE.white};
     }

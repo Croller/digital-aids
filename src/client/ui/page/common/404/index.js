@@ -1,6 +1,8 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { RestaurantLogoTempPng } from 'client/assets/images';
 import {
   Wrapper,
   IconTextBtnStyled,
@@ -11,19 +13,20 @@ import {
 
 const Page404 = memo(({ onClick }) => {
   const [t] = useTranslation();
+  const { logo } = useSelector(store => store.restaurant);
   return (
     <React.Fragment>
       <Helmet>
         <meta content="404" />
         <title>
-          404 - Error page
+          {t('page404.helmet')}
         </title>
       </Helmet>
       <Wrapper>
-        <Logo />
+        <Logo src={logo || RestaurantLogoTempPng} />
         <IconTextBtnStyled
           onClick={onClick}
-          btn="menu"
+          btn={t('common.menu')}
           text={(
             <>
               <Code>404</Code>

@@ -24,26 +24,14 @@ export class ErrorBoundary extends React.Component {
   
   render() {
     const { hasError } = this.state;
-    const { children } = this.props;
+    const { t, children, onClick } = this.props;
 
     if (hasError) {
       return IconTextBtn ? (
         <IconTextBtnStyled
-          onClick={this.onClick}
-          btnText="menu"
-          text={(
-            <>
-              Opps! It seems that
-              <br />
-              somithing was wrong.
-              <br />
-              But we are here to help you!
-              <br />
-              Please, just press
-              <br />
-              the botton and try again.
-            </>
-          )}
+          onClick={onClick}
+          btn="menu"
+          text={(t('pageError.text'))}
         />
       ) : (
         <Text>

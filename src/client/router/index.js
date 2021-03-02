@@ -1,6 +1,7 @@
 import React, { Suspense, lazy, useCallback } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   Route,
   Switch,
@@ -18,6 +19,7 @@ const Page404 = lazy(() => import('client/ui/page/common/404'));
 export const Routers = () => {
   const { key } = useSelector(store => store.restaurant);
   const history = useHistory();
+  const [t] = useTranslation();
   const handleRoute = useCallback(() => history.push(`/restaurant/${key}/categories`), []);
 
   return (
@@ -27,7 +29,7 @@ export const Routers = () => {
           Digital Carte
         </title>
       </Helmet>
-      <ErrorBoundary onClick={handleRoute}>
+      <ErrorBoundary t={t} onClick={handleRoute}>
         <ScrollToTop>
           <Suspense fallback={<Loader />}>
             <Switch>

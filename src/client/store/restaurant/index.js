@@ -1,8 +1,8 @@
 import {
-  USER_LOGIN,
-  // USER_LOGOUT,
+  REST_SET_ORDER,
+  REST_CLEAR_ORDER,
 } from './constants';
-import { categories, dishes } from './mock';
+import { categoriesMock, dishesMock, orderMock } from './mock';
 
 const initState = {
   id: 213123,
@@ -105,27 +105,70 @@ const initState = {
     },
   ],
   
-  categories,
-  dishes,
-  order: [categories[0], categories[1], categories[2]],
+  categories: categoriesMock,
+  dishes: dishesMock,
+  order: orderMock,
   orders: null,
-  
+
   loading: false,
   errors: null,
 };
 
 export default function (state = initState, action) {
   switch (action.type) {
-    case USER_LOGIN:
-      return { ...initState, fetch: false, isAuth: false };
+    case REST_SET_ORDER: {
+      const { order } = state;
+      const newOrder = action.payload;
+      const stateOrder = [...(order || [])];
+      const existOrder = stateOrder.find(f => f.order_id === newOrder.order_id);
+      let data = [];
+      if (existOrder) {
+        // update
+        const filtred = stateOrder.reduce((arr, item) => {
+          if (item.order_id === newOrder.order_id) {
+            if (newOrder.order.length > 0) {
+              return [...arr, newOrder];
+            }
+            return arr;
+          }
+          return [...arr, item];
+        }, []);
+        data = filtred.length === 0 ? null : filtred;
+      } else {
+        // add new
+        data = [...stateOrder, newOrder];
+      }
+
+      // sort order, daily to top
+      data = [
+        ...data.filter(f => f.dailymenu),
+        ...data.filter(f => !f.dailymenu),
+      ];
+
+      return {
+        ...initState,
+        order: data,
+      };
+    }
+    case REST_CLEAR_ORDER: 
+      return {
+        ...initState,
+        order: null,
+      };
     default:
       return state;
   }
 }
 
-export function userLogin({ login, password }) {
+export function updateOrder(payload) {
   return {
-    type: USER_LOGIN,
-    payload: { login, password },
+    type: REST_SET_ORDER,
+    payload,
+  };
+}
+
+export function clearOrder() {
+  return {
+    type: REST_CLEAR_ORDER,
   };
 }

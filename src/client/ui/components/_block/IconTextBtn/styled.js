@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
   border-radius: ${THEME.borderRadius};
   background-color: ${PALETTE.white};
   padding-bottom: ${p => (p.btn ? 0 : '58px')};
+  margin: 0 auto;
 `;
 
 export const LogoTitle = styled.div`
@@ -29,8 +30,10 @@ export const LogoTitle = styled.div`
   border-radius: 50%;
 
   > svg {
-    border-radius: 29%;
-    margin-top: 10px;
+    width: 73px;
+    height: 73px;
+    border-radius: 100%;
+    margin-top: 14px;
 
     path {
       fill: ${PALETTE.green1}
@@ -54,6 +57,7 @@ export const Text = styled.div`
   margin-top: 96px;
   margin-bottom: 47px;
   line-height: 26px;
+  white-space: pre-line;
 `;
 
 export const ButtonStyled = styled(Button)`

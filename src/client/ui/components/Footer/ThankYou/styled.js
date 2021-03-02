@@ -64,4 +64,9 @@ export const SocialButton = styled(Button)`
   &:not(:last-child) {
     margin-right: 26px;
   }
+
+  > svg {
+    width: 24px;
+    height: 24px;
+  }
 `;

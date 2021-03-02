@@ -6,23 +6,23 @@ import {
 } from './styled';
 
 export const Counter = memo(({
-  count = 0,
+  value = 0,
   max = 99,
   onClick,
 }) => (
   <Wrapper>
     <Control
-      disabled={count === 0}
-      onClick={() => count > 0 && onClick(count - 1)}
+      disabled={value === 0}
+      onClick={() => value > 0 && onClick(value - 1)}
     >
       -
     </Control>
-    <Count selected={count > 0}>
-      {count}
+    <Count selected={value > 0}>
+      {value}
     </Count>
     <Control
-      disabled={count === max}
-      onClick={() => count < max && onClick(count + 1)}
+      disabled={value === max}
+      onClick={() => value < max && onClick(value + 1)}
     >
       +
     </Control>

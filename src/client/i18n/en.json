@@ -21,6 +21,8 @@
       "my": "My",
       "an": "An",
       "create": "Create",
+      "include": "Include",
+      "price": "Price",
 
       "currency": {
         "euro": "€"
@@ -73,11 +75,19 @@
         "angry": "Angry"
       }
     },
+    "pageOrder": {
+      "empty_order": "Your order is empty. \n The selected plate should be \n added to an order"
+    },
+    "pageReceipt": {
+      "ask_waiter": "Ask the waiter to confirm your order"
+    },
     "page404": {
+      "helmet": "404 - Error page",
       "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
     },
-
-
+    "pageError": {
+      "text": "Opps! It seems that \n somithing was wrong. \n But we are here to help you! \n Please, just press \n the botton and try again."
+    },
 
     "compAllergens": {
       "descriptions": "We remind you that this table is indicative and that we cannot guarantee the absence of 100% allergens in all our products. \n\n In case you have any allegry, please, ask the waiter for more detailed information about our dishes.",

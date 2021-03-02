@@ -1,14 +1,13 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { PlateTempPng } from 'client/assets/images';
 import {
   Wrapper,
   ImgWrapper,
   Img,
   Number,
   Content,
-  TitleWrapper,
   Title,
-  // CheckBox,
   Description,
   InfoWrapper,
   AllergensButton,
@@ -19,9 +18,11 @@ export const DishImage = memo(({
   source: {
     src = null,
     number = null,
-    title = '',
+    name = '',
     description = null,
-    weight = null,
+    amount = null,
+    amount_unit = null,
+    allergens = null,
   },
   onShowAllergens,
 }) => {
@@ -30,28 +31,32 @@ export const DishImage = memo(({
   return (
     <Wrapper>
       <ImgWrapper>
-        <Img src={src} />
+        <Img src={src || PlateTempPng} />
         <Number>
           {number || 10}
         </Number>
       </ImgWrapper>
       <Content>
-        <TitleWrapper>
-          <Title>
-            {title}
-          </Title>
-        </TitleWrapper>
-        <Description>
-          {description}
-        </Description>
-        <InfoWrapper>
-          <AllergensButton onClick={onShowAllergens}>
-            {t('common.allergens')}
-          </AllergensButton>
-          <Weight>
-            {`${weight || 0}${t('common.weight.gramm')}`}
-          </Weight>
-        </InfoWrapper>
+        <Title>
+          {name}
+        </Title>
+        {description && (
+          <Description>
+            {description}
+          </Description>
+        )}
+        {(allergens || amount) && (
+          <InfoWrapper>
+            <AllergensButton onClick={onShowAllergens}>
+              {t('common.allergens')}
+            </AllergensButton>
+            {amount && (
+              <Weight>
+                {`${amount || 0} ${amount_unit && t(`common.unit.${amount_unit}`)}`}
+              </Weight>
+            )}
+          </InfoWrapper>
+        )}
       </Content>
     </Wrapper>
   );

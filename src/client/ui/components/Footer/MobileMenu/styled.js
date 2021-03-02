@@ -60,8 +60,8 @@ export const IconWrapper = styled.div`
 
 export const CountBandage = styled.div`
   position: absolute;
-  right: -12px;
-  top: -13px;
+  right: -14px;
+  top: -16px;
   border-radius: 50%;
   background-color: ${PALETTE.red1};
   min-width: 22px;
@@ -71,7 +71,7 @@ export const CountBandage = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 3px;
+  padding: 3px;
 `;
 
 export const Icon = styled.div`

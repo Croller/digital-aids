@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Btn } from './styled';
 
-export const Button = ({
+export const Button = memo(({
   onClick,
   className,
   children,
-}) => (
-  <Btn className={className} onClick={onClick}>
-    {children}
-  </Btn>
-);
+}) => {
+  const handleClick = (e) => {
+    e.stopPropagation();
+    onClick();
+  };
+  return (
+    <Btn className={className} onClick={handleClick}>
+      {children}
+    </Btn>
+  );
+});

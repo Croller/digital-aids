@@ -1,88 +1,158 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DishImage } from 'client/ui/components/_block/DishImage';
-import { PlateTempPng } from 'client/assets/images';
-import { Counter } from 'client/ui/components/_block/Counter';
+import { DishBlock } from 'client/ui/components/_block/DishBlock';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
+import { InfoCircleSvg, ClockSvg } from 'client/assets/images';
+import { updateOrder } from 'client/store/restaurant';
 import {
   Wrapper,
+  TitleWrapper,
   Title,
+  InfoDailyButton,
+  WorkDailyButton,
   DishList,
-  DishWrapper,
-  OrderWrapper,
-  Price,
+  DailyWrapper,
+  TitleGroup,
+  
+  DailyOrderWrapper,
+  PriceWrapper,
+  PriceText,
+  PriceDaily,
+  Include,
+  DailyOrderButton,
 } from './styled';
 
-const DISH_LIST = [...Array(8)].reduce((arr, item, i) => ([...arr, {
-  id: i,
-  src: PlateTempPng,
-  number: i + 1,
-  title: 'Spicy Korean salad',
-  description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
-  foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
-  weight: 200,
-  price: 6.50,
-  currency: 'euro',
-}]), []);
-
 const Category = () => {
-  const history = useHistory();
+  const {
+    currency,
+    categories,
+    dishes,
+    order,
+  } = useSelector(store => store.restaurant);
   const { category } = useParams();
+  const rootDispatch = useDispatch();
   const [t] = useTranslation();
-  const { categories } = useSelector(store => store.restaurant);
-  const [order, setOrder] = useState([]);
+  const [orderId, setOrderId] = useState(1);
+  const [categoryOrder, setCategoryOrder] = useState([]);
+  const [categoryItem, setCategoryItem] = useState(null);
+
+  const handleShowAllergens = (arr) => {
+    console.log('show allergens:', arr);
+  };
 
   const handleSetOrder = (obj) => {
-    setOrder([
-      ...order.filter(f => f.id !== obj.id),
-      obj,
-    ]);
+    let data = [];
+    if (categoryItem.dailymenu) {
+      const bool = categoryOrder.some(s => s.id === obj.dish.id);
+      data = [...categoryOrder.filter(f => f.id !== obj.id)];
+      !bool && data.push(obj);
+    } else {
+      data = [
+        ...categoryOrder.filter(f => f.id !== obj.id),
+        obj,
+      ];
+    }
 
     // to store
-    console.log({
-      category,
-      order,
-    });
+    const newOrder = {
+      ...categoryItem,
+      order_id: orderId,
+      order: data,
+    };
+    setCategoryOrder(data);
+    rootDispatch(updateOrder(newOrder));
   };
 
-  const handleShowAllergens = (id) => {
-    console.log('show allergens:', id);
+  const getDishes = (arr) => dishes.reduce((items, dish) => {
+    if (arr.some(s => s === dish.id)) {
+      return [...items, dish];
+    }
+    return items;
+  }, []);
+
+  const handleClearOrder = () => {
+    setCategoryOrder([]);
+    if (order) {
+      setOrderId(order ? order.length + 1 : 1);
+    }
   };
 
-  const getCount = (id) => {
-    const dish = order.find(f => f.id === id);
-    return dish ? dish.count : 0;
-  };
+  useEffect(() => {
+    const categItem = categories.find(f => f.key === category) || null;
+    setCategoryItem(categItem || null);
 
-  const getCategory = (key) => {
-    const cat = (categories).find(f => f.key === key);
-    return cat || history.push('/404');
-  };
+    // update category if order exist
+    let catOrder = null;
+    if (order) {
+      catOrder = order.find(f => f.key === category);
+      setOrderId(order ? order.length + 1 : orderId);
+    }
+    setCategoryOrder(catOrder ? catOrder.order : []);
 
-  return (
+    return () => {
+      handleClearOrder();
+    };
+  }, []);
+  
+  return categoryItem && (
     <>
       <Wrapper>
-        <Title>
-          {getCategory(category).name}
-        </Title>
+        <TitleWrapper>
+          <Title>
+            {categoryItem.name}
+          </Title>
+          {categoryItem.dailymenu && (
+            <InfoDailyButton>
+              <InfoCircleSvg />
+            </InfoDailyButton>
+          )}
+        </TitleWrapper>
+        {categoryItem.dailymenu && (
+          <WorkDailyButton>
+            <ClockSvg />
+            TODO calc work time
+          </WorkDailyButton>
+        )}
         <DishList>
-          {DISH_LIST.map((item, i) => item.dishes(
-            <DishWrapper key={`_dish_${i + 1}`}>
-              <DishImage
-                source={item}
-                onShowAllergens={() => handleShowAllergens(i)}
-              />
-              <OrderWrapper>
-                <Counter count={getCount(item.id)} onClick={(count) => handleSetOrder({ ...item, count })} />
-                <Price>
-                  {`${item.price.toFixed(2)}${t(`common.currency.${item.currency}`)}`}
-                </Price>
-              </OrderWrapper>
-            </DishWrapper>
-          ))} 
+          {categoryItem.dailymenu ? categoryItem.groups.map(group => (
+            <DailyWrapper key={group.key}>
+              <TitleGroup>
+                {group.name}
+              </TitleGroup>
+              {getDishes(group.dishes).map(dish => DishBlock({
+                dish,
+                group,
+                order: categoryOrder,
+                dailymenu: true,
+                currency: t(`common.currency.${currency[0]}`),
+              }, handleShowAllergens, handleSetOrder))}
+            </DailyWrapper>
+          )) : getDishes(categoryItem.dishes).map(dish => DishBlock({
+            dish,
+            order: categoryOrder,
+            currency: t(`common.currency.${currency[0]}`),
+          }, handleShowAllergens, handleSetOrder))} 
         </DishList>
+        {categoryItem.dailymenu && (
+          <DailyOrderWrapper>
+            <PriceWrapper>
+              <PriceText>
+                {t('common.price')}
+              </PriceText>
+              <PriceDaily>
+                {`${categoryItem.options.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
+              </PriceDaily>
+            </PriceWrapper>
+            <Include>
+              {`${t('common.include')}: ${categoryItem.options.include}`}
+            </Include>
+            <DailyOrderButton onClick={handleClearOrder}>
+              {t('common.add_to_order')}
+            </DailyOrderButton>
+          </DailyOrderWrapper>
+        )}
       </Wrapper>
       <ThankYou />
     </>

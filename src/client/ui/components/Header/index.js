@@ -23,6 +23,7 @@ const PATH_HIDE_CLOSE = [
 
 const HeaderComponent = ({
   className,
+  logo = null,
   isMobile = false,
   history,
   onRoute,
@@ -37,7 +38,10 @@ const HeaderComponent = ({
         isMobile={isMobile}
       >
         <LogoWrapper>
-          <LogoImg src={RestaurantLogoTempPng} />
+          <LogoImg
+            src={logo || RestaurantLogoTempPng}
+            onClick={() => onRoute('categories')}
+          />
         </LogoWrapper>
         <ControlWrapper>
           {showClose ? (

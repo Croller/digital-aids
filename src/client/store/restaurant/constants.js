@@ -1,2 +1,2 @@
-export const USER_LOGIN = 'USER_LOGIN';
-export const USER_LOGOUT = 'USER_LOGOUT';
+export const REST_SET_ORDER = 'REST_SET_ORDER';
+export const REST_CLEAR_ORDER = 'REST_CLEAR_ORDER';

@@ -11,14 +11,18 @@ export const Wrapper = styled.div`
 
 export const CloseButton = styled(Button)`
   position: absolute;
-  top: 20px;
-  right: 26px;
+  top: 21px;
+  right: 29px;
   width: 20px;
   height: 20px;
+  padding: 0;
   background-color: transparent;
   z-index: 25;
 
   > svg {
+    width: 20px;
+    height: 20px;
+
     path {
       fill: ${PALETTE.white};
     }
@@ -45,7 +49,7 @@ export const Img = styled.img`
 export const Content = styled.div`
   position: relative;
   padding: 0 27px;
-  margin-top: -88px;
+  margin-top: -78px;
   z-index: 25;
 `;
 
@@ -68,13 +72,17 @@ export const InfoWrapper = styled.div`
 
 export const LinkButton = styled(Button)`
   position: absolute;
-  top: 2px;
-  right: 6px;
-  width: 36px;
-  height: 36px;
+  top: 12px;
+  right: 12px;
+  width: 22px;
+  height: 22px;
+  padding: 0;
   background-color: transparent;
 
   > svg {
+    width: 22px;
+    height: 22px;
+
     path {
       fill: ${PALETTE.grey8};
     }
@@ -179,8 +187,8 @@ export const AddressTitle = styled.div`
   justify-content: flex-start;
 
   > svg {
-    height: 20px;
-    width: 20px;
+    height: 22px;
+    width: 26px;
     margin-right: 8px;
 
     path {

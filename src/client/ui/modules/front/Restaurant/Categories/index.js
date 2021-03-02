@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import {
@@ -47,15 +48,17 @@ const mock = [
   },
 ];
 
-const Categories = ({ categories }) => {
+const Categories = () => {
   const history = useHistory();
+  const { categories } = useSelector(store => store.restaurant);
+
   const [t] = useTranslation();
 
   useEffect(() => {
     window.prerenderReady = true;
   }, []);
 
-  return (
+  return categories && (
     <Wrapper>
       <Title>
         {t('common.menu')}

@@ -4,6 +4,7 @@ import ChefHeadSvg from './svg/chef-head.svg';
 import ThumbsUpGreenSvg from './svg/thumbs-up-green.svg';
 import QuestionCircleSvg from './svg/question-circle.svg';
 import AlertCircleSvg from './svg/alert-circle.svg';
+import InfoCircleSvg from './svg/info-circle.svg';
 import HamburgerSvg from './svg/hamburger.svg';
 import CloseSvg from './svg/close.svg';
 import GlobalSvg from './svg/global.svg';
@@ -19,6 +20,8 @@ import RateTripadvisorSvg from './svg/rate-tripadvisor.svg';
 import InstagramSvg from './svg/instagram.svg';
 import FacebookSvg from './svg/facebook.svg';
 import TrashSvg from './svg/trash.svg';
+import TickSvg from './svg/tick.svg';
+import ChevronSvg from './svg/chevron.svg';
 
 // svg allergens
 import MustardSvg from './svg/allergens/mustard.svg';
@@ -54,6 +57,7 @@ export {
   ThumbsUpGreenSvg,
   QuestionCircleSvg,
   AlertCircleSvg,
+  InfoCircleSvg,
   HamburgerSvg,
   CloseSvg,
   GlobalSvg,
@@ -69,6 +73,8 @@ export {
   InstagramSvg,
   FacebookSvg,
   TrashSvg,
+  TickSvg,
+  ChevronSvg,
   
   MustardSvg,
   DairySvg,

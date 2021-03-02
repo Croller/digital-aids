@@ -20,7 +20,7 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
-  const { key } = useSelector(store => store.restaurant);
+  const { key, logo } = useSelector(store => store.restaurant);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
   
@@ -49,6 +49,7 @@ export const Layout = ({
       {getShowHeader(pathname) && (
         header || (
           <Header
+            logo={logo}
             isMobile={isMobile}
             onRoute={handleRoute}
           />

@@ -12,12 +12,11 @@ export const IconTextBtnStyled = styled(IconTextBtn)`
   margin-bottom: 80px;
 `;
 
-export const Logo = styled.div`
+export const Logo = styled.img`
   margin-top: 45px;
   margin-bottom: 100px;
   height: 62px;
   width: 186px;
-  border: 0.5px solid ${PALETTE.grey2};
 `;
 
 export const Code = styled.h3`
