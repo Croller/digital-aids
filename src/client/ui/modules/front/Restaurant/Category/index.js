@@ -6,6 +6,8 @@ import { DishBlock } from 'client/ui/components/_block/DishBlock';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { InfoCircleSvg, ClockSvg } from 'client/assets/images';
 import { updateOrder } from 'client/store/restaurant';
+import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
+import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import {
   Wrapper,
   TitleWrapper,
@@ -15,7 +17,6 @@ import {
   DishList,
   DailyWrapper,
   TitleGroup,
-  
   DailyOrderWrapper,
   PriceWrapper,
   PriceText,
@@ -37,10 +38,8 @@ const Category = () => {
   const [orderId, setOrderId] = useState(1);
   const [categoryOrder, setCategoryOrder] = useState([]);
   const [categoryItem, setCategoryItem] = useState(null);
-
-  const handleShowAllergens = (arr) => {
-    console.log('show allergens:', arr);
-  };
+  const [allergens, setAllergens] = useState(null);
+  const [daylyinfo, setDaylyInfo] = useState(true);
 
   const handleSetOrder = (obj) => {
     let data = [];
@@ -79,9 +78,21 @@ const Category = () => {
     }
   };
 
+  const handleToggleModalAllergens = (arr) => {
+    setAllergens(allergens ? null : arr);
+  };
+
+  const handleToggleModalDayliInfo = () => {
+    setDaylyInfo(!daylyinfo);
+  };
+
   useEffect(() => {
     const categItem = categories.find(f => f.key === category) || null;
     setCategoryItem(categItem || null);
+
+    if (categItem && categItem.dailymenu) {
+      setDaylyInfo(true);
+    }
 
     // update category if order exist
     let catOrder = null;
@@ -95,7 +106,7 @@ const Category = () => {
       handleClearOrder();
     };
   }, []);
-  
+
   return categoryItem && (
     <>
       <Wrapper>
@@ -104,7 +115,7 @@ const Category = () => {
             {categoryItem.name}
           </Title>
           {categoryItem.dailymenu && (
-            <InfoDailyButton>
+            <InfoDailyButton onClick={handleToggleModalDayliInfo}>
               <InfoCircleSvg />
             </InfoDailyButton>
           )}
@@ -127,13 +138,13 @@ const Category = () => {
                 order: categoryOrder,
                 dailymenu: true,
                 currency: t(`common.currency.${currency[0]}`),
-              }, handleShowAllergens, handleSetOrder))}
+              }, handleToggleModalAllergens, handleSetOrder))}
             </DailyWrapper>
           )) : getDishes(categoryItem.dishes).map(dish => DishBlock({
             dish,
             order: categoryOrder,
             currency: t(`common.currency.${currency[0]}`),
-          }, handleShowAllergens, handleSetOrder))} 
+          }, handleToggleModalAllergens, handleSetOrder))} 
         </DishList>
         {categoryItem.dailymenu && (
           <DailyOrderWrapper>
@@ -155,6 +166,19 @@ const Category = () => {
         )}
       </Wrapper>
       <ThankYou />
+      {allergens && (
+        <AllergensModal
+          source={allergens}
+          onClose={handleToggleModalAllergens}
+        />
+      )}
+      {daylyinfo && categoryItem.dailymenu && (
+        <DailyInfoModal
+          title={categoryItem.options.info.title}
+          description={categoryItem.options.info.description}
+          onClose={handleToggleModalDayliInfo}
+        />
+      )}
     </>
   );
 };

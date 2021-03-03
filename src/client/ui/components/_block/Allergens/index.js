@@ -11,14 +11,20 @@ import {
 } from './styled';
 
 export const Allergens = memo(({
-  list = null,
+  source = null,
   className,
 }) => {
   const [t] = useTranslation();
+
+  const getAllergens = (arr = null) => {
+    if (!arr) return ALLERGENS;
+    return ALLERGENS.filter(f => arr.some(s => s === f.id));
+  };
+
   return (
     <Wrapper className={className}>
       <List>
-        {[...(list || ALLERGENS)].map(({ key, icon }) => (
+        {getAllergens(source).map(({ key, icon }) => (
           <Item
             key={`_allergen_${key}`}
           >

@@ -179,3 +179,4 @@ export const DailyOrderButton = styled(Button)`
   font-family: ${FONTS.bold};
   text-transform: uppercase;
 `;
+

@@ -23,6 +23,11 @@
       "create": "Create",
       "include": "Include",
       "price": "Price",
+      "ok": "Ok",
+      "remove": "Remove",
+      "dont": "Do not",
+      "yes_i": "Yes, I am",
+      "not_i": "Not, I not",
 
       "currency": {
         "euro": "€"
@@ -106,6 +111,14 @@
         "dairy": "Dairy products",
         "peanuts": "Peanuts",
         "gluten": "Gluten"
+      }
+    },
+
+    "compModal": {
+      "order_delete": "Are you sure you want to \n remove your entire order?",
+      "confirm_age": {
+        "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. Drink with \n moderation.",
+        "description": "Please, confirm that you \n are over 18 years old"
       }
     },
 

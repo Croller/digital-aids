@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,8 +7,11 @@ import { clearOrder, updateOrder } from 'client/store/restaurant';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { DishBlock } from 'client/ui/components/_block/DishBlock';
 import { getTotal } from 'client/utils/restaurant';
+import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
+import { RemoveOrderModal } from 'client/ui/components/_block/Modal/RemoveOrder';
 import {
   Wrapper,
+  HeaderWrapper,
   TitleWrapper,
   Title,
   TrashButton,
@@ -36,10 +39,13 @@ const Order = () => {
   } = useSelector(store => store.restaurant);
   const rootDispatch = useDispatch();
   const history = useHistory();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [allergens, setAllergens] = useState(null);
   const [t] = useTranslation();
 
   const handleClearOrder = () => {
     rootDispatch(clearOrder());
+    handleToggleRemoveOrderModal();
   };
 
   const handleCreateReceipt = () => {
@@ -50,8 +56,8 @@ const Order = () => {
     history.push('categories');
   };
 
-  const handleShowAllergens = (arr) => {
-    console.log('show allergens:', arr);
+  const handleToggleModalAllergens = (arr) => {
+    setAllergens(allergens ? null : arr);
   };
 
   const handleSetOrder = ({ obj, category }) => {
@@ -81,6 +87,10 @@ const Order = () => {
     rootDispatch(updateOrder({ ...obj, order: [] }));
   };
 
+  const handleToggleRemoveOrderModal = () => {
+    setConfirmDelete(!confirmDelete);
+  };
+
   const getTitle = (arr, category, index) => (
     <>
       {!category.dailymenu && ((arr[index - 1] && arr[index - 1].dailymenu) || index === 0) && (
@@ -104,16 +114,16 @@ const Order = () => {
   return (
     <>
       <Wrapper>
-        <TitleWrapper>
+        <HeaderWrapper>
           <Title>
             {`${t('common.my')} ${t('common.order')}`}
           </Title>
           {order && (
-            <TrashButton onClick={handleClearOrder}>
+            <TrashButton onClick={handleToggleRemoveOrderModal}>
               <TrashSvg />
             </TrashButton>
           )}
-        </TitleWrapper>
+        </HeaderWrapper>
         {order ? (
           <>
             <Container>
@@ -145,14 +155,14 @@ const Order = () => {
                             group: item,
                             dailymenu: true,
                             currency: t(`common.currency.${currency[0]}`),
-                          }, handleShowAllergens, () => handleSetOrder({ obj: item.dish, category }))}
+                          }, handleToggleModalAllergens, () => handleSetOrder({ obj: item.dish, category }))}
                         </DailyWrapper>
                       </DailyCard>
                     )) : category.order.map(dish => DishBlock({
                       dish,
                       order: category.order,
                       currency: t(`common.currency.${currency[0]}`),
-                    }, handleShowAllergens, (obj) => handleSetOrder({ obj, category })))} 
+                    }, handleToggleModalAllergens, (obj) => handleSetOrder({ obj, category })))} 
                   </DishList>
                 </React.Fragment>
               ))}
@@ -182,6 +192,19 @@ const Order = () => {
         )}
       </Wrapper>
       {!order && (<ThankYou />)}
+      {allergens && (
+        <AllergensModal
+          source={allergens}
+          onClose={handleToggleModalAllergens}
+        />
+      )}
+      {confirmDelete && (
+        <RemoveOrderModal
+          onOk={handleClearOrder}
+          onCancel={handleToggleRemoveOrderModal}
+          onClose={handleToggleRemoveOrderModal}
+        />
+      )}
     </>
   );
 };

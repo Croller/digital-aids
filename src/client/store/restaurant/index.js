@@ -18,6 +18,7 @@ const initState = {
   images: null, // array of image binary
   logo: null, 
   laguages: ['en', 'ru'], // first current laguage
+  is_opinion: false,
   manager: [
     {
       key: 'director',

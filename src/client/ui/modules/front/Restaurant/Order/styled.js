@@ -14,9 +14,16 @@ export const Wrapper = styled.div`
   height: auto;
 `;
 
-export const TitleWrapper = styled.div`
+export const HeaderWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
   margin-bottom: 20px;
 `;

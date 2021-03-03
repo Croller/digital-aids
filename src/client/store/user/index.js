@@ -5,8 +5,10 @@ import {
 
 const initState = {
   lng: 'en',
+  
   orders: [], // orders users
-  system: null, // browser, os system, ip, location etc.
+
+  info: null, // browser, os system, ip, location etc.
 
   loading: false,
   errors: null,

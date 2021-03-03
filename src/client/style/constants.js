@@ -8,7 +8,7 @@ export const BREAKPOINTS = {
 export const Z_INDEX = {
   header: 90,
   footerMenu: 100,
-  modal: 200,
+  modal: 500,
   loader: 999,
 };
 
@@ -31,6 +31,7 @@ export const PALETTE = {
   grey13: '#9D9D9D',
   grey14: '#8E8E8E',
   grey15: '#ECECEC',
+  grey16: '#EDEDED',
 
   green1: '#219653',
 
@@ -42,7 +43,8 @@ export const FONTS = {
   light: `'MontserratLight', ${fontsCommon}`,
   regular: `'MontserratRegular', ${fontsCommon}`,
   medium: `'MontserratMedium', ${fontsCommon}`,
-  bold: `'MontserratSemiBold', ${fontsCommon}`,
+  bold: `'MontserratBold', ${fontsCommon}`,
+  semiBold: `'MontserratSemiBold', ${fontsCommon}`,
 };
 
 export const THEME = {

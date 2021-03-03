@@ -60,8 +60,8 @@ export const Valuation = styled(Button)`
   font-family: ${FONTS.regular};
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
-  background-color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.white}`)};
-  color: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black}`)};
+  background-color: ${p => (p.active ? `${PALETTE.grey16}` : `${PALETTE.white}`)};
+  color: ${PALETTE.black};
   margin-bottom: 22px;
 `;
 

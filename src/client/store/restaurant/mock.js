@@ -10,9 +10,9 @@ export const categoriesMock = [
     options: {
       price: 10.00,
       include: 'Bread and drinks',
-      information: {
-        title: 'Price is 10 euro per menu for one person.',
-        description: ' You can choose only one plate from each category. In case you would like to order menu for 2 persons, an order should be made twice.',
+      info: {
+        title: 'Price is 10 euro per menu \n for one person.',
+        description: 'You can choose only one plate \n from each category. \n\n In case you would like to order \n menu for 2 persons, an order \n should be made twice.',
       },
       work: {
         from: null,
@@ -163,7 +163,7 @@ export const dishesMock = [
     price_for: 1,
     price_for_unit: 'kg',
     price: 6.50,
-    allergens: [1, 2, 3],
+    allergens: [i + 1, i + 2, i + 3],
     images: null, // array of image
     cuisine: 'fusion',
     is_stoped: false,

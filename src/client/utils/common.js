@@ -18,3 +18,7 @@ export const downloadFile = (url, filename) => {
     }
   }));
 };
+
+export const htmlOverflowYHidden = (trigger) => {
+  document.body.style.overflowY = trigger ? 'hidden' : 'unset';
+};
