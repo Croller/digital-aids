@@ -8,6 +8,7 @@ import { InfoCircleSvg, ClockSvg } from 'client/assets/images';
 import { updateOrder } from 'client/store/restaurant';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
+import { OfferModal } from 'client/ui/components/_block/Modal/Offer';
 import {
   Wrapper,
   TitleWrapper,
@@ -39,6 +40,7 @@ const Category = () => {
   const [categoryOrder, setCategoryOrder] = useState([]);
   const [categoryItem, setCategoryItem] = useState(null);
   const [allergens, setAllergens] = useState(null);
+  const [offer, setOffer] = useState(null);
   const [daylyinfo, setDaylyInfo] = useState(true);
 
   const handleSetOrder = (obj) => {
@@ -86,12 +88,21 @@ const Category = () => {
     setDaylyInfo(!daylyinfo);
   };
 
+  const handleToggleModalOffer = () => {
+    setOffer(null);
+  };
+
   useEffect(() => {
     const categItem = categories.find(f => f.key === category) || null;
     setCategoryItem(categItem || null);
 
-    if (categItem && categItem.dailymenu) {
-      setDaylyInfo(true);
+    if (categItem) {
+      if (categItem.dailymenu) {
+        setDaylyInfo(true);
+      }
+      if (categItem.offers && !categItem.dailymenu) {
+        setOffer(categItem.offers[0]);
+      }
     }
 
     // update category if order exist
@@ -174,9 +185,14 @@ const Category = () => {
       )}
       {daylyinfo && categoryItem.dailymenu && (
         <DailyInfoModal
-          title={categoryItem.options.info.title}
-          description={categoryItem.options.info.description}
+          source={categoryItem.options.info}
           onClose={handleToggleModalDayliInfo}
+        />
+      )}
+      {offer && (
+        <OfferModal
+          source={offer}
+          onClose={handleToggleModalOffer}
         />
       )}
     </>

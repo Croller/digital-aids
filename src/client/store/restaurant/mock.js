@@ -57,6 +57,7 @@ export const categoriesMock = [
     dishes: [1, 2, 3], // id dishes
     offers: [
       {
+        id: 101,
         src: null,
         url: null,
         description: 'Main Dishes, Main Dishes, Main Dishes, Main Dishes, Main Dishes',
@@ -119,6 +120,7 @@ export const categoriesMock = [
     dishes: [12, 13, 14], // id dishes
     offers: [
       {
+        id: 101,
         src: null,
         url: null,
         description: 'Don\'t waste your time, \n taste the world every day!',
@@ -299,7 +301,7 @@ export const orderMock = [{
   options: null,
   dishes: [1, 2, 3],
   offers: [{
-    src: null, url: null, description: 'Main Dishes, Main Dishes, Main Dishes, Main Dishes, Main Dishes', button: 'Do you know us?', 
+    id: 102, src: null, url: null, description: 'Main Dishes, Main Dishes, Main Dishes, Main Dishes, Main Dishes', button: 'Do you know us?', 
   }],
   order_id: 2,
   order: [{

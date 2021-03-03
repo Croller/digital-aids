@@ -12,30 +12,25 @@ import {
 } from './styled';
 
 export const DailyInfoModal = memo(({
-  title = null,
-  description = null,
+  source = null,
   onClose,
 }) => {
   const [t] = useTranslation();
   
-  return (
+  return source && (
     <Modal>
       <Wrapper>
         <CloseButton onClick={onClose}>
           <CloseSvg />
         </CloseButton>
         <Content>
-          {title && (
-            <Title>
-              {title}
-            </Title>
-          )}
+          <Title>
+            {source.title}
+          </Title>
           <Hr />
-          {description && (
-            <Description>
-              {description}
-            </Description>
-          )}
+          <Description>
+            {source.description}
+          </Description>
         </Content>
         <Controls>
           <Ok onClick={onClose}>
