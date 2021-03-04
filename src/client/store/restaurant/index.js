@@ -28,6 +28,16 @@ const initState = {
       name: 'Test. u',
     },
   ],
+  offers: [
+    {
+      id: 101,
+      src: null,
+      title: 'Celebrate with us',
+      description: 'We invite you to celebrate your special events with us and promise you a special magic day with an excellent food!',
+      price: 'Price for special menu: 35€ pp incl 1 bottle of cava.',
+      person: '(minimum 2 persons)',
+    },
+  ],
   work_time: [
     {
       key: 'mon',

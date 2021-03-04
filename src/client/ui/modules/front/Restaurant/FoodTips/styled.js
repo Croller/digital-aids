@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button/Btn';
-import { PALETTE, FONTS, THEME } from 'client/style/constants';
+import {
+  PALETTE,
+  FONTS,
+  THEME,
+  Z_INDEX,
+} from 'client/style/constants';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 
@@ -31,15 +36,39 @@ export const CloseButton = styled(Button)`
 
 export const Slider = styled(Carousel)`
   width: 100%;
-  height: 217px;
 
   .carousel-status {
     display: none;
+  }
+
+  .slide {
+    text-align: left !important;
+    background: transparent !important;
+  }
+
+  .control-dots {
+    overflow: hidden;
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto !important;
+    top: 280px !important;
+    bottom: unset !important;
+
+    .dot {
+      box-shadow: none !important;
+      background: ${PALETTE.grey17} !important;
+
+      &.selected {
+        background: ${PALETTE.green1} !important;
+      }
+    }
   }
 `;
 
 export const ImgWrapper = styled.div`
   display: block;
+  position: relative;
 `;
 
 export const Img = styled.img`
@@ -47,23 +76,26 @@ export const Img = styled.img`
   height: 273px;
 `;
 
+export const Dish = styled.h2`
+  position: absolute;
+  bottom: 22px;
+  left: 28px;
+  font-size: 20px;
+  font-family: ${FONTS.semiBold};
+  color: ${PALETTE.white};
+  margin: 0;
+  width: 100%;
+  z-index: ${Z_INDEX.header};
+`;
+
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  padding: 0 27px;
+  padding: 44px 28px 0 ;
   margin-top: 0;
   z-index: 25;
-`;
-
-export const Dish = styled.h2`
-  font-size: 20px;
-  font-family: ${FONTS.bold};
-  color: ${PALETTE.white};
-  margin: 0;
-  margin-bottom: 68px;
-  width: 100%;
 `;
 
 export const Description = styled.p`

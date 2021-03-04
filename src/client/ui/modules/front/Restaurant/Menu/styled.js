@@ -32,13 +32,14 @@ export const ButtonStyled = styled(Button)`
   &:not(:last-child) {
     margin-bottom: 12px;
   }
-
+  
   &:last-child {
     background-color: ${PALETTE.green1};
     color: ${PALETTE.white};
     text-transform: uppercase;
   }
 
+  
   &:nth-child(4) {
     background-color: ${PALETTE.grey2};
   }

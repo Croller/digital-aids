@@ -17,10 +17,10 @@ const Restaurant = lazy(() => import('client/ui/page/front/Restaurant'));
 const Page404 = lazy(() => import('client/ui/page/common/404'));
 
 export const Routers = () => {
-  const { key } = useSelector(store => store.restaurant);
+  const { logo, key } = useSelector(store => store.restaurant);
   const history = useHistory();
   const [t] = useTranslation();
-  const handleRoute = useCallback(() => history.push(`/restaurant/${key}/categories`), []);
+  const handleRoute = useCallback((path = 'categories') => history.push(`/restaurant/${key}/${path}`), []);
 
   return (
     <React.Fragment>
@@ -35,7 +35,10 @@ export const Routers = () => {
             <Switch>
               <Route exact path="/restaurant/*" component={Restaurant} />
               <Route path="/404">
-                <Page404 onClick={handleRoute} />
+                <Page404
+                  source={logo}
+                  onClick={handleRoute}
+                />
               </Route>
               <Redirect to="/404" />
             </Switch>

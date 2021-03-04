@@ -8,7 +8,7 @@ import { InfoCircleSvg, ClockSvg } from 'client/assets/images';
 import { updateOrder } from 'client/store/restaurant';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
-import { OfferModal } from 'client/ui/components/_block/Modal/Offer';
+import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
 import {
   Wrapper,
   TitleWrapper,
@@ -44,6 +44,7 @@ const Category = () => {
   const [daylyinfo, setDaylyInfo] = useState(true);
 
   const handleSetOrder = (obj) => {
+    console.log('set dish', obj);
     let data = [];
     if (categoryItem.dailymenu) {
       const bool = categoryOrder.some(s => s.id === obj.dish.id);
@@ -55,13 +56,13 @@ const Category = () => {
         obj,
       ];
     }
-
     // to store
     const newOrder = {
       ...categoryItem,
       order_id: orderId,
       order: data,
     };
+    console.log('newOrder', newOrder);
     setCategoryOrder(data);
     rootDispatch(updateOrder(newOrder));
   };
@@ -190,7 +191,7 @@ const Category = () => {
         />
       )}
       {offer && (
-        <OfferModal
+        <OfferCategoryModal
           source={offer}
           onClose={handleToggleModalOffer}
         />

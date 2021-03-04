@@ -39,6 +39,10 @@ const Receipt = () => {
     history.goBack();
   };
 
+  const handleRoute = (path = 'categories') => {
+    history.push(`/restaurant/${key}/${path}`);
+  };
+
   const getDateTime = (str) => {
     moment.locale(str);
     return moment().format('DD.MM.YYYY HH:mm');
@@ -46,7 +50,10 @@ const Receipt = () => {
 
   const getDish = (item, dailyname) => {
     const data = dailyname ? item.dish : item;
-    return data;
+    return {
+      ...data,
+      order_count: data.order_count || 1,
+    };
   };
 
   // const getQRCodeValue = ()
@@ -119,7 +126,10 @@ const Receipt = () => {
       {categoryOrder && (
         <>
           <QRCodeWrapper>
-            <Logo src={logo || RestaurantLogoTempPng} />
+            <Logo
+              src={logo || RestaurantLogoTempPng}
+              onClick={() => handleRoute('information')}
+            />
             <QRCode value="test" />
             <AlertWrapper>
               <InfoCircleSvg />

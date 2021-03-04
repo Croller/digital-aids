@@ -20,7 +20,7 @@ export const Hr = styled.hr`
 
 export const Description = styled.p`
   font-size: 16px;
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   text-align: center;
   white-space: pre-line;
   margin: 0;

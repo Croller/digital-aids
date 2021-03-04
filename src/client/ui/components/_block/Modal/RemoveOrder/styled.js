@@ -35,7 +35,6 @@ export const CloseButton = styled(Button)`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 34px;
 `;
 
 export const Title = styled.div`
@@ -60,6 +59,7 @@ export const Ok = styled(Button)`
   text-transform: uppercase;
   margin-bottom: 22px;
   font-size: 16px;
+  font-family: ${FONTS.semiBold};
 `;
 
 export const Cancel = styled(Button)`
@@ -67,4 +67,5 @@ export const Cancel = styled(Button)`
   width: 144px;
   text-transform: uppercase;
   font-size: 16px;
+  font-family: ${FONTS.semiBold};
 `;

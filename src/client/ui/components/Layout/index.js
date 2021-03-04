@@ -5,6 +5,7 @@ import { Header } from 'client/ui/components/Header';
 import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
+import { Modal } from 'client/ui/modules/front/Restaurant/Modal';
 
 import { 
   Wrapper,
@@ -66,6 +67,7 @@ export const Layout = ({
           onRoute={handleRoute}
         />
       )) : (footer || (<Footer />))}
+      <Modal />
     </Wrapper>
   );
 };

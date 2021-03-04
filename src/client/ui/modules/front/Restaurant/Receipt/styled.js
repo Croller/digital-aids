@@ -94,7 +94,7 @@ export const NameWrapper = styled.div`
 `;
 
 export const Name = styled.span`
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   font-size: 18px;
   text-transform: uppercase;
 `;
@@ -125,7 +125,7 @@ export const GroupWrapper = styled.div`
 `;
 
 export const GroupTitle = styled.h3`
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   font-size: 16px;
   text-transform: uppercase;
   margin: 0;

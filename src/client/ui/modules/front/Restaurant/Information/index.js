@@ -53,7 +53,15 @@ const Information = memo(() => {
 
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
+      if (path.indexOf('tel') > -1) {
+        document.location.href = path;
+        return null;
+      }
       window.open(path, '_blank').focus();
+    }
+    if (history.action !== 'POP') {
+      history.goBack();
+      return null;
     }
     history.push(path);
   };
@@ -75,7 +83,7 @@ const Information = memo(() => {
 
   return (
     <Wrapper>
-      <CloseButton onClick={() => handleRoute('categories')}>
+      <CloseButton onClick={() => handleRoute('menu')}>
         <CloseSvg />
       </CloseButton>
       <Slider
@@ -130,7 +138,7 @@ const Information = memo(() => {
               <PhoneCallSvg />
               {t('common.call_us')} 
             </CallButton>
-            <MenuButton onClick={() => handleRoute('categories')}>
+            <MenuButton onClick={() => handleRoute('information')}>
               {t('common.menu')} 
             </MenuButton>
           </InfoControls>

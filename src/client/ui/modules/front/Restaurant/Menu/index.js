@@ -18,8 +18,7 @@ const Menu = () => {
   const history = useHistory();
   const [t] = useTranslation();
   const { lng } = useSelector(store => store.user);
-
-  const MENU = [
+  const menu = [
     {
       path: 'reglament',
       name: (
@@ -64,7 +63,7 @@ const Menu = () => {
   return (
     <Wrapper>
       <List>
-        {(MENU).map(({ path, name }) => (
+        {(menu).map(({ path, name }) => (
           <ButtonStyled
             key={path}
             onClick={() => history.push(path)}

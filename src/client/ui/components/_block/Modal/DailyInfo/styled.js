@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   border-radius: 12px;
   background-color: ${PALETTE.white};
-  padding: 70px 12px 38px;
+  padding: 70px 34px 38px;
   margin: 20% 34px 40px;
 `;
 
@@ -35,7 +35,6 @@ export const CloseButton = styled(Button)`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 34px;
 `;
 
 export const Title = styled.div`

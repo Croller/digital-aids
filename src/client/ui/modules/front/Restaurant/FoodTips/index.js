@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { DontWaste } from 'client/ui/components/Footer/DontWaste';
+import { updateOrder } from 'client/store/restaurant';
 import { 
   CloseSvg,
   FoodTipsTempPng,
@@ -27,11 +28,13 @@ const FoodTips = () => {
     key,
     currency,
     dishes,
+    categories,
+    order,
   } = useSelector(store => store.restaurant);
-  const { dish } = useParams();
+  const rootDispatch = useDispatch();
   const history = useHistory();
   const [t] = useTranslation();
-  const [item, setItem] = useState(null);
+  const [items, setItems] = useState(null);
 
   const handleRoute = () => {
     const path = `/restaurant/${key}/categories`;
@@ -43,51 +46,81 @@ const FoodTips = () => {
     history.push(path);
   };
 
+  const handleSetOrder = (obj) => {
+    let newOrder = { ...obj };
+    newOrder.dish.order_count = 1;
+    newOrder.order_id = 1;
+    newOrder.order = [newOrder.dish];
+    delete newOrder.dish;
+
+    const existOrder = order && order.find(f => f.id === obj.id);
+    if (existOrder) {
+      newOrder = existOrder;
+      newOrder.order = newOrder.order.reduce((arr, dish) => {
+        if (obj.dish.id === dish.id) {
+          return [...arr, { ...dish, order_count: dish.order_count + 1 }];
+        }
+        return [...arr, dish];
+      }, []);
+    }
+    rootDispatch(updateOrder(newOrder));
+  };
+
   useEffect(() => {
     window.prerenderReady = true;
-    setItem(dishes.find(f => f.key === dish) || null);
+
+    const foodtips = categories
+      .filter(f => !f.dailymenu)
+      .reduce((arr, category) => {
+        const arrDishes = category.dishes.map(id => ({
+          ...category,
+          dish: dishes.find(f => f.id === id),
+        }));
+        return [...arr, ...arrDishes];
+      }, []);
+    setItems(foodtips);
   }, []);
 
-  return item && (
+  return (
     <Wrapper>
-      <CloseButton onClick={() => handleRoute('categories')}>
+      <CloseButton onClick={() => handleRoute('information')}>
         <CloseSvg />
       </CloseButton>
-      <Slider
-        autoPlay
-        showThumbs={false}
-      >
-        {item.images ? item.images.map((src, s) => (
-          <ImgWrapper key={`_image_${s + 1}`}>
-            <Img src={src} />
-          </ImgWrapper>
-        )) : [...(new Array(5))].map((src, s) => (
-          <ImgWrapper key={`_image_${s + 1}`}>
-            <Img src={FoodTipsTempPng} />
-          </ImgWrapper>
-        ))}
-      </Slider>
-      <Content>
-        <Dish>
-          {item.name}
-        </Dish>
-        <Description>
-          {item.foodtips}
-        </Description>
-        <PriceWrapper>
-          <Total>
-            {`${t('common.total')}:`}
-          </Total>
-          <Price>
-            {}
-            {`${item.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
-          </Price>
-        </PriceWrapper>
-        <AddButton>
-          {t('common.add_to_order')}
-        </AddButton>
-      </Content>
-      <DontWaste />
+      {items && (
+        <Slider
+          // autoPlay
+          showThumbs={false}
+        >
+          {items.map((item, i) => (
+            <React.Fragment key={`_dish_${i + 1}`}>
+              <ImgWrapper>
+                <Img src={item.dish.images ? item.dish.images[0] : FoodTipsTempPng} />
+                <Dish>
+                  {item.dish.name}
+                </Dish>
+              </ImgWrapper>
+              <Content>
+                <Description>
+                  {item.dish.foodtips}
+                </Description>
+                <PriceWrapper>
+                  <Total>
+                    {`${t('common.total')}:`}
+                  </Total>
+                  <Price>
+                    {}
+                    {`${item.dish.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
+                  </Price>
+                </PriceWrapper>
+                <AddButton onClick={() => handleSetOrder(item)}>
+                  {t('common.add_to_order')}
+                </AddButton>
+              </Content>
+              <DontWaste />
+            </React.Fragment>
+          ))}
+        </Slider>
+      )}
     </Wrapper>
   );
 };

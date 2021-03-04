@@ -11,8 +11,8 @@ export const categoriesMock = [
       price: 10.00,
       include: 'Bread and drinks',
       info: {
-        title: 'Price is 10 euro per menu \n for one person.',
-        description: 'You can choose only one plate \n from each category. \n\n In case you would like to order \n menu for 2 persons, an order \n should be made twice.',
+        title: 'Price is 10 euro per menu for one person.',
+        description: 'You can choose only one plate from each category. \n\n In case you would like to order menu for 2 persons, an order should be made twice.',
       },
       work: {
         from: null,

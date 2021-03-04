@@ -5,13 +5,13 @@ import {
   Wrapper,
   CloseButton,
   Content,
-  Logo,
+  Image,
   Description,
   Controls,
   Ok,
 } from './styled';
 
-export const OfferModal = memo(({
+export const OfferCategoryModal = memo(({
   source = null,
   onClose,
 }) => {
@@ -27,7 +27,7 @@ export const OfferModal = memo(({
           <CloseSvg />
         </CloseButton>
         <Content>
-          <Logo src={source.src || PlateTempPng} />
+          <Image src={source.src || PlateTempPng} />
           <Description>
             {source.description}
           </Description>

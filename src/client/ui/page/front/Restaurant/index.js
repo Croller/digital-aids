@@ -1,6 +1,7 @@
 import React, { lazy, useEffect } from 'react';
-import { Layout } from 'client/ui/components/Layout';
 import { Route, Switch } from 'react-router-dom';
+
+import { Layout } from 'client/ui/components/Layout';
 
 const PATH = '/restaurant';
 
@@ -30,11 +31,12 @@ export const Restaurant = () => {
         <Route path={`${PATH}/:restaurant/opinion`} component={Opinion} />
         <Route path={`${PATH}/:restaurant/reglament`} component={Reglament} />
         <Route path={`${PATH}/:restaurant/information`} component={Information} />
-        <Route path={`${PATH}/:restaurant/foodtips/:dish`} component={FoodTips} />
+        <Route path={`${PATH}/:restaurant/foodtips`} component={FoodTips} />
         <Route path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
         <Route path={`${PATH}/:restaurant/order`} component={Order} />
       </Switch>
     </Layout>
+  
   );
 };
 

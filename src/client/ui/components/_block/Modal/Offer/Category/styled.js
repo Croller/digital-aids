@@ -38,7 +38,7 @@ export const Content = styled.div`
   align-items: center;
 `;
 
-export const Logo = styled.img`
+export const Image = styled.img`
   margin-bottom: 16px;
   width: 100%;
   border-top-right-radius: 12px;

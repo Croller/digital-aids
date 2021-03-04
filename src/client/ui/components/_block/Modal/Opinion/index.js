@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Modal } from 'client/ui/components/_block/Modal';
 import { useTranslation } from 'react-i18next';
 import { RestaurantLogoTempPng } from 'client/assets/images';
@@ -15,14 +16,22 @@ import {
 export const OpinionModal = memo(({
   onOk,
 }) => {
+  const history = useHistory();
   const [t] = useTranslation();
-  const { logo } = useSelector(store => store.restaurant);
+  const { key, logo } = useSelector(store => store.restaurant);
+
+  const handleRoute = (path = 'categories') => {
+    history.push(`/restaurant/${key}/${path}`);
+  };
   
   return (
     <Modal>
       <Wrapper>
         <Content>
-          <Logo src={logo || RestaurantLogoTempPng} />
+          <Logo
+            src={logo || RestaurantLogoTempPng}
+            onClick={() => handleRoute('information')}
+          />
           <Description>
             {t('compModal.opinion_exist')}
           </Description>
