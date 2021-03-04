@@ -25,7 +25,7 @@ export const LogoWrapper = styled.div`
 `;
 
 export const LogoImg = styled.img`
-  height: auto;
+  width: 100%;
 `;
 
 export const ControlWrapper = styled.div`

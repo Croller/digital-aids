@@ -65,8 +65,11 @@ export const Valuation = styled(Button)`
   margin-bottom: 22px;
 `;
 
-export const Img = styled.img`
-  display: block;
+export const EmojiWrapper = styled.h4`
+  margin: 0;
+  margin-bottom: -6px;
+  margin-top: -10px;
+  font-size: 46px;
 `;
 
 export const CommentTitle = RateTitle;

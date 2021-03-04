@@ -116,6 +116,7 @@
 
     "compModal": {
       "order_delete": "Are you sure you want to \n remove your entire order?",
+      "opinion_exist": "We have already received \n your feedback. \n\n Thank you for your \n collaboration!",
       "confirm_age": {
         "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. Drink with \n moderation.",
         "description": "Please, confirm that you \n are over 18 years old"
