@@ -44,7 +44,6 @@ const Category = () => {
   const [daylyinfo, setDaylyInfo] = useState(true);
 
   const handleSetOrder = (obj) => {
-    console.log('set dish', obj);
     let data = [];
     if (categoryItem.dailymenu) {
       const bool = categoryOrder.some(s => s.id === obj.dish.id);
@@ -62,7 +61,7 @@ const Category = () => {
       order_id: orderId,
       order: data,
     };
-    console.log('newOrder', newOrder);
+
     setCategoryOrder(data);
     rootDispatch(updateOrder(newOrder));
   };
@@ -76,9 +75,7 @@ const Category = () => {
 
   const handleClearOrder = () => {
     setCategoryOrder([]);
-    if (order) {
-      setOrderId(order ? order.length + 1 : 1);
-    }
+    setOrderId(orderId + 1);
   };
 
   const handleToggleModalAllergens = (arr) => {
@@ -107,16 +104,15 @@ const Category = () => {
     }
 
     // update category if order exist
-    let catOrder = null;
     if (order) {
-      catOrder = order.find(f => f.key === category);
-      setOrderId(order ? order.length + 1 : orderId);
+      const catOrder = order.find(f => f.key === category);
+      setOrderId(order.length + 1);
+      setCategoryOrder(catOrder ? catOrder.order : []);
     }
-    setCategoryOrder(catOrder ? catOrder.order : []);
 
-    return () => {
+    if (categItem && categItem.dailymenu) {
       handleClearOrder();
-    };
+    }
   }, []);
 
   return categoryItem && (

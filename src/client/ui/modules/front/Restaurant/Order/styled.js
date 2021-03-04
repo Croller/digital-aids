@@ -29,7 +29,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Title = styled.h3`
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   font-size: 20px;
   text-transform: uppercase;
   margin: 0;
@@ -115,7 +115,7 @@ export const DailyWrapper = styled.div`
 `;
 
 export const TitleGroup = styled.h3`
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   font-size: 20px;
   margin: 0;
   text-transform: uppercase;

@@ -115,11 +115,11 @@
     },
 
     "compModal": {
-      "order_delete": "Are you sure you want to remove your entire order?",
-      "opinion_exist": "We have already received your feedback. \n\n Thank you for your collaboration!",
+      "order_delete": "Are you sure you want to \n remove your entire order?",
+      "opinion_exist": "We have already received \n your feedback. \n\n Thank you for your \n collaboration!",
       "confirm_age": {
-        "title": "The alcoholic beverages are strictly reserved for adults. Alcohol abuse is dangerous for your health. Drink with moderation.",
-        "description": "Please, confirm that you are over 18 years old"
+        "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. Drink with \n moderation.",
+        "description": "Please, confirm that you \n are over 18 years old"
       }
     },
 
@@ -131,12 +131,6 @@
       "dontwaste": {
         "descriptions": "Don’t waste your time, \n Taste the world every day!"
       }
-    },
-
-    "footerMobileMenu": {
-      "menu": "menu",
-      "order": "order",
-      "categories": "categories"
     }
   }
 }
