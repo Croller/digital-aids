@@ -1,0 +1,140 @@
+{
+  "name": "Español",
+
+  "translation": {
+    "common": {
+      "allergens": "Alérgenos",
+      "reglament": "Reglamento (EU) №1169/2011",
+      "language": "Idioma",
+      "reservation": "Reserva",
+      "opinion": "Opinión",
+      "foodtips": "Foodtips",
+      "menu": "Menú",
+      "send": "Mandar",
+      "comments": "Comentarios",
+      "reviewies": "Reviewies",
+      "avg_price": "Precio promedio",
+      "call_us": "Llámanos",
+      "cuisine": "Cocina",
+      "add_to_order": "Añadir al pedido",
+      "total": "Total",
+      "online": "Online",
+      "order": "Pedido",
+      "my": "Mi",
+      "an": "",
+      "create": "Crear",
+      "include": "Incluido",
+      "price": "Precio",
+      "ok": "Ok",
+      "remove": "Borrar",
+      "dont": "Guardar",
+      "yes_i": "Confirmo",
+      "not_i": "No confirmo",
+
+      "currency": {
+        "euro": "€"
+      },
+      "unit": {
+        "kg": "kg",
+        "gr": "gr",
+        "l": "l",
+        "ml": "ml",
+        "pc": "pc",
+        "pr": "pr"
+      },
+      "cuisine_type": {
+        "fusion": "Fusion"
+      },
+      "laguages": {
+        "en": "English",
+        "ru": "Русский"
+      },
+      "week_day_short": {
+        "mon": "Lunes",
+        "tue": "Martes",
+        "wed": "Miercoles",
+        "thu": "Jueves",
+        "fri": "Viernes",
+        "sat": "Sabado",
+        "sun": "Domingo"
+      }
+    },
+
+    "pageMenu": {
+      "text": "¡Ups! Parece que algo ha salido mal\n ¡Pero estamos aquí para \n ayudarte! \n Pincha el botón para volver a intentarlo. "
+    },
+    "pageAllergens": {
+      "descriptions": "Establecimiento con información disponible sobre ingredientes alérgenos e intolerancia alimentarias en los productos que elabora."
+    },
+    "pageOpinion": {
+      "title": "Tu opinión",
+      "descriptions": "Tu opinión es muy importante para nosotros, ayúdanos a mejorar nuestro servicio",
+      "rate": {
+        "service": "Servicio",
+        "meal": "Comida",
+        "covid": "Protocolo Prevención de COVID-19 ",
+        "menu": "Servicio del menú"
+      },
+      "rating": {
+        "love": "Cara súper contenta",
+        "satisfied": "Cara contenta",
+        "disappointed": "Cara triste",
+        "angry": "Cara enfadada"
+      }
+    },
+    "pageOrder": {
+      "empty_order": "Tu pedido está vacío.\n El plato seleccionado debe ser \n agregado al pedido."
+    },
+    "pageReceipt": {
+      "ask_waiter": "Por favor, pide camarero confirmar el pedido"
+    },
+    "page404": {
+      "helmet": "404 - Error page",
+      "text": "Hmm, you have got lost... \n The page you have requested \n cannot be found. \n Please, try a new request."
+    },
+
+    "pageError": {
+      "text": "¡Ups! \n Parece que algo ha salido mal, \n Pero estamos aquí para ayudarte, \n Pincha el botón \n para volver a intentarlo.."
+    },
+
+    "compAllergens": {
+      "descriptions": "Te recordamos que esta tabla es orientativa y que no podemos garantizar la ausencia de alérgenos al 100% en todos nuestros productos. \n\n En caso de que tenga alguna alergia, consulte al camarero para obtener información más detallada sobre nuestros platos.",
+      "allergens": {
+        "mustard": "Mostaza",
+        "lupins": "Altramuces",
+        "sesame": "Sésamo",
+        "fish": "Pescado",
+        "nuts": "TNuéces",
+        "diox": "Diox, azufre y sulfitos ",
+        "crustaceans": "Crustáceos",
+        "soy": "Soja",
+        "mollusks": "Moluscos marinos",
+        "celery": "Apio",
+        "eggs": "Huevos",
+        "dairy": "Lácteos",
+        "peanuts": "Cacahuetes",
+        "gluten": "Gluten"
+      }
+    },
+
+    "compModal": {
+      "order_delete": "¿Está seguro de que desea \n borrar tu pedido entero?",
+      "opinion_exist": "Ya hemos recibido \n tu feedback. \n\n ¡Gracias por tu \n colaboración!",
+      "confirm_age": {
+        "title": "Las bebidas alcohólicas están estrictamente reservadas para adultos.\n El abuso de alcohol es peligroso \n para tu salud. Bebe con\n moderación.",
+        "description": "Por favor, confirme\n que es mayor de edad."
+      }
+    },
+
+    "footer": {
+      "thankyou": {
+      "title": "¡Gracias!",
+        "descriptions": "¡Tu opinión es muy importante para nosotros,\n por favor déjanos saber!"
+      },
+      "dontwaste": {
+        "descriptions": "¡No pierdas el tiempo, \n Prueba el mundo cada día!"
+      }
+    }
+  }
+}
+

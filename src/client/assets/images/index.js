@@ -23,33 +23,29 @@ import TrashSvg from './svg/trash.svg';
 import TickSvg from './svg/tick.svg';
 import ChevronSvg from './svg/chevron.svg';
 
-// svg allergens
-import MustardSvg from './svg/allergens/mustard.svg';
-import DairySvg from './svg/allergens/dairy.svg';
-import EggsSvg from './svg/allergens/eggs.svg';
-import CelerySvg from './svg/allergens/celery.svg';
-import MollusksSvg from './svg/allergens/mollusks.svg';
-import DioxSvg from './svg/allergens/diox.svg';
-import CrustaceansSvg from './svg/allergens/crustaceans.svg';
-import SoySvg from './svg/allergens/soy.svg';
-import NutsSvg from './svg/allergens/nuts.svg';
-import FishSvg from './svg/allergens/fish.svg';
-import SesameSvg from './svg/allergens/sesame.svg';
-import LupinsSvg from './svg/allergens/lupins.svg';
-import PeanutsSvg from './svg/allergens/peanuts.svg';
-import GlutenSvg from './svg/allergens/gluten.svg';
-
-// png
-import EmojiiVeryAngryPng from './png/very-angry.png';
-import EmojiiSmilingFacePng from './png/smiling-face.png';
-import EmojiiVerySadPng from './png/very-sad.png';
-import EmojiiHeartEyesPng from './png/heart-eyes.png';
+// png allergens
+import MustardPng from './png/allergens/mustard.png';
+import DairyPng from './png/allergens/dairy.png';
+import EggsPng from './png/allergens/eggs.png';
+import CeleryPng from './png/allergens/celery.png';
+import MollusksPng from './png/allergens/mollusks.png';
+import DioxPng from './png/allergens/diox.png';
+import CrustaceansPng from './png/allergens/crustaceans.png';
+import SoyPng from './png/allergens/soy.png';
+import NutsPng from './png/allergens/nuts.png';
+import FishPng from './png/allergens/fish.png';
+import SesamePng from './png/allergens/sesame.png';
+import LupinsPng from './png/allergens/lupins.png';
+import PeanutsPng from './png/allergens/peanuts.png';
+import GlutenPng from './png/allergens/gluten.png';
 
 // temp
 import RestaurantLogoTempPng from './png/temp/restaurantLogoTemp.png';
 import PlateTempPng from './png/temp/plateTemp.png';
 import FoodTipsTempPng from './png/temp/foodTipsTemp.png';
 import RestourantInfoTempPng from './png/temp/restourantInfoTemp.png';
+import CelebratyTempPng from './png/temp/celebratyTemp.png';
+import OfferTempPng from './png/temp/offerTemp.png';
 
 export {
   ChefSvg,
@@ -76,29 +72,25 @@ export {
   TickSvg,
   ChevronSvg,
   
-  MustardSvg,
-  DairySvg,
-  EggsSvg,
-  CelerySvg,
-  MollusksSvg,
-  DioxSvg,
-  CrustaceansSvg,
-  SoySvg,
-  NutsSvg,
-  FishSvg,
-  SesameSvg,
-  LupinsSvg,
-  PeanutsSvg,
-  GlutenSvg,
-
-  // LogoPng,
-  EmojiiVeryAngryPng,
-  EmojiiSmilingFacePng,
-  EmojiiVerySadPng,
-  EmojiiHeartEyesPng,
+  MustardPng,
+  DairyPng,
+  EggsPng,
+  CeleryPng,
+  MollusksPng,
+  DioxPng,
+  CrustaceansPng,
+  SoyPng,
+  NutsPng,
+  FishPng,
+  SesamePng,
+  LupinsPng,
+  PeanutsPng,
+  GlutenPng,
 
   RestaurantLogoTempPng,
   PlateTempPng,
   FoodTipsTempPng,
   RestourantInfoTempPng,
+  CelebratyTempPng,
+  OfferTempPng,
 };

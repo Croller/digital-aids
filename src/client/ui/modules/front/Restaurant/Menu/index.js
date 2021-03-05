@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { languages } from 'client/i18n';
 import {
   QuestionCircleSvg,
   AlertCircleSvg,
@@ -16,8 +16,7 @@ import {
 
 const Menu = () => {
   const history = useHistory();
-  const [t] = useTranslation();
-  const { lng } = useSelector(store => store.user);
+  const [t, i18n] = useTranslation();
   const menu = [
     {
       path: 'reglament',
@@ -42,7 +41,7 @@ const Menu = () => {
       name: (
         <>
           <GlobalSvg />
-          <Text>{t(`common.laguages.${lng}`)}</Text>
+          <Text>{languages[i18n.language].name}</Text>
         </>
       ),
     },

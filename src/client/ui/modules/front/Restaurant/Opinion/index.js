@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { OpinionModal } from 'client/ui/components/_block/Modal/Opinion';
-import {
-  EmojiiVeryAngryPng,
-  EmojiiSmilingFacePng,
-  EmojiiVerySadPng,
-  EmojiiHeartEyesPng,
-} from 'client/assets/images';
+
 import {
   Wrapper,
   Title,
@@ -34,34 +30,32 @@ const RATING = [
     key: 'love',
     value: 4,
     icon: '😍',
-    src: EmojiiHeartEyesPng,
   },
   {
     key: 'satisfied',
     value: 3,
     icon: '😊',
-    src: EmojiiSmilingFacePng,
   },
   {
     key: 'disappointed',
     value: 2,
     icon: '😟',
-    src: EmojiiVerySadPng,
   },
   {
     key: 'angry',
     value: 1,
     icon: '😡',
-    src: EmojiiVeryAngryPng,
   },
 ];
 
 const Opinion = () => {
-  const history = useHistory();
+  // const history = useHistory();
   const [t] = useTranslation();
   const [rating, setRating] = useState({});
   const [comment, setComment] = useState('');
-  const [existOpinion, setExistOpinion] = useState(false);
+  const [existOpinion, hideModal] = useModal(() => (
+    <OpinionModal onOk={hideModal} />
+  ));
 
   const handleClickRate = (obj) => {
     setRating({ ...rating, ...obj });
@@ -72,18 +66,14 @@ const Opinion = () => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = () => {
-    // console.log('send opinion', {
-    //   ...rating,
-    //   comment,
-    // });
-    // history.push('categories');
-    setExistOpinion(true);
-  };
-
-  const handleCloseModal = () => {
-    setExistOpinion(false);
-  };
+  // const handleSubmit = () => {
+  // console.log('send opinion', {
+  //   ...rating,
+  //   comment,
+  // });
+  // history.push('categories');
+  // setExistOpinion(true);
+  // };
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -125,13 +115,10 @@ const Opinion = () => {
           {t('common.comments')}
         </CommentTitle>
         <CommentControl rows={1} onChange={handleChangeComment} />
-        <SendButton onClick={handleSubmit}>
+        <SendButton onClick={existOpinion}>
           {t('common.send')}
         </SendButton>
       </Wrapper>
-      {existOpinion && (
-        <OpinionModal onOk={handleCloseModal} />
-      )}
     </>
   );
 };

@@ -3,6 +3,7 @@ import { Button } from 'client/ui/components/_ui/Button/Btn';
 import { PALETTE, FONTS, THEME } from 'client/style/constants';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { GoogleMap } from 'client/ui/components/_block/GoogleMap';
 
 export const Wrapper = styled.div`
   display: block;
@@ -209,10 +210,10 @@ export const Address = styled.span`
   }
 `;
 
-export const MapStyled = styled.div`
-  width: 100%;
-  height: 140px;
-  background-color: ${PALETTE.grey8};
+export const MapStyled = styled(GoogleMap)`
+  position: relative !important;
+  width: 100% !important;
+  height: 140px !important;
 `;
 
 export const RateWrapper = styled.div`

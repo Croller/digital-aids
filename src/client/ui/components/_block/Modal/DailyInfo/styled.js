@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background-color: ${PALETTE.white};
   padding: 70px 14px 38px;
   width: 278px;
-  margin: 20% auto;
+  margin: 28% auto;
 `;
 
 export const CloseButton = styled(Button)`
@@ -48,7 +48,7 @@ export const Title = styled.div`
 
 export const Hr = styled.hr`
   width: 100%;
-  margin: 20px 0;
+  margin: 25px 0;
   border: 0.4px solid ${PALETTE.grey10};
 `;
 

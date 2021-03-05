@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import i18n from 'client/i18n';
+import translate, { languages } from 'client/i18n';
 
 import {
   Wrapper,
@@ -8,35 +8,16 @@ import {
   ButtonStyled,
 } from './styled';
 
-const mock = [
-  {
-    lng: 'en',
-    name: 'English',
-  },
-  {
-    lng: 'dt',
-    name: 'Deutsch',
-  },
-  {
-    lng: 'es',
-    name: 'Español',
-  },
-  {
-    lng: 'nr',
-    name: 'Norsk',
-  },
-  {
-    lng: 'ru',
-    name: 'Русский',
-  },
-];
-
 const Language = () => {
   const history = useHistory();
-  const languages = null;
 
   const handleClick = (lng) => {
-    i18n.changeLanguage(lng);
+    translate.changeLanguage(lng);
+    
+    if (history.action !== 'POP') {
+      history.goBack();
+      return null;
+    }
     history.push('categories');
   };
 
@@ -47,12 +28,12 @@ const Language = () => {
   return (
     <Wrapper>
       <List>
-        {(languages || mock).map(({ lng, name }) => (
+        {Object.keys(languages).map(lng => (
           <ButtonStyled
-            key={lng}
+            key={`_language_${lng}`}
             onClick={() => handleClick(lng)}
           >
-            {name}
+            {languages[lng].name}
           </ButtonStyled>
         ))}
       </List>

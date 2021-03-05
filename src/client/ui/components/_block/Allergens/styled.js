@@ -21,7 +21,7 @@ export const Item = styled.li`
   }
 `;
 
-export const IconWrapper = styled.div`
+export const ImgWrapper = styled.img`
   width: 37px;
   height: 37px;
   margin-right: 14px;

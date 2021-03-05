@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { RateCircle } from 'client/ui/components/_block/RateCircle';
+import { Marker } from 'google-maps-react';
 import {
   CloseSvg,
   PhoneCallSvg,
@@ -59,11 +60,11 @@ const Information = memo(() => {
       }
       window.open(path, '_blank').focus();
     }
-    if (history.action !== 'POP') {
+    if (history.action !== 'POP' && path === 'back') {
       history.goBack();
       return null;
     }
-    history.push(path);
+    history.push(path === 'back' ? 'categories' : path);
   };
 
   const handleShare = async () => {
@@ -83,7 +84,7 @@ const Information = memo(() => {
 
   return (
     <Wrapper>
-      <CloseButton onClick={() => handleRoute('menu')}>
+      <CloseButton onClick={() => handleRoute('back')}>
         <CloseSvg />
       </CloseButton>
       <Slider
@@ -138,7 +139,7 @@ const Information = memo(() => {
               <PhoneCallSvg />
               {t('common.call_us')} 
             </CallButton>
-            <MenuButton onClick={() => handleRoute('information')}>
+            <MenuButton onClick={() => handleRoute('categories')}>
               {t('common.menu')} 
             </MenuButton>
           </InfoControls>
@@ -158,7 +159,12 @@ const Information = memo(() => {
                 {address}
               </Address>
             </AddressTitle>
-            <MapStyled />
+            <MapStyled
+              initialCenter={{ lat: 37.778519, lng: -122.405640 }}
+              zoom={15}
+            >
+              <Marker position={{ lat: 37.778519, lng: -122.405640 }} />
+            </MapStyled>
           </AddressContainer>
         </AddessWrapper>
         <RateWrapper>

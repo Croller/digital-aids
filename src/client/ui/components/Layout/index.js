@@ -5,7 +5,6 @@ import { Header } from 'client/ui/components/Header';
 import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
-import { Modal } from 'client/ui/modules/front/Restaurant/Modal';
 
 import { 
   Wrapper,
@@ -41,6 +40,11 @@ export const Layout = ({
     return bool;
   };
 
+  const getShowFooterMenu = (path) => {
+    const bool = !['foodtips'].some(f => path.indexOf(f) > -1);
+    return bool;
+  };
+
   useEffect(() => {
     setIsMobile(window.innerWidth <= BREAKPOINTS.small);
   }, []);
@@ -61,13 +65,12 @@ export const Layout = ({
           {children}
         </Content>
       </Cotainer>
-      {isMobile ? (footerMenu || (
+      {isMobile ? getShowFooterMenu(pathname) && (footerMenu || (
         <MobileMenu
           pathname={pathname}
           onRoute={handleRoute}
         />
       )) : (footer || (<Footer />))}
-      <Modal />
     </Wrapper>
   );
 };

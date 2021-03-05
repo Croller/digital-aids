@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Modal } from 'client/ui/components/_block/Modal';
-import { CloseSvg, PlateTempPng } from 'client/assets/images';
+import { CloseSvg, OfferTempPng } from 'client/assets/images';
 import {
   Wrapper,
   CloseButton,
@@ -27,7 +27,7 @@ export const OfferCategoryModal = memo(({
           <CloseSvg />
         </CloseButton>
         <Content>
-          <Image src={source.src || PlateTempPng} />
+          <Image src={source.src || OfferTempPng} />
           <Description>
             {source.description}
           </Description>

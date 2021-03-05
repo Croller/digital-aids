@@ -6,6 +6,7 @@ import { DishBlock } from 'client/ui/components/_block/DishBlock';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { InfoCircleSvg, ClockSvg } from 'client/assets/images';
 import { updateOrder } from 'client/store/restaurant';
+import { useModal } from 'react-modal-hook';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
@@ -41,7 +42,30 @@ const Category = () => {
   const [categoryItem, setCategoryItem] = useState(null);
   const [allergens, setAllergens] = useState(null);
   const [offer, setOffer] = useState(null);
-  const [daylyinfo, setDaylyInfo] = useState(true);
+
+  const [showAllergens, hideAllergens] = useModal(() => (
+    <AllergensModal
+      source={allergens}
+      onClose={() => {
+        setAllergens(null);
+        hideAllergens();
+      }}
+    />
+  ), [allergens]);
+
+  const [showDailyInfo, hideDailyInfo] = useModal(() => (
+    <DailyInfoModal
+      source={categoryItem && categoryItem.options.info}
+      onClose={hideDailyInfo}
+    />
+  ), [categoryItem]);
+
+  const [showOffer, hideOffer] = useModal(() => (
+    <OfferCategoryModal
+      source={offer}
+      onClose={hideOffer}
+    />
+  ), [offer]);
 
   const handleSetOrder = (obj) => {
     let data = [];
@@ -80,14 +104,7 @@ const Category = () => {
 
   const handleToggleModalAllergens = (arr) => {
     setAllergens(allergens ? null : arr);
-  };
-
-  const handleToggleModalDayliInfo = () => {
-    setDaylyInfo(!daylyinfo);
-  };
-
-  const handleToggleModalOffer = () => {
-    setOffer(null);
+    showAllergens();
   };
 
   useEffect(() => {
@@ -96,10 +113,11 @@ const Category = () => {
 
     if (categItem) {
       if (categItem.dailymenu) {
-        setDaylyInfo(true);
+        showDailyInfo();
       }
       if (categItem.offers && !categItem.dailymenu) {
         setOffer(categItem.offers[0]);
+        showOffer();
       }
     }
 
@@ -112,6 +130,7 @@ const Category = () => {
 
     if (categItem && categItem.dailymenu) {
       handleClearOrder();
+      showDailyInfo();
     }
   }, []);
 
@@ -123,7 +142,7 @@ const Category = () => {
             {categoryItem.name}
           </Title>
           {categoryItem.dailymenu && (
-            <InfoDailyButton onClick={handleToggleModalDayliInfo}>
+            <InfoDailyButton onClick={showDailyInfo}>
               <InfoCircleSvg />
             </InfoDailyButton>
           )}
@@ -174,24 +193,6 @@ const Category = () => {
         )}
       </Wrapper>
       <ThankYou />
-      {allergens && (
-        <AllergensModal
-          source={allergens}
-          onClose={handleToggleModalAllergens}
-        />
-      )}
-      {daylyinfo && categoryItem.dailymenu && (
-        <DailyInfoModal
-          source={categoryItem.options.info}
-          onClose={handleToggleModalDayliInfo}
-        />
-      )}
-      {offer && (
-        <OfferCategoryModal
-          source={offer}
-          onClose={handleToggleModalOffer}
-        />
-      )}
     </>
   );
 };

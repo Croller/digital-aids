@@ -4,7 +4,6 @@ import { Z_INDEX, PALETTE } from 'client/style/constants';
 export const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
-  
 `;
 
 export const Background = styled.div`
@@ -15,7 +14,7 @@ export const Background = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: ${Z_INDEX.modal};
+  z-index: ${Z_INDEX.modal + 1};
 `;
 
 export const Container = styled.div`
@@ -25,7 +24,6 @@ export const Container = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: ${Z_INDEX.modal + 1};
+  z-index: ${Z_INDEX.modal + 2};
   overflow-y: auto;
-  /* padding: 24px 16px 20px; */
 `;

@@ -15,7 +15,7 @@ export const MobileMenu = memo(({
   pathname = null,
   onRoute,
 }) => {
-  const [t] = useTranslation();
+  const [t, i18n] = useTranslation();
   const { order, categories } = useSelector(store => store.restaurant);
 
   const getCount = () => {
@@ -35,7 +35,7 @@ export const MobileMenu = memo(({
     {
       key: 'language',
       icon: <GlobalSvg />,
-      text: 'en',
+      text: i18n.language,
     },
     {
       key: 'categories',

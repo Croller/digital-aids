@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background-color: ${PALETTE.white};
   padding: 22px 12px 44px;
   width: 306px;
-  margin: 20% auto;
+  margin: 28% auto;
 `;
 
 export const Content = styled.div`

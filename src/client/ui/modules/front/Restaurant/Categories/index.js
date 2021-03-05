@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useModal } from 'react-modal-hook';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
@@ -13,26 +14,18 @@ import {
 const Categories = () => {
   const history = useHistory();
   const { categories } = useSelector(store => store.restaurant);
-  const [confirmAge, setConfirmAge] = useState(false);
-  const [selectedKey, setSelectedKey] = useState(null);
   const [t] = useTranslation();
-
-  const handleClick = (category) => {
-    if (category.check_age) {
-      setSelectedKey(category.key);
-      handleToggleConfirm18Modal();
-      return null;
-    }
-    handleRoute(category.key);
-  };
-
-  const handleToggleConfirm18Modal = () => {
-    setConfirmAge(!confirmAge);
-  };
-
-  const handleAgreeConfirm18Modal = () => {
-    handleRoute(selectedKey);
-  };
+  const [confirmAge, hideModal] = useModal(() => (
+    <Confirm18Modal
+      onCancel={hideModal}
+      onOk={() => {
+        const category = categories.find(f => f.check_age);
+        if (category) {
+          history.push(`categories/${category.key}`);
+        }
+      }}
+    />
+  ));
 
   const handleRoute = (key) => {
     history.push(`categories/${key}`);
@@ -52,19 +45,13 @@ const Categories = () => {
           {(categories).map(category => (
             <ButtonStyled
               key={category.key}
-              onClick={() => handleClick(category)}
+              onClick={() => (category.check_age ? confirmAge({ test: 'etet' }) : handleRoute(category.key))}
             >
               {category.name}
             </ButtonStyled>
           ))}
         </List>
       </Wrapper>
-      {confirmAge && (
-        <Confirm18Modal
-          onOk={handleAgreeConfirm18Modal}
-          onCancel={handleToggleConfirm18Modal}
-        />
-      )}
     </>
   );
 };

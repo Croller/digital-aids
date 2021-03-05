@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useModal } from 'react-modal-hook';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TrashSvg } from 'client/assets/images';
@@ -39,14 +40,29 @@ const Order = () => {
   } = useSelector(store => store.restaurant);
   const rootDispatch = useDispatch();
   const history = useHistory();
-  const [confirmDelete, setConfirmDelete] = useState(false);
   const [allergens, setAllergens] = useState(null);
   const [t] = useTranslation();
 
-  const handleClearOrder = () => {
-    rootDispatch(clearOrder());
-    handleToggleRemoveOrderModal();
-  };
+  const [showAllergens, hideAllergens] = useModal(() => (
+    <AllergensModal
+      source={allergens}
+      onClose={() => {
+        setAllergens(null);
+        hideAllergens();
+      }}
+    />
+  ), [allergens]);
+
+  const [showConfirmDelete, hideConfirmDelete] = useModal(() => (
+    <RemoveOrderModal
+      onCancel={hideConfirmDelete}
+      onClose={hideConfirmDelete}
+      onOk={() => {
+        rootDispatch(clearOrder());
+        hideConfirmDelete();
+      }}
+    />
+  ));
 
   const handleCreateReceipt = () => {
     history.push('order/receipt');
@@ -58,6 +74,7 @@ const Order = () => {
 
   const handleToggleModalAllergens = (arr) => {
     setAllergens(allergens ? null : arr);
+    showAllergens();
   };
 
   const handleSetOrder = ({ obj, category }) => {
@@ -85,10 +102,6 @@ const Order = () => {
 
   const handleDeleteDaily = (obj) => {
     rootDispatch(updateOrder({ ...obj, order: [] }));
-  };
-
-  const handleToggleRemoveOrderModal = () => {
-    setConfirmDelete(!confirmDelete);
   };
 
   const getTitle = (arr, category, index) => (
@@ -119,7 +132,7 @@ const Order = () => {
             {`${t('common.my')} ${t('common.order')}`}
           </Title>
           {order && (
-            <TrashButton onClick={handleToggleRemoveOrderModal}>
+            <TrashButton onClick={showConfirmDelete}>
               <TrashSvg />
             </TrashButton>
           )}
@@ -192,19 +205,6 @@ const Order = () => {
         )}
       </Wrapper>
       {!order && (<ThankYou />)}
-      {allergens && (
-        <AllergensModal
-          source={allergens}
-          onClose={handleToggleModalAllergens}
-        />
-      )}
-      {confirmDelete && (
-        <RemoveOrderModal
-          onOk={handleClearOrder}
-          onCancel={handleToggleRemoveOrderModal}
-          onClose={handleToggleRemoveOrderModal}
-        />
-      )}
     </>
   );
 };

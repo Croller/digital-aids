@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DontWaste } from 'client/ui/components/Footer/DontWaste';
 import { updateOrder } from 'client/store/restaurant';
 import { 
   CloseSvg,
@@ -21,6 +20,7 @@ import {
   Total,
   Price,
   AddButton,
+  DontWasteStyled,
 } from './styled';
 
 const FoodTips = () => {
@@ -35,6 +35,7 @@ const FoodTips = () => {
   const history = useHistory();
   const [t] = useTranslation();
   const [items, setItems] = useState(null);
+  // const [scrollable, setScrollable] = useState(true);
 
   const handleRoute = () => {
     const path = `/restaurant/${key}/categories`;
@@ -70,7 +71,7 @@ const FoodTips = () => {
     window.prerenderReady = true;
 
     const foodtips = categories
-      .filter(f => !f.dailymenu)
+      .filter(f => !f.dailymenu && f.dishes)
       .reduce((arr, category) => {
         const arrDishes = category.dishes.map(id => ({
           ...category,
@@ -79,6 +80,10 @@ const FoodTips = () => {
         return [...arr, ...arrDishes];
       }, []);
     setItems(foodtips);
+
+    // window.onscroll = () => {
+    //   setScrollable(true);
+    // }
   }, []);
 
   return (
@@ -88,7 +93,7 @@ const FoodTips = () => {
       </CloseButton>
       {items && (
         <Slider
-          // autoPlay
+          autoPlay={false}
           showThumbs={false}
         >
           {items.map((item, i) => (
@@ -116,7 +121,7 @@ const FoodTips = () => {
                   {t('common.add_to_order')}
                 </AddButton>
               </Content>
-              <DontWaste />
+              <DontWasteStyled />
             </React.Fragment>
           ))}
         </Slider>

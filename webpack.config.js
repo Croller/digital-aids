@@ -16,7 +16,7 @@ const PLATFORM = process.env.NODE_ENV;
 
 let entry;
 let plugins = [
-  new Dotenv({ path: '.env' }),
+  new Dotenv({ path: './.env' }),
   new HtmlWebpackPlugin({
     template: './public/index.html',
     favicon: './public/favicon.ico',

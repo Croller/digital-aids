@@ -8,6 +8,7 @@ import {
 } from 'client/style/constants';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
+import { DontWaste } from 'client/ui/components/Footer/DontWaste';
 
 export const Wrapper = styled.div`
   display: block;
@@ -136,4 +137,8 @@ export const AddButton = styled(Button)`
   text-transform: uppercase;
   margin-bottom: 30px;
   box-shadow: ${THEME.boxShadow1};
+`;
+
+export const DontWasteStyled = styled(DontWaste)`
+  padding-bottom: 0;
 `;

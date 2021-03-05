@@ -2,15 +2,17 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 const en = require('./en.json');
+const es = require('./es.json');
 
-const resources = {
+export const languages = {
   en,
+  es,
 };
 
 i18n
   .use(initReactI18next)
   .init({
-    resources,
+    resources: languages,
     lng: 'en',
     fallbackLng: 'en',
   });

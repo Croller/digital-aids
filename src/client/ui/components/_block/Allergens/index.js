@@ -5,7 +5,7 @@ import {
   Wrapper,
   List,
   Item,
-  IconWrapper,
+  ImgWrapper,
   Text,
   Description,
 } from './styled';
@@ -24,15 +24,11 @@ export const Allergens = memo(({
   return (
     <Wrapper className={className}>
       <List>
-        {getAllergens(source).map(({ key, icon }) => (
+        {getAllergens(source).map(({ key, src }) => (
           <Item
             key={`_allergen_${key}`}
           >
-            {icon && (
-              <IconWrapper>
-                {icon}
-              </IconWrapper>
-            )}
+            <ImgWrapper src={src} />
             <Text>
               {t(`compAllergens.allergens.${key}`)}
             </Text>

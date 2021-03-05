@@ -7,8 +7,8 @@ export const Wrapper = styled.div`
   border-radius: 12px;
   background-color: #FFFFFF;
   padding: 24px 22px 36px;
-  width: 306px;
-  margin: 20% auto;
+  width: 262px;
+  margin: 28% auto;
 `;
 
 export const Title = styled.div`

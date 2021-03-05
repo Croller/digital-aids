@@ -114,10 +114,9 @@ export const categoriesMock = [
     key: 'drinks-with-alcohol',
     name: 'Drinks with alcohol',
     dailymenu: false,
-    groups: null,
     check_age: true,
     options: null,
-    dishes: [12, 13, 14], // id dishes
+    dishes: null,
     offers: [
       {
         id: 101,
@@ -127,17 +126,45 @@ export const categoriesMock = [
         button: 'Do you know us?',
       },
     ],
+    groups: [
+      {
+        id: 1007,
+        key: 'vine',
+        name: 'Vine',
+        dishes: [8, 7, 0], // id dishes
+      },
+      {
+        id: 1008,
+        key: 'beer',
+        name: 'Beer',
+        dishes: [13, 14, 15], // id dishes
+      },
+    ],
   },
   {
     id: 8,
     key: 'drinks-no-alcohol',
     name: 'Drinks no alcohol',
     dailymenu: false,
-    groups: null,
     check_age: false,
     options: null,
-    dishes: [12, 13, 14], // id dishes
+    dishes: null,
     offers: null,
+    groups: [
+      {
+        id: 1005,
+        key: 'coffee',
+        name: 'Coffe',
+        dishes: [1, 2, 3], // id dishes
+      },
+      {
+        id: 1006,
+        key: 'tea',
+        name: 'Tes',
+        dishes: [4, 5, 6], // id dishes
+      },
+      
+    ],
   },
   {
     id: 9,
