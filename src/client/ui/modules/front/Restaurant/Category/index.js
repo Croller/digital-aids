@@ -85,7 +85,7 @@ const Category = () => {
       order_id: orderId,
       order: data,
     };
-
+    console.log(newOrder);
     setCategoryOrder(data);
     rootDispatch(updateOrder(newOrder));
   };
@@ -154,7 +154,7 @@ const Category = () => {
           </WorkDailyButton>
         )}
         <DishList>
-          {categoryItem.dailymenu ? categoryItem.groups.map(group => (
+          {categoryItem.groups && categoryItem.groups.map(group => (
             <DailyWrapper key={group.key}>
               <TitleGroup>
                 {group.name}
@@ -163,11 +163,12 @@ const Category = () => {
                 dish,
                 group,
                 order: categoryOrder,
-                dailymenu: true,
+                dailymenu: categoryItem.dailymenu,
                 currency: t(`common.currency.${currency[0]}`),
               }, handleToggleModalAllergens, handleSetOrder))}
             </DailyWrapper>
-          )) : getDishes(categoryItem.dishes).map(dish => DishBlock({
+          ))}
+          {!categoryItem.dailymenu && !categoryItem.groups && getDishes(categoryItem.dishes).map(dish => DishBlock({
             dish,
             order: categoryOrder,
             currency: t(`common.currency.${currency[0]}`),

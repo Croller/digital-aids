@@ -67,9 +67,10 @@ export const DishList = styled.div`
 `;
 
 export const DailyCard = styled.div`
+  display: block;
 `;
 
-export const DailyHeader = styled.div` 
+export const DailyHeader = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;

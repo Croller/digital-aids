@@ -38,12 +38,6 @@ export const categoriesMock = [
         name: 'Drinks',
         dishes: [8, 7, 0], // id dishes
       },
-      {
-        id: 1004,
-        key: 'alkogol',
-        name: 'Alkogol',
-        dishes: [13, 14, 15], // id dishes
-      },
     ],
   },
   {

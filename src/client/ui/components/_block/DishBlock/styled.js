@@ -7,6 +7,7 @@ import { FONTS, THEME, PALETTE } from 'client/style/constants';
 export const DishWrapper = styled.div`
   position: relative;
   box-shadow: ${THEME.boxShadow1};
+  padding-bottom: 1px;
 
   img {
     border-top-left-radius: ${THEME.borderRadius};
