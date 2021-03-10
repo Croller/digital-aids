@@ -48,7 +48,7 @@ const Information = memo(() => {
     // work_time,
     raiting,
     currency,
-  } = useSelector(store => store.restaurant);
+  } = useSelector(store => store.restaurant.info);
   const history = useHistory();
   const [t] = useTranslation();
 

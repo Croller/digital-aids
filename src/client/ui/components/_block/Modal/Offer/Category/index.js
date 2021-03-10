@@ -16,7 +16,7 @@ export const OfferCategoryModal = memo(({
   onClose,
 }) => {
   const handleRoute = () => {
-    window.open(source.url, '_blank').focus();
+    window.open(source.link.url, '_blank').focus();
     onClose();
   };
 
@@ -27,14 +27,14 @@ export const OfferCategoryModal = memo(({
           <CloseSvg />
         </CloseButton>
         <Content>
-          <Image src={source.src || OfferTempPng} />
+          <Image src={source.link.src || OfferTempPng} />
           <Description>
-            {source.description}
+            {source.text.description}
           </Description>
         </Content>
         <Controls>
           <Ok onClick={handleRoute}>
-            {source.button}
+            {source.text.button}
           </Ok>
         </Controls>
       </Wrapper>

@@ -1,9 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useModal } from 'react-modal-hook';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Confirm18Modal } from 'client/ui/components/_block/Modal/Confirm18';
+import { OfferRestaurantModal } from 'client/ui/components/_block/Modal/Offer/Restaurant';
+import { setOfferViewed } from 'client/utils/restaurant';
 import {
   Wrapper,
   Title,
@@ -13,8 +15,9 @@ import {
 
 const Categories = () => {
   const history = useHistory();
-  const { categories } = useSelector(store => store.restaurant);
+  const { info, categories, offers } = useSelector(store => store.restaurant);
   const [t] = useTranslation();
+  const [offer, setOffer] = useState(null);
   const [confirmAge, hideModal] = useModal(() => (
     <Confirm18Modal
       onCancel={hideModal}
@@ -26,6 +29,12 @@ const Categories = () => {
       }}
     />
   ));
+  const [showOffer, hideOffer] = useModal(() => (
+    <OfferRestaurantModal
+      source={offer}
+      onClose={hideOffer}
+    />
+  ), [offer]);
 
   const handleRoute = (key) => {
     history.push(`categories/${key}`);
@@ -33,6 +42,13 @@ const Categories = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
+    
+    if (info.offers && info.offers[0]) {
+      setOfferViewed(info.offers[0], () => {
+        setOffer(offers.find(f => f.id === info.offers[0]));
+        showOffer();
+      });
+    }
   }, []);
 
   return categories && (

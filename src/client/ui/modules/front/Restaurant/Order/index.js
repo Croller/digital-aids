@@ -35,7 +35,7 @@ import {
 
 const Order = () => {
   const {
-    currency,
+    info: { currency },
     order,
   } = useSelector(store => store.restaurant);
   const rootDispatch = useDispatch();

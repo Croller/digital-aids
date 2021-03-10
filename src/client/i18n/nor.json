@@ -1,0 +1,138 @@
+{
+  "name": "Norwegian",
+
+  "translation": {
+    "common": {
+      "allergens": "Allergener",
+      "reglament": "Reglament (EU) №1169 / 2011",
+      "language": "Språk",
+      "reservation": "Reservasjon",
+      "opinion": "Mening",
+      "foodtips": "Foodtips",
+      "menu": "Meny",
+      "send": "Sende",
+      "comments": "Kommentarer",
+      "reviewies": "Reviewies",
+      "avg_price": "Gjennomsnittspris",
+      "call_us": "Ring oss",
+      "cuisine": "Cuisine",
+      "add_to_order": "Legg til bestillingen",
+      "total": "Total",
+      "online": "Online",
+      "order": "Bestille",
+      "my": "Min",
+      "an": "",
+      "create": "Skape",
+      "include": "Inkludert",
+      "price": "Pris",
+      "ok": "Ok",
+      "remove": "Ta vekk",
+      "dont": "Ikke",
+      "yes_i": "Bekrefte",
+      "not_i": "Jeg bekrefter ikke",
+
+      "currency": {
+        "euro": "€"
+      },
+      "unit": {
+        "kg": "kg",
+        "gr": "gr",
+        "l": "l",
+        "ml": "ml",
+        "pc": "pc",
+        "pr": "pr"
+      },
+      "cuisine_type": {
+        "fusion": "Fusione"
+      },
+      "laguages": {
+        "en": "English",
+        "ru": "Русский"
+      },
+      "week_day_short": {
+        "mon": "Man",
+        "tue": "Tir",
+        "wed": "Ons",
+        "thu": "Tor",
+        "fri": "Fre",
+        "sat": "Lør",
+        "sun": "Søn"
+      }
+    },
+
+    "pageMenu": {
+      "text":"Oops! Det ser ut til at noe gikk galt,\n men vi er her for å hjelpe deg!\n Vennligst \n prøv igjen."
+    },
+    "pageAllergens": {
+      "descriptions": "En oppløsning med tilgjengelig informasjon om mat allergener og intoleranser."
+    },
+    "pageOpinion": {
+      "title": "Din mening",
+      "descriptions": "Din mening er veldig viktig for oss, hjelpe oss med å forbedre tjenesten vår!",
+      "rate": {
+        "service": "Service",
+        "meal": "Mat",
+        "covid": "Forebygging Protokoll COVID-19",
+        "menu": "Meny Tjeneste"
+      },
+      "rating": {
+        "love": "Superfornøyd",
+        "satisfied": "Fornøyd",
+        "disappointed": "Skuffet",
+        "angry": "Sint"
+      }
+    },
+    "pageOrder": {
+      "empty_order": "Bestillingen din er tom.\n De utvalgte retter må legges til bestillingen."
+    },
+    "pageReceipt": {
+      "ask_waiter": "Spør kelneren om å bekrefte bestillingen."
+    },
+    "page404": {
+      "helmet": "404 - Error page",
+      "text": "Oops! Det ser ut til at noe gikk galt,\n men vi er her for å hjelpe deg!\n Vennligst prøv igjen."
+    },
+    "pageError": {
+      "text": "Oops!\n Det ser ut til at noe gikk galt,\n men vi er her for å hjelpe deg!\n Vennligst\n prøv igjen."
+    },
+
+    "compAllergens": {
+      "descriptions": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. \n Hvis du har allergier, spør kelneren på forhånd for mer informasjon om våre retter.",
+      "allergens": {
+        "mustard": "Sennep",
+        "lupins": "Lupiner",
+        "sesame": "Sesam",
+        "fish": "Fisk",
+        "nuts": "Hasselnøtt",
+        "diox": "Dioks, svovel og sulfitter",
+        "crustaceans": "Krepsdyr",
+        "soy": "Soya",
+        "mollusks": "Sjøbløtdyr",
+        "celery": "Selleri",
+        "eggs": "Egg",
+        "dairy": "Meieriprodukter",
+        "peanuts": "Peanøtter",
+        "gluten": "Gluten"
+      }
+    },
+
+    "compModal": {
+      "order_delete": "Er du sikker på at\n du vil slette hele bestillingen?",
+      "opinion_exist": "Vi har allerede mottatt\n din tilbakemelding. \n Takk for \n samarbeidet!",
+      "confirm_age": {
+        "title": "De alkoholholdige drikkene er forbeholdt voksne.\n Alkoholmisbruk er helseskadelig.\n Drikk med måte.",
+        "description": "Bekreft at \n du er myndig."
+      }
+    },
+
+    "footer": {
+      "thankyou": {
+        "title": "Takk skal du ha!",
+        "descriptions": "Din tilbakemelding er veldig viktig for oss,\n vær så snill og del med oss!"
+      },
+      "dontwaste": {
+        "descriptions": "Ikke kast bort tiden din, \n Smak på verden hver dag!"
+      }
+    }
+  }
+}

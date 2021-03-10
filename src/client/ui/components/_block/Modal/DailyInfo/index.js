@@ -25,11 +25,11 @@ export const DailyInfoModal = memo(({
         </CloseButton>
         <Content>
           <Title>
-            {source.title}
+            {source.text.title}
           </Title>
           <Hr />
           <Description>
-            {source.description}
+            {source.text.description}
           </Description>
         </Content>
         <Controls>

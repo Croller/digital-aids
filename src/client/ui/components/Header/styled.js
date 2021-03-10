@@ -19,8 +19,8 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  height: 38;
-  width: 118;
+  height: 45;
+  width: 140;
   margin-left: 20px;
 `;
 

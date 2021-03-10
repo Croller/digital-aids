@@ -5,15 +5,11 @@ export const categoriesMock = [
     name: 'Daily Menu',
     dailymenu: true,
     dishes: null,
-    offers: null,
+    offers: [2001],
     check_age: false,
     options: {
       price: 10.00,
       include: 'Bread and drinks',
-      info: {
-        title: 'Price is 10 euro per menu for one person.',
-        description: 'You can choose only one plate from each category. \n\n In case you would like to order menu for 2 persons, an order should be made twice.',
-      },
       work: {
         from: null,
         to: null,
@@ -48,16 +44,8 @@ export const categoriesMock = [
     groups: null,
     check_age: false,
     options: null,
+    offers: [201],
     dishes: [1, 2, 3], // id dishes
-    offers: [
-      {
-        id: 101,
-        src: null,
-        url: null,
-        description: 'Main Dishes, Main Dishes, Main Dishes, Main Dishes, Main Dishes',
-        button: 'Do you know us?',
-      },
-    ],
   },
   {
     id: 3,
@@ -68,7 +56,6 @@ export const categoriesMock = [
     check_age: false,
     options: null,
     dishes: [3, 4, 5], // id dishes
-    offers: null,
   },
   {
     id: 4,
@@ -79,7 +66,6 @@ export const categoriesMock = [
     check_age: false,
     options: null,
     dishes: [5, 6, 7], // id dishes
-    offers: null,
   },
   {
     id: 5,
@@ -90,7 +76,6 @@ export const categoriesMock = [
     check_age: false,
     options: null,
     dishes: [1, 2, 3], // id dishes
-    offers: null,
   },
   {
     id: 6,
@@ -100,8 +85,8 @@ export const categoriesMock = [
     groups: null,
     check_age: false,
     options: null,
-    dishes: [1, 2, 3], // id dishes
     offers: null,
+    dishes: [1, 2, 3], // id dishes
   },
   {
     id: 7,
@@ -110,16 +95,8 @@ export const categoriesMock = [
     dailymenu: false,
     check_age: true,
     options: null,
+    offers: [701],
     dishes: null,
-    offers: [
-      {
-        id: 101,
-        src: null,
-        url: null,
-        description: 'Don\'t waste your time, \n taste the world every day!',
-        button: 'Do you know us?',
-      },
-    ],
     groups: [
       {
         id: 1007,
@@ -142,8 +119,8 @@ export const categoriesMock = [
     dailymenu: false,
     check_age: false,
     options: null,
-    dishes: null,
     offers: null,
+    dishes: null,
     groups: [
       {
         id: 1005,
@@ -168,8 +145,61 @@ export const categoriesMock = [
     groups: null,
     check_age: false,
     options: null,
-    dishes: [5, 6, 7], // id dishes
     offers: null,
+    dishes: [5, 6, 7], // id dishes
+  },
+];
+
+export const offersMock = [
+  {
+    id: 2001,
+    common: false,
+    link: {
+      src: null,
+      url: null,
+    },
+    text: {
+      title: 'Price is 10 euro per menu for one person.',
+      description: 'You can choose only one plate from each category. \n\n In case you would like to order menu for 2 persons, an order should be made twice.',
+    },
+  },
+  {
+    id: 701,
+    common: false,
+    link: {
+      src: null,
+      url: null,
+    },
+    text: {
+      description: 'Don\'t waste your time, \n taste the world every day!',
+      button: 'Do you know us?',
+    },
+  },
+  {
+    id: 201,
+    common: false,
+    link: {
+      src: null,
+      url: null,
+    },
+    text: {
+      description: 'Main Dishes, Main Dishes, Main Dishes, Main Dishes, Main Dishes',
+      button: 'Do you know us?',
+    },
+  },
+  {
+    id: 1001,
+    common: false,
+    link: {
+      src: null,
+      url: null,
+    },
+    text: {
+      title: 'Celebrate with us',
+      description: 'We invite you to celebrate your special events with us and promise you a special magic day with an excellent food!',
+      price: 'Price for special menu: 35€ pp incl 1 bottle of cava.',
+      person: '(minimum 2 persons)',
+    },
   },
 ];
 
@@ -212,136 +242,491 @@ export const dishesMock = [
   })),
 ];
 
-export const orderMock = [{
-  id: 1,
-  key: 'dailymenu',
-  name: 'Daily Menu',
-  dailymenu: true,
-  dishes: null,
-  offers: null,
-  check_age: false,
-  options: {
-    price: 10, include: 'Bread and drinks', information: { title: 'Price is 10 euro per menu for one person.', description: ' You can choose only one plate from each category. In case you would like to order menu for 2 persons, an order should be made twice.' }, work: { from: null, to: null }, 
+export const orderMock = [
+  {
+    id: 1,
+    key: 'dailymenu',
+    name: 'Daily Menu',
+    dailymenu: true,
+    dishes: null,
+    offers: [
+      2001,
+    ],
+    check_age: false,
+    options: {
+      price: 10,
+      include: 'Bread and drinks',
+      work: {
+        from: null,
+        to: null,
+      },
+    },
+    groups: [
+      {
+        id: 1001,
+        key: 'appities',
+        name: 'Appities',
+        dishes: [
+          1,
+          2,
+          3,
+        ],
+      },
+      {
+        id: 1002,
+        key: 'main-dishes',
+        name: 'Main Dishes',
+        dishes: [
+          4,
+          5,
+          6,
+        ],
+      },
+      {
+        id: 1003,
+        key: 'drinks',
+        name: 'Drinks',
+        dishes: [
+          8,
+          7,
+          0,
+        ],
+      },
+    ],
+    order_id: 1,
+    order: [
+      {
+        id: 1001,
+        key: 'appities',
+        name: 'Appities',
+        dishes: [
+          1,
+          2,
+          3,
+        ],
+        dish: {
+          id: 1,
+          number: 1,
+          name: 'Spicy Korean salad',
+          key: 'spicy-korean-salad',
+          description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+          foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+          amount: 200,
+          amount_unit: 'gr',
+          price_for: 1,
+          price_for_unit: 'kg',
+          price: 6.5,
+          allergens: [
+            1,
+            2,
+            3,
+          ],
+          images: null,
+          cuisine: 'fusion',
+          is_stoped: false,
+          is_deleted: false,
+        },
+      },
+      {
+        id: 1003,
+        key: 'drinks',
+        name: 'Drinks',
+        dishes: [
+          8,
+          7,
+          0,
+        ],
+        dish: {
+          id: 7,
+          number: 7,
+          name: 'Spicy Korean salad',
+          key: 'spicy-korean-salad',
+          description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+          foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+          amount: 200,
+          amount_unit: 'gr',
+          price_for: 1,
+          price_for_unit: 'kg',
+          price: 6.5,
+          allergens: [
+            7,
+            8,
+            9,
+          ],
+          images: null,
+          cuisine: 'fusion',
+          is_stoped: false,
+          is_deleted: false,
+        },
+      },
+    ],
   },
-  groups: [{
-    id: 1001, key: 'appities', name: 'Appities', dishes: [1, 2, 3], 
-  }, {
-    id: 1002, key: 'main-dishes', name: 'Main Dishes', dishes: [4, 5, 6], 
-  }, {
-    id: 1003, key: 'drinks', name: 'Drinks', dishes: [8, 7, 0], 
-  }, {
-    id: 1004, key: 'alkogol', name: 'Alkogol', dishes: [13, 14, 15], 
-  }],
-  order_id: 1,
-  order: [{
-    id: 1001,
-    key: 'appities',
-    name: 'Appities',
-    dishes: [1, 2, 3],
-    dish: {
-      id: 1, number: 1, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, 
-    }, 
-  }, {
-    id: 1002,
-    key: 'main-dishes',
-    name: 'Main Dishes',
-    dishes: [4, 5, 6],
-    dish: {
-      id: 4, number: 4, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, 
-    }, 
-  }, {
-    id: 1003,
-    key: 'drinks',
-    name: 'Drinks',
-    dishes: [8, 7, 0],
-    dish: {
-      id: 7, number: 7, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, 
-    }, 
-  }, {
-    id: 1004,
-    key: 'alkogol',
-    name: 'Alkogol',
-    dishes: [13, 14, 15],
-    dish: {
-      id: 15, number: 15, name: 'Beer Estrella', key: 'beer-estrella-galicia--bottle', description: null, foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: null, amount_unit: null, price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: null, images: null, cuisine: null, is_stoped: false, is_deleted: false, 
-    }, 
-  }], 
-}, {
-  id: 1,
-  key: 'dailymenu',
-  name: 'Daily Menu',
-  dailymenu: true,
-  dishes: null,
-  offers: null,
-  check_age: false,
-  options: {
-    price: 10, include: 'Bread and drinks', information: { title: 'Price is 10 euro per menu for one person.', description: ' You can choose only one plate from each category. In case you would like to order menu for 2 persons, an order should be made twice.' }, work: { from: null, to: null }, 
+  {
+    id: 1,
+    key: 'dailymenu',
+    name: 'Daily Menu',
+    dailymenu: true,
+    dishes: null,
+    offers: [
+      2001,
+    ],
+    check_age: false,
+    options: {
+      price: 10,
+      include: 'Bread and drinks',
+      work: {
+        from: null,
+        to: null,
+      },
+    },
+    groups: [
+      {
+        id: 1001,
+        key: 'appities',
+        name: 'Appities',
+        dishes: [
+          1,
+          2,
+          3,
+        ],
+      },
+      {
+        id: 1002,
+        key: 'main-dishes',
+        name: 'Main Dishes',
+        dishes: [
+          4,
+          5,
+          6,
+        ],
+      },
+      {
+        id: 1003,
+        key: 'drinks',
+        name: 'Drinks',
+        dishes: [
+          8,
+          7,
+          0,
+        ],
+      },
+    ],
+    order_id: 2,
+    order: [
+      {
+        id: 1001,
+        key: 'appities',
+        name: 'Appities',
+        dishes: [
+          1,
+          2,
+          3,
+        ],
+        dish: {
+          id: 1,
+          number: 1,
+          name: 'Spicy Korean salad',
+          key: 'spicy-korean-salad',
+          description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+          foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+          amount: 200,
+          amount_unit: 'gr',
+          price_for: 1,
+          price_for_unit: 'kg',
+          price: 6.5,
+          allergens: [
+            1,
+            2,
+            3,
+          ],
+          images: null,
+          cuisine: 'fusion',
+          is_stoped: false,
+          is_deleted: false,
+        },
+      },
+      {
+        id: 1003,
+        key: 'drinks',
+        name: 'Drinks',
+        dishes: [
+          8,
+          7,
+          0,
+        ],
+        dish: {
+          id: 8,
+          number: 8,
+          name: 'Spicy Korean salad',
+          key: 'spicy-korean-salad',
+          description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+          foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+          amount: 200,
+          amount_unit: 'gr',
+          price_for: 1,
+          price_for_unit: 'kg',
+          price: 6.5,
+          allergens: [
+            8,
+            9,
+            10,
+          ],
+          images: null,
+          cuisine: 'fusion',
+          is_stoped: false,
+          is_deleted: false,
+        },
+      },
+    ],
   },
-  groups: [{
-    id: 1001, key: 'appities', name: 'Appities', dishes: [1, 2, 3], 
-  }, {
-    id: 1002, key: 'main-dishes', name: 'Main Dishes', dishes: [4, 5, 6], 
-  }, {
-    id: 1003, key: 'drinks', name: 'Drinks', dishes: [8, 7, 0], 
-  }, {
-    id: 1004, key: 'alkogol', name: 'Alkogol', dishes: [13, 14, 15], 
-  }],
-  order_id: 3,
-  order: [{
-    id: 1003,
-    key: 'drinks',
-    name: 'Drinks',
-    dishes: [8, 7, 0],
-    dish: {
-      id: 7, number: 7, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, 
-    }, 
-  }, {
-    id: 1002,
-    key: 'main-dishes',
-    name: 'Main Dishes',
-    dishes: [4, 5, 6],
-    dish: {
-      id: 4, number: 4, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, 
-    }, 
-  }, {
-    id: 1001,
-    key: 'appities',
-    name: 'Appities',
-    dishes: [1, 2, 3],
-    dish: {
-      id: 2, number: 2, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, 
-    }, 
-  }], 
-}, {
-  id: 2,
-  key: 'cold-appetizes',
-  name: 'Cold Appetizes',
-  dailymenu: false,
-  groups: null,
-  check_age: false,
-  options: null,
-  dishes: [1, 2, 3],
-  offers: [{
-    id: 102, src: null, url: null, description: 'Main Dishes, Main Dishes, Main Dishes, Main Dishes, Main Dishes', button: 'Do you know us?', 
-  }],
-  order_id: 2,
-  order: [{
-    id: 1, number: 1, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, order_count: 4, 
-  }, {
-    id: 3, number: 3, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, order_count: 2, 
-  }], 
-}, {
-  id: 6,
-  key: 'desserts',
-  name: 'Desserts',
-  dailymenu: false,
-  groups: null,
-  check_age: false,
-  options: null,
-  dishes: [1, 2, 3],
-  offers: null,
-  order_id: 4,
-  order: [{
-    id: 1, number: 1, name: 'Spicy Korean salad', key: 'spicy-korean-salad', description: 'Spicy Korean salad with beef, fresh cucumbers and paprika', foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika', amount: 200, amount_unit: 'gr', price_for: 1, price_for_unit: 'kg', price: 6.5, allergens: [1, 2, 3], images: null, cuisine: 'fusion', is_stoped: false, is_deleted: false, order_count: 3, 
-  }], 
-}];
+  {
+    id: 2,
+    key: 'cold-appetizes',
+    name: 'Cold Appetizes',
+    dailymenu: false,
+    groups: null,
+    check_age: false,
+    options: null,
+    offers: [
+      201,
+    ],
+    dishes: [
+      1,
+      2,
+      3,
+    ],
+    order_id: 3,
+    order: [
+      {
+        id: 1,
+        number: 1,
+        name: 'Spicy Korean salad',
+        key: 'spicy-korean-salad',
+        description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: 200,
+        amount_unit: 'gr',
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: [
+          1,
+          2,
+          3,
+        ],
+        images: null,
+        cuisine: 'fusion',
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 3,
+      },
+      {
+        id: 3,
+        number: 3,
+        name: 'Spicy Korean salad',
+        key: 'spicy-korean-salad',
+        description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: 200,
+        amount_unit: 'gr',
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: [
+          3,
+          4,
+          5,
+        ],
+        images: null,
+        cuisine: 'fusion',
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 3,
+      },
+    ],
+  },
+  {
+    id: 7,
+    key: 'drinks-with-alcohol',
+    name: 'Drinks with alcohol',
+    dailymenu: false,
+    check_age: true,
+    options: null,
+    offers: [
+      701,
+    ],
+    dishes: null,
+    groups: [
+      {
+        id: 1007,
+        key: 'vine',
+        name: 'Vine',
+        dishes: [
+          8,
+          7,
+          0,
+        ],
+      },
+      {
+        id: 1008,
+        key: 'beer',
+        name: 'Beer',
+        dishes: [
+          13,
+          14,
+          15,
+        ],
+      },
+    ],
+    order_id: 4,
+    order: [
+      {
+        id: 7,
+        number: 7,
+        name: 'Spicy Korean salad',
+        key: 'spicy-korean-salad',
+        description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: 200,
+        amount_unit: 'gr',
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: [
+          7,
+          8,
+          9,
+        ],
+        images: null,
+        cuisine: 'fusion',
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 3,
+      },
+      {
+        id: 14,
+        number: 14,
+        name: 'Beer Estrella',
+        key: 'beer-estrella-galicia--bottle',
+        description: null,
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: null,
+        amount_unit: null,
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: null,
+        images: null,
+        cuisine: null,
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 2,
+      },
+    ],
+  },
+  {
+    id: 8,
+    key: 'drinks-no-alcohol',
+    name: 'Drinks no alcohol',
+    dailymenu: false,
+    check_age: false,
+    options: null,
+    offers: null,
+    dishes: null,
+    groups: [
+      {
+        id: 1005,
+        key: 'coffee',
+        name: 'Coffe',
+        dishes: [
+          1,
+          2,
+          3,
+        ],
+      },
+      {
+        id: 1006,
+        key: 'tea',
+        name: 'Tes',
+        dishes: [
+          4,
+          5,
+          6,
+        ],
+      },
+    ],
+    order_id: 5,
+    order: [
+      {
+        id: 2,
+        number: 2,
+        name: 'Spicy Korean salad',
+        key: 'spicy-korean-salad',
+        description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: 200,
+        amount_unit: 'gr',
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: [
+          2,
+          3,
+          4,
+        ],
+        images: null,
+        cuisine: 'fusion',
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 2,
+      },
+      {
+        id: 3,
+        number: 3,
+        name: 'Spicy Korean salad',
+        key: 'spicy-korean-salad',
+        description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: 200,
+        amount_unit: 'gr',
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: [
+          3,
+          4,
+          5,
+        ],
+        images: null,
+        cuisine: 'fusion',
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 1,
+      },
+      {
+        id: 4,
+        number: 4,
+        name: 'Spicy Korean salad',
+        key: 'spicy-korean-salad',
+        description: 'Spicy Korean salad with beef, fresh cucumbers and paprika',
+        foodtips: 'Spicy Korean salad with beef, fresh cucumbers and paprika \n Spicy Korean salad with beef, fresh cucumbers and paprika',
+        amount: 200,
+        amount_unit: 'gr',
+        price_for: 1,
+        price_for_unit: 'kg',
+        price: 6.5,
+        allergens: [
+          4,
+          5,
+          6,
+        ],
+        images: null,
+        cuisine: 'fusion',
+        is_stoped: false,
+        is_deleted: false,
+        order_count: 1,
+      },
+    ],
+  },
+];
+

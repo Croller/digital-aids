@@ -33,7 +33,7 @@ const SOCIALS = [
 
 export const ThankYou = memo(() => {
   const [t] = useTranslation();
-  const { socials } = useSelector(store => store.restaurant);
+  const { socials } = useSelector(store => store.restaurant.info);
 
   const handleRoute = (url) => {
     window.open(url, '_blank').focus();

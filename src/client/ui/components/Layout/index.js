@@ -5,8 +5,10 @@ import { Header } from 'client/ui/components/Header';
 import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
-import { useModal } from 'react-modal-hook';
-import { OfferRestaurantModal } from 'client/ui/components/_block/Modal/Offer/Restaurant';
+import {
+  setLocalStorage,
+  removeLocalStorage,
+} from 'client/utils/localStorage';
 
 import { 
   Wrapper,
@@ -22,15 +24,10 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
-  const { key, logo, offers } = useSelector(store => store.restaurant);
+  const localKey = 'DigitalCarte';
+  const { key, logo } = useSelector(store => store.restaurant.info);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
-  const [showOffer, hideOffer] = useModal(() => (
-    <OfferRestaurantModal
-      source={offers && offers[0]}
-      onClose={hideOffer}
-    />
-  ));
   
   const handleRoute = useCallback((part) => {
     const path = `/restaurant/${key}`;
@@ -53,9 +50,22 @@ export const Layout = ({
     return bool;
   };
 
+  const initLocalStorage = () => {
+    removeLocalStorage(localKey);
+    setLocalStorage(localKey, {
+      user: {},
+      restaurant: {},
+      offersViewed: [],
+    });
+  };
+
   useEffect(() => {
-    showOffer();
     setIsMobile(window.innerWidth <= BREAKPOINTS.small);
+    initLocalStorage();
+    
+    return () => {
+      removeLocalStorage(localKey);
+    };
   }, []);
 
   return (
@@ -69,7 +79,10 @@ export const Layout = ({
           />
         )
       )}
-      <Cotainer header={getShowHeader(pathname)}>
+      <Cotainer
+        header={getShowHeader(pathname)}
+        footer={getShowFooterMenu(pathname)}
+      >
         <Content>
           {children}
         </Content>

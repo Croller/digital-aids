@@ -47,7 +47,7 @@ export const Controls = styled.div`
 
 export const Ok = styled(Button)`
   height: 48px;
-  width: 144px;
+  width: auto;
   background-color: ${PALETTE.green1};
   color: ${PALETTE.white};
   text-transform: uppercase;
@@ -57,7 +57,7 @@ export const Ok = styled(Button)`
 
 export const Cancel = styled(Button)`
   height: 48px;
-  width: 144px;
+  width: auto;
   text-transform: uppercase;
   font-size: 16px;
 `;

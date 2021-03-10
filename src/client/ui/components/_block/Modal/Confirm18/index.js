@@ -21,7 +21,7 @@ export const Confirm18Modal = memo(({
 }) => {
   const history = useHistory();
   const [t] = useTranslation();
-  const { key, logo } = useSelector(store => store.restaurant);
+  const { key, logo } = useSelector(store => store.restaurant.info);
 
   const handleRoute = (path = 'categories') => {
     history.push(`/restaurant/${key}/${path}`);

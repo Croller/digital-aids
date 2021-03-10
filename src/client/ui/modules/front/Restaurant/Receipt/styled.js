@@ -25,7 +25,7 @@ export const BackButton = styled(Button)`
     width: 21px;
     height: 21px;
     margin-right: 8px;
-    
+
     path {
       fill: ${PALETTE.grey1};
     }
@@ -52,6 +52,7 @@ export const AlertWrapper = styled.div`
   font-family: ${FONTS.bold};
   font-size: 14px;
   margin: 32px 0 44px;
+  padding: 0 20px;
 
   > svg {
     width: 21px;

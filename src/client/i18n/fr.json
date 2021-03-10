@@ -1,0 +1,138 @@
+{
+  "name": "French",
+
+  "translation": {
+    "common": {
+      "allergens": "Allergènes",
+      "reglament": "Règlement (UE) 691169/2011",
+      "language": "Langue",
+      "reservation": "Réservation",
+      "opinion": "Opinion",
+      "foodtips": "Foodtips",
+      "menu": "Menu",
+      "send": "Envoyer",
+      "comments": "Commentaires",
+      "reviewies": "Reviewies",
+      "avg_price": "Prix moyen",
+      "call_us": "Appelez nous",
+      "cuisine": "Cuisine",
+      "add_to_order": "Ajouter à la commande",
+      "total": "Total",
+      "online": "Online",
+      "order": "Commande",
+      "my": "Mon/Ma",
+      "an": "",
+      "create": "Créer",
+      "include": "Inclus",
+      "price": "Prix",
+      "ok": "Ok",
+      "remove": "Supprimer",
+      "dont": "Non",
+      "yes_i": "Confirme",
+      "not_i": "Non confirme",
+
+      "currency": {
+        "euro": "€"
+      },
+      "unit": {
+        "kg": "kg",
+        "gr": "gr",
+        "l": "l",
+        "ml": "ml",
+        "pc": "pc",
+        "pr": "pr"
+      },
+      "cuisine_type": {
+        "fusion": "Fusion"
+      },
+      "laguages": {
+        "en": "English",
+        "ru": "Русский"
+      },
+      "week_day_short": {
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mer",
+        "thu": "Jeu",
+        "fri": "Ven",
+        "sat": "Sam",
+        "sun": "Dim"
+      }
+    },
+
+    "pageMenu": {
+      "text":"Ouille! Il semble que quelque chose ne va pas,\n mais nous sommes ici pour vous aider!\n S’il vous plaît appuyer sur le bouton\n pour réessayer. "
+    },
+    "pageAllergens": {
+      "descriptions": "L’Ordonnance avec les informations disponibles sur les allergies et intolérances alimentaires."
+    },
+    "pageOpinion": {
+      "title": "Votre opinion",
+      "descriptions": "Votre avis est très important pour nous, aidez-nous à améliorer notre service!",
+      "rate": {
+        "service": "Service",
+        "meal": "Nourriture",
+        "covid": "Prévention du Protocole COVID-19",
+        "menu": "Menu Service"
+      },
+      "rating": {
+        "love": "Super heureux",
+        "satisfied": "Satisfait",
+        "disappointed": "Désappointé",
+        "angry": "En colère"
+      }
+    },
+    "pageOrder": {
+      "empty_order": "Votre commande est vide.\n Le plat sélectionné doit être ajouté\n à la commande."
+    },
+    "pageReceipt": {
+      "ask_waiter": "Veuillez demander au serveur de confirmer votre commande!"
+    },
+    "page404": {
+      "helmet": "404 - Error page",
+      "text": "Humm, tu es perdu!\n La page que vous avez demandée\n ne peut être trouvé.\n Veuillez essayer une nouvelle demande."
+    },
+    "pageError": {
+      "text": "Ouille! Il semble que quelque chose ne va pas,\n mais nous sommes ici pour vous aider!\n S’il vous plaît appuyer sur \n le bouton pour réessayer."
+    },
+
+    "compAllergens": {
+      "descriptions": "Nous vous rappelons que ce tableau est fourni à titre informatif et que nous ne pouvons pas vous garantir l’absence complète d’allergènes dans tous nos produits.\n Si vous êtes allergique, veuillez demander au serveur les informations plus détaillées sur nos plats.",
+      "allergens": {
+        "mustard": "Moutarde",
+        "lupins": "Lupins",
+        "sesame": "Sésame",
+        "fish": "Poisson",
+        "nuts": "Noix",
+        "diox": "Diox, soufre et sulfites",
+        "crustaceans": "Crustacé",
+        "soy": "Soja",
+        "mollusks": "Mollusques",
+        "celery": "Céleri",
+        "eggs": "Des œufs",
+        "dairy": "Produits laitiers",
+        "peanuts": "Cacahuètes",
+        "gluten": "Gluten"
+      }
+    },
+
+    "compModal": {
+      "order_delete": "Êtes-vous sûr(e),\n de vouloir supprimer toute votre commande?",
+      "opinion_exist": "Nous avons déjà reçu\n vos commentaires.\n Merci pour la coopération!",
+      "confirm_age": {
+        "title": "Les boissons alcoolisées sont strictement réservées aux adultes.\n L'abus d'alcool est dangereux pour la santé.\n A consommer avec modération.",
+        "description": "Veuillez confirmer\n que vous êtes majeur."
+      }
+    },
+
+    "footer": {
+      "thankyou": {
+        "title": "Merci beaucoup!",
+        "descriptions": "Votre avis est très important pour nous.\n S’il vous plaît, faites-le nous savoir!"
+      },
+      "dontwaste": {
+        "descriptions": "Ne perds pas ton temps,\n Goûtez au monde tous les jours!"
+      }
+    }
+  }
+}

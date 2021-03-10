@@ -137,6 +137,8 @@ export const AddButton = styled(Button)`
   text-transform: uppercase;
   margin-bottom: 30px;
   box-shadow: ${THEME.boxShadow1};
+  color: ${p => (p.added ? `${PALETTE.white}` : `${PALETTE.black}`)};
+  background-color: ${p => (p.added ? `${PALETTE.black}` : `${PALETTE.grey2}`)};
 `;
 
 export const DontWasteStyled = styled(DontWaste)`

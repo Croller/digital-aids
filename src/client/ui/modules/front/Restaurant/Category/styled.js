@@ -178,5 +178,7 @@ export const DailyOrderButton = styled(Button)`
   font-size: 16px;
   font-family: ${FONTS.bold};
   text-transform: uppercase;
+  color: ${p => (p.added ? `${PALETTE.white}` : `${PALETTE.black}`)};
+  background-color: ${p => (p.added ? `${PALETTE.black}` : `${PALETTE.grey2}`)};
 `;
 

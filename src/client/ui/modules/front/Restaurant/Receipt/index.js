@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronSvg, InfoCircleSvg, RestaurantLogoTempPng } from 'client/assets/images';
 import { getTotal } from 'client/utils/restaurant';
+import { replaceOrder } from 'client/store/restaurant';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
 import {
@@ -25,13 +26,15 @@ const Receipt = () => {
       lng,
     },
     restaurant: {
-      key,
-      currency,
-      logo,
+      info: { key, currency, logo },
       order,
+      categories,
+      dishes,
     },
   } = useSelector(store => store);
   const history = useHistory();
+  const location = useLocation();
+  const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [categoryOrder, setCategoryOrder] = useState(null);
 
@@ -56,7 +59,80 @@ const Receipt = () => {
     };
   };
 
-  // const getQRCodeValue = ()
+  const getQRCodeValue = () => {
+    const trimOrder = order.map(item => ({
+      id: item.id,
+      order_id: item.order_id,
+      order: item.order.map(cat => {
+        if (!item.dailymenu) {
+          return {
+            id: cat.id,
+            order_count: cat.order_count,
+          };
+        }
+        return {
+          id: cat.id,
+          dish: cat.dish.id,
+        };
+      }),
+    }));
+    let str = JSON.stringify(trimOrder);
+    str = str.replace(/ /g, '');
+    const encode = encodeURIComponent(str);
+    const url = `https://dev.digital-carte.com/restaurant/${key}/order/receipt?params=${encode}`;
+    return url;
+  };
+
+  const getUrlParams = () => {
+    try {
+      if (location.search.indexOf('params') > -1) {
+        const params = location.search.replace('?params=', '');
+        const trimOrder = JSON.parse(decodeURIComponent(params));
+        const newOrder = trimOrder.reduce((arr, item) => {
+          const catExist = categories.find(f => f.id === item.id);
+          if (catExist) {
+            if (!catExist.dailymenu || (!catExist.dailymenu && !catExist.group)) {
+              return [
+                ...arr,
+                {
+                  ...catExist,
+                  ...item,
+                  order: item.order.reduce((arrDish, dish) => {
+                    const dishExist = dishes.find(f => f.id === dish.id);
+                    if (dishExist) {
+                      return [...arrDish, { ...dishExist, ...dish }];
+                    }
+                    return arrDish;
+                  }, []),
+                },
+              ];
+            }
+            return [
+              ...arr,
+              {
+                ...catExist,
+                order: item.order.reduce((arrDish, cat) => {
+                  const group = catExist.groups.find(f => f.id === cat.id);
+                  const dishExist = dishes.find(f => f.id === cat.dish);
+                  if (group) {
+                    return [...arrDish, {
+                      ...group,
+                      dish: dishExist,
+                    }];
+                  }
+                  return arrDish;
+                }, []),
+              },
+            ];
+          }
+          return arr;
+        }, []);
+        rootDispatch(replaceOrder(newOrder));
+      }
+    } catch (error) {
+      handleRouteOrder();
+    }
+  };
 
   const getTitle = (arr, category, index) => (
     <NameWrapper>
@@ -82,6 +158,9 @@ const Receipt = () => {
   );
 
   useEffect(() => {
+    // check url params, if exist get order and reload page
+    getUrlParams();
+
     window.prerenderReady = true;
     if (order) {
       const categoryGroup = order.reduce((arr, category) => {
@@ -111,11 +190,10 @@ const Receipt = () => {
         return [...arr, category];
       }, []);
       setCategoryOrder(categoryGroup);
-      console.log('category order', categoryGroup);
     }
   }, []);
 
-  return (
+  return order && (
     <Wrapper>
       <Header>
         <BackButton onClick={handleRouteOrder}>
@@ -130,7 +208,7 @@ const Receipt = () => {
               src={logo || RestaurantLogoTempPng}
               onClick={() => handleRoute('information')}
             />
-            <QRCode value="test" />
+            <QRCode value={getQRCodeValue()} />
             <AlertWrapper>
               <InfoCircleSvg />
               {t('pageReceipt.ask_waiter')}

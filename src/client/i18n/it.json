@@ -1,0 +1,138 @@
+{
+  "name": "Italian",
+
+  "translation": {
+    "common": {
+      "allergens": "Allergeni",
+      "reglament": "Regolamento (CE) №1169/2011",
+      "language": "Linguaggio",
+      "reservation": "Riserva",
+      "opinion": "Opinione",
+      "foodtips": "Foodtips",
+      "menu": "Menú",
+      "send": "Mandare",
+      "comments": "Commenti",
+      "reviewies": "Reviewies",
+      "avg_price": "Prezzo medio",
+      "call_us": "Chiamaci",
+      "cuisine": "Cucina",
+      "add_to_order": "Aggiungi all'ordine",
+      "total": "Total",
+      "online": "Online",
+      "order": "Ordine",
+      "my": "Mio",
+      "an": "",
+      "create": "Creare",
+      "include": "Incluso",
+      "price": "Prezzo",
+      "ok": "Ok",
+      "remove": "Cancellare",
+      "dont": "Tenere",
+      "yes_i": "Confermo",
+      "not_i": "No confermo",
+
+      "currency": {
+        "euro": "€"
+      },
+      "unit": {
+        "kg": "kg",
+        "gr": "gr",
+        "l": "l",
+        "ml": "ml",
+        "pc": "pc",
+        "pr": "pr"
+      },
+      "cuisine_type": {
+        "fusion": "Fusione"
+      },
+      "laguages": {
+        "en": "English",
+        "ru": "Русский"
+      },
+      "week_day_short": {
+        "mon": "Lun",
+        "tue": "Mar",
+        "wed": "Mer",
+        "thu": "Gio",
+        "fri": "Ven",
+        "sat": "Sab",
+        "sun": "Dom"
+      }
+    },
+
+    "pageMenu": {
+      "text":"Ops! Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutare!\n Si prega\n di riprovare."
+    },
+    "pageAllergens": {
+      "descriptions": "Ordinanza con informazioni disponibili su allergeni e intolleranze alimentari."
+    },
+    "pageOpinion": {
+      "title": "Tua opinione",
+      "descriptions": "Tua opinione è molto importante per noi, aiutaci a migliorare il nostro servizio!",
+      "rate": {
+        "service": "Servizio",
+        "meal": "Cibo",
+        "covid": "Protocollo di Prevenzione COVID-19",
+        "menu": "Servizio di menu"
+      },
+      "rating": {
+        "love": "Super felice",
+        "satisfied": "Felice",
+        "disappointed": "Triste",
+        "angry": "Arrabbiato"
+      }
+    },
+    "pageOrder": {
+      "empty_order": "Il Suo ordine è vuoto.\n I piatti selezionati devono essere\n aggiunti all’ordine."
+    },
+    "pageReceipt": {
+      "ask_waiter": "Rivolgersi al cameriere per confermare l'ordine."
+    },
+    "page404": {
+      "helmet": "404 - Error page",
+      "text": "Ops! Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutar!\n Si prega di riprovare."
+    },
+    "pageError": {
+      "text": "Ops!\n Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutar!\n Si prega\n di riprovare."
+    },
+
+    "compAllergens": {
+      "descriptions": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. \n In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti.",
+      "allergens": {
+        "mustard": "Mostarda",
+        "lupins": "Lupini",
+        "sesame": "Sesamo",
+        "fish": "Pesce",
+        "nuts": "Nocciolino",
+        "diox": "Diox, zolfo e solfiti",
+        "crustaceans": "Crostacei",
+        "soy": "Soia",
+        "mollusks": "Molluschi di mare",
+        "celery": "Sedano",
+        "eggs": "Uovo",
+        "dairy": "Latticini",
+        "peanuts": "Arachidi",
+        "gluten": "Glutine"
+      }
+    },
+
+    "compModal": {
+      "order_delete": "Sei sicuro di voler\n rimuovere l'intero ordine?",
+      "opinion_exist": "Abbiamo già ricevuto \n tuo feedback. \n Grazie per la \n collaborazione!",
+      "confirm_age": {
+        "title": "Le bevande alcoliche sono strettamente riservate agli adulti.\n L'abuso di alcol è pericoloso \n per la salute. Bevi con moderazione.",
+        "description": "Conferma\n di essere maggiorenne."
+      }
+    },
+
+    "footer": {
+      "thankyou": {
+        "title": "Grazie!",
+        "descriptions": "La tua opinione è molto importante per noi,\n faccelo sapere!"
+      },
+      "dontwaste": {
+        "descriptions": "Non sprecare il tuo tempo, \n Assapora il mondo ogni giorno!"
+      }
+    }
+  }
+}

@@ -76,7 +76,7 @@
         "menu": "Servicio del menú"
       },
       "rating": {
-        "love": "Cara súper contenta",
+        "love": "Сara Feliz",
         "satisfied": "Cara contenta",
         "disappointed": "Cara triste",
         "angry": "Cara enfadada"
@@ -86,7 +86,7 @@
       "empty_order": "Tu pedido está vacío.\n El plato seleccionado debe ser \n agregado al pedido."
     },
     "pageReceipt": {
-      "ask_waiter": "Por favor, pide camarero confirmar el pedido"
+      "ask_waiter": "Pide el camarero confirmar el pedido"
     },
     "page404": {
       "helmet": "404 - Error page",
@@ -129,7 +129,7 @@
     "footer": {
       "thankyou": {
       "title": "¡Gracias!",
-        "descriptions": "¡Tu opinión es muy importante para nosotros,\n por favor déjanos saber!"
+        "descriptions": "¡Tu opinión es muy importante para nosotros, por favor déjanos saber!"
       },
       "dontwaste": {
         "descriptions": "¡No pierdas el tiempo, \n Prueba el mundo cada día!"

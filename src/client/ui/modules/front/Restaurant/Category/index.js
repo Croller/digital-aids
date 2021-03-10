@@ -10,6 +10,7 @@ import { useModal } from 'react-modal-hook';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
+import { setOfferViewed } from 'client/utils/restaurant';
 import {
   Wrapper,
   TitleWrapper,
@@ -29,8 +30,9 @@ import {
 
 const Category = () => {
   const {
-    currency,
+    info: { currency },
     categories,
+    offers,
     dishes,
     order,
   } = useSelector(store => store.restaurant);
@@ -55,10 +57,10 @@ const Category = () => {
 
   const [showDailyInfo, hideDailyInfo] = useModal(() => (
     <DailyInfoModal
-      source={categoryItem && categoryItem.options.info}
+      source={offer}
       onClose={hideDailyInfo}
     />
-  ), [categoryItem]);
+  ), [offer]);
 
   const [showOffer, hideOffer] = useModal(() => (
     <OfferCategoryModal
@@ -79,15 +81,35 @@ const Category = () => {
         obj,
       ];
     }
-    // to store
-    const newOrder = {
+
+    if (!categoryItem.dailymenu) {
+      rootDispatch(updateOrder({
+        ...categoryItem,
+        order_id: orderId,
+        order: data,
+      }));
+    }
+    setCategoryOrder(data);
+  };
+
+  const handleSetDailyOrder = () => {
+    rootDispatch(updateOrder({
       ...categoryItem,
       order_id: orderId,
-      order: data,
-    };
-    console.log(newOrder);
-    setCategoryOrder(data);
-    rootDispatch(updateOrder(newOrder));
+      order: categoryOrder,
+    }));
+    setCategoryOrder([]);
+    setOrderId(order ? order.length + 1 : orderId + 1);
+  };
+
+  const handleToggleModalAllergens = (arr) => {
+    setAllergens(allergens ? null : arr);
+    showAllergens();
+  };
+
+  const handleShowDaily = () => {
+    setOffer(offers.find(f => f.id === categoryItem.offers[0]));
+    showDailyInfo();
   };
 
   const getDishes = (arr) => dishes.reduce((items, dish) => {
@@ -97,41 +119,30 @@ const Category = () => {
     return items;
   }, []);
 
-  const handleClearOrder = () => {
-    setCategoryOrder([]);
-    setOrderId(orderId + 1);
-  };
-
-  const handleToggleModalAllergens = (arr) => {
-    setAllergens(allergens ? null : arr);
-    showAllergens();
-  };
-
   useEffect(() => {
     const categItem = categories.find(f => f.key === category) || null;
     setCategoryItem(categItem || null);
 
     if (categItem) {
-      if (categItem.dailymenu) {
-        showDailyInfo();
-      }
-      if (categItem.offers && !categItem.dailymenu) {
-        setOffer(categItem.offers[0]);
-        showOffer();
+      if (categItem.offers && categItem.offers[0]) {
+        setOfferViewed(categItem.offers[0], () => {
+          setOffer(offers.find(f => f.id === categItem.offers[0]));
+          if (categItem.dailymenu) {
+            showDailyInfo();
+          } else {
+            showOffer();
+          }
+        });
       }
     }
-
-    // update category if order exist
     if (order) {
       const catOrder = order.find(f => f.key === category);
-      setOrderId(order.length + 1);
       setCategoryOrder(catOrder ? catOrder.order : []);
     }
-
     if (categItem && categItem.dailymenu) {
-      handleClearOrder();
-      showDailyInfo();
+      setCategoryOrder([]);
     }
+    setOrderId(order ? order.length + 1 : orderId);
   }, []);
 
   return categoryItem && (
@@ -142,7 +153,7 @@ const Category = () => {
             {categoryItem.name}
           </Title>
           {categoryItem.dailymenu && (
-            <InfoDailyButton onClick={showDailyInfo}>
+            <InfoDailyButton onClick={handleShowDaily}>
               <InfoCircleSvg />
             </InfoDailyButton>
           )}
@@ -187,7 +198,8 @@ const Category = () => {
             <Include>
               {`${t('common.include')}: ${categoryItem.options.include}`}
             </Include>
-            <DailyOrderButton onClick={handleClearOrder}>
+            <DailyOrderButton onClick={handleSetDailyOrder}>
+              {/* TODO ADDED Text */}
               {t('common.add_to_order')}
             </DailyOrderButton>
           </DailyOrderWrapper>

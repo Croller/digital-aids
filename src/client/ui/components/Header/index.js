@@ -13,7 +13,6 @@ const PATH_SHOW_CLOSE = [
   'menu',
   'reglament',
   'opinion',
-  'categories',
   'order',
 ];
 

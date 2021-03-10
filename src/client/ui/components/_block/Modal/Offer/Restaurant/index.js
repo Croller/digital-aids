@@ -21,20 +21,20 @@ export const OfferRestaurantModal = memo(({
         <CloseSvg />
       </CloseButton>
       <Content>
-        <Image src={source.src || CelebratyTempPng} />
+        <Image src={source.link.src || CelebratyTempPng} />
         <Title>
-          {source.title}
+          {source.text.title}
         </Title>
         <Description>
-          {source.description}
+          {source.text.description}
         </Description>
       </Content>
       <PriceWrapper>
         <Price>
-          {source.price}
+          {source.text.price}
         </Price>
         <Person>
-          {source.person}
+          {source.text.person}
         </Person>
       </PriceWrapper>
     </Wrapper>

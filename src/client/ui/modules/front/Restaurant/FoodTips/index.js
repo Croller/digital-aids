@@ -25,8 +25,7 @@ import {
 
 const FoodTips = () => {
   const {
-    key,
-    currency,
+    info: { key, currency },
     dishes,
     categories,
     order,
@@ -35,7 +34,6 @@ const FoodTips = () => {
   const history = useHistory();
   const [t] = useTranslation();
   const [items, setItems] = useState(null);
-  // const [scrollable, setScrollable] = useState(true);
 
   const handleRoute = () => {
     const path = `/restaurant/${key}/categories`;
@@ -48,6 +46,13 @@ const FoodTips = () => {
   };
 
   const handleSetOrder = (obj) => {
+    setItems(items.map(item => {
+      if (obj.id === item.id) {
+        return { ...item, added: true };
+      }
+      return item;
+    }));
+
     let newOrder = { ...obj };
     newOrder.dish.order_count = 1;
     newOrder.order_id = 1;
@@ -76,14 +81,11 @@ const FoodTips = () => {
         const arrDishes = category.dishes.map(id => ({
           ...category,
           dish: dishes.find(f => f.id === id),
+          added: false,
         }));
         return [...arr, ...arrDishes];
       }, []);
     setItems(foodtips);
-
-    // window.onscroll = () => {
-    //   setScrollable(true);
-    // }
   }, []);
 
   return (
@@ -113,12 +115,11 @@ const FoodTips = () => {
                     {`${t('common.total')}:`}
                   </Total>
                   <Price>
-                    {}
                     {`${item.dish.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
                   </Price>
                 </PriceWrapper>
-                <AddButton onClick={() => handleSetOrder(item)}>
-                  {t('common.add_to_order')}
+                <AddButton added={item.added} onClick={() => !item.added && handleSetOrder(item)}>
+                  {t(`common.add${item.added ? 'ed' : '_to_order'}`)}
                 </AddButton>
               </Content>
               <DontWasteStyled />

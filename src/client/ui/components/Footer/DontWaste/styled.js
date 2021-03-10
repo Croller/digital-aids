@@ -44,7 +44,7 @@ export const SocialButton = styled(Button)`
   }
 
   > svg {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
   }
 `;

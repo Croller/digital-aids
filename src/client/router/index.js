@@ -17,7 +17,7 @@ const Restaurant = lazy(() => import('client/ui/page/front/Restaurant'));
 const Page404 = lazy(() => import('client/ui/page/common/404'));
 
 export const Routers = () => {
-  const { logo, key } = useSelector(store => store.restaurant);
+  const { logo, key } = useSelector(store => store.restaurant.info);
   const history = useHistory();
   const [t] = useTranslation();
   const handleRoute = useCallback((path = 'categories') => history.push(`/restaurant/${key}/${path}`), []);

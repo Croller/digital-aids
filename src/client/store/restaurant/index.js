@@ -1,124 +1,125 @@
 import {
   REST_SET_ORDER,
+  REST_REPLACE_ORDER,
   REST_CLEAR_ORDER,
 } from './constants';
-import { categoriesMock, dishesMock, orderMock } from './mock';
+import {
+  categoriesMock,
+  dishesMock,
+  orderMock,
+  offersMock,
+} from './mock';
 
 const initState = {
-  id: 213123,
-  name: 'Las Cuevas',
-  key: 'las-cuevas',
-  address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
-  geo: [37.9763475, -0.7892281],
-  phone: ['+34600001117', '34600001117'],
-  email: ['dc-google@gmail.com', 'dc-google@gmail.com'],
-  avg_price: 2.60,
-  currency: ['euro', 'rub'], // first current currency
-  cuisine: ['fusion'], // i18n added all kictchen could be
-  images: null, // array of image binary
-  logo: null, 
-  laguages: ['en', 'ru'], // first current laguage
-  is_opinion: false,
-  manager: [
-    {
-      key: 'director',
-      name: 'Alex U',
-    }, {
-      key: 'manager',
-      name: 'Test. u',
+  info: {
+    id: 213123,
+    name: 'Las Cuevas',
+    key: 'las-cuevas',
+    address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
+    geo: [37.9763475, -0.7892281],
+    phone: ['+34600001117', '34600001117'],
+    email: ['dc-google@gmail.com', 'dc-google@gmail.com'],
+    avg_price: 2.60,
+    currency: ['euro', 'rub'], // first current currency
+    cuisine: ['fusion'], // i18n added all kictchen could be
+    images: null, // array of image binary
+    logo: null,
+    offers: [1001],
+    laguages: ['en', 'ru'], // first current laguage
+    is_opinion: false,
+    manager: [
+      {
+        key: 'director',
+        name: 'Alex U',
+      }, {
+        key: 'manager',
+        name: 'Test. u',
+      },
+    ],
+    work_time: [
+      {
+        key: 'mon',
+        from: 0,
+        to: 0,
+        dayoff: false,
+      },
+      {
+        key: 'tue',
+        from: 0,
+        to: 0,
+        dayoff: false,
+      },
+      {
+        key: 'wed',
+        from: 0,
+        to: 0,
+        dayoff: false,
+      },
+      {
+        key: 'thu',
+        from: 0,
+        to: 0,
+        dayoff: false,
+      },
+      {
+        key: 'fri',
+        from: 0,
+        to: 0,
+        dayoff: false,
+      },
+      {
+        key: 'sat',
+        from: 0,
+        to: 0,
+        dayoff: true,
+      },
+      {
+        key: 'sun',
+        from: 0,
+        to: 0,
+        dayoff: true,
+      },
+    ],
+    raiting: {
+      common: {
+        rate: 9.5,
+        comments: [
+          {
+            name: 'Alex',
+            rate: 5.5,
+            text: 'Very good',
+          },
+        ],
+      },
+      tripadvisor: {
+        rate: 4,
+        comments: [],
+      },
     },
-  ],
-  offers: [
-    {
-      id: 101,
-      src: null,
-      title: 'Celebrate with us',
-      description: 'We invite you to celebrate your special events with us and promise you a special magic day with an excellent food!',
-      price: 'Price for special menu: 35€ pp incl 1 bottle of cava.',
-      person: '(minimum 2 persons)',
-    },
-  ],
-  work_time: [
-    {
-      key: 'mon',
-      from: 0,
-      to: 0,
-      dayoff: false,
-    },
-    {
-      key: 'tue',
-      from: 0,
-      to: 0,
-      dayoff: false,
-    },
-    {
-      key: 'wed',
-      from: 0,
-      to: 0,
-      dayoff: false,
-    },
-    {
-      key: 'thu',
-      from: 0,
-      to: 0,
-      dayoff: false,
-    },
-    {
-      key: 'fri',
-      from: 0,
-      to: 0,
-      dayoff: false,
-    },
-    {
-      key: 'sat',
-      from: 0,
-      to: 0,
-      dayoff: true,
-    },
-    {
-      key: 'sun',
-      from: 0,
-      to: 0,
-      dayoff: true,
-    },
-  ],
-  raiting: {
-    common: {
-      rate: 9.5,
-      comments: [
-        {
-          name: 'Alex',
-          rate: 5.5,
-          text: 'Very good',
-        },
-      ],
-    },
-    tripadvisor: {
-      rate: 4,
-      comments: [],
-    },
+    socials: [
+      {
+        key: 'instagram',
+        name: 'Instagram',
+        url: 'https://www.instagram.com/lascuevasrestaurante/',
+      },
+      {
+        key: 'facebook',
+        name: 'FaceBook',
+        url: 'https://www.facebook.com/Restaurantelascuevas/?ref=bookmarks',
+      },
+      {
+        key: 'tripadviser',
+        name: 'TripAdviser',
+        url: 'https://www.tripadvisor.co.uk/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html',
+      },
+    ],
   },
-  socials: [
-    {
-      key: 'instagram',
-      name: 'Instagram',
-      url: 'https://www.instagram.com/',
-    },
-    {
-      key: 'facebook',
-      name: 'FaceBook',
-      url: null,
-    },
-    {
-      key: 'tripadviser',
-      name: 'TripAdviser',
-      url: null,
-    },
-  ],
   
+  order: orderMock,
   categories: categoriesMock,
   dishes: dishesMock,
-  order: orderMock,
+  offers: offersMock,
+  
   orders: null,
 
   loading: false,
@@ -149,13 +150,11 @@ export default function (state = initState, action) {
         // add new
         data = [...stateOrder, newOrder];
       }
-
       // sort order, daily to top
       data = [
         ...data.filter(f => f.dailymenu),
         ...data.filter(f => !f.dailymenu),
       ];
-
       return {
         ...initState,
         order: data,
@@ -166,9 +165,21 @@ export default function (state = initState, action) {
         ...initState,
         order: null,
       };
+    case REST_REPLACE_ORDER: 
+      return {
+        ...initState,
+        order: action.payload,
+      };
     default:
       return state;
   }
+}
+
+export function replaceOrder(payload) {
+  return {
+    type: REST_REPLACE_ORDER,
+    payload,
+  };
 }
 
 export function updateOrder(payload) {
