@@ -34,7 +34,7 @@ export const DailyInfoModal = memo(({
         </Content>
         <Controls>
           <Ok onClick={onClose}>
-            {t('common.ok')}
+            {t('restaurant.common.ok')}
           </Ok>
         </Controls>
       </Wrapper>

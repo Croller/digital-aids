@@ -40,12 +40,12 @@ export const MobileMenu = memo(({
     {
       key: 'categories',
       icon: <DishApplinesSvg />,
-      text: t('common.menu'),
+      text: t('restaurant.common.menu'),
     },
     {
       key: 'order',
       icon: <DishSvg />,
-      text: t('common.order'),
+      text: t('restaurant.common.order'),
     },
   ];
 

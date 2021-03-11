@@ -18,7 +18,7 @@ const Page404 = memo(({ source, onClick }) => {
       <Helmet>
         <meta content="404" />
         <title>
-          {t('page404.helmet')}
+          {t('common.page404.helmet')}
         </title>
       </Helmet>
       <Wrapper>
@@ -28,12 +28,12 @@ const Page404 = memo(({ source, onClick }) => {
         />
         <IconTextBtnStyled
           onClick={onClick}
-          btn={t('common.menu')}
+          btn={t('restaurant.common.menu')}
           text={(
             <>
               <Code>404</Code>
               <Text>
-                {t('page404.text')}
+                {t('common.page404.text')}
               </Text>
             </>
           )}

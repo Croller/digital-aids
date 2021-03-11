@@ -1,8 +1,8 @@
 export const BREAKPOINTS = {
-  small: 420,
-  medium: 768,
-  large: 1440,
-  xlarge: 1920,
+  small: '420px',
+  medium: '768px',
+  large: '1440px',
+  xlarge: '1920px',
 };
 
 export const Z_INDEX = {

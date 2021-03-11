@@ -1,7 +1,7 @@
 import React, { lazy, useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import { Layout } from 'client/ui/components/Layout';
+import { Layout } from 'client/ui/components/Layout/Restaurant';
 
 const PATH = '/restaurant';
 

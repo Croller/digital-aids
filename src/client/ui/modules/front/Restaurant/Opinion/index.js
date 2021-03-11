@@ -83,16 +83,16 @@ const Opinion = () => {
     <>
       <Wrapper>
         <Title>
-          {t('pageOpinion.title')}
+          {t('restaurant.pageOpinion.title')}
         </Title>
         <Description>
-          {t('pageOpinion.descriptions')}
+          {t('restaurant.pageOpinion.descriptions')}
         </Description>
         <RateWrapper>
           {RATE.map((rate) => (
             <RateContainer key={rate}>
               <RateTitle>
-                {t(`pageOpinion.rate.${rate}`)}
+                {t(`restaurant.pageOpinion.rate.${rate}`)}
               </RateTitle>
               <ValuationWrapper>
                 {RATING.map(({ key, icon }) => (
@@ -104,7 +104,7 @@ const Opinion = () => {
                     <EmojiWrapper>
                       {icon}
                     </EmojiWrapper>
-                    {t(`pageOpinion.rating.${key}`)}
+                    {t(`restaurant.pageOpinion.rating.${key}`)}
                   </Valuation>
                 ))}
               </ValuationWrapper>
@@ -112,11 +112,11 @@ const Opinion = () => {
           ))}
         </RateWrapper>
         <CommentTitle>
-          {t('common.comments')}
+          {t('restaurant.common.comments')}
         </CommentTitle>
         <CommentControl rows={1} onChange={handleChangeComment} />
         <SendButton onClick={existOpinion}>
-          {t('common.send')}
+          {t('restaurant.common.send')}
         </SendButton>
       </Wrapper>
     </>

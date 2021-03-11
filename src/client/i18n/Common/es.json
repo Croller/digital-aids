@@ -1,0 +1,10 @@
+{
+  "page404": {
+    "helmet": "404 - Error page",
+    "text": "Hmm, you have got lost... \n The page you have requested \n cannot be found. \n Please, try a new request."
+  },
+  "pageError": {
+    "text": "¡Ups! \n Parece que algo ha salido mal, \n Pero estamos aquí para ayudarte, \n Pincha el botón \n para volver a intentarlo.."
+  }
+}
+

@@ -48,7 +48,7 @@ const Receipt = () => {
 
   const getDateTime = (str) => {
     moment.locale(str);
-    return moment().format('DD.MM.YYYY HH:mm');
+    return moment().format('restaurant.DD.MM.YYYY HH:mm');
   };
 
   const getDish = (item, dailyname) => {
@@ -83,7 +83,38 @@ const Receipt = () => {
     return url;
   };
 
-  const getUrlParams = () => {
+  const setOrder = () => {
+    const categoryGroup = order.reduce((arr, category) => {
+      const existCategory = arr.find(s => s.id === category.id);
+      if (existCategory && existCategory.dailymenu) {
+        const editOrder = existCategory.order.reduce((arrDish, catDish) => {
+          const existDish = category.order.find(f => f.dish.id === catDish.dish.id);
+          if (existDish) {
+            return [
+              ...arrDish,
+              {
+                ...existDish,
+                dish: {
+                  ...existDish.dish,
+                  order_count: existDish.dish.order_count ? existDish.dish.order_count + 1 : 2,
+                },
+              },
+            ];
+          }
+          return [...arrDish, { ...catDish, dish: { ...catDish.dish, order_count: 1 } }];
+        }, []);
+        return [
+          ...arr.filter(f => f.id !== category.id),
+          { ...category, order: editOrder, order_count: category.order_count ? category.order_count + 1 : 2 },
+        ];
+      }
+      return [...arr, category];
+    }, []);
+    setCategoryOrder(categoryGroup);
+  };
+
+  const getOrderParams = () => {
+    // check url params, if exist get order and reload page
     try {
       if (location.search.indexOf('params') > -1) {
         const params = location.search.replace('?params=', '');
@@ -139,7 +170,7 @@ const Receipt = () => {
       {!category.dailymenu && ((arr[index - 1] && arr[index - 1].dailymenu) || index === 0) && (
         <>
           <Name>
-            {t('common.menu')}
+            {t('restaurant.common.menu')}
           </Name>
           <br />
         </>
@@ -150,7 +181,7 @@ const Receipt = () => {
         </Name>
         {category.dailymenu && (
           <Price>
-            {`${category.order_count ? category.order_count : 1} X ${category.options.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`} 
+            {`${category.order_count ? category.order_count : 1} X ${category.options.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`} 
           </Price>
         )}
       </NameCategory>
@@ -158,47 +189,20 @@ const Receipt = () => {
   );
 
   useEffect(() => {
-    // check url params, if exist get order and reload page
-    getUrlParams();
-
     window.prerenderReady = true;
+    getOrderParams();
+
     if (order) {
-      const categoryGroup = order.reduce((arr, category) => {
-        const existCategory = arr.find(s => s.id === category.id);
-        if (existCategory && existCategory.dailymenu) {
-          const editOrder = existCategory.order.reduce((arrDish, catDish) => {
-            const existDish = category.order.find(f => f.dish.id === catDish.dish.id);
-            if (existDish) {
-              return [
-                ...arrDish,
-                {
-                  ...existDish,
-                  dish: {
-                    ...existDish.dish,
-                    order_count: existDish.dish.order_count ? existDish.dish.order_count + 1 : 2,
-                  },
-                },
-              ];
-            }
-            return [...arrDish, { ...catDish, dish: { ...catDish.dish, order_count: 1 } }];
-          }, []);
-          return [
-            ...arr.filter(f => f.id !== category.id),
-            { ...category, order: editOrder, order_count: category.order_count ? category.order_count + 1 : 2 },
-          ];
-        }
-        return [...arr, category];
-      }, []);
-      setCategoryOrder(categoryGroup);
+      setOrder();
     }
-  }, []);
+  }, [order]);
 
   return order && (
     <Wrapper>
       <Header>
         <BackButton onClick={handleRouteOrder}>
           <ChevronSvg />
-          {`${t('common.my')} ${t('common.order')}`}
+          {`${t('restaurant.common.my')} ${t('restaurant.common.order')}`}
         </BackButton>
       </Header>
       {categoryOrder && (
@@ -211,7 +215,7 @@ const Receipt = () => {
             <QRCode value={getQRCodeValue()} />
             <AlertWrapper>
               <InfoCircleSvg />
-              {t('pageReceipt.ask_waiter')}
+              {t('restaurant.pageReceipt.ask_waiter')}
             </AlertWrapper>
           </QRCodeWrapper>
           <ReceiptWrapper>
@@ -237,7 +241,7 @@ const Receipt = () => {
                           {getDish(item, category.dailymenu).name}
                         </DishName>
                         <Price>
-                          {`${getDish(item, category.dailymenu).order_count} X${category.dailymenu ? '' : ` ${getDish(item, category.dailymenu).price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}`} 
+                          {`${getDish(item, category.dailymenu).order_count} X${category.dailymenu ? '' : ` ${getDish(item, category.dailymenu).price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}`} 
                         </Price>
                       </GroupName>
                     </GroupItem>
@@ -247,10 +251,10 @@ const Receipt = () => {
             ))}
             <Total>
               <TotalText>
-                {`${t('common.total')}:`}
+                {`${t('restaurant.common.total')}:`}
               </TotalText>
               <TotalSumm>
-                {`${getTotal(order).toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
+                {`${getTotal(order).toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
               </TotalSumm>
             </Total>
           </ReceiptWrapper>

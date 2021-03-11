@@ -1,0 +1,9 @@
+{
+  "page404": {
+    "helmet": "404 - Error page",
+    "text": "Hmm, Sie haben sich verlaufen!\n Die Seite, die Sie angefordert haben\n kann nicht gefunden werden.\n Bitte, versuchen Sie es mit einer neuen Anfrage."
+  },
+  "pageError": {
+    "text": "Upps!\n Es scheint, dass etwas falsch gelaufen ist,\n aber wir sind hier, um Ihnen zu helfen\n Drücken Sie die Taste, \n um es erneut zu versuchen."
+  }
+}

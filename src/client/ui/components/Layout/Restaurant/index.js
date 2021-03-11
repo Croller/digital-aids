@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Header } from 'client/ui/components/Header';
+import { Header } from 'client/ui/components/Header/Restaurant';
 import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
@@ -60,7 +60,7 @@ export const Layout = ({
   };
 
   useEffect(() => {
-    setIsMobile(window.innerWidth <= BREAKPOINTS.small);
+    setIsMobile(window.innerWidth <= Number(BREAKPOINTS.small.replace('px', '')));
     initLocalStorage();
     
     return () => {

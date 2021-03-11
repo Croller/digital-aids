@@ -15,10 +15,10 @@ const Reglament = memo(() => {
     <Wrapper>
       <Header>
         <Title>
-          {t('common.reglament')}
+          {t('restaurant.common.reglament')}
         </Title>
         <Description>
-          {t('pageAllergens.descriptions')}
+          {t('restaurant.pageAllergens.descriptions')}
         </Description>
       </Header>
       <AllergensStyled />

@@ -1,4 +1,8 @@
 // svg
+// digitalcarte
+import LogoSvg from './svg/logo.svg';
+
+// common
 import ChefSvg from './svg/chef.svg';
 import ChefHeadSvg from './svg/chef-head.svg';
 import ThumbsUpGreenSvg from './svg/thumbs-up-green.svg';
@@ -48,6 +52,8 @@ import CelebratyTempPng from './png/temp/celebratyTemp.png';
 import OfferTempPng from './png/temp/offerTemp.png';
 
 export {
+  LogoSvg,
+  
   ChefSvg,
   ChefHeadSvg,
   ThumbsUpGreenSvg,

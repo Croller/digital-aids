@@ -31,30 +31,28 @@ const HeaderComponent = ({
   const showClose = PATH_SHOW_CLOSE.some(key => pathname.indexOf(key) > -1) && !PATH_HIDE_CLOSE.some(key => pathname.indexOf(key) > -1);
   
   return (
-    <>
-      <HeaderWrapper
-        className={className}
-        isMobile={isMobile}
-      >
-        <LogoWrapper>
-          <LogoImg
-            src={logo || RestaurantLogoTempPng}
-            onClick={() => onRoute('categories')}
-          />
-        </LogoWrapper>
-        <ControlWrapper>
-          {showClose ? (
-            <Close onClick={() => onRoute('back')}>
-              <CloseSvg />
-            </Close>
-          ) : (
-            <Hamburger onClick={() => onRoute('menu')}>
-              <HamburgerSvg />
-            </Hamburger>
-          )}
-        </ControlWrapper>
-      </HeaderWrapper>
-    </>
+    <HeaderWrapper
+      className={className}
+      isMobile={isMobile}
+    >
+      <LogoWrapper>
+        <LogoImg
+          src={logo || RestaurantLogoTempPng}
+          onClick={() => onRoute('categories')}
+        />
+      </LogoWrapper>
+      <ControlWrapper>
+        {showClose ? (
+          <Close onClick={() => onRoute('back')}>
+            <CloseSvg />
+          </Close>
+        ) : (
+          <Hamburger onClick={() => onRoute('menu')}>
+            <HamburgerSvg />
+          </Hamburger>
+        )}
+      </ControlWrapper>
+    </HeaderWrapper>
   );
 };
 

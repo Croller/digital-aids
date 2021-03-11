@@ -14,6 +14,7 @@ import { ScrollToTop } from 'client/ui/components/_base/ScrollToTop';
 import { Loader } from 'client/ui/components/_base/Loader';
 
 const Restaurant = lazy(() => import('client/ui/page/front/Restaurant'));
+const Present = lazy(() => import('client/ui/page/front/Present'));
 const Page404 = lazy(() => import('client/ui/page/common/404'));
 
 export const Routers = () => {
@@ -34,6 +35,7 @@ export const Routers = () => {
           <Suspense fallback={<Loader />}>
             <Switch>
               <Route exact path="/restaurant/*" component={Restaurant} />
+              <Route exact component={Present} />
               <Route path="/404">
                 <Page404
                   source={logo}

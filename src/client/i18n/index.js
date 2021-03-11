@@ -1,19 +1,19 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-const en = require('./en.json');
-const es = require('./es.json');
-const de = require('./de.json');
-const fr = require('./fr.json');
-const gr = require('./gr.json');
-const it = require('./it.json');
-const nor = require('./nor.json');
-const ru = require('./ru.json');
+import de from './de';
+import en from './en';
+import es from './es';
+import fr from './fr';
+import gr from './gr';
+import it from './it';
+import nor from './nor';
+import ru from './ru';
 
 export const languages = {
+  de,
   en,
   es,
-  de,
   fr,
   gr,
   it,

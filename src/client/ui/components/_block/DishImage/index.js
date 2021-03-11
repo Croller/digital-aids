@@ -48,11 +48,11 @@ export const DishImage = memo(({
         {(allergens || amount) && (
           <InfoWrapper>
             <AllergensButton onClick={onShowAllergens}>
-              {t('common.allergens')}
+              {t('restaurant.common.allergens')}
             </AllergensButton>
             {amount && (
               <Weight>
-                {`${amount || 0} ${amount_unit && t(`common.unit.${amount_unit}`)}`}
+                {`${amount || 0} ${amount_unit && t(`restaurant.common.unit.${amount_unit}`)}`}
               </Weight>
             )}
           </InfoWrapper>

@@ -27,15 +27,15 @@ export const RemoveOrderModal = memo(({
         </CloseButton>
         <Content>
           <Title>
-            {t('compModal.order_delete')}
+            {t('restaurant.compModal.order_delete')}
           </Title>
         </Content>
         <Controls>
           <Ok onClick={onOk}>
-            {t('common.remove')}
+            {t('restaurant.common.remove')}
           </Ok>
           <Cancel onClick={onCancel}>
-            {t('common.dont')}
+            {t('restaurant.common.dont')}
           </Cancel>
         </Controls>
       </Wrapper>

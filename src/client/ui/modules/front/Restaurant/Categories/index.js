@@ -55,7 +55,7 @@ const Categories = () => {
     <>
       <Wrapper>
         <Title>
-          {t('common.menu')}
+          {t('restaurant.common.menu')}
         </Title>
         <List>
           {(categories).map(category => (

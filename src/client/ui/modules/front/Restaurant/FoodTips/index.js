@@ -112,14 +112,14 @@ const FoodTips = () => {
                 </Description>
                 <PriceWrapper>
                   <Total>
-                    {`${t('common.total')}:`}
+                    {`${t('restaurant.common.total')}:`}
                   </Total>
                   <Price>
-                    {`${item.dish.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
+                    {`${item.dish.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
                   </Price>
                 </PriceWrapper>
                 <AddButton added={item.added} onClick={() => !item.added && handleSetOrder(item)}>
-                  {t(`common.add${item.added ? 'ed' : '_to_order'}`)}
+                  {t(`restaurant.common.add${item.added ? 'ed' : '_to_order'}`)}
                 </AddButton>
               </Content>
               <DontWasteStyled />

@@ -109,7 +109,7 @@ const Order = () => {
       {!category.dailymenu && ((arr[index - 1] && arr[index - 1].dailymenu) || index === 0) && (
         <>
           <Title>
-            {t('common.menu')}
+            {t('restaurant.common.menu')}
           </Title>
           <br />
         </>
@@ -129,7 +129,7 @@ const Order = () => {
       <Wrapper>
         <HeaderWrapper>
           <Title>
-            {`${t('common.my')} ${t('common.order')}`}
+            {`${t('restaurant.common.my')} ${t('restaurant.common.order')}`}
           </Title>
           {order && (
             <TrashButton onClick={showConfirmDelete}>
@@ -152,7 +152,7 @@ const Order = () => {
                           <TrashSvg />
                         </DeleteButton>
                         <Price>
-                          {`${category.options.price.toFixed(2)}${t(`common.currency.${currency[0]}`)}`}
+                          {`${category.options.price.toFixed(2)}${t(`restaurant.common.currency.${currency[0]}`)}`}
                         </Price>
                       </DailyHeader>
                     )}
@@ -167,14 +167,14 @@ const Order = () => {
                             order: category.order,
                             group: item,
                             dailymenu: true,
-                            currency: t(`common.currency.${currency[0]}`),
+                            currency: t(`restaurant.common.currency.${currency[0]}`),
                           }, handleToggleModalAllergens, () => handleSetOrder({ obj: item.dish, category }))}
                         </DailyWrapper>
                       </DailyCard>
                     )) : category.order.map(dish => DishBlock({
                       dish,
                       order: category.order,
-                      currency: t(`common.currency.${currency[0]}`),
+                      currency: t(`restaurant.common.currency.${currency[0]}`),
                     }, handleToggleModalAllergens, (obj) => handleSetOrder({ obj, category })))} 
                   </DishList>
                 </React.Fragment>
@@ -184,14 +184,14 @@ const Order = () => {
               <TotalWrapper>
                 <Total>
                   <TotalText>
-                    {`${t('common.total')}:`}
+                    {`${t('restaurant.common.total')}:`}
                   </TotalText>
                   <TotalSumm>
-                    {`${getTotal(order).toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
+                    {`${getTotal(order).toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
                   </TotalSumm>
                 </Total>
                 <CreateButton onClick={handleCreateReceipt}>
-                  {`${t('common.create')} ${t('common.an')} ${t('common.order')}`}
+                  {`${t('restaurant.common.create')} ${t('restaurant.common.an')} ${t('restaurant.common.order')}`}
                 </CreateButton>
               </TotalWrapper>
             </ScrollHideBlockStyled>
@@ -199,8 +199,8 @@ const Order = () => {
         ) : (
           <IconTextBtnStyled
             onClick={handleRouteMenu}
-            btn={t('common.menu')}
-            text={t('pageOrder.empty_order')}
+            btn={t('restaurant.common.menu')}
+            text={t('restaurant.pageOrder.empty_order')}
           />
         )}
       </Wrapper>

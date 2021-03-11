@@ -33,12 +33,12 @@ export const OpinionModal = memo(({
             onClick={() => handleRoute('information')}
           />
           <Description>
-            {t('compModal.opinion_exist')}
+            {t('restaurant.compModal.opinion_exist')}
           </Description>
         </Content>
         <Controls>
           <Ok onClick={onOk}>
-            {t('common.ok')}
+            {t('restaurant.common.ok')}
           </Ok>
         </Controls>
       </Wrapper>

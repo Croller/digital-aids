@@ -23,7 +23,7 @@ const Menu = () => {
       name: (
         <>
           <AlertCircleSvg />
-          <Text>{t('common.reglament')}</Text>
+          <Text>{t('restaurant.common.reglament')}</Text>
         </>
       ),
     },
@@ -32,7 +32,7 @@ const Menu = () => {
       name: (
         <>
           <QuestionCircleSvg />
-          <Text>{t('common.opinion')}</Text>
+          <Text>{t('restaurant.common.opinion')}</Text>
         </>
       ),
     },
@@ -47,11 +47,11 @@ const Menu = () => {
     },
     {
       path: 'information',
-      name: t('common.reservation'),
+      name: t('restaurant.common.reservation'),
     },
     {
       path: 'foodtips',
-      name: t('common.foodtips'),
+      name: t('restaurant.common.foodtips'),
     },
   ];
 

@@ -22,7 +22,6 @@ import MontserratBlackItalic from 'client/assets/fonts/Montserrat-BlackItalic.tt
 import {
   FONTS,
   PALETTE,
-  BREAKPOINTS,
 } from './constants';
 
 export const GlobalStyle = createGlobalStyle`
@@ -84,28 +83,6 @@ export const GlobalStyle = createGlobalStyle`
 
   input[type=number] {
     -moz-appearance: textfield;
-  }
-
-  .ant-dropdown {
-    top: 196px !important;
-
-    .ant-table-filter-dropdown {
-      border-radius: 6px;
-
-      .ant-space-item {
-        button {
-          border-radius: 8px;
-        }
-      }
-    }
-
-    @media screen and (min-width: ${BREAKPOINTS.medium}) {
-      top: 144px !important;
-    }
-
-    @media screen and (min-width: ${BREAKPOINTS.large}) {
-      top: 171px !important;
-    }
   }
 
   /* import fronts */

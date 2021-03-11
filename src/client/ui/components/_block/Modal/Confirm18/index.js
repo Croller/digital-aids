@@ -36,18 +36,18 @@ export const Confirm18Modal = memo(({
             onClick={() => handleRoute('information')}
           />
           <Title>
-            {t('compModal.confirm_age.title')}
+            {t('restaurant.compModal.confirm_age.title')}
           </Title>
           <Description>
-            {t('compModal.confirm_age.description')}
+            {t('restaurant.compModal.confirm_age.description')}
           </Description>
         </Content>
         <Controls>
           <Ok onClick={onOk}>
-            {t('common.yes_i')}
+            {t('restaurant.common.yes_i')}
           </Ok>
           <Cancel onClick={onCancel}>
-            {t('common.not_i')}
+            {t('restaurant.common.not_i')}
           </Cancel>
         </Controls>
       </Wrapper>

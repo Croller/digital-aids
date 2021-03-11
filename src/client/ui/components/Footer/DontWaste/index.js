@@ -40,7 +40,7 @@ export const DontWaste = memo(() => {
     <Wrapper>
       <Hr />
       <Description>
-        {t('footer.dontwaste.descriptions')}
+        {t('restaurant.footer.dontwaste.descriptions')}
       </Description>
       {socials && (
         <SocialWrapper>

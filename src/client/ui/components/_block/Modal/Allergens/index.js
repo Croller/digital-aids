@@ -17,7 +17,7 @@ export const AllergensModal = memo(({ source = null, onClose }) => {
     <Modal>
       <Wrapper>
         <Title>
-          {t('common.allergens')}
+          {t('restaurant.common.allergens')}
         </Title>
         <CloseButton onClick={onClose}>
           <CloseSvg />

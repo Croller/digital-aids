@@ -175,32 +175,32 @@ const Category = () => {
                 group,
                 order: categoryOrder,
                 dailymenu: categoryItem.dailymenu,
-                currency: t(`common.currency.${currency[0]}`),
+                currency: t(`restaurant.common.currency.${currency[0]}`),
               }, handleToggleModalAllergens, handleSetOrder))}
             </DailyWrapper>
           ))}
           {!categoryItem.dailymenu && !categoryItem.groups && getDishes(categoryItem.dishes).map(dish => DishBlock({
             dish,
             order: categoryOrder,
-            currency: t(`common.currency.${currency[0]}`),
+            currency: t(`restaurant.common.currency.${currency[0]}`),
           }, handleToggleModalAllergens, handleSetOrder))} 
         </DishList>
         {categoryItem.dailymenu && (
           <DailyOrderWrapper>
             <PriceWrapper>
               <PriceText>
-                {t('common.price')}
+                {t('restaurant.common.price')}
               </PriceText>
               <PriceDaily>
-                {`${categoryItem.options.price.toFixed(2)} ${t(`common.currency.${currency[0]}`)}`}
+                {`${categoryItem.options.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
               </PriceDaily>
             </PriceWrapper>
             <Include>
-              {`${t('common.include')}: ${categoryItem.options.include}`}
+              {`${t('restaurant.common.include')}: ${categoryItem.options.include}`}
             </Include>
             <DailyOrderButton onClick={handleSetDailyOrder}>
               {/* TODO ADDED Text */}
-              {t('common.add_to_order')}
+              {t('restaurant.common.add_to_order')}
             </DailyOrderButton>
           </DailyOrderWrapper>
         )}

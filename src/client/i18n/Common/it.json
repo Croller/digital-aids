@@ -1,0 +1,9 @@
+{
+  "page404": {
+    "helmet": "404 - Error page",
+    "text": "Ops! Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutar!\n Si prega di riprovare."
+  },
+  "pageError": {
+    "text": "Ops!\n Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutar!\n Si prega\n di riprovare."
+  }
+}

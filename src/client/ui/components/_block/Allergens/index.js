@@ -30,13 +30,13 @@ export const Allergens = memo(({
           >
             <ImgWrapper src={src} />
             <Text>
-              {t(`compAllergens.allergens.${key}`)}
+              {t(`restaurant.compAllergens.allergens.${key}`)}
             </Text>
           </Item>
         ))}
       </List>
       <Description>
-        {t('compAllergens.descriptions')}
+        {t('restaurant.compAllergens.descriptions')}
       </Description>
     </Wrapper>
   );

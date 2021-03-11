@@ -118,34 +118,34 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ChefHeadSvg />
             <IconText>
-              {t(`common.cuisine_type.${cuisine[0]}`)}
+              {t(`restaurant.common.cuisine_type.${cuisine[0]}`)}
               &nbsp;
-              {t('common.cuisine')}
+              {t('restaurant.common.cuisine')}
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>
             <TagSvg />
             <IconText>
-              {t('common.avg_price')} 
+              {t('restaurant.common.avg_price')} 
               <Price>
                 ~
                 {avg_price.toFixed(2)}
-                {t(`common.currency.${currency[0]}`)}
+                {t(`restaurant.common.currency.${currency[0]}`)}
               </Price>
             </IconText>
           </IconTextWrapper>
           <InfoControls>
             <CallButton onClick={() => phone && handleRoute(`tel:${phone[0]}`, true)}>
               <PhoneCallSvg />
-              {t('common.call_us')} 
+              {t('restaurant.common.call_us')} 
             </CallButton>
             <MenuButton onClick={() => handleRoute('categories')}>
-              {t('common.menu')} 
+              {t('restaurant.common.menu')} 
             </MenuButton>
           </InfoControls>
         </InfoWrapper>
         <ReservButton>
-          {`${t('common.reservation')} ${t('common.online')}`} 
+          {`${t('restaurant.common.reservation')} ${t('restaurant.common.online')}`} 
         </ReservButton>
         <AddessWrapper>
           <RestaurantName>
@@ -181,10 +181,10 @@ const Information = memo(() => {
             <RateComment>
               {raiting.common.comments.length}
               &nbsp;
-              {t('common.comments')} 
+              {t('restaurant.common.comments')} 
             </RateComment>
             <ReviewsButton onClick={() => handleRoute('categories', true)}>
-              {t('common.reviewies')} 
+              {t('restaurant.common.reviewies')} 
             </ReviewsButton>
           </RateBlock>
           <RateBlock>
@@ -197,10 +197,10 @@ const Information = memo(() => {
             <RateComment>
               {raiting.tripadvisor.comments.length}
               &nbsp;
-              {t('common.comments')} 
+              {t('restaurant.common.comments')} 
             </RateComment>
             <ReviewsButton onClick={() => handleRoute('categories', true)}>
-              {t('common.reviewies')} 
+              {t('restaurant.common.reviewies')} 
             </ReviewsButton>
           </RateBlock>
         </RateWrapper>

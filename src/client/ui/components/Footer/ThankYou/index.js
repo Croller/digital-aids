@@ -45,11 +45,11 @@ export const ThankYou = memo(() => {
         <ThumbsUpGreenSvg />
       </IconWrapper>
       <Title>
-        {t('footer.thankyou.title')}
+        {t('restaurant.footer.thankyou.title')}
       </Title>
       <Hr />
       <Description>
-        {t('footer.thankyou.descriptions')}
+        {t('restaurant.footer.thankyou.descriptions')}
       </Description>
       {socials && (
         <SocialWrapper>
