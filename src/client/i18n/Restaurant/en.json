@@ -27,7 +27,6 @@
     "dont": "Do not",
     "yes_i": "Yes, I am",
     "not_i": "Not, I not",
-    "added": "Added",
     "currency": {
       "euro": "€"
     },
@@ -41,10 +40,6 @@
     },
     "cuisine_type": {
       "fusion": "Fusion"
-    },
-    "laguages": {
-      "en": "English",
-      "ru": "Русский"
     },
     "week_day_short": {
       "mon": "Mon",

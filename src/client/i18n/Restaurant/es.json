@@ -41,10 +41,6 @@
     "cuisine_type": {
       "fusion": "Fusion"
     },
-    "laguages": {
-      "en": "English",
-      "ru": "Русский"
-    },
     "week_day_short": {
       "mon": "Lunes",
       "tue": "Martes",
@@ -102,7 +98,6 @@
       "gluten": "Gluten"
     }
   },
-
   "compModal": {
     "order_delete": "¿Está seguro de que desea \n borrar tu pedido entero?",
     "opinion_exist": "Ya hemos recibido \n tu feedback. \n\n ¡Gracias por tu \n colaboración!",
@@ -111,7 +106,6 @@
       "description": "Por favor, confirme\n que es mayor de edad."
     }
   },
-
   "footer": {
     "thankyou": {
     "title": "¡Gracias!",

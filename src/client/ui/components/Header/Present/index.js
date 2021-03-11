@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { LogoSvg } from 'client/assets/images';
 import {
-  HeaderWrapper,
+  HeaderWrapper, HeaderContainer,
   LogoWrapper,
   ControlWrapper,
 } from './styled';
@@ -11,12 +11,17 @@ const HeaderComponent = ({
   className,
 }) => (
   <HeaderWrapper className={className}>
-    <LogoWrapper>
-      <LogoSvg />
-    </LogoWrapper>
-    <ControlWrapper>
-      test
-    </ControlWrapper>
+    <HeaderContainer>
+      <LogoWrapper>
+        <LogoSvg />
+        {/* <LogoText>
+
+        </LogoText> */}
+      </LogoWrapper>
+      <ControlWrapper>
+        test
+      </ControlWrapper>
+    </HeaderContainer>
   </HeaderWrapper>
 );
 
