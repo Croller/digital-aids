@@ -1,6 +1,8 @@
 // svg
+import LoupeSvg from './svg/loupe.svg';
+import UserCircleSvg from './svg/user-circle.svg';
 
-// restaurnt
+// restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
 import ChefHeadSvg from './svg/restaurant/chef-head.svg';
 import ThumbsUpGreenSvg from './svg/restaurant/thumbs-up-green.svg';
@@ -30,11 +32,11 @@ import LogoSvg from './svg/present/logo.svg';
 import CalendarSvg from './svg/present/calendar.svg';
 import ChecklistSvg from './svg/present/checklist.svg';
 import ChefsHatSvg from './svg/present/chefs-hat.svg';
-import Conversation_1Svg from './svg/present/conversation_1.svg';
-import Conversation_2Svg from './svg/present/conversation_2.svg';
+import Conversation1Svg from './svg/present/conversation-1.svg';
+import Conversation2Svg from './svg/present/conversation-2.svg';
 import DoubleQuotesSvg from './svg/present/double-quotes.svg';
-import Email_1Svg from './svg/present/email_1.svg';
-import Email_2Svg from './svg/present/email_2.svg';
+import Email1Svg from './svg/present/email-1.svg';
+import Email2Svg from './svg/present/email-2.svg';
 import FileSvg from './svg/present/file.svg';
 import GlutenFreeSvg from './svg/present/gluten-free.svg';
 import SettingsSvg from './svg/present/settings.svg';
@@ -55,22 +57,33 @@ import TranslationSvg from './svg/present/translation.svg';
 import UsersSvg from './svg/present/users.svg';
 import WebSettingsSvg from './svg/present/web-settings.svg';
 import WineBottleSvg from './svg/present/wine-bottle.svg';
+import RedLine1Svg from './svg/present/red-line-1.svg';
 
-// png allergens
-import MustardPng from './png/allergens/mustard.png';
-import DairyPng from './png/allergens/dairy.png';
-import EggsPng from './png/allergens/eggs.png';
-import CeleryPng from './png/allergens/celery.png';
-import MollusksPng from './png/allergens/mollusks.png';
-import DioxPng from './png/allergens/diox.png';
-import CrustaceansPng from './png/allergens/crustaceans.png';
-import SoyPng from './png/allergens/soy.png';
-import NutsPng from './png/allergens/nuts.png';
-import FishPng from './png/allergens/fish.png';
-import SesamePng from './png/allergens/sesame.png';
-import LupinsPng from './png/allergens/lupins.png';
-import PeanutsPng from './png/allergens/peanuts.png';
-import GlutenPng from './png/allergens/gluten.png';
+// png
+// present 
+import PhoneBlock1Png from './png/present/phone-block-1.png';
+import BackgroundBlock1Png from './png/present/background-1.png';
+import Digital1Png from './png/present/digital-1.png';
+import Client1Png from './png/present/client-1.png';
+import Client2Png from './png/present/client-2.png';
+import Client3Png from './png/present/client-3.png';
+import Client4Png from './png/present/client-4.png';
+
+// allergens
+import MustardPng from './png/restaurant/allergens/mustard.png';
+import DairyPng from './png/restaurant/allergens/dairy.png';
+import EggsPng from './png/restaurant/allergens/eggs.png';
+import CeleryPng from './png/restaurant/allergens/celery.png';
+import MollusksPng from './png/restaurant/allergens/mollusks.png';
+import DioxPng from './png/restaurant/allergens/diox.png';
+import CrustaceansPng from './png/restaurant/allergens/crustaceans.png';
+import SoyPng from './png/restaurant/allergens/soy.png';
+import NutsPng from './png/restaurant/allergens/nuts.png';
+import FishPng from './png/restaurant/allergens/fish.png';
+import SesamePng from './png/restaurant/allergens/sesame.png';
+import LupinsPng from './png/restaurant/allergens/lupins.png';
+import PeanutsPng from './png/restaurant/allergens/peanuts.png';
+import GlutenPng from './png/restaurant/allergens/gluten.png';
 
 // temp
 import RestaurantLogoTempPng from './png/temp/restaurantLogoTemp.png';
@@ -81,8 +94,9 @@ import CelebratyTempPng from './png/temp/celebratyTemp.png';
 import OfferTempPng from './png/temp/offerTemp.png';
 
 export {
-  LogoSvg,
-  
+  LoupeSvg,
+  UserCircleSvg,
+
   ChefSvg,
   ChefHeadSvg,
   ThumbsUpGreenSvg,
@@ -107,14 +121,15 @@ export {
   TickSvg,
   ChevronSvg,
 
+  LogoSvg,
   CalendarSvg,
   ChecklistSvg,
   ChefsHatSvg,
-  Conversation_1Svg,
-  Conversation_2Svg,
+  Conversation1Svg,
+  Conversation2Svg,
   DoubleQuotesSvg,
-  Email_1Svg,
-  Email_2Svg,
+  Email1Svg,
+  Email2Svg,
   FileSvg,
   GlutenFreeSvg,
   SettingsSvg,
@@ -135,6 +150,15 @@ export {
   UsersSvg,
   WebSettingsSvg,
   WineBottleSvg,
+  RedLine1Svg,
+
+  PhoneBlock1Png,
+  BackgroundBlock1Png,
+  Digital1Png,
+  Client1Png,
+  Client2Png,
+  Client3Png,
+  Client4Png,
   
   MustardPng,
   DairyPng,

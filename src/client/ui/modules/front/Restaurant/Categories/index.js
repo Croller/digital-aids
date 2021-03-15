@@ -61,7 +61,7 @@ const Categories = () => {
           {(categories).map(category => (
             <ButtonStyled
               key={category.key}
-              onClick={() => (category.check_age ? confirmAge({ test: 'etet' }) : handleRoute(category.key))}
+              onClick={() => (category.check_age ? confirmAge() : handleRoute(category.key))}
             >
               {category.name}
             </ButtonStyled>

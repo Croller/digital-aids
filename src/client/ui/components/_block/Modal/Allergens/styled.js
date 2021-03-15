@@ -5,7 +5,7 @@ import { FONTS, PALETTE } from 'client/style/constants';
 export const Wrapper = styled.div`
   position: relative;
   border-radius: 12px;
-  background-color: #FFFFFF;
+  background-color: ${PALETTE.white};
   padding: 24px 22px 36px;
   width: 262px;
   margin: 28% auto;

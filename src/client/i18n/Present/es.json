@@ -1,5 +1,131 @@
 {
-  "common": {
-    "logo": "We grow together!"
+  "header": {
+    "logo": "¡Crecemos juntos!"
+  },
+  "footer": {
+    "rules": "© Digital Carte 2021- all rights reserved",
+    "rights": "Aviso legal",
+    "politica": "Política de privacidad",
+    "cookies": "Política de Cookies"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "description": "Utilizamos cookies propias y de terceros para mejorar nuestros servicios y realizar el análisis. Si continua navegando, consideramos que acepta su uso. Puede cambiar la configuración de su navegador u obtener más información sobre las cookies a través nuestra Política de Cookies.",
+    "button": "Acceptar"
+  },
+  "request": {
+    "title1": "¿Le apetece conocer más? \n",
+    "title2": "Contáctanos",
+    "form": {
+      "name": "Nombre",
+      "email": "E-mail",
+      "phone": "Teléfono",
+      "owner": {
+        "title": "Propitario",
+        "placeholder": "restaurante, panaderia, bar"
+      },
+      "message": "Mensaje",
+      "send": "Enviar",
+      "placeholder": "Text"
+    }
+  },
+  "main": {
+    "first": {
+      "col2": {
+        "title": "Hola, soy la carta digital y multilenguaje",
+        "question": "¿Quieres conocerme?",
+        "description": "¡Soy muy intelegente y hablo muchos idiomas! Llevame a tu equipo y te sirvo como un camarero multilinguaje",
+        "time": "7 dias y 24 horas",
+        "button": "Presentación"
+      },
+      "col3": {
+        "title": "Escanea QR codigo para ver mi ejemplo",
+        "language": "Available in your language"
+      },
+      "oferta": {
+        "title": "¡Oferta!",
+        "description": "Pagina Web con Reserva Online, Menú Digital y Multilenguaje con \n traducciones profesionales y con gestión mensual por solo 29€/mes ¡Déjalo en buenas manos!"
+      }
+    },
+    "second": {
+      "col1": {
+        "title1": "¿Es importante el desarrollo digital para restaurantes? ",
+        "title2": "¡Si o Si! Como para todo el mundo hoy",
+        "description1": "¿Es propietario del restaurante? ¿panaderia? ¿o bar? \n ¿Busca nuevas soluciones para consiguir lo mejor? \n",
+        "description2": "¡Aqui estamos! Un equipo para ayudarles"
+      },
+      "col2": {
+        "option1" : {
+          "title": "¡Crecemos juntos!",
+          "description": "Somos Foodfans y nuestra misión es ayudar a los restaurantes a recuperarse después del Covid-19 y desarrollarse según las tendencias digitales, los requisitos del mercado moderno y las medidas de nueva realidad."
+        },
+        "option2" : {
+          "title": "¡Juntos somos más fuertes!",
+          "description": "Invertimos nuestra experiencia en su desarrollo y ofrecemos nuestro apoyo como su propio equipo para conseguir lo mejor y siempre seguir las tendencias más modernas del mercado"
+        },
+        "option3" : {
+          "title": "¡No hay que preocuparse por nada!",
+          "description": "¡Les cuidamos permanentemente como parte de su equipo! Ayudamos a llevar su negocio al nivel digital según tendencias más modernas en el mundo."
+        },
+        "option4" : {
+          "title": "¡Nos apasiona en ayudarles!",
+          "description": "Nuestra Carta Digital y Multilenguaje es una base principal para integrar otros módulos digitales que ayudan los restaurantes a conseguir lo mejor."
+        }
+      }
+    },
+    "third": {
+      "title": "Preguntas frecuentes",
+      "question1": {
+        "question": "¿Que les ofrecemos?",
+        "description": "<p>Nuestro equipo dispondrá de su gestor personal y se encargará de su desarrollo digital con el nivel multilenguaje según las tendencias y los requisitos del mercado moderno:</p><br /> <p class=\"bold\"> - Página Web con gestión Reserva Online en diferentes idiomas \n - Menú Digital y Multilenguaje \n - Traducciones profesionales \n - Integración los redes sociales \n - Nuestro soporte mensual para seguir siempre con \n  la información actual en sus recursos digitales </p> <br /> <p>Llevamos su restaurante y negocio al nivel digital y multilenguaje que es  nesesario para el dessarollo exitoso en el mundo moderno.</p> <br /> <p class=\"green\">¡Piensalo bien hoy y cuida de su futuro! \n Estamos a su lado para ayudarles.</p>"
+      },
+      "question2": {
+        "question": "¿Como me ayuda Carta Digital y Multilenguaje?",
+        "description": "<p class=\"bold\">¡Les sirve como un camarero multilenguaje 24 horas y 7 días!</p><p>Creamos La Carta Digital y Multilenguaje con traducciones profesionales y con nuestro soporte mensual de cualquier cambio y traducciones en su carta digital.</p> <br /> <p><span class=\"bold\">Ayuda a evitar los errores malentendidos con clientes extranjeros:</span><span> el cliente puede crear el pedido en su idioma en su móvil y el camarero abre el pedido del cliente en español en su propio móvil.</span></p> <br /> <p><span class=\"bold\">¡Atender más clientes!</span><span> Menú Digital y Multilenguaje permite reducir al mínimo el tiempo de la aceptación del pedido tanto como el tiempo de los contactos sociales.</span></p> <br /> <p><span class=\"bold\">¡Les brinda un canal digital de venta y mejora su canal de venta online!</span><span> La carta digital incluye integración con sus redes sociales: Facebook, Instagram y TripAdviser para guardar el contacto directo con sus clientes y reforzar “feedback loop”.</span></p> <br /> <p class=\"bold\">Les permite publicitar las ofertas de manera oportuna directa online.</p> <br /> <p>La Carta Digital y Multilenguaje permite <span class=\"bold\">dar explicaciones y recomendaciones de los platos más típicos o famosos</span> en su restaurante y región en el idioma del cliente.</p> <br /> "
+      },
+      "question3": {
+        "question": "¿Como puedo modificar mi carta digital?",
+        "description": "<p><span class=\"bold\">¡No hay que preocuparse por nada!</span> Solo debe mandarnos los cambios por correo electrónico y lo implantamos en su carta digital en las siguientes 24 horas con traducciones profesionales.</p>"
+      },
+      "question4": {
+        "question": "¿Que diferencia ente PDF y Carta Digital y Multilenguaje?",
+        "description": "<p><span class=\"bold\">¡Nada que ver con un PDF o una plataforma general!</span> Es una carta más moderna, interactiva y muy cómoda tanto para jóvenes como para mayores.</p><br /><p>- Menú Digital y Multilenguaje es una carta muy inteligente en diferentes idiomas con traducciones profesionales. Es la carta digital y interactiva con <span class=\"bold\">opción de guardar el pedido en el idioma del cliente y abrir el pedido en español directo en el teléfono del camarero.</span></p><br /><p>- <span class=\"bold\">Les permite publicitar las ofertas especiales</span> y dar recomendaciones de los platos más típicos o famosos en su restaurante y región de la manera oportuna directa online.</p><br /><p>- También incluye <span class=\"bold\">Reglamento Europeo 1169/2011 con la información de los alérgenos en diferentes idiomas</span> para mejorar la experiencia de sus clientes.</p>"
+      },
+      "question5": {
+        "question": "¿Como funciona el pedido online?",
+        "description": "<p>Es muy fácil y sencillo, el cliente puede leer la carta en su idioma y crear el pedido directo en su móvil. El camarero, solo escaneando el código QR , abre el pedido en su propio móvil ya en español. <span class=\"bold\">¡Menos papeleo!</span></p>"
+      },
+      "question6": {
+        "question": "¿Que precio tiene?",
+        "description": "<p>Solo por <span class=\"bold\">29€+ IVA al mes</span> les ayudamos seguir siempre las tendencias modernas  y conseguir lo mejor.</p><br /><p><span class=\"bold\">¿Quería saber todas ventajas de nosotros? </span><a class=\"green bold\">¡Contáctanos!</a></p>"
+      }
+    },
+    "fourth": {
+      "title": "Nuestros clientes",
+      "client1": {
+        "name": "Robert Johansen",
+        "position": "Dueño y Chef de Las Cuevas, \n San Muigel de Salinas, Spain",
+        "title": "La mejor solución",
+        "description": "Nuestro restaurante está ubicado en una ciudad donde viven muchos extranjeros de Alemania, Inglaterra y Noruega. Muchos de ellos son bastante mayores y, a menudo, no hablan inglés o español. El menú digital en sus idiomas nos ha facilitado mucho el trabajo con ellos. Al igual que los jóvenes ya están acostumbrados a la carta digital. Y lo mejor, que no necesitamos perder tiempo aprendiendo una nueva plataforma para gestionarla, el servicio de DigitalCarte nos ayuda a tener siempre la información actualizada y cambiar cualquier información en diferentes idiomas. ¡Es muy comodo y sencillo! "
+      },
+      "client2": {
+        "name": "Irena Hoffman",
+        "position": "Dueña de La Monde, Albir, Spain",
+        "title": "Recomendamos 100%",
+        "description": "No sé cómo sobrevivimos antes sin esta solución. Estamos ubicados en Altea, donde viven muchos extranjeros durante todo el año. Casi  hemos creado nuestro propio idioma con signos, pero muy a menudo tuvimos malentendidos con extranjeros. Y ahora el menú digital y multilinguaje es el mejor amigo para nosotros y nuestros clientes. Esto nos ayuda mucho, ya no perdemos tanto tiempo como antes, explicando de que esta hecho el plato, etc ... Y el servicio DigitalCarte con soporte mensual para cualquier cambio nos permite anunciar algo nuevo cada mes, platos o ofertas ... Les aseguro que os encantará."
+      },
+      "client3": {
+        "name": "Familia Lopez",
+        "position": "Dueños de Hosteleria Rural El Refugio, \n Rabanal del Camino, Spain",
+        "title": "Lo aconsejamos todos",
+        "description": "Nuestro hosteleria esta en el Camino de Santiago, y en los últimos años el número de los peregrinos extranjeros ha crecido de manera increíble, ya vienen de todo el mundo, incluso de Corea. Aunque, el ultimo año ha sido dificil como nunca, estamos con la esperanza este año Xacobeo 2021. Y el servicio del menu digital y multilinguaje es la solución insustituible para nuestro negocio, nos permita mejorar el servicio de nuestro restaurante con extranjeros. Y lo mejor que no es nesesario aprender algo, ya tenemos suficiente trabajo en la cocina. Gracias por el soporte del equipo DigitalCarte, lo aconsejamos a todos."
+      },
+      "client4": {
+        "name": "Hotel Am Schloßpark, Munich",
+        "position": "Dueños del hotel",
+        "title": "Nos encanta",
+        "description": "Somos dueños de un hotel familiar en las afueras de Munich. Nuestro hotel y restaurante son el orgullo de nuestra familia. Y dado que el menú digital se ha convertido en una necesidad desde la pandemia, estamos muy satisfechos con nuestra cooperación con la empresa DigitalCarte. Es una nueva oportunidad y solución para hacer crecer nuestro negocio."
+      }
+    }
   }
 }

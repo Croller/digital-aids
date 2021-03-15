@@ -23,6 +23,7 @@
     "@amcharts/amcharts4": "^4.10.10",
     "@ant-design/icons": "^4.3.0",
     "@babel/runtime": "^7.10.5",
+    "@brainhubeu/react-carousel": "^1.19.26",
     "@hot-loader/react-dom": "^16.8.6",
     "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@mapbox/mbtiles": "^0.11.0",

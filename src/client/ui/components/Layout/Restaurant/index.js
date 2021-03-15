@@ -5,10 +5,6 @@ import { Header } from 'client/ui/components/Header/Restaurant';
 import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
-import {
-  setLocalStorage,
-  removeLocalStorage,
-} from 'client/utils/localStorage';
 
 import { 
   Wrapper,
@@ -24,7 +20,6 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
-  const localKey = 'DigitalCarte';
   const { key, logo } = useSelector(store => store.restaurant.info);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
@@ -50,22 +45,8 @@ export const Layout = ({
     return bool;
   };
 
-  const initLocalStorage = () => {
-    removeLocalStorage(localKey);
-    setLocalStorage(localKey, {
-      user: {},
-      restaurant: {},
-      offersViewed: [],
-    });
-  };
-
   useEffect(() => {
     setIsMobile(window.innerWidth <= Number(BREAKPOINTS.small.replace('px', '')));
-    initLocalStorage();
-    
-    return () => {
-      removeLocalStorage(localKey);
-    };
   }, []);
 
   return (

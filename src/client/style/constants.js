@@ -16,6 +16,8 @@ export const PALETTE = {
   white: '#FFFFFF',
   black: '#000000',
 
+  black1: '#333333',
+
   grey1: '#969696',
   grey2: '#E4E4E4',
   grey3: '#BDBDBD',
@@ -34,6 +36,9 @@ export const PALETTE = {
   grey16: '#EDEDED',
   grey17: '#E9E9E9',
   grey18: '#F0F0F0',
+  grey19: '#7E7E7E',
+  grey20: '#6F6F6F',
+  grey21: '#EFEFEF',
 
   green1: '#219653',
 
@@ -43,6 +48,7 @@ export const PALETTE = {
 const fontsCommon = '\'Source Sans Pro\', Helvetica, sans-serif';
 export const FONTS = {
   light: `'MontserratLight', ${fontsCommon}`,
+  lightItalic: `'MontserratLightItalic', ${fontsCommon}`,
   regular: `'MontserratRegular', ${fontsCommon}`,
   medium: `'MontserratMedium', ${fontsCommon}`,
   bold: `'MontserratBold', ${fontsCommon}`,

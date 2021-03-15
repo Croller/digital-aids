@@ -1,15 +1,320 @@
-import React, { useEffect } from 'react';
-import { } from './styled';
+import React, { useState, useEffect } from 'react';
+import { useModal } from 'react-modal-hook';
+import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
+import { useTranslation } from 'react-i18next';
+import {
+  setLocalStorage,
+  getLocalStorage,
+} from 'client/utils/localStorage';
+import {
+  PhoneBlock1Png,
+  RedLine1Svg,
+  SupportSvg,
+  SocialCareSvg,
+  Conversation1Svg,
+  Conversation2Svg,
+  WebSettingsSvg,
+  Client1Png,
+  Client2Png,
+  Client3Png,
+  Client4Png,
+  DoubleQuotesSvg,
+  ChevronSvg,
+} from 'client/assets/images';
+import QRCode from 'qrcode.react';
+import translate, { languages } from 'client/i18n';
+import { 
+  Container,
+  Content,
+  PresentBlock,
+  ImageWrapper,
+  PhoneImage,
+  PresentWrapper,
+  PresentTitle,
+  PresentQuestion,
+  PresentDescription,
+  PresentTime,
+  PresentButton,
+  QRCodeWrapper,
+  QRCodeTitle,
+  QRCodeLanguage,
+  QRCodeLanguageList,
+  QRCodeLanguageItem,
+  OfertaWrapper,
+  OfertaContent,
+  OfertaTitle,
+  OfertaDescription,
+  DigitalBlock,
+  DigitalWithImage,
+  DigitalTitle,
+  DigitalDescription,
+  DigitalImage,
+  SpanGreen,
+  SpanBlack,
+  DigitalOptions,
+  DigitalOption,
+  DigitalOptionTitle,
+  DigitalOptionDescription,
+  QuestionsBlock,
+  QuestionsBlockTitle,
+  QuestionsBlockWrapper,
+  QuestionsBlockCol,
+  CollapseStyled,
+  QuestionCollTitle,
+  QuectionHtml,
+  ClientBlock,
+  ClientBlockTitle,
+  ClientSliderControl,
+  CarouselStyled,
+  Block2Client,
+  Client,
+  ClientHeader,
+  ClientImg,
+  ClientName,
+  ClientWho,
+  ClientPosition,
+  ClientContent,
+  ClientContentTriangle,
+  ClientContentTitle,
+  ClientContentDescription,
+  FormBlock,
+  RequestStyled,
+} from './styled';
+
+const OPTIONS_ICONS = [
+  <SupportSvg />,
+  <SocialCareSvg />,
+  <Conversation2Svg />,
+  <WebSettingsSvg />,
+];
+
+const CLIENT_ICONS = {
+  client1: Client1Png,
+  client2: Client2Png,
+  client3: Client3Png,
+  client4: Client4Png,
+};
 
 const Main = () => {
+  const localKey = 'DigitalCarte';
+  const [t] = useTranslation();
+  const [slide, setSlide] = useState(0);
+  const [showCookies, hideCookies] = useModal(() => (
+    <CookiesModal
+      onAccept={() => {
+        hideCookies();
+        handleSetCookies();
+      }}
+      onClose={hideCookies}
+    />
+  ));
+
+  const handleSetCookies = () => {
+    const local = getLocalStorage(localKey);
+    local.cookies = true;
+    setLocalStorage(localKey, local);
+  };
+
+  const handleChnageLng = (lng) => {
+    translate.changeLanguage(lng);
+  };
+
+  const hangleChangSlide = (direction) => {
+    const min = 0;
+    const max = 2;
+    if (direction === 'next') {
+      if (slide === max) {
+        setSlide(0);
+        return null;
+      }
+      if (slide <= max) {
+        setSlide(slide + 1);
+        return null;
+      }
+    }
+
+    if (direction === 'prev') {
+      if (slide === min) {
+        setSlide(0);
+        return null;
+      }
+      if (slide >= min) {
+        setSlide(slide - 1);
+        return null;
+      }
+    }
+  };
+
   useEffect(() => {
+    const local = getLocalStorage(localKey);
+    if (!local.cookies) {
+      showCookies();
+    }
+    
     window.prerenderReady = true;
   }, []);
 
   return (
-    <>
-      Main
-    </>
+    <Container>
+      <Content>
+        <PresentBlock>
+          <ImageWrapper>
+            <PhoneImage src={PhoneBlock1Png} />
+          </ImageWrapper>
+          <PresentWrapper>
+            <PresentTitle>
+              {t('present.main.first.col2.title')}  
+            </PresentTitle>
+            <PresentQuestion>
+              {t('present.main.first.col2.question')}  
+            </PresentQuestion>
+            <PresentDescription>
+              {t('present.main.first.col2.description')}  
+            </PresentDescription>
+            <PresentTime>
+              {t('present.main.first.col2.time')}  
+            </PresentTime>
+            <PresentButton>
+              {t('present.main.first.col2.button')}  
+            </PresentButton>
+          </PresentWrapper>
+          <QRCodeWrapper>
+            <QRCodeTitle>
+              {t('present.main.first.col3.title')}  
+            </QRCodeTitle>
+            <QRCode size={178} value="https://digital-carte.com/las-cuevas" />
+            <QRCodeLanguage>
+              {t('present.main.first.col3.language')}  
+            </QRCodeLanguage>
+            <QRCodeLanguageList>
+              {Object.keys(languages).filter(f => ['en', 'es', 'ru', 'gr', 'nr'].includes(f)).map(lng => (
+                <QRCodeLanguageItem
+                  key={`_language_${lng}`}
+                  onClick={() => handleChnageLng(lng)}
+                >
+                  {lng}
+                </QRCodeLanguageItem>
+              ))}
+            </QRCodeLanguageList>
+          </QRCodeWrapper>
+        </PresentBlock>
+        <OfertaWrapper>
+          <OfertaContent>
+            <OfertaTitle>
+              {t('present.main.first.oferta.title')}  
+            </OfertaTitle>
+            <OfertaDescription>
+              {t('present.main.first.oferta.description')} 
+            </OfertaDescription>
+          </OfertaContent>
+          <RedLine1Svg />
+        </OfertaWrapper>
+        <DigitalBlock>
+          <DigitalWithImage>
+            <DigitalTitle>
+              {t('present.main.second.col1.title1')}
+              <SpanGreen>
+                {t('present.main.second.col1.title2')}
+              </SpanGreen>
+            </DigitalTitle>
+            <DigitalDescription>
+              {t('present.main.second.col1.description1')}
+              <SpanBlack>
+                {t('present.main.second.col1.description2')}
+              </SpanBlack>
+            </DigitalDescription>
+            <DigitalImage />
+          </DigitalWithImage>
+          <DigitalOptions>
+            {OPTIONS_ICONS.map((icon, i) => (
+              <DigitalOption key={`_option_${i + 1}`}>
+                {icon}
+                <DigitalOptionTitle>
+                  {t(`present.main.second.col2.option${i + 1}.title`)}
+                </DigitalOptionTitle>
+                <DigitalOptionDescription>
+                  {t(`present.main.second.col2.option${i + 1}.description`)}
+                </DigitalOptionDescription>
+              </DigitalOption>
+            ))}
+          </DigitalOptions>
+        </DigitalBlock>
+        <QuestionsBlock>
+          <QuestionsBlockTitle>
+            {t('present.main.third.title')}
+          </QuestionsBlockTitle>
+          <QuestionsBlockWrapper>
+            {[[...new Array(3)], [...new Array(3)]].map((items, c) => (
+              <QuestionsBlockCol key={`_col_${c + 1}`}>
+                {items.map((item, q) => (
+                  <CollapseStyled
+                    key={`_question_${q + 1}`}
+                    title={(
+                      <QuestionCollTitle>
+                        <Conversation1Svg />
+                        {t(`present.main.third.question${q + 1 + (c === 0 ? 0 : 3)}.question`)}
+                      </QuestionCollTitle>
+                    )}
+                  >
+                    <QuectionHtml
+                      dangerouslySetInnerHTML={{ __html: t(`present.main.third.question${q + 1 + (c === 0 ? 0 : 3)}.description`) }}
+                    />
+                  </CollapseStyled>
+                ))}
+              </QuestionsBlockCol>
+            ))}
+          </QuestionsBlockWrapper>
+        </QuestionsBlock>
+        <ClientBlock>
+          <ClientBlockTitle>
+            {t('present.main.fourth.title')}
+            <ClientSliderControl>
+              {['prev', 'next'].map((direction, c) => (
+                <ChevronSvg
+                  key={`_slider_control_${c + 1}`}
+                  onClick={() => hangleChangSlide(direction)}
+                />
+              ))}
+            </ClientSliderControl>
+          </ClientBlockTitle>
+          <CarouselStyled value={slide} draggable={false}> 
+            {[[...new Array(2)], [...new Array(2)]].map((clients, c) => (
+              <Block2Client key={`_slide_${c + 1}`}>
+                {clients.map((client, s) => (
+                  <Client key={`_client_${s + 1}`}>
+                    <ClientHeader>
+                      <ClientImg src={CLIENT_ICONS[`client${s + 1 + (c === 0 ? 0 : 2)}`]} />
+                      <ClientName>
+                        <ClientWho>
+                          {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.name`)}
+                        </ClientWho>
+                        <ClientPosition>
+                          {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.position`)}
+                        </ClientPosition>
+                      </ClientName>
+                    </ClientHeader>
+                    <ClientContent>
+                      <DoubleQuotesSvg />
+                      <ClientContentTriangle />
+                      <ClientContentTitle>
+                        {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.title`)}
+                      </ClientContentTitle>
+                      <ClientContentDescription>
+                        {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.description`)}
+                      </ClientContentDescription>
+                      <DoubleQuotesSvg />
+                    </ClientContent>
+                  </Client>
+                ))}
+              </Block2Client>
+            ))}
+          </CarouselStyled>
+        </ClientBlock>
+        <FormBlock>
+          <RequestStyled />
+        </FormBlock>
+      </Content>
+    </Container>
   );
 };
 
