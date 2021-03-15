@@ -16,7 +16,6 @@ export const Present = () => {
         <Route path={'/*'} component={Main} />
       </Switch>
     </Layout>
-  
   );
 };
 

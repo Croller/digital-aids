@@ -37,10 +37,7 @@ export const Routers = () => {
               <Route exact path="/restaurant/*" component={Restaurant} />
               <Route exact component={Present} />
               <Route path="/404">
-                <Page404
-                  source={logo}
-                  onClick={handleRoute}
-                />
+                <Page404 source={logo} onClick={handleRoute} />
               </Route>
               <Redirect to="/404" />
             </Switch>

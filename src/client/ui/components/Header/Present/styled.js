@@ -14,7 +14,8 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
+  height: 104px;
+  width: 100%;
 
   @media screen and (min-width: ${BREAKPOINTS.large}) {
     max-width: ${BREAKPOINTS.large};
