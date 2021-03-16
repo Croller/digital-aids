@@ -60,9 +60,7 @@ export const ImageWrapper = styled.div`
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     display: block;
     order: 1;
-    margin-left: 62px;
-    margin-right: 70px;
-    margin-top: 70px;
+    margin: 40px 70px 62px 0;
   }
 `;
 
@@ -222,7 +220,7 @@ export const OfertaWrapper = styled.div`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     position: absolute;
-    margin-top: -52px;
+    margin-top: -36px;
     margin-left: -48px;
   }
 `;
@@ -292,7 +290,7 @@ export const DigitalBlock = styled.div`
   padding: 98px 27px 0;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    margin-top: -17px;
+    margin-top: -32px;
     flex-direction: row;
     padding: 152px 0 12px 112px;
   }
