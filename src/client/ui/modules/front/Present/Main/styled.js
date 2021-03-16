@@ -252,7 +252,7 @@ export const DigitalOptionDescription = styled.p`
 export const QuestionsBlock = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 78px 0 34px 112px;
+  padding: 78px 80px 34px 112px;
 `;
 
 export const QuestionsBlockTitle = styled.h3`
@@ -318,7 +318,7 @@ export const QuectionHtml = styled.div`
 export const ClientBlock = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 78px 0 34px 112px;
+  padding: 78px 60px 34px 112px;
 `;
 
 export const ClientBlockTitle = styled.h3`
@@ -411,6 +411,7 @@ export const ClientContent = styled.div`
   padding: 38px 68px 46px 44px;
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
+  height: 100%;
 
   > svg {
     width: 80px;
@@ -464,7 +465,7 @@ export const ClientContentDescription = styled.p`
 
 export const FormBlock = styled.div`
   display: flex;
-  padding: 78px 0 90px 112px;
+  padding: 78px 104px 90px 112px;
   background-color: ${PALETTE.grey11};
 `;
 

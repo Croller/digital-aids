@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
 import { useTranslation } from 'react-i18next';
@@ -97,6 +98,7 @@ const CLIENT_ICONS = {
 
 const Main = () => {
   const localKey = 'DigitalCarte';
+  const history = useHistory();
   const [t] = useTranslation();
   const [slide, setSlide] = useState(0);
   const [showCookies, hideCookies] = useModal(() => (
@@ -145,6 +147,10 @@ const Main = () => {
     }
   };
 
+  const handleRoute = (path = '/') => {
+    history.push(path);
+  };
+
   useEffect(() => {
     const local = getLocalStorage(localKey);
     if (!local.cookies) {
@@ -174,7 +180,7 @@ const Main = () => {
             <PresentTime>
               {t('present.main.first.col2.time')}  
             </PresentTime>
-            <PresentButton>
+            <PresentButton onClick={() => handleRoute('tutorial')}>
               {t('present.main.first.col2.button')}  
             </PresentButton>
           </PresentWrapper>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   FooterWrapper, FooterContainer,
@@ -11,6 +11,7 @@ import {
 const FooterComponent = ({
   className,
 }) => {
+  const history = useHistory();
   const [t] = useTranslation();
   const links = [
     {
@@ -21,7 +22,7 @@ const FooterComponent = ({
     {
       key: 'politica',
       title: t('present.footer.politica'),
-      link: '',
+      link: 'privacy-policy',
     },
     {
       key: 'cookies',

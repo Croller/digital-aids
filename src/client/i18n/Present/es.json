@@ -29,6 +29,49 @@
       "placeholder": "Text"
     }
   },
+  "tutorial": {
+    "back": "Back",
+    "part1": {
+      "title": "Menú Digital y Multilenguaje con traducciones profesionales",
+      "description": "Les ofrecemos Menú Digital y Multilenguaje en diferentes idiomas de su elección con un diseño personalizado. ¡Nada que ver con un PDF o con una plataforma online general! Es una carta personalizada, interactiva y muy cómoda tanto para jóvenes como para mayores. Les sirve como un camarero multilenguaje 24 horas/ 7 días y ayuda a evitar los errores malentendidos con clientes extranjeros. "
+    },
+    "part2": {
+      "title": "Menú Digital y Multilenguaje mejora su canal de venta online",
+      "description": "Les permite publicitar las ofertas de manera oportuna directa online en diferentes idiomas informando a sus clientes sobre nuevas ofertas, platos de la temporada o eventos de fiestas."
+    },
+    "part3": {
+      "title": "Alérgenos",
+      "description": "Cada plato de su menú digital contiene toda la información relevante: una foto, explicaciones del plato e información sobre alérgenos en el idioma del cliente."
+    },
+    "part4": {
+      "title": "Reglamento (UE) №1169/2011",
+      "description": "Menú digital y multilenguaje incluye Reglamento Europeo 1169/2011 con la información de alérgenos en diferentes idiomas para mejorar la experiencia de sus clientes."
+    },
+    "part5": {
+      "title": "El pedido digital",
+      "description": "¡Les ahorra significativamente el tiempo para atender más clientes! Es la carta digital e interactiva con opción de crear el pedido en el idioma del cliente y abrir el pedido en español directo en teléfono del camarero. Eso permite reducir al mínimo el tiempo de la aceptación del pedido, tanto  el tiempo de los contactos sociales. \n\n Es muy fácil y sencillo, el cliente puede leer la carta en su idioma y crear el pedido directo en su móvil. Y el camarero, solo escaneando el código QR , abre el pedido en su propio móvil ya en español. ¡Deja el papeleo, ya es del siglo pasado! "
+    },
+    "part6": {
+      "title": "Refuerza feedback de sus clientes ",
+      "description": "Menú Digital y Multilenguaje incluye un cuestionario para los clientes, que permite obtener la opinión de sus clientes de la manera oportuna para mejorar el servicio."
+    },
+    "part7": {
+      "title": "Respeta la ley",
+      "description": "Menú digital y multilenguaje permite hacer pedido de las bebidas alcohólicas solo para personas mayor de edad."
+    },
+    "part8": {
+      "title": "Explicaciones adicionales",
+      "description": "La Carta Digital y Multilenguaje incluye la opción de dar explicaciones y recomendaciones de platos o bebidas más típicas y famosas en su restaurante o región."
+    },
+    "part9": {
+      "title": "Reserva Online",
+      "description": "¡Reserva Online 24 horas y 7 días en diferentes idiomas! Les ayuda a reducir significativamente las llamadas sin perder clientes, y evitar malentendidos con clientes extranjeros.  Con nuestra solución digital de reserva online es muy fácil confirmar o cancelar la reserva en diferentes idiomas, solo hace falta pinchar en el buzón del correo electrónico y el cliente recibirá confirmación o cancelación del restaurante en su idioma."
+    },
+    "part10": {
+      "title": "¡Hagan sus redes sociales funcionar al máximo! ",
+      "description": "La Carta Digital y Multilenguaje incluye integración con sus redes sociales: Facebook, Instagram, TheFork y TripAdviser para guardar el contacto directo con sus clientes y reforzar “feedback loop”."
+    }
+  },
   "main": {
     "first": {
       "col2": {

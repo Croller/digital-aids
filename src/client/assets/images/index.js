@@ -68,6 +68,16 @@ import Client1Png from './png/present/client-1.png';
 import Client2Png from './png/present/client-2.png';
 import Client3Png from './png/present/client-3.png';
 import Client4Png from './png/present/client-4.png';
+import Tutorial1Png from './png/present/tutorial/tutorial-1.png';
+import Tutorial2Png from './png/present/tutorial/tutorial-2.png';
+import Tutorial3Png from './png/present/tutorial/tutorial-3.png';
+import Tutorial4Png from './png/present/tutorial/tutorial-4.png';
+import Tutorial5Png from './png/present/tutorial/tutorial-5.png';
+import Tutorial6Png from './png/present/tutorial/tutorial-6.png';
+import Tutorial7Png from './png/present/tutorial/tutorial-7.png';
+import Tutorial8Png from './png/present/tutorial/tutorial-8.png';
+import Tutorial9Png from './png/present/tutorial/tutorial-9.png';
+import Tutorial10Png from './png/present/tutorial/tutorial-10.png';
 
 // allergens
 import MustardPng from './png/restaurant/allergens/mustard.png';
@@ -159,6 +169,16 @@ export {
   Client2Png,
   Client3Png,
   Client4Png,
+  Tutorial1Png,
+  Tutorial2Png,
+  Tutorial3Png,
+  Tutorial4Png,
+  Tutorial5Png,
+  Tutorial6Png,
+  Tutorial7Png,
+  Tutorial8Png,
+  Tutorial9Png,
+  Tutorial10Png,
   
   MustardPng,
   DairyPng,

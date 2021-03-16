@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { PaperPlaneSvg, Email1Svg, TelephoneSvg } from 'client/assets/images';

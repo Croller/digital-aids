@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import {
@@ -18,6 +18,7 @@ import {
 const HeaderComponent = ({
   className,
 }) => {
+  const history = useHistory();
   const [t] = useTranslation();
   const { phone } = useSelector(store => store.company);
 
@@ -33,13 +34,13 @@ const HeaderComponent = ({
       history.goBack();
       return null;
     }
-    history.push(path === 'back' ? 'categories' : path);
+    history.push(path === 'back' ? '' : path);
   };
 
   return (
     <HeaderWrapper className={className}>
       <HeaderContainer>
-        <LogoWrapper>
+        <LogoWrapper onClick={() => handleRoute()}>
           <LogoSvg />
           <LogoText>
             {t('present.header.logo')}

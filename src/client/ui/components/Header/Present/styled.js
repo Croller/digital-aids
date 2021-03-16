@@ -5,6 +5,7 @@ import {
   BREAKPOINTS,
   THEME,
   FONTS,
+  Z_INDEX,
 } from 'client/style/constants';
 
 export const HeaderWrapper = styled.div`
@@ -14,6 +15,11 @@ export const HeaderWrapper = styled.div`
   background-color: ${PALETTE.white};
   height: 104px;
   box-shadow: ${THEME.boxShadowHeader};
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: ${Z_INDEX.header};
 `;
 
 export const HeaderContainer = styled.div`

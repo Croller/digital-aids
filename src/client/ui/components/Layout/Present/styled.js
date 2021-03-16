@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 export const Cotainer = styled.div`
   display: block;
   height: auto;
-  padding-top: ${p => (p.header ? '60px' : 0)};
+  padding-top: 104px;
   padding-bottom: ${p => (p.footer ? '80px' : 0)};
 `;
 
