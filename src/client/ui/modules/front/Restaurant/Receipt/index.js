@@ -48,7 +48,7 @@ const Receipt = () => {
 
   const getDateTime = (str) => {
     moment.locale(str);
-    return moment().format('restaurant.DD.MM.YYYY HH:mm');
+    return moment().format('DD.MM.YYYY HH:mm');
   };
 
   const getDish = (item, dailyname) => {

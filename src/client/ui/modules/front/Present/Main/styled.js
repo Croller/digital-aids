@@ -7,7 +7,13 @@ import {
 } from 'client/style/constants';
 import { Button } from 'client/ui/components/_ui/Button/Btn';
 import { Collapse } from 'client/ui/components/_ui/Collapse';
-import { BackgroundBlock1Png, Digital1Png } from 'client/assets/images';
+import {
+  BackgroundBlock1Png,
+  BackgroundBlock2Png,
+  Digital1Png,
+  RedLine1Svg,
+  RedLine2Svg,
+} from 'client/assets/images';
 import { Request } from 'client/ui/components/Footer/Request';
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
@@ -21,40 +27,79 @@ export const Container = styled.div`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${BREAKPOINTS.large};
+  width: 100%;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    max-width: ${BREAKPOINTS.large};
+  }
 `;
 
 export const PresentBlock = styled.div`
-  width: 1440px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  background: url(${BackgroundBlock1Png}) 882px 572px no-repeat;
-  background-position: right;
+  background: url(${BackgroundBlock2Png}) no-repeat top;
+  background-size: auto 750px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 1440px;
+    flex-direction: row;
+    background: url(${BackgroundBlock1Png}) no-repeat right;
+    background-size: auto;
+  }
 `;
 
 export const ImageWrapper = styled.div`
-  display: block;
-  margin-left: -12px;
-  margin-right: 12px;
+  display: flex;
+  order: 3;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10%;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: block;
+    order: 1;
+    margin-left: 62px;
+    margin-right: 70px;
+    margin-top: 70px;
+  }
 `;
 
 export const PhoneImage = styled.img`
-  width: 418px;
+  width: 212px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 292px;
+  }
 `;
 
 export const PresentWrapper = styled.div`
-  display: block;
-  width: 384px;
-  margin-right: 42px;
+  display: flex;
+  flex-direction: column;
+  order: 1;
+  padding: 50px 27px 33px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: block;
+    width: 384px;
+    margin-right: 42px;
+    order: 2;
+    padding: unset;
+  }
 `;
 
 export const PresentTitle = styled.h3`
   font-family: ${FONTS.bold};
-  font-size: 24px;
+  font-size: 22px;
   line-height: 40px;
   margin: 0;
-  margin-top: 100px;
+  margin-top: 0;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 24px;
+    margin-top: 100px;
+  }
 `;
 
 export const PresentQuestion = styled.span`
@@ -67,7 +112,11 @@ export const PresentDescription = styled.p`
   font-family: ${FONTS.medium};
   font-size: 16px;
   line-height: 22px;
-  margin: 24px 0 5px;
+  margin: 22px 0 5px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin: 24px 0 5px;
+  }
 `;
 
 export const PresentTime = styled.span`
@@ -77,33 +126,54 @@ export const PresentTime = styled.span`
 `;
 
 export const PresentButton = styled(Button)`
-  width: 284px;
+  width: 100%;
   height: 52px;
   background-color: ${PALETTE.green1};
   font-family: ${FONTS.semiBold};
   font-size: 16px;
   color: ${PALETTE.white};
   text-transform: uppercase;
-  margin-top: 52px;
+  margin-top: 22px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 284px;
+    margin-top: 52px;
+  }
 `;
 
 export const QRCodeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  order: 2;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 376px;
+    order: 3;
+  }
 `;
 
 export const QRCodeTitle = styled.h3`
   font-family: ${FONTS.semiBold};
-  font-size: 18px;
-  margin: 100px 0 20px;
+  font-size: 14px;
+  margin-bottom: 16px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 18px;
+    margin: 100px 0 20px;
+    text-align: center;
+  }
 `;
 
 export const QRCodeLanguage = styled.span`
   font-family: ${FONTS.medium};
   font-size: 18px;
-  margin: 18px 0 10px;
+  margin: 20px 0 16px;
   text-transform: uppercase;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin: 18px 0 10px;
+  }
 `;
 
 export const QRCodeLanguageList = styled.ul`
@@ -111,11 +181,17 @@ export const QRCodeLanguageList = styled.ul`
   flex-direction: row;
   list-style: none;
   padding: 0;
+  margin-top: 0;
+  margin-bottom: 26px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-bottom: unset;
+  }
 `;
 
 export const QRCodeLanguageItem = styled.li`
-  width: 51px;
-  height: 51px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background-color: ${PALETTE.white};
   box-shadow: ${THEME.boxShadow1};
@@ -123,76 +199,152 @@ export const QRCodeLanguageItem = styled.li`
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
+  cursor: pointer;
 
   &:not(:last-child) {
-    margin-right: 18px;
+    margin-right: 14px;
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 51px;
+    height: 51px;
+
+    &:not(:last-child) {
+      margin-right: 18px;
+    }
   }
 `;
 
 export const OfertaWrapper = styled.div`
   position: relative;
-  margin-top: -36px;
-  margin-left: 98px;
+  margin-top: -46px;
+  margin-left: 28px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    position: absolute;
+    margin-top: -52px;
+    margin-left: -48px;
+  }
 `;
 
 export const OfertaContent = styled.div`
   position: absolute;
-  top: 50px;
-  left: 44px;
+  top: 56px;
+  left: 22px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    top: 50px;
+    left: 44px;
+  }
 `;
 
 export const OfertaTitle = styled.h3`
   font-family: ${FONTS.bold};
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
   margin-bottom: 6px;
   text-transform: uppercase;
   color: ${PALETTE.white};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 18px;
+  }
 `;
 
 export const OfertaDescription = styled.p`
   font-family: ${FONTS.medium};
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 13px;
+  line-height: 18px;
   text-transform: uppercase;
   color: ${PALETTE.white};
   white-space: pre-line;
   margin: 0;
+  width: 308px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: auto;
+    font-size: 16px;
+    line-height: 20px;
+  }
+`;
+
+export const RedLine1SvgStyled = styled(RedLine1Svg)`
+  display: none;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: block;
+  }
+`;
+
+export const RedLine2SvgStyled = styled(RedLine2Svg)`
+  display: block;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: none;
+  }
 `;
 
 export const DigitalBlock = styled.div`
   display: flex;
-  flex-direction: row;
-  margin-top: -97px;
-  padding: 152px 0 12px 112px;
+  flex-direction: column;
+  margin-top: -60px;
   background-color: ${PALETTE.grey11};
+  padding: 98px 27px 0;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-top: -17px;
+    flex-direction: row;
+    padding: 152px 0 12px 112px;
+  }
 `;
 
 export const DigitalWithImage = styled.div`
-  width: 546px;
-  margin-right: 52px;
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 546px;
+    margin-right: 52px;
+  }
 `;
 
 export const DigitalTitle = styled.h3`
   font-family: ${FONTS.bold};
-  font-size: 28px;
-  line-height: 40px;
+  font-size: 22px;
+  line-height: 32px;
   margin: 0;
   margin-bottom: 10px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 28px;
+    line-height: 40px;
+  }
 `;
 
 export const DigitalDescription = styled.p`
   font-family: ${FONTS.medium};
-  font-size: 20px;
+  font-size: 16px;
   white-space: pre-line;
   margin: 0;
-  margin-bottom: 26px;
+  margin-bottom: 16px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 20px;
+    margin-bottom: 26px;
+  }
 `;
 
 export const DigitalImage = styled.div`
-  width: 546px;
-  height: 309px;
+  height: 285px;
   background: url(${Digital1Png}) 546px 309px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border-radius: 16px;
+  margin-bottom: 28px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 546px;
+    height: 309px;
+    background: url(${Digital1Png}) 546px 309px;
+    margin-bottom: 0;
+  }
 `;
 
 export const SpanGreen = styled.span`
@@ -205,10 +357,14 @@ export const SpanBlack = styled.span`
 `;
 
 export const DigitalOptions = styled.div`
-  width: 590px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 590px;
+    flex-direction: row;
+  }
 `;
 
 export const DigitalOption = styled.div`
@@ -252,14 +408,23 @@ export const DigitalOptionDescription = styled.p`
 export const QuestionsBlock = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 78px 80px 34px 112px;
+  padding: 55px 27px 45px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 78px 80px 34px 112px;
+  }
 `;
 
 export const QuestionsBlockTitle = styled.h3`
   font-family: ${FONTS.bold};
-  font-size: 28px;
+  font-size: 22px;
   margin: 0;
-  margin-bottom: 32px;
+  margin-bottom: 34px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
 `;
 
 export const QuestionsBlockWrapper = styled.div`
@@ -269,10 +434,12 @@ export const QuestionsBlockWrapper = styled.div`
 `;
 
 export const QuestionsBlockCol = styled.div`
-  flex: 0 48%;
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex: 0 48%;
 
-  &:nth-child(2n+1) {
-    margin-right: 22px;
+    &:nth-child(2n+1) {
+      margin-right: 22px;
+    }
   }
 `;
 
@@ -296,19 +463,32 @@ export const CollapseStyled = styled(Collapse)`
 
 export const QuestionCollTitle = styled.div`
   font-family: ${FONTS.medium};
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   align-items: center;
 
-  > svg {
-    width: 36px;
-    height: 36px;
+  > div > svg {
+    width: 35px;
+    height: 35px;
     margin-right: 16px;
 
     path {
       fill: ${PALETTE.green1};
     }
   }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 16px;
+
+    > svg {
+      width: 36px;
+      height: 36px;
+    }
+  }
+`;
+
+export const IconBlock = styled.div`
+  display: block;
 `;
 
 export const QuectionHtml = styled.div`
@@ -318,17 +498,29 @@ export const QuectionHtml = styled.div`
 export const ClientBlock = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 78px 60px 34px 112px;
+  padding: 15px 27px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 78px 60px 34px 112px;
+  }
 `;
 
 export const ClientBlockTitle = styled.h3`
   font-family: ${FONTS.bold};
-  font-size: 28px;
+  font-size: 22px;
   margin: 0;
   margin-bottom: 32px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 28px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 `;
 
 export const ClientSliderControl = styled.div`
@@ -336,7 +528,7 @@ export const ClientSliderControl = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-right: 30px;
+  margin-top: 32px;
 
   > svg {
     width: 32px;
@@ -352,13 +544,28 @@ export const ClientSliderControl = styled.div`
       transform: rotate(0deg);
     }
   }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-top: 0;
+    margin-right: 30px;
+  }
 `;
 
 export const CarouselStyled = styled(Carousel)`
   display: block;
+
+  ul {
+    align-items: flex-start;
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    ul {
+      align-items: center;
+    }
+  }
 `;
 
-export const Block2Client = styled.div`
+export const BlockClient = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px;
@@ -367,10 +574,13 @@ export const Block2Client = styled.div`
 export const Client = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0 48%;
 
-  &:nth-child(2n+1) {
-    margin-right: 22px;
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex: 0 48%;
+
+    &:nth-child(2n+1) {
+      margin-right: 22px;
+    }
   }
 `;
 
@@ -379,12 +589,23 @@ export const ClientHeader = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 42px;
+  margin-bottom: 24px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-bottom: 42px;
+  }
 `;
 
 export const ClientImg = styled.img`
   display: block;
   margin-right: 22px;
+  width: 71px;
+  height: 71px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: auto;
+    height: auto;
+  }
 `;
 
 export const ClientName = styled.div`
@@ -396,26 +617,34 @@ export const ClientName = styled.div`
 
 export const ClientWho = styled.h5`
   font-family: ${FONTS.semiBold};
-  font-size: 18px;
+  font-size: 16px;
   margin: 0;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 18px;
+  }
 `;
 
 export const ClientPosition = styled.span`
   font-family: ${FONTS.lightItalic};
-  font-size: 16px;
+  font-size: 14px;
   white-space: pre-line;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 16px;
+  }
 `;
 
 export const ClientContent = styled.div`
   position: relative;
-  padding: 38px 68px 46px 44px;
+  padding: 42px 22px 24px;
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
-  height: 100%;
+  height: auto;
 
   > svg {
-    width: 80px;
-    height: 66px;
+    width: 52px;
+    height: 43px;
     position: absolute;
     z-index: -2;
     transform: rotate(180deg);
@@ -436,16 +665,16 @@ export const ClientContent = styled.div`
       transform: rotate(0deg);
     }
   }
-`;
 
-export const ClientContentTriangle = styled.div`
-  position: absolute;
-  top: -38px;
-  left: 0;
-  width: 0;
-  height: 0;
-  border-bottom: 38px solid ${PALETTE.white};
-  border-right: 38px solid transparent;
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    height: 266px;
+    padding: 38px 68px 46px 44px;
+
+    > svg {
+      width: 80px;
+      height: 66px;
+    }
+  }
 `;
 
 export const ClientContentTitle = styled.h5`
@@ -464,9 +693,12 @@ export const ClientContentDescription = styled.p`
 `;
 
 export const FormBlock = styled.div`
-  display: flex;
-  padding: 78px 104px 90px 112px;
+  padding: 50px 24px 32px;
   background-color: ${PALETTE.grey11};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 78px 104px 90px 112px;
+  }
 `;
 
 export const RequestStyled = styled(Request)`

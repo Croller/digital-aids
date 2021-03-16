@@ -7,7 +7,7 @@ import es from './es';
 import fr from './fr';
 import gr from './gr';
 import it from './it';
-import nor from './nor';
+import no from './no';
 import ru from './ru';
 
 export const languages = {
@@ -17,7 +17,7 @@ export const languages = {
   fr,
   gr,
   it,
-  nor,
+  no,
   ru,
 };
 

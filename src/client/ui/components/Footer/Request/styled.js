@@ -2,38 +2,59 @@ import styled from 'styled-components';
 import { Input } from 'client/ui/components/_ui/Input';
 import { TextArea } from 'client/ui/components/_ui/TextArea';
 import { Button } from 'client/ui/components/_ui/Button/Btn';
-import { PALETTE, FONTS } from 'client/style/constants';
+import { PALETTE, FONTS, BREAKPOINTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
 `;
 
 export const Contacts = styled.div`
   display: flex;
   flex-direction: column;
-  width: 772px;
-  flex: 0 50%;
-  margin-right: 22px;
+  margin-right: 48px;
 
   > svg {
-    width: 138px;
-    height: 138px;
+    width: 85px;
+    height: 85px;
 
     path {
       fill: ${PALETTE.green1}
+    }
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 772px;
+    flex: 0 50%;
+
+    > svg {
+      width: 138px;
+      height: 138px;
     }
   }
 `;
 
 export const Title = styled.h3`
   font-family: ${FONTS.bold};
-  font-size: 28px;
+  font-size: 22px;
+  line-height: 34px;
   margin: 0;
-  margin-bottom: 68px;
+  margin-bottom: 22px;
   white-space: pre-line;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    font-size: 28px;
+    line-height: 42px;
+    margin-bottom: 68px;
+  }
 `;
 
 export const SpanGreen = styled.span`
@@ -41,14 +62,19 @@ export const SpanGreen = styled.span`
 `;
 
 export const Hr = styled.hr`
-  margin: 72px 0 32px;
+  margin: 22px 0;
   border: 0.4px solid ${PALETTE.grey7};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin: 72px 0 32px;
+  }
 `;
 
 export const Contact = styled.div`
   font-family: ${FONTS.medium};
   font-size: 16px;
   margin-bottom: 22px;
+  cursor: pointer;
 
   svg {
     width: 16px;
@@ -65,7 +91,11 @@ export const Form = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  flex: 0 50%;
+  width: 100%;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex: 0 50%;
+  }
 `;
 
 export const Control = styled.div`
@@ -78,13 +108,17 @@ export const Control = styled.div`
 
 export const ControlGroup = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
-  > div {
-    flex: 0 50%;
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex-direction: row;
 
-    &:first-child {
-      margin-right: 22px;
+    > div {
+      flex: 0 50%;
+
+      &:first-child {
+        margin-right: 22px;
+      }
     }
   }
 `;
@@ -107,10 +141,14 @@ export const TextAreaStyled = styled(TextArea)`
 `;
 
 export const SendButton = styled(Button)`
-  width: 274px;
+  width: 100%;
   height: 52px;
   margin: 0 auto;
   background-color: ${PALETTE.green1};
   text-transform: uppercase;
   color: ${PALETTE.white};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 274px;
+  }
 `;

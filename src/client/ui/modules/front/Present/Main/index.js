@@ -3,13 +3,13 @@ import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
 import { useTranslation } from 'react-i18next';
+import { BREAKPOINTS } from 'client/style/constants';
 import {
   setLocalStorage,
   getLocalStorage,
 } from 'client/utils/localStorage';
 import {
   PhoneBlock1Png,
-  RedLine1Svg,
   SupportSvg,
   SocialCareSvg,
   Conversation1Svg,
@@ -23,7 +23,7 @@ import {
   ChevronSvg,
 } from 'client/assets/images';
 import QRCode from 'qrcode.react';
-import translate, { languages } from 'client/i18n';
+import translate from 'client/i18n';
 import { 
   Container,
   Content,
@@ -45,6 +45,8 @@ import {
   OfertaContent,
   OfertaTitle,
   OfertaDescription,
+  RedLine1SvgStyled,
+  RedLine2SvgStyled,
   DigitalBlock,
   DigitalWithImage,
   DigitalTitle,
@@ -62,12 +64,13 @@ import {
   QuestionsBlockCol,
   CollapseStyled,
   QuestionCollTitle,
+  IconBlock,
   QuectionHtml,
   ClientBlock,
   ClientBlockTitle,
   ClientSliderControl,
   CarouselStyled,
-  Block2Client,
+  BlockClient,
   Client,
   ClientHeader,
   ClientImg,
@@ -75,7 +78,6 @@ import {
   ClientWho,
   ClientPosition,
   ClientContent,
-  ClientContentTriangle,
   ClientContentTitle,
   ClientContentDescription,
   FormBlock,
@@ -123,7 +125,7 @@ const Main = () => {
 
   const hangleChangSlide = (direction) => {
     const min = 0;
-    const max = 2;
+    const max = window.innerWidth <= Number(BREAKPOINTS.small.replace('px', '')) ? 4 : 2;
     if (direction === 'next') {
       if (slide === max) {
         setSlide(0);
@@ -160,12 +162,51 @@ const Main = () => {
     window.prerenderReady = true;
   }, []);
 
+  const ClinetBlock = (s, c = 0) => (
+    <Client key={`_client_${s + 1}`}>
+      <ClientHeader>
+        <ClientImg src={CLIENT_ICONS[`client${s + 1 + (c === 0 ? 0 : 2)}`]} />
+        <ClientName>
+          <ClientWho>
+            {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.name`)}
+          </ClientWho>
+          <ClientPosition>
+            {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.position`)}
+          </ClientPosition>
+        </ClientName>
+      </ClientHeader>
+      <ClientContent>
+        <DoubleQuotesSvg />
+        <ClientContentTitle>
+          {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.title`)}
+        </ClientContentTitle>
+        <ClientContentDescription>
+          {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.description`)}
+        </ClientContentDescription>
+        <DoubleQuotesSvg />
+      </ClientContent>
+    </Client>
+  );
+
   return (
     <Container>
       <Content>
         <PresentBlock>
           <ImageWrapper>
             <PhoneImage src={PhoneBlock1Png} />
+
+            <OfertaWrapper>
+              <OfertaContent>
+                <OfertaTitle>
+                  {t('present.main.first.oferta.title')}  
+                </OfertaTitle>
+                <OfertaDescription>
+                  {t('present.main.first.oferta.description')} 
+                </OfertaDescription>
+              </OfertaContent>
+              <RedLine1SvgStyled />
+              <RedLine2SvgStyled />
+            </OfertaWrapper>
           </ImageWrapper>
           <PresentWrapper>
             <PresentTitle>
@@ -193,7 +234,7 @@ const Main = () => {
               {t('present.main.first.col3.language')}  
             </QRCodeLanguage>
             <QRCodeLanguageList>
-              {Object.keys(languages).filter(f => ['en', 'es', 'ru', 'gr', 'nr'].includes(f)).map(lng => (
+              {['en', 'ru', 'es', 'de', 'no'].map(lng => (
                 <QRCodeLanguageItem
                   key={`_language_${lng}`}
                   onClick={() => handleChnageLng(lng)}
@@ -204,7 +245,7 @@ const Main = () => {
             </QRCodeLanguageList>
           </QRCodeWrapper>
         </PresentBlock>
-        <OfertaWrapper>
+        {/* <OfertaWrapper>
           <OfertaContent>
             <OfertaTitle>
               {t('present.main.first.oferta.title')}  
@@ -213,8 +254,9 @@ const Main = () => {
               {t('present.main.first.oferta.description')} 
             </OfertaDescription>
           </OfertaContent>
-          <RedLine1Svg />
-        </OfertaWrapper>
+          <RedLine1SvgStyled />
+          <RedLine2SvgStyled />
+        </OfertaWrapper> */}
         <DigitalBlock>
           <DigitalWithImage>
             <DigitalTitle>
@@ -257,13 +299,17 @@ const Main = () => {
                     key={`_question_${q + 1}`}
                     title={(
                       <QuestionCollTitle>
-                        <Conversation1Svg />
+                        <IconBlock>
+                          <Conversation1Svg />
+                        </IconBlock>
                         {t(`present.main.third.question${q + 1 + (c === 0 ? 0 : 3)}.question`)}
                       </QuestionCollTitle>
                     )}
                   >
                     <QuectionHtml
-                      dangerouslySetInnerHTML={{ __html: t(`present.main.third.question${q + 1 + (c === 0 ? 0 : 3)}.description`) }}
+                      dangerouslySetInnerHTML={{
+                        __html: t(`present.main.third.question${q + 1 + (c === 0 ? 0 : 3)}.description`),
+                      }}
                     />
                   </CollapseStyled>
                 ))}
@@ -284,36 +330,18 @@ const Main = () => {
             </ClientSliderControl>
           </ClientBlockTitle>
           <CarouselStyled value={slide} draggable={false}> 
-            {[[...new Array(2)], [...new Array(2)]].map((clients, c) => (
-              <Block2Client key={`_slide_${c + 1}`}>
-                {clients.map((client, s) => (
-                  <Client key={`_client_${s + 1}`}>
-                    <ClientHeader>
-                      <ClientImg src={CLIENT_ICONS[`client${s + 1 + (c === 0 ? 0 : 2)}`]} />
-                      <ClientName>
-                        <ClientWho>
-                          {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.name`)}
-                        </ClientWho>
-                        <ClientPosition>
-                          {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.position`)}
-                        </ClientPosition>
-                      </ClientName>
-                    </ClientHeader>
-                    <ClientContent>
-                      <DoubleQuotesSvg />
-                      <ClientContentTriangle />
-                      <ClientContentTitle>
-                        {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.title`)}
-                      </ClientContentTitle>
-                      <ClientContentDescription>
-                        {t(`present.main.fourth.client${s + 1 + (c === 0 ? 0 : 2)}.description`)}
-                      </ClientContentDescription>
-                      <DoubleQuotesSvg />
-                    </ClientContent>
-                  </Client>
-                ))}
-              </Block2Client>
-            ))}
+            {window.innerWidth <= Number(BREAKPOINTS.small.replace('px', ''))
+              ? [...new Array(4)].map((clients, c) => (
+                <BlockClient key={`_slide_${c + 1}`}>
+                  {ClinetBlock(c)}
+                </BlockClient>
+              ))
+              : [[...new Array(2)], [...new Array(2)]].map((clients, c) => (
+                <BlockClient key={`_slide_${c + 1}`}>
+                  {clients.map((client, s) => ClinetBlock(s, c))}
+                </BlockClient>
+              ))
+            }
           </CarouselStyled>
         </ClientBlock>
         <FormBlock>

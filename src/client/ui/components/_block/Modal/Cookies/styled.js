@@ -13,13 +13,19 @@ export const Wrapper = styled.div`
   bottom: 0;
   left: 0;
   right: 0;
+  width: 306px;
   border-radius: ${THEME.borderRadius};
   background-color: ${PALETTE.white};
-  padding: 47px 59px 37px;
+  padding: 47px 23px 33px;
   z-index: ${Z_INDEX.modal};
-  width: ${BREAKPOINTS.large};
+  max-width: ${BREAKPOINTS.large};
   margin: 0 auto;
   box-shadow: ${THEME.boxShadow1};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: auto;
+    padding: 47px 59px 37px;
+  }
 `;
 
 export const CloseButton = styled(Button)`
@@ -46,15 +52,23 @@ export const CloseButton = styled(Button)`
 
 export const Conatainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex-direction: row;
+  }
 `;
 
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 54px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-right: 54px;
+  }
 `;
 
 export const Title = styled.h3`
@@ -70,13 +84,22 @@ export const Description = styled.p`
   font-family: ${FONTS.regular};
   line-height: 20px;
   margin: 0;
+  margin-bottom: 20px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const AcceptButton = styled(Button)`
   background-color: ${PALETTE.green1};
   font-family: ${FONTS.semiBold};
   height: 54px;
-  width: 446px;
+  width: 100%;
   text-transform: uppercase;
   color: ${PALETTE.white};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 446px;
+  }
 `;

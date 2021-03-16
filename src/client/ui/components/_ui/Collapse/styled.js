@@ -15,16 +15,19 @@ export const Header = styled.div`
   height: 55px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 26px 20px 24px;
+  cursor: pointer;
 `;
 
 export const Title = styled.div`
-  width: 95%;
+  /* width: 95%; */
 `;
 
 export const Icon = styled.div`
-  width: 5%;
+  display: flex;
+  justify-content: flex-end;
+  width: 18px;
 
   > svg {
     width: 18px;

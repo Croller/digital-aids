@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import {
+  CloseSvg,
   LogoSvg,
-  // LoupeSvg,
+  LoupeSvg,
   PhoneCallSvg,
   UserCircleSvg,
 } from 'client/assets/images';
@@ -12,7 +13,7 @@ import {
   HeaderWrapper, HeaderContainer,
   LogoWrapper, LogoText,
   ControlWrapper,
-  Search, Phone, User,
+  Search, LoupeSvgStyled, Phone, User,
 } from './styled';
 
 const HeaderComponent = ({
@@ -20,6 +21,7 @@ const HeaderComponent = ({
 }) => {
   const history = useHistory();
   const [t] = useTranslation();
+  const [showSearch, setShowSearch] = useState(false);
   const { phone } = useSelector(store => store.company);
 
   const handleRoute = (path = '/', external = false) => {
@@ -40,19 +42,31 @@ const HeaderComponent = ({
   return (
     <HeaderWrapper className={className}>
       <HeaderContainer>
-        <LogoWrapper onClick={() => handleRoute()}>
+        <LogoWrapper
+          show={showSearch}
+          onClick={() => handleRoute()}
+        >
           <LogoSvg />
           <LogoText>
             {t('present.header.logo')}
           </LogoText>
         </LogoWrapper>
         <ControlWrapper>
-          <Search />
+          <Search
+            prefix={showSearch ? <LoupeSvg /> : false}
+            suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
+            show={showSearch}
+          />
+          {!showSearch && (
+            <LoupeSvgStyled
+              onClick={() => setShowSearch(true)}
+            />
+          )}
           <Phone onClick={() => handleRoute(`tel:${phone[0]}`, true)}>
             <PhoneCallSvg />
             {phone}
           </Phone>
-          <User>
+          <User show={showSearch}>
             <UserCircleSvg />
           </User>
         </ControlWrapper>

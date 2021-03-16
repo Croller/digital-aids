@@ -3,7 +3,6 @@ import { Request } from 'client/ui/components/Footer/Request';
 import {
   FONTS,
   PALETTE,
-  THEME,
   BREAKPOINTS,
 } from 'client/style/constants';
 
@@ -17,7 +16,11 @@ export const Content = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  max-width: ${BREAKPOINTS.large};
+  width: 100%;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    max-width: ${BREAKPOINTS.large};
+  }
 `;
 
 export const Control = styled.div`
@@ -30,7 +33,8 @@ export const Control = styled.div`
   text-transform: uppercase;
   position: absolute;
   top: 40px;
-  left: 112px;
+  left: 27px;
+  cursor: pointer;
 
   > svg {
     width: 23px;
@@ -41,6 +45,10 @@ export const Control = styled.div`
       fill: ${PALETTE.green1};
     }
   }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    left: 112px;
+  }
 `;
 
 export const Parts = styled.div`
@@ -50,27 +58,44 @@ export const Parts = styled.div`
 
 export const Part = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 100px 124px 78px 119px;
+  padding: 40px 27px;
   background-color: ${PALETTE.grey11};
 
   img {
-    margin-right: 40px;
+    margin-bottom: 22px;
   }
 
   &:first-child {
-    padding-top: 158px;
+    padding-top: 131px;
   }
 
   &:nth-child(2n) {
-    flex-direction: row-reverse;
-    justify-content: flex-end;
     background-color: ${PALETTE.white};
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex-direction: row;
+    padding: 100px 124px 78px 119px;
 
     img {
-      margin-right: 0;
+      margin-right: 77px;
+      margin-bottom: 0;
+    }
+
+    &:first-child {
+      padding-top: 150px;
+    }
+
+    &:nth-child(2n) {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+
+      img {
+        margin-right: 0;
+      }
     }
   }
 `;
@@ -81,6 +106,11 @@ export const PartImg = styled.img`
   align-items: center;
   justify-content: center;
   margin: auto;
+  width: 310px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 428px;
+  }
 `;
 
 export const PartContent = styled.div`
@@ -88,7 +118,6 @@ export const PartContent = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  width: 692px;
 
   > svg {
     width: 70px;
@@ -98,6 +127,10 @@ export const PartContent = styled.div`
     path {
       fill: ${PALETTE.green1};
     }
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 692px;
   }
 `;
 
@@ -118,9 +151,12 @@ export const PartDescription = styled.p`
 `;
 
 export const FormBlock = styled.div`
-  display: flex;
-  padding: 78px 119px 90px 121px;
+  padding: 50px 24px 32px;
   background-color: ${PALETTE.grey11};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 78px 104px 90px 112px;
+  }
 `;
 
 export const RequestStyled = styled(Request)`

@@ -58,11 +58,13 @@ import UsersSvg from './svg/present/users.svg';
 import WebSettingsSvg from './svg/present/web-settings.svg';
 import WineBottleSvg from './svg/present/wine-bottle.svg';
 import RedLine1Svg from './svg/present/red-line-1.svg';
+import RedLine2Svg from './svg/present/red-line-2.svg';
 
 // png
 // present 
 import PhoneBlock1Png from './png/present/phone-block-1.png';
 import BackgroundBlock1Png from './png/present/background-1.png';
+import BackgroundBlock2Png from './png/present/background-2.png';
 import Digital1Png from './png/present/digital-1.png';
 import Client1Png from './png/present/client-1.png';
 import Client2Png from './png/present/client-2.png';
@@ -161,9 +163,11 @@ export {
   WebSettingsSvg,
   WineBottleSvg,
   RedLine1Svg,
+  RedLine2Svg,
 
   PhoneBlock1Png,
   BackgroundBlock1Png,
+  BackgroundBlock2Png,
   Digital1Png,
   Client1Png,
   Client2Png,

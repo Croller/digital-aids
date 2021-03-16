@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PALETTE, THEME, FONTS } from 'client/style/constants';
 import { Input } from 'antd';
 
@@ -15,4 +15,21 @@ export const InputStyled = styled(Input)`
   &:focus {
     outline: none;
   }
+
+  ${p => p.suffix && css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+
+    input {
+      width: 100%;
+      height: inherit;
+      border: 0;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  `}
 `;
