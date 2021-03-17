@@ -19,7 +19,7 @@ export const HeaderWrapper = styled.div`
   background-color: ${PALETTE.white};
   height: 74px;
   box-shadow: ${THEME.boxShadowHeader};
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;

@@ -4,6 +4,7 @@ import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
+import { Helmet } from 'react-helmet';
 import {
   setLocalStorage,
   getLocalStorage,
@@ -190,11 +191,16 @@ const Main = () => {
 
   return (
     <Container>
+      <Helmet>
+        <meta content="Digital Carte" />
+        <title>
+          Digital Carte
+        </title>
+      </Helmet>
       <Content>
         <PresentBlock>
           <ImageWrapper>
             <PhoneImage src={PhoneBlock1Png} />
-
             <OfertaWrapper>
               <OfertaContent>
                 <OfertaTitle>
@@ -329,7 +335,18 @@ const Main = () => {
               ))}
             </ClientSliderControl>
           </ClientBlockTitle>
-          <CarouselStyled value={slide} draggable={false}> 
+          <CarouselStyled
+            value={slide}
+            draggable={window.innerWidth <= Number(BREAKPOINTS.small.replace('px', ''))}
+            plugins={[
+              'infinite',
+              {
+                options: {
+                  numberOfSlides: 2,
+                },
+              },
+            ]}
+          > 
             {window.innerWidth <= Number(BREAKPOINTS.small.replace('px', ''))
               ? [...new Array(4)].map((clients, c) => (
                 <BlockClient key={`_slide_${c + 1}`}>

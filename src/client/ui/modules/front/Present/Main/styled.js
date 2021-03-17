@@ -41,8 +41,11 @@ export const PresentBlock = styled.div`
   background: url(${BackgroundBlock2Png}) no-repeat top;
   background-size: auto 750px;
 
+  /* background-position: 0 50px; */
+
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 1440px;
+    height: 527px;
     flex-direction: row;
     background: url(${BackgroundBlock1Png}) no-repeat right;
     background-size: auto;
@@ -60,7 +63,7 @@ export const ImageWrapper = styled.div`
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     display: block;
     order: 1;
-    margin: 40px 70px 62px 0;
+    margin: 40px 70px 31px 0;
   }
 `;
 
@@ -155,6 +158,7 @@ export const QRCodeTitle = styled.h3`
   font-family: ${FONTS.semiBold};
   font-size: 14px;
   margin-bottom: 16px;
+  text-align: center;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     font-size: 18px;
@@ -220,14 +224,14 @@ export const OfertaWrapper = styled.div`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     position: absolute;
-    margin-top: -36px;
+    margin-top: -72px;
     margin-left: -48px;
   }
 `;
 
 export const OfertaContent = styled.div`
   position: absolute;
-  top: 56px;
+  top: 44px;
   left: 22px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {

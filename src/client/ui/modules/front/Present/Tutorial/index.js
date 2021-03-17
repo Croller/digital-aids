@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Helmet } from 'react-helmet';
 import {
   TranslationSvg,
   Tutorial1Png,
@@ -91,6 +92,12 @@ const Tutorial = () => {
 
   return (
     <Container>
+      <Helmet>
+        <meta content="Digital Carte" />
+        <title>
+          Digital Carte
+        </title>
+      </Helmet>
       <Content>
         <Control onClick={() => history.push('/')}>
           <ChevronSvg />
