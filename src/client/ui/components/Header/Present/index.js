@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import translate, { languages } from 'client/i18n';
 import {
   CloseSvg,
+  GlobalSvg,
   LogoSvg,
   LoupeSvg,
   PhoneCallSvg,
@@ -13,15 +15,23 @@ import {
   HeaderWrapper, HeaderContainer,
   LogoWrapper, LogoText,
   ControlWrapper,
-  Search, LoupeSvgStyled, Phone, User,
+  Search, LoupeSvgStyled,
+  Phone, PhoneText,
+  Lang, LangText,
+  User,
+  LangWrapper,
+  CloseButton,
+  LangList,
+  LangButton,
 } from './styled';
 
 const HeaderComponent = ({
   className,
 }) => {
   const history = useHistory();
-  const [t] = useTranslation();
+  const [t, i18n] = useTranslation();
   const [showSearch, setShowSearch] = useState(false);
+  const [langList, setLangList] = useState(false);
   const { phone } = useSelector(store => store.company);
 
   const handleRoute = (path = '/', external = false) => {
@@ -39,36 +49,71 @@ const HeaderComponent = ({
     history.push(path === 'back' ? '' : path);
   };
 
+  const handleLangChange = (lng = null) => {
+    if (lng) {
+      translate.changeLanguage(lng);
+    }
+    setLangList(false);
+  };
+
   return (
     <HeaderWrapper className={className}>
       <HeaderContainer>
-        <LogoWrapper
-          show={showSearch}
-          onClick={() => handleRoute()}
-        >
-          <LogoSvg />
-          <LogoText>
-            {t('present.header.logo')}
-          </LogoText>
-        </LogoWrapper>
-        <ControlWrapper>
+        {!showSearch && (
+          <LogoWrapper
+            onClick={() => handleRoute()}
+          >
+            <LogoSvg />
+            <LogoText>
+              {t('present.header.logo')}
+            </LogoText>
+          </LogoWrapper>
+        )}
+        <ControlWrapper show={showSearch}>
           <Search
             prefix={showSearch ? <LoupeSvg /> : false}
             suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
             show={showSearch}
           />
           {!showSearch && (
-            <LoupeSvgStyled
-              onClick={() => setShowSearch(true)}
-            />
+            <>
+              <LoupeSvgStyled
+                onClick={() => setShowSearch(true)}
+              />
+              <Phone
+                onClick={() => handleRoute(`tel:${phone[0]}`, true)}
+              >
+                <PhoneCallSvg />
+                <PhoneText>{phone}</PhoneText>
+              </Phone>
+              <Lang onClick={() => setLangList(!langList)}>
+                <GlobalSvg />
+                <LangText>{i18n.language}</LangText>
+
+                {langList && (
+                  <LangWrapper>
+                    <CloseButton onClick={() => handleLangChange()}>
+                      <CloseSvg />
+                    </CloseButton>
+                    <LangList>
+                      {['en', 'de', 'es', 'no', 'ru'].map(lng => (
+                        <LangButton
+                          key={`_language_${lng}`}
+                          onClick={() => handleLangChange(lng)}
+                          active={lng === i18n.language}
+                        >
+                          {languages[lng].name}
+                        </LangButton>
+                      ))}
+                    </LangList>
+                  </LangWrapper>
+                )}
+              </Lang>
+              <User>
+                <UserCircleSvg />
+              </User>
+            </>
           )}
-          <Phone onClick={() => handleRoute(`tel:${phone[0]}`, true)}>
-            <PhoneCallSvg />
-            {phone}
-          </Phone>
-          <User show={showSearch}>
-            <UserCircleSvg />
-          </User>
         </ControlWrapper>
       </HeaderContainer>
     </HeaderWrapper>

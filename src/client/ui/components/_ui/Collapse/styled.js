@@ -21,13 +21,15 @@ export const Header = styled.div`
 `;
 
 export const Title = styled.div`
-  /* width: 95%; */
+  margin-right: 20px;
 `;
 
 export const Icon = styled.div`
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-  width: 18px;
+  width: 30px;
+  height: 30px;
 
   > svg {
     width: 18px;

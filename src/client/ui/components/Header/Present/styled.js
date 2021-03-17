@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Input } from 'client/ui/components/_ui/Input';
+import { Button } from 'client/ui/components/_ui/Button/Btn';
 import {
   PALETTE,
   BREAKPOINTS,
@@ -46,7 +47,7 @@ export const HeaderContainer = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  display: ${p => (p.show ? 'none' : 'flex')};
+  display: flex;
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -55,8 +56,8 @@ export const LogoWrapper = styled.div`
   cursor: pointer;
 
   svg {
-    width: 168px;
-    height: 28px;
+    width: 142px;
+    height: 24px;
   }
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
@@ -70,9 +71,9 @@ export const LogoWrapper = styled.div`
 export const LogoText = styled.span`
   position: absolute;
   bottom: -2px;
-  right: 82px;
+  right: 76px;
   font-family: ${FONTS.semiBold};
-  font-size: 10px;
+  font-size: 8px;
   color: ${PALETTE.green1};
   z-index: 1;
   width: 100%;
@@ -86,9 +87,10 @@ export const LogoText = styled.span`
 
 export const ControlWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: ${p => (p.show ? '100%' : '138px')};
+  margin-left: auto;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     justify-content: center;
@@ -161,17 +163,48 @@ export const LoupeSvgStyled = styled(LoupeSvg)`
 `;
 
 export const Phone = styled.div`
-  display: none;
-  font-family: ${FONTS.regular};
-  font-size: 16px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 52px;
   cursor: pointer;
 
   svg {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin: 0 52px;
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const PhoneText = styled.span`
+  display: none;
+  font-family: ${FONTS.regular};
+  font-size: 16px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: block;
+  }
+`;
+
+export const Lang = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    width: 28px;
+    height: 28px;
     margin-right: 8px;
 
     path {
@@ -180,19 +213,102 @@ export const Phone = styled.div`
   }
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    display: flex;
+    position: relative;
+    width: 87px;
+    height: 60px;
+    border-radius: ${THEME.borderRadius};
+    box-shadow: ${THEME.boxShadow1};
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const LangText = styled.span`
+  display: none;
+  font-family: ${FONTS.semiBold};
+  font-size: 16px;
+  text-transform: uppercase;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: block;
+  }
+`;
+
+export const LangWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: block;
+  background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadius};
+  z-index: ${Z_INDEX.modal};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    top: 100px;
+    left: unset;
+  }
+`;
+
+export const CloseButton = styled(Button)`
+  position: absolute;
+  top: 25px;
+  right: 28px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+
+  > svg {
+    width: 26px;
+    height: 26px;
+
+    path {
+      fill: ${PALETTE.grey1};
+    }
+  }
+`;
+
+export const LangList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: ${THEME.boxShadow1};
+  border-bottom-left-radius: ${THEME.borderRadius};
+  border-bottom-right-radius: ${THEME.borderRadius};
+  padding: 64px 98px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 64px 86px;
+  }
+`;
+
+export const LangButton = styled(Button)`
+  width: unset;
+  height: unset;
+  font-size: 18px;
+  font-family: ${FONTS.semiBold};
+  background-color: transparent;
+  color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.black}`)};
+
+  &:not(:last-child) {
+    margin-bottom: 32px;
   }
 `;
 
 export const User = styled.div`
-  display: ${p => (p.show ? 'none' : 'flex')};
+  display: none;
   justify-content: center;
   align-items: center;
-  margin-left: 22px;
 
   svg {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
 
     path {
       fill: ${PALETTE.green1};

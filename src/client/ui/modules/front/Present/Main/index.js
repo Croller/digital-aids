@@ -24,7 +24,7 @@ import {
   ChevronSvg,
 } from 'client/assets/images';
 import QRCode from 'qrcode.react';
-import translate from 'client/i18n';
+// import translate from 'client/i18n';
 import { 
   Container,
   Content,
@@ -120,9 +120,9 @@ const Main = () => {
     setLocalStorage(localKey, local);
   };
 
-  const handleChnageLng = (lng) => {
-    translate.changeLanguage(lng);
-  };
+  // const handleChnageLng = (lng) => {
+  //   translate.changeLanguage(lng);
+  // };
 
   const hangleChangSlide = (direction) => {
     const min = 0;
@@ -243,7 +243,7 @@ const Main = () => {
               {['en', 'ru', 'es', 'de', 'no'].map(lng => (
                 <QRCodeLanguageItem
                   key={`_language_${lng}`}
-                  onClick={() => handleChnageLng(lng)}
+                  // onClick={() => handleChnageLng(lng)}
                 >
                   {lng}
                 </QRCodeLanguageItem>
