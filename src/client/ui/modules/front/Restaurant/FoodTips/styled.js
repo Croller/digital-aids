@@ -44,10 +44,10 @@ export const CarouselControl = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  z-index: 25;
+  z-index: 95;
 
   > svg {
-    width: 32px;
+    width: 14px;
     height: 32px;
     transform: rotate(180deg);
     cursor: pointer;
@@ -60,6 +60,29 @@ export const CarouselControl = styled.div`
       margin-right: 40px;
       transform: rotate(0deg);
     }
+  }
+`;
+
+export const CarouselDots = styled.div`
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 293px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 95;
+`;
+
+export const CarouselDot = styled.div`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.grey17}`)};
+
+  &:not(:last-child) {
+    margin-right: 12px;
   }
 `;
 
@@ -107,7 +130,6 @@ export const Dish = styled.h2`
   font-family: ${FONTS.semiBold};
   color: ${PALETTE.white};
   margin: 0;
-  width: 100%;
   z-index: ${Z_INDEX.header};
 `;
 
@@ -152,8 +174,8 @@ export const Price = styled.span`
 `;
 
 export const AddButton = styled(Button)`
-  width: 206;
-  height: 48px;
+  width: 100%;
+  min-height: 48px;
   font-size: 16px;
   font-family: ${FONTS.medium};
   text-transform: uppercase;

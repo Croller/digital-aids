@@ -13,6 +13,7 @@
     "avg_price": "Gjennomsnittspris",
     "call_us": "Ring oss",
     "cuisine": "Cuisine",
+    "added": "Added",
     "add_to_order": "Legg til bestillingen",
     "total": "Total",
     "online": "Online",
@@ -24,9 +25,11 @@
     "price": "Pris",
     "ok": "Ok",
     "remove": "Ta vekk",
-    "dont": "Ikke",
+    "dont": "Beholde",
     "yes_i": "Bekrefte",
     "not_i": "Jeg bekrefter ikke",
+    "yes": "Yes",
+    "not": "Not",
     "currency": {
       "euro": "€"
     },
@@ -52,7 +55,7 @@
     }
   },
   "pageMenu": {
-    "text":"Oops! Det ser ut til at noe gikk galt,\n men vi er her for å hjelpe deg!\n Vennligst \n prøv igjen."
+    "text":"Oops! Det ser ut til at noe gikk galt,\n men vi er her for å hjelpe deg!\n Vennligst prøv igjen."
   },
   "pageAllergens": {
     "descriptions": "En oppløsning med tilgjengelig informasjon om mat allergener og intoleranser."
@@ -74,7 +77,7 @@
     }
   },
   "pageOrder": {
-    "empty_order": "Bestillingen din er tom.\n De utvalgte retter må legges til bestillingen."
+    "empty_order": "Bestillingen din er tom.\n De utvalgte retter må legges \n til bestillingen."
   },
   "pageReceipt": {
     "ask_waiter": "Spør kelneren om å bekrefte bestillingen."
@@ -99,11 +102,12 @@
     }
   },
   "compModal": {
-    "order_delete": "Er du sikker på at\n du vil slette hele bestillingen?",
-    "opinion_exist": "Vi har allerede mottatt\n din tilbakemelding. \n Takk for \n samarbeidet!",
+    "order_delete": "Er du sikker på at du vil slette hele bestillingen?",
+    "opinion_exist": "Vi har allerede mottatt din tilbakemelding. Takk for samarbeidet!",
+    "confirm_daily": "Done! \n Would you like to \n make one more order?",
     "confirm_age": {
-      "title": "De alkoholholdige drikkene er forbeholdt voksne.\n Alkoholmisbruk er helseskadelig.\n Drikk med måte.",
-      "description": "Bekreft at \n du er myndig."
+      "title": "De alkoholholdige drikkene er forbeholdt voksne. Alkoholmisbruk er helseskadelig.\n Drikk med måte.",
+      "description": "Bekreft at du er myndig."
     }
   },
   "footer": {

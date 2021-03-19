@@ -48,12 +48,14 @@ export const Logo = styled.img`
 export const AlertWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   font-family: ${FONTS.bold};
   font-size: 14px;
-  margin: 32px 0 44px;
-  padding: 0 20px;
+  margin: 32px 27px 44px;
+`;
 
+export const AlertIcon = styled.div`
   > svg {
     width: 21px;
     height: 21px;

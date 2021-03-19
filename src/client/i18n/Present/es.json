@@ -21,7 +21,7 @@
       "email": "E-mail",
       "phone": "Teléfono",
       "owner": {
-        "title": "Propitario",
+        "title": "Propietario",
         "placeholder": "restaurante, panadería, bar"
       },
       "message": "Mensaje",
@@ -33,11 +33,11 @@
     "back": "Back",
     "part1": {
       "title": "Menú Digital y Multilenguaje con traducciones profesionales",
-      "description": "Les ofrecemos Menú Digital y Multilenguaje en diferentes idiomas de su elección con un diseño personalizado. ¡Nada que ver con un PDF o con una plataforma online general! Es una carta personalizada, interactiva y muy cómoda tanto para jóvenes como para mayores. Les sirve como un camarero multilenguaje 24 horas/7 días y ayuda a evitar malentendidos con clientes extranjeros. "
+      "description": "Les ofrecemos Menú Digital y Multilenguaje en diferentes idiomas de su elección con un diseño personalizado. \n\n¡Nada que ver con un PDF o con una plataforma online general! Es una carta personalizada, interactiva y muy cómoda tanto para jóvenes como para mayores. Les sirve como un camarero multilenguaje 24 horas/7 días y ayuda a evitar malentendidos con clientes extranjeros. "
     },
     "part2": {
       "title": "Menú Digital y Multilenguaje mejora su canal de venta online",
-      "description": "Les permite publicitar las ofertas de manera oportuna directa online en diferentes idiomas informando a sus clientes sobre nuevas ofertas, platos de temporada \n o eventos en su restaurante."
+      "description": "Les permite publicitar las ofertas de manera oportuna directa online en diferentes idiomas informando a sus clientes sobre nuevas ofertas, platos de temporada o eventos en su restaurante."
     },
     "part3": {
       "title": "Alérgenos",
@@ -45,11 +45,11 @@
     },
     "part4": {
       "title": "Reglamento (UE) №1169/2011",
-      "description": "Menú digital y multilenguaje incluye Reglamento Europeo 1169/2011 con la información de alérgenos en diferentes idiomas para mejorar la experiencia \n de sus clientes."
+      "description": "Menú digital y multilenguaje incluye Reglamento Europeo 1169/2011 con la información de alérgenos en diferentes idiomas para mejorar la experiencia de sus clientes."
     },
     "part5": {
       "title": "El pedido digital",
-      "description": "¡Les ahorra significativamente el tiempo para atender más clientes! Es  la carta digital e interactiva con opción de crear el pedido en el idioma del cliente y abrir el pedido en español directo en teléfono del camarero. Eso permite reducir al mínimo el tiempo de la aceptación del pedido, tanto  el tiempo de los contactos sociales. \n\n Es muy fácil y sencillo, el cliente puede leer la carta en su idioma y crear el pedido directo en su móvil. Y el camarero, solo escaneando el código QR, abre el pedido en su propio móvil ya en español. ¡Deja el papeleo, ya es del siglo pasado!"
+      "description": "¡Les ahorra significativamente el tiempo para atender más clientes! \n \n Es  la carta digital e interactiva con opción de crear el pedido en el idioma del cliente y abrir el pedido en español directo en teléfono del camarero. Eso permite reducir al mínimo el tiempo de la aceptación del pedido, tanto  el tiempo de los contactos sociales. \n\n Es muy fácil y sencillo, el cliente puede leer la carta en su idioma y crear el pedido directo en su móvil. Y el camarero, solo escaneando el código QR, abre el pedido en su propio móvil ya en español. ¡Deja el papeleo, ya es del siglo pasado!"
     },
     "part6": {
       "title": "Refuerza feedback de sus clientes",
@@ -65,7 +65,7 @@
     },
     "part9": {
       "title": "Reserva Online",
-      "description": "¡Reserva Online 24 horas y 7 días en diferentes idiomas! Les ayuda a reducir significativamente las llamadas sin perder clientes, y evitar malentendidos con clientes extranjeros.  Con nuestra solución digital de reserva online es muy fácil confirmar o cancelar la reserva en diferentes idiomas, solo hace falta pinchar en el buzón del correo electrónico y el cliente recibirá confirmación o cancelación del restaurante en su idioma."
+      "description": "¡Reserva Online 24 horas y 7 días en diferentes idiomas! \n\n Les ayuda a reducir significativamente las llamadas sin perder clientes, y evitar malentendidos con clientes extranjeros. Con nuestra solución digital de reserva online es muy fácil confirmar o cancelar la reserva en diferentes idiomas, solo hace falta pinchar en el buzón del correo electrónico y el cliente recibirá confirmación o cancelación del restaurante en su idioma."
     },
     "part10": {
       "title": "¡Hagan sus redes sociales funcionar al máximo!",
@@ -108,7 +108,7 @@
         },
         "option3" : {
           "title": "¡No hay que preocuparse por nada!",
-          "description": "Les cuidamos permanentemente como parte de su equipo. Ayudamos \n a llevar su negocio al nivel digital según tendencias más modernas en \n el mundo."
+          "description": "Les cuidamos permanentemente como parte de su equipo. Ayudamos a llevar su negocio al nivel digital según tendencias más modernas en el mundo."
         },
         "option4" : {
           "title": "¡Nos apasiona ayudarles!",
@@ -160,8 +160,8 @@
       "client3": {
         "name": "El Refugio Hotel&Restaurante",
         "position": "Dueños de Hosteleria Rural El Refugio, \n Rabanal del Camino, Spain",
-        "title": "Lo aconsejamos todos",
-        "description": "Nuestro hosteleria esta en el Camino de Santiago, y en los últimos años el número de los peregrinos extranjeros ha crecido de manera increíble, ya vienen de todo el mundo, incluso de Corea. Y claro que no sabemos coreano... Aunque, el ultimo año ha sido dificil como nunca, estamos con la esperanza este año Xacobeo 2021. Y el servicio del menu digital y multilinguaje es la solución insustituible para nuestro negocio, nos permita mejorar el servicio de nuestro restaurante con extranjeros. Y lo mejor que no es nesesario aprender algo, ya tenemos suficiente trabajo en la cocina y en el hotel. Gracias por el soporte del equipo DigitalCarte, lo aconsejamos a todos!"
+        "title": "Lo aconsejamos a todos",
+        "description": "Nuestro hosteleria esta en el Camino de Santiago, y en los últimos años el número de los peregrinos extranjeros ha crecido de manera increíble, ya vienen de todo el mundo, incluso de Corea. Y claro que no sabemos coreano. Estamos con la esperanza este año Xacobeo 2021. Y el servicio del menu digital y multilinguaje es la solución insustituible para nuestro negocio, nos permita mejorar el servicio de nuestro restaurante con extranjeros. Y lo mejor que no es nesesario aprender algo, ya tenemos suficiente trabajo en la cocina y en el hotel. Gracias por el soporte del equipo DigitalCarte, lo aconsejamos a todos!"
       },
       "client4": {
         "name": "Hotel Am Schloßpark, Munich",

@@ -10,7 +10,7 @@ import moment from 'moment';
 import {
   Wrapper,
   Header, BackButton,
-  QRCodeWrapper, Logo, AlertWrapper,
+  QRCodeWrapper, Logo, AlertWrapper, AlertIcon,
   ReceiptWrapper,
   DateTime,
   CategoryWrapper,
@@ -214,7 +214,9 @@ const Receipt = () => {
             />
             <QRCode value={getQRCodeValue()} />
             <AlertWrapper>
-              <InfoCircleSvg />
+              <AlertIcon>
+                <InfoCircleSvg />
+              </AlertIcon>
               {t('restaurant.pageReceipt.ask_waiter')}
             </AlertWrapper>
           </QRCodeWrapper>

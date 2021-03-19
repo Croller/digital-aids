@@ -1,7 +1,7 @@
 {
   "page404": {
     "helmet": "404 - Error page",
-    "text": "Humm, tu es perdu!\n La page que vous avez demandée\n ne peut être trouvé.\n Veuillez essayer une nouvelle demande."
+    "text": "Humm, tu es perdu!\n La page que vous avez demandée ne peut être trouvé.\n Veuillez essayer une nouvelle demande."
   },
   "pageError": {
     "text": "Ouille! Il semble que quelque chose ne va pas,\n mais nous sommes ici pour vous aider!\n S’il vous plaît appuyer sur \n le bouton pour réessayer."

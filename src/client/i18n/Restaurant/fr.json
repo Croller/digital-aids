@@ -11,22 +11,25 @@
     "comments": "Commentaires",
     "reviewies": "Reviewies",
     "avg_price": "Prix moyen",
-    "call_us": "Appelez nous",
+    "call_us": "Appelez",
     "cuisine": "Cuisine",
+    "added": "Added",
     "add_to_order": "Ajouter à la commande",
     "total": "Total",
     "online": "Online",
     "order": "Commande",
-    "my": "Mon/Ma",
+    "my": "",
     "an": "",
     "create": "Créer",
     "include": "Inclus",
     "price": "Prix",
     "ok": "Ok",
     "remove": "Supprimer",
-    "dont": "Non",
+    "dont": "Sauvegarder",
     "yes_i": "Confirme",
     "not_i": "Non confirme",
+    "yes": "Yes",
+    "not": "Not",
     "currency": {
       "euro": "€"
     },
@@ -52,7 +55,7 @@
     }
   },
   "pageMenu": {
-    "text":"Ouille! Il semble que quelque chose ne va pas,\n mais nous sommes ici pour vous aider!\n S’il vous plaît appuyer sur le bouton\n pour réessayer. "
+    "text":"Ouille! Il semble que quelque chose ne va pas,\n mais nous sommes ici pour vous aider!\n S’il vous plaît appuyer sur le bouton pour réessayer. "
   },
   "pageAllergens": {
     "descriptions": "L’Ordonnance avec les informations disponibles sur les allergies et intolérances alimentaires."
@@ -63,18 +66,18 @@
     "rate": {
       "service": "Service",
       "meal": "Nourriture",
-      "covid": "Prévention du Protocole COVID-19",
+      "covid": "Prévention du Protocole \n COVID-19",
       "menu": "Menu Service"
     },
     "rating": {
-      "love": "Super heureux",
+      "love": "Heureux",
       "satisfied": "Satisfait",
       "disappointed": "Désappointé",
       "angry": "En colère"
     }
   },
   "pageOrder": {
-    "empty_order": "Votre commande est vide.\n Le plat sélectionné doit être ajouté\n à la commande."
+    "empty_order": "Votre commande est vide.\n Le plat sélectionné doit être ajouté à la commande."
   },
   "pageReceipt": {
     "ask_waiter": "Veuillez demander au serveur de confirmer votre commande!"
@@ -99,17 +102,18 @@
     }
   },
   "compModal": {
-    "order_delete": "Êtes-vous sûr(e),\n de vouloir supprimer toute votre commande?",
-    "opinion_exist": "Nous avons déjà reçu\n vos commentaires.\n Merci pour la coopération!",
+    "order_delete": "Êtes-vous sûr(e), de vouloir supprimer toute votre commande?",
+    "opinion_exist": "Nous avons déjà reçu vos commentaires.\n Merci pour la coopération!",
+    "confirm_daily": "Done! \n Would you like to \n make one more order?",
     "confirm_age": {
-      "title": "Les boissons alcoolisées sont strictement réservées aux adultes.\n L'abus d'alcool est dangereux pour la santé.\n A consommer avec modération.",
+      "title": "Les boissons alcoolisées sont strictement réservées aux adultes. L'abus d'alcool est dangereux pour la santé. A consommer avec modération.",
       "description": "Veuillez confirmer\n que vous êtes majeur."
     }
   },
   "footer": {
     "thankyou": {
-      "title": "Merci beaucoup!",
-      "descriptions": "Votre avis est très important pour nous.\n S’il vous plaît, faites-le nous savoir!"
+      "title": "Merci Beaucoup!",
+      "descriptions": "Votre avis est très important pour nous,\n S’il vous plaît, faites-le nous savoir!"
     },
     "dontwaste": {
       "descriptions": "Ne perds pas ton temps,\n Goûtez au monde tous les jours!"

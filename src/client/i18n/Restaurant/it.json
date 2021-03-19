@@ -7,12 +7,13 @@
     "opinion": "Opinione",
     "foodtips": "Foodtips",
     "menu": "Menú",
-    "send": "Mandare",
+    "send": "Spedire",
     "comments": "Commenti",
     "reviewies": "Reviewies",
     "avg_price": "Prezzo medio",
     "call_us": "Chiamaci",
     "cuisine": "Cucina",
+    "added": "Added",
     "add_to_order": "Aggiungi all'ordine",
     "total": "Total",
     "online": "Online",
@@ -27,6 +28,8 @@
     "dont": "Tenere",
     "yes_i": "Confermo",
     "not_i": "No confermo",
+    "yes": "Yes",
+    "not": "Not",
     "currency": {
       "euro": "€"
     },
@@ -52,7 +55,7 @@
     }
   },
   "pageMenu": {
-    "text":"Ops! Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutare!\n Si prega\n di riprovare."
+    "text":"Ops! Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutare!\n Si prega di riprovare."
   },
   "pageAllergens": {
     "descriptions": "Ordinanza con informazioni disponibili su allergeni e intolleranze alimentari."
@@ -74,10 +77,10 @@
     }
   },
   "pageOrder": {
-    "empty_order": "Il Suo ordine è vuoto.\n I piatti selezionati devono essere\n aggiunti all’ordine."
+    "empty_order": "Il Suo ordine è vuoto.\n I piatti selezionati devono \n essere aggiunti all’ordine."
   },
   "pageReceipt": {
-    "ask_waiter": "Rivolgersi al cameriere per confermare l'ordine."
+    "ask_waiter": "Rivolgersi al cameriere per \n confermare l'ordine."
   },
   "compAllergens": {
     "descriptions": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. \n\n In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti.",
@@ -100,10 +103,11 @@
   },
   "compModal": {
     "order_delete": "Sei sicuro di voler\n rimuovere l'intero ordine?",
-    "opinion_exist": "Abbiamo già ricevuto \n tuo feedback. \n Grazie per la \n collaborazione!",
+    "opinion_exist": "Abbiamo già ricevuto tuo feedback. Grazie per \n la collaborazione!",
+    "confirm_daily": "Done! \n Would you like to \n make one more order?",
     "confirm_age": {
-      "title": "Le bevande alcoliche sono strettamente riservate agli adulti.\n L'abuso di alcol è pericoloso \n per la salute. Bevi con moderazione.",
-      "description": "Conferma\n di essere maggiorenne."
+      "title": "Le bevande alcoliche sono strettamente riservate agli adulti.\n L'abuso di alcol è pericoloso per la salute. \n Bevi con moderazione.",
+      "description": "Conferma di essere maggiorenne."
     }
   },
   "footer": {

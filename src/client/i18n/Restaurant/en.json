@@ -1,7 +1,7 @@
 {
   "common": {
     "allergens": "Allergens",
-    "reglament": "Reglament (EU) №1169/2011",
+    "reglament": "Regulation (EU) №1169/2011",
     "language": "Language",
     "reservation": "Reservation",
     "opinion": "Opinion",
@@ -21,14 +21,15 @@
     "my": "My",
     "an": "An",
     "create": "Create",
-    "include": "Include",
+    "include": "Including",
     "price": "Price",
     "ok": "Ok",
     "remove": "Remove",
-    "dont": "Do not",
+    "dont": "Keep",
     "yes_i": "Yes, I am",
     "not_i": "Not, I not",
-
+    "yes": "Yes",
+    "not": "Not",
     "currency": {
       "euro": "€"
     },
@@ -103,15 +104,16 @@
   "compModal": {
     "order_delete": "Are you sure you want to \n remove your entire order?",
     "opinion_exist": "We have already received \n your feedback. \n\n Thank you for your \n collaboration!",
+    "confirm_daily": "Done! \n Would you like to \n make one more order?",
     "confirm_age": {
-      "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. Drink with \n moderation.",
+      "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. \n Drink with moderation.",
       "description": "Please, confirm that you \n are over 18 years old"
     }
   },
   "footer": {
     "thankyou": {
       "title": "Thank you!",
-      "descriptions": "Your opinion is very important for \n us, please, let us know it!"
+      "descriptions": "Your opinion is very important for us, \n please, let us know it!"
     },
     "dontwaste": {
       "descriptions": "Don’t waste your time, \n Taste the world every day!"

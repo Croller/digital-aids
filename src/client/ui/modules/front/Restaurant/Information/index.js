@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { RateCircle } from 'client/ui/components/_block/RateCircle';
 import { Marker } from 'google-maps-react';
 import {
   CloseSvg,
+  ChevronSvg,
   PhoneCallSvg,
   ClockSvg,
   ChefHeadSvg,
@@ -20,6 +21,7 @@ import {
 import { 
   Wrapper,
   CloseButton,
+  CarouselControl,
   Carousel,
   ImgWrapper, Img,
   Content,
@@ -49,6 +51,7 @@ const Information = memo(() => {
     raiting,
     currency,
   } = useSelector(store => store.restaurant.info);
+  const refCarousel = useRef();
   const history = useHistory();
   const [t] = useTranslation();
   const settings = {
@@ -86,6 +89,16 @@ const Information = memo(() => {
     }
   };
 
+  const hangleChangSlide = (direction) => {
+    if (direction === 'next') {
+      refCarousel.current.slickNext();
+    }
+
+    if (direction === 'prev') {
+      refCarousel.current.slickPrev();
+    }
+  };
+
   useEffect(() => {
     window.prerenderReady = true;
   }, []);
@@ -95,7 +108,15 @@ const Information = memo(() => {
       <CloseButton onClick={() => handleRoute('back')}>
         <CloseSvg />
       </CloseButton>
-      <Carousel {...settings}>
+      <CarouselControl>
+        {['prev', 'next'].map((direction, c) => (
+          <ChevronSvg
+            key={`_slider_control_${c + 1}`}
+            onClick={() => hangleChangSlide(direction)}
+          />
+        ))}
+      </CarouselControl>
+      <Carousel ref={refCarousel} {...settings}>
         {images ? images.map((src, s) => (
           <ImgWrapper key={`_image_${s + 1}`}>
             <Img src={src} />

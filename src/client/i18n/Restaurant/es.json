@@ -7,12 +7,13 @@
     "opinion": "Opinión",
     "foodtips": "Foodtips",
     "menu": "Menú",
-    "send": "Mandar",
+    "send": "Enviar",
     "comments": "Comentarios",
     "reviewies": "Reviewies",
     "avg_price": "Precio promedio",
     "call_us": "Llámanos",
     "cuisine": "Cocina",
+    "added": "Added",
     "add_to_order": "Añadir al pedido",
     "total": "Total",
     "online": "Online",
@@ -27,6 +28,8 @@
     "dont": "Guardar",
     "yes_i": "Confirmo",
     "not_i": "No confirmo",
+    "yes": "Yes",
+    "not": "Not",
     "currency": {
       "euro": "€"
     },
@@ -42,17 +45,17 @@
       "fusion": "Fusion"
     },
     "week_day_short": {
-      "mon": "Lunes",
-      "tue": "Martes",
-      "wed": "Miercoles",
-      "thu": "Jueves",
-      "fri": "Viernes",
-      "sat": "Sabado",
-      "sun": "Domingo"
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mie",
+      "thu": "Jue",
+      "fri": "Vie",
+      "sat": "Sab",
+      "sun": "Dom"
     }
   },
   "pageMenu": {
-    "text": "¡Ups! Parece que algo ha salido mal\n ¡Pero estamos aquí para \n ayudarte! \n Pincha el botón para volver a intentarlo. "
+    "text": "¡Ups! Parece que algo ha salido mal\n ¡Pero estamos aquí para ayudarte! \n Pincha el botón para volver a intentarlo. "
   },
   "pageAllergens": {
     "descriptions": "Establecimiento con información disponible sobre ingredientes alérgenos e intolerancia alimentarias en los productos que elabora."
@@ -63,7 +66,7 @@
     "rate": {
       "service": "Servicio",
       "meal": "Comida",
-      "covid": "Protocolo Prevención de COVID-19 ",
+      "covid": "Seguridad del Protocolo Prevención de COVID-19 ",
       "menu": "Servicio del menú"
     },
     "rating": {
@@ -100,16 +103,17 @@
   },
   "compModal": {
     "order_delete": "¿Está seguro de que desea \n borrar tu pedido entero?",
-    "opinion_exist": "Ya hemos recibido \n tu feedback. \n\n ¡Gracias por tu \n colaboración!",
+    "opinion_exist": "Ya hemos recibido tu feedback. \n\n ¡Gracias por tu colaboración!",
+    "confirm_daily": "Done! \n Would you like to \n make one more order?",
     "confirm_age": {
-      "title": "Las bebidas alcohólicas están estrictamente reservadas para adultos.\n El abuso de alcohol es peligroso \n para tu salud. Bebe con\n moderación.",
+      "title": "Las bebidas alcohólicas están estrictamente reservadas para adultos. El abuso de alcohol es peligroso para tu salud. \n Bebe con moderación.",
       "description": "Por favor, confirme\n que es mayor de edad."
     }
   },
   "footer": {
     "thankyou": {
     "title": "¡Gracias!",
-      "descriptions": "¡Tu opinión es muy importante para nosotros, por favor déjanos saber!"
+      "descriptions": "¡Tu opinión es muy importante para nosotros, \n por favor déjanos saber!"
     },
     "dontwaste": {
       "descriptions": "¡No pierdas el tiempo, \n Prueba el mundo cada día!"

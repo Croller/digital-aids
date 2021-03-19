@@ -13,6 +13,7 @@
     "avg_price": "Durchschnittspreis",
     "call_us": "Rufenuns",
     "cuisine": "Küche",
+    "added": "Added",
     "add_to_order": "zur Bestellung hinzufügen",
     "total": "Total",
     "online": "Online",
@@ -20,13 +21,15 @@
     "my": "Meine",
     "an": "",
     "create": "Erstellen",
-    "include": "Einschließlich",
+    "include": "Eeinschl.",
     "price": "Preis",
     "ok": "Ok",
     "remove": "Entfernen",
-    "dont": "Nicht",
+    "dont": "Speichern",
     "yes_i": "Bestätige",
     "not_i": "Bestätige nicht",
+    "yes": "Yes",
+    "not": "Not",
     "currency": {
       "euro": "€"
     },
@@ -52,14 +55,14 @@
     }
   },
   "pageMenu": {
-    "text": "Upps! Es scheint, dass etwas falsch gelaufen ist,\n aber wir sind hier,um Ihnen zu helfen!\n Drücken Sie die Taste,\n um es erneut zu versuchen. "
+    "text": "Upps! Es scheint, dass etwas falsch gelaufen ist, aber wir sind hier,um Ihnen zu helfen!\n Drücken Sie die Taste, um es erneut zu versuchen. "
   },
   "pageAllergens": {
-    "descriptions": "Wichtige Informationen zu Lebensmittelallergien und -unverträglichkeiten."
+    "descriptions": "Wichtige Informationen zu Lebensmittelallergien und unverträglichkeiten."
   },
   "pageOpinion": {
     "title": "Deine Meinung",
-    "descriptions": "Ihre Meinung ist uns sehr wichtig,bitte helfen Sie uns,unseren Service zu verbessern!",
+    "descriptions": "Ihr Feedback ist sehr wichtig für uns! Bitte, helfen Sie uns, unseren Service zu verbessern.",
     "rate": {
       "service": "Service",
       "meal": "Essen",
@@ -67,17 +70,17 @@
       "menu": "Menü Service"
     },
     "rating": {
-      "love": "Super glücklich",
+      "love": "Glücklich",
       "satisfied": "Zufrieden",
       "disappointed": "Enttäuscht",
       "angry": "Wütend"
     }
   },
   "pageOrder": {
-    "empty_order": "Ihre Bestellung ist leer.\n Das ausgewählte Gericht muss einer Bestellung\n hinzugefügt werden."
+    "empty_order": "Ihre Bestellung ist leer.\n Das ausgewählte Gericht \n muss einer Bestellung\n hinzugefügt werden."
   },
   "pageReceipt": {
-    "ask_waiter": "Bitten Sie die Kellnerin/den Kellner, Ihre Bestellung zu bestätigen."
+    "ask_waiter": "Bitten Sie die Kellnerin/den Kellner, \n  Ihre Bestellung zu bestätigen."
   },
   "compAllergens": {
     "descriptions": "Wir erinnern Sie daran, dass diese Tabelle indikativ ist und dass wir die Abwesenheit von 100% Allergenen in allen unseren Produkten nicht garantieren können. \n\n Falls Sie eine Allergie haben, fragen Sie bitte die Kellnerin/den Kellner nach genaueren Informationen über unsere Gerichte.",
@@ -99,8 +102,9 @@
     }
   },
   "compModal": {
-    "order_delete": "Sind Sie sicher,\n dass Sie Ihre gesamte Bestellung löschen möchten?",
-    "opinion_exist": "Wir haben bereits \n Ihr Feedback erhalten \n Vielen Dank für die Zusammenarbeit!",
+    "order_delete": "Sind Sie sicher, dass \n Sie Ihre gesamte Bestellung löschen möchten?",
+    "opinion_exist": "Wir haben bereits \n Ihr/Ihre Feedback erhalten \n Vielen Dank für die Hilfe!",
+    "confirm_daily": "Done! \n Would you like to \n make one more order?",
     "confirm_age": {
       "title": "Die alkoholischen Getränke sind ausschließlich Erwachsenen vorbehalten.\n Alkoholmissbrauch ist gesundheitsschädlich. \n Trinken Sie mit Mäßigung. ",
       "description": "Bitte bestätigen Sie,\n dass Sie volljährig sind."
@@ -109,10 +113,10 @@
   "footer": {
     "thankyou": {
       "title": "Vielen Dank!",
-      "descriptions": "Ihre Meinung ist für uns sehr wichtig,\n bitte teilen Sie uns sie mit!"
+      "descriptions": "Ihre Meinung ist für uns sehr wichtig,\n Bitte, teilen Sie uns mit!"
     },
     "dontwaste": {
-      "descriptions": "Verschwenden Sie nicht Ihre Zeit \n Probieren Sie die Welt jeden Tag!"
+      "descriptions": "Verschwenden Sie nicht Ihre Zeit, \n Probieren Sie die Welt jeden Tag!"
     }
   }
 }

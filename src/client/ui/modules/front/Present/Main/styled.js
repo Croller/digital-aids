@@ -458,6 +458,10 @@ export const CollapseStyled = styled(Collapse)`
     line-height: 20px;
   }
 
+  a {
+    text-decoration: underline;
+  }
+
   .bold {
     font-family: ${FONTS.bold};
   }
@@ -644,7 +648,8 @@ export const ClientContent = styled.div`
   padding: 42px 22px 24px;
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
-  height: 506px;
+  min-height: 506px;
+  height: auto;
 
   > svg {
     width: 52px;

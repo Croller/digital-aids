@@ -31,6 +31,33 @@ export const CloseButton = styled(Button)`
   }
 `;
 
+export const CarouselControl = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 142px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+
+  > svg {
+    width: 14px;
+    height: 32px;
+    transform: rotate(180deg);
+    cursor: pointer;
+
+    path {
+      fill: ${PALETTE.white};
+    }
+
+    &:first-child {
+      margin-right: 40px;
+      transform: rotate(0deg);
+    }
+  }
+`;
+
 export const Carousel = styled(Slider)`
   width: 100%;
   height: 217px;
@@ -57,7 +84,7 @@ export const Content = styled.div`
 
 export const Restaurant = styled.h2`
   font-size: 20px;
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   color: ${PALETTE.white};
   margin: 0;
   margin-bottom: 32px;

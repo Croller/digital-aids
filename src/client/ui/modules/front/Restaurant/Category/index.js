@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { DishBlock } from 'client/ui/components/_block/DishBlock';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
@@ -9,6 +9,7 @@ import { updateOrder } from 'client/store/restaurant';
 import { useModal } from 'react-modal-hook';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
+import { DailyConfirmModal } from 'client/ui/components/_block/Modal/DailyConfirm';
 import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
 import { setOfferViewed } from 'client/utils/restaurant';
 import {
@@ -37,6 +38,7 @@ const Category = () => {
     order,
   } = useSelector(store => store.restaurant);
   const { category } = useParams();
+  const history = useHistory();
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [orderId, setOrderId] = useState(1);
@@ -69,6 +71,17 @@ const Category = () => {
     />
   ), [offer]);
 
+  const [showDailyConfirm, hideDailyConfirm] = useModal(() => (
+    <DailyConfirmModal
+      onAccept={hideDailyConfirm}
+      onClose={hideDailyConfirm}
+      onCancel={() => {
+        history.goBack();
+        hideDailyConfirm();
+      }}
+    />
+  ), [offer]);
+
   const handleSetOrder = (obj) => {
     let data = [];
     if (categoryItem.dailymenu) {
@@ -93,6 +106,7 @@ const Category = () => {
   };
 
   const handleSetDailyOrder = () => {
+    showDailyConfirm();
     rootDispatch(updateOrder({
       ...categoryItem,
       order_id: orderId,
@@ -199,7 +213,6 @@ const Category = () => {
               {`${t('restaurant.common.include')}: ${categoryItem.options.include}`}
             </Include>
             <DailyOrderButton onClick={handleSetDailyOrder}>
-              {/* TODO ADDED Text */}
               {t('restaurant.common.add_to_order')}
             </DailyOrderButton>
           </DailyOrderWrapper>

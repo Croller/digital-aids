@@ -117,7 +117,7 @@ export const DailyWrapper = styled.div`
 
 export const TitleGroup = styled.h3`
   font-family: ${FONTS.semiBold};
-  font-size: 20px;
+  font-size: 16px;
   margin: 0;
   text-transform: uppercase;
   margin-bottom: 22px;

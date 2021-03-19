@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -12,7 +12,8 @@ import {
   Wrapper,
   CloseButton,
   CarouselControl,
-  Carousel,
+  CarouselDots,
+  CarouselDot,
   ImgWrapper,
   Img,
   Content,
@@ -32,28 +33,27 @@ const FoodTips = () => {
     categories,
     order,
   } = useSelector(store => store.restaurant);
-  const refCarousel = useRef();
   const rootDispatch = useDispatch();
   const history = useHistory();
   const [t] = useTranslation();
+  const [slide, setSlide] = useState(0);
   const [items, setItems] = useState(null);
-  const settings = {
-    dots: true,
-    infinite: true,
-    arrows: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   const hangleChangSlide = (direction) => {
     if (direction === 'next') {
-      refCarousel.current.slickNext();
+      if (slide < items.length - 1) {
+        setSlide(slide + 1);
+        return null;
+      }
     }
 
     if (direction === 'prev') {
-      refCarousel.current.slickPrev();
+      if (slide > 0) {
+        setSlide(slide - 1);
+        return null;
+      }
     }
+    setSlide(0);
   };
 
   const handleRoute = () => {
@@ -106,10 +106,10 @@ const FoodTips = () => {
         }));
         return [...arr, ...arrDishes];
       }, []);
-    setItems(foodtips);
+    setItems(foodtips.filter((f, i) => i <= 6));
   }, []);
 
-  return (
+  return items && (
     <Wrapper>
       <CloseButton onClick={() => handleRoute('information')}>
         <CloseSvg />
@@ -122,37 +122,36 @@ const FoodTips = () => {
           />
         ))}
       </CarouselControl>
-      {items && (
-        <Carousel ref={refCarousel} {...settings}>
-          {items.filter((f, i) => i <= 6).map((item, i) => (
-            <React.Fragment key={`_dish_${i + 1}`}>
-              <ImgWrapper>
-                <Img src={item.dish.images ? item.dish.images[0] : FoodTipsTempPng} />
-                <Dish>
-                  {item.dish.name}
-                </Dish>
-              </ImgWrapper>
-              <Content>
-                <Description>
-                  {item.dish.foodtips}
-                </Description>
-                <PriceWrapper>
-                  <Total>
-                    {`${t('restaurant.common.total')}:`}
-                  </Total>
-                  <Price>
-                    {`${item.dish.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
-                  </Price>
-                </PriceWrapper>
-                <AddButton added={item.added} onClick={() => !item.added && handleSetOrder(item)}>
-                  {t(`restaurant.common.add${item.added ? 'ed' : '_to_order'}`)}
-                </AddButton>
-              </Content>
-              <DontWasteStyled />
-            </React.Fragment>
-          ))}
-        </Carousel>
-      )}
+      <CarouselDots>
+        {items.map((item, i) => (<CarouselDot key={`_dot_${i + 1}`} active={i === slide} />))}
+      </CarouselDots>
+      {items.filter((f, i) => i === slide).map((item, i) => (
+        <React.Fragment key={`_dish_${i + 1}`}>
+          <ImgWrapper>
+            <Img src={item.dish.images ? item.dish.images[0] : FoodTipsTempPng} />
+            <Dish>
+              {item.dish.name}
+            </Dish>
+          </ImgWrapper>
+          <Content>
+            <Description>
+              {item.dish.foodtips}
+            </Description>
+            <PriceWrapper>
+              <Total>
+                {`${t('restaurant.common.total')}:`}
+              </Total>
+              <Price>
+                {`${item.dish.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
+              </Price>
+            </PriceWrapper>
+            <AddButton added={item.added} onClick={() => !item.added && handleSetOrder(item)}>
+              {t(`restaurant.common.add${item.added ? 'ed' : '_to_order'}`)}
+            </AddButton>
+          </Content>
+          <DontWasteStyled />
+        </React.Fragment>
+      ))}
     </Wrapper>
   );
 };
