@@ -13,6 +13,7 @@
     "avg_price": "Average price",
     "call_us": "Call us",
     "cuisine": "Cuisine",
+    "added": "Added",
     "add_to_order": "Add to my order",
     "total": "Total",
     "online": "Online",
@@ -27,6 +28,7 @@
     "dont": "Do not",
     "yes_i": "Yes, I am",
     "not_i": "Not, I not",
+
     "currency": {
       "euro": "€"
     },

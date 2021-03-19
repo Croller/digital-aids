@@ -80,7 +80,7 @@
     "ask_waiter": "Veuillez demander au serveur de confirmer votre commande!"
   },
   "compAllergens": {
-    "descriptions": "Nous vous rappelons que ce tableau est fourni à titre informatif et que nous ne pouvons pas vous garantir l’absence complète d’allergènes dans tous nos produits.\n Si vous êtes allergique, veuillez demander au serveur les informations plus détaillées sur nos plats.",
+    "descriptions": "Nous vous rappelons que ce tableau est fourni à titre informatif et que nous ne pouvons pas vous garantir l’absence complète d’allergènes dans tous nos produits. \n\n Si vous êtes allergique, veuillez demander au serveur les informations plus détaillées sur nos plats.",
     "allergens": {
       "mustard": "Moutarde",
       "lupins": "Lupins",

@@ -5,7 +5,7 @@ import { Layout } from 'client/ui/components/Layout/Restaurant';
 
 const PATH = '/restaurant';
 
-const Language = lazy(() => import('client/ui/page/common/Language'));
+const Language = lazy(() => import('client/ui/modules/front/Restaurant/Language'));
 const Menu = lazy(() => import('client/ui/modules/front/Restaurant/Menu'));
 const Categories = lazy(() => import('client/ui/modules/front/Restaurant/Categories'));
 const Category = lazy(() => import('client/ui/modules/front/Restaurant/Category'));

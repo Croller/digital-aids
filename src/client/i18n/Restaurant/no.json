@@ -80,7 +80,7 @@
     "ask_waiter": "Spør kelneren om å bekrefte bestillingen."
   },
   "compAllergens": {
-    "descriptions": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. \n Hvis du har allergier, spør kelneren på forhånd for mer informasjon om våre retter.",
+    "descriptions": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. \n\n Hvis du har allergier, spør kelneren på forhånd for mer informasjon om våre retter.",
     "allergens": {
       "mustard": "Sennep",
       "lupins": "Lupiner",

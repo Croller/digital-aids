@@ -94,6 +94,7 @@ const initState = {
       tripadvisor: {
         rate: 4,
         comments: [],
+        url: 'https://www.tripadvisor.co.uk/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html',
       },
     },
     socials: [

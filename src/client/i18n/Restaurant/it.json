@@ -80,7 +80,7 @@
     "ask_waiter": "Rivolgersi al cameriere per confermare l'ordine."
   },
   "compAllergens": {
-    "descriptions": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. \n In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti.",
+    "descriptions": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. \n\n In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti.",
     "allergens": {
       "mustard": "Mostarda",
       "lupins": "Lupini",

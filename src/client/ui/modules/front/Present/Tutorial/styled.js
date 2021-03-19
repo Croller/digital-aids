@@ -139,6 +139,7 @@ export const PartTitle = styled.h3`
   font-size: 20px;
   margin: 0;
   margin-bottom: 24px;
+  white-space: pre-line;
 `;
 
 export const PartDescription = styled.p`
@@ -146,6 +147,7 @@ export const PartDescription = styled.p`
   font-size: 16px;
   line-height: 20px;
   white-space: pre-line;
+  text-align: justify;
   margin: 0;
   color: ${PALETTE.grey22};
 `;

@@ -3,6 +3,7 @@ import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import translate, { languages } from 'client/i18n';
+import { OutSideClick } from 'client/ui/components/_base/OutSideClick';
 import {
   CloseSvg,
   GlobalSvg,
@@ -81,7 +82,7 @@ const HeaderComponent = ({
                 onClick={() => setShowSearch(true)}
               />
               <Phone
-                onClick={() => handleRoute(`tel:${phone[0]}`, true)}
+                onClick={() => handleRoute(`tel:${phone}`, true)}
               >
                 <PhoneCallSvg />
                 <PhoneText>{phone}</PhoneText>
@@ -95,17 +96,19 @@ const HeaderComponent = ({
                     <CloseButton onClick={() => handleLangChange()}>
                       <CloseSvg />
                     </CloseButton>
-                    <LangList>
-                      {['en', 'de', 'es', 'no', 'ru'].map(lng => (
-                        <LangButton
-                          key={`_language_${lng}`}
-                          onClick={() => handleLangChange(lng)}
-                          active={lng === i18n.language}
-                        >
-                          {languages[lng].name}
-                        </LangButton>
-                      ))}
-                    </LangList>
+                    <OutSideClick onOutSide={() => handleLangChange()}>
+                      <LangList>
+                        {['en', 'de', 'es', 'no', 'ru'].map(lng => (
+                          <LangButton
+                            key={`_language_${lng}`}
+                            onClick={() => handleLangChange(lng)}
+                            active={lng === i18n.language}
+                          >
+                            {languages[lng].name}
+                          </LangButton>
+                        ))}
+                      </LangList>
+                    </OutSideClick>
                   </LangWrapper>
                 )}
               </Lang>

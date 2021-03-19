@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
@@ -69,7 +69,7 @@ import {
   QuectionHtml,
   ClientBlock,
   ClientBlockTitle,
-  ClientSliderControl,
+  ClientCarouselControl,
   CarouselStyled,
   BlockClient,
   Client,
@@ -100,10 +100,17 @@ const CLIENT_ICONS = {
 };
 
 const Main = () => {
+  const refCarousel = useRef();
   const localKey = 'DigitalCarte';
   const history = useHistory();
   const [t] = useTranslation();
-  const [slide, setSlide] = useState(0);
+  const [carausel, setCarousel] = useState({
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  });
   const [showCookies, hideCookies] = useModal(() => (
     <CookiesModal
       onAccept={() => {
@@ -125,28 +132,12 @@ const Main = () => {
   // };
 
   const hangleChangSlide = (direction) => {
-    const min = 0;
-    const max = window.innerWidth <= Number(BREAKPOINTS.small.replace('px', '')) ? 4 : 2;
     if (direction === 'next') {
-      if (slide === max) {
-        setSlide(0);
-        return null;
-      }
-      if (slide <= max) {
-        setSlide(slide + 1);
-        return null;
-      }
+      refCarousel.current.slickNext();
     }
 
     if (direction === 'prev') {
-      if (slide === min) {
-        setSlide(0);
-        return null;
-      }
-      if (slide >= min) {
-        setSlide(slide - 1);
-        return null;
-      }
+      refCarousel.current.slickPrev();
     }
   };
 
@@ -160,6 +151,12 @@ const Main = () => {
       showCookies();
     }
     
+    const settings = { ...carausel };
+    const showSlide = window.innerWidth <= Number(BREAKPOINTS.small.replace('px', '')) ? 1 : 2;
+    settings.slidesToShow = showSlide;
+    settings.slidesToScroll = showSlide;
+    setCarousel(settings);
+
     window.prerenderReady = true;
   }, []);
 
@@ -267,12 +264,14 @@ const Main = () => {
           <DigitalWithImage>
             <DigitalTitle>
               {t('present.main.second.col1.title1')}
+              &nbsp;
               <SpanGreen>
                 {t('present.main.second.col1.title2')}
               </SpanGreen>
             </DigitalTitle>
             <DigitalDescription>
               {t('present.main.second.col1.description1')}
+              &nbsp;
               <SpanBlack>
                 {t('present.main.second.col1.description2')}
               </SpanBlack>
@@ -326,36 +325,20 @@ const Main = () => {
         <ClientBlock>
           <ClientBlockTitle>
             {t('present.main.fourth.title')}
-            <ClientSliderControl>
+            <ClientCarouselControl>
               {['prev', 'next'].map((direction, c) => (
                 <ChevronSvg
                   key={`_slider_control_${c + 1}`}
                   onClick={() => hangleChangSlide(direction)}
                 />
               ))}
-            </ClientSliderControl>
+            </ClientCarouselControl>
           </ClientBlockTitle>
-          <CarouselStyled
-            value={slide}
-            draggable={window.innerWidth <= Number(BREAKPOINTS.small.replace('px', ''))}
-            plugins={[
-              'infinite',
-              {
-                options: {
-                  numberOfSlides: 2,
-                },
-              },
-            ]}
-          > 
-            {window.innerWidth <= Number(BREAKPOINTS.small.replace('px', ''))
-              ? [...new Array(4)].map((clients, c) => (
+          <CarouselStyled ref={refCarousel} {...carausel}>
+            {
+              [...new Array(4)].map((clients, c) => (
                 <BlockClient key={`_slide_${c + 1}`}>
                   {ClinetBlock(c)}
-                </BlockClient>
-              ))
-              : [[...new Array(2)], [...new Array(2)]].map((clients, c) => (
-                <BlockClient key={`_slide_${c + 1}`}>
-                  {clients.map((client, s) => ClinetBlock(s, c))}
                 </BlockClient>
               ))
             }

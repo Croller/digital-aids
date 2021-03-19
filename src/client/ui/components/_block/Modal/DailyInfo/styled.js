@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background-color: ${PALETTE.white};
   padding: 70px 14px 38px;
   width: 278px;
-  margin: 28% auto;
+
 `;
 
 export const CloseButton = styled(Button)`

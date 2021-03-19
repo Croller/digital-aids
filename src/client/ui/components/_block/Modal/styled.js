@@ -26,4 +26,7 @@ export const Container = styled.div`
   bottom: 0;
   z-index: ${Z_INDEX.modal + 2};
   overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

@@ -38,7 +38,7 @@ const HeaderComponent = ({
       <LogoWrapper>
         <LogoImg
           src={logo || RestaurantLogoTempPng}
-          onClick={() => onRoute('categories')}
+          onClick={() => onRoute('information')}
         />
       </LogoWrapper>
       <ControlWrapper>

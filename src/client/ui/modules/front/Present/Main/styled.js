@@ -15,8 +15,9 @@ import {
   RedLine2Svg,
 } from 'client/assets/images';
 import { Request } from 'client/ui/components/Footer/Request';
-import Carousel from '@brainhubeu/react-carousel';
-import '@brainhubeu/react-carousel/lib/style.css';
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 
 export const Container = styled.div`
   display: flex;
@@ -114,6 +115,7 @@ export const PresentDescription = styled.p`
   font-size: 16px;
   line-height: 22px;
   margin: 22px 0 5px;
+  white-space: pre-line;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     margin: 24px 0 5px;
@@ -138,7 +140,7 @@ export const PresentButton = styled(Button)`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 284px;
-    margin-top: 52px;
+    margin-top: 70px;
   }
 `;
 
@@ -351,11 +353,13 @@ export const DigitalImage = styled.div`
 
 export const SpanGreen = styled.span`
   color: ${PALETTE.green1};
+  white-space: pre-line;
 `;
 
 export const SpanBlack = styled.span`
   color: ${PALETTE.black};
   font-family: ${FONTS.bold};
+  white-space: pre-line;
 `;
 
 export const DigitalOptions = styled.div`
@@ -525,7 +529,7 @@ export const ClientBlockTitle = styled.h3`
   }
 `;
 
-export const ClientSliderControl = styled.div`
+export const ClientCarouselControl = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -536,6 +540,7 @@ export const ClientSliderControl = styled.div`
     width: 32px;
     height: 32px;
     transform: rotate(180deg);
+    cursor: pointer;
 
     path {
       fill: ${PALETTE.green1};
@@ -553,24 +558,17 @@ export const ClientSliderControl = styled.div`
   }
 `;
 
-export const CarouselStyled = styled(Carousel)`
+export const CarouselStyled = styled(Slider)`
   display: block;
-
-  ul {
-    align-items: flex-start;
-  }
-
-  @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    ul {
-      align-items: center;
-    }
-  }
 `;
 
 export const BlockClient = styled.div`
   display: flex;
   flex-direction: row;
-  padding: 10px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 10px;
+  }
 `;
 
 export const Client = styled.div`
@@ -589,12 +587,15 @@ export const Client = styled.div`
 export const ClientHeader = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
-  margin-bottom: 24px;
+  margin-bottom: 10px;
+  height: 92px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     margin-bottom: 42px;
+    align-items: center;
+    height: auto;
   }
 `;
 
@@ -621,6 +622,7 @@ export const ClientWho = styled.h5`
   font-family: ${FONTS.semiBold};
   font-size: 16px;
   margin: 0;
+  margin-bottom: 8px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     font-size: 18px;
@@ -642,7 +644,7 @@ export const ClientContent = styled.div`
   padding: 42px 22px 24px;
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
-  height: auto;
+  height: 506px;
 
   > svg {
     width: 52px;

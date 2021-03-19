@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button/Btn';
 import { PALETTE, FONTS, THEME } from 'client/style/constants';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 import { GoogleMap } from 'client/ui/components/_block/GoogleMap';
 
 export const Wrapper = styled.div`
@@ -30,12 +31,12 @@ export const CloseButton = styled(Button)`
   }
 `;
 
-export const Slider = styled(Carousel)`
+export const Carousel = styled(Slider)`
   width: 100%;
   height: 217px;
 
-  .carousel-status {
-    display: none;
+  img {
+    width: 100%;
   }
 `;
 

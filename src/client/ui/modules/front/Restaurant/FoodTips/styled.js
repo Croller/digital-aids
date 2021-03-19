@@ -6,8 +6,9 @@ import {
   THEME,
   Z_INDEX,
 } from 'client/style/constants';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { Carousel } from 'react-responsive-carousel';
+import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick-theme.css';
+import Slider from 'react-slick';
 import { DontWaste } from 'client/ui/components/Footer/DontWaste';
 
 export const Wrapper = styled.div`
@@ -35,33 +36,53 @@ export const CloseButton = styled(Button)`
   }
 `;
 
-export const Slider = styled(Carousel)`
-  width: 100%;
+export const CarouselControl = styled.div`
+  position: absolute;
+  right: 16px;
+  top: 222px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
 
-  .carousel-status {
-    display: none;
+  > svg {
+    width: 32px;
+    height: 32px;
+    transform: rotate(180deg);
+    cursor: pointer;
+
+    path {
+      fill: ${PALETTE.white};
+    }
+
+    &:first-child {
+      margin-right: 40px;
+      transform: rotate(0deg);
+    }
   }
+`;
 
-  .slide {
-    text-align: left !important;
-    background: transparent !important;
-  }
+export const Carousel = styled(Slider)`
+  display: block;
 
-  .control-dots {
-    overflow: hidden;
-    display: inline-block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: auto !important;
-    top: 280px !important;
-    bottom: unset !important;
+  .slick-dots {
+    position: absolute;
+    top: 288px;
+    bottom: unset;
 
-    .dot {
-      box-shadow: none !important;
-      background: ${PALETTE.grey17} !important;
+    button {
+      &::before {
+        opacity: 1;
+        color: ${PALETTE.grey17};
+      }
+    }
 
-      &.selected {
-        background: ${PALETTE.green1} !important;
+    .slick-active {
+      button {
+        &::before {
+          color: ${PALETTE.green1};
+        }
       }
     }
   }
@@ -74,6 +95,7 @@ export const ImgWrapper = styled.div`
 
 export const Img = styled.img`
   display: block;
+  width: 100%;
   height: 273px;
 `;
 

@@ -20,7 +20,7 @@ import {
 import { 
   Wrapper,
   CloseButton,
-  Slider,
+  Carousel,
   ImgWrapper, Img,
   Content,
   Restaurant,
@@ -51,6 +51,14 @@ const Information = memo(() => {
   } = useSelector(store => store.restaurant.info);
   const history = useHistory();
   const [t] = useTranslation();
+  const settings = {
+    dots: false,
+    infinite: true,
+    arrows: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
 
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
@@ -87,10 +95,7 @@ const Information = memo(() => {
       <CloseButton onClick={() => handleRoute('back')}>
         <CloseSvg />
       </CloseButton>
-      <Slider
-        autoPlay
-        showThumbs={false}
-      >
+      <Carousel {...settings}>
         {images ? images.map((src, s) => (
           <ImgWrapper key={`_image_${s + 1}`}>
             <Img src={src} />
@@ -100,7 +105,7 @@ const Information = memo(() => {
             <Img src={RestourantInfoTempPng} />
           </ImgWrapper>
         ))}
-      </Slider>
+      </Carousel>
       <Content>
         <Restaurant>
           {name}
@@ -199,7 +204,7 @@ const Information = memo(() => {
               &nbsp;
               {t('restaurant.common.comments')} 
             </RateComment>
-            <ReviewsButton onClick={() => handleRoute('categories', true)}>
+            <ReviewsButton onClick={() => handleRoute(raiting.tripadvisor.url, true)}>
               {t('restaurant.common.reviewies')} 
             </ReviewsButton>
           </RateBlock>

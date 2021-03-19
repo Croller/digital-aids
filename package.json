@@ -23,7 +23,6 @@
     "@amcharts/amcharts4": "^4.10.10",
     "@ant-design/icons": "^4.3.0",
     "@babel/runtime": "^7.10.5",
-    "@brainhubeu/react-carousel": "^1.19.26",
     "@hot-loader/react-dom": "^16.8.6",
     "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@mapbox/mbtiles": "^0.11.0",
@@ -53,13 +52,14 @@
     "react-i18next": "^11.8.7",
     "react-modal-hook": "^3.0.0",
     "react-redux": "^7.2.1",
-    "react-responsive-carousel": "^3.2.12",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
+    "react-slick": "^0.28.1",
     "react-text-mask": "^5.4.3",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.3",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {

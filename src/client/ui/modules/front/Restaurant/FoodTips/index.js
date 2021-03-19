@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { updateOrder } from 'client/store/restaurant';
 import { 
+  ChevronSvg,
   CloseSvg,
   FoodTipsTempPng,
 } from 'client/assets/images';
 import { 
   Wrapper,
   CloseButton,
-  Slider,
+  CarouselControl,
+  Carousel,
   ImgWrapper,
   Img,
   Content,
@@ -30,10 +32,29 @@ const FoodTips = () => {
     categories,
     order,
   } = useSelector(store => store.restaurant);
+  const refCarousel = useRef();
   const rootDispatch = useDispatch();
   const history = useHistory();
   const [t] = useTranslation();
   const [items, setItems] = useState(null);
+  const settings = {
+    dots: true,
+    infinite: true,
+    arrows: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
+  const hangleChangSlide = (direction) => {
+    if (direction === 'next') {
+      refCarousel.current.slickNext();
+    }
+
+    if (direction === 'prev') {
+      refCarousel.current.slickPrev();
+    }
+  };
 
   const handleRoute = () => {
     const path = `/restaurant/${key}/categories`;
@@ -93,12 +114,17 @@ const FoodTips = () => {
       <CloseButton onClick={() => handleRoute('information')}>
         <CloseSvg />
       </CloseButton>
+      <CarouselControl>
+        {['prev', 'next'].map((direction, c) => (
+          <ChevronSvg
+            key={`_slider_control_${c + 1}`}
+            onClick={() => hangleChangSlide(direction)}
+          />
+        ))}
+      </CarouselControl>
       {items && (
-        <Slider
-          autoPlay={false}
-          showThumbs={false}
-        >
-          {items.map((item, i) => (
+        <Carousel ref={refCarousel} {...settings}>
+          {items.filter((f, i) => i <= 6).map((item, i) => (
             <React.Fragment key={`_dish_${i + 1}`}>
               <ImgWrapper>
                 <Img src={item.dish.images ? item.dish.images[0] : FoodTipsTempPng} />
@@ -125,7 +151,7 @@ const FoodTips = () => {
               <DontWasteStyled />
             </React.Fragment>
           ))}
-        </Slider>
+        </Carousel>
       )}
     </Wrapper>
   );

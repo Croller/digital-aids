@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   background-color: ${PALETTE.white};
   padding: 22px 12px 44px;
   width: 306px;
-  margin: 28% auto;
+
 `;
 
 export const Content = styled.div`
@@ -47,7 +47,7 @@ export const Controls = styled.div`
 
 export const Ok = styled(Button)`
   height: 48px;
-  width: auto;
+  width: 74%;
   background-color: ${PALETTE.green1};
   color: ${PALETTE.white};
   text-transform: uppercase;
@@ -57,7 +57,7 @@ export const Ok = styled(Button)`
 
 export const Cancel = styled(Button)`
   height: 48px;
-  width: auto;
+  width: 74%;
   text-transform: uppercase;
   font-size: 16px;
 `;

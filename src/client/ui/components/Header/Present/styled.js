@@ -239,8 +239,8 @@ export const LangText = styled.span`
 export const LangWrapper = styled.div`
   position: absolute;
   top: 0;
-  right: 0;
-  left: 0;
+  right: 27px;
+  left: 27px;
   display: block;
   background-color: ${PALETTE.white};
   border-radius: ${THEME.borderRadius};
@@ -271,6 +271,10 @@ export const CloseButton = styled(Button)`
     path {
       fill: ${PALETTE.grey1};
     }
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: none;
   }
 `;
 

@@ -11,7 +11,7 @@
     "comments": "Kommentare",
     "reviewies": "Reviewies",
     "avg_price": "Durchschnittspreis",
-    "call_us": "Rufen Sie uns",
+    "call_us": "Rufenuns",
     "cuisine": "Küche",
     "add_to_order": "zur Bestellung hinzufügen",
     "total": "Total",
@@ -80,7 +80,7 @@
     "ask_waiter": "Bitten Sie die Kellnerin/den Kellner, Ihre Bestellung zu bestätigen."
   },
   "compAllergens": {
-    "descriptions": "Wir erinnern Sie daran, dass diese Tabelle indikativ ist und dass wir die Abwesenheit von 100% Allergenen in allen unseren Produkten nicht garantieren können.\n Falls Sie eine Allergie haben, fragen Sie bitte die Kellnerin/den Kellner nach genaueren Informationen über unsere Gerichte.",
+    "descriptions": "Wir erinnern Sie daran, dass diese Tabelle indikativ ist und dass wir die Abwesenheit von 100% Allergenen in allen unseren Produkten nicht garantieren können. \n\n Falls Sie eine Allergie haben, fragen Sie bitte die Kellnerin/den Kellner nach genaueren Informationen über unsere Gerichte.",
     "allergens": {
       "mustard": "Senf",
       "lupins": "Lupinen",
