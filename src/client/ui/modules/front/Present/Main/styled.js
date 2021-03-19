@@ -564,6 +564,10 @@ export const ClientCarouselControl = styled.div`
 
 export const CarouselStyled = styled(Slider)`
   display: block;
+
+  .slick-slide {
+    height: auto;
+  }
 `;
 
 export const BlockClient = styled.div`
@@ -648,7 +652,7 @@ export const ClientContent = styled.div`
   padding: 42px 22px 24px;
   box-shadow: ${THEME.boxShadow1};
   border-radius: ${THEME.borderRadius};
-  min-height: 506px;
+  min-height: 410px;
   height: auto;
 
   > svg {
@@ -676,7 +680,7 @@ export const ClientContent = styled.div`
   }
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    height: 266px;
+    min-height: 266px;
     padding: 38px 68px 46px 44px;
 
     > svg {

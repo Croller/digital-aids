@@ -21,7 +21,7 @@ import {
 import { 
   Wrapper,
   CloseButton,
-  CarouselControl,
+  CarouselControls, Control,
   Carousel,
   ImgWrapper, Img,
   Content,
@@ -108,14 +108,16 @@ const Information = memo(() => {
       <CloseButton onClick={() => handleRoute('back')}>
         <CloseSvg />
       </CloseButton>
-      <CarouselControl>
+      <CarouselControls>
         {['prev', 'next'].map((direction, c) => (
-          <ChevronSvg
+          <Control
             key={`_slider_control_${c + 1}`}
             onClick={() => hangleChangSlide(direction)}
-          />
+          >
+            <ChevronSvg />
+          </Control>
         ))}
-      </CarouselControl>
+      </CarouselControls>
       <Carousel ref={refCarousel} {...settings}>
         {images ? images.map((src, s) => (
           <ImgWrapper key={`_image_${s + 1}`}>

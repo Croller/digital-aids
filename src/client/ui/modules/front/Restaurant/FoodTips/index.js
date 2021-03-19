@@ -11,7 +11,7 @@ import {
 import { 
   Wrapper,
   CloseButton,
-  CarouselControl,
+  CarouselControls, Control,
   CarouselDots,
   CarouselDot,
   ImgWrapper,
@@ -114,14 +114,16 @@ const FoodTips = () => {
       <CloseButton onClick={() => handleRoute('information')}>
         <CloseSvg />
       </CloseButton>
-      <CarouselControl>
+      <CarouselControls>
         {['prev', 'next'].map((direction, c) => (
-          <ChevronSvg
+          <Control
             key={`_slider_control_${c + 1}`}
             onClick={() => hangleChangSlide(direction)}
-          />
+          >
+            <ChevronSvg />
+          </Control>
         ))}
-      </CarouselControl>
+      </CarouselControls>
       <CarouselDots>
         {items.map((item, i) => (<CarouselDot key={`_dot_${i + 1}`} active={i === slide} />))}
       </CarouselDots>

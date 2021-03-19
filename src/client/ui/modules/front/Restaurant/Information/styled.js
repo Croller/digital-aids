@@ -31,15 +31,24 @@ export const CloseButton = styled(Button)`
   }
 `;
 
-export const CarouselControl = styled.div`
+export const CarouselControls = styled.div`
   position: absolute;
   right: 16px;
-  top: 142px;
+  top: 114px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   z-index: 30;
+`;
+
+export const Control = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 80px;
 
   > svg {
     width: 14px;
@@ -50,9 +59,10 @@ export const CarouselControl = styled.div`
     path {
       fill: ${PALETTE.white};
     }
+  }
 
-    &:first-child {
-      margin-right: 40px;
+  &:first-child {
+    > svg {
       transform: rotate(0deg);
     }
   }

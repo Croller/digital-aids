@@ -3,7 +3,7 @@ const present = require('./Present/de.json');
 const common = require('./Common/de.json');
 
 export default {
-  name: 'German',
+  name: 'Deutsch',
 
   translation: {
     restaurant,
