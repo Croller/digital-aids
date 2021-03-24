@@ -1,5 +1,174 @@
 {
-  "common": {
-    "logo": "Growing together!!"
+  "header": {
+    "logo": "Growing together!"
+  },
+  "footer": {
+    "rules": "© DigitalCarte 2021- All Rights Reserved",
+    "rights": "Legal warning",
+    "politica": "Privacy Policy",
+    "cookies": "Cookies Policy"
+  },
+  "cookies": {
+    "title": "Cookies",
+    "description":"We use our own and third-party cookies to improve our services and perform the statistic analysis. You can any time change your browser settings or obtain more information about cookies through our Cookies Policy.",
+    "button": "Accept"
+  },
+  "request": {
+    "title1": "Möchten Sie mehr wissen? \n",
+    "title2": "Kontaktieren Sie uns",
+    "form": {
+      "name": "Name",
+      "email": "E-mail",
+      "phone": "Telefon",
+      "owner": {
+        "title": "Inhaber/Inhaberin",
+        "placeholder": "Restaurant, Café oder Bar"
+      },
+      "message": "Nachricht",
+      "send": "Senden",
+      "placeholder": "Text"
+    }
+  },
+  "tutorial": {
+    "back": "Back",
+    "part1": {
+      "title": "Digitale Mehrshprachliche Speisekarte",
+      "description": "Wir bieten Ihnen die Speisekarte einer neuen Generation – digital und mehrsprachlich. \n\n Dies hat nichts zu tun mit PDF oder jeder anderen Internet Plattform. Sie ist eine wechselseitig wirksame und sehr persönliche Menu-Karte. Sie wird für Sie wie eine mehrsprachige Bedienung und wird bald für Ihr ganzes Team ein unersetzlicher Freund werden."
+    },
+    "part2": {
+      "title": "Die Digitale und Mehr-sprachliche Speisekarte eröffnet neue Möglichkeiten",
+      "description": "Sie ermöglicht Ihnen, Sonderangebote und Empfehlungen Ihres Gastbetriebs beizeiten und in mehreren Sprachen bekannt zu machen. So können Sie ihre Kundschaft über neue Angebote, Saison-abhängige oder Festtags-Angebote in ihrem Restaurant informieren."
+    },
+    "part3": {
+      "title": "Allergien",
+      "description": "Jedes einzelne Gericht in Ihrer digitalen und mehrsprachlichen Speisekarte enthält die nötigen Informationen: Foto, genaue Beschreibung und Angaben über eventuelle Allergien und immer in der Sprache des Kunden."
+    },
+    "part4": {
+      "title": "Europäische Bestimmung (EU) No. 1169/2011",
+      "description": "Die digitale mehr-sprachliche Speisekarte entspricht den Europäischen Bestimmungen 1169/2011 mit Angaben über mögliche Allergien in verschiedenen Sprachen entsprechend den gesetzlichen Bestimmungen unserer modernen Welt."
+    },
+    "part5": {
+      "title": "Online Bestellung ",
+      "description": "Die digitale Speisekarte spart an Zeit für die Bedienung beim Aufnehmen von Bestellungen und ermöglicht ihr, mehr Kunden zu bedienen, wobei jeder Kunde in seiner Sprache sich bewegen kann. So verkürzt sich die Zeit beim Sammeln von Bestellungen! \n \n Es ist ganz einfach. Wenn die Bedienung den QR Code einscannt, sie/er nimmt über ihr/sein Handy die Bestellung auf in der jeweiligen Sprache. Es ist Zeit, die Zettel-Wirtschaft hinter sich zu lassen."
+    },
+    "part6": {
+      "title": "Prompte Rückmeldungen von Ihren Kunden",
+      "description": "Nach Untersuchungen darüber, was Restaurants brauchen, schufen wir die Digitale Karte, die Ihnen ermöglicht, die Meinung Ihrer Kunden über mögliche Verbesserungen Ihrer Dienstleistung sofort in mehreren Sprachen zu erhalten."
+    },
+    "part7": {
+      "title": "In Übereinstimmung mit dem Gesetz",
+      "description": "Das Gesetz, z. B. dass der Genuß von alkoholischen Getränken auf Erwachsene beschränkt ist. Die Kunden müssen mit der Bestellung bestätigen, dass sie das nach dem Gesetz vorgeschriebene Alter erreicht haben."
+    },
+    "part8": {
+      "title": "Zusätzliche Empfehlungen",
+      "description": "Nach Untersuchung der Bedürfnisse der Kunden haben wir in unsere digitale Karte ein Feld eingefügt, wo Sie zusätzliche Empfehlungen einfügen können über die bekanntesten Gerichte oder Getränke in Ihrem Lokal, in Ihrer Region und in ihrem Land."
+    },
+    "part9": {
+      "title": "Online Bestellungen",
+      "description": "Wir bieten auch die Möglichkeit, online Reservierungen in Ihrem Lokal zu tätigen, 24 Stunden pro Tag und 7 Tage die Woche, in mehreren Sprachen! \n\n Diese Lösung hilft Ihnen bedeutend, die fürs Telefonieren notwendige Zeit zu verringern ohne dass Sie mögliche Kunden verprellen, und ebenso die Sprachbarriere zu Ausländern zu überwinden. Mit unserem digitalen online-Dienst beim Reservieren ist es sehr leicht, Buchungen in mehreren Sprachen anzunehmen oder zu stornieren. Sie brauchen nur die dafür vorgeshene Stelle in einer e-Mail anzuklicken und ihre Kundschaft erhält Ihre Bestätigung oder Stornierung in ihrer eigenen Sprache übermittelt. \n\n Fügen Sie auf Ihren TripAdviser oder Facebook eine Online-Reservierung in verschiedenen Sprachen hinzu."
+    },
+    "part10": {
+      "title": "Benützen Sie Ihr Soziales Netzwerk",
+      "description": "Die Digitale Karte beinhaltet einen Austausch mit Ihren Sozialen Ntetzwerken wie Facebook, Instagram und TripAdviser. Jetzt können Sie mit Ihrer Kundschaft über das Internet in Beziehung bleiben und können rechtzeitige Rückmeldungen, Anregungen und Empfehlungen erhalten."
+    }
+  },
+  "main": {
+    "first": {
+      "col2": {
+        "title": "Hallo, ich bin eine digitale mehrsprachliche Speisekarte.",
+        "question": "Möchten Sie mich kennenlernen?",
+        "description": "Nehmen Sie mich in Ihr Personal auf und ich arbeite für Sie als mehrsprachliche Kellner/Kellnerin ",
+        "time": "7 Tage und 24 Stunden",
+        "button": "Präsentation"
+      },
+      "col3": {
+        "title": "Scannen Sie QR Code ein und probieren Sie mein Beispiel.",
+        "language": "Available in your language"
+      },
+      "oferta": {
+        "title": "Wir haben ein besonderes Angebot für Ihr Restaurant!",
+        "description": "Eine Website mit online Bestellung und digitalem mehrsprachlichem Menu in professioneller Übersetzung einschließlich monatlicher Laufzeit für nur 29 € im Monat."
+      }
+    },
+    "second": {
+      "col1": {
+        "title1": "Ist es wichtig digitale Entwicklung in Ihr Restaurant einzuführen?\n",
+        "title2": "Ganz bestimmt werden wir dazu Ja sagen! In jedem modernen Betrieb ist das notwendig",
+        "description1": "Besitzen Sie ein Restaurant, ein Café oder eine Kneipe?\n Suchen Sie nach Möglichkeiten, Ihr Unternehmen zu modernisieren?",
+        "description2": "Wir sind dazu da, Ihnen dabei zu helfen! "
+      },
+      "col2": {
+        "option1" : {
+          "title": "Gemeinsam sind wir stärker",
+          "description": "Wir sehen unsere Aufgabe darin, Gaststätten zu helfen, dass sie nach der Pandemie sich wieder erholen und eine digitale Entwicklung beginnen, die heute im Trend liegt und zu unserer modernen Welt gehört."
+        },
+        "option2" : {
+          "title": "Gemeinsame Modernisierung",
+          "description": "Wir bringen unsere Erfahrung in ihre Entwicklungspläne und unterstützen Sie darin, damit Sie immer auf dem neuesten Stand bleiben."
+        },
+        "option3" : {
+          "title": "Zusammenarbeit",
+          "description": "Wir sorgen für Sie als Teilhaber unseres Teams, helfen Ihnen Ihren Betrieb zu digitalisieren entsprechend dem neuesten Trend in der Gastronomie."
+        },
+        "option4" : {
+          "title": "Gemeinsam wachsen",
+          "description": "Unsere digitale und mehrsprachliche Speisekarte ist der Grundstock für das kommende Zusammenwirken unterschiedlicher digitaler Module, die den Gaststätten rund um die Welt helfen werden, verbesserte Ergebnisse zu erzielen."
+        }
+      }
+    },
+    "third": {
+      "title": "FAQ Fragen",
+      "question1": {
+        "question": "Was bieten wir?",
+        "description": "<p>Unser Team bietet Ihnen den Dienst eines persönlichen Managers, \n der sich um die digitale und mehrsprachliche Entwicklung Ihres Betriebs kümmert und dem modernen Trend und den Anforderungen unserer modernen Welt folgt:</p><br /> <p class=\"bold\"> - Website mit online Reservierungen in mehreren Sprachen \n - Digitale und mehrsprachliche Speisekarte \n - Professionelle Übersetzungen Ihrer Speisekarte \n - Zusammenarbeit mit den Sozialen Medien \n - Unsere monatliche Zusammenarbeit, fällige Änderungen einzuführen \n  </p> <br /> <p>Wir helfen Ihnen einen neuen und erfolgreichen Stand der Entwicklung in der modernen Welt zu erreichen.</p> <br /> <p class=\"green\">Sorgen Sie sich für Ihre Zukunft! \n Wir sind dabei, Ihnen zu helfen.</p>"
+      },
+      "question2": {
+        "question": "Wie wird Ihnen die digitale und mehrsprachliche Speisekarte helfen?",
+        "description": "<p class=\"bold\">Sie wird Ihnen als mehrsprachliche Kellner/ Kellnerin 24 Stunden pro Tag und 7 Tage die Woche zur Hand sein!</p><p>Sie hilft dabei, Misverständnisse mit ausländischen Kunden zu vermeiden und Ihren Dienst zu verbessern.</p> <br /> <p><span class=\"bold\">Sie hilft Ihnen, Zeit zu sparen beim Aufnehmen von Bestellungen und mehrere Kunden zu bedienen!</span><span> Sie ist wichtig für den Kontakt mit den Kunden und für deren rasche Rückmeldungen.</span></p> <br /> <p><span class=\"bold\">Eine digitale Speisekarte ermöglicht es Ihnen, spezielle oder Sonderangebote über das Internet bekannt zu machen, und das in mehreren Sprachen.</span><span>Die digitale mehrsprachliche Speisekarte erleichtert es Ihnen, besondere Empfehlungen zu bestimmten Speisen in Ihrem Lokal anzufügen, oder in Ihrer Region und im Land, jeweils in der Sprache Ihrer Kunden."
+      },
+      "question3": {
+        "question": "Wie lassen sich Änderungen vornehmen in einer digitalen Speisekarte mit mehreren Sprachen?",
+        "description": "<p><span class=\"bold\">Machen Sie sich keine Sorgen darüber! </span> \n Sie brauchen nur über e-Mail Ihre Änderungen an uns zu schicken und in 24 Stunden werden wir sie in allen Sprachen herunterladen.</p>"
+      },
+      "question4": {
+        "question": "Was ist der Unterschied zwischen PDF und Digitaler Speisekarte?",
+        "description": "<p><span class=\"bold\">Die Digitale Speisekarte hat nichts zu tun mit PDF oder ähnlichen elektronischen Plattformen!</span> Wir gestalten für Sie ein sehr persönliches digital aktives Menu mit den genauen Informationen zu jedem Gericht und mit der Möglichkeit, eine Bestellung online abzugeben.\n "
+      },
+      "question5": {
+        "question": "Wie funktioniert eine online Bestellung?",
+        "description": "<p>Es ist sehr einfach, Ihr Kunde öffnet das Menu in seiner/ihrer eigenen Sprache, wählt die gewünschte Bestellung aus, zieht sie in seine Bestellung und zeigt diese Ihrer Bedienung. Die Bedienung öffnet den entsprechenden QR Code, nimmt die Bestellung auf seinem Handy in seiner/ihrer Sprache entgegen. Die Zeit ist gekommen, die alte Zettelwirtschaft zu vergessen!</span></p>"
+      },
+      "question6": {
+        "question": "Was kostet unsere Dienstleistung?",
+        "description": "<p>Die monatlichen Kosten belaufen sich auf gerade mal <span class=\"bold\">29 € zuzüglich fälliger Steuerkosten, </span> eingeschlossen die Schaffung einer persönlichen, mehrsprachlichen Speisekarte und unserer Hilfe bei der jeweils fälligen Anpassung.</p><br /><p><span class=\"bold\">Wenn Sie mehr erfahren wollen? </span><a class=\"green bold\">Kontaktiere Sie uns!</a></p>"
+      }
+    },
+    "fourth": {
+      "title": "Unter unseren Kunden sind",
+      "client1": {
+        "name": "Robert Johansen",
+        "position": "Eigentümer und Chef des Restaurants Las Cuevas, \n San Muigel de Salinas, Spain",
+        "title": "Die beste Lösung",
+        "description": "Unser Restaurant liegt in einem kleinen Ort, in dem viele deutsche und norwegische Ausländer das ganze Jahr hindurch leben. Viele von ihnen sind schon älter und sprechen weder Englisch noch Spanisch. Die digitale Speisekarte in ihrer Muttersprache machte es für uns viel leichter, mit diesen ausländischen Kunden zu arbeiten. Während der Pandemie haben sich viele daran gewöhnt, unsere digitale Speisekarte zu benutzen. Und das wichtigste für uns beim Einsatz der digitalen Speisekarte ist, dass wir keine Zeit darauf verschwenden müssen, die neue Plattform selber zu gestalten. Die monatliche Dienstleistung der Digitalen Speisekarte hilft uns, alle Detail-Angaben auf dem neuesten Stand zu halten. Das ist sehr praktisch und ganz leicht!"
+      },
+      "client2": {
+        "name": "Irena Hoffman",
+        "position": "Eigentümerin des Restaurants Le Monde, \n Albir, Spain ",
+        "title": "Wir empfehlen 100%",
+        "description": "Wir empfehlen dies zu 100 %. Ich weiss nicht, wie wir zuvor es schafften ohne diese einfache Lösung. Wir leben in Altea, wo viele Ausländer das ganze Jahr über leben. Wir hatten uns unsere eigene Zeichensprache entwickelt, und oftmals kam es zu Misverständnissen mit unseren Kunden aus dem Ausland. Jetzt ist das digitale und mehrsprachliche Menu unser bester Freund und Mitarbeiter. Es hilft uns ungemein und wir verschwenden keine Zeit mehr wie zuvor, mit Häncen und Füßen zus erklären, was dieses oder jenes Gericht enthält und dgl. Die Dienstleistung des Teams von der Digitalen Speisekarte macht es möglich, monatlich alle Sonderangebote bekannt zu machen. Wir versichern Ihnen, Sie werden ganz zufrieden sein."
+      },
+      "client3": {
+        "name": "El Refugio Hotel&Restaurant",
+        "position": "Owners of Rural Hotel El Refugio, \n Rabanal del Camino, Spain",
+        "title": "We advise it everyone",
+        "description": "Our restaurant-hotel is located on the Camino de Santiago and the number of foreign pilgrims has grown incredibly last years. Now they come from all over the world, even from Korea. And of course we don't know Korean and they don't know Spanish. The digital and multi-language menu is a great solution for us, it allows us to improve the service with foreigners, making it easier. And the best for us, that you don't need to learn anything new! We already have enough work in the kitchen and in the hotel. We thank DigitalCarte team for their monthly support, we advise it everyone!!"
+      },
+      "client4": {
+        "name": "Hotel Am Schloßpark, Munich",
+        "position": "Hotel owners",
+        "title": "We ara happy",
+        "description": "We own a family hotel in Munich. Our hotel and restaurant are the pride of our family. Since pandemic time, the digital menu has become a necessity in all Europe, we are very happy with our cooperation with DigitalCarte company. It is the new opportunity and solution to make growing our business."
+      }
+    }
   }
 }

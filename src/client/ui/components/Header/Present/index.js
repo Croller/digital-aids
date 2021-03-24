@@ -98,7 +98,7 @@ const HeaderComponent = ({
                     </CloseButton>
                     <OutSideClick onOutSide={() => handleLangChange()}>
                       <LangList>
-                        {['en', 'de', 'es', 'no', 'ru'].map(lng => (
+                        {['en', 'de', 'es', 'it', 'ru'].map(lng => (
                           <LangButton
                             key={`_language_${lng}`}
                             onClick={() => handleLangChange(lng)}

@@ -87,12 +87,12 @@
       },
       "oferta": {
         "title": "We have a special offer for your restaurant!",
-        "description": "Web page with online booking and Digital Multilanguage Menu with professional translations including monthly support just for 29€ per month!"
+        "description": "Web page with online booking and Digital Multilanguage Menu with professional translations \n including monthly support just for 29€ per month!"
       }
     },
     "second": {
       "col1": {
-        "title1": "Is it important to introduce digital development for restaurants?",
+        "title1": "Is it important to introduce digital development for restaurants?\n",
         "title2": "Most certainly yes! As for any business nowadays",
         "description1": "Do you own a restaurant? cafe? or bar?\n Are you looking for modern development solutions?",
         "description2": "We are here to help you! "
@@ -120,7 +120,7 @@
       "title": "FAQ questions",
       "question1": {
         "question": "What do we offer you?",
-        "description": "<p>Our team offers you the service as a personal manager, who will take care of your digital development with a multi-language level \n following the trends and requirements of the modern world:</p><br /> <p class=\"bold\"> - Web page with online reservation \n in different languages \n - Digital multi- language menu \n - Professional menu translations \n - Social media integration \n - Our monthly support for making changes in your e-menu  \n  </p> <br /> <p>We help you to reach a new level for successful development in the modern world.</p> <br /> <p class=\"green\">Take care of your future! \n We're here to help you.</p>"
+        "description": "<p>Our team offers you the service as a personal manager, who will take care of your digital development with a multi-language level \n following the trends and requirements of the modern world:</p><br /> <p class=\"bold\"> - Web page with online reservation in different languages \n - Digital multi- language menu \n - Professional menu translations \n - Social media integration \n - Our monthly support for making changes in your e-menu  \n  </p> <br /> <p>We help you to reach a new level for successful development in the modern world.</p> <br /> <p class=\"green\">Take care of your future! \n We're here to help you.</p>"
       },
       "question2": {
         "question": "How will the digital multi- language menu help you?",
@@ -136,7 +136,7 @@
       },
       "question5": {
         "question": "How does online order work?",
-        "description": "<p>It is just very simple, your client opens the menu in his or her own language, choose the plates, saves them in an order and shows an order to the waiter. The waiter, just by scanning the QR code, opens an order on the mobile device in the native language. It's time to leave the paper notes in the past!<span class=\"bold\">¡Menos papeleo!</span></p>"
+        "description": "<p>It is just very simple, your client opens the menu in his or her own language, choose the plates, saves them in an order and shows an order to the waiter. The waiter, just by scanning the \n QR code, opens an order on the mobile device in the native language. It's time to leave the paper notes in the past!</span></p>"
       },
       "question6": {
         "question": "What is the cost of our services?",
