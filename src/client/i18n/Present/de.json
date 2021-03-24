@@ -77,12 +77,12 @@
       "col2": {
         "title": "Hallo, ich bin eine digitale mehrsprachliche Speisekarte.",
         "question": "Möchten Sie mich kennenlernen?",
-        "description": "Nehmen Sie mich in Ihr Personal auf und ich arbeite für Sie als mehrsprachliche Kellner/Kellnerin ",
+        "description": "Nehmen Sie mich in Ihr Personal auf und \n ich arbeite für Sie als mehrsprachliche Kellner/Kellnerin ",
         "time": "7 Tage und 24 Stunden",
         "button": "Präsentation"
       },
       "col3": {
-        "title": "Scannen Sie QR Code ein und probieren Sie mein Beispiel.",
+        "title": "Scannen Sie QR Code ein und \n probieren Sie mein Beispiel.",
         "language": "Available in your language"
       },
       "oferta": {
@@ -92,9 +92,9 @@
     },
     "second": {
       "col1": {
-        "title1": "Ist es wichtig digitale Entwicklung in Ihr Restaurant einzuführen?\n",
+        "title1": "Ist es wichtig digitale Entwicklung in Ihr Restaurant einzuführen? \n\n",
         "title2": "Ganz bestimmt werden wir dazu Ja sagen! In jedem modernen Betrieb ist das notwendig",
-        "description1": "Besitzen Sie ein Restaurant, ein Café oder eine Kneipe?\n Suchen Sie nach Möglichkeiten, Ihr Unternehmen zu modernisieren?",
+        "description1": "Besitzen Sie ein Restaurant, ein Café oder eine Kneipe? Suchen Sie nach Möglichkeiten, Ihr Unternehmen zu modernisieren?",
         "description2": "Wir sind dazu da, Ihnen dabei zu helfen! "
       },
       "col2": {
@@ -120,7 +120,7 @@
       "title": "FAQ Fragen",
       "question1": {
         "question": "Was bieten wir?",
-        "description": "<p>Unser Team bietet Ihnen den Dienst eines persönlichen Managers, \n der sich um die digitale und mehrsprachliche Entwicklung Ihres Betriebs kümmert und dem modernen Trend und den Anforderungen unserer modernen Welt folgt:</p><br /> <p class=\"bold\"> - Website mit online Reservierungen in mehreren Sprachen \n - Digitale und mehrsprachliche Speisekarte \n - Professionelle Übersetzungen Ihrer Speisekarte \n - Zusammenarbeit mit den Sozialen Medien \n - Unsere monatliche Zusammenarbeit, fällige Änderungen einzuführen \n  </p> <br /> <p>Wir helfen Ihnen einen neuen und erfolgreichen Stand der Entwicklung in der modernen Welt zu erreichen.</p> <br /> <p class=\"green\">Sorgen Sie sich für Ihre Zukunft! \n Wir sind dabei, Ihnen zu helfen.</p>"
+        "description": "<p>Unser Team bietet Ihnen den Dienst eines persönlichen Managers, der sich um die digitale und mehrsprachliche Entwicklung Ihres Betriebs kümmert und dem modernen Trend und den Anforderungen unserer modernen Welt folgt:</p><br /> <p class=\"bold\"> - Website mit online Reservierungen in mehreren Sprachen \n - Digitale und mehrsprachliche Speisekarte \n - Professionelle Übersetzungen Ihrer Speisekarte \n - Zusammenarbeit mit den Sozialen Medien \n - Unsere monatliche Zusammenarbeit, fällige Änderungen einzuführen \n  </p> <br /> <p>Wir helfen Ihnen einen neuen und erfolgreichen Stand der Entwicklung in der modernen Welt zu erreichen.</p> <br /> <p class=\"green\">Sorgen Sie sich für Ihre Zukunft! \n Wir sind dabei, Ihnen zu helfen.</p>"
       },
       "question2": {
         "question": "Wie wird Ihnen die digitale und mehrsprachliche Speisekarte helfen?",
