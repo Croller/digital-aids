@@ -1,5 +1,10 @@
 {
   "header": {
     "logo": "Manager"
+  },
+  "sidebar": {
+    "profile": "Profile",
+    "restaurantes": "Restaurantes",
+    "managers": "Managers"
   }
 }

@@ -2,6 +2,9 @@
 import LoupeSvg from './svg/loupe.svg';
 import UserCircleSvg from './svg/user-circle.svg';
 
+//back office
+import RestaurantSvg from './svg/backOffice/restaurant.svg';
+
 // restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
 import ChefHeadSvg from './svg/restaurant/chef-head.svg';
@@ -108,6 +111,8 @@ import OfferTempPng from './png/temp/offerTemp.png';
 export {
   LoupeSvg,
   UserCircleSvg,
+
+  RestaurantSvg,
 
   ChefSvg,
   ChefHeadSvg,
