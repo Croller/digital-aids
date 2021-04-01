@@ -22,9 +22,10 @@ import { ErrorBoundary } from 'client/ui/components/_base/ErrorBoundary';
 import { ScrollToTop } from 'client/ui/components/_base/ScrollToTop';
 import { Loader } from 'client/ui/components/_base/Loader';
 
-const Restaurant = lazy(() => import('client/ui/page/front/Restaurant'));
-const Present = lazy(() => import('client/ui/page/front/Present'));
-const Page404 = lazy(() => import('client/ui/page/common/404'));
+const BackOffice = lazy(() => import('client/ui/page/BackOffice'));
+const Restaurant = lazy(() => import('client/ui/page/Restaurant'));
+const Present = lazy(() => import('client/ui/page/Present'));
+const Page404 = lazy(() => import('client/ui/page/404'));
 
 export const Routers = () => {
   const localKey = 'DigitalCarte';
@@ -63,6 +64,7 @@ export const Routers = () => {
         <ScrollToTop>
           <Suspense fallback={<Loader />}>
             <Switch>
+              <Route exact path="/back-office/*" component={BackOffice} />
               <Route exact path="/restaurant/*" component={Restaurant} />
               <Route exact component={Present} />
               <Route path="/404">

@@ -5,16 +5,16 @@ import { Layout } from 'client/ui/components/Layout/Restaurant';
 
 const PATH = '/restaurant';
 
-const Language = lazy(() => import('client/ui/modules/front/Restaurant/Language'));
-const Menu = lazy(() => import('client/ui/modules/front/Restaurant/Menu'));
-const Categories = lazy(() => import('client/ui/modules/front/Restaurant/Categories'));
-const Category = lazy(() => import('client/ui/modules/front/Restaurant/Category'));
-const Opinion = lazy(() => import('client/ui/modules/front/Restaurant/Opinion'));
-const Information = lazy(() => import('client/ui/modules/front/Restaurant/Information'));
-const FoodTips = lazy(() => import('client/ui/modules/front/Restaurant/FoodTips'));
-const Reglament = lazy(() => import('client/ui/modules/front/Restaurant/Reglament'));
-const Order = lazy(() => import('client/ui/modules/front/Restaurant/Order'));
-const Receipt = lazy(() => import('client/ui/modules/front/Restaurant/Receipt'));
+const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
+const Menu = lazy(() => import('client/ui/modules/Restaurant/Menu'));
+const Categories = lazy(() => import('client/ui/modules/Restaurant/Categories'));
+const Category = lazy(() => import('client/ui/modules/Restaurant/Category'));
+const Opinion = lazy(() => import('client/ui/modules/Restaurant/Opinion'));
+const Information = lazy(() => import('client/ui/modules/Restaurant/Information'));
+const FoodTips = lazy(() => import('client/ui/modules/Restaurant/FoodTips'));
+const Reglament = lazy(() => import('client/ui/modules/Restaurant/Reglament'));
+const Order = lazy(() => import('client/ui/modules/Restaurant/Order'));
+const Receipt = lazy(() => import('client/ui/modules/Restaurant/Receipt'));
 
 export const Restaurant = () => {
   useEffect(() => {

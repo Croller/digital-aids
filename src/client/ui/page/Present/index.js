@@ -3,9 +3,9 @@ import { Route, Switch } from 'react-router-dom';
 
 import { Layout } from 'client/ui/components/Layout/Present';
 
-const Main = lazy(() => import('client/ui/modules/front/Present/Main'));
-const Tutorial = lazy(() => import('client/ui/modules/front/Present/Tutorial'));
-const PrivacyPolicy = lazy(() => import('client/ui/modules/front/Present/PrivacyPolicy'));
+const Main = lazy(() => import('client/ui/modules/Present/Main'));
+const Tutorial = lazy(() => import('client/ui/modules/Present/Tutorial'));
+const PrivacyPolicy = lazy(() => import('client/ui/modules/Present/PrivacyPolicy'));
 
 export const Present = () => {
   useEffect(() => {
