@@ -1,16 +1,33 @@
-import React from 'react';
 import { detect } from 'detect-browser';
+import translate from 'client/i18n';
+
+import {
+  getLocalStorage,
+  setLocalStorage,
+} from 'client/utils/localStorage';
 
 export const InfoUser = () => {
-  const detectBrowser = { ...detect() };
-  delete detectBrowser.type;
+  const key = 'DigitalCarte';
+  const browser = { ...detect() };
+  const lng = navigator.language || navigator.userLanguage;
+  const local = getLocalStorage(key);
+  const storage = {
+    user: {
+      lng,
+      cookies: false,
+    },
+    restaurant: {
+      offersViewed: [],
+    },
+    browser,
+  };
 
-  console.log('user info:', {
-    browser: detectBrowser,
-  });
-
-  return (
-    <>
-    </>
-  );
+  if (!local) {
+    console.log('storage', storage);
+    storage.browser = browser;
+    setLocalStorage(key, storage);
+  } else {
+    translate.changeLanguage(local.user.lng);
+    console.log('local', local);
+  }
 };

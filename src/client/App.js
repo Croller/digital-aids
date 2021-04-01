@@ -4,9 +4,10 @@ import { GlobalStyle } from 'client/style/base';
 import { InfoUser } from 'client/ui/components/_base/InfoUser';
 import { Routers } from './router';
 
+InfoUser();
+
 const App = () => (
   <>
-    <InfoUser />
     <GlobalStyle />
     <Routers />
   </>

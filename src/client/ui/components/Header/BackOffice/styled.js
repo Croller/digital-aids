@@ -94,13 +94,12 @@ export const Search = styled(Input)`
   height: 56px;
   background-color: ${PALETTE.grey11};
   border: 0;
-  font-size: 16px;
   padding: 0 18px;
   z-index: 1;
 
   svg {
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
     transform: rotate(90deg);
 
     path {
@@ -119,6 +118,7 @@ export const Search = styled(Input)`
 
   input {
     padding: 0 10px;
+    font-size: 16px;
     background-color: ${PALETTE.grey11};
   }
 `;

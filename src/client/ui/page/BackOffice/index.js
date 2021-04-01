@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import { Layout } from 'client/ui/components/Layout/BackOffice';
 
-const PATH = '/restaurant';
+const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 

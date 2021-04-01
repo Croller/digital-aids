@@ -1,7 +1,6 @@
 import {} from './constants';
 
 const initState = {
-  lng: 'es',
   phone: '+34 912 568 714',
   email: 'info@digital-carte.com',
 

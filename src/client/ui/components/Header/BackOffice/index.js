@@ -18,8 +18,9 @@ import {
 } from './styled';
 
 const HeaderComponent = ({
-  className,
+  token = null,
   onShowSideBar,
+  className,
 }) => {
   const history = useHistory();
   const [t] = useTranslation();
@@ -43,9 +44,11 @@ const HeaderComponent = ({
   return (
     <HeaderWrapper className={className}>
       <Control>
-        <Hamburger onClick={() => onShowSideBar()}>
-          <HamburgerSvg />
-        </Hamburger>
+        {token && (
+          <Hamburger onClick={() => onShowSideBar()}>
+            <HamburgerSvg />
+          </Hamburger>
+        )}
       </Control>
       <LogoWrapper onClick={() => handleRoute()}>
         <LogoSvg />

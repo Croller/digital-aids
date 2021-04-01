@@ -15,5 +15,11 @@ export const Content = styled.div`
   overflow: auto;
   width: ${p => (p.sidebar ? 'calc(100% - 245px)' : '100%')};
   margin-left: ${p => (p.sidebar ? '245px' : '0')};
-  height: 3000px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Block = styled.div`
+  width: 100%;
+  max-width: 1440px;
 `;

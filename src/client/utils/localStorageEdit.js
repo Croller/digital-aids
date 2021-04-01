@@ -3,6 +3,8 @@ import {
   getLocalStorage,
 } from 'client/utils/localStorage';
 
+const key = 'DigitalCarte';
+
 export const getTotal = (arr) => {
   if (arr && Array.isArray(arr)) {
     return arr.reduce((count, item) => {
@@ -17,13 +19,30 @@ export const getTotal = (arr) => {
 
 export const setOfferViewed = (offer = null, callback = () => {}) => {
   if (!offer) return null;
-  const str = 'DigitalCarte';
-  const local = getLocalStorage(str);
-  if (offer && !local.offersViewed.some(f => f === offer)) {
-    setLocalStorage(str, {
+  const local = getLocalStorage(key);
+  const { offersViewed } = local.restaurant;
+  
+  if (offer && local && !offersViewed.some(f => f === offer)) {
+    setLocalStorage(key, {
       ...local,
-      offersViewed: [...local.offersViewed, offer],
+      restaurant: {
+        ...local.restaurant,
+        offersViewed: [...offersViewed, offer],
+      },
     });
     callback();
+  }
+};
+
+export const setUser = (obj) => {
+  const local = getLocalStorage(key);
+  if (local) {
+    setLocalStorage(key, {
+      ...local,
+      user: {
+        ...local.user,
+        ...obj,
+      },
+    });
   }
 };

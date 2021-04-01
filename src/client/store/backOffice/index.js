@@ -1,7 +1,13 @@
 import {} from './constants';
 
 const initState = {
-  lng: 'en',
+  user: {
+    token: 'test',
+  },
+
+  categories: null,
+  dishes: null,
+  offers: null,
 
   loading: false,
   errors: null,

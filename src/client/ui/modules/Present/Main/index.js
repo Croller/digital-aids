@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
+import { setUser } from 'client/utils/localStorageEdit';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
 import { Helmet } from 'react-helmet';
 import {
-  setLocalStorage,
   getLocalStorage,
 } from 'client/utils/localStorage';
 import {
@@ -122,9 +122,7 @@ const Main = () => {
   ));
 
   const handleSetCookies = () => {
-    const local = getLocalStorage(localKey);
-    local.cookies = true;
-    setLocalStorage(localKey, local);
+    setUser({ cookies: true });
   };
 
   // const handleChnageLng = (lng) => {
@@ -147,7 +145,7 @@ const Main = () => {
 
   useEffect(() => {
     const local = getLocalStorage(localKey);
-    if (!local.cookies) {
+    if (!local.user.cookies) {
       showCookies();
     }
     

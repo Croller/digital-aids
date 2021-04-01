@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
 import { SideBar } from 'client/ui/components/SideBar/BackOffice';
@@ -7,6 +8,7 @@ import {
   Wrapper,
   Cotainer,
   Content,
+  Block,
 } from './styled';
 
 export const Layout = ({
@@ -14,6 +16,8 @@ export const Layout = ({
   className,
 }) => {
   const history = useHistory();
+  const { token } = useSelector(store => store.backOffice.user);
+
   const [showSideBar, setShowSideBar] = useState(true);
   
   const handleRoute = useCallback((part) => {
@@ -30,17 +34,20 @@ export const Layout = ({
   return (
     <Wrapper className={className}>
       <Header
+        token={token}
         onShowSideBar={() => setShowSideBar(!showSideBar)}
         onRoute={handleRoute}
       />
-      {showSideBar && (
+      {token && showSideBar && (
         <SideBar
           onRoute={handleRoute}
         />
       )}
       <Cotainer>
-        <Content sidebar={showSideBar}>
-          {children}
+        <Content sidebar={token && showSideBar}>
+          <Block>
+            {children}
+          </Block>
         </Content>
       </Cotainer>
     </Wrapper>

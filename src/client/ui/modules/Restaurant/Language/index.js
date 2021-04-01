@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
+import { setUser } from 'client/utils/localStorageEdit';
 
 import {
   Wrapper,
@@ -13,6 +14,7 @@ const Language = () => {
 
   const handleClick = (lng) => {
     translate.changeLanguage(lng);
+    setUser({ lng });
     
     if (history.action !== 'POP') {
       history.goBack();

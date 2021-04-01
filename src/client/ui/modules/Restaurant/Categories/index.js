@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Confirm18Modal } from 'client/ui/components/_block/Modal/Confirm18';
 import { OfferRestaurantModal } from 'client/ui/components/_block/Modal/Offer/Restaurant';
-import { setOfferViewed } from 'client/utils/restaurant';
+import { setOfferViewed } from 'client/utils/localStorageEdit';
 import {
   Wrapper,
   Title,

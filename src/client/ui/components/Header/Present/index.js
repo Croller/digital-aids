@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { setUser } from 'client/utils/localStorageEdit';
 import translate, { languages } from 'client/i18n';
 import { OutSideClick } from 'client/ui/components/_base/OutSideClick';
 import {
@@ -53,6 +54,7 @@ const HeaderComponent = ({
   const handleLangChange = (lng = null) => {
     if (lng) {
       translate.changeLanguage(lng);
+      setUser({ lng });
     }
     setLangList(false);
   };
