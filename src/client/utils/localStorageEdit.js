@@ -5,18 +5,6 @@ import {
 
 const key = 'DigitalCarte';
 
-export const getTotal = (arr) => {
-  if (arr && Array.isArray(arr)) {
-    return arr.reduce((count, item) => {
-      if (item.dailymenu) {
-        return count + item.options.price; 
-      }
-      return count + item.order.reduce((num, ord) => num + (ord.price * ord.order_count), 0);
-    }, 0);
-  }
-  return 0;
-};
-
 export const setOfferViewed = (offer = null, callback = () => {}) => {
   if (!offer) return null;
   const local = getLocalStorage(key);

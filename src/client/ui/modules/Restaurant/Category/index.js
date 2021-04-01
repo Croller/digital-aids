@@ -11,7 +11,7 @@ import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import { DailyConfirmModal } from 'client/ui/components/_block/Modal/DailyConfirm';
 import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
-import { setOfferViewed } from 'client/utils/restaurant';
+import { setOfferViewed } from 'client/utils/localStorageEdit';
 import {
   Wrapper,
   TitleWrapper,
