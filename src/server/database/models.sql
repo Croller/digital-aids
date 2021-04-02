@@ -1,20 +1,31 @@
 
 -- CREATE SCHEMA "apr-postgres";
--- ALTER DATABASE "apr-postgres" SET timezone TO 'Europe/Moscow';
+ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
 
--- CREATE TABLE data_users (
---   id serial primary key,
---   login varchar,
---   password varchar,
---   surname varchar,
---   name varchar,
---   middlename varchar,
---   birthdate timestamp with time zone,
---   phone bigint,
---   email varchar,
---   roles int array,
---   enter_at timestamp with time zone NOT NULL DEFAULT NOW() 
--- );
+CREATE TABLE data_users (
+  id serial primary key,
+  login varchar,
+  password varchar,
+  surname varchar,
+  name varchar,
+  middlename varchar,
+  birthdate timestamp with time zone,
+  phone bigint array,
+  email varchar array,
+  roles int array,
+  -- restaurant KEY ARRAY,
+  enter_at timestamp with time zone NOT NULL DEFAULT NOW() 
+);
+
+
+
+
+
+
+
+
+
+
 
 -- CREATE TABLE description_data_users (
 --   key varchar,

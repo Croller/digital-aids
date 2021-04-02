@@ -18,6 +18,8 @@ export default function configureStore() {
     combineReducers(reducers),
     compose,
   );
-  sagaMiddleware.run(sagas);
+  sagas.forEach((saga) => {
+    sagaMiddleware.run(saga);
+  });
   return store;
 }

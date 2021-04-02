@@ -16,7 +16,7 @@ export const Layout = ({
   className,
 }) => {
   const history = useHistory();
-  const { token } = useSelector(store => store.backOffice.user);
+  const { token } = useSelector(store => store.user.info);
 
   const [showSideBar, setShowSideBar] = useState(true);
   

@@ -27,6 +27,7 @@ const UserController = () => {
     } catch (err) {
       error.name = 'Query error';
       error.text = JSON.stringify(err);
+      res.status(201);
       res.json({ error });
     }
   };
@@ -43,16 +44,19 @@ const UserController = () => {
         } else {
           error.name = 'User error';
           error.text = 'User does not exist';
+          res.status(201);
           res.json({ error });
         }
       } else {
         error.name = 'Token error';
         error.text = 'Token not valid';
+        res.status(201);
         res.json({ error });
       }
     } catch {
       error.name = 'Token error';
       error.text = 'Cant get token';
+      res.status(201);
       res.json({ error });
     }
   };
@@ -74,16 +78,19 @@ const UserController = () => {
         } else {
           error.name = 'Create user error';
           error.text = 'Same user already exist';
+          res.status(201);
           res.json({ error });
         }
       } else {
         error.name = 'Permition error';
         error.text = 'User create is same role of admin or not valid token';
+        res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
       error.text = JSON.stringify(err);
+      res.status(201);
       res.json({ error });
     }
   };
@@ -104,16 +111,19 @@ const UserController = () => {
         } else {
           error.name = 'Update user error';
           error.text = 'This user does not exist';
+          res.status(201);
           res.json({ error });
         }
       } else {
         error.name = 'Permition error';
         error.text = 'May be you are not role with admin or you try edit another account witch not your';
+        res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
       error.text = JSON.stringify(err);
+      res.status(201);
       res.json({ error });
     }
   };
@@ -131,16 +141,19 @@ const UserController = () => {
         } else {
           error.name = 'Update user error';
           error.text = 'This user does not exist';
+          res.status(201);
           res.json({ error });
         }
       } else {
         error.name = 'Permition error';
         error.text = 'May be you are not role with admin or you try edit another account witch not your';
+        res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
       error.text = JSON.stringify(err);
+      res.status(201);
       res.json({ error });
     }
   };

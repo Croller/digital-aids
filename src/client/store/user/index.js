@@ -1,31 +1,44 @@
-import {
-  USER_LOGIN,
-  // USER_LOGOUT,
-} from './constants';
+import * as Constants from './constants';
 
 const initState = {
   lng: 'en',
   
-  orders: [], // orders users
+  orders: null, // orders users
 
-  info: null, // browser, os system, ip, location etc.
+  info: {
+    birthdate: null,
+    email: null,
+    enter_at: null,
+    id: null,
+    login: null,
+    middlename: null,
+    name: null,
+    phone: null,
+    roles: null,
+    surname: null,
+    token: null,
+  },
 
   loading: false,
-  errors: null,
+  error: null,
 };
 
 export default function (state = initState, action) {
   switch (action.type) {
-    case USER_LOGIN:
-      return { ...initState, fetch: false, isAuth: false };
+    case Constants.USER_SET:
+      return { ...state, info: action.payload };
+    case Constants.USER_ERROR_SET:
+      return { ...state, error: action.payload };
+    case Constants.USER_LOADING_SET:
+      return { ...state, loading: action.payload };
     default:
       return state;
   }
 }
 
-export function userLogin({ login, password }) {
+export function login(payload) {
   return {
-    type: USER_LOGIN,
-    payload: { login, password },
+    type: Constants.USER_LOGIN,
+    payload,
   };
 }

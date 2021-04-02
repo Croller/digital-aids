@@ -134,7 +134,6 @@ export const categoriesMock = [
         name: 'Tes',
         dishes: [4, 5, 6], // id dishes
       },
-      
     ],
   },
   {

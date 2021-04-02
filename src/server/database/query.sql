@@ -14,8 +14,8 @@
 
 
 
-
-
+INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, roles) VALUES ('rootAdmin', 'dcfoodfans2021', 'Admin', 'DC', 'root', '2020-10-28T10:01:11.258', '{333, 333}', '{"2323", "2332"}', '{"root"}');
+SELECT * FROM data_users;
 
 
 

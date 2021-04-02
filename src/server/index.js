@@ -1,16 +1,20 @@
-require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
-// const bodyParser = require('body-parser');
 const mapRoutes = require('express-routes-mapper');
 const cors = require('cors');
+const https = require('https');
+const fs = require('fs');
 const routes = require('./api/routes');
+require('dotenv').config({
+  path: path.resolve('.env'),
+});
 
 const mappedRoutes = mapRoutes(routes, 'src/server/api/controllers/');
 const app = express();
 
 app.use(cors());
-app.use(express.json()); // exclude bodyParser
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
 app.use('/', mappedRoutes);
@@ -23,12 +27,19 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(bodyParser);
-// app.use(bodyParser.urlencoded({ extended: true, limit: '1550mb' }));
-// app.use(bodyParser.json({ limit: '1550mb' }));
+if (process.env.NODE_ENV === 'development') {
+  const server = app.listen(process.env.PORT_LOCAL_SERVER);
+  server.setTimeout(5100);
+} else {
+  const options = {
+    key: fs.readFileSync(path.resolve('cert/server.key')),
+    cert: fs.readFileSync(path.resolve('cert/server.crt')),
+  };
+  const server = https.createServer(options, app);
+  server.listen(process.env.PORT_SERVER);
+}
 
-const server = app.listen(process.env.PORT || process.env.PORT_LOCAL_SERVER, () => console.log(`success: listen port ${process.env.PORT || process.env.PORT_LOCAL_SERVER}`));
-server.setTimeout(5100);
+console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.PORT_LOCAL_SERVER : process.env.PORT_SERVER}`);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
