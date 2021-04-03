@@ -5,6 +5,7 @@ const jwt = require('../services/jwt');
 
 const error = {
   name: '',
+  key: '',
   code: 0,
   text: '',
 };
@@ -23,9 +24,15 @@ const UserController = () => {
         const token = jwt.generateToken(user);
         delete user.password;
         res.json({ ...user, token });
+      } else {
+        error.name = 'User not found';
+        error.key = 'userNotFound';
+        res.status(201);
+        res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
+      error.key = 'queryError';
       error.text = JSON.stringify(err);
       res.status(201);
       res.json({ error });

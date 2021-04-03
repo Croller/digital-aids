@@ -26,9 +26,9 @@ const initState = {
 export default function (state = initState, action) {
   switch (action.type) {
     case Constants.USER_SET:
-      return { ...state, info: action.payload };
+      return { ...state, info: action.payload, error: null };
     case Constants.USER_ERROR_SET:
-      return { ...state, error: action.payload };
+      return { ...state, error: action.payload, info: initState.info };
     case Constants.USER_LOADING_SET:
       return { ...state, loading: action.payload };
     default:

@@ -5,5 +5,11 @@
   },
   "pageError": {
     "text": "Opps! It seems that \n somithing was wrong. \n But we are here to help you! \n Please, just press \n the botton and try again."
+  },
+
+  "errorCode": {
+    "queryError": "Server error, DataBase query error",
+    "userNotFound": "User not found"
+
   }
 }

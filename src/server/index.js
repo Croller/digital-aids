@@ -32,8 +32,8 @@ if (process.env.NODE_ENV === 'development') {
   server.setTimeout(5100);
 } else {
   const options = {
-    key: fs.readFileSync(path.resolve('cert/server.key')),
-    cert: fs.readFileSync(path.resolve('cert/server.crt')),
+    key: fs.readFileSync(path.resolve('src/server/cert/server.key')),
+    cert: fs.readFileSync(path.resolve('src/server/cert/server.crt')),
   };
   const server = https.createServer(options, app);
   server.listen(process.env.PORT_SERVER);

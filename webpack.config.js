@@ -9,11 +9,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 const outputDirectory = 'dist';
 const PLATFORM = process.env.NODE_ENV;
 
+let optimization = {};
 let entry;
 let plugins = [
   new Dotenv({ path: './.env' }),
@@ -48,21 +48,13 @@ if (PLATFORM === 'production') {
     new MiniCssExtractPlugin({ filename: 'css/[name].[hash].css' }),
     new CleanWebpackPlugin(),
   );
+  optimization = {
+    minimize: true,
+    minimizer: [new UglifyJsPlugin({
+      include: /\.js$/,
+    })],
+  };
 }
-// if (process.env.npm_config_with_report) { // npm run build --watch-report
-//   plugins = plugins.concat(
-//     new BrowserSyncPlugin(
-//       {
-//         host: 'localhost',
-//         port: 3000,
-//         proxy: 'http://localhost:8080/',
-//       },
-//       {
-//         reload: false,
-//       },
-//     ),
-//   );
-// }
 
 if (PLATFORM === 'development') {
   entry = [
@@ -85,11 +77,8 @@ module.exports = {
     chunkFilename: 'js/[name].[chunkhash].js',
   },
   optimization: {
+    ...optimization,
     chunkIds: 'named',
-    // minimize: true,
-    // minimizer: [new UglifyJsPlugin({
-    //   include: /\.js$/,
-    // })],
     splitChunks: {
       cacheGroups: {
         vendor: {
@@ -178,6 +167,11 @@ module.exports = {
       '/api': `http://0.0.0.0:${process.env.PORT_LOCAL_SERVER}`,
       secure: false,
       changeOrigin: false,
+      // '/api': {
+      //   target: `https://${process.env.HOST}:${process.env.PORT_SERVER}`,
+      //   secure: false,
+      //   changeOrigin: true,
+      // },
     },
   },
   plugins,
