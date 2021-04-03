@@ -1,6 +1,0 @@
-[
-    { "route": "auth" },    
-    { "route": "restaurants" },
-    { "route": "tags" },
-    { "route": "translations" }
-]

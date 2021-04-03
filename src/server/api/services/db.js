@@ -1,16 +1,22 @@
-require('dotenv').config();
 const { Client } = require('pg');
 
-const CONFIG = {
+let CONFIG = {
   user: process.env.HOST_DB_USER,
   password: process.env.HOST_DB_PASSWORD,
   host: process.env.HOST,
   port: Number(process.env.HOST_DB_PORT),
   database: process.env.HOST_DB_DATABASE,
-  // ssl: {
-  //   rejectUnauthorized: false,
-  // },
 };
+
+if (process.env.NODE_ENV === 'production') {
+  CONFIG = {
+    user: process.env.LOCAL_DB_USER,
+    password: process.env.LOCAL_DB_PASSWORD,
+    host: process.env.LOCAL_HOST,
+    port: Number(process.env.LOCAL_DB_PORT),
+    database: process.env.LOCAL_DB_DATABASE,
+  };
+}
 
 const db = new Client(CONFIG);
 db.connect()

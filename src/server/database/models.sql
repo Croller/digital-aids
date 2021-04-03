@@ -1,25 +1,58 @@
 
 -- CREATE SCHEMA "apr-postgres";
-ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
+-- ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
 
-CREATE TABLE data_users (
-  id serial primary key,
-  login varchar,
-  password varchar,
-  surname varchar,
-  name varchar,
-  middlename varchar,
-  birthdate timestamp with time zone,
-  phone bigint array,
-  email varchar array,
-  roles int array,
-  -- restaurant KEY ARRAY,
-  enter_at timestamp with time zone NOT NULL DEFAULT NOW() 
-);
+-- CREATE TABLE data_users (
+--   id serial primary key,
+--   login varchar, -- REQUIRED
+--   password varchar, -- REQUIRED
+--   surname varchar DEFAULT null,
+--   name varchar, -- REQUIRED
+--   middlename varchar DEFAULT null,
+--   birthdate timestamp with time zone DEFAULT null,
+--   phone bigint array DEFAULT null,
+--   email varchar array DEFAULT null,
+--   roles int array DEFAULT null,
+--   restaurant int ARRAY DEFAULT null,
+--   enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
+--   is_deleted boolean default false
+-- );
 
+-- CREATE TABLE data_restaurant (
+--   id serial primary key,
+--   name VARCHAR, -- REQUIRED
+--   address VARCHAR DEFAULT null,
+--   email VARCHAR DEFAULT null,
+--   opinion VARCHAR DEFAULT null,
+--   phone INT ARRAY DEFAULT null,
+--   currency INT DEFAULT null, -- DICTIONARY
+--   cuisine VARCHAR ARRAY DEFAULT null,
+--   contact jsonb DEFAULT null,
+--   avg_price FLOAT DEFAULT 0,
+--   lng_main INT DEFAULT 0, -- DICTIONARY
+--   lng_support INT ARRAY DEFAULT '{41}', -- DICTIONARY
+--   img_logo VARCHAR DEFAULT null,
+--   img_photo VARCHAR ARRAY DEFAULT null,
+--   social jsonb DEFAULT '{"fork": null, "tripadviser": null, "facebook": null, "instagram": null}',
+--   work_time jsonb DEFAULT '{"mon": null, "tue": null, "wed": null, "thu": null, "fri": null, "sat": null, "sun": null}',
+--   is_archived boolean default false,
+--   is_deleted boolean default false
+-- );
 
+-- CREATE TABLE dictionary_currency (
+--   id serial primary key,
+--   name VARCHAR DEFAULT null,
+--   fullname VARCHAR DEFAULT null,
+--   description VARCHAR DEFAULT null,
+--   symbol VARCHAR DEFAULT null
+-- );
 
-
+-- CREATE TABLE dictionary_language (
+--   id serial primary key,
+--   name VARCHAR DEFAULT null,
+--   fullname VARCHAR DEFAULT null,
+--   description VARCHAR DEFAULT null
+-- );
 
 
 
@@ -82,7 +115,7 @@ CREATE TABLE data_users (
 --   district int,
 --   kurt int,
 --   geom_string varchar,
---   is_deleted boolean default false
+  -- is_deleted boolean default false
 --   type_zone number[],
 -- );
 

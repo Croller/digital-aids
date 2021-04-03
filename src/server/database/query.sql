@@ -14,9 +14,15 @@
 
 
 
-INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, roles) VALUES ('rootAdmin', 'dcfoodfans2021', 'Admin', 'DC', 'root', '2020-10-28T10:01:11.258', '{333, 333}', '{"2323", "2332"}', '{"root"}');
 SELECT * FROM data_users;
+SELECT * FROM data_restaurant;
+SELECT * FROM dictionary_currency;
+SELECT * FROM dictionary_language;
 
+-- DROP TABLE data_users;
+-- DROP TABLE data_restaurant;
+-- DROP TABLE dictionary_currency;
+-- DROP TABLE dictionary_language;
 
 
 -- INSERT INTO data_users (login, password, role, enter_at) VALUES ('view', 'view', '2', '2020-10-28T10:01:11.258')
