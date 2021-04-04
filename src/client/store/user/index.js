@@ -26,11 +26,11 @@ const initState = {
 export default function (state = initState, action) {
   switch (action.type) {
     case Constants.USER_SET:
-      return { ...state, info: action.payload, error: null };
+      return { ...state, info: action.payload || initState.info };
     case Constants.USER_ERROR_SET:
-      return { ...state, error: action.payload, info: initState.info };
+      return { ...state, error: action.payload, loading: false };
     case Constants.USER_LOADING_SET:
-      return { ...state, loading: action.payload };
+      return { ...state, loading: action.payload, error: null };
     default:
       return state;
   }
@@ -39,6 +39,13 @@ export default function (state = initState, action) {
 export function login(payload) {
   return {
     type: Constants.USER_LOGIN,
+    payload,
+  };
+}
+
+export function error(payload) {
+  return {
+    type: Constants.USER_ERROR_SET,
     payload,
   };
 }

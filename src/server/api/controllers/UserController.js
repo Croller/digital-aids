@@ -4,9 +4,8 @@ const db = require('../services/db');
 const jwt = require('../services/jwt');
 
 const error = {
-  name: '',
-  key: '',
   code: 0,
+  name: '',
   text: '',
 };
 
@@ -26,13 +25,13 @@ const UserController = () => {
         res.json({ ...user, token });
       } else {
         error.name = 'User not found';
-        error.key = 'userNotFound';
+        error.code = 'userNotFound';
         res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
-      error.key = 'queryError';
+      error.code = 'queryError';
       error.text = JSON.stringify(err);
       res.status(201);
       res.json({ error });

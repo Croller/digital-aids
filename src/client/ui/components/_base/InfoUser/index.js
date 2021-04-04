@@ -23,11 +23,9 @@ export const InfoUser = () => {
   };
 
   if (!local) {
-    console.log('storage', storage);
     storage.browser = browser;
     setLocalStorage(key, storage);
   } else {
     translate.changeLanguage(local.user.lng);
-    console.log('local', local);
   }
 };

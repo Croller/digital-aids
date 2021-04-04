@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   Wrapper,
   Background,
@@ -7,7 +7,7 @@ import {
   BounceSecond,
 } from './styled';
 
-export const Loader = ({ className = '', height = null, color = null }) => (
+export const Loader = memo(({ className = '', height = null, color = null }) => (
   <Wrapper className={className} height={height}>
     <Background />
     <Container>
@@ -15,4 +15,4 @@ export const Loader = ({ className = '', height = null, color = null }) => (
       <BounceFirst color={color} />
     </Container>
   </Wrapper>
-);
+));

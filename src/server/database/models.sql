@@ -29,8 +29,7 @@ CREATE TABLE data_restaurant (
   cuisine VARCHAR ARRAY DEFAULT null,
   contact jsonb DEFAULT null,
   avg_price FLOAT DEFAULT 0,
-  lng_main INT DEFAULT 0, -- DICTIONARY
-  lng_support INT ARRAY DEFAULT '{41}', -- DICTIONARY
+  language INT ARRAY DEFAULT '{null, 41}', -- DICTIONARY
   img_logo VARCHAR DEFAULT null,
   img_photo VARCHAR ARRAY DEFAULT null,
   social jsonb DEFAULT '{"fork": null, "tripadviser": null, "facebook": null, "instagram": null}',

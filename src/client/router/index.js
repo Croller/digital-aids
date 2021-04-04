@@ -2,7 +2,6 @@ import React, {
   Suspense,
   lazy,
   useCallback,
-  useEffect,
 } from 'react';
 import { Helmet } from 'react-helmet';
 import { useSelector } from 'react-redux';

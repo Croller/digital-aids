@@ -2,10 +2,10 @@ import { get, post } from 'client/providers/common';
 
 export const signIn = async ({ login, password }) => {
   const results = await post('user/signin', { login, password });
-  if ([200, 201].includes(results.status) && results.data) {
+  if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 
-  return null;
+  return results;
 };
 
 export const auth = async ({ token }) => {
@@ -13,10 +13,10 @@ export const auth = async ({ token }) => {
     Authorization: `Bearer ${token}`,
   };
   const results = await get('user/auth', null, options);
-  if ([200, 201].includes(results.status) && results.data) {
+  if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
-  } 
-  return null;
+  }
+  return results;
 };
 
 // export const getTableByNames = (arr) => {

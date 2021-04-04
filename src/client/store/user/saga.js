@@ -3,22 +3,20 @@ import * as Constants from 'client/store/user/constants';
 import * as authProvider from 'client/providers/auth';
 
 function* login({ payload }) {
-  console.log('payload', payload);
   yield select((store) => store.user);
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  yield put({ type: Constants.USER_SET, payload: null });
   try {
     const data = yield authProvider.signIn(payload);
-    console.log('data', data);
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
       yield put({ type: Constants.USER_SET, payload: data });
     }
   } catch (err) {
-    console.log(err);
+    console.log('Error saga login', err);
     throw err;
   }
-
   yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
@@ -28,6 +26,10 @@ function* auth() {
 
 function* logout() {
   yield select((store) => store.user);
+}
+
+function* error({ payload }) {
+  yield put({ type: Constants.USER_ERROR_SET, payload });
 }
 
 export function* watchLogin() {
@@ -40,4 +42,8 @@ export function* watchAuth() {
 
 export function* watchLogout() {
   yield takeLatest(Constants.USER_LOGOUT, logout);
+}
+
+export function* watchError() {
+  yield takeLatest(Constants.USER_LOGOUT, error);
 }

@@ -7,6 +7,7 @@ import { ModalProvider } from 'react-modal-hook';
 import configureStore from './store';
 import App from './App';
 import i18n from './i18n';
+import 'antd/dist/antd.css';
 
 const store = configureStore();
 

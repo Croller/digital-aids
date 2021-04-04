@@ -9,7 +9,8 @@
 
   "errorCode": {
     "queryError": "Server error, DataBase query error",
-    "userNotFound": "User not found"
+    "userNotFound": "User not found",
 
+    "504": "504 Gateway Timeout"
   }
 }

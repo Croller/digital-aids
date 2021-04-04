@@ -1,6 +1,6 @@
 const { Client } = require('pg');
 
-let CONFIG = {
+const CONFIG = {
   user: process.env.HOST_DB_USER,
   password: process.env.HOST_DB_PASSWORD,
   host: process.env.HOST,
@@ -9,13 +9,11 @@ let CONFIG = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-  CONFIG = {
-    user: process.env.LOCAL_DB_USER,
-    password: process.env.LOCAL_DB_PASSWORD,
-    host: process.env.LOCAL_HOST,
-    port: Number(process.env.LOCAL_DB_PORT),
-    database: process.env.LOCAL_DB_DATABASE,
-  };
+  CONFIG.user = process.env.LOCAL_DB_USER;
+  CONFIG.password = process.env.LOCAL_DB_PASSWORD;
+  CONFIG.host = process.env.LOCAL_DB_HOST;
+  CONFIG.port = Number(process.env.LOCAL_DB_PORT);
+  CONFIG.database = process.env.LOCAL_DB_DATABASE;
 }
 
 const db = new Client(CONFIG);
@@ -25,11 +23,12 @@ db.connect()
 
 module.exports = {
   query: str => new Promise((resolve, reject) => {
+    console.log('DataBase query: ', str);
     db.query(str)
       .then((res) => resolve(res))
       .catch((err) => {
-        const obj = { ...err, query: str };
-        reject(obj);
+        console.log('DataBase query error: ', str);
+        reject(new Error({ ...err }));
       });
   }),
   end: () => db.end(),

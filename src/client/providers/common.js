@@ -1,35 +1,61 @@
 import axios from 'axios';
 
-let URL = '';
-if (process.env.NODE_ENV === 'production') {
-  URL = `https://${process.env.HOST}:${process.env.PORT_SERVER}`;
+let URL = `https://${process.env.HOST}:${process.env.PORT_SERVER}`;
+if (process.env.NODE_ENV === 'development') {
+  URL = '';
 }
 
+const headers = {
+  accept: 'application/json',
+  'content-type': 'application/json',
+};
+
+const error = {
+  code: 0,
+  name: '',
+  text: '',
+};
+
+const setError = (err, data) => {
+  const { status, statusText } = err.request;
+  error.name = statusText;
+  error.code = status;
+  error.text = err.message;
+
+  console.log('Request error:', {
+    error,
+    data,
+  });
+  return { error };
+};
+
 export const get = async (path, params = null, options = {}) => {
-  const headers = {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    ...options,
-  };
+  let query = '';
+  if (params) {
+    query = `?${new URLSearchParams(params).toString()}`;
+  }
+
   try {
-    const results = await axios.get(`${URL}/api/${path}${(params && `?${params}`) || ''}`, { headers });
-    return results;
+    return await axios.get(`${URL}/api/${path}${query}`, { headers: { ...headers, ...options } });
   } catch (err) {
-    return err;
+    return setError(err, { 
+      url: `${URL}/api/${path}${query}`,
+      params,
+      options,
+      headers,
+    });
   }
 };
 
 export const post = async (path, params = {}, options = {}) => {
-  const headers = {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    ...options,
-  };
-
   try {
-    const results = axios.post(`${URL}/api/${path}`, { data: params }, { headers });
-    return results;
+    return await axios.post(`${URL}/api/${path}`, { data: params }, { headers: { ...headers, ...options } });
   } catch (err) {
-    return err;
+    return setError(err, { 
+      url: `${URL}/api/${path}`,
+      params,
+      options,
+      headers,
+    });
   }
 };

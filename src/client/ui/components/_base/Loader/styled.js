@@ -59,7 +59,7 @@ export const BounceFirst = styled.div`
   height: 100%;
   border-radius: 50%;
   border: 5px solid ${PALETTE.white};
-  background-color: ${p => (p.color || `${PALETTE.red2}`)};
+  background-color: ${p => (p.color || `${PALETTE.green1}`)};
   opacity: 0.8;
   position: absolute;
   top: 0;
@@ -78,7 +78,7 @@ export const BounceSecond = styled.div`
   height: 100%;
   border-radius: 50%;
   border: 5px solid ${PALETTE.white};
-  background-color: ${p => (p.color || `${PALETTE.red2}`)};
+  background-color: ${p => (p.color || `${PALETTE.green1}`)};
   opacity: 0.8;
   position: absolute;
   top: 0;
