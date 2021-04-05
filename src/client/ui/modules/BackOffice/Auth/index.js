@@ -11,7 +11,10 @@ const Auth = () => {
     rootDispatch(login({ login: 'rootAdmin', password: 'dcfoodfans2021' }));
   }, []);
 
-  return (<>auth</>);
+  return (
+    <>
+    </>
+  );
 };
 
 export default Auth;

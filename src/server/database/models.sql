@@ -4,38 +4,51 @@
 
 CREATE TABLE data_users (
   id serial primary key,
-  login varchar, -- REQUIRED
-  password varchar, -- REQUIRED
+  login varchar DEFAULT null,
+  password varchar DEFAULT null,
   surname varchar DEFAULT null,
-  name varchar, -- REQUIRED
+  name varchar DEFAULT null,
   middlename varchar DEFAULT null,
   birthdate timestamp with time zone DEFAULT null,
   phone bigint array DEFAULT null,
   email varchar array DEFAULT null,
-  roles int array DEFAULT null,
-  restaurant int ARRAY DEFAULT null,
+  roles int array DEFAULT null, -- DICTIONARY data_roles
+  restaurants int ARRAY DEFAULT null, -- DICTIONARY data_restaurant
   enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
-  is_deleted boolean default false
+  meta jsonb DEFAULT '{"browser": null, "ip": null, "geo": null}',
+  is_archived boolean DEFAULT FALSE,
+  is_deleted boolean DEFAULT FALSE
 );
 
-CREATE TABLE data_restaurant (
+CREATE TABLE data_roles (
   id serial primary key,
-  name VARCHAR, -- REQUIRED
+  name VARCHAR DEFAULT null,
+  description VARCHAR DEFAULT null,
+  create_restaurant BOOLEAN DEFAULT FALSE,
+  update_restaurant BOOLEAN DEFAULT FALSE,
+  delete_restaurant BOOLEAN DEFAULT FALSE,
+  create_user BOOLEAN DEFAULT FALSE,
+  update_user BOOLEAN DEFAULT FALSE,
+  delete_user BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE data_restaurants (
+  id serial primary key,
+  name VARCHAR DEFAULT null, -- REQUIRED
   address VARCHAR DEFAULT null,
-  email VARCHAR DEFAULT null,
+  email VARCHAR ARRAY DEFAULT null,
   opinion VARCHAR DEFAULT null,
-  phone INT ARRAY DEFAULT null,
-  currency INT DEFAULT null, -- DICTIONARY
+  phone bigint ARRAY DEFAULT null,
+  currency INT DEFAULT null, -- DICTIONARY dictionary_currency
   cuisine VARCHAR ARRAY DEFAULT null,
-  contact jsonb DEFAULT null,
+  employees INT ARRAY DEFAULT null, -- DICTIONARY data_users
   avg_price FLOAT DEFAULT 0,
-  language INT ARRAY DEFAULT '{null, 41}', -- DICTIONARY
-  img_logo VARCHAR DEFAULT null,
-  img_photo VARCHAR ARRAY DEFAULT null,
-  social jsonb DEFAULT '{"fork": null, "tripadviser": null, "facebook": null, "instagram": null}',
-  work_time jsonb DEFAULT '{"mon": null, "tue": null, "wed": null, "thu": null, "fri": null, "sat": null, "sun": null}',
-  is_archived boolean default false,
-  is_deleted boolean default false
+  language INT ARRAY DEFAULT '{41, 41}', -- DICTIONARY dictionary_language
+  images VARCHAR ARRAY DEFAULT null,
+  socials INT DEFAULT NULL, -- DICTIONARY data_socials
+  work_time INT DEFAULT NULL, -- DICTIONARY data_work_time
+  is_archived boolean DEFAULT FALSE,
+  is_deleted boolean DEFAULT FALSE
 );
 
 CREATE TABLE dictionary_currency (
@@ -53,6 +66,24 @@ CREATE TABLE dictionary_language (
   description VARCHAR DEFAULT null
 );
 
+CREATE TABLE data_socials (
+  id serial primary key,
+  fork VARCHAR DEFAULT null,
+  tripadviser VARCHAR DEFAULT null,
+  facebook VARCHAR DEFAULT null,
+  instagram VARCHAR DEFAULT null
+);
+
+CREATE TABLE data_work_time (
+  id serial primary key,
+  mon timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+  tue timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+  wed timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+  thu timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+  fri timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+  sat timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+  sun timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000"}'
+);
 
 
 
@@ -114,7 +145,7 @@ CREATE TABLE dictionary_language (
 --   district int,
 --   kurt int,
 --   geom_string varchar,
-  -- is_deleted boolean default false
+  -- is_deleted boolean DEFAULT FALSE
 --   type_zone number[],
 -- );
 
@@ -144,8 +175,8 @@ CREATE TABLE dictionary_language (
 --   project_start timestamp with time zone,
 --   project_end timestamp with time zone,
 --   change_at timestamp with time zone NOT NULL DEFAULT NOW(),
---   is_finish boolean default false,
---   is_deleted boolean default false
+--   is_finish boolean DEFAULT FALSE,
+--   is_deleted boolean DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_data_monitoring (
@@ -162,7 +193,7 @@ CREATE TABLE dictionary_language (
 --   id serial primary key,
 --   name varchar,
 --   fullname varchar,
---   is_deleted boolean default false
+--   is_deleted boolean DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_district (
@@ -179,7 +210,7 @@ CREATE TABLE dictionary_language (
 --   id serial primary key,
 --   name varchar,
 --   fullname varchar
---   is_deleted boolean default false
+--   is_deleted boolean DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_monitoring_part_data_monitoring (
@@ -198,7 +229,7 @@ CREATE TABLE dictionary_language (
 --   fullname varchar,
 --   order_at int,
 --   monitoring_part int,
---   is_deleted boolean default false
+--   is_deleted boolean DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_monitoring_group_data_monitoring (
@@ -223,7 +254,7 @@ CREATE TABLE dictionary_language (
 --   id serial primary key,
 --   name varchar,
 --   description varchar,
---   is_deleted boolean default false
+--   is_deleted boolean DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_type_zone_krt (
