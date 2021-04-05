@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { ScrollHideBlock } from 'client/ui/components/_base/ScrollHideBlock';
 import { IconTextBtn } from 'client/ui/components/_block/IconTextBtn';
 import {

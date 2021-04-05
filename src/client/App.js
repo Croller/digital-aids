@@ -6,13 +6,12 @@ import { ErrorMessage } from 'client/ui/components/_base/ErrorMessage';
 
 import { Routers } from './router';
 
-InfoUser();
-
 const App = () => (
   <>
     <GlobalStyle />
     <Routers />
     <ErrorMessage />
+    <InfoUser />
   </>
 );
 

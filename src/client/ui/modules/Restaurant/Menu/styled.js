@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { THEME, PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -32,14 +32,14 @@ export const ButtonStyled = styled(Button)`
   &:not(:last-child) {
     margin-bottom: 12px;
   }
-  
+
   &:last-child {
     background-color: ${PALETTE.green1};
     color: ${PALETTE.white};
     text-transform: uppercase;
   }
 
-  
+
   &:nth-child(4) {
     background-color: ${PALETTE.grey2};
   }

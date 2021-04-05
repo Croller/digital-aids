@@ -17,19 +17,20 @@
 
 
 
--- DROP TABLE data_users;
--- DROP TABLE data_restaurants;
--- DROP TABLE data_socials;
--- DROP TABLE data_work_time;
--- DROP TABLE dictionary_currency;
--- DROP TABLE dictionary_language;
+DROP TABLE data_users;
+DROP TABLE data_roles;
+DROP TABLE data_restaurants;
+DROP TABLE data_socials;
+DROP TABLE data_work_time;
+DROP TABLE dictionary_currency;
+DROP TABLE dictionary_language;
 
 
-TRUNCATE data_roles RESTART IDENTITY CASCADE;
-TRUNCATE data_users RESTART IDENTITY CASCADE;
-TRUNCATE data_restaurants RESTART IDENTITY CASCADE;
-TRUNCATE data_socials RESTART IDENTITY CASCADE;
-TRUNCATE data_work_time RESTART IDENTITY CASCADE;
+-- TRUNCATE data_roles RESTART IDENTITY CASCADE;
+-- TRUNCATE data_users RESTART IDENTITY CASCADE;
+-- TRUNCATE data_restaurants RESTART IDENTITY CASCADE;
+-- TRUNCATE data_socials RESTART IDENTITY CASCADE;
+-- TRUNCATE data_work_time RESTART IDENTITY CASCADE;
 
 -- SELECT * FROM data_users;
 -- SELECT * FROM data_restaurants;

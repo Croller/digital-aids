@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Input } from 'client/ui/components/_ui/Input';
 import { TextArea } from 'client/ui/components/_ui/TextArea';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { PALETTE, FONTS, BREAKPOINTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`

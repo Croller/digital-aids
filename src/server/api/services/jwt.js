@@ -15,15 +15,17 @@ module.exports = {
   },
 
   getToken: (req) => {
-    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-      return jwt.verify(req.headers.authorization.split(' ')[1], signature);
+    const { headers: { authorization } } = req;
+    if (authorization && authorization.split(' ')[0] === 'Bearer') {
+      return jwt.verify(authorization.split(' ')[1], signature);
     }
     return null;
   },
 
   verifyToken: async (req) => {
-    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-      const data = jwt.verify(req.headers.authorization.split(' ')[1], signature);
+    const { headers: { authorization } } = req;
+    if (authorization && authorization.split(' ')[0] === 'Bearer') {
+      const data = jwt.verify(authorization.split(' ')[1], signature);
       if (data) {
         const { login, password } = data;
         const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);

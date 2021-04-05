@@ -12,6 +12,7 @@ CREATE TABLE data_users (
   birthdate timestamp with time zone DEFAULT null,
   phone bigint array DEFAULT null,
   email varchar array DEFAULT null,
+  language varchar DEFAULT 'en', -- DICTIONARY dictionary_language
   roles int array DEFAULT null, -- DICTIONARY data_roles
   restaurants int ARRAY DEFAULT null, -- DICTIONARY data_restaurant
   enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
@@ -43,7 +44,7 @@ CREATE TABLE data_restaurants (
   cuisine VARCHAR ARRAY DEFAULT null,
   employees INT ARRAY DEFAULT null, -- DICTIONARY data_users
   avg_price FLOAT DEFAULT 0,
-  language INT ARRAY DEFAULT '{41, 41}', -- DICTIONARY dictionary_language
+  languages VARCHAR ARRAY DEFAULT '{"en", "en"}', -- DICTIONARY dictionary_language
   images VARCHAR ARRAY DEFAULT null,
   socials INT DEFAULT NULL, -- DICTIONARY data_socials
   work_time INT DEFAULT NULL, -- DICTIONARY data_work_time
@@ -60,7 +61,7 @@ CREATE TABLE dictionary_currency (
 );
 
 CREATE TABLE dictionary_language (
-  id serial primary key,
+  id VARCHAR DEFAULT null,
   name VARCHAR DEFAULT null,
   fullname VARCHAR DEFAULT null,
   description VARCHAR DEFAULT null

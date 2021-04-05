@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { CheckBox } from 'client/ui/components/_ui/CheckBox';
 import { DishImage } from 'client/ui/components/_block/DishImage';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';

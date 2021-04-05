@@ -1,7 +1,8 @@
 import { get, post } from 'client/providers/common';
+import { detect } from 'detect-browser';
 
 export const signIn = async ({ login, password }) => {
-  const results = await post('user/signin', { login, password });
+  const results = await post('user/signin', { login, password, browser: { ...detect() } });
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 

@@ -4,7 +4,9 @@
   },
   "sidebar": {
     "profile": "Profile",
-    "restaurantes": "Restaurantes",
+    "restourants": "Restaurantes",
     "managers": "Managers"
   }
+
+
 }

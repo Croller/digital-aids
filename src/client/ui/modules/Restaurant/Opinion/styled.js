@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { TextArea } from 'client/ui/components/_ui/TextArea';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 

@@ -14,11 +14,7 @@ import {
 
 const MENU_LIST = [
   {
-    key: 'profile',
-    icon: <UserCircleSvg />,
-  },
-  {
-    key: 'restaurantes',
+    key: 'restourants',
     icon: <RestaurantSvg />,
   },
   {
@@ -28,6 +24,7 @@ const MENU_LIST = [
 ];
 
 export const SideBar = ({
+
   onRoute,
 }) => {
   const history = useHistory();

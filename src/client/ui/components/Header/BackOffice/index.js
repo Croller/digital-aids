@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
-  CloseSvg,
   LogoSvg,
-  LoupeSvg,
+  // LoupeSvg,
+  // CloseSvg,
   UserCircleSvg,
   HamburgerSvg,
 } from 'client/assets/images';
@@ -12,7 +12,7 @@ import {
   HeaderWrapper,
   LogoWrapper, LogoText,
   Control,
-  Loupe, Search,
+  // Loupe, Search,
   Hamburger,
   User,
 } from './styled';
@@ -24,7 +24,7 @@ const HeaderComponent = ({
 }) => {
   const history = useHistory();
   const [t] = useTranslation();
-  const [showSearch, setShowSearch] = useState(false);
+  // const [showSearch, setShowSearch] = useState(false);
 
   const handleRoute = (path = '/', external = false) => {
     if (external) {
@@ -57,18 +57,22 @@ const HeaderComponent = ({
         </LogoText>
       </LogoWrapper>
       <Control>
-        <Loupe>
-          <LoupeSvg onClick={() => setShowSearch(true)} />
-          {showSearch && (
-            <Search
-              prefix={showSearch ? <LoupeSvg /> : false}
-              suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
-            />
-          )}
-        </Loupe>
-        <User>
-          <UserCircleSvg />
-        </User>
+        {token && (
+          <>
+            {/* <Loupe>
+              <LoupeSvg onClick={() => setShowSearch(true)} />
+              {showSearch && (
+                <Search
+                  prefix={showSearch ? <LoupeSvg /> : false}
+                  suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
+                />
+              )}
+            </Loupe> */}
+            <User>
+              <UserCircleSvg />
+            </User>
+          </>
+        )}
       </Control>
     </HeaderWrapper>
   );

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`

@@ -1,23 +1,27 @@
 import * as Constants from './constants';
 
 const initState = {
-  lng: 'en',
-  
-  orders: null, // orders users
-
   info: {
-    birthdate: null,
-    email: null,
-    enter_at: null,
     id: null,
     login: null,
-    middlename: null,
-    name: null,
-    phone: null,
-    roles: null,
+    password: null,
     surname: null,
+    name: null,
+    middlename: null,
+    birthdate: null,
+    phone: null,
+    email: null,
+    language: null,
+    roles: null,
+    restaurants: null,
     token: null,
+    enter_at: null,
+    meta: { browser: null, ip: null, geo: null },
+
+    lng: 'en',
+    cookies: false,
   },
+  orders: null, // orders users
 
   loading: false,
   error: null,
@@ -40,6 +44,20 @@ export function login(payload) {
   return {
     type: Constants.USER_LOGIN,
     payload,
+  };
+}
+
+export function auth(payload) {
+  return {
+    type: Constants.USER_AUTH,
+    payload,
+  };
+}
+
+export function logout() {
+  return {
+    type: Constants.USER_LOGOUT,
+    payload: null,
   };
 }
 

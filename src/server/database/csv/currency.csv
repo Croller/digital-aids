@@ -1,4 +1,7 @@
 name;fullname;description;symbol
+EUR;Euro Member Countries;;€
+USD;United States Dollar;;$
+RUB;Russia Ruble;;₽
 ALL;Albania Lek;;Lek
 AFN;Afghanistan Afghani;;؋
 ARS;Argentina Peso;;$
@@ -31,7 +34,6 @@ DOP;Dominican Republic Peso;;RD$
 XCD;East Caribbean Dollar;;$
 EGP;Egypt Pound;;£
 SVC;El Salvador Colon;;$
-EUR;Euro Member Countries;;€
 FKP;Falkland Islands (Malvinas) Pound;;£
 FJD;Fiji Dollar;;$
 GHS;Ghana Cedi;;¢
@@ -80,7 +82,6 @@ PHP;Philippines Peso;;₱
 PLN;Poland Zloty;;zł
 QAR;Qatar Riyal;;﷼
 RON;Romania Leu;;lei
-RUB;Russia Ruble;;₽
 SHP;Saint Helena Pound;;£
 SAR;Saudi Arabia Riyal;;﷼
 RSD;Serbia Dinar;;Дин.
@@ -101,7 +102,6 @@ TRY;Turkey Lira;;
 TVD;Tuvalu Dollar;;$
 UAH;Ukraine Hryvnia;;₴
 GBP;United Kingdom Pound;;£
-USD;United States Dollar;;$
 UYU;Uruguay Peso;;$U
 UZS;Uzbekistan Som;;лв
 VEF;Venezuela Bolívar;;Bs

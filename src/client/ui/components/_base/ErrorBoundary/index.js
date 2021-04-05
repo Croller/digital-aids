@@ -2,6 +2,7 @@ import React from 'react';
 import { highlightErrorLog } from 'client/utils/errorHandler';
 import { IconTextBtn } from 'client/ui/components/_block/IconTextBtn';
 import {
+  Container,
   IconTextBtnStyled,
   Text,
 } from './styled';
@@ -28,11 +29,14 @@ export class ErrorBoundary extends React.Component {
 
     if (hasError) {
       return IconTextBtn ? (
-        <IconTextBtnStyled
-          onClick={onClick}
-          btn="menu"
-          text={(t('common.pageError.text'))}
-        />
+        <Container>
+          <IconTextBtnStyled
+            onClick={onClick}
+            btn="menu"
+            text={(t('common.pageError.text'))}
+          />
+        </Container>
+        
       ) : (
         <Text>
           Opps! It seems that somithing was wrong.

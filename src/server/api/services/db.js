@@ -27,7 +27,16 @@ module.exports = {
     db.query(str)
       .then((res) => resolve(res))
       .catch((err) => {
-        console.log('DataBase query error: ', str);
+        console.log('DataBase query error: ', err);
+        reject(new Error({ ...err }));
+      });
+  }),
+  queryValues: (str, values) => new Promise((resolve, reject) => {
+    console.log('DataBase query: ', str, values);
+    db.query(str, values)
+      .then((res) => resolve(res))
+      .catch((err) => {
+        console.log('DataBase query error: ', err);
         reject(new Error({ ...err }));
       });
   }),

@@ -5,7 +5,7 @@ import {
   THEME,
   BREAKPOINTS,
 } from 'client/style/constants';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import { Collapse } from 'client/ui/components/_ui/Collapse';
 import {
   BackgroundBlock1Png,

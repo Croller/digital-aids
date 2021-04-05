@@ -12,8 +12,14 @@ export const InputStyled = styled(Input)`
   color: ${PALETTE.black};
   background-color: ${PALETTE.white};
 
+  &:hover {
+    border-color: ${PALETTE.grey3}
+  }
+
   &:focus {
     outline: none;
+    border-color: ${PALETTE.grey6};
+    box-shadow: unset;
   }
 
   ${p => p.suffix && css`
@@ -29,6 +35,8 @@ export const InputStyled = styled(Input)`
 
       &:focus {
         outline: none;
+        border-color: ${PALETTE.grey6};
+        box-shadow: unset;
       }
     }
   `}

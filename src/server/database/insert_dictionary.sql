@@ -109,7 +109,9 @@ INSERT INTO dictionary_currency (name, fullname, symbol) VALUES
   ('YER', 'Yemen Rial', '﷼'),
   ('ZWD', 'Zimbabwe Dollar', 'Z$');
 
-INSERT INTO dictionary_language (name, fullname) VALUES
+INSERT INTO dictionary_language (id, name) VALUES
+  ('en', 'English'),
+  ('ru', 'Russian'),
   ('ab', 'Abkhazian'),
   ('aa', 'Afar'),
   ('af', 'Afrikaans'),
@@ -150,7 +152,6 @@ INSERT INTO dictionary_language (name, fullname) VALUES
   ('dv', 'Divehi, Dhivehi, Maldivian'),
   ('nl', 'Dutch, Flemish'),
   ('dz', 'Dzongkha'),
-  ('en', 'English'),
   ('eo', 'Esperanto'),
   ('et', 'Estonian'),
   ('ee', 'Ewe'),
@@ -243,7 +244,6 @@ INSERT INTO dictionary_language (name, fullname) VALUES
   ('rm', 'Romansh'),
   ('rn', 'Rundi'),
   ('ro', 'Romanian, Moldavian, Moldovan'),
-  ('ru', 'Russian'),
   ('sa', 'Sanskrit'),
   ('sc', 'Sardinian'),
   ('sd', 'Sindhi'),

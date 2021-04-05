@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Input } from 'client/ui/components/_ui/Input';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 import {
   PALETTE,
   BREAKPOINTS,

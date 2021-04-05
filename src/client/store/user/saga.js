@@ -14,22 +14,28 @@ function* login({ payload }) {
       yield put({ type: Constants.USER_SET, payload: data });
     }
   } catch (err) {
-    console.log('Error saga login', err);
     throw err;
   }
   yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
-function* auth() {
-  yield select((store) => store.user);
+function* auth({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    const data = yield authProvider.auth(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      yield put({ type: Constants.USER_SET, payload: data });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
 function* logout() {
-  yield select((store) => store.user);
-}
-
-function* error({ payload }) {
-  yield put({ type: Constants.USER_ERROR_SET, payload });
+  yield put({ type: Constants.USER_SET, payload: null });
 }
 
 export function* watchLogin() {
@@ -44,6 +50,3 @@ export function* watchLogout() {
   yield takeLatest(Constants.USER_LOGOUT, logout);
 }
 
-export function* watchError() {
-  yield takeLatest(Constants.USER_LOGOUT, error);
-}

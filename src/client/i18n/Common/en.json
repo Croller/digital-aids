@@ -1,4 +1,29 @@
 {
+
+  "form" : {
+    "text": "Text",
+    "email": "Email",
+    "login": "Login",
+    "password": "Password",
+
+    "validation": {
+      "login": {
+        "null": "Please input your login!",
+        "error": "Please input login without space!"
+      },
+      "password": {
+        "null": "Please input your password!",
+        "error": "Password is not correct"
+      }
+    }
+  },
+
+  "auth": {
+    "title": "Authorization",
+    "login": "Log in",
+    "signup": "Sign up"
+  },
+
   "page404": {
     "helmet": "404 - Error page",
     "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
@@ -8,8 +33,11 @@
   },
 
   "errorCode": {
-    "queryError": "Server error, DataBase query error",
+    "queryError": "DataBase query error",
+
     "userNotFound": "User not found",
+    "tokenNotValid": "Token not valid",
+    "tokenNotExist": "Token not exist",
 
     "504": "504 Gateway Timeout"
   }

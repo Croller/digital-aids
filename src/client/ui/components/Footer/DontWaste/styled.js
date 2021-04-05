@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PALETTE, FONTS } from 'client/style/constants';
-import { Button } from 'client/ui/components/_ui/Button/Btn';
+import { Button } from 'client/ui/components/_ui/Button';
 
 export const Wrapper = styled.div`
   position: relative;
