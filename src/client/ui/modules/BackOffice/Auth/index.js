@@ -4,6 +4,7 @@ import { login } from 'client/store/user';
 import { useTranslation } from 'react-i18next';
 import { UserCircleSvg } from 'client/assets/images';
 import { rules } from 'client/utils/validatorRules';
+
 import {
   Wrapper, Container,
   LogoWrapper,
@@ -29,8 +30,13 @@ const Auth = memo(() => {
     rootDispatch(login(values));
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+  const onFinishFailed = ({ errorFields = null }) => {
+    if (errorFields) {
+      console.log('Auth from validation:', errorFields.reduce((obj, { name, errors }) => ({
+        ...obj,
+        [name[0]]: errors[0],
+      }), {}));
+    }
   };
 
   return (

@@ -20,5 +20,5 @@ export const ErrorMessage = () => {
     return null;
   };
 
-  return (<Message content={getError()} />);
+  return (<Message type="error" content={getError()} />);
 };

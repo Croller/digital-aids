@@ -59,11 +59,17 @@ export const FormStyled = styled(Form)`
 
     &.ant-form-item-has-success {
       .ant-form-item-children-icon {
-        font-size: 20px;
-        top: 50%;
-        right: 12px;
-        width: 26px;
-        height: 22px;
+        position: absolute;
+        top: 34px;
+        right: 15px;
+        z-index: 1;
+        width: 17px;
+        height: 14px;
+        font-size: 15px;
+      }
+
+      .ant-form-item-explain-success {
+        display: none;
       }
     }
 
