@@ -85,6 +85,11 @@ export const GlobalStyle = createGlobalStyle`
     -moz-appearance: textfield;
   }
 
+  /* styled ant design global */
+  .ant-message-notice-content {
+    cursor: pointer;
+  }
+
   /* import fronts */
 
   @font-face {

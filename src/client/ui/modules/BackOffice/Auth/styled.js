@@ -3,6 +3,7 @@ import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Form } from 'antd';
 import { Button } from 'client/ui/components/_ui/Button';
 import { Input } from 'client/ui/components/_ui/Input';
+import { Link } from 'client/ui/components/_ui/Link';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -49,64 +50,77 @@ export const LogoText = styled.div`
 export const FormStyled = styled(Form)`
   width: 100%;
 
-  .ant-form-item-label {
-    padding: 0 0 18px;
+  .ant-form-item {
+    margin-bottom: 0;
 
-    label {
-      font-size: 16px;
-      font-family: ${FONTS.bold};
-      color: ${PALETTE.black};
-      text-transform: uppercase;
-
-      &.ant-form-item-required {
-        &::before {
-          display: none !important;
-        }
-
-        &::after {
-          display: none;
-          margin-left: 4px;
-          color: ${PALETTE.red2};
-          font-size: 16px;
-          font-family: ${FONTS.bold};
-          line-height: 1;
-          content: '*';
-        }
-      }
+    &:not(:last-child) {
+      margin-bottom: 22px;
     }
-  }
 
-  .ant-form-item-has-success {
-    .ant-form-item-children-icon {
-      font-size: 20px;
-      top: 50%;
-      right: 6px;
-      width: 26px;
-      height: 22px;
-    }
-  }
-
-  .ant-form-item-has-error {
-    .ant-input {
-      border-color: ${PALETTE.red2};
-
-      &:focus {
-        outline: none;
-        box-shadow: unset;
+    &.ant-form-item-has-success {
+      .ant-form-item-children-icon {
+        font-size: 20px;
+        top: 50%;
+        right: 12px;
+        width: 26px;
+        height: 22px;
       }
     }
 
-    .ant-form-item-children-icon {
-      font-size: 20px;
-      top: 50%;
-      right: 6px;
-      width: 26px;
-      height: 22px;
+    &.ant-form-item-has-error {
+      .ant-input {
+        border-color: ${PALETTE.red2};
+
+        &:focus {
+          outline: none;
+          box-shadow: unset;
+        }
+      }
+
+      .ant-form-item-children-icon {
+        position: absolute;
+        top: 34px;
+        right: 15px;
+        z-index: 1;
+        width: 17px;
+        height: 14px;
+        font-size: 15px;
+      }
+
+      .ant-form-item-explain-error {
+        position: absolute;
+        bottom: -23px;
+        right: 0;
+        font-size: 13px;
+        font-family: ${FONTS.medium};
+      }
     }
 
-    .ant-form-item-explain-error {
-      font-size: 16px;
-      font-family: ${FONTS.medium};
+    .ant-form-item-label {
+      padding: 0 0 18px;
+
+      label {
+        font-size: 16px;
+        font-family: ${FONTS.bold};
+        color: ${PALETTE.black};
+        text-transform: uppercase;
+
+        &.ant-form-item-required {
+          &::before {
+            display: none !important;
+          }
+
+          &::after {
+            display: none;
+            margin-left: 4px;
+            color: ${PALETTE.red2};
+            font-size: 16px;
+            font-family: ${FONTS.bold};
+            line-height: 1;
+            content: '*';
+          }
+        }
+      }
     }
   }
 `;
@@ -120,6 +134,7 @@ export const FormWrapper = styled.div`
 `;
 
 export const InputStyled = styled(Input)`
+  height: 62px;
   font-size: 18px;
   font-family: ${FONTS.medium};
   border-radius: ${THEME.borderRadiusForm};
@@ -130,23 +145,27 @@ export const ControlWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  .ant-form-item {
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-bottom: 48px;
+    }
+  }
 `;
 
 export const Login = styled(Button)`
   width: 202px;
   height: 62px;
   background-color: ${PALETTE.green1};
-  margin-bottom: 32px;
   font-family: ${FONTS.semiBold};
   font-size: 18px;
   color: ${PALETTE.white};
   text-transform: uppercase;
 `;
 
-export const Signup = styled(Button)`
-  width: 202px;
-  height: 62px;
-  background-color: transparent;
+export const Signup = styled(Link)`
   font-family: ${FONTS.semiBold};
   font-size: 18px;
   color: ${PALETTE.green1};

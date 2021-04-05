@@ -132,6 +132,10 @@ export const User = styled.div`
   svg {
     width: 30px;
     height: 30px;
+
+    path {
+      fill: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.black}`)};
+    }
   }
 `;
 

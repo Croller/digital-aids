@@ -18,13 +18,12 @@ const MENU_LIST = [
     icon: <RestaurantSvg />,
   },
   {
-    key: 'managers',
+    key: 'users',
     icon: <UserCircleSvg />,
   },
 ];
 
 export const SideBar = ({
-
   onRoute,
 }) => {
   const history = useHistory();

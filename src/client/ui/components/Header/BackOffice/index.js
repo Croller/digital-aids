@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useRouteMatch } from 'react-router-dom';
 import {
   LogoSvg,
   // LoupeSvg,
@@ -18,46 +18,33 @@ import {
 } from './styled';
 
 const HeaderComponent = ({
+  id = null,
   token = null,
   onShowSideBar,
+  onRoute = () => {},
   className,
 }) => {
-  const history = useHistory();
   const [t] = useTranslation();
+  const match = useRouteMatch();
   // const [showSearch, setShowSearch] = useState(false);
-
-  const handleRoute = (path = '/', external = false) => {
-    if (external) {
-      if (path.indexOf('tel') > -1) {
-        document.location.href = path;
-        return null;
-      }
-      window.open(path, '_blank').focus();
-    }
-    if (history.action !== 'POP' && path === 'back') {
-      history.goBack();
-      return null;
-    }
-    history.push(path === 'back' ? '' : path);
-  };
 
   return (
     <HeaderWrapper className={className}>
       <Control>
         {token && (
-          <Hamburger onClick={() => onShowSideBar()}>
+          <Hamburger onClick={onShowSideBar}>
             <HamburgerSvg />
           </Hamburger>
         )}
       </Control>
-      <LogoWrapper onClick={() => handleRoute()}>
+      <LogoWrapper onClick={onRoute}>
         <LogoSvg />
         <LogoText>
           {t('backOffice.header.logo')}
         </LogoText>
       </LogoWrapper>
       <Control>
-        {token && (
+        {id && token && (
           <>
             {/* <Loupe>
               <LoupeSvg onClick={() => setShowSearch(true)} />
@@ -68,7 +55,10 @@ const HeaderComponent = ({
                 />
               )}
             </Loupe> */}
-            <User>
+            <User
+              active={match.params[0] === `users/${id}`}
+              onClick={() => match.params[0] !== `users/${id}` && onRoute(`users/${id}`)}
+            >
               <UserCircleSvg />
             </User>
           </>
@@ -78,4 +68,4 @@ const HeaderComponent = ({
   );
 };
 
-export const Header = React.memo(withRouter(HeaderComponent));
+export const Header = React.memo(HeaderComponent);

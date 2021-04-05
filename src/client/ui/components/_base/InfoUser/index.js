@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { auth, logout } from 'client/store/user';
 import translate from 'client/i18n';
 import moment from 'moment';
@@ -14,6 +15,7 @@ export const InfoUser = () => {
   const lng = navigator.language || navigator.userLanguage;
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
+  const { pathname } = useLocation();
   const [storage, setStorage] = useState({
     user: {
       lng: lng || 'en',
@@ -40,7 +42,7 @@ export const InfoUser = () => {
       }
     }
 
-    if (local.user.token && !token) {
+    if (local.user.token && !token && pathname.indexOf('back-office') > -1) {
       rootDispatch(auth({ token: local.user.token }));
     }
     

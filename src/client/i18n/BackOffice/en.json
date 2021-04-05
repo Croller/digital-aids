@@ -3,9 +3,8 @@
     "logo": "Manager"
   },
   "sidebar": {
-    "profile": "Profile",
     "restourants": "Restaurantes",
-    "managers": "Managers"
+    "users": "Managers"
   }
 
 

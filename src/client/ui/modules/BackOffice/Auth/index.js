@@ -16,6 +16,7 @@ import {
 const FormItem = FormStyled.Item;
 
 const Auth = memo(() => {
+  const pathSign = '/present';
   const rootDispatch = useDispatch();
   const [form] = FormStyled.useForm();
   const [t] = useTranslation();
@@ -77,9 +78,11 @@ const Auth = memo(() => {
                 {t('common.auth.login')}
               </Login>
             </FormItem>
-            <Signup>
-              {t('common.auth.signup')}
-            </Signup>
+            <FormItem>
+              <Signup path={pathSign}>
+                {t('common.auth.signup')}
+              </Signup>
+            </FormItem>
           </ControlWrapper>
         </FormStyled>
       </Container>

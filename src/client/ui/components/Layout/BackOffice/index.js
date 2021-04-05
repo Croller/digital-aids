@@ -16,13 +16,12 @@ export const Layout = ({
   className,
 }) => {
   const history = useHistory();
-  const { token } = useSelector(store => store.user.info);
-
   const [showSideBar, setShowSideBar] = useState(true);
-  
+  const { id, token } = useSelector(store => store.user.info);
+
   const handleRoute = useCallback((part) => {
     let path = `/back-office/${part}`;
-    path = part === 'back' ? 'categories' : part;
+    path = part === 'back' ? '/back-office' : part;
 
     if (history.action !== 'POP' && part === 'back') {
       history.goBack();
@@ -34,6 +33,7 @@ export const Layout = ({
   return (
     <Wrapper className={className}>
       <Header
+        id={id}
         token={token}
         onShowSideBar={() => setShowSideBar(!showSideBar)}
         onRoute={handleRoute}

@@ -39,11 +39,11 @@ export const BackOffice = () => {
               component={Restourants}
             />
             <Route
-              path={`${PATH}/managers/:user`}
+              path={`${PATH}/users/:user`}
               component={User}
             />
             <Route
-              path={`${PATH}/managers`}
+              path={`${PATH}/users`}
               component={Users}
             />
             <Redirect to={`${PATH}/restourants`} />
