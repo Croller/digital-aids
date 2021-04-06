@@ -39,7 +39,6 @@ export const ButtonStyled = styled(Button)`
     text-transform: uppercase;
   }
 
-
   &:nth-child(4) {
     background-color: ${PALETTE.grey2};
   }

@@ -3,15 +3,23 @@ import {
   getLocalStorage,
 } from 'client/utils/localStorage';
 
-const key = 'DigitalCarte';
+const storageKey = process.env.LOCAL_STORAGE_KEY;
 
 export const setOfferViewed = (offer = null, callback = () => {}) => {
   if (!offer) return null;
-  const local = getLocalStorage(key);
+  const local = getLocalStorage(storageKey);
   const { offersViewed } = local.restaurant;
   
   if (offer && local && !offersViewed.some(f => f === offer)) {
-    setLocalStorage(key, {
+    console.log('local', local);
+    console.log('offer', {
+      ...local,
+      restaurant: {
+        ...local.restaurant,
+        offersViewed: [...offersViewed, offer],
+      },
+    });
+    setLocalStorage(storageKey, {
       ...local,
       restaurant: {
         ...local.restaurant,
@@ -23,9 +31,9 @@ export const setOfferViewed = (offer = null, callback = () => {}) => {
 };
 
 export const setUser = (obj) => {
-  const local = getLocalStorage(key);
+  const local = getLocalStorage(storageKey);
   if (local) {
-    setLocalStorage(key, {
+    setLocalStorage(storageKey, {
       ...local,
       user: {
         ...local.user,

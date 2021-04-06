@@ -1,6 +1,6 @@
 import React from 'react';
 import { highlightErrorLog } from 'client/utils/errorHandler';
-import { IconTextBtn } from 'client/ui/components/_block/IconTextBtn';
+import { IconTextBtn } from 'client/ui/components/_block/HintsBlock';
 import {
   Container,
   IconTextBtnStyled,

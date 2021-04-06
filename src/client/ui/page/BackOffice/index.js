@@ -46,6 +46,10 @@ export const BackOffice = () => {
               path={`${PATH}/users`}
               component={Users}
             />
+            <Route
+              path={`${PATH}/profile`}
+              component={Users}
+            />
             <Redirect to={`${PATH}/restourants`} />
           </>
         ) : (

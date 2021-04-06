@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconTextBtn } from 'client/ui/components/_block/IconTextBtn';
+import { IconTextBtn } from 'client/ui/components/_block/HintsBlock';
 
 export const Container = styled.div`
   height: 100vh;

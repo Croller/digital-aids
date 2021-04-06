@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'client/store/user';
 import { useTranslation } from 'react-i18next';
 import { UserCircleSvg } from 'client/assets/images';
-import { rules } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validatorRules';
 
 import {
   Wrapper, Container,
@@ -25,18 +25,11 @@ const Auth = memo(() => {
   const rule = rules(t);
 
   const onFinish = (values) => {
-    // login: 'rootAdmin',
-    // password: 'dcfoodfans2021'
     rootDispatch(login(values));
   };
 
-  const onFinishFailed = ({ errorFields = null }) => {
-    if (errorFields) {
-      console.log('Auth from validation:', errorFields.reduce((obj, { name, errors }) => ({
-        ...obj,
-        [name[0]]: errors[0],
-      }), {}));
-    }
+  const onFinishFailed = ({ errorFields }) => {
+    collectError(errorFields);
   };
 
   return (

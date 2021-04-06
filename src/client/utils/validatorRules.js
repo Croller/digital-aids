@@ -1,3 +1,13 @@
+export const collectError = ({ errorFields = null }) => {
+  if (!errorFields) return null;
+  const collected = errorFields.reduce((obj, { name, errors }) => ({
+    ...obj,
+    [name[0]]: errors[0],
+  }), {});
+  console.log('Form validation errors:', collected);
+  return collected;
+};
+
 export const rules = (t) => ({
   login: [
     () => ({

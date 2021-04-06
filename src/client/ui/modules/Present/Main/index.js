@@ -101,7 +101,7 @@ const CLIENT_ICONS = {
 
 const Main = () => {
   const refCarousel = useRef();
-  const localKey = 'DigitalCarte';
+  const storageKey = process.env.LOCAL_STORAGE_KEY;
   const history = useHistory();
   const [t] = useTranslation();
   const [carausel, setCarousel] = useState({
@@ -144,7 +144,7 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const local = getLocalStorage(localKey);
+    const local = getLocalStorage(storageKey);
     if (!local.user.cookies) {
       showCookies();
     }

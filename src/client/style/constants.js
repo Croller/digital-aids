@@ -42,6 +42,7 @@ export const PALETTE = {
   grey22: '#4D4D4D',
   grey23: '#E8E8E8',
   grey24: '#C4C4C4',
+  grey25: '#F4F4F4',
 
   green1: '#219653',
 
