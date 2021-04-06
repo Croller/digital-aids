@@ -38,7 +38,7 @@ export const LogoWrapper = styled.div`
 
 export const LogoText = styled.span`
   position: absolute;
-  bottom: -5px;
+  bottom: -8px;
   right: 85px;
   font-family: ${FONTS.regular};
   font-size: 20px;

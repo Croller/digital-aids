@@ -21,6 +21,7 @@ export const Container = styled.div`
   min-height: calc(100vh - 97px);
   max-width: 589px;
   width: 100%;
+  margin-top: -200px;
 `;
 
 export const LogoWrapper = styled.div`

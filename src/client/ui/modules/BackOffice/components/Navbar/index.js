@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconText } from 'client/ui/components/_ui/_etc/IconText';
 import {
@@ -8,9 +8,10 @@ import {
   PlusSvg,
   ArchiveSvg,
   RestaurantSvg,
+  CloseSvg,
 } from 'client/assets/images';
 import {
-  Wrapper,
+  NavbarWrapper,
   Control,
   Title,
   BackBtn,
@@ -21,26 +22,39 @@ import {
   Search,
 } from './styled';
 
-export const Navbar = memo(({
-  options = {
+export const Navbar = ({
+  params = {
     back: false,
     loupe: true,
-    title: true,
     delete: false,
     archive: true,
     add_new: true,
   },
-  onClick = () => {},
+  page = 'restourants',
+  onSearch = () => {},
   onRoute = () => {},
+  className,
 }) => {
   const [t] = useTranslation();
+  const [options, setOptions] = useState(params);
+  const title = {
+    icon: options.archive ? <ArchiveSvg /> : <RestaurantSvg />,
+    text: `${options.archive ? `${t('common.words.archive')} ` : ''}${t(`common.words.${page}`)}`,
+  };
 
-  const getTitle = () => `${options.archive ? `${t('common.words.archive')} ` : ''}${t('common.words.restourants')}`;
+  const handleChange = (key = null) => {
+    if (!key) return;
+    const obj = { ...options };
 
-  const getIcon = () => (options.archive ? <ArchiveSvg /> : <RestaurantSvg />);
+    if (key === 'loupe') {
+      obj.loupe = !obj.loupe;
+    }
+
+    setOptions({ ...obj });
+  };
 
   return options && (
-    <Wrapper>
+    <NavbarWrapper className={className}>
       <Control>
         {options.back && (
           <BackBtn onClick={() => onRoute('back')}>
@@ -51,7 +65,7 @@ export const Navbar = memo(({
           </BackBtn>
         )}
         {options.add_new && (
-          <AddBtn onClick={() => onRoute('add_new')}>
+          <AddBtn onClick={() => onRoute('new')}>
             <IconText
               icon={<PlusSvg />}
               text={t('common.words.add_new')}
@@ -59,30 +73,41 @@ export const Navbar = memo(({
           </AddBtn>
         )}
       </Control>
-      {options.search && (
-        <Search />
+      {!options.loupe && (
+        <Search
+          onChange={onSearch}
+          prefix={<LoupeSvg />}
+          suffix={<CloseSvg onClick={() => handleChange('loupe')} />}
+          placeholder={t('common.words.search')}
+        />
       )}
-      {options.title && (
-        <Title archive={options.archive}>
-          <IconText
-            icon={getIcon()}
-            text={getTitle()}
-          />
+      {options.loupe && (
+        <Title archive={!options.archive}>
+          {options.loupe ? (
+            <IconText {...title} />
+          ) : (
+            <Search
+              onChange={onSearch}
+              prefix={<LoupeSvg />}
+              suffix={<CloseSvg onClick={() => handleChange('loupe')} />}
+              placeholder
+            />
+          )}
         </Title>
       )}
       <Control>
         {options.loupe && (
-          <LoupeBtn onClick={() => onClick('loupe')}>
+          <LoupeBtn onClick={() => handleChange('loupe')}>
             <LoupeSvg />
           </LoupeBtn>
         )}
         {options.delete && (
-          <DeleteBtn onClick={() => onClick('delete')}>
+          <DeleteBtn onClick={() => handleChange('delete')}>
             <TrashSvg />
           </DeleteBtn>
         )}
         {options.archive && (
-          <ArchiveBtn onClick={() => onClick('archive')}>
+          <ArchiveBtn onClick={() => onRoute('archive')}>
             <IconText
               icon={<ArchiveSvg />}
               text={t('common.words.archive')}
@@ -90,6 +115,6 @@ export const Navbar = memo(({
           </ArchiveBtn>
         )}
       </Control>
-    </Wrapper>
+    </NavbarWrapper>
   );
-});
+};

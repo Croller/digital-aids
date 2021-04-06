@@ -26,9 +26,25 @@ export const BackOffice = () => {
           <>
             <Route
               path={[
-                `${PATH}/restourants/archive/:restaurant`,
-                `${PATH}/restourants/:restaurant`,
+                `${PATH}/restourants/:restaurant/categories/:category/special-deals/archive`,
+                `${PATH}/restourants/:restaurant/categories/:category/special-deals`,
+                `${PATH}/restourants/:restaurant/categories/:category/foodtips/archive`,
+                `${PATH}/restourants/:restaurant/categories/:category/foodtips`,
               ]}
+              component={Restourant}
+            />
+            <Route
+              path={[
+                `${PATH}/restourants/:restaurant/categories/:category/archive/groups/:groups`,
+                `${PATH}/restourants/:restaurant/categories/:category/archive/groups`,
+                `${PATH}/restourants/:restaurant/categories/:category/groups/:groups`,
+                `${PATH}/restourants/:restaurant/categories/:category/groups`,
+                `${PATH}/restourants/:restaurant/categories/:category`,
+              ]}
+              component={Restourant}
+            />
+            <Route
+              path={`${PATH}/restourants/:restaurant`}
               component={Restourant}
             />
             <Route

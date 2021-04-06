@@ -22,6 +22,18 @@ export const InputStyled = styled(Input)`
     box-shadow: unset;
   }
 
+  &.ant-input-affix-wrapper {
+    border-width: 0;
+    border-color: transparent !important;
+
+    &:not(.ant-input-affix-wrapper-disabled) {
+      &:hover {
+        border-width: 0;
+        border-color: transparent !important;
+      }
+    }
+  }
+
   ${p => p.suffix && css`
     display: flex;
     align-items: center;

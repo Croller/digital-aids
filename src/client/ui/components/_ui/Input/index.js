@@ -8,14 +8,21 @@ export const Input = forwardRef(({
   suffix = null,
   onChange = () => {},
   className,
-}, ref) => (
-  <InputStyled
-    ref={ref}
-    type={type}
-    className={className}
-    placeholder={placeholder}
-    prefix={prefix}
-    suffix={suffix}
-    onChange={onChange}
-  />
-));
+}, ref) => {
+  const handleChange = (e) => {
+    const { value } = e.target;
+    onChange(value);
+  };
+
+  return (
+    <InputStyled
+      ref={ref}
+      type={type}
+      className={className}
+      placeholder={placeholder}
+      prefix={prefix}
+      suffix={suffix}
+      onChange={handleChange}
+    />
+  );
+});

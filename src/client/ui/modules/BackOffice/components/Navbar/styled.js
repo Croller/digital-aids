@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
-import { PALETTE, THEME } from 'client/style/constants';
+import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Input } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 
 const configButton = css`
   height: 55px;
   padding: 0;
+  min-width: 170px;
   background-color: ${PALETTE.green1};
 
   > span {
@@ -26,7 +27,7 @@ const configButton = css`
   }
 `;
 
-export const Wrapper = styled.div`
+export const NavbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -69,6 +70,7 @@ export const Title = styled.div`
   justify-content: space-between;
   align-items: center;
   width: auto;
+  height: 58px;
 
   > span {
     > svg {
@@ -94,12 +96,12 @@ export const Search = styled(Input)`
   background-color: ${PALETTE.grey25};
   border-radius: ${THEME.borderRadiusL};
   border: 0;
-  padding: 20px 14px 20px 16px;
+  padding: 20px 16px 20px 16px;
+  margin: 0 32px;
 
   svg {
     width: 26px;
     height: 26px;
-    transform: rotate(90deg);
 
     path {
       fill: ${PALETTE.grey12};
@@ -109,15 +111,20 @@ export const Search = styled(Input)`
   .ant-input-suffix {
     cursor: pointer;
 
-    svg {
-      width: 14px;
-      height: 14px;
+    > svg {
+      width: 21px;
+      height: 21px;
+
+      path {
+        fill: ${PALETTE.black1};
+      }
     }
   }
 
   input {
-    padding: 0 10px;
+    padding: 0 10px !important;
     font-size: 16px;
+    font-family: ${FONTS.medium};
     background-color: ${PALETTE.grey25};
 
     &::placeholder {
@@ -166,39 +173,26 @@ export const DeleteBtn = styled(Button)`
 `;
 
 export const ArchiveBtn = styled(Button)`
-/* ${configButton} */
+  ${configButton}
 
-/*
-  width: 136px !important;
-  color: ${PALETTE.black1};
+  height: 55px;
+  padding: 0;
   background-color: ${PALETTE.grey26};
 
-  > span > svg {
-    margin-right: 4px;
-
-    path {
-      fill: ${PALETTE.black1};
-    }
-  } */
-
-height: 55px;
-padding: 0;
-background-color: ${PALETTE.green1};
-
-> span {
-  > svg {
-    width: 23px;
-    height: 23px;
-    margin-right: 10px;
-
-    path {
-      fill: ${PALETTE.white};
-    }
-  }
-
   > span {
-    color: ${PALETTE.white};
-    text-transform: uppercase;
+    > svg {
+      width: 23px;
+      height: 23px;
+      margin-right: 10px;
+
+      path {
+        fill: ${PALETTE.black1};
+      }
+    }
+
+    > span {
+      color: ${PALETTE.black1};
+      text-transform: uppercase;
+    }
   }
-}
 `;
