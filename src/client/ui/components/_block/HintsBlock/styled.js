@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   width: 306px;
   height: auto;
   box-shadow: ${THEME.boxShadow404};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${PALETTE.white};
   padding-bottom: ${p => (p.btn ? 0 : '58px')};
   margin: 0 auto;

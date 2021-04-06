@@ -8,7 +8,7 @@ import {
 export const Wrapper = styled.div`
   background-color: ${PALETTE.white};
   box-shadow: ${THEME.boxShadow1};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
 `;
 
 export const Header = styled.div`

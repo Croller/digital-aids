@@ -59,7 +59,7 @@ export const Valuation = styled(Button)`
   flex: 45%;
   font-family: ${FONTS.regular};
   box-shadow: ${THEME.boxShadow1};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${p => (p.active ? `${PALETTE.grey16}` : `${PALETTE.white}`)};
   color: ${PALETTE.black};
   margin-bottom: 22px;

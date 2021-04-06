@@ -13,8 +13,8 @@ export const List = styled.div`
   flex-direction: column;
   justify-content: center;
   box-shadow: ${THEME.boxShadow1};
-  border-bottom-left-radius: ${THEME.borderRadius};
-  border-bottom-right-radius: ${THEME.borderRadius};
+  border-bottom-left-radius: ${THEME.borderRadiusM};
+  border-bottom-right-radius: ${THEME.borderRadiusM};
   padding: 60px 0;
 `;
 

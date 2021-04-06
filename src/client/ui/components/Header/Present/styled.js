@@ -216,7 +216,7 @@ export const Lang = styled.div`
     position: relative;
     width: 87px;
     height: 60px;
-    border-radius: ${THEME.borderRadius};
+    border-radius: ${THEME.borderRadiusM};
     box-shadow: ${THEME.boxShadow1};
 
     svg {
@@ -243,7 +243,7 @@ export const LangWrapper = styled.div`
   left: 27px;
   display: block;
   background-color: ${PALETTE.white};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   z-index: ${Z_INDEX.modal};
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
@@ -283,8 +283,8 @@ export const LangList = styled.div`
   flex-direction: column;
   justify-content: center;
   box-shadow: ${THEME.boxShadow1};
-  border-bottom-left-radius: ${THEME.borderRadius};
-  border-bottom-right-radius: ${THEME.borderRadius};
+  border-bottom-left-radius: ${THEME.borderRadiusM};
+  border-bottom-right-radius: ${THEME.borderRadiusM};
   padding: 64px 98px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {

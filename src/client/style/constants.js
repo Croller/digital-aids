@@ -43,11 +43,13 @@ export const PALETTE = {
   grey23: '#E8E8E8',
   grey24: '#C4C4C4',
   grey25: '#F4F4F4',
+  grey26: '#DFDFDF',
 
   green1: '#219653',
 
   red1: '#F43658',
   red2: '#DD584D',
+  red3: '#DE594E',
 };
 
 const fontsCommon = '\'Source Sans Pro\', Helvetica, sans-serif';
@@ -62,9 +64,9 @@ export const FONTS = {
 
 export const THEME = {
   bgColor: PALETTE.white,
-  borderRadius: '8px',
-  borderRadiusControl: '6px',
-  borderRadiusForm: '10px',
+  borderRadiusS: '6px',
+  borderRadiusM: '8px',
+  borderRadiusL: '10px',
   boxShadow1: '0px 1px 24px rgba(0, 0, 0, 0.1)',
   boxShadow2: '0px 1px 14px rgba(0, 0, 0, 0.09)',
   boxShadowHeader: '0px 4px 34px rgba(0, 0, 0, 0.1)',

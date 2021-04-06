@@ -3,7 +3,7 @@ import { PALETTE, THEME, FONTS } from 'client/style/constants';
 
 export const TxtArea = styled.textarea`
   width: 100%;
-  border-radius: ${THEME.borderRadiusControl};
+  border-radius: ${THEME.borderRadiusS};
   border: 1px solid ${PALETTE.grey6};
   padding: 18px 22px;
   font-family: ${FONTS.regular};

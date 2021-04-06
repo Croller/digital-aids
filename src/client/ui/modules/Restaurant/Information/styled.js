@@ -105,7 +105,7 @@ export const InfoWrapper = styled.div`
   padding: 16px 14px 14px;
   box-shadow: ${THEME.boxShadow2};
   margin-bottom: 15px;
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${PALETTE.white};
 `;
 
@@ -199,7 +199,7 @@ export const AddessWrapper = styled.div`
   padding: 20px 0;
   box-shadow: ${THEME.boxShadow2};
   margin-bottom: 18px;
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${PALETTE.white};
 `;
 
@@ -269,7 +269,7 @@ export const RateBlock = styled.div`
   padding: 27px 16px 35px;
   flex: 45%;
   box-shadow: ${THEME.boxShadow2};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
 
   &:not(:last-child) {
     margin-right: 22px;

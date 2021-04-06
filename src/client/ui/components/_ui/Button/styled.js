@@ -6,7 +6,7 @@ export const Btn = styled.button`
   width: 100%;
   height: 48px;
   background-color: ${PALETTE.grey2};
-  border-radius: ${THEME.borderRadiusControl};
+  border-radius: ${THEME.borderRadiusS};
   border-width: 0;
   display: flex;
   flex-direction: row;

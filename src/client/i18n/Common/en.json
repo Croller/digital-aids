@@ -1,4 +1,14 @@
 {
+  "words": {
+    "edit": "Edit",
+    "back": "Back",
+    "delete": "Delete",
+    "archive": "Archive",
+    "restore": "Restore",
+    "restourants": "Restaurantes",
+    "managers": "Managers",
+    "add_new": "Add new"
+  },
 
   "form" : {
     "text": "Text",
@@ -18,11 +28,13 @@
     }
   },
 
+
   "auth": {
     "title": "Authorization",
     "login": "Log in",
     "signup": "Sign up"
   },
+
 
   "page404": {
     "helmet": "404 - Error page",
@@ -32,13 +44,12 @@
     "text": "Opps! It seems that \n somithing was wrong. \n But we are here to help you! \n Please, just press \n the botton and try again."
   },
 
+
   "errorCode": {
     "queryError": "DataBase query error",
-
     "userNotFound": "User not found",
     "tokenNotValid": "Token not valid",
     "tokenNotExist": "Token not exist",
-
     "504": "504 Gateway Timeout"
   }
 }

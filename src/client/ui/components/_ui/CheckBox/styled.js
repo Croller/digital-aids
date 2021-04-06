@@ -17,7 +17,7 @@ export const Wrapper = styled.button`
     border: 0;
   ` : css`
     background-color: ${PALETTE.white};
-    border-radius: ${THEME.borderRadiusControl};
+    border-radius: ${THEME.borderRadiusS};
     border: 1px solid ${PALETTE.black};
     padding: 0;
   `)}
@@ -31,7 +31,7 @@ export const Check = styled.div`
   width: 35px;
   height: 35px;
   background-color: ${PALETTE.white};
-  border-radius: ${THEME.borderRadiusControl};
+  border-radius: ${THEME.borderRadiusS};
   border: 1px solid ${PALETTE.black};
   display: flex;
   flex-direction: row;

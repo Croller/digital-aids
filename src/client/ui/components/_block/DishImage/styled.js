@@ -23,7 +23,7 @@ export const Number = styled.div`
   bottom: 0;
   height: 32px;
   width: 54px;
-  border-top-right-radius: ${THEME.borderRadiusControl};
+  border-top-right-radius: ${THEME.borderRadiusS};
   background-color: ${PALETTE.white};
   font-family: ${FONTS.bold};
   font-size: 18px;

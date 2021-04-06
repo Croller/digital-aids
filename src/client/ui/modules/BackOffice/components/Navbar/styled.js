@@ -1,8 +1,52 @@
-import { PALETTE } from 'client/style/constants';
+import styled, { css } from 'styled-components';
+import { PALETTE, THEME } from 'client/style/constants';
+import { Input } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
-import styled from 'styled-components';
 
-export const BackButton = styled(Button)`
+const configButton = css`
+  height: 55px;
+  padding: 0;
+  background-color: ${PALETTE.green1};
+
+  > span {
+    > svg {
+      width: 23px;
+      height: 23px;
+      margin-right: 10px;
+
+      path {
+        fill: ${PALETTE.white};
+      }
+    }
+
+    > span {
+      color: ${PALETTE.white};
+      text-transform: uppercase;
+    }
+  }
+`;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Control = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  > button {
+    &:not(:last-child) {
+      margin-right: 22px;
+    }
+  }
+`;
+
+export const BackBtn = styled(Button)`
+  ${configButton}
+
   background-color: transparent;
 
   > span > svg {
@@ -12,4 +56,149 @@ export const BackButton = styled(Button)`
       fill: ${PALETTE.green1};
     }
   }
+`;
+
+export const AddBtn = styled(Button)`
+  ${configButton}
+
+  width: 173px;
+`;
+
+export const Title = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: auto;
+
+  > span {
+    > svg {
+      width: 35px;
+      height: 35px;
+      margin-right: 12px;
+
+      path {
+        fill: ${p => (p.archive ? `${PALETTE.grey6}` : `${PALETTE.green1}`)};
+      }
+    }
+
+    > span {
+      font-size: 22px;
+    }
+  }
+`;
+
+export const Search = styled(Input)`
+  display: flex;
+  width: 100%;
+  height: 58px;
+  background-color: ${PALETTE.grey25};
+  border-radius: ${THEME.borderRadiusL};
+  border: 0;
+  padding: 20px 14px 20px 16px;
+
+  svg {
+    width: 26px;
+    height: 26px;
+    transform: rotate(90deg);
+
+    path {
+      fill: ${PALETTE.grey12};
+    }
+  }
+
+  .ant-input-suffix {
+    cursor: pointer;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  input {
+    padding: 0 10px;
+    font-size: 16px;
+    background-color: ${PALETTE.grey25};
+
+    &::placeholder {
+      color: ${PALETTE.grey6};
+    }
+  }
+`;
+
+export const LoupeBtn = styled(Button)`
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > svg {
+    width: 31px;
+    height: 31px;
+
+    path {
+      fill: ${PALETTE.grey24};
+    }
+  }
+`;
+
+export const DeleteBtn = styled(Button)`
+  background-color: transparent;
+  padding: 0;
+
+  > svg {
+    width: 30px;
+    height: 34px;
+
+    path {
+      fill: ${PALETTE.grey24};
+    }
+
+    &:hover {
+      path {
+        fill: ${PALETTE.red3};
+      }
+    }
+  }
+`;
+
+export const ArchiveBtn = styled(Button)`
+/* ${configButton} */
+
+/*
+  width: 136px !important;
+  color: ${PALETTE.black1};
+  background-color: ${PALETTE.grey26};
+
+  > span > svg {
+    margin-right: 4px;
+
+    path {
+      fill: ${PALETTE.black1};
+    }
+  } */
+
+height: 55px;
+padding: 0;
+background-color: ${PALETTE.green1};
+
+> span {
+  > svg {
+    width: 23px;
+    height: 23px;
+    margin-right: 10px;
+
+    path {
+      fill: ${PALETTE.white};
+    }
+  }
+
+  > span {
+    color: ${PALETTE.white};
+    text-transform: uppercase;
+  }
+}
 `;

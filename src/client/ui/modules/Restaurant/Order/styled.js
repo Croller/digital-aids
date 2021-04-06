@@ -61,8 +61,8 @@ export const DishList = styled.div`
   background-color: ${PALETTE.white};
   margin-bottom: 42px;
   box-shadow: ${p => (p.dailymenu ? `${THEME.boxShadow1}` : 'none')};
-  border-bottom-left-radius: ${p => (p.dailymenu ? `${THEME.borderRadius}` : 0)};
-  border-bottom-right-radius: ${p => (p.dailymenu ? `${THEME.borderRadius}` : 0)};
+  border-bottom-left-radius: ${p => (p.dailymenu ? `${THEME.borderRadiusM}` : 0)};
+  border-bottom-right-radius: ${p => (p.dailymenu ? `${THEME.borderRadiusM}` : 0)};
   padding-bottom: 6px;
 `;
 
@@ -76,8 +76,8 @@ export const DailyHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: ${PALETTE.grey15};
-  border-top-left-radius: ${THEME.borderRadius};
-  border-top-right-radius: ${THEME.borderRadius};
+  border-top-left-radius: ${THEME.borderRadiusM};
+  border-top-right-radius: ${THEME.borderRadiusM};
   padding: 0 22px 0 12px;
   margin-bottom: 20px;
 `;

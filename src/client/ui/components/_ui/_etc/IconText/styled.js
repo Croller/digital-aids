@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { FONTS } from 'client/style/constants';
+import { FONTS, PALETTE } from 'client/style/constants';
 
 export const Span = styled.span`
   display: flex;
@@ -10,10 +10,15 @@ export const Span = styled.span`
     width: 22px;
     height: 22px;
     margin-right: 10px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
   }
 `;
 
 export const Text = styled.span`
   font-size: 18px;
   font-family: ${FONTS.semiBold};
+  text-transform: uppercase;
 `;

@@ -16,7 +16,7 @@ export const List = styled.div`
 export const ButtonStyled = styled(Button)`
   height: 60px;
   box-shadow: ${THEME.boxShadow1};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${PALETTE.white};
 
   > svg {

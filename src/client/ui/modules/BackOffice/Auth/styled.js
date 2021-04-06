@@ -143,7 +143,7 @@ export const InputStyled = styled(Input)`
   height: 62px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusForm};
+  border-radius: ${THEME.borderRadiusL};
 `;
 
 export const ControlWrapper = styled.div`

@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   left: 0;
   right: 0;
   width: 306px;
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${PALETTE.white};
   padding: 47px 23px 33px;
   z-index: ${Z_INDEX.modal};

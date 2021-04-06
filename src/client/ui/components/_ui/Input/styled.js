@@ -4,7 +4,7 @@ import { Input } from 'antd';
 
 export const InputStyled = styled(Input)`
   width: 100%;
-  border-radius: ${THEME.borderRadiusControl};
+  border-radius: ${THEME.borderRadiusS};
   border: 1px solid ${PALETTE.grey6};
   padding: 18px 22px;
   font-family: ${FONTS.regular};

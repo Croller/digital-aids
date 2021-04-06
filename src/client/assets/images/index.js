@@ -1,8 +1,12 @@
 // svg
 import LoupeSvg from './svg/loupe.svg';
 import UserCircleSvg from './svg/user-circle.svg';
+import ArchiveSvg from './svg/archive.svg';
+import EditSvg from './svg/edit.svg';
+import FloppyDiskSvg from './svg/floppy-disk.svg';
+import PlusSvg from './svg/plus.svg';
 
-//back office
+// back office
 import RestaurantSvg from './svg/backOffice/restaurant.svg';
 
 // restaurant
@@ -111,6 +115,10 @@ import OfferTempPng from './png/temp/offerTemp.png';
 export {
   LoupeSvg,
   UserCircleSvg,
+  ArchiveSvg,
+  EditSvg,
+  FloppyDiskSvg,
+  PlusSvg,
 
   RestaurantSvg,
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Navbar } from '../components/Navbar';
 import { } from './styled';
 
 const Restourants = () => {
@@ -8,6 +9,7 @@ const Restourants = () => {
 
   return (
     <>
+      <Navbar />
       Restourants
     </>
   );

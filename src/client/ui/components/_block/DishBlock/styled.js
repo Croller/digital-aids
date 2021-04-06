@@ -10,8 +10,8 @@ export const DishWrapper = styled.div`
   padding-bottom: 1px;
 
   img {
-    border-top-left-radius: ${THEME.borderRadius};
-    border-top-right-radius: ${THEME.borderRadius};
+    border-top-left-radius: ${THEME.borderRadiusM};
+    border-top-right-radius: ${THEME.borderRadiusM};
   }
 
   &:not(:last-child) {
@@ -27,7 +27,7 @@ export const ButtonStyled = styled(Button)`
   height: 60px;
   font-family: ${FONTS.medium};
   box-shadow: ${THEME.boxShadow1};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   background-color: ${PALETTE.white};
   cursor: pointer;
 
@@ -56,7 +56,7 @@ export const Price = styled.div`
   font-size: 16px;
   color: ${p => (p.selected ? `${PALETTE.black}` : `${PALETTE.white}`)};
   padding: 0 14px;
-  border-radius: ${THEME.borderRadiusControl};
+  border-radius: ${THEME.borderRadiusS};
 `;
 
 export const CheckBoxStyled = styled(CheckBox)`

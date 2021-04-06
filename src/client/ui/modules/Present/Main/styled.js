@@ -651,7 +651,7 @@ export const ClientContent = styled.div`
   position: relative;
   padding: 42px 22px 24px;
   box-shadow: ${THEME.boxShadow1};
-  border-radius: ${THEME.borderRadius};
+  border-radius: ${THEME.borderRadiusM};
   min-height: 410px;
   height: auto;
 
