@@ -8,7 +8,7 @@ const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restourant = lazy(() => import('client/ui/modules/BackOffice/Restourant'));
-const Restourants = lazy(() => import('client/ui/modules/BackOffice/Restourants'));
+const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 
@@ -26,47 +26,48 @@ export const BackOffice = () => {
           <>
             <Route
               path={[
-                `${PATH}/restourants/:restaurant/categories/:category/special-deals/archive`,
-                `${PATH}/restourants/:restaurant/categories/:category/special-deals`,
-                `${PATH}/restourants/:restaurant/categories/:category/foodtips/archive`,
-                `${PATH}/restourants/:restaurant/categories/:category/foodtips`,
+                `${PATH}/restaurant/:restaurant/category/:category/special-deals/archive`,
+                `${PATH}/restaurant/:restaurant/category/:category/special-deals`,
+                `${PATH}/restaurant/:restaurant/category/:category/foodtips/archive`,
+                `${PATH}/restaurant/:restaurant/category/:category/foodtips`,
               ]}
               component={Restourant}
             />
             <Route
               path={[
-                `${PATH}/restourants/:restaurant/categories/:category/archive/groups/:groups`,
-                `${PATH}/restourants/:restaurant/categories/:category/archive/groups`,
-                `${PATH}/restourants/:restaurant/categories/:category/groups/:groups`,
-                `${PATH}/restourants/:restaurant/categories/:category/groups`,
-                `${PATH}/restourants/:restaurant/categories/:category`,
+                `${PATH}/restaurant/:restaurant/category/:category/group/:groups/archive`,
+                `${PATH}/restaurant/:restaurant/category/:category/group/:groups`,
+                `${PATH}/restaurant/:restaurant/category/:category`,
+                `${PATH}/restaurant/:restaurant/category`,
               ]}
-              component={Restourant}
-            />
-            <Route
-              path={`${PATH}/restourants/:restaurant`}
               component={Restourant}
             />
             <Route
               path={[
-                `${PATH}/restourants/archive`,
-                `${PATH}/restourants`,
+                `${PATH}/restaurants/archive`,
+                `${PATH}/restaurants`,
               ]}
-              component={Restourants}
+              component={Restaurants}
             />
             <Route
-              path={`${PATH}/users/:user`}
+              path={`${PATH}/restaurant/:restaurant`}
+              component={Restourant}
+            />
+            <Route
+              path={[
+                `${PATH}/users/archive`,
+                `${PATH}/users`,
+              ]}
+              component={Users}
+            />
+            <Route
+              path={[
+                `${PATH}/user/:user`,
+                `${PATH}/profile/:user`,
+              ]}
               component={User}
             />
-            <Route
-              path={`${PATH}/users`}
-              component={Users}
-            />
-            <Route
-              path={`${PATH}/profile`}
-              component={Users}
-            />
-            <Redirect to={`${PATH}/restourants`} />
+            <Redirect to={`${PATH}/restaurants`} />
           </>
         ) : (
           <>

@@ -31,9 +31,9 @@ export class ErrorBoundary extends React.Component {
       return IconTextBtn ? (
         <Container>
           <IconTextBtnStyled
-            onClick={onClick}
             btn="menu"
-            text={(t('common.pageError.text'))}
+            text={t && t('common.pageError.text')}
+            onClick={onClick}
           />
         </Container>
         

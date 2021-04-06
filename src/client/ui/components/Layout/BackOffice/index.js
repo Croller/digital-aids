@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
-import { SideBar } from 'client/ui/components/SideBar/BackOffice';
+import { Sidebar } from 'client/ui/components/Navbar/BackOffice/Sidebar';
 
 import { 
   Wrapper,
@@ -16,6 +16,7 @@ export const Layout = ({
   className,
 }) => {
   const history = useHistory();
+  const { pathname } = useLocation();
   const [showSideBar, setShowSideBar] = useState(true);
   const { id, token } = useSelector(store => store.user.info);
 
@@ -39,12 +40,15 @@ export const Layout = ({
         onRoute={handleRoute}
       />
       {token && showSideBar && (
-        <SideBar
+        <Sidebar
+          path={pathname}
           onRoute={handleRoute}
         />
       )}
       <Cotainer>
-        <Content sidebar={token && showSideBar}>
+        <Content
+          sidebar={token && showSideBar}
+        >
           <Block>
             {children}
           </Block>

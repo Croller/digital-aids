@@ -42,7 +42,7 @@ export const Routers = () => {
             <Switch>
               <Route exact path="/back-office/*" component={BackOffice} />
               <Route exact path="/restaurant/*" component={Restaurant} />
-              <Route exact component={Present} />
+              <Route exact path="/" component={Present} />
               <Route path="/404">
                 <Page404 source={logo} onClick={handleRoute} />
               </Route>

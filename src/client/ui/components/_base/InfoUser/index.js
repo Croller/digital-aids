@@ -63,9 +63,10 @@ export const InfoUser = () => {
   };
   
   useEffect(() => {
-    console.log('Url enter:', pathname);
-    initStorage();
-
+    if (['back-office'].find(f => pathname.indexOf(f) > -1)) {
+      console.log('Url enter:', pathname);
+      initStorage();
+    }
     return () => {
       console.log('Logout before close');
       rootDispatch(logout());
@@ -74,7 +75,7 @@ export const InfoUser = () => {
 
   useEffect(() => {
     if (token && initUrl) {
-      const url = initUrl.indexOf('auth') > -1 ? `/${pathAuth}/restourants` : initUrl;
+      const url = initUrl.indexOf('auth') > -1 ? `/${pathAuth}/restaurants` : initUrl;
       history.push(url);
     }
   }, [token, initUrl]);

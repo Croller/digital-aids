@@ -24,7 +24,7 @@ const Categories = () => {
       onOk={() => {
         const category = categories.find(f => f.check_age);
         if (category) {
-          history.push(`categories/${category.key}`);
+          history.push(`category/${category.key}`);
         }
       }}
     />
@@ -37,7 +37,7 @@ const Categories = () => {
   ), [offer]);
 
   const handleRoute = (key) => {
-    history.push(`categories/${key}`);
+    history.push(`category/${key}`);
   };
 
   useEffect(() => {

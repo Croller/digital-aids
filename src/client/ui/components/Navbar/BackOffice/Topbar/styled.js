@@ -27,7 +27,7 @@ const configButton = css`
   }
 `;
 
-export const NavbarWrapper = styled.div`
+export const TopbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,12 +37,6 @@ export const Control = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  > button {
-    &:not(:last-child) {
-      margin-right: 22px;
-    }
-  }
 `;
 
 export const BackBtn = styled(Button)`
@@ -141,6 +135,7 @@ export const LoupeBtn = styled(Button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 34px;
 
   > svg {
     width: 31px;

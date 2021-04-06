@@ -26,7 +26,7 @@ export const Restaurant = () => {
       <Switch>
         <Route path={`${PATH}/:restaurant/language`} component={Language} />
         <Route path={`${PATH}/:restaurant/menu`} component={Menu} />
-        <Route path={`${PATH}/:restaurant/categories/:category`} component={Category} />
+        <Route path={`${PATH}/:restaurant/category/:category`} component={Category} />
         <Route path={`${PATH}/:restaurant/categories`} component={Categories} />
         <Route path={`${PATH}/:restaurant/opinion`} component={Opinion} />
         <Route path={`${PATH}/:restaurant/reglament`} component={Reglament} />

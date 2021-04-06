@@ -5,7 +5,7 @@ import {
   FONTS,
 } from 'client/style/constants';
 
-export const Wrapper = styled.div`
+export const SidebarWrapper = styled.div`
   width: 245px;
   height: calc(100% - 97px);
   position: fixed;

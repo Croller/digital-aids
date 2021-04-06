@@ -108,7 +108,7 @@ import GlutenPng from './png/restaurant/allergens/gluten.png';
 import RestaurantLogoTempPng from './png/temp/restaurantLogoTemp.png';
 import PlateTempPng from './png/temp/plateTemp.png';
 import FoodTipsTempPng from './png/temp/foodTipsTemp.png';
-import RestourantInfoTempPng from './png/temp/restourantInfoTemp.png';
+import RestourantInfoTempPng from './png/temp/restaurantInfoTemp.png';
 import CelebratyTempPng from './png/temp/celebratyTemp.png';
 import OfferTempPng from './png/temp/offerTemp.png';
 

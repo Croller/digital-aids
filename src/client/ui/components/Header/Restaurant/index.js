@@ -16,10 +16,6 @@ const PATH_SHOW_CLOSE = [
   'order',
 ];
 
-const PATH_HIDE_CLOSE = [
-  'categories/',
-];
-
 const HeaderComponent = ({
   className,
   logo = null,
@@ -28,7 +24,7 @@ const HeaderComponent = ({
   onRoute,
 }) => {
   const { location: { pathname } } = history;
-  const showClose = PATH_SHOW_CLOSE.some(key => pathname.indexOf(key) > -1) && !PATH_HIDE_CLOSE.some(key => pathname.indexOf(key) > -1);
+  const showClose = PATH_SHOW_CLOSE.some(key => pathname.indexOf(key) > -1);
   
   return (
     <HeaderWrapper

@@ -11,7 +11,7 @@ import {
   CloseSvg,
 } from 'client/assets/images';
 import {
-  NavbarWrapper,
+  TopbarWrapper,
   Control,
   Title,
   BackBtn,
@@ -22,7 +22,8 @@ import {
   Search,
 } from './styled';
 
-export const Navbar = ({
+export const Topbar = ({
+  page = 'restaurants',
   params = {
     back: false,
     loupe: true,
@@ -30,31 +31,32 @@ export const Navbar = ({
     archive: true,
     add_new: true,
   },
-  page = 'restourants',
   onSearch = () => {},
+  onChange = () => {},
   onRoute = () => {},
   className,
 }) => {
   const [t] = useTranslation();
   const [options, setOptions] = useState(params);
   const title = {
-    icon: options.archive ? <ArchiveSvg /> : <RestaurantSvg />,
-    text: `${options.archive ? `${t('common.words.archive')} ` : ''}${t(`common.words.${page}`)}`,
+    icon: !options.archive ? <ArchiveSvg /> : <RestaurantSvg />,
+    text: `${!options.archive ? `${t('common.words.archive')} ` : ''}${t(`common.words.${page}`)}`,
   };
 
-  const handleChange = (key = null) => {
-    if (!key) return;
+  const handleChange = (controlKey = null) => {
+    if (!controlKey) return;
     const obj = { ...options };
 
-    if (key === 'loupe') {
+    if (controlKey === 'loupe') {
       obj.loupe = !obj.loupe;
     }
 
     setOptions({ ...obj });
+    onChange(controlKey);
   };
 
   return options && (
-    <NavbarWrapper className={className}>
+    <TopbarWrapper className={className}>
       <Control>
         {options.back && (
           <BackBtn onClick={() => onRoute('back')}>
@@ -115,6 +117,6 @@ export const Navbar = ({
           </ArchiveBtn>
         )}
       </Control>
-    </NavbarWrapper>
+    </TopbarWrapper>
   );
 };
