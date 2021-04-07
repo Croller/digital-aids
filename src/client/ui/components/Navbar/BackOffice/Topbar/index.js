@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { IconText } from 'client/ui/components/_ui/_etc/IconText';
 import {
@@ -23,24 +24,35 @@ import {
 } from './styled';
 
 export const Topbar = ({
-  page = 'restaurants',
-  params = {
+  params = null,
+  onSearch = () => {},
+  className,
+}) => {
+  const [t] = useTranslation();
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const [options, setOptions] = useState(params || {
     back: false,
     loupe: true,
     delete: false,
     archive: true,
     add_new: true,
-  },
-  onSearch = () => {},
-  onChange = () => {},
-  onRoute = () => {},
-  className,
-}) => {
-  const [t] = useTranslation();
-  const [options, setOptions] = useState(params);
-  const title = {
-    icon: !options.archive ? <ArchiveSvg /> : <RestaurantSvg />,
-    text: `${!options.archive ? `${t('common.words.archive')} ` : ''}${t(`common.words.${page}`)}`,
+    title: null,
+  });
+  
+  const handleRoute = (key) => {
+    const pathParts = pathname.split('/');
+    let path = '';
+    if (key === 'back') {
+      path = pathParts.slice(0, -1).join('/');
+    }
+    if (key === 'archive') {
+      path = `${pathParts.join('/')}/${key}`;
+    }
+    if (key === 'new') {
+      path = `${pathParts[0]}/${pathParts[1]}/${pathParts[2].slice(0, -1)}/${key}`;
+    }
+    history.push(path);
   };
 
   const handleChange = (controlKey = null) => {
@@ -52,14 +64,40 @@ export const Topbar = ({
     }
 
     setOptions({ ...obj });
-    onChange(controlKey);
   };
+
+  useEffect(() => {
+    const data = { ...options };
+    const pathParts = pathname.split('/');
+    const page = pathParts[2] || 'restaurants';
+
+    if (pathname.indexOf('restaurants') > -1) {
+      data.back = false;
+      data.loupe = true;
+      data.delete = false;
+      data.archive = true;
+      data.add_new = true;
+    }
+
+    if (pathname.indexOf('archive') > -1) {
+      data.back = true;
+      data.delete = true;
+      data.archive = false;
+      data.add_new = false;
+    }
+
+    data.title = {
+      icon: !data.archive ? <ArchiveSvg /> : <RestaurantSvg />,
+      text: `${!data.archive ? `${t('common.words.archive')} ` : ''}${t(`common.words.${page}`)}`,
+    };
+    setOptions(data);
+  }, [pathname]);
 
   return options && (
     <TopbarWrapper className={className}>
       <Control>
         {options.back && (
-          <BackBtn onClick={() => onRoute('back')}>
+          <BackBtn onClick={() => handleRoute('back')}>
             <IconText
               icon={<ChevronSvg />}
               text={t('common.words.back')}
@@ -67,7 +105,7 @@ export const Topbar = ({
           </BackBtn>
         )}
         {options.add_new && (
-          <AddBtn onClick={() => onRoute('new')}>
+          <AddBtn onClick={() => handleRoute('new')}>
             <IconText
               icon={<PlusSvg />}
               text={t('common.words.add_new')}
@@ -83,10 +121,10 @@ export const Topbar = ({
           placeholder={t('common.words.search')}
         />
       )}
-      {options.loupe && (
+      {options.loupe && options.title && (
         <Title archive={!options.archive}>
           {options.loupe ? (
-            <IconText {...title} />
+            <IconText {...options.title} />
           ) : (
             <Search
               onChange={onSearch}
@@ -109,7 +147,7 @@ export const Topbar = ({
           </DeleteBtn>
         )}
         {options.archive && (
-          <ArchiveBtn onClick={() => onRoute('archive')}>
+          <ArchiveBtn onClick={() => handleRoute('archive')}>
             <IconText
               icon={<ArchiveSvg />}
               text={t('common.words.archive')}

@@ -9,7 +9,7 @@ const initState = {
   specialDeals: null,
 
   loading: false,
-  errors: null,
+  error: null,
 };
 
 export default function (state = initState, action) {

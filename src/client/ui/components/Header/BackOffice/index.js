@@ -37,7 +37,7 @@ const HeaderComponent = ({
           </Hamburger>
         )}
       </Control>
-      <LogoWrapper onClick={onRoute}>
+      <LogoWrapper onClick={() => onRoute('restaurants')}>
         <LogoSvg />
         <LogoText>
           {t('backOffice.header.logo')}
@@ -56,8 +56,8 @@ const HeaderComponent = ({
               )}
             </Loupe> */}
             <User
-              active={match.params[0] === `users/${id}`}
-              onClick={() => match.params[0] !== `users/${id}` && onRoute(`users/${id}`)}
+              active={match.params[0] === `user/${id}`}
+              onClick={() => onRoute(`user/${id}`)}
             >
               <UserCircleSvg />
             </User>

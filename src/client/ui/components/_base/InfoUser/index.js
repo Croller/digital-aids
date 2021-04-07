@@ -11,7 +11,7 @@ import {
 } from 'client/utils/localStorage';
 
 export const InfoUser = () => {
-  const pathAuth = 'back-office';
+  const pathCurrent = '/back-office';
   const storageKey = process.env.LOCAL_STORAGE_KEY;
   const lng = navigator.language || navigator.userLanguage;
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
@@ -48,8 +48,10 @@ export const InfoUser = () => {
       }
     }
 
-    if (local.user.token && !token && pathname.indexOf(pathAuth) > -1) {
+    if (local.user.token && !token && pathname.indexOf(pathCurrent) > -1) {
       rootDispatch(auth({ token: local.user.token }));
+      local.user.token = null;
+      local.user.enter_at = null;
     } else if (process.env.NODE_ENV === 'development') {
       rootDispatch(login({
         login: process.env.BACK_OFFICE_ADMIN_LOGIN,
@@ -60,6 +62,14 @@ export const InfoUser = () => {
     setLocalStorage(storageKey, local);
     setStorage(local);
     setInitUrl(pathname);
+  };
+
+  const updateStorage = () => {
+    const local = { ...storage };
+    local.user.token = token;
+    local.user.enter_at = enter_at;
+    setLocalStorage(storageKey, local);
+    setStorage(local);
   };
   
   useEffect(() => {
@@ -75,7 +85,8 @@ export const InfoUser = () => {
 
   useEffect(() => {
     if (token && initUrl) {
-      const url = initUrl.indexOf('auth') > -1 ? `/${pathAuth}/restaurants` : initUrl;
+      const url = initUrl.indexOf('auth') > -1 ? `/${pathCurrent}/restaurants` : initUrl;
+      updateStorage();
       history.push(url);
     }
   }, [token, initUrl]);

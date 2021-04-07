@@ -8,3 +8,7 @@ export const Wrapper = styled.div`
 export const TopbarStyled = styled(Topbar)`
   margin-bottom: 41px;
 `;
+
+export const List = styled.div`
+  width: 100%;
+`;

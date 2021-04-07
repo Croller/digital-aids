@@ -5,7 +5,7 @@ const initState = {
   email: 'info@digital-carte.com',
 
   loading: false,
-  errors: null,
+  error: null,
 };
 
 export default function (state = initState, action) {

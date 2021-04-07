@@ -3,9 +3,13 @@
     "logo": "Manager"
   },
   "sidebar": {
+    "restaurant": "Restaurant",
     "restaurants": "Restaurantes",
-    "users": "Managers"
+    "guest": "Guest",
+    "user": "User",
+    "users": "Users",
+    "epmployee": "Epmployee",
+    "owner": "Owner",
+    "admin": "Admin"
   }
-
-
 }

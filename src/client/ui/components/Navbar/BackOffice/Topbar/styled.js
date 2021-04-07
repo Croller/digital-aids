@@ -21,7 +21,7 @@ const configButton = css`
     }
 
     > span {
-      color: ${PALETTE.white};
+      color: ${PALETTE.black1};
       text-transform: uppercase;
     }
   }
@@ -45,8 +45,6 @@ export const BackBtn = styled(Button)`
   background-color: transparent;
 
   > span > svg {
-    margin-right: 4px;
-
     path {
       fill: ${PALETTE.green1};
     }
@@ -57,6 +55,10 @@ export const AddBtn = styled(Button)`
   ${configButton}
 
   width: 173px;
+
+  > span > span {
+    color: ${PALETTE.white};
+  }
 `;
 
 export const Title = styled.div`

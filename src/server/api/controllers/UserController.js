@@ -64,9 +64,10 @@ const UserController = () => {
         res.status(201);
         res.json({ error });
       }
-    } catch {
-      error.name = 'Token not exist';
-      error.text = 'tokenNotExist';
+    } catch (err) {
+      error.name = 'Token not valid';
+      error.code = 'tokenNotValid';
+      error.text = JSON.stringify(err);
       res.status(201);
       res.json({ error });
     }

@@ -20,14 +20,8 @@ export const Layout = ({
   const [showSideBar, setShowSideBar] = useState(true);
   const { id, token } = useSelector(store => store.user.info);
 
-  const handleRoute = useCallback((part) => {
-    let path = `/back-office/${part}`;
-    path = part === 'back' ? '/back-office' : part;
-
-    if (history.action !== 'POP' && part === 'back') {
-      history.goBack();
-      return null;
-    }
+  const handleRoute = useCallback((part = 'restaurants') => {
+    const path = `/back-office/${part}`;
     history.push(path);
   }, []);
 
