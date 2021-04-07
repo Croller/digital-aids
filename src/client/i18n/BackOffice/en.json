@@ -2,14 +2,12 @@
   "header": {
     "logo": "Manager"
   },
-  "sidebar": {
-    "restaurant": "Restaurant",
-    "restaurants": "Restaurantes",
-    "guest": "Guest",
-    "user": "User",
-    "users": "Users",
-    "epmployee": "Epmployee",
-    "owner": "Owner",
-    "admin": "Admin"
+  "emptyList": {
+    "restaurants": {
+      "text": "Add a new restaurante in your collection"
+    },
+    "archive": {
+      "text": "Your archive is empty"
+    }
   }
 }

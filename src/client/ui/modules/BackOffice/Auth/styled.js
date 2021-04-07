@@ -163,7 +163,7 @@ export const ControlWrapper = styled.div`
 `;
 
 export const Login = styled(Button)`
-  width: 202px;
+  min-width: 202px;
   height: 62px;
   background-color: ${PALETTE.green1};
   font-family: ${FONTS.semiBold};

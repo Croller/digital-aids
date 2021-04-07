@@ -1,4 +1,4 @@
-export const collectError = ({ errorFields = null }) => {
+export const collectError = (errorFields = null) => {
   if (!errorFields) return null;
   const collected = errorFields.reduce((obj, { name, errors }) => ({
     ...obj,
@@ -9,13 +9,40 @@ export const collectError = ({ errorFields = null }) => {
 };
 
 export const rules = (t) => ({
+  text: [
+    () => ({
+      validator(_, value) {
+        if (!value) {
+          return Promise.reject(new Error(t('common.form.validation.text.null')));
+        }
+        if (value.indexOf(' ') === -1) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error(t('common.form.validation.text.error')));
+      },
+    }),
+  ],
+  number: [
+    () => ({
+      validator(_, value) {
+        if (!value) {
+          return Promise.reject(new Error(t('common.form.validation.number.null')));
+        }
+        const val = value.replace(/ /g, '').replace(/_/g, '');
+        if (Number.isInteger(Number(val))) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error(t('common.form.validation.number.error')));
+      },
+    }),
+  ],
   login: [
     () => ({
       validator(_, value) {
         if (!value) {
           return Promise.reject(new Error(t('common.form.validation.login.null')));
         }
-        if (value && value.indexOf(' ') === -1) {
+        if (value.indexOf(' ') === -1) {
           return Promise.resolve();
         }
         return Promise.reject(new Error(t('common.form.validation.login.error')));
@@ -28,10 +55,38 @@ export const rules = (t) => ({
         if (!value) {
           return Promise.reject(new Error(t('common.form.validation.password.null')));
         }
-        if (value && value.indexOf(' ') === -1) {
+        if (value.indexOf(' ') === -1) {
           return Promise.resolve();
         }
         return Promise.reject(new Error(t('common.form.validation.password.error')));
+      },
+    }),
+  ],
+  email: [
+    () => ({
+      validator(_, value) {
+        if (!value) {
+          return Promise.reject(new Error(t('common.form.validation.email.null')));
+        }
+        if (value.indexOf(' ') === -1) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error(t('common.form.validation.email.error')));
+      },
+    }),
+  ],
+  phone: [
+    () => ({
+      validator(_, value) {
+        console.log('value valid', value);
+        if (!value) {
+          return Promise.reject(new Error(t('common.form.validation.phone.null')));
+        }
+        const val = value.replace(/ /g, '').replace(/_/g, '');
+        if (Number.isInteger(Number(val))) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error(t('common.form.validation.phone.error')));
       },
     }),
   ],

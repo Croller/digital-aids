@@ -13,7 +13,7 @@ const configButton = css`
     > svg {
       width: 23px;
       height: 23px;
-      margin-right: 10px;
+      margin-right: 12px;
 
       path {
         fill: ${PALETTE.white};
@@ -31,6 +31,16 @@ export const TopbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  > div {
+    &:first-child {
+      justify-content: flex-start;
+    }
+
+    &:last-child {
+      justify-content: flex-end;
+    }
+  }
 `;
 
 export const Control = styled.div`
@@ -43,6 +53,8 @@ export const BackBtn = styled(Button)`
   ${configButton}
 
   background-color: transparent;
+  justify-content: flex-start;
+  min-width: 100px;
 
   > span > svg {
     path {
@@ -63,9 +75,9 @@ export const AddBtn = styled(Button)`
 
 export const Title = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  width: auto;
+  width: 100%;
   height: 58px;
 
   > span {
@@ -180,7 +192,6 @@ export const ArchiveBtn = styled(Button)`
     > svg {
       width: 23px;
       height: 23px;
-      margin-right: 10px;
 
       path {
         fill: ${PALETTE.black1};

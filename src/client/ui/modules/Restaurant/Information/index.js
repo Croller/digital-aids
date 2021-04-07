@@ -16,7 +16,7 @@ import {
   LinkExternalSvg,
   RateImageSvg,
   RateTripadvisorSvg,
-  RestourantInfoTempPng,
+  RestaurantInfoTempPng,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -125,7 +125,7 @@ const Information = memo(() => {
           </ImgWrapper>
         )) : [...(new Array(5))].map((src, s) => (
           <ImgWrapper key={`_image_${s + 1}`}>
-            <Img src={RestourantInfoTempPng} />
+            <Img src={RestaurantInfoTempPng} />
           </ImgWrapper>
         ))}
       </Carousel>

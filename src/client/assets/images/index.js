@@ -5,6 +5,7 @@ import ArchiveSvg from './svg/archive.svg';
 import EditSvg from './svg/edit.svg';
 import FloppyDiskSvg from './svg/floppy-disk.svg';
 import PlusSvg from './svg/plus.svg';
+import PictureAddSvg from './svg/picture-add.svg';
 
 // back office
 import RestaurantSvg from './svg/backOffice/restaurant.svg';
@@ -108,7 +109,7 @@ import GlutenPng from './png/restaurant/allergens/gluten.png';
 import RestaurantLogoTempPng from './png/temp/restaurantLogoTemp.png';
 import PlateTempPng from './png/temp/plateTemp.png';
 import FoodTipsTempPng from './png/temp/foodTipsTemp.png';
-import RestourantInfoTempPng from './png/temp/restaurantInfoTemp.png';
+import RestaurantInfoTempPng from './png/temp/restaurantInfoTemp.png';
 import CelebratyTempPng from './png/temp/celebratyTemp.png';
 import OfferTempPng from './png/temp/offerTemp.png';
 
@@ -119,6 +120,7 @@ export {
   EditSvg,
   FloppyDiskSvg,
   PlusSvg,
+  PictureAddSvg,
 
   RestaurantSvg,
 
@@ -215,7 +217,7 @@ export {
   RestaurantLogoTempPng,
   PlateTempPng,
   FoodTipsTempPng,
-  RestourantInfoTempPng,
+  RestaurantInfoTempPng,
   CelebratyTempPng,
   OfferTempPng,
 };

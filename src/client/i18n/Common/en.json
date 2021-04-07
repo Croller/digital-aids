@@ -1,22 +1,61 @@
 {
   "words": {
+    "name": "Name",
+    "translate": "Translate",
+    "create": "Create",
+    "save": "Save",
     "edit": "Edit",
     "back": "Back",
     "delete": "Delete",
     "archive": "Archive",
     "restore": "Restore",
+    "restaurant": "Restaurant",
     "restaurants": "Restaurants",
     "managers": "Managers",
-    "add_new": "Add new"
+    "add_new": "Add new",
+    "welcome": "Welcome",
+    "search": "Search",
+    "guest": "Guest",
+    "user": "User",
+    "users": "Users",
+    "epmployee": "Epmployee",
+    "owner": "Owner",
+    "admin": "Admin",
+    "cuisine": "Cuisine",
+    "address": "Address",
+    "phone": "Phone number",
+    "contactPerson": "Contact person",
+    "email": "E-mail",
+    "opinion": "Opinion",
+    "login": "Login",
+    "password": "Password",
+    "currency": "Currency",
+    "avg_price": "Average price",
+    "mainLng": "Main language",
+    "translations": "Translations",
+    "workingTime": "Working time",
+    "logo": "Logo",
+    "photos": "Photos",
+    "upload": "Upload"
   },
 
   "form" : {
-    "text": "Text",
-    "email": "Email",
-    "login": "Login",
-    "password": "Password",
+    "text": "text",
+    "number": "number",
+    "select": "select",
+    "link": "link",
+    "numberExample": "00",
+
 
     "validation": {
+      "text": {
+        "null": "Please value",
+        "error": "Value not correct"
+      },
+      "number": {
+        "null": "Please input your number!",
+        "error": "Number is not correct"
+      },
       "login": {
         "null": "Please input your login!",
         "error": "Please input login without space!"
@@ -24,7 +63,26 @@
       "password": {
         "null": "Please input your password!",
         "error": "Password is not correct"
+      },
+      "email": {
+        "null": "Please input your email!",
+        "error": "E-mail is not correct"
+      },
+      "phone": {
+        "null": "Please input your phone!",
+        "error": "Phone is not correct"
       }
+    },
+
+    "file": {
+      "error": {
+        "type": "File format not support",
+        "size": "Size of file more than"
+      }
+    },
+
+    "error": {
+      "notFilled": "Form is incomplete"
     }
   },
 

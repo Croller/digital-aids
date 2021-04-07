@@ -49,7 +49,7 @@ const Auth = memo(() => {
         >
           <FormWrapper>
             <FormItem
-              label={t('common.form.login')}
+              label={t('common.words.login')}
               name="login"
               hasFeedback
               rules={rule.login}
@@ -59,7 +59,7 @@ const Auth = memo(() => {
               />
             </FormItem>
             <FormItem
-              label={t('common.form.password')}
+              label={t('common.words.password')}
               name="password"
               hasFeedback
               rules={rule.password}

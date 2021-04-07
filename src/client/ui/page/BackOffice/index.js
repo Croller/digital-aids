@@ -7,7 +7,7 @@ import { Layout } from 'client/ui/components/Layout/BackOffice';
 const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
-const Restourant = lazy(() => import('client/ui/modules/BackOffice/Restourant'));
+const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
@@ -31,7 +31,7 @@ export const BackOffice = () => {
                 `${PATH}/restaurant/:restaurant/category/:category/foodtips/archive`,
                 `${PATH}/restaurant/:restaurant/category/:category/foodtips`,
               ]}
-              component={Restourant}
+              component={Restaurant}
             />
             <Route
               path={[
@@ -40,7 +40,7 @@ export const BackOffice = () => {
                 `${PATH}/restaurant/:restaurant/category/:category`,
                 `${PATH}/restaurant/:restaurant/category`,
               ]}
-              component={Restourant}
+              component={Restaurant}
             />
             <Route
               path={[
@@ -51,7 +51,7 @@ export const BackOffice = () => {
             />
             <Route
               path={`${PATH}/restaurant/:restaurant`}
-              component={Restourant}
+              component={Restaurant}
             />
             <Route
               path={[

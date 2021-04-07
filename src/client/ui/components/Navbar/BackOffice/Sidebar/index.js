@@ -40,7 +40,7 @@ export const Sidebar = memo(({
             <Icon>
               {icon}
             </Icon>
-            {t(`backOffice.sidebar.${key}`)}
+            {t(`common.words.${key}`)}
           </Item>
         ))}
       </Menu>

@@ -22,6 +22,7 @@ import MontserratBlackItalic from 'client/assets/fonts/Montserrat-BlackItalic.tt
 import {
   FONTS,
   PALETTE,
+  THEME,
 } from './constants';
 
 export const GlobalStyle = createGlobalStyle`
@@ -86,8 +87,43 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   /* styled ant design global */
-  .ant-message-notice-content {
-    cursor: pointer;
+
+  /* message */
+  .ant-message {
+    .ant-message-notice-content {
+      cursor: pointer;
+
+      .ant-message-custom-content {
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+
+        .anticon {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+
+  /* select */
+  .ant-select-dropdown {
+    padding: 0;
+    border: 1px solid ${PALETTE.grey6};
+    border-radius: ${THEME.borderRadiusL};
+
+    .ant-select-item {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: ${FONTS.medium};
+      color: ${PALETTE.grey12};
+
+      &.ant-select-item-option-active {
+        background-color: ${PALETTE.grey16};
+        color: ${PALETTE.black};
+      }
+    }
   }
 
   /* import fronts */

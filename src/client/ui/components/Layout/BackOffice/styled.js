@@ -7,13 +7,13 @@ export const Wrapper = styled.div`
 export const Cotainer = styled.div`
   display: block;
   height: auto;
-  padding-top: 128px;
 `;
 
 export const Content = styled.div`
   -webkit-overflow-scrolling: touch;
   overflow: auto;
   width: ${p => (p.sidebar ? 'calc(100% - 245px)' : '100%')};
+  padding-top: 97px;
   margin-left: ${p => (p.sidebar ? '245px' : '0')};
   display: flex;
   justify-content: center;
@@ -22,5 +22,5 @@ export const Content = styled.div`
 export const Block = styled.div`
   width: 100%;
   max-width: 1440px;
-  padding: 0 36px 0 22px;
+  padding: 30px 36px 0 22px;
 `;

@@ -3,7 +3,7 @@
 -- ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
 
 CREATE TABLE data_users (
-  id serial primary key,
+  id uuid default uuid_generate_v1() primary key,
   login varchar DEFAULT null,
   password varchar DEFAULT null,
   surname varchar DEFAULT null,
@@ -34,7 +34,8 @@ CREATE TABLE data_roles (
 );
 
 CREATE TABLE data_restaurants (
-  id serial primary key,
+  id uuid default uuid_generate_v1() primary key,
+  key VARCHAR DEFAULT null, -- REQUIRED
   name VARCHAR DEFAULT null, -- REQUIRED
   address VARCHAR DEFAULT null,
   email VARCHAR ARRAY DEFAULT null,
@@ -48,6 +49,8 @@ CREATE TABLE data_restaurants (
   images VARCHAR ARRAY DEFAULT null,
   socials INT DEFAULT NULL, -- DICTIONARY data_socials
   work_time INT DEFAULT NULL, -- DICTIONARY data_work_time
+  offers INT ARRAY DEFAULT null, -- DICTIONARY data_offers
+  foodtips INT ARRAY DEFAULT null, -- DICTIONARY data_offers
   is_archived boolean DEFAULT FALSE,
   is_deleted boolean DEFAULT FALSE
 );
@@ -102,7 +105,7 @@ CREATE TABLE data_work_time (
 -- );
 
 -- CREATE TABLE dictionary_roles (
---   id serial primary key,
+--   id uuid default uuid_generate_v1() primary key,
 --   name varchar,
 --   description varchar
 -- );
@@ -120,7 +123,7 @@ CREATE TABLE data_work_time (
 -- // --------------------------------------------------
 
 -- CREATE TABLE data_krt (
---   id serial primary key,
+--   id uuid default uuid_generate_v1() primary key,
 --   name varchar,
 --   proiz_zone varchar,
 --   prom_zone varchar,

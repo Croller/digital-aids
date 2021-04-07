@@ -12,6 +12,23 @@ import {
 
 const initState = {
   info: {
+    // id
+    // key
+    // name
+    // address
+    // email
+    // opinion
+    // phone
+    // currency
+    // cuisine
+    // employees
+    // avg_price
+    // languages
+    // images
+    // socials
+    // work_time
+    // is_archived
+    // is_deleted
     id: 213123,
     name: 'Las Cuevas',
     key: 'las-cuevas',
@@ -24,10 +41,8 @@ const initState = {
     cuisine: ['fusion'], // i18n added all kictchen could be
     images: null, // array of image binary
     logo: null,
-    offers: [1001],
-    laguages: ['en', 'ru'], // first current laguage
-    is_opinion: false,
-    manager: [
+    languages: ['en', 'ru'], // first current laguage
+    employees: [
       {
         key: 'director',
         name: 'Alex U',

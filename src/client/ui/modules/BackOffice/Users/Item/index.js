@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { } from './styled';
 
-export const RestourantItem = memo(() => {
+export const RestaurantItem = memo(() => {
 
 
   return (

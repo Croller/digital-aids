@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { EmptyList } from './EmptyList';
 import {
-  // Wrapper,
   TopbarStyled,
   List,
 } from './styled';
@@ -19,14 +18,11 @@ const Restaurants = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-  }, [pathname]);
+  }, []);
 
   return (
     <>
-      <TopbarStyled
-        url={pathname}
-        onSearch={handleSearch}
-      />
+      <TopbarStyled onSearch={handleSearch} />
       <List>
         <EmptyList type={getEmptyList()} />
       </List>

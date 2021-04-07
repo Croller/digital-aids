@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { IconText } from 'client/ui/components/_ui/_etc/IconText';
 import {
@@ -24,27 +24,34 @@ import {
 } from './styled';
 
 export const Topbar = ({
-  params = null,
+  settings = null,
   onSearch = () => {},
+  onChange = () => {},
   className,
 }) => {
   const [t] = useTranslation();
   const history = useHistory();
+  const params = useParams();
   const { pathname } = useLocation();
-  const [options, setOptions] = useState(params || {
+  const [options, setOptions] = useState(settings || {
     back: false,
     loupe: true,
     delete: false,
     archive: true,
     add_new: true,
-    title: null,
+    title: true,
+    search: false,
   });
-  
+
   const handleRoute = (key) => {
     const pathParts = pathname.split('/');
     let path = '';
     if (key === 'back') {
       path = pathParts.slice(0, -1).join('/');
+      if (history.action !== 'POP') {
+        history.goBack();
+        return null;
+      }
     }
     if (key === 'archive') {
       path = `${pathParts.join('/')}/${key}`;
@@ -61,9 +68,11 @@ export const Topbar = ({
 
     if (controlKey === 'loupe') {
       obj.loupe = !obj.loupe;
+      obj.search = !obj.search;
     }
 
     setOptions({ ...obj });
+    onChange(controlKey);
   };
 
   useEffect(() => {
@@ -71,12 +80,16 @@ export const Topbar = ({
     const pathParts = pathname.split('/');
     const page = pathParts[2] || 'restaurants';
 
-    if (pathname.indexOf('restaurants') > -1) {
+    if (pathParts[2] === 'restaurants') {
       data.back = false;
       data.loupe = true;
       data.delete = false;
       data.archive = true;
       data.add_new = true;
+      data.title = {
+        icon: <RestaurantSvg />,
+        text: t(`common.words.${page}`),
+      };
     }
 
     if (pathname.indexOf('archive') > -1) {
@@ -84,12 +97,25 @@ export const Topbar = ({
       data.delete = true;
       data.archive = false;
       data.add_new = false;
+      data.title = {
+        icon: <ArchiveSvg />,
+        text: `${t('common.words.archive')} ${t(`common.words.${page}`)}`,
+      };
     }
 
-    data.title = {
-      icon: !data.archive ? <ArchiveSvg /> : <RestaurantSvg />,
-      text: `${!data.archive ? `${t('common.words.archive')} ` : ''}${t(`common.words.${page}`)}`,
-    };
+    if (pathParts[2] === 'restaurant' && params.restaurant) {
+      data.back = true;
+      data.loupe = false;
+      data.search = false;
+      data.delete = params.restaurant !== 'new';
+      data.archive = false;
+      data.add_new = false;
+      data.title = {
+        icon: <RestaurantSvg />,
+        text: `${params.restaurant !== 'new' ? '' : `${t('common.words.create')} `}${t(`common.words.${page}`)}`,
+      };
+    }
+
     setOptions(data);
   }, [pathname]);
 
@@ -113,24 +139,15 @@ export const Topbar = ({
           </AddBtn>
         )}
       </Control>
-      {!options.loupe && (
-        <Search
-          onChange={onSearch}
-          prefix={<LoupeSvg />}
-          suffix={<CloseSvg onClick={() => handleChange('loupe')} />}
-          placeholder={t('common.words.search')}
-        />
-      )}
-      {options.loupe && options.title && (
-        <Title archive={!options.archive}>
-          {options.loupe ? (
-            <IconText {...options.title} />
-          ) : (
+      {options.title && (
+        <Title archive={pathname.indexOf('archive') > -1}>
+          {options.title && !options.search && (<IconText {...options.title} />)}
+          {options.search && (
             <Search
               onChange={onSearch}
               prefix={<LoupeSvg />}
               suffix={<CloseSvg onClick={() => handleChange('loupe')} />}
-              placeholder
+              placeholder={t('common.words.search')}
             />
           )}
         </Title>

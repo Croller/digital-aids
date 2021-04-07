@@ -23,6 +23,8 @@ export const Btn = styled.button`
 
   &:disabled {
     cursor: not-allowed;
+    color: ${PALETTE.grey27};
+    background-color: ${PALETTE.grey28};
   }
 `;
 
