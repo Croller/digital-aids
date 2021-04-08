@@ -14,7 +14,7 @@ CREATE TABLE data_users (
   email varchar array DEFAULT null,
   language varchar DEFAULT 'en', -- DICTIONARY dictionary_language
   roles int array DEFAULT null, -- DICTIONARY data_roles
-  restaurants int ARRAY DEFAULT null, -- DICTIONARY data_restaurant
+  restaurants varchar ARRAY DEFAULT null, -- DICTIONARY data_restaurant
   enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
   meta jsonb DEFAULT '{"browser": null, "ip": null, "geo": null}',
   is_archived boolean DEFAULT FALSE,
@@ -35,28 +35,27 @@ CREATE TABLE data_roles (
 
 CREATE TABLE data_restaurants (
   id uuid default uuid_generate_v1() primary key,
-  key VARCHAR DEFAULT null, -- REQUIRED
   name VARCHAR DEFAULT null, -- REQUIRED
+  translate VARCHAR DEFAULT null, -- REQUIRED
   address VARCHAR DEFAULT null,
   email VARCHAR ARRAY DEFAULT null,
+  website VARCHAR DEFAULT null,
   opinion VARCHAR DEFAULT null,
   phone bigint ARRAY DEFAULT null,
-  currency INT DEFAULT null, -- DICTIONARY dictionary_currency
+  currency VARCHAR ARRAY DEFAULT '{"EUR"}', -- DICTIONARY dictionary_currency
   cuisine VARCHAR ARRAY DEFAULT null,
-  employees INT ARRAY DEFAULT null, -- DICTIONARY data_users
+  employees VARCHAR ARRAY DEFAULT null, -- DICTIONARY data_users
   avg_price FLOAT DEFAULT 0,
-  languages VARCHAR ARRAY DEFAULT '{"en", "en"}', -- DICTIONARY dictionary_language
+  languages VARCHAR ARRAY DEFAULT '{null, "en"}', -- DICTIONARY dictionary_language
   images VARCHAR ARRAY DEFAULT null,
-  socials INT DEFAULT NULL, -- DICTIONARY data_socials
-  work_time INT DEFAULT NULL, -- DICTIONARY data_work_time
-  offers INT ARRAY DEFAULT null, -- DICTIONARY data_offers
-  foodtips INT ARRAY DEFAULT null, -- DICTIONARY data_offers
+  socials jsonb DEFAULT '{"thefork":{"rate":null,"url":null},"tripadviser":{"rate":null,"url":null},"facebook":{"rate":null,"url":null},"instagram":{"rate":null,"url":null}}',
+  work_time jsonb DEFAULT '{"mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
   is_archived boolean DEFAULT FALSE,
   is_deleted boolean DEFAULT FALSE
 );
 
 CREATE TABLE dictionary_currency (
-  id serial primary key,
+  id VARCHAR DEFAULT null,
   name VARCHAR DEFAULT null,
   fullname VARCHAR DEFAULT null,
   description VARCHAR DEFAULT null,
@@ -70,28 +69,37 @@ CREATE TABLE dictionary_language (
   description VARCHAR DEFAULT null
 );
 
-CREATE TABLE data_socials (
-  id serial primary key,
-  fork VARCHAR DEFAULT null,
-  tripadviser VARCHAR DEFAULT null,
-  facebook VARCHAR DEFAULT null,
-  instagram VARCHAR DEFAULT null
-);
 
-CREATE TABLE data_work_time (
-  id serial primary key,
-  mon timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
-  tue timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
-  wed timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
-  thu timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
-  fri timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
-  sat timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
-  sun timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000"}'
-);
+
+  categories
+  offers INT ARRAY DEFAULT null, -- DICTIONARY data_offers
+  foodtips INT ARRAY DEFAULT null, -- DICTIONARY data_foodtips
+  opinions INT ARRAY DEFAULT null, -- DICTIONARY data_opinions
 
 
 
+-- CREATE TABLE data_socials (
+--   id serial primary key,
+--   fork VARCHAR DEFAULT null,
+--   tripadviser VARCHAR DEFAULT null,
+--   facebook VARCHAR DEFAULT null,
+--   instagram VARCHAR DEFAULT null
+-- );
 
+-- CREATE TABLE data_work_time (
+--   id serial primary key,
+--   mon timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   tue timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   wed timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   thu timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   fri timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   sat timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   sun timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000"}'
+-- );
+
+  -- '{"thefork":{"name":"TheFork","rate":null,"url":null},"tripadviser":{"name":"Tripadviser","rate":null,"url":null},"facebook":{"name":"Facebook","rate":null,"url":null},"instagram":{"name":"Instagram","rate":null,"url":null}}'
+
+-- '{"mon":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000]}'
 
 
 -- CREATE TABLE description_data_users (

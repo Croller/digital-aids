@@ -187,6 +187,10 @@ export const SelectStyled = styled(Select)`
         font-size: 16px;
       }
 
+      .ant-select-selection-overflow-item {
+        margin-left: -10px;
+      }
+
       .ant-select-selection-placeholder {
         font-size: 18px;
         font-family: ${FONTS.medium};
@@ -271,6 +275,10 @@ export const Save = styled(Button)`
   color: ${PALETTE.white};
   text-transform: uppercase;
   margin: auto;
+`;
+
+export const FormUploader = styled.div`
+  position: relative;
 `;
 
 export const UploaderLogo = styled(Uploader)`

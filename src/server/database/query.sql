@@ -20,11 +20,11 @@
 DROP TABLE data_users;
 DROP TABLE data_roles;
 DROP TABLE data_restaurants;
-DROP TABLE data_socials;
-DROP TABLE data_work_time;
-DROP TABLE dictionary_currency;
-DROP TABLE dictionary_language;
+-- DROP TABLE dictionary_currency;
+-- DROP TABLE dictionary_language;
 
+-- DROP TABLE data_socials;
+-- DROP TABLE data_work_time;
 
 -- TRUNCATE data_roles RESTART IDENTITY CASCADE;
 -- TRUNCATE data_users RESTART IDENTITY CASCADE;

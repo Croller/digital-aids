@@ -48,6 +48,7 @@ export const PALETTE = {
   grey28: '#D7D7D7',
 
   green1: '#219653',
+  green2: '#0CAB50',
 
   red1: '#F43658',
   red2: '#DD584D',

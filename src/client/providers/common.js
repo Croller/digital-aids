@@ -1,61 +1,70 @@
-import axios from 'axios';
 
-let URL = `https://${process.env.HOST}:${process.env.PORT_SERVER}`;
-if (process.env.NODE_ENV === 'development') {
-  URL = '';
-}
+import { get, post } from 'client/providers/fetch';
 
-const headers = {
-  accept: 'application/json',
-  'content-type': 'application/json',
-};
-
-const error = {
-  code: 0,
-  name: '',
-  text: '',
-};
-
-const setError = (err, data) => {
-  const { status, statusText } = err.request;
-  error.name = statusText;
-  error.code = status;
-  error.text = err.message;
-
-  console.log('Request error:', {
-    error,
-    data,
-  });
-  return { error };
-};
-
-export const get = async (path, params = null, options = {}) => {
-  let query = '';
-  if (params) {
-    query = `?${new URLSearchParams(params).toString()}`;
+export const updateTableRecord = async ({
+  method,
+  token,
+  name,
+  data,
+}) => {
+  const options = {
+    Authorization: `Bearer ${token}`,
+  };
+  const results = await post(`back-office/table/record/${method}`, { name, data }, options);
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
   }
-
-  try {
-    return await axios.get(`${URL}/api/${path}${query}`, { headers: { ...headers, ...options } });
-  } catch (err) {
-    return setError(err, { 
-      url: `${URL}/api/${path}${query}`,
-      params,
-      options,
-      headers,
-    });
-  }
+  return results;
 };
 
-export const post = async (path, params = {}, options = {}) => {
-  try {
-    return await axios.post(`${URL}/api/${path}`, { data: params }, { headers: { ...headers, ...options } });
-  } catch (err) {
-    return setError(err, { 
-      url: `${URL}/api/${path}`,
-      params,
-      options,
-      headers,
-    });
+export const updateFile = async ({
+  method,
+  token,
+  name,
+  data,
+}) => {
+  const options = {
+    Authorization: `Bearer ${token}`,
+  };
+  const results = await post(`back-office/file/${method}`, { name, data }, options);
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
   }
+  return results;
 };
+
+
+// export const getTableByNames = (arr) => async (dispatch) => {
+//   dispatch(setLoading(true));
+//   const results = await post('table/get', { names: arr });
+//   if (results.status === 200 && !results.data.error) {
+//     const data = Object.keys(results.data).reduce((obj, key) => {
+//       if (key.indexOf('date') !== -1) {
+//         return { ...obj, [key]: moment(results.data[key]).local().format('DD.MM.YYYY') };
+//       }
+//       return { ...obj, [key]: results.data[key] };
+//     }, {});
+//     dispatch(setT(data));
+//   } else {
+//     dispatch(setError(results.data.error));
+//   }
+// };
+
+// export const insertTableRecord = ({ name, data }) => async (dispatch) => {
+//   dispatch(setLoading(true));
+//   const results = await post('table/record/create', { name, data });
+//   if (results.status === 200 && !results.data.error) {
+//     dispatch(addTRecord(name, results.data));
+//   } else {
+//     dispatch(setError(results.data.error));
+//   }
+// };
+
+// export const updateTableRecord = ({ name, data }) => async (dispatch) => {
+//   const results = await post('table/record/update', { name, data });
+//   if (results.status === 200 && !results.data.error) {
+//     dispatch(updateTRecord(name, results.data));
+//   } else {
+//     dispatch(setError(results.data.error));
+//   }
+// };

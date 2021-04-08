@@ -1,4 +1,4 @@
-import { get, post } from 'client/providers/common';
+import { get, post } from 'client/providers/fetch';
 import { detect } from 'detect-browser';
 
 export const signIn = async ({ login, password }) => {

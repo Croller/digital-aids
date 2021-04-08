@@ -24,6 +24,7 @@ const Auth = memo(() => {
   const rule = rules(t);
 
   const onFinish = (values) => {
+    console.log(values);
     rootDispatch(login(values));
   };
 
@@ -51,7 +52,6 @@ const Auth = memo(() => {
             <FormItem
               label={t('common.words.login')}
               name="login"
-              hasFeedback
               rules={rule.login}
             >
               <InputStyled
@@ -61,7 +61,6 @@ const Auth = memo(() => {
             <FormItem
               label={t('common.words.password')}
               name="password"
-              hasFeedback
               rules={rule.password}
             >
               <InputStyled

@@ -20,8 +20,9 @@ const UserController = () => {
       browser = null,
     } = req.body.data;
 
-    const ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-    const geo = geoip.lookup('83.220.237.49');
+    let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+    ip = ip.replace('::ffff:', '');
+    const geo = geoip.lookup('83.220.237.49' || ip);
     const meta = JSON.stringify({ ip, browser, geo });
 
     try {

@@ -38,15 +38,15 @@ function* logout() {
   yield put({ type: Constants.USER_SET, payload: null });
 }
 
-export function* watchLogin() {
+export function* watchUserLogin() {
   yield takeLatest(Constants.USER_LOGIN, login);
 }
 
-export function* watchAuth() {
+export function* watchUserAuth() {
   yield takeLatest(Constants.USER_AUTH, auth);
 }
 
-export function* watchLogout() {
+export function* watchUserLogout() {
   yield takeLatest(Constants.USER_LOGOUT, logout);
 }
 

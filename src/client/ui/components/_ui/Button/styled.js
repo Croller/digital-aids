@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { PALETTE, THEME, FONTS } from 'client/style/constants';
 import { Spin } from 'antd';
 
@@ -21,11 +21,16 @@ export const Btn = styled.button`
     outline: none;
   }
 
-  &:disabled {
-    cursor: not-allowed;
-    color: ${PALETTE.grey27};
-    background-color: ${PALETTE.grey28};
-  }
+  ${p => p.loading && css`
+    cursor: not-allowed !important;
+    background-color: ${PALETTE.green2} !important;
+  `}
+
+  ${p => p.disabled && css`
+    cursor: not-allowed !important;
+    color: ${PALETTE.grey27} !important;
+    background-color: ${PALETTE.grey28} !important;
+  `}
 `;
 
 export const SpinStyled = styled(Spin)`

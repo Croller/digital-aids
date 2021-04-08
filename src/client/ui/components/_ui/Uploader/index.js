@@ -1,5 +1,5 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import { Modal } from 'antd';
+// import { Modal } from 'antd';
 import { getBase64 } from 'client/utils/common';
 import { PictureAddSvg, TrashSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ import {
 
 export const Uploader = forwardRef(({ 
   max = 1,
+  files = [],
   onUpload = () => {},
   className,
 }, ref) => {
@@ -26,41 +27,39 @@ export const Uploader = forwardRef(({
   const types = ['image/png', 'image/jpeg'];
   const [t] = useTranslation();
   const [error, setError] = useState(null);
-  const [files, setFiles] = useState([]);
-  const [previewShow, setPreviewShow] = useState(false);
-  const [previewImg, setPreviewImg] = useState({
-    image: '',
-    title: '',
-  });
+  // const [previewShow, setPreviewShow] = useState(false);
+  // const [previewImg, setPreviewImg] = useState({
+  //   image: '',
+  //   title: '',
+  // });
 
-  const handleCancel = () => setPreviewShow(false);
+  // const handleCancel = () => setPreviewShow(false);
 
   const handleChange = (info) => {
     const { fileList } = info;
     const filtred = fileList.filter(f => types.includes(f.type));
     const updated = filtred.map(async (file) => ({
       ...file,
-      name: `${uuidv4()}.${file.type.replace('image/', '')}`,
-      url: await getBase64(file.originFileObj),
+      filename: `${uuidv4()}.${file.type.replace('image/', '')}`,
+      base64: await getBase64(file.originFileObj),
     }));
     Promise.all(updated).then(values => {
       onUpload(values);
-      setFiles(values);
     });
   };
 
-  const handlePreview = async data => {
-    const file = { ...data };
-    if (!file.url && !file.preview) {
-      file.preview = await getBase64(file.originFileObj);
-    }
+  // const handlePreview = async data => {
+  //   const file = { ...data };
+  //   if (!file.url && !file.preview) {
+  //     file.preview = await getBase64(file.originFileObj);
+  //   }
 
-    setPreviewShow(true);
-    setPreviewImg({
-      image: file.url || file.preview,
-      title: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
-    });
-  };
+  //   setPreviewShow(true);
+  //   setPreviewImg({
+  //     image: file.url || file.preview,
+  //     title: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+  //   });
+  // };
   
   const handlebeforeUpload = file => {
     const support = types.includes(file.type);
@@ -82,8 +81,7 @@ export const Uploader = forwardRef(({
 
   const handleDelete = (file) => {
     const filtred = files.filter(f => f.uid !== file.uid);
-    onUpload(filtred);
-    setFiles(filtred);
+    onUpload(filtred, file);
   };
 
   const uploadButton = (
@@ -109,32 +107,32 @@ export const Uploader = forwardRef(({
         showUploadList={false}
         // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
-        // fileList={files}
+        fileList={files}
         beforeUpload={handlebeforeUpload}
-        onPreview={handlePreview}
+        // onPreview={handlePreview}
         onChange={handleChange}
         customRequest={handleUpload}
       >
         {files && files.length >= max ? null : uploadButton}
       </UploadStyled>
       <List className="list-images">
-        {files.map((file) => (
-          <ImgBlock key={file.uid}>
-            <Img src={file.url} />
+        {files && files.length > 0 && files.map((file, f) => (
+          <ImgBlock key={`_image_${f + 1}_${file.filename}`}>
+            <Img src={file.base64} />
             <Delete onClick={() => handleDelete(file)}>
               <TrashSvg />
             </Delete>
           </ImgBlock>
         ))}
       </List>
-      <Modal
+      {/* <Modal
         visible={previewShow}
         title={previewImg.title}
         footer={null}
         onCancel={handleCancel}
       >
         <img alt="example" style={{ width: '100%' }} src={previewImg.image} />
-      </Modal>
+      </Modal> */}
       <Message type="error" content={error} />
     </Wrapper>
   );

@@ -45,6 +45,7 @@
     "select": "select",
     "link": "link",
     "numberExample": "00",
+    "floatExample": "00.0",
 
 
     "validation": {
@@ -55,6 +56,10 @@
       "number": {
         "null": "Please input your number!",
         "error": "Number is not correct"
+      },
+      "float": {
+        "null": "Please input your float!",
+        "error": "Float is not correct"
       },
       "login": {
         "null": "Please input your login!",

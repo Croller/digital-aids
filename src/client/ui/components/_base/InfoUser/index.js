@@ -85,7 +85,7 @@ export const InfoUser = () => {
 
   useEffect(() => {
     if (token && initUrl) {
-      const url = initUrl.indexOf('auth') > -1 ? `/${pathCurrent}/restaurants` : initUrl;
+      const url = initUrl.indexOf('auth') > -1 ? `${pathCurrent}/restaurants` : initUrl;
       updateStorage();
       history.push(url);
     }

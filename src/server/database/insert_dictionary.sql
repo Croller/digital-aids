@@ -1,4 +1,4 @@
-INSERT INTO dictionary_currency (name, fullname, symbol) VALUES
+INSERT INTO dictionary_currency (id, name, symbol) VALUES
   ('EUR', 'Euro Member Countries', '€'),
   ('USD', 'United States Dollar', '$'),
   ('RUB', 'Russia Ruble', '₽'),

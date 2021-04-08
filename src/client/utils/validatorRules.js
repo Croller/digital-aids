@@ -28,11 +28,23 @@ export const rules = (t) => ({
         if (!value) {
           return Promise.reject(new Error(t('common.form.validation.number.null')));
         }
-        const val = value.replace(/ /g, '').replace(/_/g, '');
-        if (Number.isInteger(Number(val))) {
+        if (parseInt(value, 0)) {
           return Promise.resolve();
         }
         return Promise.reject(new Error(t('common.form.validation.number.error')));
+      },
+    }),
+  ],
+  float: [
+    () => ({
+      validator(_, value) {
+        if (!value) {
+          return Promise.reject(new Error(t('common.form.validation.float.null')));
+        }
+        if (parseFloat(value)) {
+          return Promise.resolve();
+        }
+        return Promise.reject(new Error(t('common.form.validation.float.error')));
       },
     }),
   ],

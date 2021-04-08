@@ -23,7 +23,8 @@ export const Button = memo(({
   return (
     <Btn
       type={type}
-      disabled={disabled || loading}
+      disabled={disabled}
+      loading={loading ? 1 : 0}
       htmlType={htmlType}
       className={className}
       onClick={handleClick}

@@ -37,10 +37,10 @@ if (process.env.NODE_ENV === 'development') {
     cert: fs.readFileSync(path.resolve('src/server/cert/server.crt')),
   };
   const server = https.createServer(options, app);
-  server.listen(process.env.PORT_SERVER);
+  server.listen(process.env.HOST_PORT_SERVER);
 }
 
-console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.PORT_LOCAL_SERVER : process.env.PORT_SERVER}`);
+console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.PORT_LOCAL_SERVER : process.env.HOST_PORT_SERVER}`);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
