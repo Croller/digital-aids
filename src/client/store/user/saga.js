@@ -1,6 +1,7 @@
 import { takeLatest, select, put } from 'redux-saga/effects';
 import * as Constants from 'client/store/user/constants';
 import * as authProvider from 'client/providers/auth';
+import { createAxios } from 'client/providers/fetch';
 
 function* login({ payload }) {
   yield select((store) => store.user);
@@ -11,6 +12,7 @@ function* login({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
+      createAxios(data.token);
       yield put({ type: Constants.USER_SET, payload: data });
     }
   } catch (err) {

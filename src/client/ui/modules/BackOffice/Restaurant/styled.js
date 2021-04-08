@@ -282,21 +282,29 @@ export const FormUploader = styled.div`
 `;
 
 export const UploaderLogo = styled(Uploader)`
-  img {
-    width: 100%;
-    height: 180px;
+  .list-images {
+    > div {
+      width: 100%;
+
+      img {
+        width: auto;
+        height: 180px;
+      }
+    }
   }
 `;
 
 export const UploaderPhotos = styled(Uploader)`
   .list-images {
     > div {
+      width: 205px;
+
       &:nth-child(3n) {
         margin-right: 0;
       }
 
       img {
-        width: 205px;
+        width: auto;
       }
     }
   }

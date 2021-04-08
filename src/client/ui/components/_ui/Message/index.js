@@ -32,13 +32,14 @@ export const showMessage = ({
       // message.destroy();
     },
   };
-
   if (content) {
     message[type](config);
     return true;
   }
   return null;
 };
+
+export const hideMessage = () => message.destroy();
 
 export const Message = ({
   type = 'success',

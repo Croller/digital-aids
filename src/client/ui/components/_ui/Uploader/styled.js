@@ -62,6 +62,8 @@ export const List = styled.div`
 
 export const ImgBlock = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
   margin-bottom: 22px;
 
@@ -71,10 +73,14 @@ export const ImgBlock = styled.div`
 `;
 
 export const Img = styled.img`
-  display: flex;
   width: 100%;
   height: 180px;
   border-radius: ${THEME.borderRadiusL};
+
+  /* background-image: url(${p => p.url && p.url});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center; */
 `;
 
 export const Delete = styled(Button)`

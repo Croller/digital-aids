@@ -31,16 +31,47 @@ export const downloadFile = (url, filename) => {
   }));
 };
 
-export const loadFile = async (filename, url) => {
-  const result = await fetch(`${url}/${filename}`);
+export const loadFile = async (url = null, uuid = null) => {
+  if (!url) return null;
+  const result = await fetch(url);
   const blob = await result.blob();
   const base64 = await getBase64(blob);
   const type = base64 && base64.split(';base64')[0].replace('data:', '');
   return {
     type,
     base64,
-    filename,
-    originFileObj: new File([blob], filename, { type }),
+    uuid,
+    originFileObj: new File([blob], uuid, { type }),
   };
 };
 
+export const imageToPng = async (file = null, uuid = null) => {
+  if (!file && !file.type) return null;
+  const type = 'image/png';
+  const base64 = await getBase64(file);
+  const imgParams = await getImageParams(base64);
+  const { width, height } = imgParams;
+
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = width;
+  canvas.height = height;
+  ctx.drawImage(imgParams, 0, 0);
+  const basePng = canvas.toDataURL('image/png');
+  
+  const result = await fetch(basePng);
+  const blob = await result.blob();
+  return {
+    type,
+    base64: basePng,
+    uuid,
+    originFileObj: new File([blob], uuid, { type }),
+  };
+};
+
+const getImageParams = (src) => new Promise((resolve, reject) => {
+  const img = new Image();
+  img.onload = () => resolve(img);
+  img.onerror = reject;
+  img.src = src;
+});

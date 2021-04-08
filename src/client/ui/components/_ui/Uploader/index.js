@@ -1,10 +1,10 @@
-import React, { useState, useEffect, forwardRef } from 'react';
-// import { Modal } from 'antd';
-import { getBase64 } from 'client/utils/common';
+import React, { forwardRef } from 'react';
+import { getBase64, imageToPng } from 'client/utils/common';
 import { PictureAddSvg, TrashSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
-import { Message } from 'client/ui/components/_ui/Message';
 import { v4 as uuidv4 } from 'uuid';
+// import Compressor from 'compressorjs';
+
 import {
   Wrapper,
   Adder,
@@ -21,56 +21,51 @@ export const Uploader = forwardRef(({
   max = 1,
   files = [],
   onUpload = () => {},
+  onStatus = () => {},
   className,
 }, ref) => {
   const limitSize = 15;
   const types = ['image/png', 'image/jpeg'];
   const [t] = useTranslation();
-  const [error, setError] = useState(null);
-  // const [previewShow, setPreviewShow] = useState(false);
-  // const [previewImg, setPreviewImg] = useState({
-  //   image: '',
-  //   title: '',
-  // });
 
-  // const handleCancel = () => setPreviewShow(false);
-
-  const handleChange = (info) => {
-    const { fileList } = info;
-    const filtred = fileList.filter(f => types.includes(f.type));
-    const updated = filtred.map(async (file) => ({
-      ...file,
-      filename: `${uuidv4()}.${file.type.replace('image/', '')}`,
-      base64: await getBase64(file.originFileObj),
-    }));
-    Promise.all(updated).then(values => {
-      onUpload(values);
-    });
-  };
-
-  // const handlePreview = async data => {
-  //   const file = { ...data };
-  //   if (!file.url && !file.preview) {
-  //     file.preview = await getBase64(file.originFileObj);
-  //   }
-
-  //   setPreviewShow(true);
-  //   setPreviewImg({
-  //     image: file.url || file.preview,
-  //     title: file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
-  //   });
-  // };
-  
-  const handlebeforeUpload = file => {
-    const support = types.includes(file.type);
-    const size = file.size / 1024 / 1024 < limitSize;
-    if (!support) {
-      setError(t('common.form.file.error.type'));
+  const handleChange = async (info) => {
+    const { file } = info;
+    if (file) {
+      const support = types.includes(file.type);
+      const size = file.size / 1024 / 1024 < limitSize;
+      if (!support) {
+        onStatus({ type: 'warning', content: t('common.form.file.error.type') });
+        return;
+      }
+      if (!size) {
+        onStatus({ type: 'warning', content: `${t('common.form.file.error.size')} ${limitSize}` });
+        return;
+      }
     }
-    if (!size) {
-      setError(`${t('common.form.file.error.size')} ${limitSize}`);
-    }
-    return support && size;
+
+    onStatus({ type: 'loading', content: `${t('common.words.loading')}...` });
+    // const compress = await new Compressor(file.originFileObj);
+    const transform = await transformFile(file);
+
+    onUpload([...files, transform]);
+    onStatus({ type: 'success', content: `${t('common.words.success')}` });
+
+    // const { fileList } = info;
+    // const filtred = fileList.filter(f => types.includes(f.type));
+    // const updated = filtred.map(async (file) => {
+    //   if (file.type !== 'image/png') {
+    //     const png = await imageToPng(file.originFileObj, uuidv4());
+    //     return png;
+    //   }
+    //   return {
+    //     ...file,
+    //     uuid: uuidv4(),
+    //     base64: await getBase64(file.originFileObj),
+    //   };
+    // });
+    // Promise.all(updated).then(values => {
+    //   onUpload(values);
+    // });
   };
 
   const handleUpload = ({ onSuccess }) => {
@@ -84,20 +79,28 @@ export const Uploader = forwardRef(({
     onUpload(filtred, file);
   };
 
+  const transformFile = async (file) => {
+    if (file.type !== 'image/png') {
+      const png = await imageToPng(file.originFileObj, uuidv4());
+      return png;
+    }
+    return {
+      ...file,
+      uuid: uuidv4(),
+      base64: await getBase64(file.originFileObj),
+    };
+  };
+
   const uploadButton = (
     <Adder>
       <Icon>
         <PictureAddSvg />
       </Icon>
-      <Text style={{ marginTop: 8 }}>
+      <Text>
         {t('common.words.upload')}
       </Text>
     </Adder>
   );
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <Wrapper className={className}>
@@ -105,19 +108,16 @@ export const Uploader = forwardRef(({
         ref={ref}
         maxCount={max}
         showUploadList={false}
-        // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
         listType="picture-card"
         fileList={files}
-        beforeUpload={handlebeforeUpload}
-        // onPreview={handlePreview}
         onChange={handleChange}
         customRequest={handleUpload}
       >
         {files && files.length >= max ? null : uploadButton}
       </UploadStyled>
       <List className="list-images">
-        {files && files.length > 0 && files.map((file, f) => (
-          <ImgBlock key={`_image_${f + 1}_${file.filename}`}>
+        {files && files.length > 0 && files.map((file) => (
+          <ImgBlock key={`_image_${file.uuid}`}>
             <Img src={file.base64} />
             <Delete onClick={() => handleDelete(file)}>
               <TrashSvg />
@@ -125,15 +125,6 @@ export const Uploader = forwardRef(({
           </ImgBlock>
         ))}
       </List>
-      {/* <Modal
-        visible={previewShow}
-        title={previewImg.title}
-        footer={null}
-        onCancel={handleCancel}
-      >
-        <img alt="example" style={{ width: '100%' }} src={previewImg.image} />
-      </Modal> */}
-      <Message type="error" content={error} />
     </Wrapper>
   );
 });

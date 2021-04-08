@@ -45,9 +45,9 @@ const Restaurant = () => {
     }
     setFormData(dataToForm({ ...data }));
     if (data.images && data.images.length > 0) {
-      const images = await Promise.all(data.images.map(async (filename, i) => {
+      const images = await Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
-        const file = await loadFile(filename, `${getUrl()}/static/restaurants/${path}`);
+        const file = await loadFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
         return file;
       }));
       setFormData(dataToForm({ ...data, images }));
@@ -335,6 +335,7 @@ const Restaurant = () => {
                         key="logo"
                         files={formData.images[0] ? [formData.images[0]] : []}
                         onUpload={(files, deleted = null) => handleUpload('logo', files, deleted)}
+                        onStatus={showMessage}
                         max={1}
                       />
                     </FormItem>
@@ -346,6 +347,7 @@ const Restaurant = () => {
                         key="photos"
                         files={formData.images.reduce((arr, it, i) => (i === 0 ? arr : [...arr, it]), [])}
                         onUpload={(files, deleted = null) => handleUpload('photos', files, deleted)}
+                        onStatus={showMessage}
                         max={10}
                       />
                     </FormItem>

@@ -36,7 +36,9 @@
     "workingTime": "Working time",
     "logo": "Logo",
     "photos": "Photos",
-    "upload": "Upload"
+    "upload": "Upload",
+    "loading": "Loading",
+    "success": "Success"
   },
 
   "form" : {

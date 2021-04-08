@@ -104,7 +104,7 @@ export const model = {
   employees: ['3434'],
   avg_price: 12,
   languages: ['ru', 'en'],
-  images: ['1225309a-124d-4aa4-af60-e84e420a9000.jpeg', '65eec03f-a741-4de0-a423-5dbdb5d3415f.jpeg'],
+  images: ['1225309a-124d-4aa4-af60-e84e420a9000', '65eec03f-a741-4de0-a423-5dbdb5d3415f'],
   socials: {
     thefork: {
       rate: null,
