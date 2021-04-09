@@ -15,7 +15,7 @@ export const rules = (t) => ({
         if (!value) {
           return Promise.reject(new Error(t('common.form.validation.text.null')));
         }
-        if (value.indexOf(' ') === -1) {
+        if (value.length > 0) {
           return Promise.resolve();
         }
         return Promise.reject(new Error(t('common.form.validation.text.error')));

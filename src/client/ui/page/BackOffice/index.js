@@ -7,7 +7,7 @@ import { Layout } from 'client/ui/components/Layout/BackOffice';
 const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
-const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
+const Restaurant = lazy(() => import('client/ui/modules/BackOffice/RestaurantForm'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
@@ -26,17 +26,16 @@ export const BackOffice = () => {
           <>
             <Route
               path={[
-                `${PATH}/restaurant/:restaurant/category/:category/special-deals/archive`,
-                `${PATH}/restaurant/:restaurant/category/:category/special-deals`,
-                `${PATH}/restaurant/:restaurant/category/:category/foodtips/archive`,
-                `${PATH}/restaurant/:restaurant/category/:category/foodtips`,
+                `${PATH}/restaurant/:restaurant/special-deals/archive`,
+                `${PATH}/restaurant/:restaurant/special-deals`,
+                `${PATH}/restaurant/:restaurant/foodtips/archive`,
+                `${PATH}/restaurant/:restaurant/foodtips`,
               ]}
               component={Restaurant}
             />
             <Route
               path={[
-                `${PATH}/restaurant/:restaurant/category/:category/group/:groups/archive`,
-                `${PATH}/restaurant/:restaurant/category/:category/group/:groups`,
+                `${PATH}/restaurant/:restaurant/category/:category/archive`,
                 `${PATH}/restaurant/:restaurant/category/:category`,
                 `${PATH}/restaurant/:restaurant/category`,
               ]}

@@ -5,6 +5,10 @@ export const Span = styled.span`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+`;
+
+export const Icon = styled.span`
+  width: auto;
 
   > svg {
     width: 22px;
@@ -19,6 +23,6 @@ export const Span = styled.span`
 
 export const Text = styled.span`
   font-size: 18px;
-  font-family: ${FONTS.semiBold};
+  font-family: ${FONTS.medium};
   text-transform: uppercase;
 `;

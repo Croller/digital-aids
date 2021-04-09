@@ -2,15 +2,12 @@ const routes = {
   'POST /api/user/signin': 'UserController.signin',
   'GET /api/user/auth': 'UserController.auth',
 
-  'GET /api/tables': 'CommonController.getTableByNames',
-  'GET /api/table/record': 'CommonController.getTableRecord',
-  'GET /api/table/records': 'CommonController.getTableRecords',
+  'GET /api/table': 'CommonController.getTableByNames',
+  'GET /api/table/:name/record': 'CommonController.getTableRecord',
+  'GET /api/table/:name/records': 'CommonController.getTableRecords',
+  'POST /api/table/:name/record/update': 'CommonController.updateTableRecord',
 
-  'POST /api/table/:name/record': 'CommonController.createTableRecord',
-
-  // '/api/table/:name/record': {
-  //   get: 'CommonController.getTableByNames',
-  // },
+  'DELETE /api/file/delete': 'CommonController.deleteFile',
 };
 
 module.exports = routes;

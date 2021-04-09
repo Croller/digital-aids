@@ -1,7 +1,36 @@
 
-import { get, post } from 'client/providers/fetch';
+import { get, post, remove } from 'client/providers/fetch';
 
-export const create = async ({
+export const loadTables = async ({
+  token,
+  names,
+}) => {
+  const options = {
+    Authorization: `Bearer ${token}`,
+  };
+  const results = await get('table', { names }, options);
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+};
+
+export const loadRows = async ({
+  token,
+  name,
+  ids,
+}) => {
+  const options = {
+    Authorization: `Bearer ${token}`,
+  };
+  const results = await get(`table/${name}/records`, { ids }, options);
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+};
+
+export const update = async ({
   token,
   name,
   data,
@@ -9,29 +38,26 @@ export const create = async ({
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await post(`table/${name}/record`, { ...data }, options);
+  const results = await post(`table/${name}/record/update`, data, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
   return results;
 };
 
-export const updateFile = async ({
-  method,
+export const deleteFile = async ({
   token,
-  name,
-  data,
+  path,
 }) => {
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await post(`back-office/file/${method}`, { name, data }, options);
+  const results = await remove('file/delete', { path }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
   return results;
 };
-
 
 // export const getTableByNames = (arr) => async (dispatch) => {
 //   dispatch(setLoading(true));

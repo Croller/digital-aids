@@ -3,7 +3,7 @@
 -- ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
 
 CREATE TABLE data_users (
-  id uuid default uuid_generate_v1() primary key,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   login varchar DEFAULT null,
   password varchar DEFAULT null,
   surname varchar DEFAULT null,
@@ -34,14 +34,14 @@ CREATE TABLE data_roles (
 );
 
 CREATE TABLE data_restaurants (
-  id uuid default uuid_generate_v1() primary key,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   name VARCHAR DEFAULT null, -- REQUIRED
   translate VARCHAR DEFAULT null, -- REQUIRED
   address VARCHAR DEFAULT null,
   email VARCHAR ARRAY DEFAULT null,
   website VARCHAR DEFAULT null,
   opinion VARCHAR DEFAULT null,
-  phone bigint ARRAY DEFAULT null,
+  phone VARCHAR ARRAY DEFAULT null,
   currency VARCHAR ARRAY DEFAULT '{"EUR"}', -- DICTIONARY dictionary_currency
   cuisine VARCHAR ARRAY DEFAULT null,
   employees VARCHAR ARRAY DEFAULT null, -- DICTIONARY data_users
@@ -54,20 +54,27 @@ CREATE TABLE data_restaurants (
   is_deleted boolean DEFAULT FALSE
 );
 
-CREATE TABLE dictionary_currency (
-  id VARCHAR DEFAULT null,
-  name VARCHAR DEFAULT null,
-  fullname VARCHAR DEFAULT null,
-  description VARCHAR DEFAULT null,
-  symbol VARCHAR DEFAULT null
-);
+-- CREATE TABLE dictionary_currency (
+--   id VARCHAR DEFAULT null,
+--   name VARCHAR DEFAULT null,
+--   fullname VARCHAR DEFAULT null,
+--   description VARCHAR DEFAULT null,
+--   symbol VARCHAR DEFAULT null
+-- );
 
-CREATE TABLE dictionary_language (
-  id VARCHAR DEFAULT null,
-  name VARCHAR DEFAULT null,
-  fullname VARCHAR DEFAULT null,
-  description VARCHAR DEFAULT null
-);
+-- CREATE TABLE dictionary_language (
+--   id VARCHAR DEFAULT null,
+--   name VARCHAR DEFAULT null,
+--   fullname VARCHAR DEFAULT null,
+--   description VARCHAR DEFAULT null
+-- );
+
+
+
+
+
+
+
 
 
 
@@ -113,7 +120,7 @@ CREATE TABLE dictionary_language (
 -- );
 
 -- CREATE TABLE dictionary_roles (
---   id uuid default uuid_generate_v1() primary key,
+--   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 --   name varchar,
 --   description varchar
 -- );
@@ -131,7 +138,7 @@ CREATE TABLE dictionary_language (
 -- // --------------------------------------------------
 
 -- CREATE TABLE data_krt (
---   id uuid default uuid_generate_v1() primary key,
+--   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 --   name varchar,
 --   proiz_zone varchar,
 --   prom_zone varchar,

@@ -21,7 +21,7 @@ export const dataToForm = (data) => {
     address,
     email,
     opinion,
-    phone,
+    phone: phone[0],
     currency: currency[0],
     cuisine,
     employees,
@@ -38,7 +38,6 @@ export const dataToForm = (data) => {
 };
 
 export const dataToApi = (data, current) => {
-  console.log(data, current);
   const {
     id,
     name,
@@ -63,7 +62,7 @@ export const dataToApi = (data, current) => {
     address,
     email,
     opinion,
-    phone,
+    phone: [phone],
     currency: [currency],
     cuisine,
     employees,
@@ -101,37 +100,67 @@ export const dataToApi = (data, current) => {
 
 export const model = {
   id: null,
-  name: 'tetet',
+  name: 'Las ceuvas',
   translate: '343434',
-  address: '33r3r',
-  email: ['34343'],
-  opinion: '3434',
-  phone: ['224242'],
+  address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
+  email: ['robert@lascuevas.es'],
+  opinion: 'robert@lascuevas.es',
+  phone: ['+34 617 241 673'],
   currency: ['EUR'],
-  cuisine: ['33434'],
-  employees: ['3434'],
-  avg_price: 12,
+  cuisine: ['Spanish'],
+  employees: ['Robert Johansen'],
+  avg_price: 25.2,
   languages: ['ru', 'en'],
   images: ['3528563b-00fc-4f39-ad20-de14041faf4a', 'da41f536-6aa2-4078-bd97-0347cf137a5f'],
   socials: {
     thefork: {
       rate: null,
-      url: 'test',
+      url: 'www.tripadvisor.co.uk/Restaurant_Review-g1238605-',
     },
     tripadviser: {
       rate: null,
-      url: 'test',
+      url: null,
     },
     facebook: {
       rate: null,
-      url: 'test',
+      url: 'www.facebook.com/Restaurantelascuevas/',
     },
     instagram: {
       rate: null,
-      url: 'test',
+      url: 'www.instagram.com/lascuevasrestaurante/',
     },
   },
-  work_time: 'qwfqwf',
+  work_time: {
+    description: '17.00- 22.00',
+    mon: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    tue: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    wed: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    thu: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    fri: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    sat: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    sun: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T00:00:00.000',
+    ],
+  },
   is_archived: false,
   is_deleted: false,
 };

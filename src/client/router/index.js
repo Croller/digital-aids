@@ -15,7 +15,7 @@ import {
 
 import { ErrorBoundary } from 'client/ui/components/_base/ErrorBoundary';
 import { ScrollToTop } from 'client/ui/components/_base/ScrollToTop';
-import { Loader } from 'client/ui/components/_base/Loader';
+import { Loader } from 'client/ui/components/_block/Loader';
 
 const BackOffice = lazy(() => import('client/ui/page/BackOffice'));
 const Restaurant = lazy(() => import('client/ui/page/Restaurant'));

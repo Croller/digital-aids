@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { IconText } from 'client/ui/components/_ui/_etc/IconText';
+import { IconText } from 'client/ui/components/_block/IconText';
+import { Tooltip } from 'antd';
+
 import {
   ChevronSvg,
   LoupeSvg,
@@ -33,6 +36,7 @@ export const Topbar = ({
   const history = useHistory();
   const params = useParams();
   const { pathname } = useLocation();
+  const { roles } = useSelector(state => state.user.info);
   const [options, setOptions] = useState(settings || {
     back: false,
     loupe: true,
@@ -74,6 +78,8 @@ export const Topbar = ({
     setOptions({ ...obj });
     onChange(controlKey);
   };
+
+  const haveRole = (arr) => arr.some(s => roles.includes(s));
 
   useEffect(() => {
     const data = { ...options };
@@ -130,7 +136,7 @@ export const Topbar = ({
             />
           </BackBtn>
         )}
-        {options.add_new && (
+        {options.add_new && haveRole([1, 2]) && (
           <AddBtn onClick={() => handleRoute('new')}>
             <IconText
               icon={<PlusSvg />}
@@ -158,12 +164,14 @@ export const Topbar = ({
             <LoupeSvg />
           </LoupeBtn>
         )}
-        {options.delete && (
-          <DeleteBtn onClick={() => handleChange('delete')}>
-            <TrashSvg />
-          </DeleteBtn>
+        {options.delete && haveRole([1, 2]) && (
+          <Tooltip placement="top" title={t('common.words.delete')}>
+            <DeleteBtn onClick={() => handleChange('delete')}>
+              <TrashSvg />
+            </DeleteBtn>
+          </Tooltip>
         )}
-        {options.archive && (
+        {options.archive && haveRole([1, 2]) && (
           <ArchiveBtn onClick={() => handleRoute('archive')}>
             <IconText
               icon={<ArchiveSvg />}

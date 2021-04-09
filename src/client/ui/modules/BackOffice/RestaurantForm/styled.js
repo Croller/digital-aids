@@ -225,6 +225,12 @@ export const SelectStyled = styled(Select)`
       }
     }
 
+    &.ant-select-single {
+      .ant-select-selection-search {
+        height: 100%;
+      }
+    }
+
     &.ant-select-multiple {
       .ant-select-selection-item {
         height: 48px;
@@ -234,7 +240,7 @@ export const SelectStyled = styled(Select)`
         align-items: center;
         border-radius: ${THEME.borderRadiusL};
         background-color: ${PALETTE.grey16};
-        padding-right: 12px;
+        margin-right: 16px;
         color: ${PALETTE.black};
 
         .ant-select-selection-item-content {
@@ -247,6 +253,10 @@ export const SelectStyled = styled(Select)`
         .ant-select-selection-item-remove {
           font-size: 17px;
           font-family: ${FONTS.medium};
+
+          .anticon-close {
+            margin-right: 4px;
+          }
         }
       }
 
@@ -262,6 +272,16 @@ export const OptionStyled = styled(Option)`
   font-size: 18px;
   font-family: ${FONTS.medium};
   border-radius: ${THEME.borderRadiusL};
+`;
+
+export const FormItemStyled = styled(FormItem)`
+  label > {
+    svg {
+      margin-right: 8px;
+      width: 22px;
+      height: 22px;
+    }
+  }
 `;
 
 export const FormItemSubmit = styled(FormItem)`
@@ -301,7 +321,7 @@ export const NavButton = styled(Button)`
   }
 
   > span {
-    > svg {
+    > span > svg {
       width: 22px;
       height: 22px;
       margin-right: 10px;
@@ -325,7 +345,7 @@ export const FormUploader = styled.div`
 export const UploaderLogo = styled(Uploader)`
   .list-images {
     > div {
-      width: 100%;
+      width: auto;
 
       img {
         width: auto;

@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import React, { useState, useEffect } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,16 +7,19 @@ import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
 import { getUrl, loadFile } from 'client/utils/common';
-import { create } from 'client/store/backOffice';
-import { Loader } from 'client/ui/components/_base/Loader';
-import { MenuSvg, InfoCircleSvg, ChefHeadSvg } from 'client/assets/images';
-import { IconText } from 'client/ui/components/_ui/_etc/IconText';
+import { update } from 'client/store/backOffice';
+import { Loader } from 'client/ui/components/_block/Loader';
+import {
+  MenuSvg, InfoCircleSvg, ChefHeadSvg, AlertCircleSvg, 
+} from 'client/assets/images';
+import { IconText } from 'client/ui/components/_block/IconText';
 import {
   Wrapper,
   TopbarStyled,
   FormStyled,
   Form2Col,
   FormCol,
+  FormItemStyled,
   FormItemSubmit, Save,
   InputStyled,
   // InputMaskStyled,
@@ -26,8 +29,6 @@ import {
   UploaderLogo,
   UploaderPhotos,
 } from './styled';
-
-const FormItem = FormStyled.Item;
 
 const NAV_CONFIG = [
   {
@@ -47,13 +48,18 @@ const NAV_CONFIG = [
   },
 ];
 
-const Restaurant = () => {
+const Restaurant = memo(() => {
+  const {
+    restaurants,
+    dictionary,
+    status,
+    loading,
+  } = useSelector(store => store.backOffice);
   const [t] = useTranslation();
   const rule = rules(t);
   const params = useParams();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const { restaurants, loading } = useSelector(store => store.backOffice);
   const [isChange, setIsChnage] = useState(false);
   const [loadFiles, setLoadFiles] = useState(true);
   const [formData, setFormData] = useState(null);
@@ -79,7 +85,9 @@ const Restaurant = () => {
   const handleRoute = (key) => {
     if (key === 'delete') {
       history.goBack();
+      return;
     }
+    history.push(key);
   };
 
   const handleFinish = (values) => {
@@ -87,16 +95,9 @@ const Restaurant = () => {
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(rest => rest.id === params.restaurant);
     }
-
     const edited = dataToApi({ ...formData, ...values }, data);
     
-    console.log('Restaurant data:', { ...formData, ...values });
-
-    // rootDispatch(params.restaurant !== 'new' ? update(payload) : create(payload));
-    rootDispatch(create({
-      name: 'data_restaurants',
-      data: dataToApi({ ...formData, ...values }, data),
-    }));
+    rootDispatch(update({ name: 'data_restaurants', data: edited }));
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -107,12 +108,11 @@ const Restaurant = () => {
     });
   };
 
-  const handleValuesChange = (values) => {
-    console.log('Restaurant change data:', values);
+  const handleValuesChange = () => {
     setIsChnage(true);
   };
 
-  const handleUpload = (key, files, deteled = null) => {
+  const handleUpload = (key, files) => {
     let list = formData.images || [''];
     if (key === 'logo') {
       // eslint-disable-next-line prefer-destructuring
@@ -123,7 +123,7 @@ const Restaurant = () => {
     }
     setFormData({ ...formData, images: list });
     setIsChnage(true);
-    // deteled && rootDispatch(deleteFile(deteled.filename));
+    // deteled && rootDispatch(deleteFile({ path: `/restaurant/${key}/${deteled.uuid}.png` }));
   };
 
   useEffect(() => {
@@ -132,11 +132,14 @@ const Restaurant = () => {
   }, []);
 
   useEffect(() => {
-    if (restaurants) {
-      const rest = restaurants.slice(-1)[0];
-      history.push(rest.id);
+    if (status) {
+      if (status === 'created') {
+        const rest = restaurants.slice(-1)[0];
+        history.push(rest.id);
+      }
+      showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
-  }, [restaurants && restaurants.length]);
+  }, [status]);
 
   return formData && (
     <>
@@ -157,7 +160,7 @@ const Restaurant = () => {
         >
           <Form2Col>
             <FormCol>
-              <FormItem
+              <FormItemStyled
                 label={t('common.words.name')}
                 name="name"
                 // hasFeedback
@@ -167,8 +170,8 @@ const Restaurant = () => {
                 <InputStyled
                   placeholder={t('common.form.text')}
                 />
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.cuisine')}
                 name="cuisine"
                 required
@@ -179,12 +182,12 @@ const Restaurant = () => {
                   tokenSeparators={[',']}
                   placeholder={t('common.form.select')}
                 >
-                  <OptionStyled value="lucy">Lucy</OptionStyled>
-                  <OptionStyled value="2">Lucy</OptionStyled>
-                  <OptionStyled value="3">Lucy</OptionStyled>
+                  {(formData.cuisine || []).map((str, i) => (
+                    <OptionStyled key={`_cuisine_${i + 1}`} value={str}>{str}</OptionStyled>
+                  ))}
                 </SelectStyled>
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.address')}
                 name="address"
                 required
@@ -193,14 +196,17 @@ const Restaurant = () => {
                 <InputStyled
                   placeholder={t('common.form.text')}
                 />
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.phone')}
                 name="phone"
                 required
                 rules={rule.text}
               >
-                <SelectStyled
+                <InputStyled
+                  placeholder={t('common.form.text')}
+                />
+                {/* <SelectStyled
                   mode="tags"
                   tokenSeparators={[',']}
                   placeholder={t('common.form.select')}
@@ -208,13 +214,13 @@ const Restaurant = () => {
                   <OptionStyled value="lucy">Lucy</OptionStyled>
                   <OptionStyled value="2">Lucy</OptionStyled>
                   <OptionStyled value="3">Lucy</OptionStyled>
-                </SelectStyled>
+                </SelectStyled> */}
                 {/* <InputMaskStyled
-                  mask="1a11 1111 1111 1111"
+                  mask="111 1111 1111 1111"
                   placeholder={t('common.form.text')}
                 /> */}
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.contactPerson')}
                 name="employees"
                 required
@@ -225,12 +231,12 @@ const Restaurant = () => {
                   tokenSeparators={[',']}
                   placeholder={t('common.form.select')}
                 >
-                  <OptionStyled value="lucy">Lucy</OptionStyled>
-                  <OptionStyled value="2">Lucy</OptionStyled>
-                  <OptionStyled value="3">Lucy</OptionStyled>
+                  {(formData.employees || []).map((str, i) => (
+                    <OptionStyled key={`_employees_${i + 1}`} value={str}>{str}</OptionStyled>
+                  ))}
                 </SelectStyled>
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.email')}
                 name="email"
                 required
@@ -241,26 +247,27 @@ const Restaurant = () => {
                   tokenSeparators={[',']}
                   placeholder={t('common.form.select')}
                 >
-                  <OptionStyled value="lucy">Lucy</OptionStyled>
-                  <OptionStyled value="2">Lucy</OptionStyled>
-                  <OptionStyled value="3">Lucy</OptionStyled>
+                  {(formData.email || []).map((str, i) => (
+                    <OptionStyled key={`_email_${i + 1}`} value={str}>{str}</OptionStyled>
+                  ))}
                 </SelectStyled>
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.currency')}
                 name="currency"
                 required
                 rules={rule.text}
               >
                 <SelectStyled
+                  showSearch
                   placeholder={t('common.form.select')}
                 >
-                  <OptionStyled key="EUR">EUR</OptionStyled>
-                  <OptionStyled value="2">Lucy</OptionStyled>
-                  <OptionStyled value="3">Lucy</OptionStyled>
+                  {dictionary && (dictionary.currency || []).map(({ id, symbol }, i) => (
+                    <OptionStyled key={`_currency_${i + 1}`} value={id}>{`${id} ${symbol}`}</OptionStyled>
+                  ))}
                 </SelectStyled>
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.avg_price')}
                 name="avg_price"
                 required
@@ -271,8 +278,8 @@ const Restaurant = () => {
                   step="0.01"
                   placeholder={t('common.form.floatExample')}
                 />
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.opinion')}
                 name="opinion"
                 required
@@ -281,73 +288,80 @@ const Restaurant = () => {
                 <InputStyled
                   placeholder={t('common.form.text')}
                 />
-              </FormItem>
+              </FormItemStyled>
               
               {/* // socials */}
-              <FormItem
+              <FormItemStyled
                 label="TheFork"
                 name="socials.thefork.url"
               >
                 <InputStyled
-                  placeholder={t('common.form.text')}
+                  placeholder={t('common.form.link')}
                 />
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label="TripAdviser"
                 name="socials.tripadviser.url"
               >
                 <InputStyled
-                  placeholder={t('common.form.text')}
+                  placeholder={t('common.form.link')}
                 />
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label="Facebook"
                 name="socials.facebook.url"
               >
                 <InputStyled
-                  placeholder={t('common.form.text')}
+                  placeholder={t('common.form.link')}
                 />
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label="Instagram"
                 name="socials.instagram.url"
               >
                 <InputStyled
-                  placeholder={t('common.form.text')}
+                  placeholder={t('common.form.link')}
                 />
-              </FormItem>
+              </FormItemStyled>
             </FormCol>
             <FormCol>
-              <FormItem
-                label={t('common.words.mainLng')}
+              <FormItemStyled
+                label={(
+                  <> 
+                    <AlertCircleSvg /> 
+                    {t('common.words.mainLng')}
+                  </>
+                )}
                 name="main_language"
                 required
                 rules={rule.text}
               >
                 <SelectStyled
+                  showSearch
                   placeholder={t('common.form.select')}
                 >
-                  <OptionStyled value="en">EN</OptionStyled>
-                  <OptionStyled value="ru">RU</OptionStyled>
-                  <OptionStyled value="3">Lucy</OptionStyled>
+                  {dictionary && (dictionary.language || []).filter(f => f.id !== 'en').map(({ id }, i) => (
+                    <OptionStyled key={`_language_${i + 1}`} value={id}>{id}</OptionStyled>
+                  ))}
                 </SelectStyled>
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.translations')}
                 name="sub_languages"
                 required
                 rules={rule.email}
               >
                 <SelectStyled
+                  showSearch
                   mode="multiple"
                   placeholder={t('common.form.select')}
                 >
-                  <OptionStyled value="en">EN</OptionStyled>
-                  <OptionStyled value="ru">RU</OptionStyled>
-                  <OptionStyled value="3">Lucy</OptionStyled>
+                  {dictionary && (dictionary.language || []).map(({ id }, i) => (
+                    <OptionStyled key={`_sub_language_${i + 1}`} value={id}>{id}</OptionStyled>
+                  ))}
                 </SelectStyled>
-              </FormItem>
-              <FormItem
+              </FormItemStyled>
+              <FormItemStyled
                 label={t('common.words.workingTime')}
                 name="work_time"
                 required
@@ -356,7 +370,7 @@ const Restaurant = () => {
                 <InputStyled
                   placeholder={t('common.form.text')}
                 />
-              </FormItem>
+              </FormItemStyled>
               {params.restaurant !== 'new' && (
                 <NavWrapper>
                   {NAV_CONFIG.map(({ key, icon, path }) => (
@@ -372,30 +386,30 @@ const Restaurant = () => {
               <FormUploader>
                 {!loadFiles && (
                   <>
-                    <FormItem
+                    <FormItemStyled
                       label={t('common.words.logo')}
                       name="logo"
                     >
                       <UploaderLogo
                         key="logo"
                         files={formData.images[0] ? [formData.images[0]] : []}
-                        onUpload={(files, deleted = null) => handleUpload('logo', files, deleted)}
+                        onUpload={(files, deleted) => handleUpload('logo', files, deleted)}
                         onStatus={showMessage}
                         max={1}
                       />
-                    </FormItem>
-                    <FormItem
+                    </FormItemStyled>
+                    <FormItemStyled
                       label={t('common.words.photos')}
                       name="photos"
                     >
                       <UploaderPhotos
                         key="photos"
                         files={formData.images.reduce((arr, it, i) => (i === 0 ? arr : [...arr, it]), [])}
-                        onUpload={(files, deleted = null) => handleUpload('photos', files, deleted)}
+                        onUpload={(files, deleted) => handleUpload('photos', files, deleted)}
                         onStatus={showMessage}
                         max={10}
                       />
-                    </FormItem>
+                    </FormItemStyled>
                   </>
                 )}
               </FormUploader>
@@ -414,6 +428,6 @@ const Restaurant = () => {
       </Wrapper>
     </>
   );
-};
+});
 
 export default Restaurant;

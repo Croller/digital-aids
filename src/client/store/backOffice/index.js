@@ -8,7 +8,10 @@ const initState = {
   foodtips: null,
   specialDeals: null,
 
+  dictionaty: null,
+
   loading: false,
+  status: null,
   error: null,
 };
 
@@ -19,15 +22,27 @@ export default function (state = initState, action) {
     case Constants.BO_ERROR_SET:
       return { ...state, error: action.payload, loading: false };
     case Constants.BO_LOADING_SET:
-      return { ...state, loading: action.payload, error: null };
+      return {
+        ...state,
+        loading: action.payload,
+        error: null,
+        status: null,
+      };
     default:
       return state;
   }
 }
 
-export function create(payload) {
+export function update(payload) {
   return {
     type: Constants.BO_CREATE,
+    payload,
+  };
+}
+
+export function deleteFile(payload) {
+  return {
+    type: Constants.BO_DELETE_FILE,
     payload,
   };
 }

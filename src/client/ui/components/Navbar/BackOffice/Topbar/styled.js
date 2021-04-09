@@ -9,21 +9,19 @@ const configButton = css`
   min-width: 170px;
   background-color: ${PALETTE.green1};
 
+  > span > svg {
+    width: 23px;
+    height: 23px;
+    margin-right: 12px;
+
+    path {
+      fill: ${PALETTE.white};
+    }
+  }
+
   > span {
-    > svg {
-      width: 23px;
-      height: 23px;
-      margin-right: 12px;
-
-      path {
-        fill: ${PALETTE.white};
-      }
-    }
-
-    > span {
-      color: ${PALETTE.black1};
-      text-transform: uppercase;
-    }
+    color: ${PALETTE.black1};
+    text-transform: uppercase;
   }
 `;
 
@@ -68,7 +66,13 @@ export const AddBtn = styled(Button)`
 
   width: 173px;
 
-  > span > span {
+  svg {
+    path {
+      fill: ${PALETTE.white} !important;
+    }
+  }
+
+  > span {
     color: ${PALETTE.white};
   }
 `;
@@ -81,7 +85,7 @@ export const Title = styled.div`
   height: 58px;
 
   > span {
-    > svg {
+    > span > svg {
       width: 35px;
       height: 35px;
       margin-right: 12px;
@@ -188,19 +192,17 @@ export const ArchiveBtn = styled(Button)`
   padding: 0;
   background-color: ${PALETTE.grey26};
 
+  svg {
+    width: 23px;
+    height: 23px;
+
+    path {
+      fill: ${PALETTE.black1} !important;
+    }
+  }
+
   > span {
-    > svg {
-      width: 23px;
-      height: 23px;
-
-      path {
-        fill: ${PALETTE.black1};
-      }
-    }
-
-    > span {
-      color: ${PALETTE.black1};
-      text-transform: uppercase;
-    }
+    color: ${PALETTE.black1};
+    text-transform: uppercase;
   }
 `;

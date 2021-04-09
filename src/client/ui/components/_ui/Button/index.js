@@ -1,16 +1,19 @@
-import React, { memo } from 'react';
+import React, { forwardRef } from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Btn, SpinStyled } from './styled';
 
-export const Button = memo(({
+export const Button = forwardRef(({
   type = null,
   loading = false,
   disabled = false,
   onClick = () => {},
+  onMouseEnter = () => {},
+  onMouseLeave = () => {},
+  onFocus = () => {},
   htmlType = null,
   className,
   children,
-}) => {
+}, ref) => {
   const indicator = (<LoadingOutlined spin />);
 
   const handleClick = (e) => {
@@ -22,12 +25,16 @@ export const Button = memo(({
 
   return (
     <Btn
+      ref={ref}
       type={type}
       disabled={disabled}
       loading={loading ? 1 : 0}
       htmlType={htmlType}
       className={className}
       onClick={handleClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onFocus={onFocus}
     >
       {loading && (<SpinStyled indicator={indicator} />)}
       {children}

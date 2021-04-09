@@ -7,7 +7,11 @@ import {
   BounceSecond,
 } from './styled';
 
-export const Loader = memo(({ className = '', height = null, color = null }) => (
+export const Loader = memo(({
+  className = '',
+  height = null,
+  color = null,
+}) => (
   <Wrapper className={className} height={height}>
     <Background />
     <Container>

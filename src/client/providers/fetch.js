@@ -39,7 +39,14 @@ export const createAxios = ({ token }) => {
 export const get = async (path, params = null, options = {}) => {
   let query = '';
   if (params) {
-    query = `?${new URLSearchParams(params).toString()}`;
+    const arrStr = Object.keys(params).reduce((arr, key) => {
+      const value = params[key];
+      if (Array.isArray(value)) {
+        return [...arr, `${key}=${value.join(',')}`];
+      }
+      return [...arr, new URLSearchParams({ [key]: value }).toString()];
+    }, []);
+    query = `?${arrStr.join('&')}`;
   }
 
   try {
@@ -57,6 +64,19 @@ export const get = async (path, params = null, options = {}) => {
 export const post = async (path, params = {}, options = {}) => {
   try {
     return await (instance || axios).post(`${URL}/api/${path}`, params, { headers: { ...headers, ...options } });
+  } catch (err) {
+    return setError(err, { 
+      url: `${URL}/api/${path}`,
+      params,
+      options,
+      headers,
+    });
+  }
+};
+
+export const remove = async (path, params = {}, options = {}) => {
+  try {
+    return await (instance || axios).delete(`${URL}/api/${path}`, { headers: { ...options }, data: { ...params } });
   } catch (err) {
     return setError(err, { 
       url: `${URL}/api/${path}`,

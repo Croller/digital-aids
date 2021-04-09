@@ -24,7 +24,6 @@ const Auth = memo(() => {
   const rule = rules(t);
 
   const onFinish = (values) => {
-    console.log(values);
     rootDispatch(login(values));
   };
 

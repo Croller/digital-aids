@@ -17,6 +17,7 @@
 
 
 
+
 DROP TABLE data_users;
 DROP TABLE data_roles;
 DROP TABLE data_restaurants;

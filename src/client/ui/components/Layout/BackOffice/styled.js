@@ -22,5 +22,6 @@ export const Content = styled.div`
 export const Block = styled.div`
   width: 100%;
   max-width: 1440px;
+  min-height: calc(100vh - 97px);
   padding: 30px 36px 0 22px;
 `;

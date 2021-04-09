@@ -7,7 +7,7 @@ const CONFIG = {
     top: '82px',
     width: '100%',
   },
-  duration: 100,
+  duration: 4,
   maxCount: 1,
 };
 
@@ -29,7 +29,7 @@ export const showMessage = ({
     onClose: () => onClose(),
     onClick: () => {
       onClick();
-      // message.destroy();
+      message.destroy();
     },
   };
   if (content) {
