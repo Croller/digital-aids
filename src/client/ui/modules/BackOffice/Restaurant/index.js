@@ -7,8 +7,10 @@ import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
 import { getUrl, loadFile } from 'client/utils/common';
-import { create, update, deleteFile } from 'client/store/backOffice';
+import { create } from 'client/store/backOffice';
 import { Loader } from 'client/ui/components/_base/Loader';
+import { MenuSvg, InfoCircleSvg, ChefHeadSvg } from 'client/assets/images';
+import { IconText } from 'client/ui/components/_ui/_etc/IconText';
 import {
   Wrapper,
   TopbarStyled,
@@ -19,12 +21,31 @@ import {
   InputStyled,
   // InputMaskStyled,
   SelectStyled, OptionStyled,
+  NavWrapper, NavButton,
   FormUploader,
   UploaderLogo,
   UploaderPhotos,
 } from './styled';
 
 const FormItem = FormStyled.Item;
+
+const NAV_CONFIG = [
+  {
+    key: 'menu',
+    icon: (<MenuSvg />),
+    path: '',
+  },
+  {
+    key: 'specialDeals',
+    icon: (<InfoCircleSvg />),
+    path: '',
+  },
+  {
+    key: 'foodtips',
+    icon: (<ChefHeadSvg />),
+    path: '',
+  },
+];
 
 const Restaurant = () => {
   const [t] = useTranslation();
@@ -55,7 +76,7 @@ const Restaurant = () => {
     setLoadFiles(false);
   };
 
-  const handleChange = (key) => {
+  const handleRoute = (key) => {
     if (key === 'delete') {
       history.goBack();
     }
@@ -66,11 +87,16 @@ const Restaurant = () => {
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(rest => rest.id === params.restaurant);
     }
-    console.log('Restaurant data:', dataToApi({ ...formData, ...values }, data));
-    // const form = new FormData();
-    const payload = dataToApi({ ...formData, ...values }, data);
+
+    const edited = dataToApi({ ...formData, ...values }, data);
+    
+    console.log('Restaurant data:', { ...formData, ...values });
 
     // rootDispatch(params.restaurant !== 'new' ? update(payload) : create(payload));
+    rootDispatch(create({
+      name: 'data_restaurants',
+      data: dataToApi({ ...formData, ...values }, data),
+    }));
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -97,7 +123,7 @@ const Restaurant = () => {
     }
     setFormData({ ...formData, images: list });
     setIsChnage(true);
-    deteled && rootDispatch(deleteFile(deteled.filename));
+    // deteled && rootDispatch(deleteFile(deteled.filename));
   };
 
   useEffect(() => {
@@ -105,13 +131,20 @@ const Restaurant = () => {
     initValue();
   }, []);
 
+  useEffect(() => {
+    if (restaurants) {
+      const rest = restaurants.slice(-1)[0];
+      history.push(rest.id);
+    }
+  }, [restaurants && restaurants.length]);
+
   return formData && (
     <>
       {loadFiles && (<Loader />)}     
       <Wrapper>
         <TopbarStyled
           settings={{ delete: params.restautant !== 'new' }}
-          onChange={handleChange}
+          onChange={handleRoute}
         />
         <FormStyled
           form={form}
@@ -324,6 +357,18 @@ const Restaurant = () => {
                   placeholder={t('common.form.text')}
                 />
               </FormItem>
+              {params.restaurant !== 'new' && (
+                <NavWrapper>
+                  {NAV_CONFIG.map(({ key, icon, path }) => (
+                    <NavButton key={key} onClick={() => handleRoute(path)}>
+                      <IconText
+                        icon={icon}
+                        text={t(`common.words.${key}`)}
+                      />
+                    </NavButton>
+                  ))}
+                </NavWrapper>
+              )}
               <FormUploader>
                 {!loadFiles && (
                   <>

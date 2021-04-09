@@ -14,7 +14,7 @@
     "build": "webpack --mode production --config ./webpack.config.js",
     "start": "node src/server/index.js",
     "client": "webpack-dev-server --mode development --devtool inline-source-map --history-api-fallback",
-    "server": "npx nodemon src/server/index.js",
+    "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "lint": "eslint --ext .jsx --ext .js ./src --fix",
     "heroku-postbuild": "npm install && npm run build"
@@ -43,6 +43,7 @@
     "google-maps-react": "^2.0.6",
     "i18next": "^19.8.9",
     "jsonwebtoken": "^8.5.1",
+    "kill-port": "^1.6.1",
     "moment": "^2.29.1",
     "pg": "^7.12.1",
     "prop-types": "^15.7.2",

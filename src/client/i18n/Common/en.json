@@ -34,9 +34,13 @@
     "mainLng": "Main language",
     "translations": "Translations",
     "workingTime": "Working time",
+    "menu": "Menu",
+    "specialDeals": "Special deals",
+    "foodtips": "Foodtips",
     "logo": "Logo",
     "photos": "Photos",
     "upload": "Upload",
+
     "loading": "Loading",
     "success": "Success"
   },
@@ -115,6 +119,8 @@
     "userNotFound": "User not found",
     "tokenNotValid": "Token not valid",
     "tokenNotExist": "Token not exist",
-    "504": "504 Gateway Timeout"
+    "notEnoughRights": "Not enough rights",
+    "504": "504 Gateway Timeout",
+    "413": "Payload Too Large"
   }
 }

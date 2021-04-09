@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { GlobalSvg, DishSvg, DishApplinesSvg } from 'client/assets/images';
+import { GlobalSvg, DishSvg, MenuSvg } from 'client/assets/images';
 import {
   ScrollHideBlockStyled,
   Wrapper,
@@ -39,7 +39,7 @@ export const MobileMenu = memo(({
     },
     {
       key: 'categories',
-      icon: <DishApplinesSvg />,
+      icon: <MenuSvg />,
       text: t('restaurant.common.menu'),
     },
     {

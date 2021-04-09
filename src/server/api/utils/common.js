@@ -2,6 +2,12 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = {
+  nodeEnv: () => {
+    if (process.env.NODE_ENV === 'development') {
+      return false;
+    }
+    return true;
+  },
   generateStr: (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -24,7 +30,8 @@ module.exports = {
   }),
   writeFile: async (url, data) => new Promise((resolve, reject) => {
     try {
-      fs.writeFileSync(path.resolve(`src/server/static/${url}`), JSON.stringify(data));
+      const base64Data = data.replace(/^data:image\/png;base64,/, '');
+      fs.writeFileSync(path.resolve(`src/server/static${url}`), base64Data, 'base64');
       resolve();
     } catch (err) {
       reject(err);

@@ -2,6 +2,7 @@ const moment = require('moment');
 const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
+const commonUtils = require('../utils/common');
 
 const error = {
   code: 0,
@@ -18,11 +19,11 @@ const UserController = () => {
       login,
       password,
       browser = null,
-    } = req.body.data;
+    } = req.body;
 
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
-    const geo = geoip.lookup('83.220.237.49' || ip);
+    const geo = geoip.lookup(commonUtils.nodeEnv() ? ip : '83.220.237.49');
     const meta = JSON.stringify({ ip, browser, geo });
 
     try {
@@ -57,7 +58,7 @@ const UserController = () => {
     try {
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData) {
-        req.body.data = tokenData;
+        req.body = tokenData;
         UserController().signin(req, res);
       } else {
         error.name = 'Token not valid';

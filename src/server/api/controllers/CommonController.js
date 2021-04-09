@@ -1,35 +1,57 @@
 const db = require('../services/db');
+const jwt = require('../services/jwt');
 const commonUtils = require('../utils/common');
-// const auth = require('../services/auth');
 
 const error = {
-  name: '',
   code: 0,
+  name: '',
   text: '',
 };
 
 const CommonController = () => {
-  // database method
+  let query = '';
+  let values = [];
+  
   const getTableByNames = async (req, res) => {
     try {
-      const { names } = req.body.data;
-      const result = await Promise.all(names.map(async (name) => {
-        const desc = await db.query(`SELECT * FROM ${name}`);
-        return { [name]: desc.rows };
-      }));
-      res.json(result.reduce((obj, arr) => ({ ...obj, ...arr }), {}));
+      const tokenData = await jwt.verifyToken(req, res);
+      if (tokenData) {
+        const { names } = req.body;
+        const result = await Promise.all(names.map(async (name) => {
+          const desc = await db.query(`SELECT * FROM ${name}`);
+          return { [name]: desc.rows };
+        }));
+        res.json(result.reduce((obj, arr) => ({ ...obj, ...arr }), {}));
+      } else {
+        error.name = 'Token not valid';
+        error.code = 'tokenNotValid';
+        res.status(201);
+        res.json({ error });
+      }
     } catch (err) {
       error.name = 'Query error';
+      error.code = 'queryError';
       error.text = JSON.stringify(err);
+      res.status(201);
       res.json({ error });
     }
   };
 
   const getTableRecord = async (req, res) => {
     try {
-      const { id, name } = req.body.data;
-      const result = await db.query(`SELECT * FROM ${name} WHERE id=${id}`);
-      res.json(result.rows);
+      const tokenData = await jwt.verifyToken(req, res);
+      if (tokenData) {
+        const { id, name } = req.body;
+        query = `SELECT * FROM ${name} WHERE id=($1)`;
+        values = [id];
+        const result = await db.queryValues(query, values);
+        res.json(result.rows);
+      } else {
+        error.name = 'Token not valid';
+        error.code = 'tokenNotValid';
+        res.status(201);
+        res.json({ error });
+      }
     } catch (err) {
       error.name = 'Query error';
       error.text = JSON.stringify(err);
@@ -37,37 +59,78 @@ const CommonController = () => {
     }
   };
 
-  const insertTableRecord = async (req, res) => {
+  const getTableRecords = async (req, res) => {
     try {
-      const { name, data } = req.body.data;
-      const query = Object.keys(data).reduce((obj, key) => {
-        let value = data[key];
-        if (!value || (value && Array.isArray(value) && value.length === 0)) {
-          return obj;
-        }
-        if (Array.isArray(value)) {
-          value = `{${value.join('\', \'')}}`;
-        }
-        return {
-          fields: [...obj.fields, key],
-          values: [...obj.values, value],
-        };
-      }, { fields: [], values: [] });
-      const record = await db.query(`INSERT INTO ${name} (${query.fields.join(', ')}) VALUES ('${query.values.join('\', \'').replace(/''/g, 'NULL')}') RETURNING *`);
-      res.json(record.rows[0]);
+      const tokenData = await jwt.verifyToken(req, res);
+      if (tokenData) {
+        const { ids, name } = req.body;
+        query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
+        values = [ids];
+        const result = await db.queryValues(query, values);
+        res.json(result.rows);
+      } else {
+        error.name = 'Token not valid';
+        error.code = 'tokenNotValid';
+        res.status(201);
+        res.json({ error });
+      }
     } catch (err) {
       error.name = 'Query error';
       error.text = JSON.stringify(err);
+      res.json({ error });
+    }
+  };
+
+  const createTableRecord = async (req, res) => {
+    try {
+      const { name } = req.params;
+      const tokenData = await jwt.verifyToken(req, res);
+      if (tokenData.roles.some(r => [1, 2].includes(r))) {
+        const data = req.body;
+        delete data.id;
+        const mapper = Object.keys(data).reduce((obj, key) => {
+          if (key === 'images') {
+            return {
+              fields: [...obj.fields, key],
+              values: [...obj.values, data[key].map((image) => image.uuid)],
+            };
+          }
+          return {
+            fields: [...obj.fields, key],
+            values: [...obj.values, data[key]],
+          };
+        }, { fields: [], values: [] });
+
+        await Promise.all(data.images.map(async (image) => {
+          const { base64, path } = image;
+          const file = await commonUtils.writeFile(path, base64);
+          return file;
+        }));
+
+        query = `INSERT INTO ${name} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
+        const result = await db.queryValues(query, mapper.values);
+        res.json(result.rows[0]);
+      } else {
+        error.name = 'Token not valid';
+        error.code = 'tokenNotValid';
+        res.status(201);
+        res.json({ error });
+      }
+    } catch (err) {
+      error.name = 'Not enough rights';
+      error.code = 'notEnoughRights';
+      error.text = JSON.stringify(err);
+      res.status(201);
       res.json({ error });
     }
   };
 
   const insertTableRecords = async (req, res) => {
     try {
-      const { name, data } = req.body.data;
+      const { name, data } = req.body;
       if (data && data.length > 0) {
         const records = data.map(async (row) => {
-          const query = Object.keys(row).reduce((obj, key) => {
+          query = Object.keys(row).reduce((obj, key) => {
             let value = data[key];
             if (!value || (value && Array.isArray(value) && value.length === 0)) {
               return obj;
@@ -103,7 +166,7 @@ const CommonController = () => {
       const check = await db.query(`SELECT * FROM ${name} WHERE id='${id}'`);
       if (check.rows.length === 1) {
         delete data.id;
-        const query = Object.keys(data).reduce((arr, key) => {
+        query = Object.keys(data).reduce((arr, key) => {
           const value = data[key];
           if (value === null || (Array.isArray(value) && value.length === 0)) {
             return arr;
@@ -133,7 +196,7 @@ const CommonController = () => {
       await db.query(`TRUNCATE ${name} RESTART IDENTITY`);
       if (data && data.length > 0) {
         data.map(async (row) => {
-          const query = Object.keys(row).reduce((obj, key) => {
+          query = Object.keys(row).reduce((obj, key) => {
             if (key !== 'id' && row[key]) {
               return {
                 fields: [...obj.fields, key],
@@ -184,57 +247,20 @@ const CommonController = () => {
   };
 
   // file method
-  const getFile = async (req, res) => {
-    try {
-      const { path } = req.body.data;
-      const data = await commonUtils.readFile(path);
-      if (path.indexOf('json') > -1) {
-        res.json(data);
-      }
-    } catch (err) {
-      error.name = 'Read file error';
-      error.text = JSON.stringify(err);
-      res.json({ error });
-    }
-  };
-
-  const updateInfoFile = async (req, res) => {
-    try {
-      const { path, info } = req.body.data;
-      await commonUtils.writeFile(path, info);
-      res.json({});
-    } catch (err) {
-      error.name = 'Read file error';
-      error.text = JSON.stringify(err);
-      res.json({ error });
-    }
-  };
-
-  const uploadFile = async (req, res) => {
-    try {
-      const { path, json } = req.body.data;
-      const data = await commonUtils.readFile(path, json || false);
-      res.json(data);
-    } catch (err) {
-      error.name = 'Read file error';
-      error.text = JSON.stringify(err);
-      res.json({ error });
-    }
-  };
 
   return {
     getTableByNames,
+
     getTableRecord,
-    insertTableRecord,
+    getTableRecords,
+
+    createTableRecord,
+
     insertTableRecords,
     updateTableRecord,
     deleteTableRecords,
     deleteTable,
     updateTable,
-
-    getFile,
-    updateInfoFile,
-    uploadFile,
   };
 };
 

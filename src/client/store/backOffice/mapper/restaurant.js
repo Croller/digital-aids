@@ -33,11 +33,12 @@ export const dataToForm = (data) => {
     'socials.tripadviser.url': socials.tripadviser.url,
     'socials.facebook.url': socials.facebook.url,
     'socials.instagram.url': socials.instagram.url,
-    work_time,
+    work_time: work_time.description,
   };
 };
 
 export const dataToApi = (data, current) => {
+  console.log(data, current);
   const {
     id,
     name,
@@ -68,8 +69,12 @@ export const dataToApi = (data, current) => {
     employees,
     avg_price,
     languages: [main_language, ...sub_languages],
-    images,
-    socials: {
+    images: images.map(({ base64, uuid }, i) => ({
+      base64,
+      uuid,
+      path: `/restaurants/${i === 0 ? 'logo' : 'photos'}/${uuid}.png`,
+    })),
+    socials: JSON.stringify({
       thefork: {
         ...current.socials.thefork,
         url: data['socials.thefork.url'],
@@ -86,8 +91,11 @@ export const dataToApi = (data, current) => {
         ...current.socials.instagram,
         url: data['socials.instagram.url'],
       },
-    },
-    work_time,
+    }),
+    work_time: JSON.stringify({
+      ...current.work_time,
+      description: work_time,
+    }),
   };
 };
 
@@ -104,7 +112,7 @@ export const model = {
   employees: ['3434'],
   avg_price: 12,
   languages: ['ru', 'en'],
-  images: ['1225309a-124d-4aa4-af60-e84e420a9000', '65eec03f-a741-4de0-a423-5dbdb5d3415f'],
+  images: ['3528563b-00fc-4f39-ad20-de14041faf4a', 'da41f536-6aa2-4078-bd97-0347cf137a5f'],
   socials: {
     thefork: {
       rate: null,

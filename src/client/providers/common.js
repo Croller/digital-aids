@@ -1,8 +1,7 @@
 
 import { get, post } from 'client/providers/fetch';
 
-export const updateTableRecord = async ({
-  method,
+export const create = async ({
   token,
   name,
   data,
@@ -10,7 +9,7 @@ export const updateTableRecord = async ({
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await post(`back-office/table/record/${method}`, { name, data }, options);
+  const results = await post(`table/${name}/record`, { ...data }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

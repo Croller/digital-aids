@@ -49,7 +49,7 @@ CREATE TABLE data_restaurants (
   languages VARCHAR ARRAY DEFAULT '{null, "en"}', -- DICTIONARY dictionary_language
   images VARCHAR ARRAY DEFAULT null,
   socials jsonb DEFAULT '{"thefork":{"rate":null,"url":null},"tripadviser":{"rate":null,"url":null},"facebook":{"rate":null,"url":null},"instagram":{"rate":null,"url":null}}',
-  work_time jsonb DEFAULT '{"mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
+  work_time jsonb DEFAULT '{"description":null,"mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
   is_archived boolean DEFAULT FALSE,
   is_deleted boolean DEFAULT FALSE
 );
@@ -71,10 +71,10 @@ CREATE TABLE dictionary_language (
 
 
 
-  categories
-  offers INT ARRAY DEFAULT null, -- DICTIONARY data_offers
-  foodtips INT ARRAY DEFAULT null, -- DICTIONARY data_foodtips
-  opinions INT ARRAY DEFAULT null, -- DICTIONARY data_opinions
+  -- categories
+  -- offers INT ARRAY DEFAULT null, -- DICTIONARY data_offers
+  -- foodtips INT ARRAY DEFAULT null, -- DICTIONARY data_foodtips
+  -- opinions INT ARRAY DEFAULT null, -- DICTIONARY data_opinions
 
 
 

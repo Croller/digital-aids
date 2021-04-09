@@ -1,9 +1,16 @@
 const routes = {
   'POST /api/user/signin': 'UserController.signin',
   'GET /api/user/auth': 'UserController.auth',
-  // 'POST /api/user/create': 'UserController.create',
-  // 'POST /api/user/update': 'UserController.update',
-  // 'POST /api/user/remove': 'UserController.remove',
+
+  'GET /api/tables': 'CommonController.getTableByNames',
+  'GET /api/table/record': 'CommonController.getTableRecord',
+  'GET /api/table/records': 'CommonController.getTableRecords',
+
+  'POST /api/table/:name/record': 'CommonController.createTableRecord',
+
+  // '/api/table/:name/record': {
+  //   get: 'CommonController.getTableByNames',
+  // },
 };
 
 module.exports = routes;

@@ -179,6 +179,10 @@ export const SelectStyled = styled(Select)`
         .ant-select-selection-item-remove {
           font-size: 17px;
           font-family: ${FONTS.medium};
+
+          > svg {
+            stroke-width: 20px;
+          }
         }
       }
 
@@ -275,6 +279,43 @@ export const Save = styled(Button)`
   color: ${PALETTE.white};
   text-transform: uppercase;
   margin: auto;
+`;
+
+export const NavWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 42px 0 62px;
+`;
+
+export const NavButton = styled(Button)`
+  height: 50px;
+  padding: 0;
+  min-width: 180px;
+  font-size: 16px;
+  font-family: ${FONTS.medium};
+  background-color: ${PALETTE.green1};
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  > span {
+    > svg {
+      width: 22px;
+      height: 22px;
+      margin-right: 10px;
+
+      path {
+        fill: ${PALETTE.white};
+      }
+    }
+
+    > span {
+      color: ${PALETTE.white};
+      text-transform: uppercase;
+    }
+  }
 `;
 
 export const FormUploader = styled.div`

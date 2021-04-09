@@ -6,6 +6,7 @@ import EditSvg from './svg/edit.svg';
 import FloppyDiskSvg from './svg/floppy-disk.svg';
 import PlusSvg from './svg/plus.svg';
 import PictureAddSvg from './svg/picture-add.svg';
+import MenuSvg from './svg/menu.svg';
 
 // back office
 import RestaurantSvg from './svg/backOffice/restaurant.svg';
@@ -121,6 +122,7 @@ export {
   FloppyDiskSvg,
   PlusSvg,
   PictureAddSvg,
+  MenuSvg,
 
   RestaurantSvg,
 

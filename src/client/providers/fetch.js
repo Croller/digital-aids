@@ -56,7 +56,7 @@ export const get = async (path, params = null, options = {}) => {
 
 export const post = async (path, params = {}, options = {}) => {
   try {
-    return await (instance || axios).post(`${URL}/api/${path}`, { data: params }, { headers: { ...headers, ...options } });
+    return await (instance || axios).post(`${URL}/api/${path}`, params, { headers: { ...headers, ...options } });
   } catch (err) {
     return setError(err, { 
       url: `${URL}/api/${path}`,
