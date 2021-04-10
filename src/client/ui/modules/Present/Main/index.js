@@ -222,7 +222,7 @@ const Main = () => {
             <PresentTime>
               {t('present.main.first.col2.time')}  
             </PresentTime>
-            <PresentButton onClick={() => handleRoute('tutorial')}>
+            <PresentButton onClick={() => handleRoute('/tutorial')}>
               {t('present.main.first.col2.button')}  
             </PresentButton>
           </PresentWrapper>

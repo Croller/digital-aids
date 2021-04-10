@@ -42,7 +42,7 @@ export const get = async (path, params = null, options = {}) => {
     const arrStr = Object.keys(params).reduce((arr, key) => {
       const value = params[key];
       if (Array.isArray(value)) {
-        return [...arr, `${key}=${value.join(',')}`];
+        return [...arr, `${key}=${value}`];
       }
       return [...arr, new URLSearchParams({ [key]: value }).toString()];
     }, []);

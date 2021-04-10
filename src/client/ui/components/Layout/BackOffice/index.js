@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
-import { Sidebar } from 'client/ui/components/Navbar/BackOffice/Sidebar';
+import { Sidebar } from 'client/ui/components/Layout/BackOffice/Sidebar';
 
 import { 
   Wrapper,

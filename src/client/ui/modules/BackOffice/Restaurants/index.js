@@ -1,20 +1,19 @@
 import React, { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/RestaurantInfo';
 import { update } from 'client/store/backOffice';
 import { useTranslation } from 'react-i18next';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { EmptyList } from './EmptyList';
-import { Loader } from 'client/ui/components/_block/Loader';
 import {
-  TopbarStyled,
+  RestaurantList,
+  NavbarStyled,
   List,
   LoaderStyled,
 } from './styled';
 
 const Restaurants = () => {
-  const history = useHistory();
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const { restaurants, status, loading } = useSelector(state => state.backOffice);
@@ -46,23 +45,22 @@ const Restaurants = () => {
   }, [status]);
 
   return (
-    <>
-      <TopbarStyled onSearch={handleSearch} />
+    <RestaurantList>
+      {loading && (<LoaderStyled />)}
+      <NavbarStyled onSearch={handleSearch} />
       <List>
-        {loading && <LoaderStyled />}
         {getItems() ? getItems().map((item) => (
           <RestaurantInfo
             {...item}
             t={t}
             key={item.id}
-            onRoute={history.push}
             onClick={handleChange}
           />
         )) : (
           <EmptyList type={getPage()} />
         )}
       </List>
-    </>
+    </RestaurantList>
   );
 };
 

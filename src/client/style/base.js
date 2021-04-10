@@ -123,6 +123,19 @@ export const GlobalStyle = createGlobalStyle`
         background-color: ${PALETTE.grey16};
         color: ${PALETTE.black};
       }
+
+      &.ant-select-item-option-selected {
+        background-color: ${PALETTE.grey16};
+        color: ${PALETTE.black};
+
+        .ant-select-item-option-state {
+          svg {
+            path: {
+              fill: ${PALETTE.green1};
+            }
+          }
+        }
+      }
     }
   }
 

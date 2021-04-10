@@ -123,6 +123,7 @@ export {
   PlusSvg,
   PictureAddSvg,
   MenuSvg,
+  TickSvg,
 
   RestaurantSvg,
 
@@ -147,7 +148,6 @@ export {
   InstagramSvg,
   FacebookSvg,
   TrashSvg,
-  TickSvg,
   ChevronSvg,
 
   LogoSvg,

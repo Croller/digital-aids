@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Button } from 'client/ui/components/_ui/Button';
-import { IconText } from 'client/ui/components/_ui/_etc/IconText';
+import { IconText } from 'client/ui/components/_block/IconText';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -21,7 +21,7 @@ export const Header = styled.div`
 `;
 
 export const Name = styled(IconText)`
-  > svg {
+  > span > svg {
     width: 35px;
     height: 35px;
     margin-right: 12px;
@@ -29,11 +29,6 @@ export const Name = styled(IconText)`
     path: {
       fill: ${PALETTE.green1};
     }
-  }
-
-  > span {
-    font-size: 22px;
-    font-family: ${FONTS.semiBold};
   }
 `;
 
@@ -119,17 +114,17 @@ export const NavWrapper = styled.div`
 export const NavButton = styled(Button)`
   height: 50px;
   padding: 0;
-  min-width: 196px;
+  min-width: 180px;
   font-size: 16px;
   font-family: ${FONTS.medium};
   background-color: ${PALETTE.green1};
 
   &:not(:last-child) {
-    margin-right: 22px;
+    margin-right: 8px;
   }
 
   > span {
-    > svg {
+    > span > svg {
       width: 22px;
       height: 22px;
       margin-right: 10px;

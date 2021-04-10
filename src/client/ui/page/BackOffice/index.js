@@ -11,6 +11,7 @@ const Restaurant = lazy(() => import('client/ui/modules/BackOffice/RestaurantFor
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
+const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
 
 export const BackOffice = () => {
   const { token } = useSelector(store => store.user.info);
@@ -25,6 +26,7 @@ export const BackOffice = () => {
         {token ? (
           <>
             <Route
+              exact
               path={[
                 `${PATH}/restaurant/:restaurant/special-deals/archive`,
                 `${PATH}/restaurant/:restaurant/special-deals`,
@@ -34,12 +36,13 @@ export const BackOffice = () => {
               component={Restaurant}
             />
             <Route
+              exact
               path={[
                 `${PATH}/restaurant/:restaurant/category/:category/archive`,
                 `${PATH}/restaurant/:restaurant/category/:category`,
                 `${PATH}/restaurant/:restaurant/category`,
               ]}
-              component={Restaurant}
+              component={Category}
             />
             <Route
               path={[
@@ -49,6 +52,7 @@ export const BackOffice = () => {
               component={Restaurants}
             />
             <Route
+              exact
               path={`${PATH}/restaurant/:restaurant`}
               component={Restaurant}
             />

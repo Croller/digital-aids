@@ -48,7 +48,7 @@ const UserController = () => {
     } catch (err) {
       error.name = 'Query error';
       error.code = 'queryError';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
     }
@@ -69,7 +69,7 @@ const UserController = () => {
     } catch (err) {
       error.name = 'Token not valid';
       error.code = 'tokenNotValid';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
     }
@@ -103,7 +103,7 @@ const UserController = () => {
   //     }
   //   } catch (err) {
   //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err);
+  //     error.text = JSON.stringify(err.message);
   //     res.status(201);
   //     res.json({ error });
   //   }
@@ -136,7 +136,7 @@ const UserController = () => {
   //     }
   //   } catch (err) {
   //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err);
+  //     error.text = JSON.stringify(err.message);
   //     res.status(201);
   //     res.json({ error });
   //   }
@@ -166,7 +166,7 @@ const UserController = () => {
   //     }
   //   } catch (err) {
   //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err);
+  //     error.text = JSON.stringify(err.message);
   //     res.status(201);
   //     res.json({ error });
   //   }

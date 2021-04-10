@@ -1,20 +1,24 @@
 import styled from 'styled-components';
-import { Topbar } from 'client/ui/components/Navbar/BackOffice/Topbar';
+import { Navbar } from 'client/ui/modules/BackOffice/Navbar';
 import { Loader } from 'client/ui/components/_block/Loader';
 
-export const Wrapper = styled.div`
+export const RestaurantList = styled.div`
+  position: relative;
   width: 100%;
+  height: 100%;
 `;
 
-export const TopbarStyled = styled(Topbar)`
-  margin-bottom: 41px;
+export const NavbarStyled = styled(Navbar)`
+  margin-bottom: 40px;
 `;
 
 export const List = styled.div`
   width: 100%;
-  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const LoaderStyled = styled(Loader)`
-  min-height: calc(100vh - 330px);
+  height: 100%;
 `;

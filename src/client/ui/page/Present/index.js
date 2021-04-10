@@ -15,9 +15,9 @@ export const Present = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/tutorial" component={Tutorial} />
-        <Route path="/privacy-policy" component={PrivacyPolicy} />
-        <Route path="/*" component={Main} />
+        <Route exact path="/tutorial" component={Tutorial} />
+        <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="*" component={Main} />
       </Switch>
     </Layout>
   );

@@ -8,25 +8,20 @@ import { Link } from 'client/ui/components/_ui/Link';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 97px);
+  align-items: center;
+  height: calc(100vh - 200px);
 `;
 
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: calc(100vh - 97px);
   max-width: 589px;
   width: 100%;
-  margin-top: -200px;
 `;
 
 export const LogoWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
   margin-bottom: 40px;

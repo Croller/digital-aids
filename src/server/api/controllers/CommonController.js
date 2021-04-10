@@ -31,7 +31,7 @@ const CommonController = () => {
     } catch (err) {
       error.name = 'Query error';
       error.code = 'queryError';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
     }
@@ -55,7 +55,7 @@ const CommonController = () => {
       }
     } catch (err) {
       error.name = 'Query error';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.json({ error });
     }
   };
@@ -64,12 +64,18 @@ const CommonController = () => {
     try {
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData) {
-        const { name } = req.params;
-        const { ids } = req.body;
-        query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
-        values = [ids];
-        const result = await db.queryValues(query, values);
-        res.json(result.rows);
+        try {
+          const { name } = req.params;
+          const { ids } = req.query;
+          query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
+          values = [ids.split(',')];
+          const result = await db.queryValues(query, values);
+          res.json(result.rows);
+        } catch (err) {
+          error.name = 'Query error';
+          error.text = JSON.stringify(err.message);
+          res.json({ error });
+        }
       } else {
         error.name = 'Token not valid';
         error.code = 'tokenNotValid';
@@ -78,7 +84,7 @@ const CommonController = () => {
       }
     } catch (err) {
       error.name = 'Query error';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.json({ error });
     }
   };
@@ -136,7 +142,7 @@ const CommonController = () => {
     } catch (err) {
       error.name = 'Not enough rights';
       error.code = 'notEnoughRights';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
     }
@@ -157,7 +163,7 @@ const CommonController = () => {
       }
     } catch (err) {
       error.name = 'Query error';
-      error.text = JSON.stringify(err);
+      error.text = JSON.stringify(err.message);
       res.json({ error });
     }
   };

@@ -15,7 +15,7 @@ import {
   CloseSvg,
 } from 'client/assets/images';
 import {
-  TopbarWrapper,
+  NavbarRestaurant,
   Control,
   Title,
   BackBtn,
@@ -26,7 +26,7 @@ import {
   Search,
 } from './styled';
 
-export const Topbar = ({
+export const Navbar = ({
   settings = null,
   onSearch = () => {},
   onChange = () => {},
@@ -126,7 +126,7 @@ export const Topbar = ({
   }, [pathname]);
 
   return options && (
-    <TopbarWrapper className={className}>
+    <NavbarRestaurant className={className}>
       <Control>
         {options.back && (
           <BackBtn onClick={() => handleRoute('back')}>
@@ -180,6 +180,6 @@ export const Topbar = ({
           </ArchiveBtn>
         )}
       </Control>
-    </TopbarWrapper>
+    </NavbarRestaurant>
   );
 };

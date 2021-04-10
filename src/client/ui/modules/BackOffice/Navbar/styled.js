@@ -25,7 +25,7 @@ const configButton = css`
   }
 `;
 
-export const TopbarWrapper = styled.div`
+export const NavbarRestaurant = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;

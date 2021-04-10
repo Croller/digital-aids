@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Topbar } from 'client/ui/components/Navbar/BackOffice/Topbar';
+import { Navbar } from 'client/ui/modules/BackOffice/Navbar';
 import { Form, Select } from 'antd';
 import { Input } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   width: 100%;
 `;
 
-export const TopbarStyled = styled(Topbar)`
+export const NavbarStyled = styled(Navbar)`
   margin-bottom: 46px;
 `;
 
@@ -155,7 +155,7 @@ export const InputMaskStyled = styled(MaskedInput)`
 export const SelectStyled = styled(Select)`
   &.ant-select {
     .ant-select-selector {
-      height: 62px !important;
+      min-height: 62px !important;
       background-color: ${PALETTE.white};
       border: 1px solid ${PALETTE.grey6};
       border-radius: ${THEME.borderRadiusL};
@@ -227,7 +227,9 @@ export const SelectStyled = styled(Select)`
 
     &.ant-select-single {
       .ant-select-selection-search {
-        height: 100%;
+        > input {
+          height: 100%;
+        }
       }
     }
 

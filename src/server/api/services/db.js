@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === 'production') {
 const db = new Client(CONFIG);
 db.connect()
   .then(() => console.log(`DataBase connected on port ${process.env.HOST_DB_PORT}`))
-  .catch((err) => console.log('Connect error:', err));
+  .catch((err) => console.log('Connect error:', err.message));
 
 module.exports = {
   query: str => new Promise((resolve, reject) => {
@@ -27,8 +27,8 @@ module.exports = {
     db.query(str)
       .then((res) => resolve(res))
       .catch((err) => {
-        console.log('DataBase query error: ', err);
-        reject(new Error({ ...err }));
+        console.log('DataBase query error: ', err.message);
+        reject(new Error(err));
       });
   }),
   queryValues: (str, values) => new Promise((resolve, reject) => {
@@ -36,8 +36,8 @@ module.exports = {
     db.query(str, values)
       .then((res) => resolve(res))
       .catch((err) => {
-        console.log('DataBase query error: ', err);
-        reject(new Error({ ...err }));
+        console.log('DataBase query error: ', err.message);
+        reject(new Error(err));
       });
   }),
   end: () => db.end(),

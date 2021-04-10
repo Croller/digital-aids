@@ -1,7 +1,8 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { IconText } from 'client/ui/components/_ui/_etc/IconText';
-import { Tooltip, Button } from 'antd';
+import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { IconText } from 'client/ui/components/_block/IconText';
+import { Tooltip } from 'antd';
+import { useModal } from 'react-modal-hook';
 import {
   ArchiveSvg,
   EditSvg,
@@ -14,6 +15,7 @@ import {
   ChefHeadSvg,
   PlusSvg,
 } from 'client/assets/images';
+import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { 
   Wrapper,
   Header,
@@ -76,40 +78,55 @@ export const RestaurantInfo = ({
   name,
   address,
   phone,
-  onRoute = () => {},
   onClick = () => {},
   className,
 }) => {
   const { pathname } = useLocation();
+  const history = useHistory();
+  const [update, setUpdate] = useState(null);
+
+  const [showConfir, hideConfirm] = useModal(() => (
+    <ConfirmChange
+      onCancel={hideConfirm}
+      onClose={hideConfirm}
+      onOk={() => {
+        hideConfirm();
+        onClick(update);
+      }}
+    />
+  ));
+
   
   const handleRoute = (key, path) => {
     const obj = { id };
     if (path) {
-      onRoute(path.replace(':restaurant', id));
+      history.push(path.replace(':restaurant', id));
       return;
     }
-    if (pathname === '/back-office/restaurants/archive') {
+
+    if (pathname.indexOf('restaurants/archive') > -1) {
       if (key === 'restore') obj.is_archived = false;
       if (key === 'delete') obj.is_deleted = true;
     }
     if (key === 'archive') obj.is_archived = true;
 
-    onClick(obj);
+    setUpdate(obj);
+    showConfir(obj);
   };
 
   const getControl = () => {
     const arr = [...CONTROL_CONFIG];
-    if (pathname === '/back-office/restaurants/archive') {
+    if (pathname.indexOf('restaurants/archive') > -1) {
       return arr.slice(-2);
     }
     return arr.splice(0, 2);
   };
 
   const getNav = () => {
-    if (pathname === '/back-office/restaurants/archive') {
+    if (pathname.indexOf('restaurants/archive') > -1) {
       return [];
     }
-    if (pathname === '/back-office/restaurants') {
+    if (pathname.indexOf('restaurants') > -1) {
       return [NAV_CONFIG[0]];
     }
     return NAV_CONFIG.slice(-2);

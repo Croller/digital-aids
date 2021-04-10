@@ -10,8 +10,6 @@ export const Cotainer = styled.div`
 `;
 
 export const Content = styled.div`
-  -webkit-overflow-scrolling: touch;
-  overflow: auto;
   width: ${p => (p.sidebar ? 'calc(100% - 245px)' : '100%')};
   padding-top: 97px;
   margin-left: ${p => (p.sidebar ? '245px' : '0')};
@@ -22,6 +20,5 @@ export const Content = styled.div`
 export const Block = styled.div`
   width: 100%;
   max-width: 1440px;
-  min-height: calc(100vh - 97px);
   padding: 30px 36px 0 22px;
 `;

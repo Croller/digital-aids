@@ -40,9 +40,9 @@ export const Routers = () => {
         <ScrollToTop>
           <Suspense fallback={<Loader />}>
             <Switch>
-              <Route exact path="/back-office/*" component={BackOffice} />
-              <Route exact path="/restaurant/*" component={Restaurant} />
-              <Route exact path="/" component={Present} />
+              <Route path="/back-office" component={BackOffice} />
+              <Route path="/restaurant/:restaurant" component={Restaurant} />
+              <Route path="*" component={Present} />
               <Route path="/404">
                 <Page404 source={logo} onClick={handleRoute} />
               </Route>
