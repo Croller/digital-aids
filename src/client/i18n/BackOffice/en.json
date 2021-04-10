@@ -3,11 +3,12 @@
     "logo": "Manager"
   },
   "emptyList": {
-    "restaurants": {
-      "text": "Add a new restaurante in your collection"
-    },
-    "archive": {
-      "text": "Your archive is empty"
-    }
+    "restaurants": "Add a new restaurante in your collection",
+    "archive": "Your archive is empty"
+  },
+  "confirmChange": {
+    "archive": "Are you sure you want to archive restaurant? \n From an archive you will available restore it any time. '",
+    "delete": "Are you sure you want to delete restaurant? \n Once you delete it, it will not available to restore it latter.'",
+    "restore": "Are you sure you want to restore restaurant? \n Once you restore it, it will available again in the list.'"
   }
 }

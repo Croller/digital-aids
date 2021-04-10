@@ -83,20 +83,21 @@ export const RestaurantInfo = ({
 }) => {
   const { pathname } = useLocation();
   const history = useHistory();
-  const [update, setUpdate] = useState(null);
-
+  const [eventKey, setEventKey] = useState(null);
   const [showConfir, hideConfirm] = useModal(() => (
     <ConfirmChange
+      title={t(`backOffice.confirmChange.${eventKey}`)}
+      textOk={t(`common.words.${eventKey}`)}
+      textCancel={t('common.words.doNot')}
       onCancel={hideConfirm}
       onClose={hideConfirm}
       onOk={() => {
         hideConfirm();
-        onClick(update);
+        onClick(eventKey);
       }}
     />
-  ));
+  ), [eventKey]);
 
-  
   const handleRoute = (key, path) => {
     const obj = { id };
     if (path) {
@@ -104,14 +105,12 @@ export const RestaurantInfo = ({
       return;
     }
 
-    if (pathname.indexOf('restaurants/archive') > -1) {
-      if (key === 'restore') obj.is_archived = false;
-      if (key === 'delete') obj.is_deleted = true;
-    }
+    if (key === 'restore') obj.is_archived = false;
+    if (key === 'delete') obj.is_deleted = true;
     if (key === 'archive') obj.is_archived = true;
 
-    setUpdate(obj);
-    showConfir(obj);
+    setEventKey(key);
+    showConfir();
   };
 
   const getControl = () => {

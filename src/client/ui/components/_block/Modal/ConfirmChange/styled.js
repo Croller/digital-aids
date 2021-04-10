@@ -8,10 +8,16 @@ export const Wrapper = styled.div`
   background-color: ${PALETTE.white};
   padding: 50px 0 44px;
   width: 595px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 export const CloseButton = styled(Button)`
   position: absolute;
+  width: auto;
+  height: auto;
   top: 14px;
   right: 14px;
   padding: 0;
@@ -21,8 +27,8 @@ export const CloseButton = styled(Button)`
   background-color: transparent;
 
   > svg {
-    width: 21px;
-    height: 21px;
+    width: 22px;
+    height: 22px;
 
     path {
       fill: ${PALETTE.red1};
@@ -36,9 +42,16 @@ export const Content = styled.div`
 `;
 
 export const Icon = styled.span`
-  width: 84px;
-  height: 84px;
   margin-bottom: 34px;
+
+  svg {
+    width: 84px;
+    height: 84px;
+
+    path {
+      fill: ${PALETTE.grey28};
+    }
+  }
 `;
 
 export const Title = styled.h4`
@@ -55,24 +68,32 @@ export const Controls = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 44px;
+
+  button {
+    &:not(:last-child) {
+      margin-right: 22px;
+    }
+  }
 `;
 
 export const Ok = styled(Button)`
   height: 62px;
-  min-width: 206px;
+  width: 206px;
   background-color: ${PALETTE.green1};
   color: ${PALETTE.white};
   text-transform: uppercase;
   font-size: 18px;
   font-family: ${FONTS.semiBold};
   border-radius: ${THEME.borderRadiusL};
-  margin-right: 22px;
 `;
 
 export const Cancel = styled(Button)`
-  ${Ok}
-
-  margin-right: 0;
+  height: 62px;
+  width: 206px;
   background-color: ${PALETTE.grey28};
   color: ${PALETTE.grey12};
+  text-transform: uppercase;
+  font-size: 18px;
+  font-family: ${FONTS.semiBold};
+  border-radius: ${THEME.borderRadiusL};
 `;

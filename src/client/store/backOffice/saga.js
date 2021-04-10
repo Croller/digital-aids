@@ -133,7 +133,7 @@ export function* watchAndLog() {
     if (payload && type === 'USER_SET' && payload.token && payload.roles) {
       if ([2, 3].some(s => payload.roles.includes(s))) {
         yield put({ type: Constants.BO_LOAD_ITEMS, payload: { name: 'data_restaurants', ids: payload.restaurants } });
-      // }
+      }
       yield put({ type: Constants.BO_LOAD, payload: null });
     } 
   }

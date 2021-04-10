@@ -43,7 +43,7 @@
     "logo": "Logo",
     "photos": "Photos",
     "upload": "Upload",
-
+    "doNot": "Do not",
     "loading": "Loading",
     "success": "Success"
   },
@@ -124,6 +124,7 @@
     "tokenNotExist": "Token not exist",
     "notEnoughRights": "Not enough rights",
     "504": "504 Gateway Timeout",
-    "413": "Payload Too Large"
+    "413": "413 Payload Too Large",
+    "400": "404 Bad Request"
   }
 }

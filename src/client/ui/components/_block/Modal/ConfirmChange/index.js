@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
 import { Modal } from 'client/ui/components/_block/Modal';
-import { CloseSvg } from 'client/assets/images';
-import { useTranslation } from 'react-i18next';
+import { CloseSvg, QuestionCircleSvg } from 'client/assets/images';
 import {
   Wrapper,
   CloseButton,
   Content,
+  Icon,
   Title,
   Controls,
   Ok,
@@ -13,32 +13,40 @@ import {
 } from './styled';
 
 export const ConfirmChange = memo(({
+  title = null,
+  textOk = null,
+  textCancel = null,
   onOk,
   onCancel,
   onClose,
-}) => {
-  const [t] = useTranslation();
-  
-  return (
-    <Modal>
-      <Wrapper>
-        <CloseButton onClick={onClose}>
-          <CloseSvg />
-        </CloseButton>
+}) => (
+  <Modal>
+    <Wrapper>
+      <CloseButton onClick={onClose}>
+        <CloseSvg />
+      </CloseButton>
+      <Icon>
+        <QuestionCircleSvg />
+      </Icon>
+      {title && (
         <Content>
           <Title>
-            {t('restaurant.compModal.order_delete')}
+            {title}
           </Title>
         </Content>
-        <Controls>
+      )}
+      <Controls>
+        {textOk && (
           <Ok onClick={onOk}>
-            {t('restaurant.common.remove')}
+            {textOk}
           </Ok>
+        )}
+        {textCancel && (
           <Cancel onClick={onCancel}>
-            {t('restaurant.common.dont')}
+            {textCancel}
           </Cancel>
-        </Controls>
-      </Wrapper>
-    </Modal>
-  );
-});
+        )}
+      </Controls>
+    </Wrapper>
+  </Modal>
+));

@@ -23,7 +23,7 @@ export const EmptyList = memo(({
           {`${t('common.words.welcome')}!`}
         </Title>
         <Descriptions>
-          {t('backOffice.emptyList.restaurants.text')}
+          {t('backOffice.emptyList.restaurants')}
         </Descriptions>
       </Wrapper>
     ),
@@ -33,7 +33,7 @@ export const EmptyList = memo(({
           <ArchiveSvg />
         </Icon>
         <Descriptions>
-          {t('backOffice.emptyList.archive.text')}
+          {t('backOffice.emptyList.archive')}
         </Descriptions>
       </Wrapper>
     ),
