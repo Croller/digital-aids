@@ -7,31 +7,69 @@ import {
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
 
-function* updateRestaurants({ payload }) {
+function* updateRow({ payload }) {
   const { token } = yield select((store) => store.user.info);
-  const table = yield select((store) => store.backOffice[payload.name.split('_')[1]]);
+  const { name, data } = payload;
+  const table = yield select((store) => store.backOffice[name.split('_')[1]]);
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
     const results = yield commonProvider.update({ ...payload, token });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
-      let list = [...(table || []), results];
-      let status = 'created';
-      if (payload.data.id) {
-        list = !table ? [results] : table.map((item) => {
-          if (item.id === payload.data.id) {
-            return results;
-          }
-          return item;
+      let list = [];
+      let status = 'saved';
+
+      if (Array.isArray(data)) {
+        list = table.map(row => {
+          const r = results.find(f => f.id === row.id);
+          return r || row;
         });
-        status = 'saved';
+      } else {
+        list = [...(table || []), results];
+        if (data.id) {
+          list = !table ? [results] : table.map((item) => {
+            if (item.id === data.id) {
+              return results;
+            }
+            return item;
+          });
+          status = 'saved';
+        }
       }
       yield put({
         type: Constants.BO_SET,
         payload: {
-          [payload.name.split('_')[1]]: list,
+          [name.split('_')[1]]: list,
           status,
+        }, 
+      });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.BO_LOADING_SET, payload: false });
+}
+
+function* updateRows({ payload }) {
+  const { token } = yield select((store) => store.user.info);
+  const { name } = payload;
+  const table = yield select((store) => store.backOffice[name.split('_')[1]]);
+  yield put({ type: Constants.BO_LOADING_SET, payload: true });
+  try {
+    const results = yield commonProvider.update({ ...payload, token });
+    if (results.error) {
+      yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
+    } else if (results) {
+      const mapData = table.map(row => {
+        const r = results.find(f => f.id === row.id);
+        return r || row;
+      });
+      yield put({
+        type: Constants.BO_SET,
+        payload: {
+          [name.split('_')[1]]: mapData,
+          status: 'saved',
         }, 
       });
     }
@@ -54,7 +92,7 @@ function* getTables({ payload }) {
   }
 
   try {
-    const results = yield commonProvider.loadTables({ names, token });
+    const results = yield commonProvider.loadTables({ token, data: names });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -81,7 +119,7 @@ function* getTableRows({ payload: { name = 'data_restaurants', ids = null } }) {
   const { restaurants } = yield select((store) => store.backOffice);
   const arr = ids || info.restaurants;
   try {
-    const results = yield commonProvider.loadRows({ name, token: info.token, ids: arr });
+    const results = yield commonProvider.loadRow({ name, token: info.token, data: arr });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -107,7 +145,11 @@ function* deleteFiles({ payload }) {
 }
 
 export function* watchBOupdate() {
-  yield takeLatest(Constants.BO_CREATE, updateRestaurants);
+  yield takeLatest(Constants.BO_UPDATE, updateRow);
+}
+
+export function* watchBOupdateMany() {
+  yield takeLatest(Constants.BO_UPDATE_MANY, updateRows);
 }
 
 export function* watchBOdeleteFile() {

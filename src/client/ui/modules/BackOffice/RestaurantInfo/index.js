@@ -121,14 +121,14 @@ export const RestaurantInfo = ({
         <Contacts>
           <Phone
             icon={<PhoneCallSvg />}
-            text={phone[0]}
+            text={phone ? phone[0] : ''}
           />
           <Address
             icon={<MapMarkerSvg />}
             text={address}
           />
         </Contacts>
-        <NavItemStyled onClick={(path) => handleRoute(null, path)} />
+        <NavItemStyled id={id} onClick={(path) => handleRoute(null, path)} />
       </Content>
     </Wrapper>
   );

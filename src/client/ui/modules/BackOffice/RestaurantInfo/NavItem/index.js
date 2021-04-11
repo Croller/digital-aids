@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { IconText } from 'client/ui/components/_block/IconText';
-import { useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   MenuSvg,
@@ -16,25 +16,27 @@ const NAV_CONFIG = [
   {
     key: 'menu',
     icon: (<MenuSvg />),
-    path: 'restaurant/:restaurant/category',
+    path: '/back-office/restaurant/:restaurant/category',
   },
   {
     key: 'specialDeals',
     icon: (<InfoCircleSvg />),
-    path: 'restaurant/:restaurant/special-deals',
+    path: '/back-office/restaurant/:restaurant/special-deals',
   },
   {
     key: 'foodtips',
     icon: (<ChefHeadSvg />),
-    path: 'restaurant/:restaurant/foodtips',
+    path: '/back-office/restaurant/:restaurant/foodtips',
   },
 ];
 
 export const NavItem = memo(({
+  id = null,
   onClick = () => {},
   className,
 }) => {
   const [t] = useTranslation();
+  const params = useParams();
   const { pathname } = useLocation();
 
   const getNav = () => {
@@ -53,7 +55,7 @@ export const NavItem = memo(({
   return (
     <NavItemWrapper className={className}>
       {getNav().map(({ key, icon, path }) => (
-        <Item key={key} onClick={() => onClick(path)}>
+        <Item key={key} onClick={() => onClick(path.replace(':restaurant', id || params.restaurant))}>
           <IconText
             icon={icon}
             text={t(`common.words.${key}`)}

@@ -3,7 +3,7 @@ import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Navbar } from 'client/ui/modules/BackOffice/Navbar';
 import { NavItem } from 'client/ui/modules/BackOffice/RestaurantInfo/NavItem';
 import { Form, Select } from 'antd';
-import { Input } from 'client/ui/components/_ui/Input';
+import { InputForm } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 import MaskedInput from 'antd-mask-input';
 import { Uploader } from 'client/ui/components/_ui/Uploader';
@@ -125,7 +125,7 @@ export const Form2Col = styled.div`
   }
 `;
 
-export const InputStyled = styled(Input)`
+export const InputStyled = styled(InputForm)`
   height: 62px;
   font-size: 18px;
   font-family: ${FONTS.medium};

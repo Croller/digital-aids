@@ -3,27 +3,27 @@ import { get, post, remove } from 'client/providers/fetch';
 
 export const loadTables = async ({
   token,
-  names,
+  data,
 }) => {
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await get('table', { names }, options);
+  const results = await get('table', { data }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
   return results;
 };
 
-export const loadRows = async ({
+export const load = async ({
   token,
   name,
-  ids,
+  data,
 }) => {
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await get(`table/${name}/records`, { ids }, options);
+  const results = await get(`table/${name}/records`, { data }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -38,7 +38,7 @@ export const update = async ({
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await post(`table/${name}/record/update`, data, options);
+  const results = await post(`table/${name}/record/update`, { data }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -47,12 +47,12 @@ export const update = async ({
 
 export const deleteFiles = async ({
   token,
-  paths,
+  data,
 }) => {
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await remove('file/delete', { paths }, options);
+  const results = await remove('file/delete', { data }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

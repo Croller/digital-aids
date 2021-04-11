@@ -1,3 +1,5 @@
+import { updateRowAndUser } from '../utils/query';
+
 const db = require('../services/db');
 const jwt = require('../services/jwt');
 const commonUtils = require('../utils/common');
@@ -11,13 +13,14 @@ const error = {
 const CommonController = () => {
   let query = '';
   let values = [];
+  let results = null;
   
   const getTableByNames = async (req, res) => {
     try {
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData) {
-        const { names } = req.query;
-        const result = await Promise.all(names.split(',').map(async (name) => {
+        const { data } = req.query;
+        const result = await Promise.all(data.split(',').map(async (name) => {
           const desc = await db.query(`SELECT * FROM ${name}`);
           return { [name]: desc.rows };
         }));
@@ -42,33 +45,16 @@ const CommonController = () => {
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData) {
         const { name } = req.params;
-        const { id } = req.body;
-        query = `SELECT * FROM ${name} WHERE id=($1)`;
-        values = [id];
-        const result = await db.queryValues(query, values);
-        res.json(result.rows);
-      } else {
-        error.name = 'Token not valid';
-        error.code = 'tokenNotValid';
-        res.status(201);
-        res.json({ error });
-      }
-    } catch (err) {
-      error.name = 'Query error';
-      error.text = JSON.stringify(err.message);
-      res.json({ error });
-    }
-  };
-
-  const getTableRecords = async (req, res) => {
-    try {
-      const tokenData = await jwt.verifyToken(req, res);
-      if (tokenData) {
+        const { id } = req.query;
         try {
-          const { name } = req.params;
-          const { ids } = req.query;
-          query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
-          values = [ids.split(',')];
+          const data = id.split(',');
+          if (Array.isArray(data)) {
+            query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
+            values = [data];
+          } else {
+            query = `SELECT * FROM ${name} WHERE id=($1)`;
+            values = [id];
+          }
           const result = await db.queryValues(query, values);
           res.json(result.rows);
         } catch (err) {
@@ -94,44 +80,16 @@ const CommonController = () => {
       const { name } = req.params;
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData && tokenData.roles.some(r => [1, 2, 3].includes(r))) {
-        const { login, password, restaurants } = tokenData;
-        const data = { ...req.body };
-
-        const mapper = Object.keys(data).filter(f => f !== 'id').reduce((obj, key) => {
-          if (key === 'images') {
-            return {
-              fields: [...obj.fields, key],
-              values: [...obj.values, data[key] ? data[key].map((image) => image.uuid) : null],
-            };
-          }
-          return {
-            fields: [...obj.fields, key],
-            values: [...obj.values, data[key]],
-          };
-        }, { fields: [], values: [] });
-
-        if (data.images) {
-          await Promise.all(data.images.map(async (image) => {
-            const { base64, path } = image;
-            const file = await commonUtils.writeFile(path, base64);
-            return file;
+        const { data } = req.body;
+        if (Array.isArray(data)) {
+          results = await Promise.all(data.map(async (row) => {
+            const result = await updateRowAndUser(name, row, { req, res, tokenData });
+            return result;
           }));
-        }
-        if (!req.body.id) {
-          query = `INSERT INTO ${name} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-          const result = await db.queryValues(query, mapper.values);
-
-          if (name === 'data_restaurants') {
-            query = 'UPDATE data_users SET restaurants=$1 WHERE login=$2 AND password=$3';
-            values = [[...(restaurants || []), result.rows[0].id], login, password];
-            await db.queryValues(query, values);
-          }
-          res.json(result.rows[0]);
         } else {
-          query = `UPDATE ${name} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 RETURNING *`;
-          const result = await db.queryValues(query, [req.body.id, ...mapper.values]);
-          res.json(result.rows[0]);
+          results = await updateRowAndUser(name, data, { req, res, tokenData });
         }
+        res.json(results);
       } else {
         error.name = 'Token not valid';
         error.code = 'tokenNotValid';
@@ -147,15 +105,19 @@ const CommonController = () => {
     }
   };
 
-  const deleteFiles = async (req, res) => {
+  const deleteFile = async (req, res) => {
     try {
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData && tokenData.roles.some(r => [1, 2, 3].includes(r))) {
-        const { paths } = req.body;
-        await Promise.all(paths.map(async (path) => {
-          const prom = await commonUtils.moveFile(path);
-          return prom;
-        }));
+        const { data } = req.body;
+        if (Array.isArray(data)) {
+          await Promise.all(data.map(async (path) => {
+            const prom = await commonUtils.moveFile(path);
+            return prom;
+          }));
+        } else {
+          await commonUtils.moveFile(data);
+        }
         res.json({});
       } else {
         error.name = 'Token not valid';
@@ -174,11 +136,10 @@ const CommonController = () => {
   return {
     getTableByNames,
     getTableRecord,
-    getTableRecords,
 
     updateTableRecord,
 
-    deleteFiles,
+    deleteFile,
   };
 };
 

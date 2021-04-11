@@ -1,7 +1,36 @@
 import React, { forwardRef } from 'react';
 import { InputStyled } from './styled';
 
-export const Input = forwardRef(({
+export const InputForm = forwardRef(({
+  type = 'text',
+  step = null,
+  placeholder = null,
+  disabled = false,
+  prefix = null,
+  suffix = null,
+  defaultValue = null,
+  value = null,
+  onChange = () => {},
+  onPressEnter = () => {},
+  className,
+}, ref) => (
+  <InputStyled
+    ref={ref}
+    type={type}
+    step={step}
+    className={className}
+    placeholder={placeholder}
+    disabled={disabled}
+    prefix={prefix}
+    suffix={suffix}
+    defaultValue={defaultValue}
+    value={value}
+    onChange={onChange}
+    onPressEnter={onPressEnter}
+  />
+));
+
+export const Input = ({
   type = 'text',
   step = null,
   placeholder = null,
@@ -10,24 +39,23 @@ export const Input = forwardRef(({
   suffix = null,
   value = null,
   onChange = () => {},
+  onPressEnter = () => {},
   className,
-}, ref) => {
-  const handleChange = (e) => {
-    onChange(e.target.value);
-  };
+}) => {
+  const handleChange = (e) => onChange(e.target.value);
 
   return (
     <InputStyled
-      ref={ref}
       type={type}
       step={step}
-      value={value}
       className={className}
       placeholder={placeholder}
       disabled={disabled}
       prefix={prefix}
       suffix={suffix}
+      defaultValue={value}
       onChange={handleChange}
+      onPressEnter={onPressEnter}
     />
   );
-});
+};

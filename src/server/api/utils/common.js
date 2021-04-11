@@ -41,7 +41,6 @@ module.exports = {
   }),
   moveFile: async (url) => new Promise((resolve, reject) => {
     try {
-      console.log('path', `${staticPath}${url}`);
       fs.renameSync(path.resolve(`${staticPath}${url}`), path.resolve(`${staticPath}/deleted${url}`));
       resolve();
     } catch (err) {

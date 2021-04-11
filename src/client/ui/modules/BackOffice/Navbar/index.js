@@ -6,7 +6,6 @@ import { IconText } from 'client/ui/components/_block/IconText';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
-
 import {
   ChevronSvg,
   LoupeSvg,
@@ -30,7 +29,7 @@ import {
 
 export const Navbar = ({
   settings = null,
-  onSearch = () => {},
+  onChange = () => {},
   onEvent = () => {},
   className,
 }) => {
@@ -67,11 +66,11 @@ export const Navbar = ({
     const pathParts = pathname.split('/');
     let path = '';
     if (key === 'back') {
-      path = pathParts.slice(0, -1).join('/');
-      if (history.action !== 'POP') {
+      if (history.action !== 'POP' && params.language && params.restaurant) {
         history.goBack();
         return null;
       }
+      path = `${pathParts[0]}/${pathParts[1]}/restaurants`;
     }
     if (key === 'archive') {
       path = `${pathParts.join('/')}/${key}`;
@@ -87,10 +86,11 @@ export const Navbar = ({
     const obj = { ...options };
 
     if (key === 'loupe') {
-      obj.loupe = !obj.loupe;
-      obj.search = !obj.search;
+      obj.loupe = !options.loupe;
+      obj.search = !options.search;
+      setOptions(obj);
+      return;
     }
-
     if (key === 'delete') {
       showConfir();
       obj.event = {
@@ -101,9 +101,12 @@ export const Navbar = ({
       setOptions(obj);
       return;
     }
-
-    setOptions(obj);
     onEvent(key);
+  };
+
+  const handleSearch = (val) => {
+    console.log(val);
+    onChange(val);
   };
 
   const haveRole = (arr) => arr.some(s => roles.includes(s));
@@ -177,7 +180,7 @@ export const Navbar = ({
           {options.title && !options.search && (<IconText {...options.title} />)}
           {options.search && (
             <Search
-              onClick={onSearch}
+              onChange={handleSearch}
               prefix={<LoupeSvg />}
               suffix={<CloseSvg onClick={() => handleChange('loupe')} />}
               placeholder={t('common.words.search')}

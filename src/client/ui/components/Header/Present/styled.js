@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input } from 'client/ui/components/_ui/Input';
+import { InputForm } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 import {
   PALETTE,
@@ -98,7 +98,7 @@ export const ControlWrapper = styled.div`
   }
 `;
 
-export const Search = styled(Input)`
+export const Search = styled(InputForm)`
   display: ${p => (p.show ? 'flex' : 'none')};
   width: 100%;
   height: 42px;

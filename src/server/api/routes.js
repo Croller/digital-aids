@@ -4,10 +4,9 @@ const routes = {
 
   'GET /api/table': 'CommonController.getTableByNames',
   'GET /api/table/:name/record': 'CommonController.getTableRecord',
-  'GET /api/table/:name/records': 'CommonController.getTableRecords',
   'POST /api/table/:name/record/update': 'CommonController.updateTableRecord',
 
-  'DELETE /api/file/delete': 'CommonController.deleteFiles',
+  'DELETE /api/file/delete': 'CommonController.deleteFile',
 };
 
 module.exports = routes;

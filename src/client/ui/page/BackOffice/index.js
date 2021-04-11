@@ -28,19 +28,18 @@ export const BackOffice = () => {
             <Route
               exact
               path={[
-                `${PATH}/restaurant/:restaurant/special-deals/archive`,
-                `${PATH}/restaurant/:restaurant/special-deals`,
-                `${PATH}/restaurant/:restaurant/foodtips/archive`,
-                `${PATH}/restaurant/:restaurant/foodtips`,
+                `${PATH}/restaurant/:restaurant/language/:lng/special-deals/archive`,
+                `${PATH}/restaurant/:restaurant/language/:lng/special-deals`,
+                `${PATH}/restaurant/:restaurant/language/:lng/foodtips/archive`,
+                `${PATH}/restaurant/:restaurant/language/:lng/foodtips`,
               ]}
               component={Restaurant}
             />
             <Route
               exact
               path={[
-                `${PATH}/restaurant/:restaurant/category/:category/archive`,
-                `${PATH}/restaurant/:restaurant/category/:category`,
-                `${PATH}/restaurant/:restaurant/category`,
+                `${PATH}/restaurant/:restaurant/language/:lng/category/:category/dishes/archive`,
+                `${PATH}/restaurant/:restaurant/language/:lng/category/:category/dishes`,
               ]}
               component={Category}
             />

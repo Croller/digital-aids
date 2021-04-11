@@ -35,7 +35,7 @@ export default function (state = initState, action) {
 
 export function update(payload) {
   return {
-    type: Constants.BO_CREATE,
+    type: Constants.BO_UPDATE,
     payload,
   };
 }

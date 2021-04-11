@@ -78,7 +78,7 @@ const Restaurant = () => {
   const handleFinish = (values) => {
     const edited = dataToApi({ ...formData, ...values }, { ...model, id: params.restaurant !== 'new' ? params.restaurant : null });
     rootDispatch(update({ name: 'data_restaurants', data: edited }));
-    deletedFiles && rootDispatch(deleteFiles({ paths: deletedFiles }));
+    deletedFiles && rootDispatch(deleteFiles({ data: deletedFiles }));
     setIsChnage(false);
   };
 
@@ -95,7 +95,8 @@ const Restaurant = () => {
     });
   };
 
-  const handleValuesChange = () => {
+  const handleValuesChange = (v) => {
+    console.log(v);
     setIsChnage(true);
   };
 

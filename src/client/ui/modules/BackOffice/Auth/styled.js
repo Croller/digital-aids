@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Form } from 'antd';
 import { Button } from 'client/ui/components/_ui/Button';
-import { Input } from 'client/ui/components/_ui/Input';
+import { InputForm } from 'client/ui/components/_ui/Input';
 import { Link } from 'client/ui/components/_ui/Link';
 
 export const Wrapper = styled.div`
@@ -135,7 +135,7 @@ export const FormWrapper = styled.div`
   margin-bottom: 48px;
 `;
 
-export const InputStyled = styled(Input)`
+export const InputStyled = styled(InputForm)`
   height: 62px;
   font-size: 18px;
   font-family: ${FONTS.medium};

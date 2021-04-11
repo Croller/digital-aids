@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/RestaurantInfo';
 import { update } from 'client/store/backOffice';
-import { useTranslation } from 'react-i18next';
-import { showMessage } from 'client/ui/components/_ui/Message';
 import { EmptyList } from './EmptyList';
 import {
   RestaurantList,
@@ -15,58 +13,56 @@ import {
 
 const Restaurants = () => {
   const rootDispatch = useDispatch();
-  const [t] = useTranslation();
-  const { restaurants, status, loading } = useSelector(state => state.backOffice);
+  const { restaurants, loading } = useSelector(state => state.backOffice);
   const { pathname } = useLocation();
+  const [searched, setSearched] = useState(null);
 
-  const getPage = () => (pathname.indexOf('archive') > -1 ? 'archive' : 'restaurants');
-
-  const getItems = () => (restaurants || []).reduce((obj, rest) => { 
+  const isArchive = pathname.indexOf('archive') > -1;
+  const type = isArchive ? 'archive' : 'restaurants';
+  const filtred = (restaurants || []).reduce((obj, rest) => { 
     const val = rest.is_archived;
     if (rest.is_deleted) {
       return obj;
     }
     return { ...obj, [val]: [...(obj[val] || []), rest] };
-  }, { true: null, false: null })[pathname.indexOf('archive') > -1];
+  }, { true: null, false: null });
 
   const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_restaurants', data: obj }));
   };
 
   const handleEventAll = async (obj) => {
-    await Promise.all(getItems().map(({ id }) => rootDispatch(update({ name: 'data_restaurants', data: { id, ...obj } }))));
+    await rootDispatch(update({ name: 'data_restaurants', data: filtred[isArchive].map(({ id }) => ({ ...obj, id })) }));
   };
 
   const handleSearch = (str) => {
+    if (str) return;
+    const fields = ['name', 'address', 'phone'];
     console.log('search', str);
+    // const results = filtred[isArchive].filter(f => fields.some(field => f[field] && f[field].toLowerCase().indexOf(str) > -1));
+    // setSearched(results);
   };
 
   useEffect(() => {
     window.prerenderReady = true;
   }, []);
 
-  useEffect(() => {
-    if (status) {
-      showMessage({ type: 'success', content: t(`common.words.${status}`) });
-    }
-  }, [status]);
-
   return (
     <RestaurantList>
       {loading && (<LoaderStyled />)}
       <NavbarStyled
-        onSearch={handleSearch}
+        onChange={handleSearch}
         onEvent={handleEventAll}
       />
       <List>
-        {getItems() ? getItems().map((item) => (
+        {filtred && filtred[isArchive] ? filtred[isArchive].map((item) => (
           <RestaurantInfo
             {...item}
             key={item.id}
             onEvent={handleEvent}
           />
         )) : (
-          <EmptyList type={getPage()} />
+          <EmptyList type={type} />
         )}
       </List>
     </RestaurantList>

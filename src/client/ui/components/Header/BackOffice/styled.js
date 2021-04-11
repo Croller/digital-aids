@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input } from 'client/ui/components/_ui/Input';
+import { InputForm } from 'client/ui/components/_ui/Input';
 import {
   PALETTE,
   FONTS,
@@ -85,7 +85,7 @@ export const Loupe = styled.div`
   }
 `;
 
-export const Search = styled(Input)`
+export const Search = styled(InputForm)`
   position: absolute;
   right: 0;
   top: -12px;

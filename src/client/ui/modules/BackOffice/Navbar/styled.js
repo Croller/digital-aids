@@ -85,7 +85,7 @@ export const Title = styled.div`
   height: 58px;
 
   > span {
-    > span > svg {
+    svg {
       width: 35px;
       height: 35px;
       margin-right: 12px;
@@ -111,12 +111,15 @@ export const Search = styled(Input)`
   padding: 20px 16px 20px 16px;
   margin: 0 32px;
 
-  svg {
-    width: 26px;
-    height: 26px;
+  .ant-input-prefix {
+    > svg {
+      width: 26px;
+      height: 26px;
+      margin-right: 0;
 
-    path {
-      fill: ${PALETTE.grey12};
+      path {
+        fill: ${PALETTE.grey12};
+      }
     }
   }
 
@@ -126,6 +129,7 @@ export const Search = styled(Input)`
     > svg {
       width: 21px;
       height: 21px;
+      margin-right: 4px;
 
       path {
         fill: ${PALETTE.black1};

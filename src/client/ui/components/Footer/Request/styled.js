@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input } from 'client/ui/components/_ui/Input';
+import { InputForm } from 'client/ui/components/_ui/Input';
 import { TextArea } from 'client/ui/components/_ui/TextArea';
 import { Button } from 'client/ui/components/_ui/Button';
 import { PALETTE, FONTS, BREAKPOINTS } from 'client/style/constants';
@@ -130,7 +130,7 @@ export const Label = styled.label`
   color: ${PALETTE.grey20};
 `;
 
-export const InputStyled = styled(Input)`
+export const InputStyled = styled(InputForm)`
   height: 60px;
   border: 0;
 `;
