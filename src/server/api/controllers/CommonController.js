@@ -1,8 +1,7 @@
-import { updateRowAndUser } from '../utils/query';
-
 const db = require('../services/db');
 const jwt = require('../services/jwt');
 const commonUtils = require('../utils/common');
+const queryUtils = require('../utils/query');
 
 const error = {
   code: 0,
@@ -83,11 +82,11 @@ const CommonController = () => {
         const { data } = req.body;
         if (Array.isArray(data)) {
           results = await Promise.all(data.map(async (row) => {
-            const result = await updateRowAndUser(name, row, { req, res, tokenData });
+            const result = await queryUtils.updateRowAndUser(name, row, { req, res, tokenData });
             return result;
           }));
         } else {
-          results = await updateRowAndUser(name, data, { req, res, tokenData });
+          results = await queryUtils.updateRowAndUser(name, data, { req, res, tokenData });
         }
         res.json(results);
       } else {

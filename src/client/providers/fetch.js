@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { getUrl } from 'client/utils/common';
 
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 let instance = null;
 
 const headers = {
   accept: 'application/json',
   'content-type': 'application/json',
+  'X-Requested-With': 'XMLHttpRequest',
 };
 
 const URL = getUrl();
