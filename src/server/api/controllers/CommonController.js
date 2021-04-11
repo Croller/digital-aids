@@ -93,16 +93,15 @@ const CommonController = () => {
     try {
       const { name } = req.params;
       const tokenData = await jwt.verifyToken(req, res);
-      if (tokenData.roles.some(r => [1, 2].includes(r))) {
+      if (tokenData && tokenData.roles.some(r => [1, 2, 3].includes(r))) {
         const { login, password, restaurants } = tokenData;
         const data = { ...req.body };
-        delete data.id;
 
-        const mapper = Object.keys(data).reduce((obj, key) => {
+        const mapper = Object.keys(data).filter(f => f !== 'id').reduce((obj, key) => {
           if (key === 'images') {
             return {
               fields: [...obj.fields, key],
-              values: [...obj.values, data[key].map((image) => image.uuid)],
+              values: [...obj.values, data[key] ? data[key].map((image) => image.uuid) : null],
             };
           }
           return {
@@ -148,12 +147,15 @@ const CommonController = () => {
     }
   };
 
-  const deleteFile = async (req, res) => {
+  const deleteFiles = async (req, res) => {
     try {
-      const { path } = req.body.data;
       const tokenData = await jwt.verifyToken(req, res);
-      if (tokenData.roles.some(r => [1, 2].includes(r))) {
-        await commonUtils.moveFile(path);
+      if (tokenData && tokenData.roles.some(r => [1, 2, 3].includes(r))) {
+        const { paths } = req.body;
+        await Promise.all(paths.map(async (path) => {
+          const prom = await commonUtils.moveFile(path);
+          return prom;
+        }));
         res.json({});
       } else {
         error.name = 'Token not valid';
@@ -162,7 +164,8 @@ const CommonController = () => {
         res.json({ error });
       }
     } catch (err) {
-      error.name = 'Query error';
+      error.name = 'Delete file error';
+      error.code = 'deleteFile';
       error.text = JSON.stringify(err.message);
       res.json({ error });
     }
@@ -175,7 +178,7 @@ const CommonController = () => {
 
     updateTableRecord,
 
-    deleteFile,
+    deleteFiles,
   };
 };
 

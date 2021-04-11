@@ -7,7 +7,7 @@ const routes = {
   'GET /api/table/:name/records': 'CommonController.getTableRecords',
   'POST /api/table/:name/record/update': 'CommonController.updateTableRecord',
 
-  'DELETE /api/file/delete': 'CommonController.deleteFile',
+  'DELETE /api/file/delete': 'CommonController.deleteFiles',
 };
 
 module.exports = routes;

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Button } from 'client/ui/components/_ui/Button';
 import { IconText } from 'client/ui/components/_block/IconText';
+import { NavItem } from 'client/ui/modules/BackOffice/RestaurantInfo/NavItem';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -105,38 +106,6 @@ export const Phone = styled(IconText)`
 
 export const Address = Phone;
 
-export const NavWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-`;
-
-export const NavButton = styled(Button)`
-  height: 50px;
-  padding: 0;
-  min-width: 180px;
-  font-size: 16px;
-  font-family: ${FONTS.medium};
-  background-color: ${PALETTE.green1};
-
-  &:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  > span {
-    > span > svg {
-      width: 22px;
-      height: 22px;
-      margin-right: 10px;
-
-      path {
-        fill: ${PALETTE.white};
-      }
-    }
-
-    > span {
-      color: ${PALETTE.white};
-      text-transform: uppercase;
-    }
-  }
+export const NavItemStyled = styled(NavItem)`
+  background-color: transparent;
 `;

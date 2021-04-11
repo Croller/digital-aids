@@ -23,11 +23,18 @@ const Restaurants = () => {
 
   const getItems = () => (restaurants || []).reduce((obj, rest) => { 
     const val = rest.is_archived;
+    if (rest.is_deleted) {
+      return obj;
+    }
     return { ...obj, [val]: [...(obj[val] || []), rest] };
   }, { true: null, false: null })[pathname.indexOf('archive') > -1];
 
-  const handleChange = (obj) => {
+  const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_restaurants', data: obj }));
+  };
+
+  const handleEventAll = async (obj) => {
+    await Promise.all(getItems().map(({ id }) => rootDispatch(update({ name: 'data_restaurants', data: { id, ...obj } }))));
   };
 
   const handleSearch = (str) => {
@@ -47,14 +54,16 @@ const Restaurants = () => {
   return (
     <RestaurantList>
       {loading && (<LoaderStyled />)}
-      <NavbarStyled onSearch={handleSearch} />
+      <NavbarStyled
+        onSearch={handleSearch}
+        onEvent={handleEventAll}
+      />
       <List>
         {getItems() ? getItems().map((item) => (
           <RestaurantInfo
             {...item}
-            t={t}
             key={item.id}
-            onClick={handleChange}
+            onEvent={handleEvent}
           />
         )) : (
           <EmptyList type={getPage()} />

@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { IconText } from 'client/ui/components/_block/IconText';
 import { Tooltip } from 'antd';
+import { useModal } from 'react-modal-hook';
+import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 
 import {
   ChevronSvg,
@@ -29,7 +31,7 @@ import {
 export const Navbar = ({
   settings = null,
   onSearch = () => {},
-  onChange = () => {},
+  onEvent = () => {},
   className,
 }) => {
   const [t] = useTranslation();
@@ -45,7 +47,21 @@ export const Navbar = ({
     add_new: true,
     title: true,
     search: false,
+    event: null, // prop for modal
   });
+  const [showConfir, hideConfirm] = useModal(() => (
+    <ConfirmChange
+      title={t(`backOffice.confirmModal.${options.event.title}`)}
+      textOk={t(`common.words.${options.event.key}`)}
+      textCancel={t('common.words.doNot')}
+      onCancel={hideConfirm}
+      onClose={hideConfirm}
+      onOk={() => {
+        hideConfirm();
+        onEvent(options.event.params);
+      }}
+    />
+  ), [options]);
 
   const handleRoute = (key) => {
     const pathParts = pathname.split('/');
@@ -66,17 +82,28 @@ export const Navbar = ({
     history.push(path);
   };
 
-  const handleChange = (controlKey = null) => {
-    if (!controlKey) return;
+  const handleChange = (key = null) => {
+    if (!key) return;
     const obj = { ...options };
 
-    if (controlKey === 'loupe') {
+    if (key === 'loupe') {
       obj.loupe = !obj.loupe;
       obj.search = !obj.search;
     }
 
-    setOptions({ ...obj });
-    onChange(controlKey);
+    if (key === 'delete') {
+      showConfir();
+      obj.event = {
+        key,
+        title: pathname.restaurant ? 'restaurant.delete' : 'archive',
+        params: { is_deleted: true },
+      };
+      setOptions(obj);
+      return;
+    }
+
+    setOptions(obj);
+    onEvent(key);
   };
 
   const haveRole = (arr) => arr.some(s => roles.includes(s));
@@ -150,7 +177,7 @@ export const Navbar = ({
           {options.title && !options.search && (<IconText {...options.title} />)}
           {options.search && (
             <Search
-              onChange={onSearch}
+              onClick={onSearch}
               prefix={<LoupeSvg />}
               suffix={<CloseSvg onClick={() => handleChange('loupe')} />}
               placeholder={t('common.words.search')}

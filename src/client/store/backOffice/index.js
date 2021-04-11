@@ -40,7 +40,7 @@ export function update(payload) {
   };
 }
 
-export function deleteFile(payload) {
+export function deleteFiles(payload) {
   return {
     type: Constants.BO_DELETE_FILE,
     payload,

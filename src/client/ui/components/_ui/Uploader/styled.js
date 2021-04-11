@@ -73,14 +73,12 @@ export const ImgBlock = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 100%;
-  height: 180px;
+  width: 337px;
+  height: 215px;
   border-radius: ${THEME.borderRadiusL};
-
-  /* background-image: url(${p => p.url && p.url});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center; */
+  object-fit: contain;
+  object-position: center;
+  background-color: ${PALETTE.grey25};
 `;
 
 export const Delete = styled(Button)`

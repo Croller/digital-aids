@@ -97,10 +97,10 @@ function* getTableRows({ payload: { name = 'data_restaurants', ids = null } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* deleteFile({ payload }) {
+function* deleteFiles({ payload }) {
   const token = yield select((store) => store.user.info.token);
   try {
-    yield commonProvider.deleteFile({ ...payload, token });
+    yield commonProvider.deleteFiles({ ...payload, token });
   } catch (err) {
     throw err;
   }
@@ -111,7 +111,7 @@ export function* watchBOupdate() {
 }
 
 export function* watchBOdeleteFile() {
-  yield takeLatest(Constants.BO_DELETE_FILE, deleteFile);
+  yield takeLatest(Constants.BO_DELETE_FILE, deleteFiles);
 }
 
 export function* watchBOload() {
@@ -127,14 +127,16 @@ export function* watchAndLog() {
     const action = yield take('*');
     const state = yield select();
     const { type, payload } = action;
-
     console.log('Saga watch', action, state);
 
-    if (payload && type === 'USER_SET' && payload.token && payload.roles) {
-      if ([2, 3].some(s => payload.roles.includes(s))) {
-        yield put({ type: Constants.BO_LOAD_ITEMS, payload: { name: 'data_restaurants', ids: payload.restaurants } });
+    if (payload) {
+      const { token, roles } = payload;
+      if (token && roles && type === 'USER_SET') {
+        if ([2, 3].some(s => roles.includes(s)) && !roles.includes(1)) {
+          yield put({ type: Constants.BO_LOAD_ITEMS, payload: { name: 'data_restaurants', ids: payload.restaurants } });
+        }
+        yield put({ type: Constants.BO_LOAD, payload: null });
       }
-      yield put({ type: Constants.BO_LOAD, payload: null });
     } 
   }
 }

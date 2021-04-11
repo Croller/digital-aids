@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Navbar } from 'client/ui/modules/BackOffice/Navbar';
+import { NavItem } from 'client/ui/modules/BackOffice/RestaurantInfo/NavItem';
 import { Form, Select } from 'antd';
 import { Input } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
@@ -10,7 +11,7 @@ import { Uploader } from 'client/ui/components/_ui/Uploader';
 const FormItem = Form.Item;
 const { Option } = Select;
 
-export const Wrapper = styled.div`
+export const RestaurantWrapper = styled.div`
   width: 100%;
 `;
 
@@ -303,41 +304,8 @@ export const Save = styled(Button)`
   margin: auto;
 `;
 
-export const NavWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+export const NavItemStyled = styled(NavItem)`
   margin: 42px 0 62px;
-`;
-
-export const NavButton = styled(Button)`
-  height: 50px;
-  padding: 0;
-  min-width: 180px;
-  font-size: 16px;
-  font-family: ${FONTS.medium};
-  background-color: ${PALETTE.green1};
-
-  &:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  > span {
-    > span > svg {
-      width: 22px;
-      height: 22px;
-      margin-right: 10px;
-
-      path {
-        fill: ${PALETTE.white};
-      }
-    }
-
-    > span {
-      color: ${PALETTE.white};
-      text-transform: uppercase;
-    }
-  }
 `;
 
 export const FormUploader = styled.div`
@@ -350,8 +318,9 @@ export const UploaderLogo = styled(Uploader)`
       width: auto;
 
       img {
-        width: auto;
+        width: 556px;
         height: 180px;
+        background-size: 180px;
       }
     }
   }
@@ -360,14 +329,24 @@ export const UploaderLogo = styled(Uploader)`
 export const UploaderPhotos = styled(Uploader)`
   .list-images {
     > div {
-      width: 205px;
+      width: 267px;
 
       &:nth-child(3n) {
         margin-right: 0;
       }
 
       img {
-        width: auto;
+        width: 267;
+        height: 180px;
+      }
+
+      &:first-child {
+        width: 556px;
+
+        img {
+          width: 556px;
+          height: 180px;
+        }
       }
     }
   }

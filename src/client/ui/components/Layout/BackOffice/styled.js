@@ -19,6 +19,6 @@ export const Content = styled.div`
 
 export const Block = styled.div`
   width: 100%;
-  max-width: 1440px;
+  max-width: 1195;
   padding: 30px 36px 0 22px;
 `;

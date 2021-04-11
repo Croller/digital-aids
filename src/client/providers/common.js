@@ -45,14 +45,14 @@ export const update = async ({
   return results;
 };
 
-export const deleteFile = async ({
+export const deleteFiles = async ({
   token,
-  path,
+  paths,
 }) => {
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await remove('file/delete', { path }, options);
+  const results = await remove('file/delete', { paths }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

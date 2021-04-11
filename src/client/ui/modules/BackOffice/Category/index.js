@@ -18,7 +18,7 @@ const Category = () => {
 
   const constCheckRest = () => restaurants && restaurants.find(f => f.id === params.restaurant);
 
-  const handleChange = (obj) => {
+  const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_category', data: obj }));
   };
 
@@ -31,9 +31,8 @@ const Category = () => {
     <CategoryEdit>
       <NavbarStyled />
       <RestaurantInfoStyled
-        t={t}
-        onClick={handleChange}
         {...constCheckRest()}
+        onEvent={handleEvent}
       />
     </CategoryEdit>
   );

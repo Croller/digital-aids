@@ -1,5 +1,5 @@
 /* eslint-disable prefer-destructuring */
-import React, { memo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -7,16 +7,10 @@ import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
 import { getUrl, loadFile } from 'client/utils/common';
-import { update } from 'client/store/backOffice';
+import { update, deleteFiles } from 'client/store/backOffice';
+import { AlertCircleSvg } from 'client/assets/images';
 import {
-  MenuSvg,
-  InfoCircleSvg,
-  ChefHeadSvg,
-  AlertCircleSvg,
-} from 'client/assets/images';
-import { IconText } from 'client/ui/components/_block/IconText';
-import {
-  Wrapper,
+  RestaurantWrapper,
   NavbarStyled,
   FormStyled,
   Form2Col,
@@ -26,31 +20,13 @@ import {
   InputStyled,
   // InputMaskStyled,
   SelectStyled, OptionStyled,
-  NavWrapper, NavButton,
+  NavItemStyled,
   FormUploader,
   UploaderLogo,
   UploaderPhotos,
 } from './styled';
 
-const NAV_CONFIG = [
-  {
-    key: 'menu',
-    icon: (<MenuSvg />),
-    path: '',
-  },
-  {
-    key: 'specialDeals',
-    icon: (<InfoCircleSvg />),
-    path: '',
-  },
-  {
-    key: 'foodtips',
-    icon: (<ChefHeadSvg />),
-    path: '',
-  },
-];
-
-const Restaurant = memo(() => {
+const Restaurant = () => {
   const {
     restaurants,
     dictionary,
@@ -65,41 +41,50 @@ const Restaurant = memo(() => {
   const [isChange, setIsChnage] = useState(false);
   const [loadFiles, setLoadFiles] = useState(true);
   const [formData, setFormData] = useState(null);
+  const [deletedFiles, setDeletedFiles] = useState(null);
+
   const [form] = FormStyled.useForm();
 
-  const initValue = async () => {
+  const initValue = () => {
     let data = { ...model };
+
     if (params.restaurant !== 'new' && restaurants) {
-      data = restaurants.find(rest => rest.id === params.restaurant);
+      data = restaurants.find(f => f.id === params.restaurant);
     }
-    setFormData(dataToForm({ ...data }));
+
+    setFormData(dataToForm({ ...data, images: [] }));
     if (data.images && data.images.length > 0) {
-      const images = await Promise.all(data.images.map(async (uuid, i) => {
+      Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
         const file = await loadFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
         return file;
-      }));
-      setFormData(dataToForm({ ...data, images }));
+      })).then(images => setFormData(dataToForm({ ...data, images })));
     }
     setLoadFiles(false);
   };
 
+  const getFiles = (key) => {
+    if (!formData.images) return [];
+    if (key === 'logo') {
+      return formData.images[0] ? [formData.images[0]] : [];
+    } 
+    return formData.images.slice(1);
+  };
+
   const handleRoute = (key) => {
-    if (key === 'delete') {
-      history.goBack();
-      return;
-    }
     history.push(key);
   };
 
   const handleFinish = (values) => {
-    let data = { ...model };
-    if (params.restaurant !== 'new' && restaurants) {
-      data = restaurants.find(rest => rest.id === params.restaurant);
-    }
-    const edited = dataToApi({ ...formData, ...values }, data);
-    
+    const edited = dataToApi({ ...formData, ...values }, { ...model, id: params.restaurant !== 'new' ? params.restaurant : null });
     rootDispatch(update({ name: 'data_restaurants', data: edited }));
+    deletedFiles && rootDispatch(deleteFiles({ paths: deletedFiles }));
+    setIsChnage(false);
+  };
+
+  const handleDelete = (obj) => {
+    rootDispatch(update({ name: 'data_restaurants', data: { id: params.restaurant, ...obj } }));
+    handleRoute('/back-office/restaurants');
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -114,7 +99,7 @@ const Restaurant = memo(() => {
     setIsChnage(true);
   };
 
-  const handleUpload = (key, files) => {
+  const handleUpload = (key, files, deleted = null) => {
     let list = formData.images || [''];
     if (key === 'logo') {
       // eslint-disable-next-line prefer-destructuring
@@ -123,31 +108,37 @@ const Restaurant = memo(() => {
     if (key === 'photos') {
       list = [list[0], ...files];
     }
-    setFormData({ ...formData, images: list });
+    if (deleted) {
+      setDeletedFiles([...(deletedFiles || []), `/restaurants/${key}/${deleted.uuid}.png`]);
+    }
+    setFormData({ ...formData, images: (list.slice(1).length > 0 || list[0] ? list : null) });
     setIsChnage(true);
-    // deteled && rootDispatch(deleteFile({ path: `/restaurant/${key}/${deteled.uuid}.png` }));
   };
 
   useEffect(() => {
     window.prerenderReady = true;
     initValue();
+
+    return () => {
+      form.resetFields();
+    };
   }, []);
 
   useEffect(() => {
     if (status) {
       if (status === 'created') {
-        const rest = restaurants.slice(-1)[0];
-        history.push(rest.id);
+        const { id } = restaurants.slice(-1)[0];
+        history.push(id);
       }
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
   }, [status]);
 
   return formData && (
-    <Wrapper>
+    <RestaurantWrapper>
       <NavbarStyled
         settings={{ delete: params.restautant !== 'new' }}
-        onChange={handleRoute}
+        onEvent={handleDelete}
       />
       <FormStyled
         form={form}
@@ -372,16 +363,7 @@ const Restaurant = memo(() => {
               />
             </FormItemStyled>
             {params.restaurant !== 'new' && (
-              <NavWrapper>
-                {NAV_CONFIG.map(({ key, icon, path }) => (
-                  <NavButton key={key} onClick={() => handleRoute(path)}>
-                    <IconText
-                      icon={icon}
-                      text={t(`common.words.${key}`)}
-                    />
-                  </NavButton>
-                ))}
-              </NavWrapper>
+              <NavItemStyled onClick={handleRoute} />
             )}
             <FormUploader>
               {!loadFiles && (
@@ -392,7 +374,7 @@ const Restaurant = memo(() => {
                   >
                     <UploaderLogo
                       key="logo"
-                      files={formData.images[0] ? [formData.images[0]] : []}
+                      files={getFiles('logo')}
                       onUpload={(files, deleted) => handleUpload('logo', files, deleted)}
                       onStatus={showMessage}
                       max={1}
@@ -404,7 +386,7 @@ const Restaurant = memo(() => {
                   >
                     <UploaderPhotos
                       key="photos"
-                      files={formData.images.reduce((arr, it, i) => (i === 0 ? arr : [...arr, it]), [])}
+                      files={getFiles()}
                       onUpload={(files, deleted) => handleUpload('photos', files, deleted)}
                       onStatus={showMessage}
                       max={10}
@@ -425,8 +407,8 @@ const Restaurant = memo(() => {
           </Save>
         </FormItemSubmit>
       </FormStyled>
-    </Wrapper>
+    </RestaurantWrapper>
   );
-});
+};
 
 export default Restaurant;

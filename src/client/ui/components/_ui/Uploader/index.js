@@ -47,7 +47,7 @@ export const Uploader = forwardRef(({
     // const compress = await new Compressor(file.originFileObj);
     const transform = await transformFile(file);
 
-    onUpload([...files, transform]);
+    onUpload([...files, transform], null);
     onStatus({ type: 'success', content: `${t('common.words.success')}` });
 
     // const { fileList } = info;

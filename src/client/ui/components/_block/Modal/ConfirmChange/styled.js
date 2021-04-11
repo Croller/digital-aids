@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   border-radius: ${THEME.borderRadiusL};
   background-color: ${PALETTE.white};
-  padding: 50px 0 44px;
+  padding: 80px 0 64px;
   width: 595px;
   display: flex;
   align-items: center;
@@ -67,7 +67,6 @@ export const Controls = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 44px;
 
   button {
     &:not(:last-child) {

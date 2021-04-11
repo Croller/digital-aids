@@ -51,49 +51,52 @@ export const dataToApi = (data, current) => {
     avg_price,
     main_language,
     sub_languages,
-    images,
     work_time,
   } = data;
 
+  const images = data.images && data.images
+    .filter(f => f && f)
+    .map(({ base64, uuid }, i) => ({
+      base64,
+      uuid,
+      path: `/restaurants/${i === 0 ? 'logo' : 'photos'}/${uuid}.png`,
+    }));
+
   return {
-    id,
+    id: id || current.id,
     name,
-    translate: name.replace(/[^a-z0-9]/gi, '-').toLowerCase(),
+    translate: (name || '').replace(/[^a-z0-9]/gi, '-').toLowerCase(),
     address,
     email,
     opinion,
-    phone: [phone],
-    currency: [currency],
+    phone: [phone || null],
+    currency: [currency || null],
     cuisine,
     employees,
     avg_price,
     languages: [main_language, ...sub_languages],
-    images: images.map(({ base64, uuid }, i) => ({
-      base64,
-      uuid,
-      path: `/restaurants/${i === 0 ? 'logo' : 'photos'}/${uuid}.png`,
-    })),
+    images,
     socials: JSON.stringify({
       thefork: {
         ...current.socials.thefork,
-        url: data['socials.thefork.url'],
+        url: data['socials.thefork.url'] || null,
       },
       tripadviser: {
         ...current.socials.tripadviser,
-        url: data['socials.tripadviser.url'],
+        url: data['socials.tripadviser.url'] || null,
       },
       facebook: {
         ...current.socials.facebook,
-        url: data['socials.facebook.url'],
+        url: data['socials.facebook.url'] || null,
       },
       instagram: {
         ...current.socials.instagram,
-        url: data['socials.instagram.url'],
+        url: data['socials.instagram.url'] || null,
       },
     }),
     work_time: JSON.stringify({
       ...current.work_time,
-      description: work_time,
+      description: work_time || null,
     }),
   };
 };
@@ -111,7 +114,7 @@ export const model = {
   employees: ['Robert Johansen'],
   avg_price: 25.2,
   languages: ['ru', 'en'],
-  images: ['3528563b-00fc-4f39-ad20-de14041faf4a', 'da41f536-6aa2-4078-bd97-0347cf137a5f'],
+  images: null,
   socials: {
     thefork: {
       rate: null,

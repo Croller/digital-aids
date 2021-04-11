@@ -45,7 +45,7 @@ module.exports = {
       fs.renameSync(path.resolve(`${staticPath}${url}`), path.resolve(`${staticPath}/deleted${url}`));
       resolve();
     } catch (err) {
-      reject(err);
+      reject(new Error(err));
     }
   }),
 };
