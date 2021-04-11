@@ -41,7 +41,7 @@ export const Routers = () => {
           <Suspense fallback={<Loader />}>
             <Switch>
               <Route path="/back-office" component={BackOffice} />
-              <Route path="/restaurant/:restaurant" component={Restaurant} />
+              <Route path="/restaurant" component={Restaurant} />
               <Route path="*" component={Present} />
               <Route path="/404">
                 <Page404 source={logo} onClick={handleRoute} />

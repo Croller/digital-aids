@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 
 import { Layout } from 'client/ui/components/Layout/Restaurant';
 
+const PATH = '/restaurant';
+
 const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
 const Menu = lazy(() => import('client/ui/modules/Restaurant/Menu'));
 const Categories = lazy(() => import('client/ui/modules/Restaurant/Categories'));
@@ -22,16 +24,16 @@ export const Restaurant = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/language" component={Language} />
-        <Route path="/menu" component={Menu} />
-        <Route path="/category/:category" component={Category} />
-        <Route path="/categories" component={Categories} />
-        <Route path="/opinion" component={Opinion} />
-        <Route path="/reglament" component={Reglament} />
-        <Route path="/information" component={Information} />
-        <Route path="/foodtips" component={FoodTips} />
-        <Route path="/order/receipt" component={Receipt} />
-        <Route path="/order" component={Order} />
+        <Route exac path={`${PATH}/:restaurant/language`} component={Language} />
+        <Route exac path={`${PATH}/:restaurant/menu`} component={Menu} />
+        <Route exac path={`${PATH}/:restaurant/category/:category`} component={Category} />
+        <Route exac path={`${PATH}/:restaurant/categories`} component={Categories} />
+        <Route exac path={`${PATH}/:restaurant/opinion`} component={Opinion} />
+        <Route exac path={`${PATH}/:restaurant/reglament`} component={Reglament} />
+        <Route exac path={`${PATH}/:restaurant/information`} component={Information} />
+        <Route exac path={`${PATH}/:restaurant/foodtips`} component={FoodTips} />
+        <Route exac path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
+        <Route exac path={`${PATH}/:restaurant/order`} component={Order} />
       </Switch>
     </Layout>
   
