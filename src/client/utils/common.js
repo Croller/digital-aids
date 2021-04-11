@@ -32,7 +32,7 @@ export const downloadFile = (url, filename) => {
 };
 
 export const loadFile = async (url = null, uuid = null) => {
-  if (!url) return null;
+  if (!url || !uuid) return null;
   const result = await fetch(url);
   const blob = await result.blob();
   const base64 = await getBase64(blob);

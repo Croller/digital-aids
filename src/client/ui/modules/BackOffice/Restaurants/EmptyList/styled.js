@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: calc(100vh - 295px);
+  min-height: calc(100vh - 346px);
 `;
 
 export const Icon = styled.span`

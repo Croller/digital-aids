@@ -95,13 +95,12 @@ const Restaurant = () => {
     });
   };
 
-  const handleValuesChange = (v) => {
-    console.log(v);
+  const handleValuesChange = () => {
     setIsChnage(true);
   };
 
   const handleUpload = (key, files, deleted = null) => {
-    let list = formData.images || [''];
+    let list = formData.images || [null];
     if (key === 'logo') {
       // eslint-disable-next-line prefer-destructuring
       list[0] = files[0] || null;
@@ -109,7 +108,7 @@ const Restaurant = () => {
     if (key === 'photos') {
       list = [list[0], ...files];
     }
-    if (deleted) {
+    if (deleted && list.some(s => s && s.uuid === deleted.uuid)) {
       setDeletedFiles([...(deletedFiles || []), `/restaurants/${key}/${deleted.uuid}.png`]);
     }
     setFormData({ ...formData, images: (list.slice(1).length > 0 || list[0] ? list : null) });

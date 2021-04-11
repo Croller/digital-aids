@@ -55,12 +55,14 @@ export const dataToApi = (data, current) => {
   } = data;
 
   const images = data.images && data.images
-    .filter(f => f && f)
-    .map(({ base64, uuid }, i) => ({
-      base64,
-      uuid,
-      path: `/restaurants/${i === 0 ? 'logo' : 'photos'}/${uuid}.png`,
-    }));
+    .reduce((arr, file, i) => {
+      if (!file) return [...arr, file];
+      return [...arr, {
+        base64: file.base64,
+        uuid: file.uuid,
+        path: `/restaurants/${i === 0 ? 'logo' : 'photos'}/${file.uuid}.png`,
+      }];
+    }, []);
 
   return {
     id: id || current.id,

@@ -1,7 +1,7 @@
 
 import { get, post, remove } from 'client/providers/fetch';
 
-export const loadTables = async ({
+export const loadTable = async ({
   token,
   data,
 }) => {
@@ -15,7 +15,7 @@ export const loadTables = async ({
   return results;
 };
 
-export const load = async ({
+export const loadRow = async ({
   token,
   name,
   data,
@@ -23,7 +23,7 @@ export const load = async ({
   const options = {
     Authorization: `Bearer ${token}`,
   };
-  const results = await get(`table/${name}/records`, { data }, options);
+  const results = await get(`table/${name}/record`, { data }, options);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

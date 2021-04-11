@@ -45,15 +45,15 @@ const CommonController = () => {
       const tokenData = await jwt.verifyToken(req, res);
       if (tokenData) {
         const { name } = req.params;
-        const { id } = req.query;
+        const { data } = req.query;
         try {
-          const data = id.split(',');
-          if (Array.isArray(data)) {
+          const arr = data.split(',');
+          if (Array.isArray(arr)) {
             query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
-            values = [data];
+            values = [arr];
           } else {
             query = `SELECT * FROM ${name} WHERE id=($1)`;
-            values = [id];
+            values = [data];
           }
           const result = await db.queryValues(query, values);
           res.json(result.rows);

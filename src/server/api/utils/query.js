@@ -17,7 +17,7 @@ export const updateRowAndUser = async (table, data, params) => {
       if (key === 'images') {
         return {
           fields: [...obj.fields, key],
-          values: [...obj.values, data[key] ? data[key].map((image) => image.uuid) : null],
+          values: [...obj.values, (data[key] ? data[key].map((image) => (image ? image.uuid : null)) : null)],
         };
       }
       return {
@@ -27,7 +27,7 @@ export const updateRowAndUser = async (table, data, params) => {
     }, { fields: [], values: [] });
 
     if (data.images) {
-      await Promise.all(data.images.map(async (image) => {
+      await Promise.all(data.images.filter(f => f).map(async (image) => {
         const { base64, path } = image;
         const file = await commonUtils.writeFile(path, base64);
         return file;

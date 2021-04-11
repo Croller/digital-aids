@@ -22,6 +22,7 @@ const configButton = css`
   > span {
     color: ${PALETTE.black1};
     text-transform: uppercase;
+    font-size: 16px;
   }
 `;
 
@@ -68,7 +69,7 @@ export const AddBtn = styled(Button)`
 
   svg {
     path {
-      fill: ${PALETTE.white} !important;
+      fill: ${PALETTE.white};
     }
   }
 

@@ -92,7 +92,7 @@ function* getTables({ payload }) {
   }
 
   try {
-    const results = yield commonProvider.loadTables({ token, data: names });
+    const results = yield commonProvider.loadTable({ token, data: names });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
