@@ -105,6 +105,7 @@ export const FormStyled = styled(Form)`
 
     .ant-form-item-label {
       padding: 0 0 18px;
+      flex: unset;
 
       label {
         font-size: 16px;

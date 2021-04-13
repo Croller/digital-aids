@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { BREAKPOINTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
   display: block;
@@ -7,6 +8,10 @@ export const Wrapper = styled.div`
 export const Cotainer = styled.div`
   display: block;
   height: 100%;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: auto;
+  }
 `;
 
 export const Content = styled.div`
