@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Navbar } from 'client/ui/modules/BackOffice/Navbar';
+import { Navbar } from 'client/ui/modules/BackOffice/components/Navbar';
 import { Loader } from 'client/ui/components/_block/Loader';
 
 export const RestaurantList = styled.div`

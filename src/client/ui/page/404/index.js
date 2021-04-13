@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { RestaurantLogoTempPng } from 'client/assets/images';
 import {
   Wrapper,
-  IconTextBtnStyled,
+  HintsBlockStyled,
   Logo,
   Code,
   Text,
@@ -26,7 +26,7 @@ const Page404 = memo(({ source, onClick }) => {
           src={source || RestaurantLogoTempPng}
           onClick={() => onClick('information')}
         />
-        <IconTextBtnStyled
+        <HintsBlockStyled
           onClick={onClick}
           btn={t('restaurant.common.menu')}
           text={(

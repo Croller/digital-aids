@@ -1,9 +1,9 @@
 import React from 'react';
 import { highlightErrorLog } from 'client/utils/errorHandler';
-import { IconTextBtn } from 'client/ui/components/_block/HintsBlock';
+import { HintsBlock } from 'client/ui/components/_block/HintsBlock';
 import {
   Container,
-  IconTextBtnStyled,
+  HintsBlockStyled,
   Text,
 } from './styled';
 
@@ -28,9 +28,9 @@ export class ErrorBoundary extends React.Component {
     const { t, children, onClick } = this.props;
 
     if (hasError) {
-      return IconTextBtn ? (
+      return HintsBlock ? (
         <Container>
-          <IconTextBtnStyled
+          <HintsBlockStyled
             btn="menu"
             text={t && t('common.pageError.text')}
             onClick={onClick}

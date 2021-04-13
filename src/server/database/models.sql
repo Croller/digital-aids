@@ -44,12 +44,13 @@ CREATE TABLE data_restaurants (
   phone VARCHAR ARRAY DEFAULT null,
   currency VARCHAR ARRAY DEFAULT '{"EUR"}', -- DICTIONARY dictionary_currency
   cuisine VARCHAR ARRAY DEFAULT null,
-  employees VARCHAR ARRAY DEFAULT null, -- DICTIONARY data_users
+  employees VARCHAR ARRAY DEFAULT null,
   avg_price FLOAT DEFAULT 0,
   languages VARCHAR ARRAY DEFAULT '{null, "en"}', -- DICTIONARY dictionary_language
   images VARCHAR ARRAY DEFAULT null,
   socials jsonb DEFAULT '{"thefork":{"rate":null,"url":null},"tripadviser":{"rate":null,"url":null},"facebook":{"rate":null,"url":null},"instagram":{"rate":null,"url":null}}',
   work_time jsonb DEFAULT '{"description":null,"mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
+  options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
   is_archived boolean DEFAULT FALSE,
   is_deleted boolean DEFAULT FALSE
 );

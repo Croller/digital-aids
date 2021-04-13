@@ -20,8 +20,8 @@ const CommonController = () => {
       if (tokenData) {
         const { data } = req.query;
         const result = await Promise.all(data.split(',').map(async (name) => {
-          const desc = await db.query(`SELECT * FROM ${name}`);
-          return { [name]: desc.rows };
+          const desc = await db.query(`SELECT * FROM ${name} ${name.indexOf('data_') > -1 ? 'WHERE is_deleted=FALSE' : ''} `);
+          return { [name]: desc.rows }; 
         }));
         res.json(result.reduce((obj, arr) => ({ ...obj, ...arr }), {}));
       } else {
@@ -48,10 +48,10 @@ const CommonController = () => {
         try {
           const arr = data.split(',');
           if (Array.isArray(arr)) {
-            query = `SELECT * FROM ${name} WHERE id = ANY ($1)`;
+            query = `SELECT * FROM ${name} WHERE id = ANY ($1) AND is_deleted=FALSE`;
             values = [arr];
           } else {
-            query = `SELECT * FROM ${name} WHERE id=($1)`;
+            query = `SELECT * FROM ${name} WHERE id=($1) AND is_deleted=FALSE`;
             values = [data];
           }
           const result = await db.queryValues(query, values);

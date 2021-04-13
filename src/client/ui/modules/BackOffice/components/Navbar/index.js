@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { IconText } from 'client/ui/components/_block/IconText';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
+import { IconText } from 'client/ui/components/_block/IconText';
 import {
   ChevronSvg,
   LoupeSvg,
@@ -29,7 +29,7 @@ import {
 
 export const Navbar = ({
   settings = null,
-  onChange = () => {},
+  onSearch = () => {},
   onEvent = () => {},
   className,
 }) => {
@@ -40,15 +40,18 @@ export const Navbar = ({
   const { roles } = useSelector(state => state.user.info);
   const [options, setOptions] = useState(settings || {
     back: false,
-    loupe: true,
+    loupe: false,
     delete: false,
     archive: true,
     add_new: true,
-    title: true,
     search: false,
     event: null, // prop for modal
+    title: {
+      icon: <RestaurantSvg />,
+      text: t('common.words.restaurant'),
+    },
   });
-  const [showConfir, hideConfirm] = useModal(() => (
+  const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
       title={t(`backOffice.confirmModal.${options.event.title}`)}
       textOk={t(`common.words.${options.event.key}`)}
@@ -66,11 +69,13 @@ export const Navbar = ({
     const pathParts = pathname.split('/');
     let path = '';
     if (key === 'back') {
-      if (history.action !== 'POP' && params.language && params.restaurant) {
-        history.goBack();
-        return null;
-      }
       path = `${pathParts[0]}/${pathParts[1]}/restaurants`;
+      if (params.language && params.restaurant) {
+        path = `${pathParts.slice(0, -1).join('/')}/category/default/dishes`;
+      }
+      if (pathname.indexOf('/archive') > -1) {
+        path = pathParts.slice(0, -1).join('/');
+      }
     }
     if (key === 'archive') {
       path = `${pathParts.join('/')}/${key}`;
@@ -88,11 +93,13 @@ export const Navbar = ({
     if (key === 'loupe') {
       obj.loupe = !options.loupe;
       obj.search = !options.search;
+      onSearch();
       setOptions(obj);
       return;
     }
     if (key === 'delete') {
-      showConfir();
+      showConfirm();
+      console.log('pathname.restaurant ', pathname.restaurant );
       obj.event = {
         key,
         title: pathname.restaurant ? 'restaurant.delete' : 'archive',
@@ -104,43 +111,39 @@ export const Navbar = ({
     onEvent(key);
   };
 
-  const handleSearch = (val) => {
-    console.log(val);
-    onChange(val);
+  const handleSearch = (str) => {
+    onSearch(str.toLowerCase());
   };
 
   const haveRole = (arr) => arr.some(s => roles.includes(s));
 
   useEffect(() => {
     const data = { ...options };
-    const pathParts = pathname.split('/');
-    const page = pathParts[2] || 'restaurants';
+    let page = 'restaurants';
+    data.loupe = true;
+    data.back = false;
+    data.add_new = true;
+    data.title = {
+      icon: <RestaurantSvg />,
+      text: t(`common.words.${page}`),
+    };
 
-    if (pathParts[2] === 'restaurants') {
-      data.back = false;
-      data.loupe = true;
-      data.delete = false;
-      data.archive = true;
-      data.add_new = true;
-      data.title = {
-        icon: <RestaurantSvg />,
-        text: t(`common.words.${page}`),
-      };
+    switch (true) {
+      case pathname.indexOf('/dishes') > -1:
+        page = 'dish';
+        break;
+      case pathname.indexOf('/foodtips') > -1:
+        page = 'foodtips';
+        break;
+      case pathname.indexOf('/special-deals') > -1:
+        page = 'deals';
+        break;
+      default:
+        break;
     }
 
-    if (pathname.indexOf('archive') > -1) {
-      data.back = true;
-      data.delete = true;
-      data.archive = false;
-      data.add_new = false;
-      data.title = {
-        icon: <ArchiveSvg />,
-        text: `${t('common.words.archive')} ${t(`common.words.${page}`)}`,
-      };
-    }
-
-    if (pathParts[2] === 'restaurant' && params.restaurant) {
-      data.back = true;
+    if (['/restaurant/'].some(f => pathname.indexOf(f) > -1) && params.restaurant && !params.category) {
+      data.back = { text: 'back' };
       data.loupe = false;
       data.search = false;
       data.delete = params.restaurant !== 'new';
@@ -152,6 +155,17 @@ export const Navbar = ({
       };
     }
 
+    if (['/restaurants/archive', '/dishes', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1)) {
+      data.back = pathname.indexOf('/archive') > -1 ? { text: 'back' } : { text: 'menu' };
+      data.archive = !['/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
+      data.delete = pathname.indexOf('/archive') > -1;
+      data.add_new = false;
+      data.title = {
+        icon: pathname.indexOf('/archive') > -1 ? <ArchiveSvg /> : null,
+        text: pathname.indexOf('/archive') > -1 ? `${t(`common.words.${page}`)} ${t('common.words.archive')}` : t(`common.words.${page}`),
+      };
+    }
+
     setOptions(data);
   }, [pathname]);
 
@@ -160,18 +174,14 @@ export const Navbar = ({
       <Control>
         {options.back && (
           <BackBtn onClick={() => handleRoute('back')}>
-            <IconText
-              icon={<ChevronSvg />}
-              text={t('common.words.back')}
-            />
+            <ChevronSvg />
+            {t(`common.words.${options.back.text}`)}
           </BackBtn>
         )}
         {options.add_new && haveRole([1, 2]) && (
           <AddBtn onClick={() => handleRoute('new')}>
-            <IconText
-              icon={<PlusSvg />}
-              text={t('common.words.add_new')}
-            />
+            <PlusSvg />
+            {t('common.words.add_new')}
           </AddBtn>
         )}
       </Control>
@@ -203,10 +213,8 @@ export const Navbar = ({
         )}
         {options.archive && haveRole([1, 2]) && (
           <ArchiveBtn onClick={() => handleRoute('archive')}>
-            <IconText
-              icon={<ArchiveSvg />}
-              text={t('common.words.archive')}
-            />
+            <ArchiveSvg />
+            {t('common.words.archive')}
           </ArchiveBtn>
         )}
       </Control>

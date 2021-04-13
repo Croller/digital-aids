@@ -6,11 +6,16 @@ import { InputForm } from 'client/ui/components/_ui/Input';
 import { Link } from 'client/ui/components/_ui/Link';
 
 export const Wrapper = styled.div`
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 200px);
+  height: auto;
+  width: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
 `;
 
 export const Container = styled.div`
@@ -165,6 +170,7 @@ export const Login = styled(Button)`
   font-size: 18px;
   color: ${PALETTE.white};
   text-transform: uppercase;
+  border-radius: ${THEME.borderRadiusL};
 `;
 
 export const Signup = styled(Link)`

@@ -62,7 +62,7 @@ export const RestaurantInfo = ({
   const history = useHistory();
   const { pathname } = useLocation();
   const [event, setEvent] = useState(null);
-  const [showConfir, hideConfirm] = useModal(() => (
+  const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
       title={t(`backOffice.confirmModal.restaurant.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
@@ -88,15 +88,18 @@ export const RestaurantInfo = ({
     if (key === 'archive') params.is_archived = true;
 
     setEvent({ key, params });
-    showConfir();
+    showConfirm();
   };
 
   const getControl = () => {
     const arr = [...CONTROL_CONFIG];
-    if (pathname.indexOf('restaurants/archive') > -1) {
-      return arr.slice(-2);
+    if (pathname.indexOf('/restaurants') > -1) {
+      if (pathname.indexOf('/restaurants/archive') > -1) {
+        return arr.slice(-2);
+      }
+      return arr.splice(0, 2);
     }
-    return arr.splice(0, 2);
+    return [];
   };
 
   return (

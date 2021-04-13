@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button';
 import { ScrollHideBlock } from 'client/ui/components/_base/ScrollHideBlock';
-import { IconTextBtn } from 'client/ui/components/_block/HintsBlock';
+import { HintsBlock } from 'client/ui/components/_block/HintsBlock';
 import {
   PALETTE,
   Z_INDEX,
@@ -172,7 +172,7 @@ export const CreateButton = styled(Button)`
   margin-right: 0;
 `;
 
-export const IconTextBtnStyled = styled(IconTextBtn)`
+export const HintsBlockStyled = styled(HintsBlock)`
   margin-top: 74px;
   margin-bottom: 46px;
 `;

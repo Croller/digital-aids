@@ -3,7 +3,7 @@ import { PALETTE, THEME, FONTS } from 'client/style/constants';
 import { Spin } from 'antd';
 
 export const Btn = styled.button`
-  width: 100%;
+  width: auto;
   height: 48px;
   background-color: ${PALETTE.grey2};
   border-radius: ${THEME.borderRadiusS};
@@ -16,6 +16,7 @@ export const Btn = styled.button`
   font-family: ${FONTS.bold};
   color: ${PALETTE.black};
   cursor: pointer;
+  padding: 0;
 
   &:focus {
     outline: none;

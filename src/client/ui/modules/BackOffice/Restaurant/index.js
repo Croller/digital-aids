@@ -95,7 +95,15 @@ const Restaurant = () => {
     });
   };
 
-  const handleValuesChange = () => {
+  const handleValuesChange = (values) => {
+    const { sub_languages } = values;
+    if (values.sub_languages) { 
+      form.setFieldsValue({
+        ...formData,
+        sub_languages: sub_languages.some(s => s === 'en') ? sub_languages : ['en', ...sub_languages],
+      });
+    }
+    
     setIsChnage(true);
   };
 
@@ -194,18 +202,14 @@ const Restaurant = () => {
               required
               rules={rule.text}
             >
-              <InputStyled
+              {/* <InputStyled
                 placeholder={t('common.form.text')}
-              />
-              {/* <SelectStyled
+              /> */}
+              <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
                 placeholder={t('common.form.select')}
-              >
-                <OptionStyled value="lucy">Lucy</OptionStyled>
-                <OptionStyled value="2">Lucy</OptionStyled>
-                <OptionStyled value="3">Lucy</OptionStyled>
-              </SelectStyled> */}
+              />
               {/* <InputMaskStyled
                 mask="111 1111 1111 1111"
                 placeholder={t('common.form.text')}

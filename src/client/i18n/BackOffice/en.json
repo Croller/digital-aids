@@ -4,7 +4,8 @@
   },
   "emptyList": {
     "restaurants": "Add a new restaurante in your collection",
-    "archive": "Your archive is empty"
+    "archive": "Your archive is empty",
+    "search": "No matching entries"
   },
   "confirmModal": {
     "restaurant": {
@@ -13,5 +14,13 @@
       "delete": "Are you sure you want to delete restaurant? \n Once you delete it, it will not available to restore it latter."
     },
     "archive": "Are you sure you want to remove an entire archive? \n Once you remove it, it will not available to restore."
+  },
+  "information": {
+    "foodtips": {
+      "maxLength": "You can keep maximum /text-replace/ Foodtips cards."
+    },
+    "specialDeals": {
+      "maxLength": "Your menu can include only /text-replace/ special deal, but you can change it any time."
+    }
   }
 }

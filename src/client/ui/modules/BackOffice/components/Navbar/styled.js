@@ -1,15 +1,18 @@
 import styled, { css } from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Input } from 'client/ui/components/_ui/Input';
+import { InputDefault } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 
 const configButton = css`
-  height: 55px;
-  padding: 0;
-  min-width: 170px;
+  height: 46px;
   background-color: ${PALETTE.green1};
+  color: ${PALETTE.black1};
+  font-size: 16px;
+  font-family: ${FONTS.semiBold};
+  text-transform: uppercase;
+  border-radius: ${THEME.borderRadiusL};
 
-  > span > svg {
+  > svg {
     width: 23px;
     height: 23px;
     margin-right: 12px;
@@ -18,15 +21,10 @@ const configButton = css`
       fill: ${PALETTE.white};
     }
   }
-
-  > span {
-    color: ${PALETTE.black1};
-    text-transform: uppercase;
-    font-size: 16px;
-  }
 `;
 
 export const NavbarRestaurant = styled.div`
+  height: 58px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -54,8 +52,9 @@ export const BackBtn = styled(Button)`
   background-color: transparent;
   justify-content: flex-start;
   min-width: 100px;
+  font-family: ${FONTS.medium};
 
-  > span > svg {
+  > svg {
     path {
       fill: ${PALETTE.green1};
     }
@@ -65,16 +64,20 @@ export const BackBtn = styled(Button)`
 export const AddBtn = styled(Button)`
   ${configButton}
 
-  width: 173px;
+  min-width: 173px;
+  flex-direction: row-reverse;
+  color: ${PALETTE.white};
+  font-size: 16px;
 
-  svg {
+  > svg {
+    width: 22px;
+    height: 22px;
+    margin-left: 22px;
+    margin-right: unset;
+
     path {
       fill: ${PALETTE.white};
     }
-  }
-
-  > span {
-    color: ${PALETTE.white};
   }
 `;
 
@@ -83,10 +86,12 @@ export const Title = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 58px;
 
   > span {
-    svg {
+    font-size: 22px;
+    font-family: ${FONTS.semiBold};
+
+    > span > svg {
       width: 35px;
       height: 35px;
       margin-right: 12px;
@@ -95,14 +100,10 @@ export const Title = styled.div`
         fill: ${p => (p.archive ? `${PALETTE.grey6}` : `${PALETTE.green1}`)};
       }
     }
-
-    > span {
-      font-size: 22px;
-    }
   }
 `;
 
-export const Search = styled(Input)`
+export const Search = styled(InputDefault)`
   display: flex;
   width: 100%;
   height: 58px;
@@ -188,26 +189,27 @@ export const DeleteBtn = styled(Button)`
       }
     }
   }
+
+  ${p => p.disabled && css`
+    background-color: transparent;
+  `}
 `;
 
 export const ArchiveBtn = styled(Button)`
   ${configButton}
 
-  height: 55px;
-  padding: 0;
+  min-width: 136px;
   background-color: ${PALETTE.grey26};
+  font-size: 14px;
+  font-family: ${FONTS.medium};
 
-  svg {
-    width: 23px;
-    height: 23px;
+  > svg {
+    width: 19px;
+    height: 19px;
+    margin-right: 7px;
 
     path {
-      fill: ${PALETTE.black1} !important;
+      fill: ${PALETTE.black1};
     }
-  }
-
-  > span {
-    color: ${PALETTE.black1};
-    text-transform: uppercase;
   }
 `;

@@ -31,6 +31,7 @@
     "email": "E-mail",
     "opinion": "Opinion",
     "login": "Login",
+    "logout": "Log out",
     "password": "Password",
     "currency": "Currency",
     "avg_price": "Average price",
@@ -38,14 +39,19 @@
     "translations": "Translations",
     "workingTime": "Working time",
     "menu": "Menu",
-    "specialDeals": "Special deals",
-    "foodtips": "Foodtips",
     "logo": "Logo",
     "photos": "Photos",
     "upload": "Upload",
     "doNot": "Do not",
     "loading": "Loading",
-    "success": "Success"
+    "success": "Success",
+    "addPlate": "Add plate",
+    "foodtips": "Foodtips",
+    "specialDeals": "Special deals",
+    "deals": "Deals",
+    "dish": "Dish",
+    "newCategory": "New category",
+    "dailyTempCreate": "Daily menu template"
   },
 
   "form" : {

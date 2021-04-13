@@ -2,7 +2,6 @@ import React, { memo } from 'react';
 import {
   Span,
   Icon,
-  Text,
 } from './styled';
 
 export const IconText = memo(({
@@ -16,10 +15,6 @@ export const IconText = memo(({
         {icon}
       </Icon>
     )}
-    {text && (
-      <Text>
-        {text}
-      </Text>
-    )}
+    {text && text}
   </Span>
 ));

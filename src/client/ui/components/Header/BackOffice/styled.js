@@ -44,7 +44,7 @@ export const LogoText = styled.span`
   font-size: 20px;
   color: ${PALETTE.green1};
   z-index: 1;
-  width: 100%;
+  width: 98px;
   text-align: right;
 `;
 

@@ -21,7 +21,7 @@ export const dataToForm = (data) => {
     address,
     email,
     opinion,
-    phone: phone[0],
+    phone,
     currency: currency[0],
     cuisine,
     employees,
@@ -71,7 +71,7 @@ export const dataToApi = (data, current) => {
     address,
     email,
     opinion,
-    phone: [phone || null],
+    phone,
     currency: [currency || null],
     cuisine,
     employees,
@@ -115,7 +115,7 @@ export const model = {
   cuisine: ['Spanish'],
   employees: ['Robert Johansen'],
   avg_price: 25.2,
-  languages: ['ru', 'en'],
+  languages: ['es', 'en', 'ru', 'el', 'it', 'de', 'fr', 'no', 'ja'],
   images: null,
   socials: {
     thefork: {

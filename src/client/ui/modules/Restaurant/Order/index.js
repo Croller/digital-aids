@@ -30,7 +30,7 @@ import {
   TotalText,
   TotalSumm,
   CreateButton,
-  IconTextBtnStyled,
+  HintsBlockStyled,
 } from './styled';
 
 const Order = () => {
@@ -197,7 +197,7 @@ const Order = () => {
             </ScrollHideBlockStyled>
           </>
         ) : (
-          <IconTextBtnStyled
+          <HintsBlockStyled
             onClick={handleRouteMenu}
             btn={t('restaurant.common.menu')}
             text={t('restaurant.pageOrder.empty_order')}

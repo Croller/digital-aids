@@ -5,6 +5,10 @@ export const Span = styled.span`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-size: 16px;
+  font-family: ${FONTS.bold};
+  text-transform: uppercase;
+  color: ${PALETTE.black};
 `;
 
 export const Icon = styled.span`
@@ -21,8 +25,3 @@ export const Icon = styled.span`
   }
 `;
 
-export const Text = styled.span`
-  font-size: 18px;
-  font-family: ${FONTS.medium};
-  text-transform: uppercase;
-`;

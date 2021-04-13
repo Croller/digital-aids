@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Navbar } from 'client/ui/modules/BackOffice/Navbar';
-import { NavItem } from 'client/ui/modules/BackOffice/RestaurantInfo/NavItem';
+import { Navbar } from 'client/ui/modules/BackOffice/components/Navbar';
+import { NavItem } from 'client/ui/modules/BackOffice/components/NavItem';
 import { Form, Select } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
@@ -160,7 +160,7 @@ export const SelectStyled = styled(Select)`
       background-color: ${PALETTE.white};
       border: 1px solid ${PALETTE.grey6};
       border-radius: ${THEME.borderRadiusL};
-      padding: 0 18px;
+      padding: 4px 18px;
       display: flex;
       align-items: center;
 
@@ -287,23 +287,6 @@ export const FormItemStyled = styled(FormItem)`
   }
 `;
 
-export const FormItemSubmit = styled(FormItem)`
-  display: flex;
-  justify-content: center;
-`;
-
-export const Save = styled(Button)`
-  min-width: 261px;
-  width: 261px;
-  height: 62px;
-  background-color: ${PALETTE.green1};
-  font-family: ${FONTS.semiBold};
-  font-size: 18px;
-  color: ${PALETTE.white};
-  text-transform: uppercase;
-  margin: auto;
-`;
-
 export const NavItemStyled = styled(NavItem)`
   margin: 42px 0 62px;
 `;
@@ -352,3 +335,21 @@ export const UploaderPhotos = styled(Uploader)`
   }
 `;
 
+export const FormItemSubmit = styled(FormItem)`
+  display: flex;
+  justify-content: center;
+`;
+
+export const Save = styled(Button)`
+  min-width: 261px;
+  width: 261px;
+  height: 62px;
+  background-color: ${PALETTE.green1};
+  font-family: ${FONTS.semiBold};
+  font-size: 18px;
+  color: ${PALETTE.white};
+  text-transform: uppercase;
+  margin: auto;
+  margin-bottom: 80px;
+  border-radius: ${THEME.borderRadiusL};
+`;

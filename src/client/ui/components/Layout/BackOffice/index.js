@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
 import { Sidebar } from 'client/ui/components/Layout/BackOffice/Sidebar';
-
+import { setUser } from 'client/utils/localStorageEdit';
+import { logout } from 'client/store/user';
 import { 
   Wrapper,
   Cotainer,
@@ -16,11 +17,16 @@ export const Layout = ({
   className,
 }) => {
   const history = useHistory();
+  const rootDispatch = useDispatch();
   const { pathname } = useLocation();
   const [showSideBar, setShowSideBar] = useState(true);
   const { id, token } = useSelector(store => store.user.info);
 
   const handleRoute = useCallback((part = 'restaurants') => {
+    if (part === 'logout') {
+      setUser({ token: null });
+      rootDispatch(logout());
+    }
     const path = `/back-office/${part}`;
     history.push(path);
   }, []);

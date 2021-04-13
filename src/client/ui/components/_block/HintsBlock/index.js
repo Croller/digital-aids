@@ -8,7 +8,7 @@ import {
   ButtonStyled,
 } from './styled';
 
-export const IconTextBtn = memo(({
+export const HintsBlock = memo(({
   text = '',
   btn = null,
   onClick,

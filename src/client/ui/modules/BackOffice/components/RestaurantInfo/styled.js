@@ -1,17 +1,25 @@
 import styled from 'styled-components';
-import { FONTS, PALETTE, THEME } from 'client/style/constants';
+import {
+  FONTS,
+  PALETTE,
+  THEME,
+  BREAKPOINTS,
+} from 'client/style/constants';
 import { Button } from 'client/ui/components/_ui/Button';
 import { IconText } from 'client/ui/components/_block/IconText';
-import { NavItem } from 'client/ui/modules/BackOffice/RestaurantInfo/NavItem';
+import { NavItem } from 'client/ui/modules/BackOffice/components/NavItem';
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 176px;
   background-color: ${PALETTE.white};
   border-radius: ${THEME.borderRadiusL};
   box-shadow: ${THEME.boxShadow2};
   padding: 22px 23px 20px 24px;
   margin-bottom: 22px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    height: 176px;
+  }
 `;
 
 export const Header = styled.div`
@@ -22,6 +30,9 @@ export const Header = styled.div`
 `;
 
 export const Name = styled(IconText)`
+  font-size: 22px;
+  font-family: ${FONTS.semiBold};
+
   > span > svg {
     width: 35px;
     height: 35px;
@@ -70,6 +81,11 @@ export const Content = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex-direction: row;
+  }
 `;
 
 export const Contacts = styled.div`
@@ -86,26 +102,20 @@ export const Contacts = styled.div`
 
 export const Phone = styled(IconText)`
   margin-bottom: 12px;
+  font-family: ${FONTS.medium};
+  text-transform: unset;
 
-  > svg {
-    width: 22px;
-    height: 22px;
+  > span > svg {
     margin-right: 8px;
-
-    path: {
-      fill: ${PALETTE.green1};
-    }
-  }
-
-  > span {
-    font-size: 16px;
-    font-family: ${FONTS.medium};
-    text-transform: unset;
   }
 `;
 
 export const Address = Phone;
 
 export const NavItemStyled = styled(NavItem)`
-  background-color: transparent;
+  margin-left: auto;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-left: unset;
+  }
 `;

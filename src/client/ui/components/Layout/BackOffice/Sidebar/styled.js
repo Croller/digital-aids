@@ -6,6 +6,8 @@ import {
 } from 'client/style/constants';
 
 export const SidebarWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 245px;
   height: calc(100% - 97px);
   position: fixed;
@@ -18,6 +20,11 @@ export const Menu = styled.ul`
   list-style: none;
   padding: 0;
   margin: 32px 0 0 35px;
+
+  &:last-child {
+    margin-top: auto;
+    margin-bottom: 36px;
+  }
 `;
 
 export const Item = styled.li`

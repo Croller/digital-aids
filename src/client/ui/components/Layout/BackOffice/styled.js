@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
 
 export const Cotainer = styled.div`
   display: block;
-  height: auto;
+  height: 100%;
 `;
 
 export const Content = styled.div`
@@ -15,9 +15,11 @@ export const Content = styled.div`
   margin-left: ${p => (p.sidebar ? '245px' : '0')};
   display: flex;
   justify-content: center;
+  height: inherit;
 `;
 
 export const Block = styled.div`
+  position: relative;
   width: 100%;
   max-width: 1195;
   padding: 30px 36px 0 22px;

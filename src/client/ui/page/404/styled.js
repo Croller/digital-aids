@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IconTextBtn } from 'client/ui/components/_block/HintsBlock';
+import { HintsBlock } from 'client/ui/components/_block/HintsBlock';
 import { PALETTE, FONTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   justify-content: center;
 `;
 
-export const IconTextBtnStyled = styled(IconTextBtn)`
+export const HintsBlockStyled = styled(HintsBlock)`
   margin-bottom: 80px;
 `;
 

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import {
   UserCircleSvg,
   RestaurantSvg,
+  AlertCircleSvg,
 } from 'client/assets/images';
 import { 
   SidebarWrapper,
@@ -34,7 +35,7 @@ export const Sidebar = memo(({
         {MENU_LIST.map(({ key, icon }) => (
           <Item
             key={`_item_menu_${key}`}
-            active={path.indexOf(key) > -1}
+            active={path.indexOf(key.slice(0, -1)) > -1}
             onClick={() => onRoute(key)}
           >
             <Icon>
@@ -43,6 +44,14 @@ export const Sidebar = memo(({
             {t(`common.words.${key}`)}
           </Item>
         ))}
+      </Menu>
+      <Menu>
+        <Item onClick={() => onRoute('logout')}>
+          <Icon>
+            <AlertCircleSvg />
+          </Icon>
+          {t('common.words.logout')}
+        </Item>
       </Menu>
     </SidebarWrapper>
   );

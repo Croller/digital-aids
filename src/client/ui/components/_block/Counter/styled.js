@@ -15,7 +15,7 @@ export const Control = styled(Button)`
   font-size: 18px;
   font-family: ${FONTS.medium};
   background-color: ${PALETTE.white};
-  border-radius: ${THEME.borderRadiusBlockControl};
+  border-radius: ${THEME.borderRadiusS};
   border: 1px solid ${PALETTE.black};
 
   &:not(:last-child) {
@@ -31,7 +31,7 @@ export const Count = styled.div`
   height: 35px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusBlockControl};
+  border-radius: ${THEME.borderRadiusS};
   margin-right: 16px;
   background-color: ${p => (p.selected ? `${PALETTE.grey2}` : `${PALETTE.black}`)};
   color: ${p => (p.selected ? `${PALETTE.black}` : `${PALETTE.white}`)};

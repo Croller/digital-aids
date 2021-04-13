@@ -30,19 +30,25 @@ export const InputForm = forwardRef(({
   />
 ));
 
-export const Input = ({
+export const InputDefault = ({
   type = 'text',
   step = null,
   placeholder = null,
   disabled = false,
   prefix = null,
   suffix = null,
-  value = null,
+  defaultValue = null,
   onChange = () => {},
   onPressEnter = () => {},
   className,
 }) => {
-  const handleChange = (e) => onChange(e.target.value);
+  const handleChange = (e) => {
+    e.persist();
+
+    setTimeout(() => {
+      onChange(e.target.value); 
+    }, 100);
+  };
 
   return (
     <InputStyled
@@ -53,7 +59,7 @@ export const Input = ({
       disabled={disabled}
       prefix={prefix}
       suffix={suffix}
-      defaultValue={value}
+      defaultValue={defaultValue}
       onChange={handleChange}
       onPressEnter={onPressEnter}
     />
