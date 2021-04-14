@@ -121,7 +121,10 @@ export const Navbar = ({
     const data = { ...options };
     let page = 'restaurants';
     data.loupe = true;
+    data.search = false;
     data.back = false;
+    data.archive = true;
+    data.delete = false;
     data.add_new = true;
     data.title = {
       icon: <RestaurantSvg />,
@@ -160,9 +163,9 @@ export const Navbar = ({
       data.archive = !['/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
       data.delete = pathname.indexOf('/archive') > -1;
       data.add_new = false;
-      data.title = {
-        icon: pathname.indexOf('/archive') > -1 ? <ArchiveSvg /> : null,
-        text: pathname.indexOf('/archive') > -1 ? `${t(`common.words.${page}`)} ${t('common.words.archive')}` : t(`common.words.${page}`),
+      data.title = pathname.indexOf('/archive') > -1 && {
+        icon: <ArchiveSvg />,
+        text: `${t(`common.words.${page}`)} ${t('common.words.archive')}`,
       };
     }
 

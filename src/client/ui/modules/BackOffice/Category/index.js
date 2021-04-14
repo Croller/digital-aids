@@ -169,10 +169,12 @@ const Category = () => {
               {name}
             </Caterory>
           ))}
-          <NewCaterory onClick={handleEditCategory}>
-            {t('common.words.newCategory')}
-            <PlusSvg />
-          </NewCaterory>
+          {!isArchive && (
+            <NewCaterory onClick={handleEditCategory}>
+              {t('common.words.newCategory')}
+              <PlusSvg />
+            </NewCaterory>
+          )}
         </ListCategory>
       )}
       {/* {isTipsDeals ? (
@@ -182,16 +184,18 @@ const Category = () => {
       ) : (
         <InfoMenu />
       )} */}
-      <DishControls>
-        <AddDish>
-          {t('common.words.addPlate')}
-          <PlusSvg />
-        </AddDish>
-        <ArchiveBtn onClick={() => handleRoute('archive')}>
-          <ArchiveSvg />
-          {t('common.words.archive')}
-        </ArchiveBtn>
-      </DishControls>
+      {!isArchive && (
+        <DishControls>
+          <AddDish>
+            {t('common.words.addPlate')}
+            <PlusSvg />
+          </AddDish>
+          <ArchiveBtn onClick={() => handleRoute('archive')}>
+            <ArchiveSvg />
+            {t('common.words.archive')}
+          </ArchiveBtn>
+        </DishControls>
+      )}
       {/* <DishList>
         efee
       </DishList> */}

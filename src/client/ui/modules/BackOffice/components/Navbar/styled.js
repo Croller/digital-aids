@@ -44,6 +44,7 @@ export const Control = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-width: 170px;
 `;
 
 export const BackBtn = styled(Button)`
