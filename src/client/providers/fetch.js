@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { getUrl } from 'client/utils/common';
 
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-let instance = null;
-
-const headers = {
-  accept: 'application/json',
-  'content-type': 'application/json',
-  'X-Requested-With': 'XMLHttpRequest',
-};
+const api = axios.create({
+  crossdomain: true,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+});
 
 const URL = getUrl();
 
@@ -32,13 +31,6 @@ const setError = (err, data) => {
   return { error };
 };
 
-export const createAxios = ({ token }) => { 
-  instance = axios.create({
-    timeout: 1000,
-    headers: { Authorization: `Bearer ${token}` },
-  });
-};
-
 export const get = async (path, params = null, options = {}) => {
   let query = '';
   if (params) {
@@ -53,39 +45,36 @@ export const get = async (path, params = null, options = {}) => {
   }
 
   try {
-    return await (instance || axios).get(`${URL}/api/${path}${query}`, { headers: { ...headers, ...options } });
+    return await api.get(`${URL}/api/${path}${query}`, { headers: { ...options } });
   } catch (err) {
     return setError(err, { 
       url: `${URL}/api/${path}${query}`,
       params,
       options,
-      headers,
     });
   }
 };
 
 export const post = async (path, params = {}, options = {}) => {
   try {
-    return await (instance || axios).post(`${URL}/api/${path}`, params, { headers: { ...headers, ...options } });
+    return await api.post(`${URL}/api/${path}`, params, { headers: { ...options } });
   } catch (err) {
     return setError(err, { 
       url: `${URL}/api/${path}`,
       params,
       options,
-      headers,
     });
   }
 };
 
 export const remove = async (path, params = {}, options = {}) => {
   try {
-    return await (instance || axios).delete(`${URL}/api/${path}`, { headers: { ...options }, data: { ...params } });
+    return await api.delete(`${URL}/api/${path}`, { headers: { ...options }, data: { ...params } });
   } catch (err) {
     return setError(err, { 
       url: `${URL}/api/${path}`,
       params,
       options,
-      headers,
     });
   }
 };
