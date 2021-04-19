@@ -3,6 +3,7 @@ import { getUrl } from 'client/utils/common';
 
 const api = axios.create({
   crossdomain: true,
+  withCredentials: true,
   headers: {
     'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',

@@ -9,16 +9,9 @@ export const setOfferViewed = (offer = null, callback = () => {}) => {
   if (!offer) return null;
   const local = getLocalStorage(storageKey);
   const { offersViewed } = local.restaurant;
+  console.log('local', local);
   
-  if (offer && local && !offersViewed.some(f => f === offer)) {
-    console.log('local', local);
-    console.log('offer', {
-      ...local,
-      restaurant: {
-        ...local.restaurant,
-        offersViewed: [...offersViewed, offer],
-      },
-    });
+  if (offer && local && offersViewed && !offersViewed.some(f => f === offer)) {
     setLocalStorage(storageKey, {
       ...local,
       restaurant: {
