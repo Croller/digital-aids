@@ -13,7 +13,7 @@ import {
 export const InfoUser = () => {
   const pathCurrent = '/back-office';
   const storageKey = process.env.LOCAL_STORAGE_KEY;
-  const lng = navigator.language || navigator.userLanguage;
+  const lng = navigator.language || navigator.userLanguage || 'en-EN';
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
   const history = useHistory();
@@ -21,7 +21,7 @@ export const InfoUser = () => {
   const [initUrl, setInitUrl] = useState(null);
   const [storage, setStorage] = useState({
     user: {
-      lng: lng || 'en',
+      lng: lng.slice(0, 2),
       cookies: false,
       token: null,
       enter_at: null,
