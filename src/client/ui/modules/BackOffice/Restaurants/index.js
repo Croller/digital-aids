@@ -6,7 +6,7 @@ import { update } from 'client/store/backOffice';
 import { EmptyList } from 'client/ui/modules/BackOffice/components/EmptyList';
 import {
   RestaurantList,
-  NavbarStyled,
+  NavBarStyled,
   List,
   LoaderStyled,
 } from './styled';
@@ -64,7 +64,7 @@ const Restaurants = () => {
   return (
     <RestaurantList>
       {loading && (<LoaderStyled />)}
-      <NavbarStyled
+      <NavBarStyled
         onSearch={handleSearch}
         onEvent={handleEventAll}
       />

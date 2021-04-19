@@ -18,9 +18,9 @@
 
 
 
-DROP TABLE data_users;
-DROP TABLE data_roles;
-DROP TABLE data_restaurants;
+-- DROP TABLE data_users;
+-- DROP TABLE data_roles;
+-- DROP TABLE data_restaurants;
 -- DROP TABLE dictionary_currency;
 -- DROP TABLE dictionary_language;
 

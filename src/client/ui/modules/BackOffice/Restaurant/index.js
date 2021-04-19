@@ -11,7 +11,7 @@ import { update, deleteFiles } from 'client/store/backOffice';
 import { AlertCircleSvg } from 'client/assets/images';
 import {
   RestaurantWrapper,
-  NavbarStyled,
+  NavBarStyled,
   FormStyled,
   Form2Col,
   FormCol,
@@ -19,7 +19,7 @@ import {
   FormItemSubmit, Save,
   InputStyled,
   // InputMaskStyled,
-  SelectStyled, OptionStyled,
+  SelectStyled, OptionStyled, UpperCase,
   NavItemStyled,
   FormUploader,
   UploaderLogo,
@@ -96,11 +96,21 @@ const Restaurant = () => {
   };
 
   const handleValuesChange = (values) => {
-    const { sub_languages } = values;
-    if (values.sub_languages) { 
+    console.log('values - ', values);
+    if (!values) return;
+    const edited = {};
+    const {
+      sub_languages,
+    } = values;
+
+    if (sub_languages) {
+      edited.sub_languages = sub_languages.some(s => s === 'en') ? sub_languages : ['en', ...sub_languages];
+    }
+
+    if (Object.keys(edited).length > 0) {
       form.setFieldsValue({
         ...formData,
-        sub_languages: sub_languages.some(s => s === 'en') ? sub_languages : ['en', ...sub_languages],
+        ...edited,
       });
     }
     
@@ -144,7 +154,7 @@ const Restaurant = () => {
 
   return formData && (
     <RestaurantWrapper>
-      <NavbarStyled
+      <NavBarStyled
         settings={{ delete: params.restautant !== 'new' }}
         onEvent={handleDelete}
       />
@@ -258,7 +268,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.select')}
               >
                 {dictionary && (dictionary.currency || []).map(({ id, symbol }, i) => (
-                  <OptionStyled key={`_currency_${i + 1}`} value={id}>{`${id} ${symbol}`}</OptionStyled>
+                  <OptionStyled key={`_currency_${i + 1}`} value={id}>{`${id} (${symbol})`}</OptionStyled>
                 ))}
               </SelectStyled>
             </FormItemStyled>
@@ -334,9 +344,20 @@ const Restaurant = () => {
               <SelectStyled
                 showSearch
                 placeholder={t('common.form.select')}
+                optionFilterProp="label"
               >
-                {dictionary && (dictionary.language || []).filter(f => f.id !== 'en').map(({ id }, i) => (
-                  <OptionStyled key={`_language_${i + 1}`} value={id}>{id}</OptionStyled>
+                {dictionary && (dictionary.language || []).filter(f => f.id !== 'en').map(({ id, name }, i) => (
+                  <OptionStyled
+                    key={`_language_${i + 1}`}
+                    value={id}
+                    label={`${name} (${id})`}
+                  >
+                    {`${name} (`}
+                    <UpperCase>
+                      {id}
+                    </UpperCase>
+                    )
+                  </OptionStyled>
                 ))}
               </SelectStyled>
             </FormItemStyled>
@@ -350,9 +371,20 @@ const Restaurant = () => {
                 showSearch
                 mode="multiple"
                 placeholder={t('common.form.select')}
+                optionFilterProp="label"
               >
-                {dictionary && (dictionary.language || []).map(({ id }, i) => (
-                  <OptionStyled key={`_sub_language_${i + 1}`} value={id}>{id}</OptionStyled>
+                {dictionary && (dictionary.language || []).map(({ id, name }, i) => (
+                  <OptionStyled
+                    key={`_sub_language_${i + 1}`}
+                    value={id}
+                    label={`${name} (${id})`}
+                  >
+                    {`${name} (`}
+                    <UpperCase>
+                      {id}
+                    </UpperCase>
+                    )
+                  </OptionStyled>
                 ))}
               </SelectStyled>
             </FormItemStyled>

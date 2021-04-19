@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Navbar } from 'client/ui/modules/BackOffice/components/Navbar';
+import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { Loader } from 'client/ui/components/_block/Loader';
 
 export const RestaurantList = styled.div`
@@ -8,7 +8,7 @@ export const RestaurantList = styled.div`
   height: 100%;
 `;
 
-export const NavbarStyled = styled(Navbar)`
+export const NavBarStyled = styled(NavBar)`
   margin-bottom: 40px;
 `;
 

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Navbar } from 'client/ui/modules/BackOffice/components/Navbar';
+import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { Button } from 'client/ui/components/_ui/Button';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
@@ -8,7 +8,6 @@ const listStyle = css`
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
-  flex-wrap: wrap;
 `;
 
 const buttonStyle = css`
@@ -38,7 +37,7 @@ export const CategoryEdit = styled.div`
   width: 100%;
 `;
 
-export const NavbarStyled = styled(Navbar)`
+export const NavBarStyled = styled(NavBar)`
   margin-bottom: 28px;
 `;
 
@@ -53,6 +52,7 @@ export const ListMenu = styled.div`
 export const MenuControl = styled.div`
   ${listStyle}
 
+  flex-wrap: nowrap;
   justify-content: space-between;
   margin-bottom: 18px;
 `;
@@ -65,6 +65,8 @@ export const ListControls = styled.div`
 
 export const MenuBtn = styled(Button)`
   ${buttonStyle}
+
+  width: 210px;
 `;
 
 export const CreateDaily = styled(Button)`

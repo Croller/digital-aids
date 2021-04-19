@@ -11,10 +11,10 @@ import {
 } from 'client/assets/images';
 import { 
   // CategoryEdit,
-  // NavbarStyled,
+  // NavBarStyled,
   // RestaurantInfoStyled,
   CategoryEdit,
-  NavbarStyled,
+  NavBarStyled,
   RestaurantInfoStyled,
   ListMenu,
   MenuControl,
@@ -33,7 +33,6 @@ import {
 
 const Category = () => {
   const obj = useSelector(state => state.restaurant.categories);
-
 
   const [t] = useTranslation();
   const params = useParams();
@@ -112,7 +111,7 @@ const Category = () => {
   return restaurant && categoryRest && (
     <CategoryEdit>
       {['/dishes/archive', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && (
-        <NavbarStyled />
+        <NavBarStyled />
       )}
       {!isArchive && (
         <>

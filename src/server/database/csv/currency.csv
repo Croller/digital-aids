@@ -1,7 +1,11 @@
 id;name;fullname;description;symbol
-EUR;Euro Member Countries;;;€
+EUR;Euro;;;€
 USD;United States Dollar;;;$
+NOK;Norway Krone;;;kr
+JPY;Japan Yen;;;¥
+KRW;Korea (South) Won;;;₩
 RUB;Russia Ruble;;;₽
+CNY;China Yuan Renminbi;;;¥
 ALL;Albania Lek;;;Lek
 AFN;Afghanistan Afghani;;;؋
 ARS;Argentina Peso;;;$
@@ -23,7 +27,6 @@ KHR;Cambodia Riel;;;៛
 CAD;Canada Dollar;;;$
 KYD;Cayman Islands Dollar;;;$
 CLP;Chile Peso;;;$
-CNY;China Yuan Renminbi;;;¥
 COP;Colombia Peso;;;$
 CRC;Costa Rica Colon;;;₡
 HRK;Croatia Kuna;;;kn
@@ -51,11 +54,9 @@ IRR;Iran Rial;;;﷼
 IMP;Isle of Man Pound;;;£
 ILS;Israel Shekel;;;₪
 JMD;Jamaica Dollar;;;J$
-JPY;Japan Yen;;;¥
 JEP;Jersey Pound;;;£
 KZT;Kazakhstan Tenge;;;лв
 KPW;Korea (North) Won;;;₩
-KRW;Korea (South) Won;;;₩
 KGS;Kyrgyzstan Som;;;лв
 LAK;Laos Kip;;;₭
 LBP;Lebanon Pound;;;£
@@ -72,7 +73,6 @@ ANG;Netherlands Antilles Guilder;;;ƒ
 NZD;New Zealand Dollar;;;$
 NIO;Nicaragua Cordoba;;;C$
 NGN;Nigeria Naira;;;₦
-NOK;Norway Krone;;;kr
 OMR;Oman Rial;;;﷼
 PKR;Pakistan Rupee;;;₨
 PAB;Panama Balboa;;;B/.

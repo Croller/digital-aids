@@ -23,7 +23,7 @@ const configButton = css`
   }
 `;
 
-export const NavbarRestaurant = styled.div`
+export const NavBarRestaurant = styled.div`
   height: 58px;
   display: flex;
   justify-content: space-between;
@@ -35,6 +35,8 @@ export const NavbarRestaurant = styled.div`
     }
 
     &:last-child {
+      min-width: 202px;
+      width: 136px;
       justify-content: flex-end;
     }
   }
@@ -112,13 +114,16 @@ export const Search = styled(InputDefault)`
   border-radius: ${THEME.borderRadiusL};
   border: 0;
   padding: 20px 16px 20px 16px;
-  margin: 0 32px;
+  margin-left: 32px;
+  margin-right: -32px;
 
   .ant-input-prefix {
+    margin: 0;
+
     > svg {
       width: 26px;
       height: 26px;
-      margin-right: 0;
+      margin: 0;
 
       path {
         fill: ${PALETTE.grey12};
@@ -128,11 +133,12 @@ export const Search = styled(InputDefault)`
 
   .ant-input-suffix {
     cursor: pointer;
+    margin: 0;
 
     > svg {
-      width: 21px;
-      height: 21px;
-      margin-right: 4px;
+      width: 20px;
+      height: 20px;
+      margin: 0;
 
       path {
         fill: ${PALETTE.black1};
@@ -141,7 +147,7 @@ export const Search = styled(InputDefault)`
   }
 
   input {
-    padding: 0 10px !important;
+    padding: 0 10px 0 24px !important;
     font-size: 16px;
     font-family: ${FONTS.medium};
     background-color: ${PALETTE.grey25};
@@ -153,14 +159,14 @@ export const Search = styled(InputDefault)`
 `;
 
 export const LoupeBtn = styled(Button)`
+  width: 34px;
   background-color: transparent;
-  padding: 0;
   cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 34px;
+  margin-right: 32px;
 
   > svg {
     width: 31px;
@@ -173,8 +179,8 @@ export const LoupeBtn = styled(Button)`
 `;
 
 export const DeleteBtn = styled(Button)`
+  width: 34px;
   background-color: transparent;
-  padding: 0;
 
   > svg {
     width: 30px;
@@ -199,7 +205,7 @@ export const DeleteBtn = styled(Button)`
 export const ArchiveBtn = styled(Button)`
   ${configButton}
 
-  min-width: 136px;
+  width: 136px;
   background-color: ${PALETTE.grey26};
   font-size: 14px;
   font-family: ${FONTS.medium};

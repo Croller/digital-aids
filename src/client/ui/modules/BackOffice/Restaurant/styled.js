@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Navbar } from 'client/ui/modules/BackOffice/components/Navbar';
+import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { NavItem } from 'client/ui/modules/BackOffice/components/NavItem';
 import { Form, Select } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
@@ -15,7 +15,7 @@ export const RestaurantWrapper = styled.div`
   width: 100%;
 `;
 
-export const NavbarStyled = styled(Navbar)`
+export const NavBarStyled = styled(NavBar)`
   margin-bottom: 46px;
 `;
 
@@ -275,6 +275,10 @@ export const OptionStyled = styled(Option)`
   font-size: 18px;
   font-family: ${FONTS.medium};
   border-radius: ${THEME.borderRadiusL};
+`;
+
+export const UpperCase = styled.span`
+  text-transform: uppercase;
 `;
 
 export const FormItemStyled = styled(FormItem)`

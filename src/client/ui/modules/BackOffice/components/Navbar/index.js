@@ -16,7 +16,7 @@ import {
   CloseSvg,
 } from 'client/assets/images';
 import {
-  NavbarRestaurant,
+  NavBarRestaurant,
   Control,
   Title,
   BackBtn,
@@ -27,7 +27,7 @@ import {
   Search,
 } from './styled';
 
-export const Navbar = ({
+export const NavBar = ({
   settings = null,
   onSearch = () => {},
   onEvent = () => {},
@@ -99,10 +99,9 @@ export const Navbar = ({
     }
     if (key === 'delete') {
       showConfirm();
-      console.log('pathname.restaurant ', pathname.restaurant );
       obj.event = {
         key,
-        title: pathname.restaurant ? 'restaurant.delete' : 'archive',
+        title: params.restaurant ? 'restaurant.delete' : 'archive',
         params: { is_deleted: true },
       };
       setOptions(obj);
@@ -173,7 +172,7 @@ export const Navbar = ({
   }, [pathname]);
 
   return options && (
-    <NavbarRestaurant className={className}>
+    <NavBarRestaurant className={className}>
       <Control>
         {options.back && (
           <BackBtn onClick={() => handleRoute('back')}>
@@ -221,6 +220,6 @@ export const Navbar = ({
           </ArchiveBtn>
         )}
       </Control>
-    </NavbarRestaurant>
+    </NavBarRestaurant>
   );
 };

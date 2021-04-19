@@ -45,7 +45,7 @@ CREATE TABLE data_restaurants (
   currency VARCHAR ARRAY DEFAULT '{"EUR"}', -- DICTIONARY dictionary_currency
   cuisine VARCHAR ARRAY DEFAULT null,
   employees VARCHAR ARRAY DEFAULT null,
-  avg_price FLOAT DEFAULT 0,
+  avg_price FLOAT DEFAULT 0.00,
   languages VARCHAR ARRAY DEFAULT '{null, "en"}', -- DICTIONARY dictionary_language
   images VARCHAR ARRAY DEFAULT null,
   socials jsonb DEFAULT '{"thefork":{"rate":null,"url":null},"tripadviser":{"rate":null,"url":null},"facebook":{"rate":null,"url":null},"instagram":{"rate":null,"url":null}}',
@@ -55,20 +55,20 @@ CREATE TABLE data_restaurants (
   is_deleted boolean DEFAULT FALSE
 );
 
--- CREATE TABLE dictionary_currency (
---   id VARCHAR DEFAULT null,
---   name VARCHAR DEFAULT null,
---   fullname VARCHAR DEFAULT null,
---   description VARCHAR DEFAULT null,
---   symbol VARCHAR DEFAULT null
--- );
+CREATE TABLE dictionary_currency (
+  id VARCHAR DEFAULT null,
+  name VARCHAR DEFAULT null,
+  fullname VARCHAR DEFAULT null,
+  description VARCHAR DEFAULT null,
+  symbol VARCHAR DEFAULT null
+);
 
--- CREATE TABLE dictionary_language (
---   id VARCHAR DEFAULT null,
---   name VARCHAR DEFAULT null,
---   fullname VARCHAR DEFAULT null,
---   description VARCHAR DEFAULT null
--- );
+CREATE TABLE dictionary_language (
+  id VARCHAR DEFAULT null,
+  name VARCHAR DEFAULT null,
+  fullname VARCHAR DEFAULT null,
+  description VARCHAR DEFAULT null
+);
 
 
 
