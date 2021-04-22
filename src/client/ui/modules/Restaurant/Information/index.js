@@ -47,7 +47,7 @@ const Information = memo(() => {
     avg_price,
     cuisine,
     images,
-    // work_time,
+    // at_work,
     raiting,
     currency,
   } = useSelector(store => store.restaurant.info);

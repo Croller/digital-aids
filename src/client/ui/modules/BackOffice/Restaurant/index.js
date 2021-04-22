@@ -390,7 +390,7 @@ const Restaurant = () => {
             </FormItemStyled>
             <FormItemStyled
               label={t('common.words.workingTime')}
-              name="work_time"
+              name="at_work"
               required
               rules={rule.text}
             >

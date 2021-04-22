@@ -86,6 +86,11 @@ function* getTables({ payload }) {
   const names = (payload && payload.names) || [
     'dictionary_currency',
     'dictionary_languages',
+    'dictionary_days',
+    'dictionary_units',
+    'dictionary_allergens',
+    'dictionary_dictionary_languages',
+    'dictionary_type_categories',
   ];
   if (roles.includes(1)) {
     names.push('data_restaurants');

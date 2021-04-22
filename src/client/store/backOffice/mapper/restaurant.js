@@ -14,7 +14,7 @@ export const dataToForm = (data) => {
     avg_price,
     images,
     socials,
-    work_time,
+    at_work,
   } = data;
 
   return {
@@ -35,7 +35,7 @@ export const dataToForm = (data) => {
     'socials.tripadviser.url': socials.tripadviser.url,
     'socials.facebook.url': socials.facebook.url,
     'socials.instagram.url': socials.instagram.url,
-    work_time: work_time.description,
+    at_work: at_work.description,
   };
 };
 
@@ -53,7 +53,7 @@ export const dataToApi = (data, current) => {
     avg_price,
     main_language,
     sub_languages,
-    work_time,
+    at_work,
   } = data;
 
   const images = data.images && data.images
@@ -99,9 +99,9 @@ export const dataToApi = (data, current) => {
         url: data['socials.instagram.url'] || null,
       },
     }),
-    work_time: JSON.stringify({
-      ...current.work_time,
-      description: work_time || null,
+    at_work: JSON.stringify({
+      ...current.at_work,
+      description: at_work || null,
     }),
   };
 };
@@ -138,7 +138,7 @@ export const model = {
       url: 'www.instagram.com/lascuevasrestaurante/',
     },
   },
-  work_time: {
+  at_work: {
     description: '17.00- 22.00',
     mon: [
       '2020-01-01T10:00:00.000',

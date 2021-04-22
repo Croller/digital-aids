@@ -76,7 +76,7 @@ const Category = () => {
         }
       } else {
         console.log(getCategoryTemp());
-        categoryFilter = getCategoryTemp().updated;
+        categoryFilter = getCategoryTemp();
       }
 
       setDishCategory(dishesFilter);
@@ -116,7 +116,12 @@ const Category = () => {
   const handleEditCategory = (options = null) => {
     // if (options)
     setCategoryNew(options || {
+      id: null,
+      parent: null,
+      restaurant: restInfo.id,
+      key: '',
       name: 'New category',
+      description: '',
     });
     handleRoute('lng', 'en');
   };
@@ -225,7 +230,7 @@ const Category = () => {
       {!isArchive && (
         <DishControls>
           <NewDish onClick={handleCreateDish}>
-            {t('common.words.newPlate')}
+            {t('common.words.newAdd')}
             <PlusSvg />
           </NewDish>
           <ArchiveBtn onClick={() => handleRoute('archive')}>

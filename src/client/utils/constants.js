@@ -1,5 +1,19 @@
 export const categoryDefault = [
   {
+    name: 'Menu',
+    children: [
+      {
+        name: 'Appities',
+      },
+      {
+        name: 'Main Dishes',
+      },
+      {
+        name: 'Drinks',
+      },
+    ],
+  },
+  {
     name: 'Daily Menu',
     children: [
       {

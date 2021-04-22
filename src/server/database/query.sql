@@ -1,19 +1,19 @@
-DROP TABLE IF EXISTS data_users;
-DROP TABLE IF EXISTS data_roles;
-DROP TABLE IF EXISTS data_restaurants;
-DROP TABLE IF EXISTS data_categories;
-DROP TABLE IF EXISTS data_dishes;
+-- DROP TABLE IF EXISTS data_users;
+-- DROP TABLE IF EXISTS data_roles;
+-- DROP TABLE IF EXISTS data_restaurants;
+-- DROP TABLE IF EXISTS data_categories;
+-- DROP TABLE IF EXISTS data_dishes;
 
-DROP TABLE IF EXISTS data_categories_languages;
-DROP TABLE IF EXISTS data_dishes_languages;
+-- DROP TABLE IF EXISTS data_categories_languages;
+-- DROP TABLE IF EXISTS data_dishes_languages;
 
-DROP TABLE IF EXISTS dictionary_currency;
-DROP TABLE IF EXISTS dictionary_languages;
-DROP TABLE IF EXISTS dictionary_type_categories;
-DROP TABLE IF EXISTS dictionary_allergens;
-DROP TABLE IF EXISTS dictionary_units;
-DROP TABLE IF EXISTS dictionary_week_days;
-DROP TABLE IF EXISTS dictionary_dictionary_languages;
+-- DROP TABLE IF EXISTS dictionary_currency;
+-- DROP TABLE IF EXISTS dictionary_languages;
+-- DROP TABLE IF EXISTS dictionary_type_categories;
+-- DROP TABLE IF EXISTS dictionary_allergens;
+-- DROP TABLE IF EXISTS dictionary_units;
+-- DROP TABLE IF EXISTS dictionary_days;
+-- DROP TABLE IF EXISTS dictionary_dictionary_languages;
 
 
 
@@ -43,12 +43,12 @@ DROP TABLE IF EXISTS dictionary_dictionary_languages;
 -- TRUNCATE data_users RESTART IDENTITY CASCADE;
 -- TRUNCATE data_restaurants RESTART IDENTITY CASCADE;
 -- TRUNCATE data_socials RESTART IDENTITY CASCADE;
--- TRUNCATE data_work_time RESTART IDENTITY CASCADE;
+-- TRUNCATE data_at_work RESTART IDENTITY CASCADE;
 
 -- SELECT * FROM data_users;
 -- SELECT * FROM data_restaurants;
 -- SELECT * FROM data_socials;
--- SELECT * FROM data_work_time;
+-- SELECT * FROM data_at_work;
 -- SELECT * FROM dictionary_currency;
 -- SELECT * FROM dictionary_languages;
 

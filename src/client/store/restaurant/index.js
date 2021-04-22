@@ -26,7 +26,7 @@ const initState = {
     // languages
     // images
     // socials
-    // work_time
+    // at_work
     // is_archived
     // is_deleted
     id: 213123,
@@ -51,7 +51,7 @@ const initState = {
         name: 'Test. u',
       },
     ],
-    work_time: [
+    at_work: [
       {
         key: 'mon',
         from: 0,

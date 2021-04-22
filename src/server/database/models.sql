@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   languages VARCHAR ARRAY DEFAULT '{"NULL", "en"}', -- DICTIONARY dictionary_languages
   images VARCHAR ARRAY DEFAULT NULL,
   socials jsonb DEFAULT '{"thefork":{"rate":"0","url":"NULL", "comments":[]},"tripadviser":{"rate":"0","url":"NULL", "comments":[]},"facebook":"NULL","instagram":"NULL"}',
-  work_time jsonb DEFAULT '{"description":"NULL","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
+  at_work jsonb DEFAULT '{"description":"NULL","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
   options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
@@ -77,7 +77,8 @@ CREATE TABLE IF NOT EXISTS data_categories_languages (
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
-  cuisine VARCHAR ARRAY DEFAULT NULL
+  cuisine VARCHAR ARRAY DEFAULT NULL,
+  options jsonb DEFAULT '{}'
 );
 
 CREATE TABLE IF NOT EXISTS data_dishes (
@@ -88,7 +89,7 @@ CREATE TABLE IF NOT EXISTS data_dishes (
   cuisine VARCHAR ARRAY DEFAULT NULL,
   allergens VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY dictionary_languages
   images VARCHAR ARRAY DEFAULT NULL,
-  price jsonb DEFAULT '[{"amount": "1", "cost": "0.00", "volume": "0", "unit": "NULL"}]',
+  price jsonb DEFAULT '[{"amount": "0.00", "cost": "0.00", "unit": "pc"}]',
   options jsonb DEFAULT '{}',
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
@@ -101,7 +102,7 @@ CREATE TABLE IF NOT EXISTS data_dishes_languages (
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  price jsonb DEFAULT '[{"unit": "NULL"}]',
+  price jsonb DEFAULT '[{"unit": "pc"}]',
   options jsonb DEFAULT '{}'
 );
 
@@ -138,13 +139,12 @@ CREATE TABLE IF NOT EXISTS dictionary_allergens (
 
 CREATE TABLE IF NOT EXISTS dictionary_units (
   id VARCHAR DEFAULT NULL,
-  parent VARCHAR DEFAULT NULL, -- weight / volume
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS dictionary_week_days (
+CREATE TABLE IF NOT EXISTS dictionary_days (
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -190,7 +190,7 @@ CREATE TABLE IF NOT EXISTS dictionary_dictionary_languages (
 --   instagram VARCHAR DEFAULT NULL
 -- );
 
--- CREATE TABLE data_work_time (
+-- CREATE TABLE data_at_work (
 --   id serial primary key,
 --   mon timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
 --   tue timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
