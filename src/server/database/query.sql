@@ -1,24 +1,36 @@
+DROP TABLE IF EXISTS data_users;
+DROP TABLE IF EXISTS data_roles;
+DROP TABLE IF EXISTS data_restaurants;
+DROP TABLE IF EXISTS data_categories;
+DROP TABLE IF EXISTS data_dishes;
 
-ALTER TABLE dictionary_language RENAME TO dictionary_languages;
+DROP TABLE IF EXISTS data_categories_languages;
+DROP TABLE IF EXISTS data_dishes_languages;
 
-
-
-
-
-
-
-
-
--- DROP TABLE data_users;
--- DROP TABLE data_roles;
--- DROP TABLE data_restaurants;
--- DROP TABLE dictionary_currency;
--- DROP TABLE dictionary_languages;
-
--- DROP TABLE data_socials;
--- DROP TABLE data_work_time;
+DROP TABLE IF EXISTS dictionary_currency;
+DROP TABLE IF EXISTS dictionary_languages;
+DROP TABLE IF EXISTS dictionary_type_categories;
+DROP TABLE IF EXISTS dictionary_allergens;
+DROP TABLE IF EXISTS dictionary_units;
+DROP TABLE IF EXISTS dictionary_week_days;
+DROP TABLE IF EXISTS dictionary_dictionary_languages;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------- TEMP QUERY --------------------------
 
 
 

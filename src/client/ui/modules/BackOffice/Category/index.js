@@ -42,7 +42,7 @@ const Category = () => {
   const rootDispatch = useDispatch();
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState(null);
-  const [dishCategory, setDishCategory] = useState(null);
+  const [dishCategory, setDishCategory] = useState([]);
   const {
     restaurants,
     categories,
@@ -61,7 +61,7 @@ const Category = () => {
 
   const init = () => {
     let categoryFilter = null;
-    let dishesFilter = null;
+    let dishesFilter = [];
 
     if (restaurants) {
       const rest = restaurants.find(f => f.id === params.restaurant);
@@ -74,8 +74,6 @@ const Category = () => {
           const categoryCurrent = categoryFilter.filter(f => f.id === params.category);
           dishesFilter = dishes.filter(f => categoryCurrent.dishes.includes(f.id));
         }
-
-        setRestCategory(categoryFilter);
       } else {
         console.log(getCategoryTemp());
         categoryFilter = getCategoryTemp().updated;

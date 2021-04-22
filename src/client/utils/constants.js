@@ -10,17 +10,6 @@ export const categoryDefault = [
       },
       {
         name: 'Drinks',
-        children: [
-          {
-            name: 'Appities',
-          },
-          {
-            name: 'Main Dishes',
-          },
-          {
-            name: 'Drinks',
-          },
-        ],
       },
     ],
   },

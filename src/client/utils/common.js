@@ -25,7 +25,7 @@ export const stringToKey = (str = null) => {
   return str.toLowerCase().replace(/[^a-z0-9]/gi, '-');
 };
 
-export const objRecUpdate = (
+export const objRecursive = (
   arr = null,
   callback = (
     key,
@@ -38,7 +38,7 @@ export const objRecUpdate = (
     if (key === 'children' && item[key] && Array.isArray(item[key])) {
       return {
         ...results,
-        [key]: objRecUpdate(item[key], callback, (parent || results.id)),
+        [key]: objRecursive(item[key], callback, (parent || results.id)),
       };
     }
     return {
@@ -48,7 +48,7 @@ export const objRecUpdate = (
   }, {}));
 };
 
-export const objRecursive = (
+export const objRecUpdate = (
   arr = null,
   callback = (
     key,
@@ -74,7 +74,7 @@ export const objRecursive = (
           ...Object.keys(item).reduce((obj, key) => {
             let plainKey = `${itemKey}children.`;
             let results = { updated: [], plain: {}, array: [] };
-            results = objRecursive(item[key], callback, (parent || obj.id));
+            results = objRecUpdate(item[key], callback, (parent || obj.id));
             if (key !== 'children') {
               plainKey = itemKey;
               const call = callback(key, item[key], parent);
