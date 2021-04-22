@@ -1,7 +1,8 @@
+/* eslint-disable no-useless-escape */
 const fs = require('fs');
 const path = require('path');
 
-const staticPath = process.env.SERVER_FILES_STORAGE;
+const staticPath = process.env.SERVER_STORAGE;
 
 module.exports = {
   nodeEnv: () => {
@@ -10,7 +11,7 @@ module.exports = {
     }
     return true;
   },
-  generateStr: (length) => {
+  getStringRandom: (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -18,6 +19,14 @@ module.exports = {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  },
+  getHeader: (req) => {
+    const { headers } = req;
+    const { authorization } = headers;
+    return {
+      ...headers,
+      authorization: (authorization && authorization.split(' ')[0] === 'Bearer' ? authorization.split(' ')[1] : null),
+    };
   },
   readFile: async (url) => new Promise((resolve, reject) => {
     try {

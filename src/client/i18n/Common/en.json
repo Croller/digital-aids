@@ -1,7 +1,8 @@
 {
   "words": {
     "name": "Name",
-    "translate": "Translate",
+    "key": "Translate",
+    "description": "Description",
     "create": "Create",
     "created": "Created",
     "save": "Save",
@@ -15,7 +16,6 @@
     "restaurant": "Restaurant",
     "restaurants": "Restaurants",
     "managers": "Managers",
-    "add_new": "Add new",
     "welcome": "Welcome",
     "search": "Search",
     "guest": "Guest",
@@ -45,13 +45,17 @@
     "doNot": "Do not",
     "loading": "Loading",
     "success": "Success",
-    "addPlate": "Add plate",
     "foodtips": "Foodtips",
     "specialDeals": "Special deals",
     "deals": "Deals",
     "dish": "Dish",
+    "newAdd": "Add new",
     "newCategory": "New category",
-    "dailyTempCreate": "Daily menu template"
+    "newPlate": "New plate",
+    "dailyTempCreate": "Daily menu template",
+    "allergens": "Allergens",
+    "weight": "Weight",
+    "price": "Price"
   },
 
   "form" : {

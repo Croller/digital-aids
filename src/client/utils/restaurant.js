@@ -1,3 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
+import { stringToKey, objRecursive } from 'client/utils/common';
+import { categoryDefault } from 'client/utils/constants';
+
 export const getTotal = (arr) => {
   if (arr && Array.isArray(arr)) {
     return arr.reduce((count, item) => {
@@ -9,3 +13,16 @@ export const getTotal = (arr) => {
   }
   return 0;
 };
+
+export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, parent = null) => {
+  if (!value) return { [key]: value };
+  if (key === 'name') {
+    return {
+      id: uuidv4(),
+      [key]: value,
+      key: stringToKey(value),
+      parent,
+    };
+  }
+  return { [key]: value };
+});

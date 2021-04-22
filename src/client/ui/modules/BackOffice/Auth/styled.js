@@ -5,6 +5,8 @@ import { Button } from 'client/ui/components/_ui/Button';
 import { InputForm } from 'client/ui/components/_ui/Input';
 import { Link } from 'client/ui/components/_ui/Link';
 
+const FormItem = Form.Item;
+
 export const Wrapper = styled.div`
   position: absolute;
   display: flex;
@@ -50,83 +52,83 @@ export const LogoText = styled.div`
 
 export const FormStyled = styled(Form)`
   width: 100%;
+`;
 
-  .ant-form-item {
-    margin-bottom: 0;
+export const FormItemStyled = styled(FormItem)`
+  margin-bottom: 0;
 
-    &:not(:last-child) {
-      margin-bottom: 22px;
+  &:not(:last-child) {
+    margin-bottom: 22px;
+  }
+
+  &.ant-form-item-has-success {
+    .ant-form-item-children-icon {
+      position: absolute;
+      top: 34px;
+      right: 15px;
+      z-index: 1;
+      width: 17px;
+      height: 14px;
+      font-size: 15px;
     }
 
-    &.ant-form-item-has-success {
-      .ant-form-item-children-icon {
-        position: absolute;
-        top: 34px;
-        right: 15px;
-        z-index: 1;
-        width: 17px;
-        height: 14px;
-        font-size: 15px;
-      }
+    .ant-form-item-explain-success {
+      display: none;
+    }
+  }
 
-      .ant-form-item-explain-success {
-        display: none;
+  &.ant-form-item-has-error {
+    .ant-input {
+      border-color: ${PALETTE.red2};
+
+      &:focus {
+        outline: none;
+        box-shadow: unset;
       }
     }
 
-    &.ant-form-item-has-error {
-      .ant-input {
-        border-color: ${PALETTE.red2};
+    .ant-form-item-children-icon {
+      position: absolute;
+      top: 34px;
+      right: 15px;
+      z-index: 1;
+      width: 17px;
+      height: 14px;
+      font-size: 15px;
+    }
 
-        &:focus {
-          outline: none;
-          box-shadow: unset;
+    .ant-form-item-explain-error {
+      position: absolute;
+      bottom: -23px;
+      right: 0;
+      font-size: 13px;
+      font-family: ${FONTS.medium};
+    }
+  }
+
+  .ant-form-item-label {
+    padding: 0 0 18px;
+    flex: unset;
+
+    label {
+      font-size: 16px;
+      font-family: ${FONTS.bold};
+      color: ${PALETTE.black};
+      text-transform: uppercase;
+
+      &.ant-form-item-required {
+        &::before {
+          display: none !important;
         }
-      }
 
-      .ant-form-item-children-icon {
-        position: absolute;
-        top: 34px;
-        right: 15px;
-        z-index: 1;
-        width: 17px;
-        height: 14px;
-        font-size: 15px;
-      }
-
-      .ant-form-item-explain-error {
-        position: absolute;
-        bottom: -23px;
-        right: 0;
-        font-size: 13px;
-        font-family: ${FONTS.medium};
-      }
-    }
-
-    .ant-form-item-label {
-      padding: 0 0 18px;
-      flex: unset;
-
-      label {
-        font-size: 16px;
-        font-family: ${FONTS.bold};
-        color: ${PALETTE.black};
-        text-transform: uppercase;
-
-        &.ant-form-item-required {
-          &::before {
-            display: none !important;
-          }
-
-          &::after {
-            display: none;
-            margin-left: 4px;
-            color: ${PALETTE.red2};
-            font-size: 16px;
-            font-family: ${FONTS.bold};
-            line-height: 1;
-            content: '*';
-          }
+        &::after {
+          display: none;
+          margin-left: 4px;
+          color: ${PALETTE.red2};
+          font-size: 16px;
+          font-family: ${FONTS.bold};
+          line-height: 1;
+          content: '*';
         }
       }
     }
@@ -154,7 +156,7 @@ export const ControlWrapper = styled.div`
   align-items: center;
   justify-content: center;
 
-  .ant-form-item {
+  > div {
     margin-bottom: 0;
 
     &:not(:last-child) {

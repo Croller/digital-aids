@@ -11,8 +11,6 @@ const api = axios.create({
   },
 });
 
-const URL = getUrl();
-
 const error = {
   code: 0,
   name: '',
@@ -46,10 +44,10 @@ export const get = async (path, params = null, options = {}) => {
   }
 
   try {
-    return await api.get(`${URL}/api/${path}${query}`, { headers: { ...options } });
+    return await api.get(`${getUrl()}/api/${path}${query}`, { headers: { ...options } });
   } catch (err) {
     return setError(err, { 
-      url: `${URL}/api/${path}${query}`,
+      url: `${getUrl()}/api/${path}${query}`,
       params,
       options,
     });
@@ -58,10 +56,10 @@ export const get = async (path, params = null, options = {}) => {
 
 export const post = async (path, params = {}, options = {}) => {
   try {
-    return await api.post(`${URL}/api/${path}`, params, { headers: { ...options } });
+    return await api.post(`${getUrl()}/api/${path}`, params, { headers: { ...options } });
   } catch (err) {
     return setError(err, { 
-      url: `${URL}/api/${path}`,
+      url: `${getUrl()}/api/${path}`,
       params,
       options,
     });
@@ -70,10 +68,10 @@ export const post = async (path, params = {}, options = {}) => {
 
 export const remove = async (path, params = {}, options = {}) => {
   try {
-    return await api.delete(`${URL}/api/${path}`, { headers: { ...options }, data: { ...params } });
+    return await api.delete(`${getUrl()}/api/${path}`, { headers: { ...options }, data: { ...params } });
   } catch (err) {
     return setError(err, { 
-      url: `${URL}/api/${path}`,
+      url: `${getUrl()}/api/${path}`,
       params,
       options,
     });

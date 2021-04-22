@@ -13,6 +13,16 @@
       "restore": "Are you sure you want to restore restaurant? \n Once you restore it, it will available again in the list.",
       "delete": "Are you sure you want to delete restaurant? \n Once you delete it, it will not available to restore it latter."
     },
+    "dish": {
+      "archive": "Are you sure you want to archive this \n position? Once you archive it, it will not available in your \n Menu any more, but you can restore it latter in any time.",
+      "restore": "Are you sure you want to restore this position? \n Once you restore it, it will available again in you Menu.",
+      "delete": "Are you sure you want to delete this position? \n Once you delete it, you can not restore it latter."
+    },
+    "category": {
+      "archive": "Are you sure you want to archive this \n position? Once you archive it, it will not available in your \n Menu any more, but you can restore it latter in any time.",
+      "restore": "Are you sure you want to restore this position? \n Once you restore it, it will available again in you Menu.",
+      "delete": "Are you sure you want to delete this position? \n Once you delete it, you can not restore it latter."
+    },
     "archive": "Are you sure you want to remove an entire archive? \n Once you remove it, it will not available to restore."
   },
   "information": {

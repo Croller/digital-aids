@@ -16,7 +16,7 @@ import {
   CloseSvg,
 } from 'client/assets/images';
 import {
-  NavBarRestaurant,
+  NavBarWrapper,
   Control,
   Title,
   BackBtn,
@@ -172,7 +172,7 @@ export const NavBar = ({
   }, [pathname]);
 
   return options && (
-    <NavBarRestaurant className={className}>
+    <NavBarWrapper className={className}>
       <Control>
         {options.back && (
           <BackBtn onClick={() => handleRoute('back')}>
@@ -183,7 +183,7 @@ export const NavBar = ({
         {options.add_new && haveRole([1, 2]) && (
           <AddBtn onClick={() => handleRoute('new')}>
             <PlusSvg />
-            {t('common.words.add_new')}
+            {t('common.words.newAdd')}
           </AddBtn>
         )}
       </Control>
@@ -220,6 +220,6 @@ export const NavBar = ({
           </ArchiveBtn>
         )}
       </Control>
-    </NavBarRestaurant>
+    </NavBarWrapper>
   );
 };

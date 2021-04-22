@@ -49,23 +49,6 @@ export const Uploader = forwardRef(({
 
     onUpload([...files, transform], null);
     onStatus({ type: 'success', content: `${t('common.words.success')}` });
-
-    // const { fileList } = info;
-    // const filtred = fileList.filter(f => types.includes(f.type));
-    // const updated = filtred.map(async (file) => {
-    //   if (file.type !== 'image/png') {
-    //     const png = await imageToPng(file.originFileObj, uuidv4());
-    //     return png;
-    //   }
-    //   return {
-    //     ...file,
-    //     uuid: uuidv4(),
-    //     base64: await getBase64(file.originFileObj),
-    //   };
-    // });
-    // Promise.all(updated).then(values => {
-    //   onUpload(values);
-    // });
   };
 
   const handleUpload = ({ onSuccess }) => {

@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { update } from 'client/store/backOffice';
+import { update, deleteFiles } from 'client/store/backOffice';
+import { getCategoryTemp } from 'client/utils/restaurant';
 import {
+  AlertCircleSvg,
   ArchiveSvg,
   MenuSvg,
   PlusSvg,
@@ -27,22 +29,20 @@ import {
   Caterory,
   NewCaterory,
   DishControls,
-  AddDish,
+  NewDish,
   ArchiveBtn,
+  DishList, DishStyled,
 } from './styled';
 
 const Category = () => {
-  const obj = useSelector(state => state.restaurant.categories);
-
   const [t] = useTranslation();
   const params = useParams();
   const { pathname } = useLocation();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const [restaurant, setRestaurant] = useState(null);
-  const [categoryRest, setCategoryRest] = useState(obj.map(item => ({ ...item, id: item.id.toString() })));
-  const [categoryNew, setCategoryNew] = useState(null);
-  const [dishCat, setDishsCat] = useState([]);
+  const [restInfo, setRestInfo] = useState(null);
+  const [restCategory, setRestCategory] = useState(null);
+  const [dishCategory, setDishCategory] = useState(null);
   const {
     restaurants,
     categories,
@@ -52,6 +52,41 @@ const Category = () => {
     loading,
   } = useSelector(state => state.backOffice);
 
+  console.log(restaurants,
+    categories,
+    dishes,
+    dictionary,
+    status,
+    loading);
+
+  const init = () => {
+    let categoryFilter = null;
+    let dishesFilter = null;
+
+    if (restaurants) {
+      const rest = restaurants.find(f => f.id === params.restaurant);
+      rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
+
+      if (categories) {
+        categoryFilter = categories.filter(f => f.parent === params.restaurant);
+        
+        if (dishes) {
+          const categoryCurrent = categoryFilter.filter(f => f.id === params.category);
+          dishesFilter = dishes.filter(f => categoryCurrent.dishes.includes(f.id));
+        }
+
+        setRestCategory(categoryFilter);
+      } else {
+        console.log(getCategoryTemp());
+        categoryFilter = getCategoryTemp().updated;
+      }
+
+      setDishCategory(dishesFilter);
+      setRestCategory(categoryFilter);
+      setRestInfo(rest);
+    }
+  };
+
   const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_category', data: obj }));
   };
@@ -60,7 +95,7 @@ const Category = () => {
   const isArchive = ['/archive'].some(f => pathname.indexOf(f) > -1);
 
   const getItemDictionary = (id) => {
-    const item = dictionary.language.find(f => f.id === id);
+    const item = dictionary.languages.find(f => f.id === id);
     if (item) {
       return item.name;
     }
@@ -88,34 +123,39 @@ const Category = () => {
     handleRoute('lng', 'en');
   };
 
-  useEffect(() => {
-    window.prerenderReady = true;
-    if (restaurants) {
-      const rest = restaurants.find(f => f.id === params.restaurant);
-      rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
-      
-      if (categories) {
-        const categoryFilter = categories.filter(f => f.parent === params.restaurant);
+  const handleCreateDish = () => {
+    setDishCategory([null, ...dishCategory]);
+  };
 
-        if (dishes) {
-          const categoryCurrent = categoryFilter.filter(f => f.id === params.category);
-          const dishesFilter = dishes.filter(f => categoryCurrent.dishes.includes(f.id));
-          setDishsCat(dishesFilter);
-        }
-        setCategoryRest(categoryFilter);
-      }
-      setRestaurant(rest);
+  const handleChangeDish = (data) => {
+    if (!data.id && data.is_deleted) {
+      setDishCategory(dishCategory.shift());
+      return;
     }
+    rootDispatch(update({ name: 'data_dishes', data }));
+  };
+
+  const handleChangeFiles = (data = null) => {
+    data && rootDispatch(deleteFiles({ data }));
+  };
+
+  useEffect(() => {
+    init();
   }, [restaurants, categories, pathname]);
 
-  return restaurant && categoryRest && (
+  useEffect(() => {
+    window.prerenderReady = true;
+    init();
+  }, []);
+
+  return restInfo && restCategory && (
     <CategoryEdit>
       {['/dishes/archive', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && (
         <NavBarStyled />
       )}
       {!isArchive && (
         <>
-          <RestaurantInfoStyled {...restaurant} />
+          <RestaurantInfoStyled {...restInfo} />
           {!isTipsDeals && (
             <MenuControl>
               <ListMenu>
@@ -126,7 +166,7 @@ const Category = () => {
                   <MenuSvg />
                   {t('common.words.menu')}
                 </MenuBtn>
-                {categoryRest.filter(f => f.dailymenu).map(({ id, name }) => (
+                {restCategory.filter(f => f.dailymenu).map(({ id, name }) => (
                   <MenuBtn
                     key={`_category_${id}`}
                     active={id === params.category}
@@ -147,19 +187,20 @@ const Category = () => {
         </>
       )}
       <ListLng>
-        {restaurant.languages.map(lng => (
+        {restInfo.languages.map(lng => (
           <Lng
             key={`_lng_${lng}`}
             active={lng === params.language}
             onClick={() => handleRoute('language', lng)}
           >
+            {lng === 'en' && (<AlertCircleSvg />)}
             {getItemDictionary(lng)}
           </Lng>
         ))}
       </ListLng>
       {!isTipsDeals && (
         <ListCategory>
-          {categoryRest.map(({ id, name }) => (
+          {restCategory.map(({ id, name }) => (
             <Caterory
               key={`_category_${id}`}
               active={id === params.category}
@@ -185,19 +226,29 @@ const Category = () => {
       )} */}
       {!isArchive && (
         <DishControls>
-          <AddDish>
-            {t('common.words.addPlate')}
+          <NewDish onClick={handleCreateDish}>
+            {t('common.words.newPlate')}
             <PlusSvg />
-          </AddDish>
+          </NewDish>
           <ArchiveBtn onClick={() => handleRoute('archive')}>
             <ArchiveSvg />
+            {/* {`${t('common.words.dish')} ${t('common.words.archive')}`} */}
             {t('common.words.archive')}
           </ArchiveBtn>
         </DishControls>
       )}
-      {/* <DishList>
-        efee
-      </DishList> */}
+      <DishList>
+        {dishCategory && dishCategory.map((dish) => (
+          <DishStyled
+            key={`_dish_${dish ? dish.id : 'new'}`}
+            dish={dish}
+            loading={loading}
+            dictionary={dictionary}
+            onChangeDish={handleChangeDish}
+            onChangeFiles={handleChangeFiles}
+          />
+        ))}
+      </DishList>
     </CategoryEdit>
   );
 };

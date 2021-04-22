@@ -1,15 +1,120 @@
+// ------------------------------------------------------------------------------------------------------------------------
+// logical func
+
 export const getUrl = () => {
   if (process.env.NODE_ENV === 'development') {
     return '';
   }
-  return `https://${process.env.HOST}:${process.env.HOST_PORT_SERVER}`;
+  return `https://${process.env.HOST}:${process.env.HOST_SERVER_PORT}`;
 };
 
 export const compareBreakpoint = (width, constant) => width && constant && width >= parseInt(constant.replace('px'), 0);
 
+// ------------------------------------------------------------------------------------------------------------------------
+// dom func
+
 export const htmlOverflowYHidden = (trigger) => {
   document.body.style.overflowY = trigger ? 'hidden' : 'unset';
 };
+
+// ------------------------------------------------------------------------------------------------------------------------
+// variable func
+
+export const stringToKey = (str = null) => {
+  if (!str) return null;
+  return str.toLowerCase().replace(/[^a-z0-9]/gi, '-');
+};
+
+export const objRecUpdate = (
+  arr = null,
+  callback = (
+    key,
+    value,
+  ) => ({ [key]: value }),
+  parent = null,
+) => {
+  if (!arr) return arr;
+  return arr.map((item) => Object.keys(item).reduce((results, key) => {
+    if (key === 'children' && item[key] && Array.isArray(item[key])) {
+      return {
+        ...results,
+        [key]: objRecUpdate(item[key], callback, (parent || results.id)),
+      };
+    }
+    return {
+      ...results,
+      ...callback(key, item[key], parent),
+    };
+  }, {}));
+};
+
+export const objRecursive = (
+  arr = null,
+  callback = (
+    key,
+    value,
+  ) => ({ [key]: value }),
+  parent = null,
+) => {
+  if (!arr || (arr && !Array.isArray(arr))) {
+    return {
+      updated: null,
+      plain: {},
+      array: [],
+    };
+  }
+  const calculate = arr.reduce((items, item, index) => {
+    const itemKey = !parent ? `item[${index}].` : '';
+    let array = [];
+    let plains = {};
+    return {
+      updated: [
+        ...items.updated,
+        {
+          ...Object.keys(item).reduce((obj, key) => {
+            let plainKey = `${itemKey}children.`;
+            let results = { updated: [], plain: {}, array: [] };
+            results = objRecursive(item[key], callback, (parent || obj.id));
+            if (key !== 'children') {
+              plainKey = itemKey;
+              const call = callback(key, item[key], parent);
+              results.updated = call;
+              results.plain = call;
+            } else {
+              array = [...(results.updated || [])].map(child => {
+                const copyChild = { ...child };
+                delete copyChild.children;
+                return copyChild;
+              });
+            }
+            const { updated, plain } = results;
+            plains = {
+              ...plains,
+              ...Object.keys(plain).reduce((pItems, pkey) => ({ ...pItems, [`${plainKey}${pkey}`]: plain[pkey] }), {}), 
+            };
+            return {
+              ...obj,
+              ...(key === 'children' ? { children: updated } : updated),
+            };
+          }, {}),
+        },
+      ],
+      plain: { ...items.plain, ...plains },
+      array: [...items.array, ...array],
+    };
+  }, { updated: [], plain: {}, array: [] });
+
+  calculate.array = [...calculate.array, ...(calculate.updated || [])].map(child => {
+    const copyChild = { ...child };
+    delete copyChild.children;
+    return copyChild;
+  });
+  
+  return calculate;
+};
+
+// ------------------------------------------------------------------------------------------------------------------------
+// file func
 
 export const getBase64 = (file) => new Promise((resolve, reject) => {
   const reader = new FileReader();

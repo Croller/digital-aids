@@ -10,11 +10,10 @@ import {
   LogoWrapper,
   LogoText,
   FormStyled,
+  FormItemStyled,
   FormWrapper, InputStyled,
   ControlWrapper, Login, Signup,
 } from './styled';
-
-const FormItem = FormStyled.Item;
 
 const Auth = memo(() => {
   const rootDispatch = useDispatch();
@@ -48,7 +47,7 @@ const Auth = memo(() => {
           scrollToFirstError
         >
           <FormWrapper>
-            <FormItem
+            <FormItemStyled
               label={t('common.words.login')}
               name="login"
               rules={rule.login}
@@ -56,8 +55,8 @@ const Auth = memo(() => {
               <InputStyled
                 placeholder={t('common.form.text')}
               />
-            </FormItem>
-            <FormItem
+            </FormItemStyled>
+            <FormItemStyled
               label={t('common.words.password')}
               name="password"
               rules={rule.password}
@@ -66,19 +65,19 @@ const Auth = memo(() => {
                 type="password"
                 placeholder={t('common.form.text')}
               />
-            </FormItem>
+            </FormItemStyled>
           </FormWrapper>
           <ControlWrapper>
-            <FormItem>
+            <FormItemStyled>
               <Login type="primary" htmlType="submit" loading={loading}>
                 {t('common.auth.login')}
               </Login>
-            </FormItem>
-            <FormItem>
+            </FormItemStyled>
+            <FormItemStyled>
               <Signup path="/present">
                 {t('common.auth.signup')}
               </Signup>
-            </FormItem>
+            </FormItemStyled>
           </ControlWrapper>
         </FormStyled>
       </Container>

@@ -55,24 +55,10 @@ const UserController = () => {
   };
 
   const auth = async (req, res) => {
-    try {
-      const tokenData = await jwt.verifyToken(req, res);
-      if (tokenData) {
-        req.body = tokenData;
-        UserController().signin(req, res);
-      } else {
-        error.name = 'Token not valid';
-        error.code = 'tokenNotValid';
-        res.status(201);
-        res.json({ error });
-      }
-    } catch (err) {
-      error.name = 'Token not valid';
-      error.code = 'tokenNotValid';
-      error.text = JSON.stringify(err.message);
-      res.status(201);
-      res.json({ error });
-    }
+    const tokenData = await jwt.verifyToken(req, res);
+    if (!tokenData) return;
+    req.body = tokenData;
+    UserController().signin(req, res);
   };
 
   // const create = async (req, res) => {

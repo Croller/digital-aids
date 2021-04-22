@@ -11,26 +11,30 @@ require('dotenv').config({
   path: path.resolve('.env'),
 });
 
-const mappedRoutes = mapRoutes(routes, 'src/server/api/controllers/');
 const app = express();
 
-app.options('*', cors());
 app.use(cors());
+app.options('*', cors());
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
-app.use('/', mappedRoutes);
+
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Request-Method', '*');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Accept, Authorization, Origin');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+//   res.setHeader("Access-Control-Allow-Credentials", true);
+//   next();
+// });
+
+app.use('/', mapRoutes(routes, 'src/server/api/controllers/'));
 app.use('/dist', express.static(path.resolve('dist')));
 app.use('/static', express.static(path.resolve('src/server/static')));
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  next();
-});
 
 if (process.env.NODE_ENV === 'development') {
-  const server = app.listen(process.env.PORT_LOCAL_SERVER);
+  const server = app.listen(process.env.LOCAL_SERVER_PORT);
   server.setTimeout(5100);
 } else {
   const options = {
@@ -38,10 +42,10 @@ if (process.env.NODE_ENV === 'development') {
     cert: fs.readFileSync(path.resolve('src/server/cert/server.crt')),
   };
   const server = https.createServer(options, app);
-  server.listen(process.env.HOST_PORT_SERVER);
+  server.listen(process.env.HOST_SERVER_PORT);
 }
 
-console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.PORT_LOCAL_SERVER : process.env.HOST_PORT_SERVER}`);
+console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.LOCAL_SERVER_PORT : process.env.HOST_SERVER_PORT}`);
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));

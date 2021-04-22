@@ -1,16 +1,7 @@
 
--- CREATE SCHEMA triptrick;
+ALTER TABLE dictionary_language RENAME TO dictionary_languages;
 
 
--- ALTER TABLE data_monitoring ADD COLUMN is_finish boolean default false;
--- TRUNCATE description_data_monitoring CASCADE;
-
--- COPY description_data_monitoring(key, name, type, required, edit, system, dictionary)
--- FROM '/var/opt/app/src/server/database/csv/description_data_monitoring.csv'
--- DELIMITER ';'
--- CSV HEADER;
-
--- SELECT * FROM description_data_monitoring;
 
 
 
@@ -22,10 +13,19 @@
 -- DROP TABLE data_roles;
 -- DROP TABLE data_restaurants;
 -- DROP TABLE dictionary_currency;
--- DROP TABLE dictionary_language;
+-- DROP TABLE dictionary_languages;
 
 -- DROP TABLE data_socials;
 -- DROP TABLE data_work_time;
+
+
+
+
+
+
+
+
+
 
 -- TRUNCATE data_roles RESTART IDENTITY CASCADE;
 -- TRUNCATE data_users RESTART IDENTITY CASCADE;
@@ -38,7 +38,7 @@
 -- SELECT * FROM data_socials;
 -- SELECT * FROM data_work_time;
 -- SELECT * FROM dictionary_currency;
--- SELECT * FROM dictionary_language;
+-- SELECT * FROM dictionary_languages;
 
 
 -- INSERT INTO data_users (login, password, role, enter_at) VALUES ('view', 'view', '2', '2020-10-28T10:01:11.258')
@@ -65,6 +65,7 @@
 -- ALTER TABLE dictionary_monitoring_group RENAME TO dictionary_monitoring_group_data_monitoring;
 -- ALTER TABLE my_table ADD COLUMN the_geom_mercator geometry(Geometry,3857);
 -- ALTER TABLE data_krt DROP COLUMN IF EXISTS geom;
+
 -- alter table presales alter column code type numeric(10,0) using cast(code as numeric);
 
 -- INSERT INTO users (login, password, name, email)

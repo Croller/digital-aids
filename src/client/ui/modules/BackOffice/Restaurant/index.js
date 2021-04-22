@@ -38,7 +38,7 @@ const Restaurant = () => {
   const params = useParams();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const [isChange, setIsChnage] = useState(false);
+  const [isChange, setIsChange] = useState(false);
   const [loadFiles, setLoadFiles] = useState(true);
   const [formData, setFormData] = useState(null);
   const [deletedFiles, setDeletedFiles] = useState(null);
@@ -79,10 +79,10 @@ const Restaurant = () => {
     const edited = dataToApi({ ...formData, ...values }, { ...model, id: params.restaurant !== 'new' ? params.restaurant : null });
     rootDispatch(update({ name: 'data_restaurants', data: edited }));
     deletedFiles && rootDispatch(deleteFiles({ data: deletedFiles }));
-    setIsChnage(false);
+    setIsChange(false);
   };
 
-  const handleDelete = (obj) => {
+  const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_restaurants', data: { id: params.restaurant, ...obj } }));
     handleRoute('/back-office/restaurants');
   };
@@ -114,7 +114,7 @@ const Restaurant = () => {
       });
     }
     
-    setIsChnage(true);
+    setIsChange(true);
   };
 
   const handleUpload = (key, files, deleted = null) => {
@@ -130,7 +130,7 @@ const Restaurant = () => {
       setDeletedFiles([...(deletedFiles || []), `/restaurants/${key}/${deleted.uuid}.png`]);
     }
     setFormData({ ...formData, images: (list.slice(1).length > 0 || list[0] ? list : null) });
-    setIsChnage(true);
+    setIsChange(true);
   };
 
   useEffect(() => {
@@ -156,7 +156,7 @@ const Restaurant = () => {
     <RestaurantWrapper>
       <NavBarStyled
         settings={{ delete: params.restautant !== 'new' }}
-        onEvent={handleDelete}
+        onEvent={handleEvent}
       />
       <FormStyled
         form={form}
@@ -346,7 +346,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.select')}
                 optionFilterProp="label"
               >
-                {dictionary && (dictionary.language || []).filter(f => f.id !== 'en').map(({ id, name }, i) => (
+                {dictionary && (dictionary.languages || []).filter(f => f.id !== 'en').map(({ id, name }, i) => (
                   <OptionStyled
                     key={`_language_${i + 1}`}
                     value={id}
@@ -373,7 +373,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.select')}
                 optionFilterProp="label"
               >
-                {dictionary && (dictionary.language || []).map(({ id, name }, i) => (
+                {dictionary && (dictionary.languages || []).map(({ id, name }, i) => (
                   <OptionStyled
                     key={`_sub_language_${i + 1}`}
                     value={id}
@@ -417,7 +417,7 @@ const Restaurant = () => {
                     />
                   </FormItemStyled>
                   <FormItemStyled
-                    label={t('common.words.photos')}
+                    label={`${t('common.words.restaurant')} ${t('common.words.photos')}`}
                     name="photos"
                   >
                     <UploaderPhotos

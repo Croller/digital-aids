@@ -1,3 +1,5 @@
+import { stringToKey } from 'client/utils/common';
+
 export const dataToForm = (data) => {
   const { 
     id,
@@ -56,7 +58,8 @@ export const dataToApi = (data, current) => {
 
   const images = data.images && data.images
     .reduce((arr, file, i) => {
-      if (!file) return [...arr, file];
+      if (!file && i === 0) return [...arr, file];
+      if (!file && i > 0) return arr;
       return [...arr, {
         base64: file.base64,
         uuid: file.uuid,
@@ -67,7 +70,7 @@ export const dataToApi = (data, current) => {
   return {
     id: id || current.id,
     name,
-    translate: (name || '').replace(/[^a-z0-9]/gi, '-').toLowerCase(),
+    key: (stringToKey(name) || ''),
     address,
     email,
     opinion,
@@ -105,8 +108,8 @@ export const dataToApi = (data, current) => {
 
 export const model = {
   id: null,
+  key: 'las-ceuvas',
   name: 'Las ceuvas',
-  translate: '343434',
   address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
   email: ['robert@lascuevas.es'],
   opinion: 'robert@lascuevas.es',

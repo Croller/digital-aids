@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const db = require('./db');
+const commonUtils = require('../utils/common');
 
 const signature = process.env.SERVER_AUTH_SECRET;
 const expiration = process.env.SERVER_AUTH_TIME;
@@ -21,17 +22,17 @@ module.exports = {
   },
 
   getToken: (req) => {
-    const { headers: { authorization } } = req;
-    if (authorization && authorization.split(' ')[0] === 'Bearer') {
-      return jwt.verify(authorization.split(' ')[1], signature);
+    const { authorization } = commonUtils.getHeader(req);
+    if (authorization) {
+      return jwt.verify(authorization, signature);
     }
     return null;
   },
 
   verifyToken: async (req, res) => {
-    const { headers: { authorization } } = req;
-    if (authorization && authorization.split(' ')[0] === 'Bearer') {
-      const data = jwt.verify(authorization.split(' ')[1], signature);
+    const { authorization } = commonUtils.getHeader(req);
+    if (authorization) {
+      const data = jwt.verify(authorization, signature);
       if (data) {
         const { login, password } = data;
         const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
@@ -54,4 +55,14 @@ module.exports = {
     res.json({ error });
     return null;
   },
+  
+  verifyRoles: (req, res, userRoles, roles) => {
+    if (userRoles.some(r => roles.includes(r))) {
+      return true;
+    } 
+    error.name = 'Token not exist';
+    error.code = 'tokenNotExist';
+    res.json({ error });
+    return null;
+  }, 
 };

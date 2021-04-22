@@ -11,9 +11,9 @@ let query = '';
 let values = [];
 
 module.exports = {
-
-  updateRowAndUser: async (table, data, params) => {
-    const { res, tokenData: { login, password, restaurants } } = params;
+  updateTableRecord: async (table, data, params) => {
+    const { res, user } = params;
+    const { login, password, restaurants } = user;
     try {
       const mapper = Object.keys(data).filter(f => f !== 'id').reduce((obj, key) => {
         if (key === 'images') {

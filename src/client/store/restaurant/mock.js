@@ -3,9 +3,9 @@ export const categoriesMock = [
     id: 1,
     key: 'dailymenu',
     name: 'Daily Menu',
-    dailymenu: true,
+    dailymenu: true, // renamed to type_categories key
     dishes: null,
-    offers: [2001],
+    offers: [2001], // deleted
     check_age: false,
     options: {
       price: 10.00,

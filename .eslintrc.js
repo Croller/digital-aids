@@ -61,13 +61,4 @@ module.exports = {
     'camelcase': 0,
     'no-restricted-globals': 0,
   },
-  globals: {
-    _HOST: 'readonly',
-    _PROTOCOL: 'readonly',
-    _WEBSOCKET_PORT: 'readonly',
-    _WEBSOCKET_PROTOCOL: 'readonly',
-    _PLATFORM: 'readonly',
-    _BACK_SERVER: 'readonly',
-    _DOMAIN_NAME: 'readonly',
-  },
 };

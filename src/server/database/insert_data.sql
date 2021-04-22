@@ -12,10 +12,6 @@ INSERT INTO data_users (login, password, surname, name, middlename, birthdate, p
 ('user', 'user2021', 'user', 'user', 'user', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{4, 5}'),
 ('guest', 'guest2021', 'guest', 'guest', 'guest', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{5}');
 
--- INSERT INTO data_restaurants (id, name) VALUES 
--- ('9cff0e3a-97b4-11eb-ab14-fa163ecfa01f', 'test');
-
-
 
 
 SELECT * FROM data_roles;

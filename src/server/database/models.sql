@@ -12,7 +12,7 @@ CREATE TABLE data_users (
   birthdate timestamp with time zone DEFAULT null,
   phone bigint array DEFAULT null,
   email varchar array DEFAULT null,
-  language varchar DEFAULT 'en', -- DICTIONARY dictionary_language
+  language varchar DEFAULT 'en', -- DICTIONARY dictionary_languages
   roles int array DEFAULT null, -- DICTIONARY data_roles
   restaurants varchar ARRAY DEFAULT null, -- DICTIONARY data_restaurant
   enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
@@ -35,18 +35,18 @@ CREATE TABLE data_roles (
 
 CREATE TABLE data_restaurants (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  name VARCHAR DEFAULT null, -- REQUIRED
-  translate VARCHAR DEFAULT null, -- REQUIRED
+  key VARCHAR DEFAULT null,
+  name VARCHAR DEFAULT null,
   address VARCHAR DEFAULT null,
   email VARCHAR ARRAY DEFAULT null,
-  website VARCHAR DEFAULT null,
+  website VARCHAR ARRAY DEFAULT null,
   opinion VARCHAR DEFAULT null,
   phone VARCHAR ARRAY DEFAULT null,
   currency VARCHAR ARRAY DEFAULT '{"EUR"}', -- DICTIONARY dictionary_currency
   cuisine VARCHAR ARRAY DEFAULT null,
   employees VARCHAR ARRAY DEFAULT null,
   avg_price FLOAT DEFAULT 0.00,
-  languages VARCHAR ARRAY DEFAULT '{null, "en"}', -- DICTIONARY dictionary_language
+  languages VARCHAR ARRAY DEFAULT '{null, "en"}', -- DICTIONARY dictionary_languages
   images VARCHAR ARRAY DEFAULT null,
   socials jsonb DEFAULT '{"thefork":{"rate":null,"url":null},"tripadviser":{"rate":null,"url":null},"facebook":{"rate":null,"url":null},"instagram":{"rate":null,"url":null}}',
   work_time jsonb DEFAULT '{"description":null,"mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
@@ -54,6 +54,28 @@ CREATE TABLE data_restaurants (
   is_archived boolean DEFAULT FALSE,
   is_deleted boolean DEFAULT FALSE
 );
+
+CREATE TABLE data_dishes (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  key VARCHAR DEFAULT null,
+  name VARCHAR DEFAULT null,
+  description VARCHAR DEFAULT null,
+  cuisine VARCHAR ARRAY DEFAULT null,
+  allergens VARCHAR ARRAY DEFAULT null,
+  images VARCHAR ARRAY DEFAULT null,
+  price jsonb DEFAULT '{"amount": "1", "cost": "0.00", "volume": "0", "unit": null}',
+  is_archived boolean DEFAULT FALSE,
+  is_deleted boolean DEFAULT FALSE
+);
+
+CREATE TABLE data_dishes_languages (
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  parent VARCHAR NOT NULL,
+  name VARCHAR DEFAULT null,
+  description VARCHAR DEFAULT null,
+  price jsonb DEFAULT '{"amount": "1", "cost": "0.00", "volume": "0", "unit": null}',
+);
+
 
 CREATE TABLE dictionary_currency (
   id VARCHAR DEFAULT null,
@@ -63,12 +85,20 @@ CREATE TABLE dictionary_currency (
   symbol VARCHAR DEFAULT null
 );
 
-CREATE TABLE dictionary_language (
+CREATE TABLE dictionary_languages (
   id VARCHAR DEFAULT null,
   name VARCHAR DEFAULT null,
   fullname VARCHAR DEFAULT null,
   description VARCHAR DEFAULT null
 );
+
+CREATE TABLE dictionary_type_categories (
+  id VARCHAR DEFAULT null,
+  name VARCHAR DEFAULT null,
+  fullname VARCHAR DEFAULT null,
+  description VARCHAR DEFAULT null
+);
+
 
 
 

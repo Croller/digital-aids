@@ -3,6 +3,7 @@ import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { Button } from 'client/ui/components/_ui/Button';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
+import { Dish } from '../components/Dish';
 
 const listStyle = css`
   display: flex;
@@ -12,7 +13,6 @@ const listStyle = css`
 
 const buttonStyle = css`
   height: 58px;
-  min-width: 210px;
   background-color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey26}`)};
   color: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black1}`)};
   text-transform: uppercase;
@@ -92,26 +92,33 @@ export const CreateDaily = styled(Button)`
 export const ListLng = styled.div`
   ${listStyle}
 
+  flex-wrap: wrap;
   margin-bottom: 18px;
 `;
 
 export const Lng = styled(Button)`
   ${buttonStyle}
 
-  min-width: 133px;
+  width: auto;
   margin-right: 22px;
   margin-bottom: 22px;
+  padding: 0 12px;
+
+  &:first-child {
+    width: 163px;
+  }
 `;
 
 export const ListCategory = styled.div`
-${listStyle}
+  ${listStyle}
 
-margin-bottom: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
 `;
 
 export const Caterory = styled(Button)`
   height: 38px;
-  min-width: 48px;
+  width: auto;
   background-color: transparent;
   color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey12}`)};
   border-radius: unset;
@@ -121,12 +128,14 @@ export const Caterory = styled(Button)`
   font-size: 16px;
   margin-right: 22px;
   margin-bottom: 14px;
+  padding: 0 12px;
   align-items: flex-start;
+  word-wrap: normal;
 `;
 
 export const NewCaterory = styled(Button)`
   height: 38px;
-  min-width: 48px;
+  width: auto;
   background-color: transparent;
   color: ${PALETTE.green1};
   text-transform: uppercase;
@@ -147,16 +156,18 @@ export const NewCaterory = styled(Button)`
 
 export const DishControls = styled.div`
   ${listStyle}
+
+  margin-bottom: 32px;
 `;
 
-export const AddDish = styled(Button)`
-  height: 58px;
-  width: 194px;
+export const NewDish = styled(Button)`
+  height: 46px;
+  width: 184px;
   color: ${PALETTE.white};
   background-color: ${PALETTE.green1};
   text-transform: uppercase;
   font-family: ${FONTS.semiBold};
-  font-size: 18px;
+  font-size: 16px;
   border-radius: ${THEME.borderRadiusL};
 
   > svg {
@@ -171,8 +182,8 @@ export const AddDish = styled(Button)`
 `;
 
 export const ArchiveBtn = styled(Button)`
-  height: 58px;
-  min-width: 171px;
+  height: 46px;
+  width: 175px;
   font-size: 14px;
   font-family: ${FONTS.medium};
   color: ${PALETTE.black1};
@@ -192,17 +203,15 @@ export const ArchiveBtn = styled(Button)`
   }
 `;
 
-// min-width: 136px;
-//   background-color: ${PALETTE.grey26};
-//   font-size: 14px;
-//   font-family: ${FONTS.medium};
+export const DishList = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  margin-bottom: 48px;
+`;
 
-//   > svg {
-//     width: 19px;
-//     height: 19px;
-//     margin-right: 7px;
-
-//     path {
-//       fill: ${PALETTE.black1};
-//     }
-//   }
+export const DishStyled = styled(Dish)`
+  &:not(:last-child) {
+    margin-bottom: 22px;
+  }
+`;

@@ -109,7 +109,7 @@ INSERT INTO dictionary_currency (id, name, symbol) VALUES
   -- ('YER', 'Yemen Rial', '﷼'),
   -- ('ZWD', 'Zimbabwe Dollar', 'Z$');
 
-INSERT INTO dictionary_language (id, name) VALUES
+INSERT INTO dictionary_languages (id, name) VALUES
   ('en', 'English'),
   ('es', 'Spanish'),
   ('el', 'Greek'),
@@ -294,6 +294,11 @@ INSERT INTO dictionary_language (id, name) VALUES
   -- ('yo', 'Yoruba'),
   -- ('za', 'Zhuang, Chuang');
 
+INSERT INTO dictionary_type_categories (id, name) VALUES
+  ('default', 'Default'),
+  ('daily', 'Daily'),
+  ('alcohol', 'Alcohol');
 
 SELECT * FROM dictionary_currency;
-SELECT * FROM dictionary_language;
+SELECT * FROM dictionary_languages;
+SELECT * FROM dictionary_type_categories;

@@ -41,11 +41,10 @@ export const UploadStyled = styled(Upload)`
     border: 1px solid ${PALETTE.grey27};
     border-radius: ${THEME.borderRadiusL};
     margin: 0;
-    margin-bottom: 22px;
 
     &:last-child {
       width: 100%;
-      height: 180px;
+      min-height: 180px;
     }
 
     &:hover {

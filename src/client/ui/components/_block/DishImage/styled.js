@@ -49,6 +49,7 @@ export const Description = styled.p`
   font-family: ${FONTS.regular};
   margin: 0;
   margin-bottom: 22px;
+  white-space: pre-line;
 `;
 
 export const InfoWrapper = styled.div`

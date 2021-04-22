@@ -3,7 +3,7 @@ const { Client } = require('pg');
 const CONFIG = {
   user: process.env.HOST_DB_USER,
   password: process.env.HOST_DB_PASSWORD,
-  host: process.env.HOST,
+  host: process.env.HOST_DB_IP,
   port: Number(process.env.HOST_DB_PORT),
   database: process.env.HOST_DB_DATABASE,
 };
@@ -11,7 +11,7 @@ const CONFIG = {
 if (process.env.NODE_ENV === 'production') {
   CONFIG.user = process.env.LOCAL_DB_USER;
   CONFIG.password = process.env.LOCAL_DB_PASSWORD;
-  CONFIG.host = process.env.LOCAL_DB_HOST;
+  CONFIG.host = process.env.LOCAL_DB_IP;
   CONFIG.port = Number(process.env.LOCAL_DB_PORT);
   CONFIG.database = process.env.LOCAL_DB_DATABASE;
 }

@@ -23,7 +23,7 @@ const configButton = css`
   }
 `;
 
-export const NavBarRestaurant = styled.div`
+export const NavBarWrapper = styled.div`
   height: 58px;
   display: flex;
   justify-content: space-between;

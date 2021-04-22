@@ -7,7 +7,6 @@ export const Wrapper = styled.div`
 
 export const Cotainer = styled.div`
   display: block;
-  height: 100%;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: auto;
@@ -20,12 +19,10 @@ export const Content = styled.div`
   margin-left: ${p => (p.sidebar ? '245px' : '0')};
   display: flex;
   justify-content: center;
-  height: inherit;
 `;
 
 export const Block = styled.div`
-  position: relative;
   width: 100%;
   max-width: 1195;
-  padding: 30px 36px 0 22px;
+  padding: 30px 36px 30px 22px;
 `;
