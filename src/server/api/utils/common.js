@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const staticPath = 'src/server/static';
+const staticPath = process.env.SERVER_FILES_STORAGE;
 
 module.exports = {
   nodeEnv: () => {
@@ -32,7 +32,10 @@ module.exports = {
   }),
   writeFile: async (url, data) => new Promise((resolve, reject) => {
     try {
-      const base64Data = data.replace(/^data:image\/png;base64,/, '');
+      const ext = data.substring(data.indexOf('/') + 1, data.indexOf(';base64'));
+      const fileType = data.substring('data:'.length, data.indexOf('/'));
+      const regex = new RegExp(`^data:${fileType}\/${ext};base64,`, 'gi');
+      const base64Data = data.replace(regex, '');
       fs.writeFileSync(path.resolve(`${staticPath}${url}`), base64Data, 'base64');
       resolve();
     } catch (err) {

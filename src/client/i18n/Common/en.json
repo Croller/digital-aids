@@ -124,7 +124,8 @@
 
 
   "errorCode": {
-    "queryError": "DataBase query error",
+    "serverError": "Server error",
+    "queryError": "Data base query error",
     "userNotFound": "User not found",
     "tokenNotValid": "Token not valid",
     "tokenNotExist": "Token not exist",

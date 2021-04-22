@@ -4,6 +4,12 @@ const db = require('./db');
 const signature = process.env.SERVER_AUTH_SECRET;
 const expiration = process.env.SERVER_AUTH_TIME;
 
+const error = {
+  code: 0,
+  name: '',
+  text: '',
+};
+
 module.exports = {
   generateToken: (user) => {
     const obj = {
@@ -22,7 +28,7 @@ module.exports = {
     return null;
   },
 
-  verifyToken: async (req) => {
+  verifyToken: async (req, res) => {
     const { headers: { authorization } } = req;
     if (authorization && authorization.split(' ')[0] === 'Bearer') {
       const data = jwt.verify(authorization.split(' ')[1], signature);
@@ -33,10 +39,19 @@ module.exports = {
           const user = result.rows[0];
           return user;
         }
+        error.name = 'User not found';
+        error.code = 'userNotFound';
+        res.json({ error });
         return null;
-      }
+      } 
+      error.name = 'Token not valid';
+      error.code = 'tokenNotValid';
+      res.json({ error });
       return null;
-    }
+    } 
+    error.name = 'Token not exist';
+    error.code = 'tokenNotExist';
+    res.json({ error });
     return null;
   },
 };
