@@ -4,6 +4,7 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { update, deleteFiles } from 'client/store/backOffice';
+import { categoryType } from 'client/utils/constants';
 import { getCategoryTemp } from 'client/utils/restaurant';
 import {
   AlertCircleSvg,
@@ -42,7 +43,9 @@ const Category = () => {
   const rootDispatch = useDispatch();
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState(null);
-  const [dishCategory, setDishCategory] = useState([]);
+  const [restSubCategory, setRestSubCategory] = useState(null);
+  const [restSubCategoryActive, setRestSubCategoryActive] = useState(null);
+  const [dishCategory, setDishCategory] = useState(null);
   const {
     restaurants,
     categories,
@@ -52,34 +55,40 @@ const Category = () => {
     loading,
   } = useSelector(state => state.backOffice);
 
-  console.log(restaurants,
-    categories,
-    dishes,
-    dictionary,
-    status,
-    loading);
+  // console.log(restaurants,
+  //   categories,
+  //   dishes,
+  //   dictionary,
+  //   status,
+  //   loading);
 
   const init = () => {
     let categoryFilter = null;
-    let dishesFilter = [];
+    let categorySubFilter = null;
+    let categoryDishFilter = null;
 
     if (restaurants) {
       const rest = restaurants.find(f => f.id === params.restaurant);
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
 
-      if (categories) {
-        categoryFilter = categories.filter(f => f.parent === params.restaurant);
-        
-        if (dishes) {
-          const categoryCurrent = categoryFilter.filter(f => f.id === params.category);
-          dishesFilter = dishes.filter(f => categoryCurrent.dishes.includes(f.id));
-        }
-      } else {
-        console.log(getCategoryTemp());
-        categoryFilter = getCategoryTemp();
-      }
+      const categoryGroup = [...(categories ? categories.filter(f => f.parent === params.restaurant) : getCategoryTemp())].filter(f => !['foodtips', 'specialDeals'].includes(f.type));
+      categoryFilter = [
+        {
+          id: 'menu',
+          name: 'Menu',
+          key: 'menu',
+          type: 'menu',
+          children: categoryGroup.filter(f => f.type !== 'daily'),
+        },
+        ...categoryGroup.filter(f => f.type === 'daily'),
+      ];
 
-      setDishCategory(dishesFilter);
+      categorySubFilter = categoryFilter[0].children;
+      categoryDishFilter = [...(dishes || [])].filter(f => f.parent === categoryFilter[0].id);
+
+      setDishCategory(categoryDishFilter);
+      setRestSubCategoryActive(categorySubFilter[0].id);
+      setRestSubCategory(categorySubFilter);
       setRestCategory(categoryFilter);
       setRestInfo(rest);
     }
@@ -108,22 +117,33 @@ const Category = () => {
       paths[index + 1] = id;
       path = paths.join('/');
     }
-    console.log(key, id);
-    console.log(path);
     history.push(path);
+  };
+
+  const handleFilterCategory = (id) => {
+    const category = restCategory.find(f => f.id === id);
+    const children = category ? category.children : null;
+    setRestSubCategory(children);
+    setRestSubCategoryActive(children ? children[0].id : null);
+    handleRoute('category', id);
+  };
+
+  const handleFilterDishes = (id) => {
+    setRestSubCategoryActive(id);
+    // setDishCategory(restSubCategory.filter(f => f.id === id));
   };
 
   const handleEditCategory = (options = null) => {
     // if (options)
-    setCategoryNew(options || {
-      id: null,
-      parent: null,
-      restaurant: restInfo.id,
-      key: '',
-      name: 'New category',
-      description: '',
-    });
-    handleRoute('lng', 'en');
+    // setCategoryNew(options || {
+    //   id: null,
+    //   parent: null,
+    //   restaurant: restInfo.id,
+    //   key: '',
+    //   name: 'New category',
+    //   description: '',
+    // });
+    // handleRoute('lng', 'en');
   };
 
   const handleCreateDish = () => {
@@ -143,8 +163,10 @@ const Category = () => {
   };
 
   useEffect(() => {
-    init();
-  }, [restaurants, categories, pathname]);
+    if (!restInfo || !restCategory || !dishCategory) {
+      init();
+    }
+  }, [restaurants, categories, pathname, dictionary]);
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -162,19 +184,13 @@ const Category = () => {
           {!isTipsDeals && (
             <MenuControl>
               <ListMenu>
-                <MenuBtn
-                  active={params.category === 'default'}
-                  onClick={() => handleRoute('category', 'default')}
-                >
-                  <MenuSvg />
-                  {t('common.words.menu')}
-                </MenuBtn>
-                {restCategory.filter(f => f.dailymenu).map(({ id, name }) => (
+                {restCategory && restCategory.map(({ id, name, key }) => (
                   <MenuBtn
                     key={`_category_${id}`}
                     active={id === params.category}
-                    onClick={() => handleRoute('category', id)}
+                    onClick={() => handleFilterCategory(id)}
                   >
+                    {key === 'menu' && (<MenuSvg />)}
                     {name}
                   </MenuBtn>
                 ))}
@@ -203,11 +219,11 @@ const Category = () => {
       </ListLng>
       {!isTipsDeals && (
         <ListCategory>
-          {restCategory.map(({ id, name }) => (
+          {restSubCategory && restSubCategory.map(({ id, name }) => (
             <Caterory
               key={`_category_${id}`}
-              active={id === params.category}
-              onClick={() => handleRoute('category', id)}
+              active={id === restSubCategoryActive}
+              onClick={() => handleFilterDishes(id)}
             >
               {name}
             </Caterory>

@@ -38,7 +38,7 @@ export const objRecursive = (
     if (key === 'children' && item[key] && Array.isArray(item[key])) {
       return {
         ...results,
-        [key]: objRecursive(item[key], callback, (parent || results.id)),
+        [key]: objRecursive(item[key], callback, (parent || results)),
       };
     }
     return {

@@ -60,9 +60,9 @@ CREATE TABLE IF NOT EXISTS data_categories (
   parent VARCHAR NOT NULL,
   restaurant VARCHAR NOT NULL,
   key VARCHAR DEFAULT NULL,
+  type VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
-  type_categories VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_type_categories
   cuisine VARCHAR ARRAY DEFAULT NULL,
   dishes VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY data_dishes
   images VARCHAR ARRAY DEFAULT NULL,

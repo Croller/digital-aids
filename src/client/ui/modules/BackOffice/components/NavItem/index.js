@@ -16,7 +16,7 @@ const NAV_CONFIG = [
   {
     key: 'menu',
     icon: (<MenuSvg />),
-    path: '/back-office/restaurant/:restaurant/language/en/category/default/dishes',
+    path: '/back-office/restaurant/:restaurant/language/en/category/menu/dishes',
     part: '/dishes',
   },
   {

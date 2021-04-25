@@ -21,8 +21,7 @@ export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, 
       id: uuidv4(),
       [key]: value,
       key: stringToKey(value),
-      dishes: [],
-      parent,
+      parent: (parent && parent.id) || null,
     };
   }
   return { [key]: value };

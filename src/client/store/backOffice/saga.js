@@ -90,7 +90,6 @@ function* getTables({ payload }) {
     'dictionary_units',
     'dictionary_allergens',
     'dictionary_dictionary_languages',
-    'dictionary_type_categories',
   ];
   if (roles.includes(1)) {
     names.push('data_restaurants');
