@@ -4,35 +4,38 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { update, deleteFiles } from 'client/store/backOffice';
-import { categoryType } from 'client/utils/constants';
 import { getCategoryTemp } from 'client/utils/restaurant';
+import { v4 as uuidv4 } from 'uuid';
 import {
   AlertCircleSvg,
   ArchiveSvg,
-  MenuSvg,
+  EditSvg,
   PlusSvg,
 } from 'client/assets/images';
 import { 
   // CategoryEdit,
   // NavBarStyled,
   // RestaurantInfoStyled,
-  CategoryEdit,
+  CategoryEditWrapper,
   NavBarStyled,
   RestaurantInfoStyled,
   ListMenu,
   MenuControl,
   ListControls,
   MenuBtn,
-  CreateDaily,
+  Control,
   ListLng,
   Lng,
+  CategoryWrapper,
   ListCategory,
+  CategoryEdit,
   Caterory,
   NewCaterory,
+  CateroryFormStyled,
   DishControls,
   NewDish,
   ArchiveBtn,
-  DishList, DishStyled,
+  DishList, DishFormStyled,
 } from './styled';
 
 const Category = () => {
@@ -43,6 +46,8 @@ const Category = () => {
   const rootDispatch = useDispatch();
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState(null);
+  const [restCategoryActive, setRestCategoryActive] = useState(null);
+  const [restCategoryNew, setRestCategoryNew] = useState(null);
   const [restSubCategory, setRestSubCategory] = useState(null);
   const [restSubCategoryActive, setRestSubCategoryActive] = useState(null);
   const [dishCategory, setDishCategory] = useState(null);
@@ -71,26 +76,19 @@ const Category = () => {
       const rest = restaurants.find(f => f.id === params.restaurant);
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
 
-      const categoryGroup = [...(categories ? categories.filter(f => f.parent === params.restaurant) : getCategoryTemp())].filter(f => !['foodtips', 'specialDeals'].includes(f.type));
-      categoryFilter = [
-        {
-          id: 'menu',
-          name: 'Menu',
-          key: 'menu',
-          type: 'menu',
-          children: categoryGroup.filter(f => f.type !== 'daily'),
-        },
-        ...categoryGroup.filter(f => f.type === 'daily'),
-      ];
-
+      categoryFilter = [...(categories ? categories.filter(f => f.parent === params.restaurant) : getCategoryTemp())].filter(f => !['foodtips', 'specialDeals'].includes(f.type));
+      
       categorySubFilter = categoryFilter[0].children;
       categoryDishFilter = [...(dishes || [])].filter(f => f.parent === categoryFilter[0].id);
 
       setDishCategory(categoryDishFilter);
       setRestSubCategoryActive(categorySubFilter[0].id);
       setRestSubCategory(categorySubFilter);
+
+      setRestCategoryActive(categoryFilter[0]);
       setRestCategory(categoryFilter);
       setRestInfo(rest);
+      console.log('categoryFilter', categoryFilter);
     }
   };
 
@@ -120,33 +118,49 @@ const Category = () => {
     history.push(path);
   };
 
-  const handleFilterCategory = (id) => {
-    const category = restCategory.find(f => f.id === id);
-    const children = category ? category.children : null;
-    setRestSubCategory(children);
-    setRestSubCategoryActive(children ? children[0].id : null);
-    handleRoute('category', id);
+  const handleFilterCategory = (obj) => {
+    setRestCategoryActive(obj);
+    setRestSubCategory(obj.children);
   };
 
-  const handleFilterDishes = (id) => {
-    setRestSubCategoryActive(id);
-    // setDishCategory(restSubCategory.filter(f => f.id === id));
+  const handleEditCategory = () => {
+    setDishCategory(dishCategory.filter(f => f));
+    setRestCategoryNew({});
+    handleRoute('language', 'en');
+  };
+  
+  const handleChangeCategory = (obj = null) => {
+    let arr = restCategory;
+    if (!obj) return;
+    if (!obj.id) {
+      arr = [...restCategory, { ...obj, id: uuidv4() }];
+    } else {
+      arr = restCategory.map((category) => {
+        if (category.id === obj.id) {
+          return {
+            ...category,
+            ...obj,
+          };
+        }
+        return category;
+      });
+    }
+    console.log(arr);
+    setRestCategory(arr);
+    setRestCategoryNew(null);
   };
 
-  const handleEditCategory = (options = null) => {
-    // if (options)
-    // setCategoryNew(options || {
-    //   id: null,
-    //   parent: null,
-    //   restaurant: restInfo.id,
-    //   key: '',
-    //   name: 'New category',
-    //   description: '',
-    // });
-    // handleRoute('lng', 'en');
+  const handleDeleteCategory = (obj = null) => {
+    if (obj) {
+      const filtred = restCategory.filter(f => f.id !== obj.id);
+      setRestCategory(filtred);
+      setRestCategoryActive(filtred[0] || null);
+    }
+    setRestCategoryNew(null);
   };
 
   const handleCreateDish = () => {
+    setRestCategoryNew(null);
     setDishCategory([null, ...dishCategory]);
   };
 
@@ -174,7 +188,7 @@ const Category = () => {
   }, []);
 
   return restInfo && restCategory && (
-    <CategoryEdit>
+    <CategoryEditWrapper>
       {['/dishes/archive', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && (
         <NavBarStyled />
       )}
@@ -183,7 +197,7 @@ const Category = () => {
           <RestaurantInfoStyled {...restInfo} />
           {!isTipsDeals && (
             <MenuControl>
-              <ListMenu>
+              {/* <ListMenu>
                 {restCategory && restCategory.map(({ id, name, key }) => (
                   <MenuBtn
                     key={`_category_${id}`}
@@ -194,12 +208,12 @@ const Category = () => {
                     {name}
                   </MenuBtn>
                 ))}
-              </ListMenu>
+              </ListMenu> */}
               <ListControls>
-                <CreateDaily>
+                <Control>
                   {t('common.words.dailyTempCreate')}
                   <PlusSvg />
-                </CreateDaily>
+                </Control>
               </ListControls>
             </MenuControl>
           )}
@@ -218,23 +232,38 @@ const Category = () => {
         ))}
       </ListLng>
       {!isTipsDeals && (
-        <ListCategory>
-          {restSubCategory && restSubCategory.map(({ id, name }) => (
-            <Caterory
-              key={`_category_${id}`}
-              active={id === restSubCategoryActive}
-              onClick={() => handleFilterDishes(id)}
-            >
-              {name}
-            </Caterory>
-          ))}
-          {!isArchive && (
-            <NewCaterory onClick={handleEditCategory}>
-              {t('common.words.newCategory')}
-              <PlusSvg />
-            </NewCaterory>
+        <CategoryWrapper>
+          <ListCategory>
+            {restCategory && restCategory.map((item) => (
+              <Caterory
+                key={`_category_${item.id}`}
+                active={!restCategoryNew && restCategoryActive && item.id === restCategoryActive.id}
+                onClick={() => !restCategoryNew && handleFilterCategory(item)}
+              >
+                {item.name}
+              </Caterory>
+            ))}
+            {!isArchive && !restCategoryNew && (
+              <NewCaterory onClick={handleEditCategory}>
+                {t('common.words.newCategory')}
+                <PlusSvg />
+              </NewCaterory>
+            )}
+          </ListCategory>
+          {!restCategoryNew && (
+            <CategoryEdit onClick={() => setRestCategoryNew(restCategoryActive)}>
+              <EditSvg />
+            </CategoryEdit>
           )}
-        </ListCategory>
+        </CategoryWrapper>
+      )}
+      {restCategoryNew && (
+        <CateroryFormStyled 
+          source={restCategoryNew}
+          onSave={handleChangeCategory}
+          onDelete={handleDeleteCategory}
+          onClose={() => setRestCategoryNew(null)}
+        />
       )}
       {/* {isTipsDeals ? (
         <InfoSystem>
@@ -258,7 +287,7 @@ const Category = () => {
       )}
       <DishList>
         {dishCategory && dishCategory.map((dish) => (
-          <DishStyled
+          <DishFormStyled
             key={`_dish_${dish ? dish.id : 'new'}`}
             dish={dish}
             loading={loading}
@@ -268,7 +297,7 @@ const Category = () => {
           />
         ))}
       </DishList>
-    </CategoryEdit>
+    </CategoryEditWrapper>
   );
 };
 

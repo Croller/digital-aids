@@ -55,7 +55,11 @@
     "dailyTempCreate": "Daily menu template",
     "allergens": "Allergens",
     "weight": "Weight",
-    "price": "Price"
+    "price": "Price",
+    "type": "Type",
+    "info": "Info",
+    "descriptions": "Descriptions",
+    "group": "Group"
   },
 
   "form" : {
@@ -63,8 +67,8 @@
     "number": "number",
     "select": "select",
     "link": "link",
-    "numberExample": "00",
-    "floatExample": "00.0",
+    "numberExample": "0",
+    "floatExample": "0.00",
 
 
     "validation": {

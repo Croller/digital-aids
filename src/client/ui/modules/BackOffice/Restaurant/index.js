@@ -75,16 +75,16 @@ const Restaurant = () => {
     history.push(key);
   };
 
+  const handleEvent = (obj) => {
+    rootDispatch(update({ name: 'data_restaurants', data: { id: params.restaurant, ...obj } }));
+    handleRoute('/back-office/restaurants');
+  };
+
   const handleFinish = (values) => {
     const edited = dataToApi({ ...formData, ...values }, { ...model, id: params.restaurant !== 'new' ? params.restaurant : null });
     rootDispatch(update({ name: 'data_restaurants', data: edited }));
     deletedFiles && rootDispatch(deleteFiles({ data: deletedFiles }));
     setIsChange(false);
-  };
-
-  const handleEvent = (obj) => {
-    rootDispatch(update({ name: 'data_restaurants', data: { id: params.restaurant, ...obj } }));
-    handleRoute('/back-office/restaurants');
   };
 
   const handleFinishFailed = ({ errorFields }) => {

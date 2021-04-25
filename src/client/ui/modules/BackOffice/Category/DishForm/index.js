@@ -15,7 +15,7 @@ import {
   TrashSvg,
 } from 'client/assets/images';
 import {
-  DishWrapper,
+  DishFormWrapper,
   FormStyled, FormCol, Form2Col, Form3Col,
   FormItemSubmit,
   Controls,
@@ -46,7 +46,7 @@ const CONTROL_CONFIG = [
   },
 ];
 
-export const Dish = memo(({
+export const DishForm = memo(({
   dish = null,
   dictionary = null,
   loading = false,
@@ -160,7 +160,7 @@ export const Dish = memo(({
   }, []);
 
   return formData && (
-    <DishWrapper className={className}>
+    <DishFormWrapper className={className}>
       <FormStyled
         form={form}
         layout="vertical"
@@ -255,6 +255,6 @@ export const Dish = memo(({
           </Controls>
         </FormItemSubmit>
       </FormStyled>
-    </DishWrapper>
+    </DishFormWrapper>
   );
 });

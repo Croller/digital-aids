@@ -1,55 +1,62 @@
 export const categoryType = [
   {
-    key: 'default', 
+    type: 'default', 
     name: 'Default',
+    dishes: [],
+    children: null,
     options: {},
   },
   {
-    key: 'defaultGroup', 
+    type: 'defaultGroup', 
     name: 'With Group',
+    dishes: null,
+    children: [],
     options: {},
   },
   {
-    key: 'menu', 
-    name: 'Main Menu',
-    options: {
-      fieldsProtected: ['is_archived', 'is_deleted', 'name'],
-    },
-  },
-  {
-    key: 'daily', 
+    type: 'daily', 
     name: 'Daily Menu',
+    dishes: null,
+    children: [],
     options: {
-      daily: {
-        price: '0.00',
-        info: 'NULL',
-        descriptions: 'NULL',
-        at_work: {
-          mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
-        }, 
+      price: '0.00',
+      info: null,
+      descriptions: null,
+      at_work: {
+        mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
       }, 
     },
   },
   {
-    key: 'alcohol', 
+    type: 'alcohol', 
     name: 'Alcohol',
+    dishes: null,
+    children: [],
     options: {
       checkAge: true,
     },
   },
   {
-    key: 'organicWine', 
+    type: 'organicWine', 
     name: 'Organic Wine',
-    options: { fields: ['info'] },
+    dishes: [],
+    children: null,
+    options: {
+      info: null,
+    },
   },
   {
-    key: 'foodtips', 
+    type: 'foodtips', 
     name: 'Foodtips',
+    dishes: [],
+    children: null,
     options: { fieldsProtected: ['name', 'type_categories'], rules: { length: '5' } },
   },
   {
-    key: 'specialDeals', 
+    type: 'specialDeals', 
     name: 'Special deals',
+    dishes: [],
+    children: null,
     options: { fieldsProtected: ['name', 'type_categories'], rules: { length: '1' } },
   },
 ];
@@ -83,6 +90,14 @@ export const categoryDefault = [
         children: null,
       },
     ],
+    options: {
+      price: '0.00',
+      info: null,
+      descriptions: null,
+      at_work: {
+        mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
+      }, 
+    },
   },
   {
     name: 'Cold Appetizes',
@@ -90,6 +105,7 @@ export const categoryDefault = [
     type: 'default',
     dishes: [],
     children: null,
+    options: {},
   },
   {
     name: 'Hot Appetizes',
@@ -97,6 +113,7 @@ export const categoryDefault = [
     type: 'default',
     dishes: [],
     children: null,
+    options: {},
   },
   {
     name: 'Pasta',
@@ -104,6 +121,7 @@ export const categoryDefault = [
     type: 'default',
     dishes: [],
     children: null,
+    options: {},
   },
   {
     name: 'Soups',
@@ -111,6 +129,7 @@ export const categoryDefault = [
     type: 'default',
     dishes: [],
     children: null,
+    options: {},
   },
   {
     name: 'Desserts',
@@ -118,6 +137,7 @@ export const categoryDefault = [
     type: 'default',
     dishes: [],
     children: null,
+    options: {},
   },
   {
     name: 'Drinks with alcohol',
@@ -140,6 +160,7 @@ export const categoryDefault = [
         children: null,
       },
     ],
+    options: {},
   },
   {
     name: 'Drinks no alcohol',
@@ -162,6 +183,7 @@ export const categoryDefault = [
         children: null,
       },
     ],
+    options: {},
   },
   {
     name: 'For children',
@@ -169,6 +191,7 @@ export const categoryDefault = [
     type: 'default',
     dishes: [],
     children: null,
+    options: {},
   },
   {
     name: 'Foodtips',

@@ -79,6 +79,7 @@ export const RestaurantInfo = ({
   const handleRoute = (key, path) => {
     const params = { id };
     if (path) {
+      console.log('path', path);
       history.push(path.replace(':restaurant', id));
       return;
     }
@@ -131,7 +132,7 @@ export const RestaurantInfo = ({
             text={address}
           />
         </Contacts>
-        <NavItemStyled id={id} onClick={(path) => handleRoute(null, path)} />
+        <NavItemStyled id={id} onClick={(path) => handleRoute('restaurant', path)} />
       </Content>
     </Wrapper>
   );

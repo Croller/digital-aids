@@ -2,13 +2,12 @@ import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Form, Select } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
-import { Uploader } from 'client/ui/components/_ui/Uploader';
 import { Button } from 'client/ui/components/_ui/Button';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 
-export const DishWrapper = styled.div`
+export const CategoryFormWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
@@ -20,106 +19,170 @@ export const DishWrapper = styled.div`
 
 export const FormStyled = styled(Form)`
   width: 100%;
+
+  > div {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 `;
 
-
 export const FormCol = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
+  margin-bottom: 22px;
 `;
 
 export const Form2Col = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
+  margin-bottom: 22px;
 
   > div {
-    &:first-child {
-      width: 338px;
-      margin-right: 20px;
-    }
-
-    &:last-child {
-      width: 739px;
-    }
-  }
-`;
-
-export const Form3Col = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  > div {
-    width: 168px;
-
-    &:first-child {
-      width: 358px;
-    }
+    width: 50%;
+    margin-bottom: unset;
 
     &:not(:last-child) {
-      margin-right: 22px;
+      margin-right: 26px;
     }
   }
 `;
 
+export const InputStyled = styled(InputForm)`
+  height: 48px;
+  font-size: 18px;
+  font-family: ${FONTS.medium};
+  border-radius: ${THEME.borderRadiusL};
+`;
 
-export const UploaderImage = styled(Uploader)`
-  .ant-upload-picture-card-wrapper {
-    .ant-upload-select {
-      width: 338px;
-      height: 216px;
+export const SelectStyled = styled(Select)`
+  &.ant-select {
+    .ant-select-selector {
+      min-height: 48px !important;
+      background-color: ${PALETTE.white};
+      border: 1px solid ${PALETTE.grey6};
+      border-radius: ${THEME.borderRadiusL};
+      padding: 4px 18px;
+      display: flex;
+      align-items: center;
+
+      .ant-select-selection-item {
+        height: 48px;
+        font-size: 18px;
+        font-family: ${FONTS.medium};
+        display: flex;
+        align-items: center;
+
+        .ant-select-selection-item-content {
+          height: 48px;
+          display: flex;
+          align-items: center;
+        }
+
+        .ant-select-selection-item-remove {
+          font-size: 17px;
+          font-family: ${FONTS.medium};
+
+          > svg {
+            stroke-width: 20px;
+          }
+        }
+      }
+
+      .ant-select-selection-search {
+        font-family: ${FONTS.regular};
+        font-size: 16px;
+      }
+
+      .ant-select-selection-overflow-item {
+        margin-left: -10px;
+      }
+
+      .ant-select-selection-placeholder {
+        font-size: 18px;
+        font-family: ${FONTS.medium};
+        display: flex;
+        align-items: center;
+      }
     }
-  }
 
-  .list-images {
-    > div {
-      width: auto;
+    .ant-select-arrow {
+      top: 44%;
+      font-size: 20px;
+      right: 28px !important;
+      color: ${PALETTE.black};
+    }
 
-      img {
-        width: 338px;
-        height: 216px;
+    &:hover {
+      .ant-select-selector {
+        border-color: ${PALETTE.grey6} !important;
+        box-shadow: unset !important;
+      }
+    }
+
+    &.ant-select-focused {
+      .ant-select-selector {
+        outline: none !important;
+        border-color: ${PALETTE.grey6} !important;
+        box-shadow: unset !important;
+      }
+    }
+
+    &.ant-select-single {
+      .ant-select-selection-search {
+        > input {
+          height: 100%;
+        }
+      }
+    }
+
+    &.ant-select-multiple {
+      .ant-select-selection-item {
+        height: 36px;
+        font-size: 18px;
+        font-family: ${FONTS.medium};
+        display: flex;
+        align-items: center;
+        border-radius: ${THEME.borderRadiusL};
+        background-color: ${PALETTE.grey16};
+        margin-right: 16px;
+        color: ${PALETTE.black};
+
+        .ant-select-selection-item-content {
+          height: 36px;
+          display: flex;
+          align-items: center;
+          padding: 4px 8px;
+        }
+
+        .ant-select-selection-item-remove {
+          font-size: 17px;
+          font-family: ${FONTS.medium};
+
+          .anticon-close {
+            margin-right: 4px;
+          }
+        }
+      }
+
+      .ant-select-selection-placeholder {
+        left: 20px;
       }
     }
   }
 `;
 
-export const FormItemSubmit = styled(FormItem)`
-  width: 88px;
-  margin-bottom: 0;
-  position: absolute;
-  top: 10px;
-  right: 22px;
-  z-index: 20;
+export const OptionStyled = styled(Option)`
+  height: 62px;
+  font-size: 18px;
+  font-family: ${FONTS.medium};
+  border-radius: ${THEME.borderRadiusL};
 `;
 
-export const Controls = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: row;
-`;
-
-export const Control = styled(Button)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  background-color: ${PALETTE.grey26};
-  border-radius: ${THEME.borderRadiusS};
-
-  &:not(:last-child) {
-    margin-right: 18px;
-  }
-
-  > svg {
-    width: 18px;
-    height: 18px;
-
-    path {
-      fill: ${PALETTE.black1};
-    }
-  }
+export const UpperCase = styled.span`
+  text-transform: uppercase;
 `;
 
 export const FormItemStyled = styled(FormItem)`
@@ -183,6 +246,12 @@ export const FormItemStyled = styled(FormItem)`
       color: ${PALETTE.grey12};
       text-transform: uppercase;
 
+      svg {
+        margin-right: 8px;
+        width: 22px;
+        height: 22px;
+      }
+
       &.ant-form-item-required {
         &::before {
           display: none !important;
@@ -202,140 +271,37 @@ export const FormItemStyled = styled(FormItem)`
   }
 `;
 
-export const InputStyled = styled(InputForm)`
-  height: 62px;
-  font-size: 18px;
-  font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusL};
-`;
+export const ControlWrapper = styled.div`
+  position: absolute;
+  right: 22px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
 
-export const Hr = styled.hr`
-  margin: 8px 0 30px;
-  border: 1px solid ${PALETTE.grey23};
-`;
-
-
-
-export const SelectStyled = styled(Select)`
-  &.ant-select {
-    .ant-select-selector {
-      min-height: 62px !important;
-      background-color: ${PALETTE.white};
-      border: 1px solid ${PALETTE.grey6};
-      border-radius: ${THEME.borderRadiusL};
-      padding: 4px 18px;
-      display: flex;
-      align-items: center;
-
-      .ant-select-selection-item {
-        height: 48px;
-        font-size: 18px;
-        font-family: ${FONTS.medium};
-        display: flex;
-        align-items: center;
-
-        .ant-select-selection-item-content {
-          height: 48px;
-          display: flex;
-          align-items: center;
-        }
-
-        .ant-select-selection-item-remove {
-          font-size: 17px;
-          font-family: ${FONTS.medium};
-
-          > svg {
-            stroke-width: 20px;
-          }
-        }
-      }
-
-      .ant-select-selection-search {
-        font-family: ${FONTS.regular};
-        font-size: 16px;
-      }
-
-      .ant-select-selection-overflow-item {
-        margin-left: -10px;
-      }
-
-      .ant-select-selection-placeholder {
-        font-size: 18px;
-        font-family: ${FONTS.medium};
-        display: flex;
-        align-items: center;
-      }
-    }
-
-    .ant-select-arrow {
-      top: 48%;
-      font-size: 20px;
-      right: 28px !important;
-      color: ${PALETTE.black};
-    }
-
-    &:hover {
-      .ant-select-selector {
-        border-color: ${PALETTE.grey6} !important;
-        box-shadow: unset !important;
-      }
-    }
-
-    &.ant-select-focused {
-      .ant-select-selector {
-        outline: none !important;
-        border-color: ${PALETTE.grey6} !important;
-        box-shadow: unset !important;
-      }
-    }
-
-    &.ant-select-single {
-      .ant-select-selection-search {
-        > input {
-          height: 100%;
-        }
-      }
-    }
-
-    &.ant-select-multiple {
-      .ant-select-selection-item {
-        height: 48px;
-        font-size: 18px;
-        font-family: ${FONTS.medium};
-        display: flex;
-        align-items: center;
-        border-radius: ${THEME.borderRadiusL};
-        background-color: ${PALETTE.grey16};
-        margin-right: 16px;
-        color: ${PALETTE.black};
-
-        .ant-select-selection-item-content {
-          height: 48px;
-          display: flex;
-          align-items: center;
-          padding: 4px 8px;
-        }
-
-        .ant-select-selection-item-remove {
-          font-size: 17px;
-          font-family: ${FONTS.medium};
-
-          .anticon-close {
-            margin-right: 4px;
-          }
-        }
-      }
-
-      .ant-select-selection-placeholder {
-        left: 20px;
-      }
+  > button {
+    &:not(:last-child) {
+      margin-right: 24px;
     }
   }
 `;
 
-export const OptionStyled = styled(Option)`
-  height: 62px;
-  font-size: 18px;
-  font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusL};
+export const Control = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.grey26}`)};
+  border-radius: ${THEME.borderRadiusM};
+
+  > svg {
+    width: 18px;
+    height: 18px;
+
+    path {
+      fill: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black1}`)};
+    }
+  }
 `;
+

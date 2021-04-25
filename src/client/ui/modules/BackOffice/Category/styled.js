@@ -3,7 +3,8 @@ import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { Button } from 'client/ui/components/_ui/Button';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Dish } from '../components/Dish';
+import { CategoryForm } from './CategoryForm';
+import { DishForm } from './DishForm';
 
 const listStyle = css`
   display: flex;
@@ -33,7 +34,7 @@ const buttonStyle = css`
   }
 `;
 
-export const CategoryEdit = styled.div`
+export const CategoryEditWrapper = styled.div`
   width: 100%;
 `;
 
@@ -46,7 +47,7 @@ export const RestaurantInfoStyled = styled(RestaurantInfo)`
 `;
 
 export const ListMenu = styled.div`
-    ${listStyle}
+  ${listStyle}
 `;
 
 export const MenuControl = styled.div`
@@ -54,13 +55,13 @@ export const MenuControl = styled.div`
 
   flex-wrap: nowrap;
   justify-content: space-between;
-  margin-bottom: 18px;
+  margin-bottom: 30px;
 `;
 
 export const ListControls = styled.div`
   ${listStyle}
 
-  margin-left: auto;
+  margin-left: unset;
 `;
 
 export const MenuBtn = styled(Button)`
@@ -69,7 +70,7 @@ export const MenuBtn = styled(Button)`
   width: 210px;
 `;
 
-export const CreateDaily = styled(Button)`
+export const Control = styled(Button)`
   height: 58px;
   width: 290px;
   color: ${PALETTE.white};
@@ -109,11 +110,37 @@ export const Lng = styled(Button)`
   }
 `;
 
+export const CategoryWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const CategoryEdit = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background-color: ${PALETTE.grey26};
+  border-radius: ${THEME.borderRadiusM};
+
+  > svg {
+    width: 20px;
+    height: 20px;
+
+    path {
+      fill: ${PALETTE.black1};
+    }
+  }
+`;
+
 export const ListCategory = styled.div`
   ${listStyle}
 
+  width: 100%;
   flex-wrap: wrap;
-  margin-bottom: 16px;
 `;
 
 export const Caterory = styled(Button)`
@@ -152,6 +179,10 @@ export const NewCaterory = styled(Button)`
       fill: ${PALETTE.green1};
     }
   }
+`;
+
+export const CateroryFormStyled = styled(CategoryForm)`
+  margin-bottom: 30px;
 `;
 
 export const DishControls = styled.div`
@@ -210,8 +241,9 @@ export const DishList = styled.div`
   margin-bottom: 48px;
 `;
 
-export const DishStyled = styled(Dish)`
+export const DishFormStyled = styled(DishForm)`
   &:not(:last-child) {
     margin-bottom: 22px;
   }
 `;
+
