@@ -98,6 +98,8 @@ export const categoryDefault = [
         mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
       }, 
     },
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Cold Appetizes',
@@ -106,6 +108,8 @@ export const categoryDefault = [
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Hot Appetizes',
@@ -114,6 +118,8 @@ export const categoryDefault = [
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Pasta',
@@ -122,6 +128,8 @@ export const categoryDefault = [
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Soups',
@@ -130,6 +138,8 @@ export const categoryDefault = [
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Desserts',
@@ -138,6 +148,8 @@ export const categoryDefault = [
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Drinks with alcohol',
@@ -161,6 +173,8 @@ export const categoryDefault = [
       },
     ],
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Drinks no alcohol',
@@ -184,6 +198,8 @@ export const categoryDefault = [
       },
     ],
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'For children',
@@ -192,6 +208,8 @@ export const categoryDefault = [
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Foodtips',
@@ -199,6 +217,9 @@ export const categoryDefault = [
     type: 'foodtips',
     dishes: [],
     children: null,
+    options: { fieldsProtected: ['name', 'type_categories'], rules: { length: '5' } },
+    is_archived: false,
+    is_deleted: false,
   },
   {
     name: 'Special deals',
@@ -206,5 +227,8 @@ export const categoryDefault = [
     type: 'specialDeals',
     dishes: [],
     children: null,
+    options: { fieldsProtected: ['name', 'type_categories'], rules: { length: '1' } },
+    is_archived: false,
+    is_deleted: false,
   },
 ];

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { setUser } from 'client/utils/localStorageEdit';
 import translate, { languages } from 'client/i18n';
-import { OutSideClick } from 'client/ui/components/_base/OutSideClick';
+import OutSideClick from 'react-outside-click-handler';
 import {
   CloseSvg,
   GlobalSvg,
@@ -98,7 +98,7 @@ const HeaderComponent = ({
                     <CloseButton onClick={() => handleLangChange()}>
                       <CloseSvg />
                     </CloseButton>
-                    <OutSideClick onOutSide={() => handleLangChange()}>
+                    <OutSideClick onOutsideClick={() => handleLangChange()}>
                       <LangList>
                         {['en', 'de', 'es', 'it', 'ru'].map(lng => (
                           <LangButton

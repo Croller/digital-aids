@@ -36,7 +36,7 @@ const Auth = memo(() => {
         <LogoWrapper>
           <UserCircleSvg />
           <LogoText>
-            {t('common.auth.title')}
+            {t('common.words.authorization')}
           </LogoText>
         </LogoWrapper>
         <FormStyled
@@ -53,7 +53,7 @@ const Auth = memo(() => {
               rules={rule.login}
             >
               <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -63,19 +63,19 @@ const Auth = memo(() => {
             >
               <InputStyled
                 type="password"
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
           </FormWrapper>
           <ControlWrapper>
             <FormItemStyled>
               <Login type="primary" htmlType="submit" loading={loading}>
-                {t('common.auth.login')}
+                {t('common.words.login')}
               </Login>
             </FormItemStyled>
             <FormItemStyled>
               <Signup path="/present">
-                {t('common.auth.signup')}
+                {t('common.words.signup')}
               </Signup>
             </FormItemStyled>
           </ControlWrapper>

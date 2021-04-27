@@ -10,6 +10,7 @@ export const InputForm = forwardRef(({
   suffix = null,
   defaultValue = null,
   value = null,
+  addonAfter = null,
   onChange = () => {},
   onPressEnter = () => {},
   className,
@@ -26,6 +27,7 @@ export const InputForm = forwardRef(({
     defaultValue={defaultValue}
     value={value}
     onChange={onChange}
+    addonAfter={addonAfter}
     onPressEnter={onPressEnter}
   />
 ));

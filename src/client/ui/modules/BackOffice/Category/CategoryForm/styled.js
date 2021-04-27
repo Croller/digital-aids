@@ -54,7 +54,7 @@ export const InputStyled = styled(InputForm)`
   height: 48px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusL};
+  border-radius: ${THEME.borderRadiusS};
 `;
 
 export const SelectStyled = styled(Select)`
@@ -63,7 +63,7 @@ export const SelectStyled = styled(Select)`
       min-height: 48px !important;
       background-color: ${PALETTE.white};
       border: 1px solid ${PALETTE.grey6};
-      border-radius: ${THEME.borderRadiusL};
+      border-radius: ${THEME.borderRadiusS};
       padding: 4px 18px;
       display: flex;
       align-items: center;
@@ -145,7 +145,7 @@ export const SelectStyled = styled(Select)`
         font-family: ${FONTS.medium};
         display: flex;
         align-items: center;
-        border-radius: ${THEME.borderRadiusL};
+        border-radius: ${THEME.borderRadiusS};
         background-color: ${PALETTE.grey16};
         margin-right: 16px;
         color: ${PALETTE.black};
@@ -178,11 +178,7 @@ export const OptionStyled = styled(Option)`
   height: 62px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusL};
-`;
-
-export const UpperCase = styled.span`
-  text-transform: uppercase;
+  border-radius: ${THEME.borderRadiusS};
 `;
 
 export const FormItemStyled = styled(FormItem)`
@@ -271,12 +267,13 @@ export const FormItemStyled = styled(FormItem)`
   }
 `;
 
-export const ControlWrapper = styled.div`
+export const Controls = styled.div`
   position: absolute;
   right: 22px;
   top: 10px;
   display: flex;
   flex-direction: row;
+  z-index: 1;
 
   > button {
     &:not(:last-child) {

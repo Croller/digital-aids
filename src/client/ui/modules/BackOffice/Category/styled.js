@@ -46,10 +46,6 @@ export const RestaurantInfoStyled = styled(RestaurantInfo)`
   margin-bottom: 40px;
 `;
 
-export const ListMenu = styled.div`
-  ${listStyle}
-`;
-
 export const MenuControl = styled.div`
   ${listStyle}
 
@@ -62,12 +58,6 @@ export const ListControls = styled.div`
   ${listStyle}
 
   margin-left: unset;
-`;
-
-export const MenuBtn = styled(Button)`
-  ${buttonStyle}
-
-  width: 210px;
 `;
 
 export const Control = styled(Button)`
@@ -158,27 +148,20 @@ export const Caterory = styled(Button)`
   padding: 0 12px;
   align-items: flex-start;
   word-wrap: normal;
-`;
 
-export const NewCaterory = styled(Button)`
-  height: 38px;
-  width: auto;
-  background-color: transparent;
-  color: ${PALETTE.green1};
-  text-transform: uppercase;
-  font-family: ${FONTS.semiBold};
-  font-size: 16px;
-  align-items: flex-start;
+  ${p => p.new && css`
+    color: ${PALETTE.green1};
 
-  > svg {
-    width: 22px;
-    height: 22px;
-    margin-left: 10px;
+    > svg {
+      width: 22px;
+      height: 22px;
+      margin-left: 10px;
 
-    path {
-      fill: ${PALETTE.green1};
+      path {
+        fill: ${PALETTE.green1};
+      }
     }
-  }
+  `}
 `;
 
 export const CateroryFormStyled = styled(CategoryForm)`

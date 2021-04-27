@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Form, Select } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
@@ -22,6 +22,20 @@ export const FormStyled = styled(Form)`
   width: 100%;
 `;
 
+export const Col = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  &:first-child {
+    /* width: 338px; */
+    margin-right: 20px;
+  }
+
+  &:last-child {
+    width: 100%;
+  }
+`;
+
 export const FormCol = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,30 +46,10 @@ export const Form2Col = styled.div`
   flex-direction: row;
 
   > div {
-    &:first-child {
-      width: 338px;
-      margin-right: 20px;
-    }
-
-    &:last-child {
-      width: 739px;
-    }
-  }
-`;
-
-export const Form3Col = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  > div {
-    width: 168px;
+    width: 50%;
 
     &:first-child {
-      width: 358px;
-    }
-
-    &:not(:last-child) {
-      margin-right: 22px;
+      margin-right: 15px
     }
   }
 `;
@@ -80,45 +74,45 @@ export const UploaderImage = styled(Uploader)`
   }
 `;
 
-export const FormItemSubmit = styled(FormItem)`
-  width: 88px;
-  margin-bottom: 0;
-  position: absolute;
-  top: 10px;
-  right: 22px;
-  z-index: 20;
-`;
+// export const FormItemSubmit = styled(FormItem)`
+//   width: 88px;
+//   margin-bottom: 0;
+//   position: absolute;
+//   top: 10px;
+//   right: 22px;
+//   z-index: 20;
+// `;
 
-export const Controls = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-direction: row;
-`;
+// export const Controls = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: flex-end;
+//   flex-direction: row;
+// `;
 
-export const Control = styled(Button)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  background-color: ${PALETTE.grey26};
-  border-radius: ${THEME.borderRadiusS};
+// export const Control = styled(Button)`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 0;
+//   width: 32px;
+//   height: 32px;
+//   background-color: ${PALETTE.grey26};
+//   border-radius: ${THEME.borderRadiusS};
 
-  &:not(:last-child) {
-    margin-right: 18px;
-  }
+//   &:not(:last-child) {
+//     margin-right: 18px;
+//   }
 
-  > svg {
-    width: 18px;
-    height: 18px;
+//   > svg {
+//     width: 18px;
+//     height: 18px;
 
-    path {
-      fill: ${PALETTE.black1};
-    }
-  }
-`;
+//     path {
+//       fill: ${PALETTE.black1};
+//     }
+//   }
+// `;
 
 export const FormItemStyled = styled(FormItem)`
   margin-bottom: 0;
@@ -204,7 +198,24 @@ export const InputStyled = styled(InputForm)`
   height: 50px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusL};
+  border-radius: ${THEME.borderRadiusS};
+
+  ${p => p.addonAfter && css`
+    padding: 0;
+
+    .ant-input-group {
+      height: 48px;
+      border: 0;
+
+      .ant-input {
+        height: 47px;
+        border-color: transparent;
+        background: transparent;
+        font-family: ${FONTS.medium};
+        font-size: 18px;
+      }
+    }
+  `}
 `;
 
 export const Hr = styled.hr`
@@ -215,10 +226,10 @@ export const Hr = styled.hr`
 export const SelectStyled = styled(Select)`
   &.ant-select {
     .ant-select-selector {
-      min-height: 50px !important;
+      min-height: 48px !important;
       background-color: ${PALETTE.white};
       border: 1px solid ${PALETTE.grey6};
-      border-radius: ${THEME.borderRadiusL};
+      border-radius: ${THEME.borderRadiusS};
       padding: 4px 18px;
       display: flex;
       align-items: center;
@@ -264,7 +275,7 @@ export const SelectStyled = styled(Select)`
     }
 
     .ant-select-arrow {
-      top: 48%;
+      top: 44%;
       font-size: 20px;
       right: 28px !important;
       color: ${PALETTE.black};
@@ -295,18 +306,18 @@ export const SelectStyled = styled(Select)`
 
     &.ant-select-multiple {
       .ant-select-selection-item {
-        height: 48px;
+        height: 36px;
         font-size: 18px;
         font-family: ${FONTS.medium};
         display: flex;
         align-items: center;
-        border-radius: ${THEME.borderRadiusL};
+        border-radius: ${THEME.borderRadiusS};
         background-color: ${PALETTE.grey16};
         margin-right: 16px;
         color: ${PALETTE.black};
 
         .ant-select-selection-item-content {
-          height: 48px;
+          height: 36px;
           display: flex;
           align-items: center;
           padding: 4px 8px;
@@ -333,5 +344,52 @@ export const OptionStyled = styled(Option)`
   height: 62px;
   font-size: 18px;
   font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusL};
+  border-radius: ${THEME.borderRadiusS};
+`;
+
+export const Controls = styled.div`
+  position: absolute;
+  right: 22px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+
+  > button {
+    &:not(:last-child) {
+      margin-right: 24px;
+    }
+  }
+`;
+
+export const Control = styled(Button)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.grey26}`)};
+  border-radius: ${THEME.borderRadiusM};
+
+  > svg {
+    width: 18px;
+    height: 18px;
+
+    path {
+      fill: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black1}`)};
+    }
+  }
+`;
+
+export const Img = styled.img`
+  width: 33px;
+  height: 33px;
+  margin-right: 12px;
+`;
+
+export const Text = styled.span`
+  font-size: 16px;
+  font-family: ${FONTS.medium};
+  color: ${PALETTE.black};
 `;

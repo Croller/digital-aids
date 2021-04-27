@@ -177,7 +177,7 @@ const Restaurant = () => {
               rules={rule.text}
             >
               <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -189,7 +189,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
               >
                 {(formData.cuisine || []).map((str, i) => (
                   <OptionStyled key={`_cuisine_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -203,7 +203,7 @@ const Restaurant = () => {
               rules={rule.text}
             >
               <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -213,16 +213,16 @@ const Restaurant = () => {
               rules={rule.text}
             >
               {/* <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               /> */}
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
               />
               {/* <InputMaskStyled
                 mask="111 1111 1111 1111"
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               /> */}
             </FormItemStyled>
             <FormItemStyled
@@ -234,7 +234,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
               >
                 {(formData.employees || []).map((str, i) => (
                   <OptionStyled key={`_employees_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -250,7 +250,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
               >
                 {(formData.email || []).map((str, i) => (
                   <OptionStyled key={`_email_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -265,7 +265,7 @@ const Restaurant = () => {
             >
               <SelectStyled
                 showSearch
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
               >
                 {dictionary && (dictionary.currency || []).map(({ id, symbol }, i) => (
                   <OptionStyled key={`_currency_${i + 1}`} value={id}>{`${id} (${symbol})`}</OptionStyled>
@@ -281,7 +281,7 @@ const Restaurant = () => {
               <InputStyled
                 type="number"
                 step="0.01"
-                placeholder={t('common.form.floatExample')}
+                placeholder={t('common.form.placeholder.floatExample')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -291,7 +291,7 @@ const Restaurant = () => {
               rules={rule.email}
             >
               <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
             
@@ -301,7 +301,7 @@ const Restaurant = () => {
               name="socials.thefork.url"
             >
               <InputStyled
-                placeholder={t('common.form.link')}
+                placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -309,7 +309,7 @@ const Restaurant = () => {
               name="socials.tripadviser.url"
             >
               <InputStyled
-                placeholder={t('common.form.link')}
+                placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -317,7 +317,7 @@ const Restaurant = () => {
               name="socials.facebook.url"
             >
               <InputStyled
-                placeholder={t('common.form.link')}
+                placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
             <FormItemStyled
@@ -325,7 +325,7 @@ const Restaurant = () => {
               name="socials.instagram.url"
             >
               <InputStyled
-                placeholder={t('common.form.link')}
+                placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
           </FormCol>
@@ -343,7 +343,7 @@ const Restaurant = () => {
             >
               <SelectStyled
                 showSearch
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
               >
                 {dictionary && (dictionary.languages || []).filter(f => f.id !== 'en').map(({ id, name }, i) => (
@@ -370,7 +370,7 @@ const Restaurant = () => {
               <SelectStyled
                 showSearch
                 mode="multiple"
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
               >
                 {dictionary && (dictionary.languages || []).map(({ id, name }, i) => (
@@ -395,7 +395,7 @@ const Restaurant = () => {
               rules={rule.text}
             >
               <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
             {params.restaurant !== 'new' && (

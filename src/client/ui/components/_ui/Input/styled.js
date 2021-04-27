@@ -52,4 +52,40 @@ export const InputStyled = styled(Input)`
       }
     }
   `}
+
+  ${p => p.addonAfter && css`
+    padding: 0;
+
+    .ant-input-group {
+      height: 48px;
+      border: 0;
+
+      .ant-input {
+        height: 47px;
+        border-color: transparent;
+        background: transparent;
+        font-size: 16px;
+        font-family: ${FONTS.regular};
+      }
+
+      .ant-input-group-addon {
+        font-size: 16px;
+        font-family: ${FONTS.regular};
+        border: 0 !important;
+
+        .ant-select {
+          .ant-select-selector {
+            border: 0 !important;
+            min-width: 155px;
+            border-left: 1px solid ${PALETTE.grey3} !important;
+
+            .ant-select-selection-item {
+              font-size: 16px;
+              font-family: ${FONTS.regular};
+            }
+          }
+        }
+      }
+    }
+  `}
 `;

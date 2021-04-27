@@ -10,6 +10,7 @@
     "edit": "Edit",
     "back": "Back",
     "delete": "Delete",
+    "close": "Close",
     "archive": "Archive",
     "unarchive": "Unarchive",
     "restore": "Restore",
@@ -30,8 +31,10 @@
     "contactPerson": "Contact person",
     "email": "E-mail",
     "opinion": "Opinion",
-    "login": "Login",
+    "authorization": "Authorization",
+    "login": "Log in",
     "logout": "Log out",
+    "signup": "Sign up",
     "password": "Password",
     "currency": "Currency",
     "avg_price": "Average price",
@@ -63,13 +66,14 @@
   },
 
   "form" : {
-    "text": "text",
-    "number": "number",
-    "select": "select",
-    "link": "link",
-    "numberExample": "0",
-    "floatExample": "0.00",
-
+    "placeholder": {
+      "text": "text",
+      "number": "number",
+      "select": "select",
+      "link": "link",
+      "numberExample": "0",
+      "floatExample": "0.00"
+    },
 
     "validation": {
       "text": {
@@ -114,14 +118,6 @@
     }
   },
 
-
-  "auth": {
-    "title": "Authorization",
-    "login": "Log in",
-    "signup": "Sign up"
-  },
-
-
   "page404": {
     "helmet": "404 - Error page",
     "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
@@ -141,5 +137,43 @@
     "504": "504 Gateway Timeout",
     "413": "413 Payload Too Large",
     "400": "404 Bad Request"
-  }
+  },
+
+   "dictionary": {
+    "unit": {
+      "kg": "kg",
+      "gr": "gr",
+      "l": "L",
+      "ml": "ml",
+      "pc": "pc",
+      "pr": "pr"
+    },
+
+    "days": {
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "sun": "Sun"
+    },
+
+    "allergens": {
+      "mustard": "Mustard",
+      "lupins": "Lupins",
+      "sesame": "Sesame",
+      "fish": "Fish",
+      "nuts": "Tree nuts",
+      "diox": "Diox, sulfur and sulfites",
+      "crustaceans": "Crustaceans",
+      "soy": "Soy",
+      "mollusks": "Mollusks",
+      "celery": "Celery",
+      "eggs": "Eggs",
+      "dairy": "Dairy products",
+      "peanuts": "Peanuts",
+      "gluten": "Gluten"
+    }
+   }
 }

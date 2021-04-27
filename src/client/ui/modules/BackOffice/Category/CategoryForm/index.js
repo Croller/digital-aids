@@ -3,28 +3,31 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { categoryType } from 'client/utils/constants';
-import { stringToKey } from 'client/utils/common';
-import { CloseSvg, FloppyDiskSvg, TrashSvg } from 'client/assets/images';
+import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/category';
+import { Tooltip } from 'antd';
+import {
+  ArchiveSvg,
+  CloseSvg,
+  FloppyDiskSvg,
+  TrashSvg,
+} from 'client/assets/images';
 import {
   CategoryFormWrapper,
   FormStyled,
   Form2Col,
   FormCol,
   FormItemStyled,
-  ControlWrapper, Control,
   InputStyled,
-  // InputMaskStyled,
   SelectStyled, OptionStyled,
-  // UpperCase,
+  Controls, Control,
 } from './styled';
 
 export const CategoryForm = ({
   source = null,
   loading = false,
   className,
-  onSave = () => {},
-  onDelete = () => {},
-  onClose = () => {},
+  archive = false,
+  onChange = () => {},
 }) => {
   const [t] = useTranslation();
   const rule = rules(t);
@@ -32,24 +35,17 @@ export const CategoryForm = ({
   const [formData, setFormData] = useState(null);
   const [form] = FormStyled.useForm();
 
-  const handleFinish = (values) => {
-    const obj = {
-      ...categoryType.find(f => f.type === values.type),
-      ...(source || {}),
-      name: values.name,
-      key: stringToKey(values.name),
-      options: {
-        ...Object.keys(values).reduce((item, key) => {
-          if (key.indexOf('options') > -1) {
-            return { ...item, [key.split('.')[1]]: values[key] };
-          }
-          return item;
-        }, {}),
-      },
-    };
+  const setFiledsValue = (obj = null) => {
+    if (!obj) return;
+    setFormData(obj);
+    form.setFieldsValue(obj);
+  };
 
-    onSave(obj);
+  const handleFinish = (values) => {
+    console.log('values', values);
     setIsChange(false);
+    form.resetFields();
+    onChange(dataToApi(values, source));
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -63,31 +59,24 @@ export const CategoryForm = ({
   const handleValuesChange = (values) => {
     if (values.type) {
       const obj = categoryType.find(f => f.type === values.type);
-      setFormData({
-        ...formData,
-        ...obj,
-        ...obj.options,
+      setFiledsValue({
+        ...values,
+        ...dataToForm(obj),
       });
     }
     setIsChange(true);
   };
 
-  const handleDelete = () => {
+  const handleChange = (key = null) => {
+    if (!key) return;
     form.resetFields();
-    onDelete(source);
+    const obj = key === 'close' ? null : { ...source, [key]: true };
+    onChange(obj);
   };
 
   useEffect(() => {
-    let obj = { ...categoryType[0] };
-
-    if (source && source.id) {
-      obj = {
-        ...source,
-        ...(Object.keys(source.options).length > 0 ? Object.keys(source.options).reduce((item, key) => ({ ...item, [`options.${key}`]: source.options[key] }), {}) : {}),
-        children: source.children ? source.children.map(item => item.name) : source.children,
-      };
-    }
-    setFormData(obj);
+    form.resetFields();
+    setFiledsValue(dataToForm(source || model));
     return () => {
       form.resetFields();
     };
@@ -104,6 +93,52 @@ export const CategoryForm = ({
         onFinishFailed={handleFinishFailed}
         scrollToFirstError
       >
+        <Controls>
+          {isChange && (
+            <Tooltip placement="top" title={t('common.words.save')}>
+              <Control
+                htmlType="submit"
+                loading={loading}
+                disabled={!isChange}
+                active
+              >
+                <FloppyDiskSvg />
+              </Control>
+            </Tooltip>
+          )}
+          {!archive ? (
+            <>
+              {(!source && archive) ? (
+                <Tooltip placement="top" title={t('common.words.delete')}>
+                  <Control
+                    loading={loading}
+                    onClick={() => handleChange('is_deleted')}
+                  >
+                    <TrashSvg />
+                  </Control>
+                </Tooltip>
+              ) : (
+                <Tooltip placement="top" title={t('common.words.close')}>
+                  <Control
+                    loading={loading}
+                    onClick={() => handleChange('close')}
+                  >
+                    <CloseSvg />
+                  </Control>
+                </Tooltip>
+              )}
+            </>
+          ) : (
+            <Tooltip placement="top" title={t('common.words.archive')}>
+              <Control
+                loading={loading}
+                onClick={() => handleChange('is_archived')}
+              >
+                <ArchiveSvg />
+              </Control>
+            </Tooltip>
+          )}
+        </Controls>
         <Form2Col>
           <FormCol>
             <FormItemStyled
@@ -114,7 +149,7 @@ export const CategoryForm = ({
             >
               <SelectStyled
                 showSearch
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
               >
                 {categoryType.map((item, i) => (
@@ -131,7 +166,7 @@ export const CategoryForm = ({
               rules={rule.text}
             >
               <InputStyled
-                placeholder={t('common.form.text')}
+                placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
           </FormCol>
@@ -139,7 +174,7 @@ export const CategoryForm = ({
         {['daily', 'organicWine'].includes(formData.type) && (
           <>
             <FormCol>
-              {['daily', 'organicWine'].includes(formData.type) && formData.options.info && (
+              {['daily', 'organicWine'].includes(formData.type) && (
                 <FormItemStyled
                   label={t('common.words.info')}
                   name="options.info"
@@ -147,7 +182,7 @@ export const CategoryForm = ({
                   rules={rule.text}
                 >
                   <InputStyled
-                    placeholder={t('common.form.text')}
+                    placeholder={t('common.form.placeholder.text')}
                   />
                 </FormItemStyled>
               )}
@@ -159,7 +194,7 @@ export const CategoryForm = ({
                   rules={rule.text}
                 >
                   <InputStyled
-                    placeholder={t('common.form.text')}
+                    placeholder={t('common.form.placeholder.text')}
                   />
                 </FormItemStyled>
               )}
@@ -176,7 +211,7 @@ export const CategoryForm = ({
                     <InputStyled
                       type="number"
                       step="0.01"
-                      placeholder={t('common.form.floatExample')}
+                      placeholder={t('common.form.placeholder.floatExample')}
                     />
                   </FormItemStyled>
                 </FormCol>
@@ -184,7 +219,7 @@ export const CategoryForm = ({
             )}
           </>
         )}
-        {formData.children && (
+        {'children' in formData && formData.children && (
           <FormCol>
             <FormItemStyled
               label={t('common.words.group')}
@@ -195,41 +230,15 @@ export const CategoryForm = ({
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.select')}
+                placeholder={t('common.form.placeholder.text')}
               >
-                {formData.children.map((str, i) => (
+                {formData.children && formData.children.map((str, i) => (
                   <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
                 ))}
               </SelectStyled>
             </FormItemStyled>
           </FormCol>
         )}
-        <ControlWrapper>
-          <Control
-            loading={loading}
-            onClick={handleDelete}
-          >
-            <TrashSvg />
-          </Control>
-          {isChange ? (
-            <Control
-              htmlType="submit"
-              loading={loading}
-              disabled={!isChange}
-              active
-            >
-              <FloppyDiskSvg />
-            </Control>
-          ) : (
-            <Control
-              loading={loading}
-              onClick={onClose}
-            >
-              <CloseSvg />
-            </Control>
-          )}
-          
-        </ControlWrapper>
       </FormStyled>
     </CategoryFormWrapper>
   );

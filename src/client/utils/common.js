@@ -5,7 +5,7 @@ export const getUrl = () => {
   if (process.env.NODE_ENV === 'development') {
     return '';
   }
-  return `https://${process.env.HOST}:${process.env.HOST_SERVER_PORT}`;
+  return `https://${process.env.HOST}`;
 };
 
 export const compareBreakpoint = (width, constant) => width && constant && width >= parseInt(constant.replace('px'), 0);

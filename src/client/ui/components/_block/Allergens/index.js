@@ -18,7 +18,7 @@ export const Allergens = memo(({
 
   const getAllergens = (arr = null) => {
     if (!arr) return ALLERGENS;
-    return ALLERGENS.filter(f => arr.some(s => s === f.id));
+    return ALLERGENS.filter(f => arr.some(s => s === f.key));
   };
 
   return (

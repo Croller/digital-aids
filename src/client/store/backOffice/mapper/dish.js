@@ -17,14 +17,14 @@ export const dataToForm = (data) => {
     name,
     description,
     allergens,
-    images: images ? images[0] : [],
-    ...price.reduce((arr, item, p) => ([
+    images: images ? [images[0]] : [],
+    ...price.reduce((arr, item, p) => ({
       ...arr,
       ...Object.keys(item).reduce((objArr, key) => ({
         ...objArr,
         [`price[${p}].${key}`]: item[key],
-      }), []),
-    ]), []),
+      }), {}),
+    }), {}),
   };
 };
 
@@ -49,7 +49,6 @@ export const dataToApi = (data, current) => {
 
   const price = [...new Array(Object.keys(data).filter(f => f.indexOf('.amount') > -1).length)].reduce((arr, k, p) => {
     const objPrice = { ...Object.keys(current.price[0]).reduce((obj, key) => ({ ...obj, [key]: data[`price[${p}].${key}`] || current.price[0][key] }), {}) };
-    console.log(objPrice);
     return [...arr, objPrice];
   }, []);
 
@@ -71,14 +70,13 @@ export const model = {
   key: 'spicy-korean-salad',
   name: 'Spicy Korean salad',
   description: 'Spicy Korean salad with beef, fresh cucumbers and \n paprika',
-  allergens: [2, 3, 6],
+  allergens: ['dairy', 'celery', 'mustard'],
   images: null,
   cuisine: null,
   price: [
     {
-      amount: 1,
-      cost: 0.00,
-      volume: 200,
+      amount: 100,
+      cost: 12.00,
       unit: 'gr',
     },
   ],

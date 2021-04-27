@@ -4,7 +4,7 @@ INSERT INTO dictionary_allergens (id, name) VALUES
   ('gluten', 'Gluten'),
   ('sesame', 'Sesame'),
   ('nuts', 'Nuts'),
-  ('crustacean', 'Crustacean'),
+  ('crustaceans', 'Crustacean'),
   ('eggs', 'Eggs'),
   ('fish', 'Fish'),
   ('mustard', 'Mustard'),
@@ -12,8 +12,8 @@ INSERT INTO dictionary_allergens (id, name) VALUES
   ('celery', 'Celery'),
   ('peanuts', 'Peanuts'),
   ('soya', 'Soya'),
-  ('shellfish', 'Sea Mollusks'),
+  ('mollusks', 'Sea Mollusks'),
   ('lupins', 'Lupins'),
-  ('sulphite', 'Diox, sulfur and sulfites');
+  ('diox', 'Diox, sulfur and sulfites');
 
 SELECT * FROM dictionary_allergens;
