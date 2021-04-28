@@ -22,7 +22,7 @@ function* updateStore({ payload }) {
           updated: [...items.updated, updated],
         };
       }
-      return { ...items, new: [...items.new, updated] };
+      return { updated: [...items.updated, item] , new: [...items.new, updated] };
     }, { updated: [], new: [] });
     edit = [...edit.updated, ...edit.new];
   } else {
@@ -51,14 +51,12 @@ function* updateRow({ payload }) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
       const status = 'saved';
-      // console.log('results', table, payload, updateItem(results, table));
       results = Array.isArray(results) ? results : [results];
       let list = updateItem(results, table);
 
       // update children parent after create new category
       if (name === 'data_categories' && list.length > 1) {
         const children = list.slice(1);
-        console.log('children', children);
         const resultsChild = yield commonProvider.update({
           name,
           token,
@@ -68,7 +66,6 @@ function* updateRow({ payload }) {
         list = [list[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
       }
 
-      console.log('list', list);
       yield put({
         type: Constants.BO_SET,
         payload: {

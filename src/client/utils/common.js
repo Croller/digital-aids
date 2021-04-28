@@ -27,31 +27,28 @@ export const stringToKey = (str = null) => {
 
 export const updateItem = (data = null, current = null) => {
   if (!data || !current) return data;
-  let edit = null;
   
   if (Array.isArray(data) && Array.isArray(current)) {
     if (current.length === 0) {
       return data;
     }
-
-    edit = current.reduce((items, item) => {
-      const updated = data.find(d => d.id === item.id);
-      if (updated) {
+    const updated = current.map((item) => {
+      const exist = data.find(d => d.id === item.id);
+      if (exist) {
         return {
-          ...items,
-          updated: [...items.updated, updated],
+          ...item,
+          ...exist,
         };
       }
-      return { ...items, new: [...items.new, updated] };
-    }, { updated: [], new: [] });
-    edit = [...edit.updated, ...edit.new];
-  } else {
-    edit = {
-      ...(current || {}),
-      ...data,
-    };
+      return item;
+    });
+    const filtred = data.filter(f => updated.some(s => s.id === f.id));
+    return [...updated, ...filtred];
   }
-  return edit;
+  return {
+    ...(current || {}),
+    ...data,
+  };
 };
 
 export const objRecursive = (
