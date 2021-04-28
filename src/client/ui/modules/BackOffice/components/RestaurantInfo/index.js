@@ -79,7 +79,6 @@ export const RestaurantInfo = ({
   const handleRoute = (key, path) => {
     const params = { id };
     if (path) {
-      console.log('path', path);
       history.push(path.replace(':restaurant', id));
       return;
     }

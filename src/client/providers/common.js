@@ -1,14 +1,19 @@
 
 import { get, post, remove } from 'client/providers/fetch';
 
+const headers = ({
+  token = null,
+  language = null,
+}) => ({
+  ...(token ? { Authorization: `Bearer ${token}` } : {}),
+  ...(language ? { 'Accept-Language': language } : {}),
+});
+
 export const loadTable = async ({
   token,
   data,
 }) => {
-  const options = {
-    Authorization: `Bearer ${token}`,
-  };
-  const results = await get('table', { data }, options);
+  const results = await get('table', { data }, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -19,11 +24,9 @@ export const loadRow = async ({
   token,
   name,
   data,
+  language = 'en',
 }) => {
-  const options = {
-    Authorization: `Bearer ${token}`,
-  };
-  const results = await get(`table/${name}/record`, { data }, options);
+  const results = await get(`table/${name}/record`, { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -34,11 +37,9 @@ export const update = async ({
   token,
   name,
   data,
+  language = 'en',
 }) => {
-  const options = {
-    Authorization: `Bearer ${token}`,
-  };
-  const results = await post(`table/${name}/record/update`, { data }, options);
+  const results = await post(`table/${name}/record/update`, { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -49,10 +50,7 @@ export const deleteFiles = async ({
   token,
   data,
 }) => {
-  const options = {
-    Authorization: `Bearer ${token}`,
-  };
-  const results = await remove('file/delete', { data }, options);
+  const results = await remove('file/delete', { data }, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

@@ -21,7 +21,6 @@ const Restaurants = () => {
   const [searched, setSearched] = useState(null);
 
   const isArchive = pathname.indexOf('archive') > -1;
-  const type = isArchive ? 'archive' : 'restaurants';
 
   const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_restaurants', data: obj }));
@@ -33,7 +32,6 @@ const Restaurants = () => {
 
   const handleSearch = (str = null) => {
     let result = null;
-    console.log(str);
     if (str && str.length > 0) { 
       result = filtred[isArchive].filter(item => SEARCH_FIELDS.some(field => {
         if (!item[field]) return false;
@@ -42,13 +40,13 @@ const Restaurants = () => {
         }
         return item[field].toLowerCase().indexOf(str) > -1;
       }));
-      console.log(result);
     }
     setSearched(result);
   };
 
   useEffect(() => {
     window.prerenderReady = true;
+    console.log('restaurants', restaurants);
     if (restaurants) {
       const result = restaurants.reduce((obj, rest) => { 
         const val = rest.is_archived;

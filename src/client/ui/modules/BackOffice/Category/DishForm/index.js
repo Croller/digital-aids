@@ -8,7 +8,12 @@ import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/dish';
 import { ALLERGENS } from 'client/ui/components/_block/Allergens/constants';
-import { ArchiveSvg, FloppyDiskSvg, TrashSvg } from 'client/assets/images';
+import {
+  ArchiveSvg,
+  CloseSvg,
+  FloppyDiskSvg,
+  TrashSvg,
+} from 'client/assets/images';
 import {
   DishFormWrapper,
   FormStyled,
@@ -150,7 +155,17 @@ export const DishForm = memo(({
               </Control>
             </Tooltip>
           )}
-          {!archive || (!isChange && !dish) ? (
+          {!archive && !isChange && (
+            <Tooltip placement="top" title={t('common.words.archive')}>
+              <Control
+                loading={loading}
+                onClick={() => handleChange('is_archived')}
+              >
+                <ArchiveSvg />
+              </Control>
+            </Tooltip>
+          )}
+          {(!dish && archive) ? (
             <Tooltip placement="top" title={t('common.words.delete')}>
               <Control
                 loading={loading}
@@ -160,12 +175,12 @@ export const DishForm = memo(({
               </Control>
             </Tooltip>
           ) : (
-            <Tooltip placement="top" title={t('common.words.archive')}>
+            <Tooltip placement="top" title={t('common.words.close')}>
               <Control
                 loading={loading}
-                onClick={() => handleChange('is_archived')}
+                onClick={() => handleChange('close')}
               >
-                <ArchiveSvg />
+                <CloseSvg />
               </Control>
             </Tooltip>
           )}

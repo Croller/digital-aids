@@ -6,37 +6,69 @@ import {
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
+import { updateItem } from 'client/utils/common';
+
+function* updateStore({ payload }) {
+  const { name, data } = payload;
+  const obj = yield select((store) => store.backOffice[name]);
+
+  let edit = null;
+  if (Array.isArray(obj)) {
+    edit = obj.reduce((items, item) => {
+      const updated = data.some(d => d.id === item.id);
+      if (updated) {
+        return {
+          ...items,
+          updated: [...items.updated, updated],
+        };
+      }
+      return { ...items, new: [...items.new, updated] };
+    }, { updated: [], new: [] });
+    edit = [...edit.updated, ...edit.new];
+  } else {
+    edit = {
+      ...obj,
+      ...data,
+    };
+  }
+
+  yield put({
+    type: Constants.BO_SET,
+    payload: { [name]: edit },
+  });
+  console.log('edit', edit);
+}
 
 function* updateRow({ payload }) {
-  const { token } = yield select((store) => store.user.info);
-  const { name, data } = payload;
+  const { token, language } = yield select((store) => store.user.info);
+  const { name } = payload;
   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
+
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
-    const results = yield commonProvider.update({ ...payload, token });
+    let results = yield commonProvider.update({ ...payload, token, language });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
-      let list = [];
-      let status = 'saved';
+      const status = 'saved';
+      // console.log('results', table, payload, updateItem(results, table));
+      results = Array.isArray(results) ? results : [results];
+      let list = updateItem(results, table);
 
-      if (Array.isArray(data)) {
-        list = table.map(row => {
-          const r = results.find(f => f.id === row.id);
-          return r || row;
+      // update children parent after create new category
+      if (name === 'data_categories' && list.length > 1) {
+        const children = list.slice(1);
+        console.log('children', children);
+        const resultsChild = yield commonProvider.update({
+          name,
+          token,
+          language,
+          data: children.map(child => ({ ...child, parent: list[0].id })), 
         });
-      } else {
-        list = [...(table || []), results];
-        if (data.id) {
-          list = !table ? [results] : table.map((item) => {
-            if (item.id === data.id) {
-              return results;
-            }
-            return item;
-          });
-          status = 'saved';
-        }
+        list = [list[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
       }
+
+      console.log('list', list);
       yield put({
         type: Constants.BO_SET,
         payload: {
@@ -51,33 +83,33 @@ function* updateRow({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* updateRows({ payload }) {
-  const { token } = yield select((store) => store.user.info);
-  const { name } = payload;
-  const table = yield select((store) => store.backOffice[name.split('_')[1]]);
-  yield put({ type: Constants.BO_LOADING_SET, payload: true });
-  try {
-    const results = yield commonProvider.update({ ...payload, token });
-    if (results.error) {
-      yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
-    } else if (results) {
-      const mapData = table.map(row => {
-        const r = results.find(f => f.id === row.id);
-        return r || row;
-      });
-      yield put({
-        type: Constants.BO_SET,
-        payload: {
-          [name.split('_')[1]]: mapData,
-          status: 'saved',
-        }, 
-      });
-    }
-  } catch (err) {
-    throw err;
-  }
-  yield put({ type: Constants.BO_LOADING_SET, payload: false });
-}
+// function* updateRows({ payload }) {
+//   const { token } = yield select((store) => store.user.info);
+//   const { name } = payload;
+//   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
+//   yield put({ type: Constants.BO_LOADING_SET, payload: true });
+//   try {
+//     const results = yield commonProvider.update({ ...payload, token });
+//     if (results.error) {
+//       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
+//     } else if (results) {
+//       const mapData = table.map(row => {
+//         const r = results.find(f => f.id === row.id);
+//         return r || row;
+//       });
+//       yield put({
+//         type: Constants.BO_SET,
+//         payload: {
+//           [name.split('_')[1]]: mapData,
+//           status: 'saved',
+//         }, 
+//       });
+//     }
+//   } catch (err) {
+//     throw err;
+//   }
+//   yield put({ type: Constants.BO_LOADING_SET, payload: false });
+// }
 
 function* getTables({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
@@ -148,13 +180,17 @@ function* deleteFiles({ payload }) {
   }
 }
 
+export function* watchBOupdateStore() {
+  yield takeLatest(Constants.BO_STORE_UPDATE, updateStore);
+}
+
 export function* watchBOupdate() {
   yield takeLatest(Constants.BO_UPDATE, updateRow);
 }
 
-export function* watchBOupdateMany() {
-  yield takeLatest(Constants.BO_UPDATE_MANY, updateRows);
-}
+// export function* watchBOupdateMany() {
+//   yield takeLatest(Constants.BO_UPDATE_MANY, updateRows);
+// }
 
 export function* watchBOdeleteFile() {
   yield takeLatest(Constants.BO_DELETE_FILE, deleteFiles);

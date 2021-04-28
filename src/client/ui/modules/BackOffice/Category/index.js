@@ -4,7 +4,7 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { update, deleteFiles } from 'client/store/backOffice';
-import { getCategoryTemp } from 'client/utils/restaurant';
+import { categoryTemp, dataToApi } from 'client/store/backOffice/mapper/category';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -66,14 +66,15 @@ const Category = () => {
       const rest = restaurants.find(f => f.id === params.restaurant);
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
 
-      categoryFilter = [...(categories ? categories.filter(f => f.parent === params.restaurant) : getCategoryTemp())].filter(f => !['foodtips', 'specialDeals'].includes(f.type));
+      categoryFilter = [...(categories
+        ? categories.filter(f => f.parent === params.restaurant && !f.is_archived)
+        : categoryTemp)];
       categoryDishFilter = [...(dishes || [])].filter(f => f.parent === categoryFilter[0].id);
 
       setDishCategory(categoryDishFilter);
       setRestCategoryActive(categoryFilter[0]);
       setRestCategory(categoryFilter);
       setRestInfo(rest);
-      console.log('categoryFilter', categoryFilter);
     }
   };
 
@@ -137,8 +138,12 @@ const Category = () => {
         return category;
       });
     }
-    console.log('category change:', data, arr);
-    setRestCategory(arr);
+    if (restCategory[0] && Object.keys(data).some(k => ['is_archived', 'is_deleted'].includes(k) && data[k])) {
+      setRestCategoryActive(restCategory[0]);
+    }
+    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo) }));
+    setRestCategory(arr.filter(f => !f.is_archived && !f.is_deleted));
+    console.log('category change:', arr, dataToApi(data, restInfo));
   };
 
   const handleAddDish = () => {
@@ -149,7 +154,6 @@ const Category = () => {
   };
 
   const handleChangeDish = (data = null) => {
-    console.log('dish change:', data);
     if (!data) return;
     const obj = { ...data };
     if (obj.group) {
@@ -159,6 +163,7 @@ const Category = () => {
     if (!data || (data && !data.id)) {
       const edited = dishCategory.length === 1 ? [] : dishCategory.shift();
       setDishCategory(edited);
+      console.log('dish change:', edited);
     }
     // rootDispatch(update({ name: 'data_dishes', obj }));
   };
@@ -213,10 +218,10 @@ const Category = () => {
       {!isTipsDeals && (
         <CategoryWrapper>
           <ListCategory>
-            {restCategory && restCategory.map((item, i) => item && (
+            {restCategory && restCategory.filter(item => item && item.key).map((item, i) => item && (
               <Caterory
                 key={`_category_${item.key}_${i + 1}`}
-                active={restCategoryActive && item.id === restCategoryActive.id}
+                active={restCategoryActive && item.key === restCategoryActive.key}
                 onClick={() => handleFilterCategory(item)}
               >
                 {item.name}

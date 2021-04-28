@@ -7,3 +7,4 @@ export const BO_CREATE = 'BO_CREATE';
 export const BO_UPDATE = 'BO_UPDATE';
 export const BO_UPDATE_MANY = 'BO_UPDATE_MANY';
 export const BO_DELETE_FILE = 'BO_DELETE_FILE';
+export const BO_STORE_UPDATE = 'BO_STORE_UPDATE';

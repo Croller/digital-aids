@@ -103,7 +103,8 @@ export const Lng = styled(Button)`
 export const CategoryWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
+  margin-bottom: 16px;
 `;
 
 export const CategoryEdit = styled(Button)`

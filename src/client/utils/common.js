@@ -25,6 +25,35 @@ export const stringToKey = (str = null) => {
   return str.toLowerCase().replace(/[^a-z0-9]/gi, '-');
 };
 
+export const updateItem = (data = null, current = null) => {
+  if (!data || !current) return data;
+  let edit = null;
+  
+  if (Array.isArray(data) && Array.isArray(current)) {
+    if (current.length === 0) {
+      return data;
+    }
+
+    edit = current.reduce((items, item) => {
+      const updated = data.find(d => d.id === item.id);
+      if (updated) {
+        return {
+          ...items,
+          updated: [...items.updated, updated],
+        };
+      }
+      return { ...items, new: [...items.new, updated] };
+    }, { updated: [], new: [] });
+    edit = [...edit.updated, ...edit.new];
+  } else {
+    edit = {
+      ...(current || {}),
+      ...data,
+    };
+  }
+  return edit;
+};
+
 export const objRecursive = (
   arr = null,
   callback = (

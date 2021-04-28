@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
 
 CREATE TABLE IF NOT EXISTS data_categories (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  parent VARCHAR NOT NULL,
+  parent VARCHAR NULL,
   restaurant VARCHAR NOT NULL,
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,

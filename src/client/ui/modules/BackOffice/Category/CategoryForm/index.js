@@ -3,13 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { categoryType } from 'client/utils/constants';
-import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/category';
+import { dataToForm, dataToList, model } from 'client/store/backOffice/mapper/category';
 import { Tooltip } from 'antd';
+import { useModal } from 'react-modal-hook';
+import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import {
   ArchiveSvg,
   CloseSvg,
   FloppyDiskSvg,
   TrashSvg,
+  PlusSvg,
 } from 'client/assets/images';
 import {
   CategoryFormWrapper,
@@ -34,6 +37,21 @@ export const CategoryForm = ({
   const [isChange, setIsChange] = useState(false);
   const [formData, setFormData] = useState(null);
   const [form] = FormStyled.useForm();
+  const [event, setEvent] = useState(null);
+  const [showConfirm, hideConfirm] = useModal(() => (
+    <ConfirmChange
+      title={t(`backOffice.confirmModal.dish.${event.key}`)}
+      textOk={t(`common.words.${event.key}`)}
+      textCancel={t('common.words.doNot')}
+      onCancel={hideConfirm}
+      onClose={hideConfirm}
+      onOk={() => {
+        hideConfirm();
+        setEvent(null);
+        handleChange(event.key, event.params);
+      }}
+    />
+  ), [event]);
 
   const setFiledsValue = (obj = null) => {
     if (!obj) return;
@@ -42,10 +60,11 @@ export const CategoryForm = ({
   };
 
   const handleFinish = (values) => {
-    console.log('values', values);
     setIsChange(false);
     form.resetFields();
-    onChange(dataToApi(values, source));
+    if (!event) {
+      onChange(dataToList(values, (source || model)));
+    }
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -60,6 +79,7 @@ export const CategoryForm = ({
     if (values.type) {
       const obj = categoryType.find(f => f.type === values.type);
       setFiledsValue({
+        ...formData,
         ...values,
         ...dataToForm(obj),
       });
@@ -67,15 +87,30 @@ export const CategoryForm = ({
     setIsChange(true);
   };
 
-  const handleChange = (key = null) => {
+  const handleEvent = (key) => {
+    const params = { id: formData.id };
+
+    if (key === 'restore') params.is_archived = false;
+    if (key === 'delete') params.is_deleted = true;
+    if (key === 'archive') params.is_archived = true;
+
+    showConfirm();
+    setEvent({ key, params });
+  };
+
+  const handleChange = (key = null, params = null) => {
     if (!key) return;
+    let obj = { ...formData, ...(params || {}) };
     form.resetFields();
-    const obj = key === 'close' ? null : { ...source, [key]: true };
+    if (key === 'close') {
+      obj = null;
+    }
     onChange(obj);
   };
 
   useEffect(() => {
     form.resetFields();
+    console.log('category edit', source || model);
     setFiledsValue(dataToForm(source || model));
     return () => {
       form.resetFields();
@@ -106,35 +141,42 @@ export const CategoryForm = ({
               </Control>
             </Tooltip>
           )}
-          {!archive ? (
-            <>
-              {(!source && archive) ? (
-                <Tooltip placement="top" title={t('common.words.delete')}>
-                  <Control
-                    loading={loading}
-                    onClick={() => handleChange('is_deleted')}
-                  >
-                    <TrashSvg />
-                  </Control>
-                </Tooltip>
-              ) : (
-                <Tooltip placement="top" title={t('common.words.close')}>
-                  <Control
-                    loading={loading}
-                    onClick={() => handleChange('close')}
-                  >
-                    <CloseSvg />
-                  </Control>
-                </Tooltip>
-              )}
-            </>
-          ) : (
+          {!archive && !isChange && source && source.id && (
             <Tooltip placement="top" title={t('common.words.archive')}>
               <Control
                 loading={loading}
-                onClick={() => handleChange('is_archived')}
+                onClick={() => handleEvent('archive')}
               >
                 <ArchiveSvg />
+              </Control>
+            </Tooltip>
+          )}
+          {archive && source ? (
+            <>
+              <Tooltip placement="top" title={t('common.words.restore')}>
+                <Control
+                  loading={loading}
+                  onClick={() => handleEvent('restore')}
+                >
+                  <PlusSvg />
+                </Control>
+              </Tooltip>
+              <Tooltip placement="top" title={t('common.words.delete')}>
+                <Control
+                  loading={loading}
+                  onClick={() => handleEvent('delete')}
+                >
+                  <TrashSvg />
+                </Control>
+              </Tooltip>
+            </>
+          ) : (
+            <Tooltip placement="top" title={t('common.words.close')}>
+              <Control
+                loading={loading}
+                onClick={() => handleChange('close')}
+              >
+                <CloseSvg />
               </Control>
             </Tooltip>
           )}
@@ -219,7 +261,7 @@ export const CategoryForm = ({
             )}
           </>
         )}
-        {'children' in formData && formData.children && (
+        {formData.children && (
           <FormCol>
             <FormItemStyled
               label={t('common.words.group')}
@@ -232,7 +274,7 @@ export const CategoryForm = ({
                 tokenSeparators={[',']}
                 placeholder={t('common.form.placeholder.text')}
               >
-                {formData.children && formData.children.map((str, i) => (
+                {formData.children.map((str, i) => (
                   <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
                 ))}
               </SelectStyled>

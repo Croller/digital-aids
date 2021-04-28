@@ -8,6 +8,7 @@ const api = axios.create({
     'Access-Control-Allow-Origin': '*',
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    'Accept-Language': 'en',
   },
 });
 
