@@ -4,7 +4,7 @@
 DROP TABLE IF EXISTS data_categories;
 -- DROP TABLE IF EXISTS data_dishes;
 
-DROP TABLE IF EXISTS data_categories_languages;
+-- DROP TABLE IF EXISTS data_categories_languages;
 -- DROP TABLE IF EXISTS data_dishes_languages;
 
 -- DROP TABLE IF EXISTS dictionary_currency;

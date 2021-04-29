@@ -2,11 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
-import { categoryType } from 'client/utils/constants';
-import { dataToForm, dataToList, model } from 'client/store/backOffice/mapper/category';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
+import {
+  dataToForm,
+  dataFromToList,
+  model,
+  categoryType,
+} from 'client/store/backOffice/mapper/category';
 import {
   ArchiveSvg,
   CloseSvg,
@@ -63,7 +67,7 @@ export const CategoryForm = ({
     setIsChange(false);
     form.resetFields();
     if (!event) {
-      onChange(dataToList(values, (source || model)));
+      onChange(dataFromToList(values, (source || categoryType.find(f => f.type === values.type))));
     }
   };
 

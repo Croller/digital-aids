@@ -1,6 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { stringToKey, objRecursive } from 'client/utils/common';
-import { categoryDefault } from 'client/utils/constants';
+// import { v4 as uuidv4 } from 'uuid';
+// import { stringToKey, objRecursive } from 'client/utils/common';
 
 export const getTotal = (arr) => {
   if (arr && Array.isArray(arr)) {
@@ -14,18 +13,18 @@ export const getTotal = (arr) => {
   return 0;
 };
 
-export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, parent = null) => {
-  if (!value) return { [key]: value };
-  if (key === 'name') {
-    return {
-      id: uuidv4(),
-      [key]: value,
-      key: stringToKey(value),
-      parent: (parent && parent.id) || null,
-    };
-  }
-  return { [key]: value };
-});
+// export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, parent = null) => {
+//   if (!value) return { [key]: value };
+//   if (key === 'name') {
+//     return {
+//       id: uuidv4(),
+//       [key]: value,
+//       key: stringToKey(value),
+//       parent: (parent && parent.id) || null,
+//     };
+//   }
+//   return { [key]: value };
+// });
 
 // const lng = [
 //   'en',

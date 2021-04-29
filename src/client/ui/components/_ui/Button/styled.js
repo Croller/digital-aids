@@ -31,6 +31,12 @@ export const Btn = styled.button`
     cursor: not-allowed !important;
     color: ${PALETTE.grey27} !important;
     background-color: ${PALETTE.grey28} !important;
+
+    svg {
+      path {
+        fill: ${PALETTE.grey27} !important;
+      }
+    }
   `}
 `;
 

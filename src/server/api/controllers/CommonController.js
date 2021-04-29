@@ -33,7 +33,7 @@ const CommonController = () => {
     }
   };
 
-  const getTableRecord = async (req, res) => {
+  const getTableRecordById = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
     if (!tokenData) return;
     try {
@@ -47,6 +47,36 @@ const CommonController = () => {
         query = `SELECT * FROM ${name} WHERE id=($1) AND is_deleted=FALSE`;
         values = [data];
       }
+      const result = await db.queryValues(query, values);
+      res.json(result.rows);
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.status(201);
+      res.json({ error });
+    }
+  };
+
+  const getTableRecordByParam = async (req, res) => {
+    const tokenData = await jwt.verifyToken(req, res);
+    if (!tokenData) return;
+    try {
+      const { name } = req.params;
+      const { data } = req.body;
+      const queryStr = Object.keys(data).map((key, k) => {
+        if (data[key] && Array.isArray(data[key])) {
+          return `${key}= ANY ($${k + 1})`;
+        }
+        return `${key}=($${k + 1})`;
+      }).join(' AND ');
+      query = `SELECT * FROM ${name} WHERE ${queryStr} AND is_deleted=FALSE`;
+      values = Object.keys(data).map(key => {
+        if (data[key] && Array.isArray(data[key])) {
+          return [data[key].join(',')];
+        }
+        return data[key];
+      });
       const result = await db.queryValues(query, values);
       res.json(result.rows);
     } catch (err) {
@@ -107,7 +137,8 @@ const CommonController = () => {
 
   return {
     getTableByNames,
-    getTableRecord,
+    getTableRecordById,
+    getTableRecordByParam,
 
     updateTableRecord,
 

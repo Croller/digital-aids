@@ -22,7 +22,7 @@ export const htmlOverflowYHidden = (trigger) => {
 
 export const stringToKey = (str = null) => {
   if (!str) return null;
-  return str.toLowerCase().replace(/[^a-z0-9]/gi, '-');
+  return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');
 };
 
 export const updateItem = (data = null, current = null) => {

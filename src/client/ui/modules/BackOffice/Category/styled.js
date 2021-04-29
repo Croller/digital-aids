@@ -3,6 +3,7 @@ import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { Button } from 'client/ui/components/_ui/Button';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
+import { Loader } from 'client/ui/components/_block/Loader';
 import { CategoryForm } from './CategoryForm';
 import { DishForm } from './DishForm';
 
@@ -36,6 +37,10 @@ const buttonStyle = css`
 
 export const CategoryEditWrapper = styled.div`
   width: 100%;
+`;
+
+export const LoaderStyled = styled(Loader)`
+  height: 100%;
 `;
 
 export const NavBarStyled = styled(NavBar)`
@@ -210,7 +215,7 @@ export const ArchiveBtn = styled(Button)`
   > svg {
     width: 19px;
     height: 19px;
-    margin-right: 7px;
+    margin-right: 22px;
 
     path {
       fill: ${PALETTE.black1};

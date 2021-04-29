@@ -1,5 +1,4 @@
 import { stringToKey } from 'client/utils/common';
-import { v4 as uuidv4 } from 'uuid';
 
 export const dataToForm = (data) => {
   const { 
@@ -13,7 +12,7 @@ export const dataToForm = (data) => {
   } = data;
 
   const children = data.children ? data.children.map(child => (child.name)) : null;
-
+  
   return {
     id,
     type,
@@ -26,7 +25,7 @@ export const dataToForm = (data) => {
   };
 };
 
-export const dataToList = (data, current = null) => {
+export const dataFromToList = (data, current = null) => {
   const {
     type,
     name,
@@ -34,17 +33,34 @@ export const dataToList = (data, current = null) => {
     restaurant,
   } = data;
 
-  const children = data.children ? data.children.map(child => {
-    const exist = current.childre && current.children.find(f => f.name === child);
-    if (!exist) {
+  let children = null;
+  if (data.children) {
+    const editCurrent = current ? current.children.map(item => {
+      if (!data.children.some(s => s === item.name)) {
+        return { ...item, is_deleted: true };
+      }
+      return item;
+    }) : [];
+    children = data.children.map(child => {
+      if (editCurrent.length > 0) {
+        const exist = editCurrent.find(f => f.name === child);
+        if (!exist) {
+          return {
+            ...modelGroup,
+            name: child,
+            key: (stringToKey(child) || ''),
+            is_deleted: true,
+          };
+        }
+        return exist;
+      }
       return {
-        ...child,
+        ...modelGroup,
         name: child,
         key: (stringToKey(child) || ''),
       };
-    }
-    return exist;
-  }) : null;
+    });
+  }
 
   return {
     id: current ? current.id : null,
@@ -68,17 +84,36 @@ export const dataToList = (data, current = null) => {
   };
 };
 
+export const dataApiToList = (data = null) => {
+  if (!data) return null;
+  return data.reduce((arr, item) => {
+    const parent = item.parent ? arr.find(f => f.id === item.parent) : null;
+    if (parent) {
+      return arr.map(aItem => {
+        if (aItem.id === item.parent) {
+          return {
+            ...aItem,
+            children: aItem.children ? [...aItem.children, item] : [],
+          };
+        }
+        return item;
+      });
+    }
+    return [...arr, { ...item, children: item.children ? item.children : categoryType.find(f => f.type === item.type).children }];
+  }, []);
+};
+
 export const dataToApi = (data, restaurant) => {
   const edited = {
     ...data,
     restaurant: restaurant.id,
   };
   const children = (edited.children || []).map((item) => {
-    const edit = dataToList({
+    const edit = {
+      ...categoryType.find(f => f.type === item.type),
       ...item,
-      parent: data.id,
-      restaurant: restaurant.id,
-    });
+      restaurant: item.restaurant || restaurant.id,
+    };
     delete edit.children;
     return edit;
   });
@@ -88,10 +123,10 @@ export const dataToApi = (data, restaurant) => {
 };
 
 export const model = {
-  id: uuidv4(),
+  id: null,
   type: 'default', 
   name: 'Default',
-  key: 'default',
+  key: null,
   parent: null,
   dishes: [],
   children: null,
@@ -99,6 +134,67 @@ export const model = {
   is_archived: false,
   is_deleted: false,
 };
+
+export const modelGroup = {
+  id: null,
+  name: 'Default',
+  key: 'default',
+  parent: null,
+  type: 'default',
+  dishes: [],
+  children: null,
+  is_archived: false,
+  is_deleted: false,
+};
+
+export const categoryType = [
+  {
+    type: 'default', 
+    name: 'Default',
+    dishes: [],
+    children: null,
+    options: {},
+  },
+  {
+    type: 'defaultGroup', 
+    name: 'With Group',
+    dishes: null,
+    children: [],
+    options: {},
+  },
+  {
+    type: 'daily', 
+    name: 'Daily Menu',
+    dishes: null,
+    children: [],
+    options: {
+      price: '0.00',
+      info: null,
+      descriptions: null,
+      at_work: {
+        mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
+      }, 
+    },
+  },
+  {
+    type: 'alcohol', 
+    name: 'Alcohol',
+    dishes: null,
+    children: [],
+    options: {
+      checkAge: true,
+    },
+  },
+  {
+    type: 'organicWine', 
+    name: 'Organic Wine',
+    dishes: [],
+    children: null,
+    options: {
+      info: null,
+    },
+  },
+];
 
 export const categoryTemp = [
   {

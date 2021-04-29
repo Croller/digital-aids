@@ -4,7 +4,7 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { update, deleteFiles } from 'client/store/backOffice';
-import { categoryTemp, dataToApi } from 'client/store/backOffice/mapper/category';
+import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -13,6 +13,7 @@ import {
 } from 'client/assets/images';
 import { 
   CategoryEditWrapper,
+  LoaderStyled,
   NavBarStyled,
   RestaurantInfoStyled,
   MenuControl,
@@ -38,10 +39,10 @@ const Category = () => {
   const history = useHistory();
   const rootDispatch = useDispatch();
   const [restInfo, setRestInfo] = useState(null);
-  const [restCategory, setRestCategory] = useState(null);
+  const [restCategory, setRestCategory] = useState([]);
   const [restCategoryActive, setRestCategoryActive] = useState(null);
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
-  const [dishCategory, setDishCategory] = useState(null);
+  const [dishCategory, setDishCategory] = useState([]);
   const {
     restaurants,
     categories,
@@ -65,14 +66,14 @@ const Category = () => {
     if (restaurants) {
       const rest = restaurants.find(f => f.id === params.restaurant);
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
-
+      console.log('dataApiToList', dataApiToList(categories.filter(f => f.restaurant === params.restaurant && !f.is_archived)));
       categoryFilter = [...(categories
-        ? categories.filter(f => f.parent === params.restaurant && !f.is_archived)
-        : categoryTemp)];
+        ? dataApiToList(categories.filter(f => f.restaurant === params.restaurant && !f.is_archived))
+        : [])];
       categoryDishFilter = [...(dishes || [])].filter(f => f.parent === categoryFilter[0].id);
 
       setDishCategory(categoryDishFilter);
-      setRestCategoryActive(categoryFilter[0]);
+      categoryFilter.length > 0 && setRestCategoryActive(categoryFilter[0]);
       setRestCategory(categoryFilter);
       setRestInfo(rest);
     }
@@ -183,108 +184,117 @@ const Category = () => {
     init();
   }, []);
 
-  return restInfo && restCategory && (
-    <CategoryEditWrapper>
-      {['/dishes/archive', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && (
-        <NavBarStyled />
-      )}
-      {!isArchive && (
-        <>
-          <RestaurantInfoStyled {...restInfo} />
-          {!isTipsDeals && (
-            <MenuControl>
-              <ListControls>
-                <Control>
-                  {t('common.words.dailyTempCreate')}
-                  <PlusSvg />
-                </Control>
-              </ListControls>
-            </MenuControl>
+  return (
+    <>
+      {loading && (<LoaderStyled />)}
+      {restInfo && restCategory && (
+        <CategoryEditWrapper>
+          {['/dishes/archive', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && (
+            <NavBarStyled />
           )}
-        </>
-      )}
-      <ListLng>
-        {restInfo.languages.map(lng => (
-          <Lng
-            key={`_lng_${lng}`}
-            active={lng === params.language}
-            onClick={() => handleRoute('language', lng)}
-          >
-            {lng === 'en' && (<AlertCircleSvg />)}
-            {getItemDictionary(lng)}
-          </Lng>
-        ))}
-      </ListLng>
-      {!isTipsDeals && (
-        <CategoryWrapper>
-          <ListCategory>
-            {restCategory && restCategory.filter(item => item && item.key).map((item, i) => item && (
-              <Caterory
-                key={`_category_${item.key}_${i + 1}`}
-                active={restCategoryActive && item.key === restCategoryActive.key}
-                onClick={() => handleFilterCategory(item)}
+          {!isArchive && (
+            <>
+              <RestaurantInfoStyled {...restInfo} />
+              {!isTipsDeals && (
+                <MenuControl>
+                  <ListControls>
+                    <Control>
+                      {t('common.words.dailyTempCreate')}
+                      <PlusSvg />
+                    </Control>
+                  </ListControls>
+                </MenuControl>
+              )}
+            </>
+          )}
+          <ListLng>
+            {restInfo.languages.map(lng => (
+              <Lng
+                key={`_lng_${lng}`}
+                active={lng === params.language}
+                onClick={() => handleRoute('language', lng)}
               >
-                {item.name}
-              </Caterory>
+                {lng === 'en' && (<AlertCircleSvg />)}
+                {getItemDictionary(lng)}
+              </Lng>
             ))}
-            {!isArchive && restCategory.slice(-1)[0] && !restCategoryEdit && (
-              <Caterory new onClick={handleAddCategory}>
-                {t('common.words.newCategory')}
-                <PlusSvg />
-              </Caterory>
-            )}
-          </ListCategory>
-          <CategoryEdit
-            onClick={() => setRestCategoryEdit(true)}
-            disabled={restCategoryEdit}
-          >
-            <EditSvg />
-          </CategoryEdit>
-        </CategoryWrapper>
-      )}
-      {restCategoryEdit && (
-        <CateroryFormStyled 
-          source={restCategoryActive}
-          onChange={handleChangeCategory}
-        />
-      )}
-      {/* {isTipsDeals ? (
-        <InfoSystem>
-          {t('backOffice.info.menu')}
-        </InfoSystem>
-      ) : (
-        <InfoMenu />
-      )} */}
-      {!isArchive && (
-        <DishControls>
-          {dishCategory && (
-            <NewDish onClick={handleAddDish}>
-              {t('common.words.newAdd')}
-              <PlusSvg />
-            </NewDish>
+          </ListLng>
+          {!isTipsDeals && (
+            <CategoryWrapper>
+              <ListCategory>
+                {restCategory && restCategory.filter(item => item && item.key).map((item, i) => item && (
+                  <Caterory
+                    key={`_category_${item.key}_${i + 1}`}
+                    active={restCategoryActive && item.key === restCategoryActive.key}
+                    onClick={() => handleFilterCategory(item)}
+                  >
+                    {item.name}
+                  </Caterory>
+                ))}
+                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && (
+                  <Caterory new onClick={handleAddCategory}>
+                    {t('common.words.newCategory')}
+                    <PlusSvg />
+                  </Caterory>
+                )}
+              </ListCategory>
+              <CategoryEdit
+                onClick={() => setRestCategoryEdit(true)}
+                disabled={restCategoryEdit || restCategoryActive === null}
+              >
+                <EditSvg />
+              </CategoryEdit>
+            </CategoryWrapper>
           )}
-          <ArchiveBtn onClick={() => handleRoute('archive')}>
-            <ArchiveSvg />
-            {t('common.words.archive')}
-          </ArchiveBtn>
-        </DishControls>
+          {restCategoryEdit && (
+            <CateroryFormStyled 
+              source={restCategoryActive}
+              onChange={handleChangeCategory}
+            />
+          )}
+          {/* {isTipsDeals ? (
+            <InfoSystem>
+              {t('backOffice.info.menu')}
+            </InfoSystem>
+          ) : (
+            <InfoMenu />
+          )} */}
+          {!isArchive && (
+            <DishControls>
+              <NewDish
+                onClick={handleAddDish}
+                disabled={restCategoryActive === null}
+              >
+                {t('common.words.newAdd')}
+                <PlusSvg />
+              </NewDish>
+              <ArchiveBtn
+                onClick={() => handleRoute('archive')}
+                disabled={restCategoryActive === null}
+              >
+                <ArchiveSvg />
+                {t('common.words.archive')}
+              </ArchiveBtn>
+            </DishControls>
+          )}
+          <DishList>
+            {dishCategory && dishCategory.map((dish) => (
+              <DishFormStyled
+                key={`_dish_${dish ? dish.id : 'new'}`}
+                dish={dish}
+                group={restCategoryActive.children}
+                dictionary={dictionary}
+                currency={restInfo.currency[0]}
+                loading={loading}
+                archive={isArchive}
+                onChange={handleChangeDish}
+                onChangeFiles={handleChangeFiles}
+              />
+            ))}
+          </DishList>
+        </CategoryEditWrapper>
       )}
-      <DishList>
-        {dishCategory && dishCategory.map((dish) => (
-          <DishFormStyled
-            key={`_dish_${dish ? dish.id : 'new'}`}
-            dish={dish}
-            group={restCategoryActive.children}
-            dictionary={dictionary}
-            currency={restInfo.currency[0]}
-            loading={loading}
-            archive={isArchive}
-            onChange={handleChangeDish}
-            onChangeFiles={handleChangeFiles}
-          />
-        ))}
-      </DishList>
-    </CategoryEditWrapper>
+    </>
   );
 };
 
