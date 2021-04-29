@@ -25,25 +25,23 @@ export const stringToKey = (str = null) => {
   return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');
 };
 
-export const updateItem = (data = null, current = null) => {
+export const updateItem = (data = null, current = null, key = 'id') => {
   if (!data || !current) return data;
   
   if (Array.isArray(data) && Array.isArray(current)) {
     if (current.length === 0) {
       return data;
     }
-    const updated = current.map((item) => {
-      const exist = data.find(d => d.id === item.id);
+    const newItem = data.filter(f => !current.some(s => s[key] === f[key]));
+    const existItem = current.filter(f => data.some(s => s[key] === f[key]));
+    const updatedItem = existItem.map(item => {
+      const exist = data.find(f => f[key] === item[key]);
       if (exist) {
-        return {
-          ...item,
-          ...exist,
-        };
+        return { ...item, ...exist };
       }
       return item;
     });
-    const filtred = data.filter(f => updated.some(s => s.id === f.id));
-    return [...updated, ...filtred];
+    return [...updatedItem, ...newItem];
   }
   return {
     ...(current || {}),

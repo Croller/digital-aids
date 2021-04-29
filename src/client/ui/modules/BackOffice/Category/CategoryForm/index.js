@@ -9,7 +9,7 @@ import {
   dataToForm,
   dataFromToList,
   model,
-  categoryType,
+  categoryModel,
 } from 'client/store/backOffice/mapper/category';
 import {
   ArchiveSvg,
@@ -67,7 +67,7 @@ export const CategoryForm = ({
     setIsChange(false);
     form.resetFields();
     if (!event) {
-      onChange(dataFromToList(values, (source || categoryType.find(f => f.type === values.type))));
+      onChange(dataFromToList(values, (source || categoryModel.find(f => f.type === values.type))));
     }
   };
 
@@ -81,7 +81,7 @@ export const CategoryForm = ({
 
   const handleValuesChange = (values) => {
     if (values.type) {
-      const obj = categoryType.find(f => f.type === values.type);
+      const obj = categoryModel.find(f => f.type === values.type);
       setFiledsValue({
         ...formData,
         ...values,
@@ -104,17 +104,18 @@ export const CategoryForm = ({
 
   const handleChange = (key = null, params = null) => {
     if (!key) return;
-    let obj = { ...formData, ...(params || {}) };
-    form.resetFields();
-    if (key === 'close') {
-      obj = null;
+    let obj = null;
+
+    // form.resetFields();
+    if (key !== 'close') {
+      obj = { ...formData, ...(params || {}) };
     }
     onChange(obj);
+    setFormData(null);
   };
 
   useEffect(() => {
     form.resetFields();
-    console.log('category edit', source || model);
     setFiledsValue(dataToForm(source || model));
     return () => {
       form.resetFields();
@@ -198,7 +199,7 @@ export const CategoryForm = ({
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
               >
-                {categoryType.map((item, i) => (
+                {categoryModel.map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
                 ))}
               </SelectStyled>

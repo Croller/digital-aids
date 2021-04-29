@@ -7,7 +7,6 @@ import {
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
 import { updateItem } from 'client/utils/common';
-import { categoryType } from 'client/store/backOffice/mapper/category';
 
 function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
@@ -95,13 +94,11 @@ function* updateRow({ payload }) {
     } else if (results) {
       const status = 'saved';
       results = Array.isArray(results) ? results : [results];
-      let list = updateItem(results, table);
 
       // update children parent after create new category group
-      let children = list.slice(1);
+      let children = results.slice(1);
       children = children.filter(f => !f.parent && f);
-      console.log('children', list, children);
-      if (name === 'data_categories' && list.length > 1 && children.length > 0) {
+      if (name === 'data_categories' && results.length > 1 && children.length > 0) {
         const resultsChild = yield commonProvider.update({
           name,
           token,
@@ -109,16 +106,17 @@ function* updateRow({ payload }) {
           data: children.map(child => {
             const obj = { ...child };
             delete obj.children;
-            return { ...obj, parent: list[0].id };
+            return { ...obj, parent: results[0].id };
           }), 
         });
-        list = [list[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
+        results = [results[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
       }
+      console.log('updateItem(results, table)', results, table, updateItem(results, table));
 
       yield put({
         type: Constants.BO_SET,
         payload: {
-          [name.split('_')[1]]: list,
+          [name.split('_')[1]]: updateItem(results, table).filter(f => !f.is_deleted && f),
           status,
         }, 
       });

@@ -66,12 +66,13 @@ const Category = () => {
     if (restaurants) {
       const rest = restaurants.find(f => f.id === params.restaurant);
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
-      console.log('dataApiToList', dataApiToList(categories.filter(f => f.restaurant === params.restaurant && !f.is_archived)));
+
       categoryFilter = [...(categories
         ? dataApiToList(categories.filter(f => f.restaurant === params.restaurant && !f.is_archived))
         : [])];
       categoryDishFilter = [...(dishes || [])].filter(f => f.parent === categoryFilter[0].id);
 
+      console.log('data loaded', rest, categoryFilter, categoryDishFilter);
       setDishCategory(categoryDishFilter);
       categoryFilter.length > 0 && setRestCategoryActive(categoryFilter[0]);
       setRestCategory(categoryFilter);
@@ -102,12 +103,12 @@ const Category = () => {
   };
 
   const handleFilterCategory = (obj = null) => {
-    if (!obj) return [];
-    let arr = obj.children ? obj.children.reduce((items, category) => [...items, ...category.dishes], []) : [];
-    if (obj.dishes) {
-      arr = obj.dishes;
-    }
-    setDishCategory(arr);
+    // if (!obj) return [];
+    // let arr = obj.children ? obj.children.reduce((items, category) => [...items, ...category.dishes], []) : [];
+    // if (obj.dishes) {
+    //   arr = obj.dishes;
+    // }
+    // setDishCategory(arr);
     setRestCategoryActive(obj);
   };
 
@@ -120,30 +121,16 @@ const Category = () => {
   };
   
   const handleChangeCategory = (data = null) => {
-    let arr = [...restCategory.filter(f => f && f)];
+    const arr = [...restCategory.filter(f => f && f)];
+
     setRestCategory(arr);
     setRestCategoryEdit(false);
-
-    if (!data) return;
-    if (!data.id) {
-      setRestCategoryActive(data);
-      arr = [...restCategory.slice(0, restCategory.length - 1), { ...data }];
-    } else {
-      arr = arr.map((category) => {
-        if (category.id === data.id) {
-          return {
-            ...category,
-            ...data,
-          };
-        }
-        return category;
-      });
-    }
-    if (restCategory[0] && Object.keys(data).some(k => ['is_archived', 'is_deleted'].includes(k) && data[k])) {
+    if (!data) {
       setRestCategoryActive(restCategory[0]);
+      return;
     }
+    setRestCategoryActive(data);
     rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo) }));
-    setRestCategory(arr.filter(f => !f.is_archived && !f.is_deleted));
     console.log('category change:', arr, dataToApi(data, restInfo));
   };
 
@@ -174,15 +161,17 @@ const Category = () => {
   };
 
   useEffect(() => {
+    window.prerenderReady = true;
     if (!restInfo || !restCategory || !dishCategory) {
       init();
     }
   }, [restaurants, categories, pathname, dictionary]);
 
   useEffect(() => {
-    window.prerenderReady = true;
-    init();
-  }, []);
+    if (status) {
+      showMessage({ type: 'success', content: t(`common.words.${status}`) });
+    }
+  }, [status]);
 
   return (
     <>

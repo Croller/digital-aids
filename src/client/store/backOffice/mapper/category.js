@@ -34,32 +34,13 @@ export const dataFromToList = (data, current = null) => {
   } = data;
 
   let children = null;
-  if (data.children) {
-    const editCurrent = current ? current.children.map(item => {
-      if (!data.children.some(s => s === item.name)) {
-        return { ...item, is_deleted: true };
-      }
-      return item;
-    }) : [];
-    children = data.children.map(child => {
-      if (editCurrent.length > 0) {
-        const exist = editCurrent.find(f => f.name === child);
-        if (!exist) {
-          return {
-            ...modelGroup,
-            name: child,
-            key: (stringToKey(child) || ''),
-            is_deleted: true,
-          };
-        }
-        return exist;
-      }
-      return {
-        ...modelGroup,
-        name: child,
-        key: (stringToKey(child) || ''),
-      };
-    });
+  if (data.children && current && current.children) {
+    const existChild = current.children.filter(f => data.children.includes(f.name));
+    let deletedChild = current.children.filter(f => !data.children.includes(f.name));
+    let newChild = data.children.filter(f => !current.children.some(s => s.name === f));
+    deletedChild = deletedChild.map(item => ({ ...item, is_deleted: true }));
+    newChild = newChild.map(m => ({ ...model, name: m, key: stringToKey(m) }));
+    children = [...existChild, ...deletedChild, ...newChild];
   }
 
   return {
@@ -86,31 +67,31 @@ export const dataFromToList = (data, current = null) => {
 
 export const dataApiToList = (data = null) => {
   if (!data) return null;
-  return data.reduce((arr, item) => {
-    const parent = item.parent ? arr.find(f => f.id === item.parent) : null;
-    if (parent) {
-      return arr.map(aItem => {
-        if (aItem.id === item.parent) {
-          return {
-            ...aItem,
-            children: aItem.children ? [...aItem.children, item] : [],
-          };
-        }
-        return item;
-      });
+  const child = [...data.filter(f => f.parent)];
+  return [...data.filter(f => !f.parent)].map(item => {
+    const model = categoryModel.find(f => f.type === item.type);
+    const children = child.filter(f => f.parent === item.id);
+    if (children && model.children) {
+      return {
+        ...item,
+        children,
+      };
     }
-    return [...arr, { ...item, children: item.children ? item.children : categoryType.find(f => f.type === item.type).children }];
-  }, []);
+    return {
+      ...model,
+      ...item,
+    };
+  });
 };
 
 export const dataToApi = (data, restaurant) => {
   const edited = {
     ...data,
-    restaurant: restaurant.id,
+    restaurant: data.restaurant || restaurant.id,
   };
   const children = (edited.children || []).map((item) => {
     const edit = {
-      ...categoryType.find(f => f.type === item.type),
+      ...categoryModel.find(f => f.type === item.type),
       ...item,
       restaurant: item.restaurant || restaurant.id,
     };
@@ -126,8 +107,9 @@ export const model = {
   id: null,
   type: 'default', 
   name: 'Default',
-  key: null,
+  key: 'default',
   parent: null,
+  restaurant: null,
   dishes: [],
   children: null,
   options: {},
@@ -135,36 +117,40 @@ export const model = {
   is_deleted: false,
 };
 
-export const modelGroup = {
-  id: null,
-  name: 'Default',
-  key: 'default',
-  parent: null,
-  type: 'default',
-  dishes: [],
-  children: null,
-  is_archived: false,
-  is_deleted: false,
-};
-
-export const categoryType = [
+export const categoryModel = [
   {
+    id: null,
     type: 'default', 
     name: 'Default',
+    key: 'default',
+    parent: null,
+    restaurant: null,
     dishes: [],
     children: null,
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
+    id: null,
     type: 'defaultGroup', 
     name: 'With Group',
+    key: 'with-group',
+    parent: null,
+    restaurant: null,
     dishes: null,
     children: [],
     options: {},
+    is_archived: false,
+    is_deleted: false,
   },
   {
+    id: null,
     type: 'daily', 
     name: 'Daily Menu',
+    key: 'daily-menu',
+    parent: null,
+    restaurant: null,
     dishes: null,
     children: [],
     options: {
@@ -175,24 +161,23 @@ export const categoryType = [
         mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
       }, 
     },
+    is_archived: false,
+    is_deleted: false,
   },
   {
+    id: null,
     type: 'alcohol', 
     name: 'Alcohol',
+    key: 'alcohol',
+    parent: null,
+    restaurant: null,
     dishes: null,
     children: [],
     options: {
       checkAge: true,
     },
-  },
-  {
-    type: 'organicWine', 
-    name: 'Organic Wine',
-    dishes: [],
-    children: null,
-    options: {
-      info: null,
-    },
+    is_archived: false,
+    is_deleted: false,
   },
 ];
 
