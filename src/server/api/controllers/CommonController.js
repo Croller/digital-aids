@@ -66,17 +66,12 @@ const CommonController = () => {
       const { data } = req.body;
       const queryStr = Object.keys(data).map((key, k) => {
         if (data[key] && Array.isArray(data[key])) {
-          return `${key}= ANY ($${k + 1})`;
+          return `${key} = ANY ($${k + 1})`;
         }
         return `${key}=($${k + 1})`;
       }).join(' AND ');
       query = `SELECT * FROM ${name} WHERE ${queryStr} AND is_deleted=FALSE`;
-      values = Object.keys(data).map(key => {
-        if (data[key] && Array.isArray(data[key])) {
-          return [data[key].join(',')];
-        }
-        return data[key];
-      });
+      values = Object.keys(data).map(key => data[key]);
       const result = await db.queryValues(query, values);
       res.json(result.rows);
     } catch (err) {

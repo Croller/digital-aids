@@ -27,21 +27,23 @@ export const stringToKey = (str = null) => {
 
 export const updateItem = (data = null, current = null, key = 'id') => {
   if (!data || !current) return data;
-  
+
   if (Array.isArray(data) && Array.isArray(current)) {
-    if (current.length === 0) {
-      return data;
+    if (current && current.length > 0) {
+      return data.reduce((arr, item) => {
+        const exist = arr.some(f => f[key] === item[key]);
+        if (exist) {
+          return arr.map(f => {
+            if (f[key] === item[key]) {
+              return { ...f, ...item };
+            }
+            return f;
+          }); 
+        }
+        return [...arr, item];
+      }, [...current]);
     }
-    const newItem = data.filter(f => !current.some(s => s[key] === f[key]));
-    const existItem = current.filter(f => data.some(s => s[key] === f[key]));
-    const updatedItem = existItem.map(item => {
-      const exist = data.find(f => f[key] === item[key]);
-      if (exist) {
-        return { ...item, ...exist };
-      }
-      return item;
-    });
-    return [...updatedItem, ...newItem];
+    return [...(current || []), ...data];
   }
   return {
     ...(current || {}),

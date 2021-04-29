@@ -98,25 +98,27 @@ function* updateRow({ payload }) {
       // update children parent after create new category group
       let children = results.slice(1);
       children = children.filter(f => !f.parent && f);
-      if (name === 'data_categories' && results.length > 1 && children.length > 0) {
-        const resultsChild = yield commonProvider.update({
-          name,
-          token,
-          language,
-          data: children.map(child => {
-            const obj = { ...child };
-            delete obj.children;
-            return { ...obj, parent: results[0].id };
-          }), 
-        });
-        results = [results[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
+      if (name === 'data_categories') {
+        if (results.length > 1 && children.length > 0) {
+          const resultsChild = yield commonProvider.update({
+            name,
+            token,
+            language,
+            data: children.map(child => {
+              const obj = { ...child };
+              delete obj.children;
+              return { ...obj, parent: results[0].id };
+            }), 
+          });
+          results = [results[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
+        }
       }
-      console.log('updateItem(results, table)', results, table, updateItem(results, table));
-
+      results = updateItem(results, table);
+      
       yield put({
         type: Constants.BO_SET,
         payload: {
-          [name.split('_')[1]]: updateItem(results, table).filter(f => !f.is_deleted && f),
+          [name.split('_')[1]]: results.filter(f => !f.is_deleted),
           status,
         }, 
       });

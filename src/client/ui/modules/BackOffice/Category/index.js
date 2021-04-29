@@ -162,10 +162,8 @@ const Category = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    if (!restInfo || !restCategory || !dishCategory) {
-      init();
-    }
-  }, [restaurants, categories, pathname, dictionary]);
+    init();
+  }, [restaurants, categories, dishes, pathname, dictionary]);
 
   useEffect(() => {
     if (status) {

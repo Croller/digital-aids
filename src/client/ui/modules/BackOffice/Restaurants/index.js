@@ -46,7 +46,6 @@ const Restaurants = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    console.log('restaurants', restaurants);
     if (restaurants) {
       const result = restaurants.reduce((obj, rest) => { 
         const val = rest.is_archived;
@@ -72,10 +71,10 @@ const Restaurants = () => {
             type={isArchive ? 'archive' : 'restaurants'}
             search={searched}
           />
-        ) : ((searched !== null ? searched : filtred[isArchive]).map((item) => (
+        ) : ((searched !== null ? searched : filtred[isArchive]).map((item, i) => (
           <RestaurantInfo
             {...item}
-            key={item.id}
+            key={`_restauran_${i + 1}_${item.id}`}
             onEvent={handleEvent}
           />
         )))}

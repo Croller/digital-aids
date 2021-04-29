@@ -100,18 +100,24 @@ const Restaurant = () => {
     if (!values) return;
     const edited = {};
     const {
+      main_language,
       sub_languages,
     } = values;
 
+    if (main_language) {
+      edited.sub_languages = formData.sub_languages.filter(f => f !== main_language);
+    }
     if (sub_languages) {
       edited.sub_languages = sub_languages.some(s => s === 'en') ? sub_languages : ['en', ...sub_languages];
     }
 
     if (Object.keys(edited).length > 0) {
-      form.setFieldsValue({
+      const obj = {
         ...formData,
         ...edited,
-      });
+      };
+      setFormData(obj);
+      form.setFieldsValue(obj);
     }
     
     setIsChange(true);
@@ -151,7 +157,7 @@ const Restaurant = () => {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
   }, [status]);
-
+  
   return formData && (
     <RestaurantWrapper>
       <NavBarStyled
@@ -373,7 +379,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
               >
-                {dictionary && (dictionary.languages || []).map(({ id, name }, i) => (
+                {dictionary && (dictionary.languages.filter(f => f.id !== formData.main_language) || []).map(({ id, name }, i) => (
                   <OptionStyled
                     key={`_sub_language_${i + 1}`}
                     value={id}
