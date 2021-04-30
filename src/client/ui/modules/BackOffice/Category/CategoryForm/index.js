@@ -116,7 +116,6 @@ export const CategoryForm = ({
     if (!key) return;
     let obj = null;
 
-    // form.resetFields();
     if (key !== 'close') {
       obj = { ...formData, ...(params || {}) };
     }

@@ -28,10 +28,10 @@ export const dataToForm = (data) => {
   };
 };
 
-export const dataToApi = (data, current) => {
+export const dataToApi = (data, current = null) => {
   const {
     id,
-    number,
+    // number,
     name,
     description,
     allergens,
@@ -47,14 +47,12 @@ export const dataToApi = (data, current) => {
       }];
     }, []);
 
-  const price = [...new Array(Object.keys(data).filter(f => f.indexOf('.amount') > -1).length)].reduce((arr, k, p) => {
-    const objPrice = { ...Object.keys(current.price[0]).reduce((obj, key) => ({ ...obj, [key]: data[`price[${p}].${key}`] || current.price[0][key] }), {}) };
-    return [...arr, objPrice];
-  }, []);
-
+  const priceObj = Object.keys(data).filter(f => f.indexOf('price') > -1).reduce((obj, k) => ({ ...obj, [k.replace('price[0].', '')]: data[k] }), {});
+  const { price } = priceObj;
+  
   return {
-    id: id || current.id,
-    number,
+    id: id || (current && current.id),
+    // number,
     key: (stringToKey(name) || ''),
     name,
     description,

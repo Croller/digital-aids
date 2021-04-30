@@ -29,14 +29,7 @@ export const Btn = styled.button`
 
   ${p => p.disabled && css`
     cursor: not-allowed !important;
-    color: ${PALETTE.grey27} !important;
-    background-color: ${PALETTE.grey28} !important;
-
-    svg {
-      path {
-        fill: ${PALETTE.grey27} !important;
-      }
-    }
+    opacity: 0.4;
   `}
 `;
 

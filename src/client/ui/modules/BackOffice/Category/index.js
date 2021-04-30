@@ -5,6 +5,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
+import { dataToApi as dataToApiDish } from 'client/store/backOffice/mapper/dish';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -43,6 +44,7 @@ const Category = () => {
   const [restCategory, setRestCategory] = useState([]);
   const [restCategoryActive, setRestCategoryActive] = useState(null);
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
+  const [restDishEdit, setRestDishEdit] = useState(null);
   const [dishCategory, setDishCategory] = useState([]);
   const {
     restaurants,
@@ -66,7 +68,6 @@ const Category = () => {
 
   const init = () => {
     let categoryFilter = null;
-    let categoryDishFilter = null;
     const rest = restaurants.find(f => f.id === params.restaurant);
     if (rest) {
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
@@ -78,9 +79,7 @@ const Category = () => {
       if (pageActive === null) {
         categoryFilter = restCategories.filter(f => !page.includes(f.key));
         categoryFilter.length > 0 && setRestCategoryActive(categoryFilter[0]);
-        categoryDishFilter = [...(dishes || [])].filter(f => f.parent === categoryFilter[0].id);
 
-        setDishCategory(categoryDishFilter);
         setRestCategory(categoryFilter);
       }
 
@@ -92,6 +91,27 @@ const Category = () => {
         }
       }
       setRestInfo(rest);
+    }
+  };
+
+  const initDish = () => {
+    let categoryDishFilter = null;
+
+    categoryDishFilter = [...(dishes || [])].filter(f => f.parent === restCategory[0].id);
+    setDishCategory(categoryDishFilter);
+
+    if (restDishEdit) {
+      const dish = dishes.find(f => f.name === restDishEdit.name);
+      const category = categories.find(item => item.name === restDishEdit.group);
+      if (dish.id) {
+        rootDispatch(update({
+          name: 'data_categories',
+          data: {
+            ...category,
+            dishes: [...category.dishes, dish.id], 
+          }, 
+        }));
+      }
     }
   };
 
@@ -123,16 +143,9 @@ const Category = () => {
   };
   
   const handleChangeCategory = (data = null) => {
-    const arr = [...restCategory.filter(f => f && f)];
-
-    setRestCategory(arr);
     setRestCategoryEdit(false);
-    if (!data) {
-      setRestCategoryActive(restCategory[0]);
-      return;
-    }
-    setRestCategoryActive(data);
-    console.log(dataToApi(data, restInfo));
+    if (!data) return;
+    setRestCategoryActive(restCategory[0]);
     rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo) }));
   };
 
@@ -143,19 +156,37 @@ const Category = () => {
     }
   };
 
-  const handleChangeDish = (data = null) => {
+  const handleChangeDish = (data = null, currency) => {
     if (!data) return;
     const obj = { ...data };
-    if (obj.group) {
+    let category = null;
+    setRestDishEdit(obj);
+    if (obj.id && obj.group) {
       // TODO delete group, add dish id to category
-      delete obj.group;
+      category = categories.find(item => item.name === obj.group);
     }
-    if (!data || (data && !data.id)) {
+    delete obj.group;
+    if (data && !data.id) {
       const edited = dishCategory.length === 1 ? [] : dishCategory.shift();
       setDishCategory(edited);
-      console.log('dish change:', edited);
     }
-    // rootDispatch(update({ name: 'data_dishes', obj }));
+    rootDispatch(update({ name: 'data_dishes', data: dataToApiDish(obj, currency) }));
+    const exist = category.dishes.find(f => f.id === obj.id);
+    if (obj.id) {
+      rootDispatch(update({
+        name: 'data_categories',
+        data: {
+          ...category,
+          dishes: (exist ? [category.dishes.map(dish => {
+            if (dish.id === obj.id) {
+              return obj;
+            }
+            return dish;
+          })] : [...category.dishes, obj.id]), 
+        }, 
+      }));
+      setRestDishEdit(null);
+    }
   };
 
   const handleChangeFiles = (data = null) => {
@@ -163,17 +194,24 @@ const Category = () => {
   };
 
   useEffect(() => {
-    window.prerenderReady = true;
-    if (restaurants && categories && dishes && pathname && dictionary) {
+    if (restaurants && categories && dictionary) {
       init();
     }
-  }, [restaurants, categories, dishes, pathname, dictionary]);
+  }, [restaurants, categories, dictionary, pathname]);
+
+  useEffect(() => {
+    if (dishes) {
+      initDish();
+    }
+  }, [dishes, restCategory]);
 
   useEffect(() => {
     if (status) {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
   }, [status]);
+
+  console.log('restCategoryActive', restCategoryActive, restCategory);
 
   return (
     <>
@@ -276,12 +314,12 @@ const Category = () => {
               <DishFormStyled
                 key={`_dish_${dish ? dish.id : 'new'}`}
                 dish={dish}
-                group={restCategoryActive.children}
+                group={restCategoryActive.children || null}
                 dictionary={dictionary}
                 currency={restInfo.currency[0]}
                 loading={loading}
                 archive={isArchive}
-                onChange={handleChangeDish}
+                onChange={(data) => handleChangeDish(data, dish)}
                 onChangeFiles={handleChangeFiles}
               />
             ))}

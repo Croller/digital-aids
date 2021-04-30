@@ -76,7 +76,7 @@ export const dataApiToList = (data = null) => {
   const child = [...data.filter(f => f.parent)];
   return [...data.filter(f => !f.parent)].map(item => {
     const model = categoryModel.find(f => f.type === item.type);
-    const children = child.filter(f => f.parent === item.id);
+    const children = model && model.children === null ? null : child.filter(f => f.parent === item.id);
     if (children) {
       return {
         ...item,

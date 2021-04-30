@@ -168,6 +168,7 @@ export const InputStyled = styled(InputForm)`
       border: 0;
 
       .ant-input {
+        height: 50px;
         font-size: 18px;
         font-family: ${FONTS.medium};
         color: ${PALETTE.black};
@@ -208,8 +209,8 @@ export const Hr = styled.hr`
 export const SelectStyled = styled(Select)`
   &.select-allergen {
     .ant-select-selection-item {
-      height: 40px !important;
-      width: 40px;
+      height: 35px !important;
+      width: 35px;
       padding: 0;
       font-size: 18px;
       border-radius: 30px !important;
@@ -219,9 +220,14 @@ export const SelectStyled = styled(Select)`
       }
 
       .ant-select-selection-item-content {
-        height: 40px !important;
+        height: 33px !important;
         margin: 0 !important;
         padding: 0 !important;
+
+        img {
+          width: 38px;
+          height: 33px;
+        }
 
         > span {
           display: none;

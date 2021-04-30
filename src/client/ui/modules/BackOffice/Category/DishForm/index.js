@@ -13,6 +13,7 @@ import {
   CloseSvg,
   FloppyDiskSvg,
   TrashSvg,
+  PlusSvg,
 } from 'client/assets/images';
 import {
   DishFormWrapper,
@@ -56,12 +57,11 @@ export const DishForm = memo(({
       onClose={hideConfirm}
       onOk={() => {
         hideConfirm();
-        // onChangeDish(event.params);
+        setEvent(null);
+        handleChange(event.key, event.params);
       }}
     />
   ), [event]);
-
-  console.log('dish', dish, dictionary, group, currency);
 
   const initValue = () => {
     const data = { ...(dish || model) };
@@ -90,7 +90,10 @@ export const DishForm = memo(({
 
   const handleFinish = (values) => {
     setIsChange(false);
-    onChange(dataToApi(values));
+    onChange(dataToApi({
+      ...formData,
+      ...values,
+    }));
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -103,15 +106,33 @@ export const DishForm = memo(({
 
   const handleValuesChange = (values) => {
     console.log('values - ', values);
+    setFormData({
+      ...formData,
+      ...values,
+    });
     setIsChange(true);
   };
 
-  const handleChange = (key = null) => {
+  const handleEvent = (key) => {
+    const params = {};
+
+    if (key === 'restore') params.is_archived = false;
+    if (key === 'delete') params.is_deleted = true;
+    if (key === 'archive') params.is_archived = true;
+
+    showConfirm();
+    setEvent({ key, params: { ...formData } });
+  };
+
+  const handleChange = (key = null, params = null) => {
     if (!key) return;
-    if (!dish) {
-      form.resetFields();
+    let obj = null;
+
+    if (key !== 'close') {
+      obj = { ...formData, ...(params || {}) };
     }
-    onChange({ ...dish, [key]: true });
+    onChange(obj);
+    setFormData(null);
   };
 
   useEffect(() => {
@@ -145,25 +166,35 @@ export const DishForm = memo(({
               </Control>
             </Tooltip>
           )}
-          {!archive && !isChange && (
+          {!archive && !isChange && dish && dish.id && (
             <Tooltip placement="top" title={t('common.words.archive')}>
               <Control
                 loading={loading}
-                onClick={() => handleChange('is_archived')}
+                onClick={() => handleEvent('archive')}
               >
                 <ArchiveSvg />
               </Control>
             </Tooltip>
           )}
-          {(!dish && archive) ? (
-            <Tooltip placement="top" title={t('common.words.delete')}>
-              <Control
-                loading={loading}
-                onClick={() => handleChange('is_deleted')}
-              >
-                <TrashSvg />
-              </Control>
-            </Tooltip>
+          {archive && dish ? (
+            <>
+              <Tooltip placement="top" title={t('common.words.restore')}>
+                <Control
+                  loading={loading}
+                  onClick={() => handleEvent('restore')}
+                >
+                  <PlusSvg />
+                </Control>
+              </Tooltip>
+              <Tooltip placement="top" title={t('common.words.delete')}>
+                <Control
+                  loading={loading}
+                  onClick={() => handleEvent('delete')}
+                >
+                  <TrashSvg />
+                </Control>
+              </Tooltip>
+            </>
           ) : (
             <Tooltip placement="top" title={t('common.words.close')}>
               <Control
@@ -261,7 +292,7 @@ export const DishForm = memo(({
                 <SelectStyled
                   showSearch
                   mode="multiple"
-                  placeholder={t('common.form.placeholder.number')}
+                  placeholder={t('common.form.placeholder.text')}
                   optionFilterProp="label"
                   className="select-allergen"
                 >
@@ -292,7 +323,7 @@ export const DishForm = memo(({
                     rules={rule.text}
                   >
                     <SelectStyled
-                      placeholder={t('common.form.placeholder.number')}
+                      placeholder={t('common.form.placeholder.text')}
                     >
                       {group && group.map((item, i) => (
                         <OptionStyled key={`_group_${i + 1}`} value={item.name}>{item.name}</OptionStyled>
