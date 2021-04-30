@@ -1,7 +1,9 @@
 -- DROP TABLE IF EXISTS data_users;
 -- DROP TABLE IF EXISTS data_roles;
 -- DROP TABLE IF EXISTS data_restaurants;
+
 -- DROP TABLE IF EXISTS data_categories;
+
 -- DROP TABLE IF EXISTS data_dishes;
 
 -- DROP TABLE IF EXISTS data_categories_languages;

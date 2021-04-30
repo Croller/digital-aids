@@ -25,6 +25,14 @@ export const stringToKey = (str = null) => {
   return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');
 };
 
+export const getDictionaryItem = (value, key, array, prop = null) => {
+  const result = array.find(f => f[key] === value);
+  if (prop) {
+    return result ? result[prop] : null;
+  }
+  return result;
+};
+
 export const updateItem = (data = null, current = null, key = 'id') => {
   if (!data || !current) return data;
 

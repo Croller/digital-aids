@@ -71,13 +71,13 @@ export const InputStyled = styled(Input)`
       .ant-input-group-addon {
         font-size: 16px;
         font-family: ${FONTS.regular};
-        border: 0 !important;
+        border: 0;
 
         .ant-select {
           .ant-select-selector {
-            border: 0 !important;
+            border: 0;
             min-width: 155px;
-            border-left: 1px solid ${PALETTE.grey3} !important;
+            border-left: 1px solid ${PALETTE.grey3};
 
             .ant-select-selection-item {
               font-size: 16px;

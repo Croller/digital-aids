@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect } from 'react';
 import { showMessage } from 'client/ui/components/_ui/Message';
-import { getUrl, loadFile } from 'client/utils/common';
+import { getUrl, getDictionaryItem, loadFile } from 'client/utils/common';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
@@ -77,16 +77,6 @@ export const DishForm = memo(({
       })).then(images => setFormData(dataToForm({ ...data, images })));
     }
     setLoadFiles(false);
-  };
-
-  const getArrayItem = (value, key, array, prop = null) => {
-    const result = array.find(f => f[key] === value);
-    // console.log('get array item:', value, key, array, prop);
-    // console.log('result:', result);
-    if (prop) {
-      return result ? result[prop] : null;
-    }
-    return result;
   };
 
   const handleUpload = (files, deleted = null) => {
@@ -250,7 +240,7 @@ export const DishForm = memo(({
                   type="number"
                   step="0.01"
                   placeholder={t('common.form.placeholder.floatExample')}
-                  addonAfter={dictionary && getArrayItem(currency, 'id', dictionary.currency, 'symbol')}
+                  addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
                 />
               </FormItemStyled>
             </Form2Col>
@@ -273,7 +263,7 @@ export const DishForm = memo(({
                       value={id}
                       label={name}
                     >
-                      <Img src={getArrayItem(id, 'key', ALLERGENS, 'src')} />
+                      <Img src={getDictionaryItem(id, 'key', ALLERGENS, 'src')} />
                       <Text>
                         {name}
                       </Text>

@@ -9,7 +9,7 @@ import {
   SpanGreen,
   Hr,
   Contact,
-  Form,
+  FormStyled,
   Control,
   ControlGroup,
   Label,
@@ -51,7 +51,7 @@ export const Request = () => {
           {email}
         </Contact>
       </Contacts>
-      <Form>
+      <FormStyled>
         <Control>
           <Label>
             {t('present.request.form.name')}
@@ -98,7 +98,7 @@ export const Request = () => {
         <SendButton>
           {t('present.request.form.send')}
         </SendButton>
-      </Form>
+      </FormStyled>
     </Wrapper>
   );
 };

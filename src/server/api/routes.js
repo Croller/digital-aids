@@ -7,6 +7,8 @@ const routes = {
   'POST /api/table/:name/record': 'CommonController.getTableRecordByParam',
   'POST /api/table/:name/record/update': 'CommonController.updateTableRecord',
 
+  'POST /api/mailer/send': 'MailerController.send',
+
   'DELETE /api/file/delete': 'CommonController.deleteFile',
 };
 

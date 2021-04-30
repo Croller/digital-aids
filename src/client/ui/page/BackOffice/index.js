@@ -32,8 +32,8 @@ export const BackOffice = () => {
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
                 `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,
                 `${PATH}/restaurant/:restaurant/language/:language/foodtips`,
-                `${PATH}/restaurant/:restaurant/language/:language/category/archive`,
-                `${PATH}/restaurant/:restaurant/language/:language/category`,
+                `${PATH}/restaurant/:restaurant/language/:language/menu/archive`,
+                `${PATH}/restaurant/:restaurant/language/:language/menu`,
               ]}
               component={Category}
             />

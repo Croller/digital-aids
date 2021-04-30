@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { InputForm } from 'client/ui/components/_ui/Input';
-import { TextArea } from 'client/ui/components/_ui/TextArea';
-import { Button } from 'client/ui/components/_ui/Button';
 import { PALETTE, FONTS, BREAKPOINTS } from 'client/style/constants';
+import { InputForm } from 'client/ui/components/_ui/Input';
+import { TextAreaForm } from 'client/ui/components/_ui/TextArea';
+import { Button } from 'client/ui/components/_ui/Button';
+import { Form, Select } from 'antd';
+const FormItem = Form.Item;
 
 export const Wrapper = styled.div`
   display: flex;
@@ -87,11 +89,17 @@ export const Contact = styled.div`
   }
 `;
 
-export const Form = styled.div`
+export const FormStyled = styled(Form)`
   display: flex;
   justify-content: center;
   flex-direction: column;
   width: 100%;
+
+  > div {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     flex: 0 50%;
@@ -135,7 +143,7 @@ export const InputStyled = styled(InputForm)`
   border: 0;
 `;
 
-export const TextAreaStyled = styled(TextArea)`
+export const TextAreaStyled = styled(TextAreaForm)`
   border: 0;
   margin-bottom: 32px;
 `;

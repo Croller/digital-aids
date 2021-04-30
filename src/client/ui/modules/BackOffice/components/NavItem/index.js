@@ -16,8 +16,8 @@ const NAV_CONFIG = [
   {
     key: 'menu',
     icon: (<MenuSvg />),
-    path: '/back-office/restaurant/:restaurant/language/en/category',
-    part: '/category',
+    path: '/back-office/restaurant/:restaurant/language/en/menu',
+    part: '/menu',
   },
   {
     key: 'specialDeals',
@@ -35,7 +35,6 @@ const NAV_CONFIG = [
 
 export const NavItem = memo(({
   id = null,
-  category = null,
   onClick = () => {},
   className,
 }) => {
@@ -52,7 +51,7 @@ export const NavItem = memo(({
     if (pathname.indexOf('/restaurants') > -1) {
       return [NAV_CONFIG[0]];
     }
-    if (checkPath(['/category', '/special-deals', '/foodtips'])) {
+    if (checkPath(['/menu', '/special-deals', '/foodtips'])) {
       return NAV_CONFIG.slice(-3);
     }
     return NAV_CONFIG;

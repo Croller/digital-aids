@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Form, Select } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
+import { TextAreaForm } from 'client/ui/components/_ui/TextArea';
 import { Button } from 'client/ui/components/_ui/Button';
 
 const FormItem = Form.Item;
@@ -55,6 +56,42 @@ export const InputStyled = styled(InputForm)`
   font-size: 18px;
   font-family: ${FONTS.medium};
   border-radius: ${THEME.borderRadiusS};
+
+  ${p => p.addonAfter && css`
+    padding: 0;
+
+    .ant-input-group {
+      height: 48px;
+      border: 0;
+
+      .ant-input {
+        font-size: 18px;
+        font-family: ${FONTS.medium};
+        color: ${PALETTE.black};
+      }
+
+      .ant-input-group-addon {
+        border: 0;
+        border-left: 1px solid ${PALETTE.grey3};
+        background: transparent;
+        font-family: ${FONTS.medium};
+        font-size: 18px;
+        padding: 4px 18px;
+      }
+    }
+  `}
+`;
+
+export const TextAreaStyled = styled(TextAreaForm)`
+  font-size: 18px;
+  font-family: ${FONTS.medium};
+  border-radius: ${THEME.borderRadiusS};
+  min-height: 48px !important;
+  line-height: 22px !important;
+
+  &.info {
+    height: 48px !important;
+  }
 `;
 
 export const SelectStyled = styled(Select)`

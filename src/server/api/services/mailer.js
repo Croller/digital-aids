@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
 const error = {
   code: 0,
@@ -6,10 +6,23 @@ const error = {
   text: '',
 };
 
+console.log({
+  host: process.env.HOST_MAIL_SERVER,
+  port: process.env.HOST_MAIL_SERVER_PORT_IN,
+  secure: false,
+  auth: {
+    user: process.env.HOST_MAIL_LOGIN_INFO,
+    pass: process.env.HOST_MAIL_PASSWORD_INFO,
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
 const transporter = nodemailer.createTransport({
   host: process.env.HOST_MAIL_SERVER,
   port: process.env.HOST_MAIL_SERVER_PORT_IN,
-  secure: true,
+  secure: false,
   auth: {
     user: process.env.HOST_MAIL_LOGIN_INFO,
     pass: process.env.HOST_MAIL_PASSWORD_INFO,

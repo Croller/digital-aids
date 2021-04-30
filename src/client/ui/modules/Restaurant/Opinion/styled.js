@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button';
-import { TextArea } from 'client/ui/components/_ui/TextArea';
+import { TextAreaForm } from 'client/ui/components/_ui/TextArea';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -74,7 +74,7 @@ export const EmojiWrapper = styled.h4`
 
 export const CommentTitle = RateTitle;
 
-export const CommentControl = styled(TextArea)`
+export const CommentControl = styled(TextAreaForm)`
   margin-bottom: 38px;
 `;
 

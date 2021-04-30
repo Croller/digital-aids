@@ -6,6 +6,7 @@ import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Loader } from 'client/ui/components/_block/Loader';
 import { CategoryForm } from './CategoryForm';
 import { DishForm } from './DishForm';
+import { Info } from './Info';
 
 const listStyle = css`
   display: flex;
@@ -172,6 +173,10 @@ export const Caterory = styled(Button)`
 
 export const CateroryFormStyled = styled(CategoryForm)`
   margin-bottom: 30px;
+`;
+
+export const InfoStyled = styled(Info)`
+  margin-bottom: 22px;
 `;
 
 export const DishControls = styled.div`
