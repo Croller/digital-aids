@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 
 const CONFIG = {
-  user: process.env.HOST_DB_USER,
+  user: process.env.HOST_DB_LOGIN,
   password: process.env.HOST_DB_PASSWORD,
   host: process.env.HOST_DB_IP,
   port: Number(process.env.HOST_DB_PORT),
@@ -9,17 +9,18 @@ const CONFIG = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-  CONFIG.user = process.env.LOCAL_DB_USER;
+  CONFIG.user = process.env.LOCAL_DB_LOGIN;
   CONFIG.password = process.env.LOCAL_DB_PASSWORD;
   CONFIG.host = process.env.LOCAL_DB_IP;
   CONFIG.port = Number(process.env.LOCAL_DB_PORT);
   CONFIG.database = process.env.LOCAL_DB_DATABASE;
 }
 
+// verify connection configuration
 const db = new Client(CONFIG);
 db.connect()
   .then(() => console.log(`DataBase connected on port ${process.env.HOST_DB_PORT}`))
-  .catch((err) => console.log('Connect error:', err.message));
+  .catch((err) => console.log('DataBase connect error:', err.message));
 
 module.exports = {
   query: str => new Promise((resolve, reject) => {
