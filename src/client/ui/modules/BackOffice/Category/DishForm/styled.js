@@ -74,46 +74,6 @@ export const UploaderImage = styled(Uploader)`
   }
 `;
 
-// export const FormItemSubmit = styled(FormItem)`
-//   width: 88px;
-//   margin-bottom: 0;
-//   position: absolute;
-//   top: 10px;
-//   right: 22px;
-//   z-index: 20;
-// `;
-
-// export const Controls = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-end;
-//   flex-direction: row;
-// `;
-
-// export const Control = styled(Button)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   padding: 0;
-//   width: 32px;
-//   height: 32px;
-//   background-color: ${PALETTE.grey26};
-//   border-radius: ${THEME.borderRadiusS};
-
-//   &:not(:last-child) {
-//     margin-right: 18px;
-//   }
-
-//   > svg {
-//     width: 18px;
-//     height: 18px;
-
-//     path {
-//       fill: ${PALETTE.black1};
-//     }
-//   }
-// `;
-
 export const FormItemStyled = styled(FormItem)`
   margin-bottom: 0;
 
@@ -208,11 +168,33 @@ export const InputStyled = styled(InputForm)`
       border: 0;
 
       .ant-input {
-        height: 47px;
-        border-color: transparent;
+        font-size: 18px;
+        font-family: ${FONTS.medium};
+        color: ${PALETTE.black};
+      }
+
+      .ant-input-group-addon {
+        border: 0;
+        border-left: 1px solid ${PALETTE.grey3};
         background: transparent;
         font-family: ${FONTS.medium};
         font-size: 18px;
+        padding: 4px 18px;
+      }
+    }
+
+    &.addon-select {
+      .ant-input-group {
+        .ant-input-group-addon {
+          border-left: 0;
+          padding: 4px 12px;
+
+          .ant-select {
+            .ant-select-selector {
+              min-width: 124px;
+            }
+          }
+        }
       }
     }
   `}
@@ -224,6 +206,30 @@ export const Hr = styled.hr`
 `;
 
 export const SelectStyled = styled(Select)`
+  &.select-allergen {
+    .ant-select-selection-item {
+      height: 40px !important;
+      width: 40px;
+      padding: 0;
+      font-size: 18px;
+      border-radius: 30px !important;
+
+      .ant-select-selection-item-remove {
+        display: none;
+      }
+
+      .ant-select-selection-item-content {
+        height: 40px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        > span {
+          display: none;
+        }
+      }
+    }
+  }
+
   &.ant-select {
     .ant-select-selector {
       min-height: 48px !important;
@@ -383,8 +389,8 @@ export const Control = styled(Button)`
 `;
 
 export const Img = styled.img`
-  width: 33px;
-  height: 33px;
+  width: 38px;
+  height: 38px;
   margin-right: 12px;
 `;
 

@@ -131,7 +131,7 @@ export const NavBar = ({
     };
 
     switch (true) {
-      case pathname.indexOf('/dishes') > -1:
+      case pathname.indexOf('/menu') > -1:
         page = 'dish';
         break;
       case pathname.indexOf('/foodtips') > -1:
@@ -157,7 +157,7 @@ export const NavBar = ({
       };
     }
 
-    if (['/restaurants/archive', '/dishes', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1)) {
+    if (['/restaurants/archive', '/menu', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1)) {
       data.back = pathname.indexOf('/archive') > -1 ? { text: 'back' } : { text: 'menu' };
       data.archive = !['/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
       data.delete = pathname.indexOf('/archive') > -1;

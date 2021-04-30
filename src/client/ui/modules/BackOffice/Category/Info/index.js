@@ -1,15 +1,15 @@
-import React, { memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Item,
   Label,
-  Descriptions,
+  Field,
   InfoWrapper,
 } from './styled';
 
 const Block = ({
   label = null,
-  descriptions = null,
+  text = null,
 }) => (
   <Item>
     {label && (
@@ -17,32 +17,50 @@ const Block = ({
         {label}
       </Label>
     )}
-    {descriptions && (
-      <Descriptions>
-        {descriptions}
-      </Descriptions>
+    {text && (
+      <Field>
+        {text}
+      </Field>
     )}
   </Item>
 );
 
-export const Info = memo(({
+export const Info = ({
   options = null,
+  page = 'foodtips',
   className,
 }) => {
   const [t] = useTranslation();
-  const {
-    rules = null,
-  } = options;
+  const [param, setParams] = useState(null);
 
-  return options && (
+  useEffect(() => {
+    if (options) {
+      const {
+        rules = null,
+      } = options;
+
+      if (['foodtips', 'special-deals'].includes(page) && rules) {
+        setParams({
+          info: {
+            label: t('common.words.info'),
+            text: (t(`backOffice.info.${page}.info`)).replace('/maxLength/', rules.info.maxLength),
+          },
+        });
+      }
+    }
+    return () => {
+      setParams(null);
+    };
+  }, [options]);
+
+  return options && param && (
     <InfoWrapper className={className}>
-      {rules && Object.keys(rules.info).map((key, k) => (
+      {Object.keys(param).map((key, k) => (
         <Block
-          key={`_info_${key}_${k + 1}`}
-          label="Info"
-          descriptions={t['common.backOffice']}
+          key={`_block_${key}_${k + 1}`}
+          {...param[key]}
         />
       ))}
     </InfoWrapper>
   );
-});
+};

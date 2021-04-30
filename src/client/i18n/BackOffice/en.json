@@ -25,12 +25,12 @@
     },
     "archive": "Are you sure you want to remove an entire archive? \n Once you remove it, it will not available to restore."
   },
-  "information": {
+  "info": {
     "foodtips": {
-      "maxLength": "You can keep maximum /text-replace/ Foodtips cards."
+      "info": "You can keep maximum /maxLength/ Foodtips cards."
     },
-    "specialDeals": {
-      "maxLength": "Your menu can include only /text-replace/ special deal, but you can change it any time."
+    "special-deals": {
+      "info": "Your menu can include only /maxLength/ special deal, but you can change it any time."
     }
   }
 }

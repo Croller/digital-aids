@@ -216,17 +216,24 @@ export const DishForm = memo(({
                 rules={rule.text}
               >
                 <InputStyled
+                  className="addon-select"
                   type="number"
                   step="0.01"
                   placeholder={t('common.form.placeholder.floatExample')}
                   addonAfter={(
-                    <SelectStyled name="price[0].unit">
-                      {dictionary && dictionary.units.map((item, i) => (
-                        <OptionStyled key={`_units_${i + 1}`} value={item.id}>
-                          {item.name}
-                        </OptionStyled>
-                      ))}
-                    </SelectStyled>
+                    <FormItemStyled
+                      name="price[0].unit"
+                      required
+                      rules={rule.text}
+                    >
+                      <SelectStyled>
+                        {dictionary && dictionary.units.map((item, i) => (
+                          <OptionStyled key={`_units_${i + 1}`} value={item.id}>
+                            {item.name}
+                          </OptionStyled>
+                        ))}
+                      </SelectStyled>
+                    </FormItemStyled>
                   )}
                 />
               </FormItemStyled>
@@ -256,12 +263,14 @@ export const DishForm = memo(({
                   mode="multiple"
                   placeholder={t('common.form.placeholder.number')}
                   optionFilterProp="label"
+                  className="select-allergen"
                 >
                   {dictionary && dictionary.allergens.map(({ id, name }, i) => (
                     <OptionStyled
                       key={`_allergens_${i + 1}`}
                       value={id}
                       label={name}
+                      className="options-allergen"
                     >
                       <Img src={getDictionaryItem(id, 'key', ALLERGENS, 'src')} />
                       <Text>

@@ -105,6 +105,7 @@ const Restaurant = () => {
     } = values;
 
     if (main_language) {
+      edited.main_language = main_language;
       edited.sub_languages = formData.sub_languages.filter(f => f !== main_language);
     }
     if (sub_languages) {

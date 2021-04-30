@@ -52,7 +52,7 @@ export const NavItem = memo(({
       return [NAV_CONFIG[0]];
     }
     if (checkPath(['/menu', '/special-deals', '/foodtips'])) {
-      return NAV_CONFIG.slice(-3);
+      return NAV_CONFIG.slice(-2);
     }
     return NAV_CONFIG;
   };

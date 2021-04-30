@@ -7,6 +7,7 @@ import {
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
 import { updateItem } from 'client/utils/common';
+import { categoryTemp } from 'client/store/backOffice/mapper/category';
 
 function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
@@ -83,42 +84,52 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
 
 function* updateRow({ payload }) {
   const { token, language } = yield select((store) => store.user.info);
-  const { name } = payload;
+  const { name, data } = payload;
   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
+  let status = 'saved';
 
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
-    let results = yield commonProvider.update({ ...payload, token, language });
+    const results = yield commonProvider.update({ ...payload, token, language });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
-      const status = 'saved';
-      results = Array.isArray(results) ? results : [results];
+      let arr = Array.isArray(results) ? results : [results];
+
+      // update restaurant 
+      if (name === 'data_restaurants' && !data.id) {
+        status = 'created';
+        yield commonProvider.update({
+          name: 'data_categories',
+          token,
+          language,
+          data: categoryTemp({ restaurant: results.id }).slice(-2), 
+        });
+      }
 
       // update children parent after create new category group
-      let children = results.slice(1);
+      let children = arr.slice(1);
       children = children.filter(f => !f.parent && f);
-      if (name === 'data_categories') {
-        if (results.length > 1 && children.length > 0) {
-          const resultsChild = yield commonProvider.update({
-            name,
-            token,
-            language,
-            data: children.map(child => {
-              const obj = { ...child };
-              delete obj.children;
-              return { ...obj, parent: results[0].id };
-            }), 
-          });
-          results = [results[0], ...(Array.isArray(resultsChild) ? resultsChild : [resultsChild])];
-        }
+      if (name === 'data_categories' && arr.length > 1 && children.length > 0) {
+        status = 'created';
+        const arrChild = yield commonProvider.update({
+          name,
+          token,
+          language,
+          data: children.map(child => {
+            const obj = { ...child };
+            delete obj.children;
+            return { ...obj, parent: arr[0].id };
+          }), 
+        });
+        arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
       }
-      results = updateItem(results, table);
+      arr = updateItem(arr, table);
       
       yield put({
         type: Constants.BO_SET,
         payload: {
-          [name.split('_')[1]]: results.filter(f => !f.is_deleted),
+          [name.split('_')[1]]: arr.filter(f => !f.is_deleted),
           status,
         }, 
       });

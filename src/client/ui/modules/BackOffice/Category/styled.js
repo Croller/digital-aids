@@ -122,6 +122,7 @@ export const CategoryEdit = styled(Button)`
   padding: 0;
   background-color: ${PALETTE.grey26};
   border-radius: ${THEME.borderRadiusM};
+  margin-top: -4px;
 
   > svg {
     width: 20px;

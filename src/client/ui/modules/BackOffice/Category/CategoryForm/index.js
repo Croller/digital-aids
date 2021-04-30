@@ -5,6 +5,7 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
+import { getDictionaryItem } from 'client/utils/common';
 import {
   dataToForm,
   dataFromToList,
@@ -25,6 +26,7 @@ import {
   FormCol,
   FormItemStyled,
   InputStyled,
+  TextAreaStyled,
   SelectStyled, OptionStyled,
   Controls, Control,
 } from './styled';
@@ -32,6 +34,8 @@ import {
 export const CategoryForm = ({
   source = null,
   loading = false,
+  currency = null,
+  dictionary = null,
   className,
   archive = false,
   onChange = () => {},
@@ -44,7 +48,7 @@ export const CategoryForm = ({
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
-      title={t(`backOffice.confirmModal.dish.${event.key}`)}
+      title={t(`backOffice.confirmModal.category.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
       textCancel={t('common.words.doNot')}
       onCancel={hideConfirm}
@@ -92,14 +96,20 @@ export const CategoryForm = ({
   };
 
   const handleEvent = (key) => {
-    const params = { id: formData.id };
+    const params = {};
 
     if (key === 'restore') params.is_archived = false;
     if (key === 'delete') params.is_deleted = true;
     if (key === 'archive') params.is_archived = true;
 
     showConfirm();
-    setEvent({ key, params });
+    let obj = dataFromToList({ ...formData }, (source || categoryModel.find(f => f.type === formData.type)));
+    obj = {
+      ...obj,
+      ...params,
+      children: obj.children ? obj.children.map(item => ({ ...item, ...params })) : null,
+    };
+    setEvent({ key, params: obj });
   };
 
   const handleChange = (key = null, params = null) => {
@@ -221,33 +231,20 @@ export const CategoryForm = ({
         {['daily', 'organicWine'].includes(formData.type) && (
           <>
             <FormCol>
-              {['daily', 'organicWine'].includes(formData.type) && (
-                <FormItemStyled
-                  label={t('common.words.info')}
-                  name="options.info"
-                  required
-                  rules={rule.text}
-                >
-                  <InputStyled
-                    placeholder={t('common.form.placeholder.text')}
-                  />
-                </FormItemStyled>
-              )}
-              {formData.type === 'daily' && (
-                <FormItemStyled
-                  label={t('common.words.descriptions')}
-                  name="options.descriptions"
-                  required
-                  rules={rule.text}
-                >
-                  <InputStyled
-                    placeholder={t('common.form.placeholder.text')}
-                  />
-                </FormItemStyled>
-              )}
-            </FormCol>
-            {formData.type === 'daily' && (
               <Form2Col>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.info')}
+                    name="options.info"
+                    required
+                    rules={rule.text}
+                  >
+                    <TextAreaStyled
+                      minRows={1}
+                      placeholder={t('common.form.placeholder.text')}
+                    />
+                  </FormItemStyled>
+                </FormCol>
                 <FormCol>
                   <FormItemStyled
                     label={t('common.words.price')}
@@ -258,33 +255,42 @@ export const CategoryForm = ({
                     <InputStyled
                       type="number"
                       step="0.01"
+                      addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
                       placeholder={t('common.form.placeholder.floatExample')}
                     />
                   </FormItemStyled>
                 </FormCol>
               </Form2Col>
-            )}
+              <FormItemStyled
+                label={t('common.words.descriptions')}
+                name="options.descriptions"
+                required
+                rules={rule.text}
+              >
+                <TextAreaStyled
+                  placeholder={t('common.form.placeholder.text')}
+                />
+              </FormItemStyled>
+            </FormCol>
           </>
         )}
         {formData.children && (
-          <FormCol>
-            <FormItemStyled
-              label={t('common.words.group')}
-              name="children"
-              required
-              rules={rule.text}
+          <FormItemStyled
+            label={t('common.words.group')}
+            name="children"
+            required
+            rules={rule.text}
+          >
+            <SelectStyled
+              mode="tags"
+              tokenSeparators={[',']}
+              placeholder={t('common.form.placeholder.text')}
             >
-              <SelectStyled
-                mode="tags"
-                tokenSeparators={[',']}
-                placeholder={t('common.form.placeholder.text')}
-              >
-                {formData.children.map((str, i) => (
-                  <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
-                ))}
-              </SelectStyled>
-            </FormItemStyled>
-          </FormCol>
+              {formData.children.map((str, i) => (
+                <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
+              ))}
+            </SelectStyled>
+          </FormItemStyled>
         )}
       </FormStyled>
     </CategoryFormWrapper>
