@@ -30,6 +30,7 @@
 
 
 
+
 -------------------------- TEMP QUERY --------------------------
 
 
@@ -74,7 +75,7 @@
 -- ALTER TABLE users ADD COLUMN enter_at int;
 -- ALTER TABLE data_users ALTER COLUMN phone TYPE BIGINT
 -- ALTER TABLE data_krt_confirm RENAME disctrict TO district;
--- ALTER TABLE dictionary_monitoring_group RENAME TO dictionary_monitoring_group_data_monitoring;
+-- ALTER TABLE dictionary_dictionary_translate RENAME TO dictionary_translate;
 -- ALTER TABLE my_table ADD COLUMN the_geom_mercator geometry(Geometry,3857);
 -- ALTER TABLE data_krt DROP COLUMN IF EXISTS geom;
 

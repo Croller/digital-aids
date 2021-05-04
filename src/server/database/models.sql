@@ -3,6 +3,7 @@
 -- ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
 
 CREATE TABLE IF NOT EXISTS data_users (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   login varchar DEFAULT NULL,
   password varchar DEFAULT NULL,
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS data_users (
   birthdate timestamp with time zone DEFAULT NULL,
   phone bigint array DEFAULT NULL,
   email varchar array DEFAULT NULL,
-  language varchar DEFAULT 'en', -- DICTIONARY dictionary_languages
+  language varchar DEFAULT 'en', -- DICTIONARY dictionary_translate
   roles int array DEFAULT NULL, -- DICTIONARY data_roles
   restaurants varchar ARRAY DEFAULT NULL, -- DICTIONARY data_restaurant
   enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
@@ -34,6 +35,7 @@ CREATE TABLE IF NOT EXISTS data_roles (
 );
 
 CREATE TABLE IF NOT EXISTS data_restaurants (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
@@ -46,7 +48,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   cuisine VARCHAR ARRAY DEFAULT NULL,
   employees VARCHAR ARRAY DEFAULT NULL,
   avg_price FLOAT DEFAULT 0.00,
-  languages VARCHAR ARRAY DEFAULT '{"NULL", "en"}', -- DICTIONARY dictionary_languages
+  languages VARCHAR ARRAY DEFAULT '{"NULL", "en"}', -- DICTIONARY dictionary_translate
   images VARCHAR ARRAY DEFAULT NULL,
   socials jsonb DEFAULT '{"thefork":{"rate":"0","url":"NULL", "comments":[]},"tripadviser":{"rate":"0","url":"NULL", "comments":[]},"facebook":"NULL","instagram":"NULL"}',
   at_work jsonb DEFAULT '{"description":"NULL","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
@@ -56,6 +58,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
 );
 
 CREATE TABLE IF NOT EXISTS data_categories (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   parent VARCHAR NULL,
   restaurant VARCHAR NOT NULL,
@@ -71,10 +74,11 @@ CREATE TABLE IF NOT EXISTS data_categories (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE IF NOT EXISTS data_categories_languages (
+CREATE TABLE IF NOT EXISTS data_categories_translate (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   parent VARCHAR NOT NULL,
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
@@ -82,12 +86,13 @@ CREATE TABLE IF NOT EXISTS data_categories_languages (
 );
 
 CREATE TABLE IF NOT EXISTS data_dishes (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  allergens VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY dictionary_languages
+  allergens VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY dictionary_translate
   images VARCHAR ARRAY DEFAULT NULL,
   price jsonb DEFAULT '[{"amount": "0.00", "cost": "0.00", "unit": "pc"}]',
   options jsonb DEFAULT '{}',
@@ -95,10 +100,11 @@ CREATE TABLE IF NOT EXISTS data_dishes (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE IF NOT EXISTS data_dishes_languages (
+CREATE TABLE IF NOT EXISTS data_dishes_translate (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   parent VARCHAR NOT NULL, -- DICTIONARY data_dishes
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
@@ -108,6 +114,7 @@ CREATE TABLE IF NOT EXISTS data_dishes_languages (
 
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
+  number serial,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -116,21 +123,15 @@ CREATE TABLE IF NOT EXISTS dictionary_currency (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_languages (
+  number serial,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS dictionary_type_categories (
-  id VARCHAR DEFAULT NULL,
-  name VARCHAR DEFAULT NULL,
-  fullname VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL,
-  options jsonb DEFAULT NULL
-);
-
 CREATE TABLE IF NOT EXISTS dictionary_allergens (
+  number serial,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -138,6 +139,7 @@ CREATE TABLE IF NOT EXISTS dictionary_allergens (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_units (
+  number serial,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -145,6 +147,7 @@ CREATE TABLE IF NOT EXISTS dictionary_units (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_days (
+  number serial,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -155,9 +158,10 @@ CREATE TABLE IF NOT EXISTS dictionary_days (
 -- unit
 -- week_days
 -- type_categories
-CREATE TABLE IF NOT EXISTS dictionary_dictionary_languages (
+CREATE TABLE IF NOT EXISTS dictionary_translate (
+  number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
   parent VARCHAR NOT NULL, -- DICTIONARY KEY
   tablename VARCHAR NOT NULL, -- TABLE NAME
   name VARCHAR DEFAULT NULL,
@@ -172,7 +176,14 @@ CREATE TABLE IF NOT EXISTS dictionary_dictionary_languages (
 
 
 
-
+-- CREATE TABLE IF NOT EXISTS dictionary_type_categories (
+--   number serial,
+--   id VARCHAR DEFAULT NULL,
+--   name VARCHAR DEFAULT NULL,
+--   fullname VARCHAR DEFAULT NULL,
+--   description VARCHAR DEFAULT NULL,
+--   options jsonb DEFAULT NULL
+-- );
 
 
   -- categories

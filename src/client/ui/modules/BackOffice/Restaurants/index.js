@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { update } from 'client/store/backOffice';
-import { EmptyList } from 'client/ui/modules/BackOffice/components/EmptyList';
+import { EmptyList, EmptySearch } from 'client/ui/modules/BackOffice/components/EmptyBlock';
+import { ArchiveSvg, RestaurantSvg } from 'client/assets/images';
 import {
   RestaurantList,
   NavBarStyled,
@@ -17,7 +18,7 @@ const Restaurants = () => {
   const rootDispatch = useDispatch();
   const { restaurants, loading } = useSelector(state => state.backOffice);
   const { pathname } = useLocation();
-  const [filtred, setFiltred] = useState(null);
+  const [filtred, setFiltred] = useState({ true: [], false: [] });
   const [searched, setSearched] = useState(null);
 
   const isArchive = pathname.indexOf('archive') > -1;
@@ -57,8 +58,8 @@ const Restaurants = () => {
       setFiltred(result);
     }
   }, [restaurants]);
-
-  return (
+  console.log(searched, filtred);
+  return restaurants && (
     <RestaurantList>
       {loading && (<LoaderStyled />)}
       <NavBarStyled
@@ -66,18 +67,25 @@ const Restaurants = () => {
         onEvent={handleEventAll}
       />
       <List>
-        {!(filtred && filtred[isArchive]) ? (
+        {searched === null && filtred[isArchive] && (
           <EmptyList
             type={isArchive ? 'archive' : 'restaurants'}
-            search={searched}
+            icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
           />
-        ) : ((searched !== null ? searched : filtred[isArchive]).map((item, i) => (
+        )}
+        {(searched && filtred && filtred[isArchive].length === 0) ? (
+          <EmptySearch
+            type={isArchive ? 'archive' : 'restaurants'}
+            icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
+            searched={searched}
+          />
+        ) : (filtred && filtred[isArchive]).map((item, i) => (
           <RestaurantInfo
             {...item}
             key={`_restauran_${i + 1}_${item.id}`}
             onEvent={handleEvent}
           />
-        )))}
+        ))}
       </List>
     </RestaurantList>
   );

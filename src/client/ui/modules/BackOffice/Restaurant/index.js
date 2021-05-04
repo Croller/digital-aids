@@ -353,7 +353,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
               >
-                {dictionary && (dictionary.languages || []).filter(f => f.id !== 'en').map(({ id, name }, i) => (
+                {dictionary && (dictionary.languages || []).map(({ id, name }, i) => (
                   <OptionStyled
                     key={`_language_${i + 1}`}
                     value={id}
