@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { RestaurantSvg } from 'client/assets/images';
 import {
@@ -8,16 +8,18 @@ import {
   Descriptions,
 } from './styled';
 
-export const EmptyList = ({
+export const EmptyListRestaurant = ({
   type = 'restaurants',
   icon = <RestaurantSvg />,
 }) => {
   const [t] = useTranslation();
   return (
     <Wrapper>
-      <Icon>
-        {icon}
-      </Icon>
+      {icon && (
+        <Icon>
+          {icon}
+        </Icon>
+      )}
       {type === 'restaurants' && (
         <Title>
           {`${t('common.words.welcome')}!`}
@@ -29,19 +31,3 @@ export const EmptyList = ({
     </Wrapper>
   );
 };
-
-export const EmptySearch = memo(({
-  icon = <RestaurantSvg />,
-}) => {
-  const [t] = useTranslation();
-  return (
-    <Wrapper>
-      <Icon>
-        {icon}
-      </Icon>
-      <Descriptions>
-        {t('backOffice.emptyList.search')}
-      </Descriptions>
-    </Wrapper>
-  );
-});

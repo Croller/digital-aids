@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { update } from 'client/store/backOffice';
-import { EmptyList, EmptySearch } from 'client/ui/modules/BackOffice/components/EmptyBlock';
+import { EmptyListRestaurant } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import { ArchiveSvg, RestaurantSvg } from 'client/assets/images';
 import {
   RestaurantList,
@@ -58,7 +58,7 @@ const Restaurants = () => {
       setFiltred(result);
     }
   }, [restaurants]);
-  console.log(searched, filtred);
+
   return restaurants && (
     <RestaurantList>
       {loading && (<LoaderStyled />)}
@@ -67,17 +67,10 @@ const Restaurants = () => {
         onEvent={handleEventAll}
       />
       <List>
-        {searched === null && filtred[isArchive] && (
-          <EmptyList
-            type={isArchive ? 'archive' : 'restaurants'}
+        {(searched || (filtred && filtred[isArchive].length === 0)) ? (
+          <EmptyListRestaurant
+            type={(searched && 'search') || (isArchive ? 'archive' : 'restaurants')}
             icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
-          />
-        )}
-        {(searched && filtred && filtred[isArchive].length === 0) ? (
-          <EmptySearch
-            type={isArchive ? 'archive' : 'restaurants'}
-            icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
-            searched={searched}
           />
         ) : (filtred && filtred[isArchive]).map((item, i) => (
           <RestaurantInfo
