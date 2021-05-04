@@ -29,7 +29,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
     let results_restaurants = null;
     if (!ids) {
       results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
-      results_restaurants = results_restaurants.data_restaurants;
+      results_restaurants = results_restaurants.data_restaurants.sort((a, b) => a.number - b.number);
     } else {
       results_restaurants = yield commonProvider.loadRow({
         name,
@@ -38,6 +38,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
         data: ids,
       });
     }
+    results_restaurants = results_restaurants.sort((a, b) => a.number - b.number);
 
     let results_categories = [];
     const restaurants_ids = results_restaurants.map(({ id }) => id);
@@ -48,6 +49,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
         language,
         data: { restaurant: restaurants_ids },
       });
+      results_categories = results_categories.sort((a, b) => a.number - b.number);
     }
     
     let results_dishes = [];

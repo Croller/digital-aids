@@ -115,7 +115,6 @@ export const CategoryForm = ({
   const handleChange = (key = null, params = null) => {
     if (!key) return;
     let obj = null;
-
     if (key !== 'close') {
       obj = { ...formData, ...(params || {}) };
     }
@@ -155,42 +154,55 @@ export const CategoryForm = ({
               </Control>
             </Tooltip>
           )}
-          {!archive && !isChange && source && source.id && (
-            <Tooltip placement="top" title={t('common.words.archive')}>
-              <Control
-                loading={loading}
-                onClick={() => handleEvent('archive')}
-              >
-                <ArchiveSvg />
-              </Control>
-            </Tooltip>
-          )}
-          {archive && source ? (
+          {source && source.id ? (
             <>
-              <Tooltip placement="top" title={t('common.words.restore')}>
-                <Control
-                  loading={loading}
-                  onClick={() => handleEvent('restore')}
-                >
-                  <PlusSvg />
-                </Control>
-              </Tooltip>
-              <Tooltip placement="top" title={t('common.words.delete')}>
-                <Control
-                  loading={loading}
-                  onClick={() => handleEvent('delete')}
-                >
-                  <TrashSvg />
-                </Control>
-              </Tooltip>
+              {!archive && !isChange && (
+                <Tooltip placement="top" title={t('common.words.archive')}>
+                  <Control
+                    loading={loading}
+                    onClick={() => handleEvent('archive')}
+                  >
+                    <ArchiveSvg />
+                  </Control>
+                </Tooltip>
+              )}
+              {archive ? (
+                <>
+                  <Tooltip placement="top" title={t('common.words.restore')}>
+                    <Control
+                      loading={loading}
+                      onClick={() => handleEvent('restore')}
+                    >
+                      <PlusSvg />
+                    </Control>
+                  </Tooltip>
+                  <Tooltip placement="top" title={t('common.words.delete')}>
+                    <Control
+                      loading={loading}
+                      onClick={() => handleEvent('delete')}
+                    >
+                      <TrashSvg />
+                    </Control>
+                  </Tooltip>
+                </>
+              ) : (
+                <Tooltip placement="top" title={t('common.words.close')}>
+                  <Control
+                    loading={loading}
+                    onClick={() => handleChange('close')}
+                  >
+                    <CloseSvg />
+                  </Control>
+                </Tooltip>
+              )}
             </>
           ) : (
-            <Tooltip placement="top" title={t('common.words.close')}>
+            <Tooltip placement="top" title={t('common.words.delete')}>
               <Control
                 loading={loading}
-                onClick={() => handleChange('close')}
+                onClick={() => handleEvent('delete')}
               >
-                <CloseSvg />
+                <TrashSvg />
               </Control>
             </Tooltip>
           )}

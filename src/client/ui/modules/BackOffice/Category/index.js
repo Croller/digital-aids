@@ -59,13 +59,6 @@ const Category = () => {
   const pageActive = page.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
 
-  // console.log(restaurants,
-  //   categories,
-  //   dishes,
-  //   dictionary,
-  //   status,
-  //   loading);
-
   const init = () => {
     let categoryFilter = null;
     const rest = restaurants.find(f => f.id === params.restaurant);
@@ -78,7 +71,7 @@ const Category = () => {
       
       if (pageActive === null) {
         categoryFilter = restCategories.filter(f => !page.includes(f.key));
-        categoryFilter.length > 0 && setRestCategoryActive(categoryFilter[0]);
+        !restCategoryActive && categoryFilter.length > 0 && setRestCategoryActive(categoryFilter[0]);
 
         setRestCategory(categoryFilter);
       }
@@ -145,8 +138,15 @@ const Category = () => {
   const handleChangeCategory = (data = null) => {
     setRestCategoryEdit(false);
     if (!data) return;
-    setRestCategoryActive(restCategory[0]);
-    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo) }));
+    if (!data.id) {
+      const withoutLast = restCategory.slice(0, restCategory.length - 1);
+      setRestCategory(withoutLast);
+      setRestCategoryActive(withoutLast[withoutLast.length - 1]);
+      return;
+    }
+    setRestCategoryActive(data);
+    const dataApi = dataToApi(data, restInfo);
+    rootDispatch(update({ name: 'data_categories', data: dataApi }));
   };
 
   const handleAddDish = () => {
@@ -211,8 +211,6 @@ const Category = () => {
     }
   }, [status]);
 
-  console.log('restCategoryActive', restCategoryActive, restCategory);
-
   return (
     <>
       {loading && (<LoaderStyled />)}
@@ -254,7 +252,7 @@ const Category = () => {
                 {restCategory && restCategory.filter(item => item && item.key).map((item, i) => item && (
                   <Caterory
                     key={`_category_${item.key}_${i + 1}`}
-                    active={restCategoryActive && item.key === restCategoryActive.key}
+                    active={restCategoryActive && item.id === restCategoryActive.id}
                     onClick={() => setRestCategoryActive(item)}
                   >
                     {item.name}
