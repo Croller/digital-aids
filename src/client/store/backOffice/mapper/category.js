@@ -99,7 +99,7 @@ export const dataToApi = (data, restaurant) => {
     const edit = {
       ...categoryModel.find(f => f.type === item.type),
       ...item,
-      parent: edited.id,
+      parent: edited.id || null,
       restaurant: item.restaurant || restaurant.id,
     };
     delete edit.children;

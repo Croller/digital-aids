@@ -73,11 +73,11 @@ const Category = () => {
         categoryFilter = restCategories.filter(f => !page.includes(f.key));
         !restCategoryActive && categoryFilter.length > 0 && setRestCategoryActive(categoryFilter[0]);
 
-        setRestCategory(categoryFilter);
+        setRestCategory(categoryFilter.filter(f => !f.is_deleted));
       }
 
       if (pageActive) {
-        categoryFilter = restCategories.filter(s => s.key === pageActive); 
+        categoryFilter = restCategories.filter(f => f.key === pageActive); 
         if (categoryFilter.length > 0) {
           setRestCategoryActive(categoryFilter[0]);
           setDishCategory(...[(dishes || [])].filter(f => f.parent === categoryFilter[0].id));
@@ -137,16 +137,17 @@ const Category = () => {
   
   const handleChangeCategory = (data = null) => {
     setRestCategoryEdit(false);
+    setRestCategoryActive({
+      ...data,
+      children: data.children ? data.children.filter(f => !f.is_deleted) : null,
+    });
     if (!data) return;
     if (!data.id) {
       const withoutLast = restCategory.slice(0, restCategory.length - 1);
       setRestCategory(withoutLast);
       setRestCategoryActive(withoutLast[withoutLast.length - 1]);
-      return;
     }
-    setRestCategoryActive(data);
-    const dataApi = dataToApi(data, restInfo);
-    rootDispatch(update({ name: 'data_categories', data: dataApi }));
+    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo) }));
   };
 
   const handleAddDish = () => {
