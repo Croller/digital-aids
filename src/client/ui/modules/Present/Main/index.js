@@ -217,11 +217,11 @@ const Main = () => {
               {t('present.main.first.col2.question')}  
             </PresentQuestion>
             <PresentDescription>
-              {t('present.main.first.col2.description')}  
+              {t('present.main.first.col2.description')}
+              <PresentTime>
+                {t('present.main.first.col2.time')}  
+              </PresentTime>
             </PresentDescription>
-            <PresentTime>
-              {t('present.main.first.col2.time')}  
-            </PresentTime>
             <PresentButton onClick={() => handleRoute('/tutorial')}>
               {t('present.main.first.col2.button')}  
             </PresentButton>

@@ -46,7 +46,7 @@ export const PresentBlock = styled.div`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 1440px;
-    height: 527px;
+    height: 564px;
     flex-direction: row;
     background: url(${BackgroundBlock1Png}) no-repeat right;
     background-size: auto;
@@ -140,7 +140,7 @@ export const PresentButton = styled(Button)`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 284px;
-    margin-top: 70px;
+    margin-top: 52px;
   }
 `;
 
@@ -151,7 +151,7 @@ export const QRCodeWrapper = styled.div`
   order: 2;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    width: 376px;
+    width: 478px;
     order: 3;
   }
 `;
@@ -226,7 +226,7 @@ export const OfertaWrapper = styled.div`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     position: absolute;
-    margin-top: -72px;
+    margin-top: -36px;
     margin-left: -48px;
   }
 `;
@@ -315,6 +315,7 @@ export const DigitalTitle = styled.h3`
   line-height: 32px;
   margin: 0;
   margin-bottom: 10px;
+  white-space: pre-line;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     font-size: 28px;
@@ -377,9 +378,9 @@ export const DigitalOption = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
   flex: 0 48%;
   margin-bottom: 47px;
+  align-items: center;
 
   svg {
     width: 68px;
@@ -409,6 +410,7 @@ export const DigitalOptionDescription = styled.p`
   white-space: pre-line;
   margin: 0;
   color: ${PALETTE.grey20};
+  text-align: center;
 `;
 
 export const QuestionsBlock = styled.div`
