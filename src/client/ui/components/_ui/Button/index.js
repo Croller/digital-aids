@@ -10,7 +10,7 @@ export const Button = forwardRef(({
   onMouseEnter = () => {},
   onMouseLeave = () => {},
   onFocus = () => {},
-  htmlType = null,
+  htmlType = 'button',
   className,
   children,
 }, ref) => {

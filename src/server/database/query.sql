@@ -6,15 +6,15 @@
 
 -- DROP TABLE IF EXISTS data_dishes;
 
--- DROP TABLE IF EXISTS data_categories_languages;
--- DROP TABLE IF EXISTS data_dishes_languages;
+-- DROP TABLE IF EXISTS data_categories_translate;
+-- DROP TABLE IF EXISTS data_dishes_translate;
 
 -- DROP TABLE IF EXISTS dictionary_currency;
 -- DROP TABLE IF EXISTS dictionary_languages;
 -- DROP TABLE IF EXISTS dictionary_allergens;
 -- DROP TABLE IF EXISTS dictionary_units;
 -- DROP TABLE IF EXISTS dictionary_days;
--- DROP TABLE IF EXISTS dictionary_dictionary_languages;
+-- DROP TABLE IF EXISTS dictionary_translate;
 
 
 

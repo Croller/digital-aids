@@ -62,7 +62,9 @@
     "type": "Type",
     "info": "Info",
     "descriptions": "Descriptions",
-    "group": "Group"
+    "group": "Group",
+    "number": "Number",
+    "unit": "Unit"
   },
 
   "form" : {
@@ -137,43 +139,5 @@
     "504": "504 Gateway Timeout",
     "413": "413 Payload Too Large",
     "400": "404 Bad Request"
-  },
-
-   "dictionary": {
-    "unit": {
-      "kg": "kg",
-      "gr": "gr",
-      "l": "L",
-      "ml": "ml",
-      "pc": "pc",
-      "pr": "pr"
-    },
-
-    "days": {
-      "mon": "Mon",
-      "tue": "Tue",
-      "wed": "Wed",
-      "thu": "Thu",
-      "fri": "Fri",
-      "sat": "Sat",
-      "sun": "Sun"
-    },
-
-    "allergens": {
-      "mustard": "Mustard",
-      "lupins": "Lupins",
-      "sesame": "Sesame",
-      "fish": "Fish",
-      "nuts": "Tree nuts",
-      "diox": "Diox, sulfur and sulfites",
-      "crustaceans": "Crustaceans",
-      "soy": "Soy",
-      "mollusks": "Mollusks",
-      "celery": "Celery",
-      "eggs": "Eggs",
-      "dairy": "Dairy products",
-      "peanuts": "Peanuts",
-      "gluten": "Gluten"
-    }
-   }
+  }
 }

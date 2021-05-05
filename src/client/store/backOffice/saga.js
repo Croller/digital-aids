@@ -53,14 +53,14 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
     }
     
     let results_dishes = [];
-    const categories_ids = results_categories.reduce((arr, { dishes }) => [...arr, ...(dishes || [])], []);
-    if (categories_ids.length > 0) {
+    if (restaurants_ids.length > 0) {
       results_dishes = yield commonProvider.loadRowByParam({
         name: 'data_dishes',
         token,
         language,
-        data: { id: results_categories.reduce((arr, { dishes }) => [...arr, ...dishes], []) },
+        data: { restaurant: restaurants_ids },
       });
+      results_dishes = results_dishes.sort((a, b) => a.number - b.number);
     }
     
     const error = null;
@@ -98,7 +98,7 @@ function* updateRow({ payload }) {
     } else if (results) {
       let arr = Array.isArray(results) ? results : [results];
 
-      // update restaurant 
+      // update restaurant with create 2 default categories foodtips/special-deals
       if (name === 'data_restaurants' && !data.id) {
         status = 'created';
         yield commonProvider.update({
@@ -126,6 +126,7 @@ function* updateRow({ payload }) {
         });
         arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
       }
+      
       arr = updateItem(arr, table);
       
       yield put({

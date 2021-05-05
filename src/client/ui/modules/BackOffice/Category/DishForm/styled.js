@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Form, Select } from 'antd';
+import { Form, Select, Descriptions } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
 import { Uploader } from 'client/ui/components/_ui/Uploader';
+import { TextAreaForm } from 'client/ui/components/_ui/TextArea';
 import { Button } from 'client/ui/components/_ui/Button';
 
 const FormItem = Form.Item;
+const DescriptionsItem = Descriptions.Item;
 const { Option } = Select;
 
 export const DishFormWrapper = styled.div`
@@ -15,11 +17,12 @@ export const DishFormWrapper = styled.div`
   border-radius: ${THEME.borderRadiusL};
   background-color: ${PALETTE.white};
   box-shadow: ${THEME.boxShadow1};
-  padding: 22px 20px 30px 22px;
+  padding: 0 20px 0 20px;
 `;
 
 export const FormStyled = styled(Form)`
   width: 100%;
+  margin-top: 22px;
 `;
 
 export const Col = styled.div`
@@ -27,7 +30,6 @@ export const Col = styled.div`
   flex-direction: column;
 
   &:first-child {
-    /* width: 338px; */
     margin-right: 20px;
   }
 
@@ -75,11 +77,7 @@ export const UploaderImage = styled(Uploader)`
 `;
 
 export const FormItemStyled = styled(FormItem)`
-  margin-bottom: 0;
-
-  &:not(:last-child) {
-    margin-bottom: 22px;
-  }
+  margin-bottom: 22px;
 
   &.ant-form-item-has-success {
     .ant-form-item-children-icon {
@@ -172,6 +170,10 @@ export const InputStyled = styled(InputForm)`
         font-size: 18px;
         font-family: ${FONTS.medium};
         color: ${PALETTE.black};
+
+        &:focus {
+          box-shadow: none;
+        }
       }
 
       .ant-input-group-addon {
@@ -199,6 +201,18 @@ export const InputStyled = styled(InputForm)`
       }
     }
   `}
+`;
+
+export const TextAreaStyled = styled(TextAreaForm)`
+  font-size: 18px;
+  font-family: ${FONTS.medium};
+  border-radius: ${THEME.borderRadiusS};
+  min-height: 48px !important;
+  line-height: 22px !important;
+
+  &.info {
+    height: 48px !important;
+  }
 `;
 
 export const Hr = styled.hr`
@@ -404,4 +418,43 @@ export const Text = styled.span`
   font-size: 16px;
   font-family: ${FONTS.medium};
   color: ${PALETTE.black};
+`;
+
+export const ViewStyled = styled(Descriptions)`
+  display: flex;
+
+  .ant-descriptions-view {
+    .ant-descriptions-row {
+      > th {
+        &.ant-descriptions-item {
+          padding-bottom: 12px;
+
+          .ant-descriptions-item-label {
+            font-size: 16px;
+            font-family: ${FONTS.bold};
+            color: ${PALETTE.grey12};
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .ant-descriptions-item-container {
+        .ant-descriptions-item-content {
+          display: flex;
+          flex-wrap: wrap;
+          font-size: 16px;
+          font-family: ${FONTS.medium};
+          color: ${PALETTE.black};
+
+          > img {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const ViewItemStyled = styled(DescriptionsItem)`
+  display: block;
 `;

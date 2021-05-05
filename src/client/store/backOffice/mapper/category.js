@@ -5,7 +5,6 @@ export const dataToForm = (data) => {
     id,
     type,
     name,
-    dishes,
     options,
     is_archived,
     is_deleted,
@@ -17,7 +16,6 @@ export const dataToForm = (data) => {
     id,
     type,
     name,
-    dishes,
     children,
     ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, key) => ({ ...item, [`options.${key}`]: options[key] }), {}) : {},
     is_archived,
@@ -54,7 +52,6 @@ export const dataFromToList = (data, current = null) => {
     key: (stringToKey(name) || ''),
     type,
     name,
-    dishes: current ? current.dishes : null,
     children,
     parent,
     restaurant,
@@ -92,7 +89,7 @@ export const dataApiToList = (data = null) => {
 
 export const dataToApi = (data, restaurant) => {
   const edited = {
-    ...data,
+    ...Object.keys(data).filter(f => f.indexOf('options.') === -1).reduce((obj, key) => ({ ...obj, [key]: data[key] }), {}),
     restaurant: data.restaurant || restaurant.id,
   };
   const children = (edited.children || []).map((item) => {
@@ -117,7 +114,6 @@ export const model = {
   key: 'default',
   parent: null,
   restaurant: null,
-  dishes: [],
   children: null,
   options: {},
   is_archived: false,
@@ -132,7 +128,6 @@ export const categoryModel = [
     key: 'default',
     parent: null,
     restaurant: null,
-    dishes: [],
     children: null,
     options: {},
     is_archived: false,
@@ -145,7 +140,6 @@ export const categoryModel = [
     key: 'with-group',
     parent: null,
     restaurant: null,
-    dishes: null,
     children: [],
     options: {},
     is_archived: false,
@@ -158,7 +152,6 @@ export const categoryModel = [
     key: 'daily-menu',
     parent: null,
     restaurant: null,
-    dishes: null,
     children: [],
     options: {
       price: '0.00',
@@ -178,7 +171,6 @@ export const categoryModel = [
     key: 'alcohol',
     parent: null,
     restaurant: null,
-    dishes: null,
     options: {
       checkAge: true,
     },
@@ -195,7 +187,6 @@ export const categoryTemp = ({ restaurant }) => [
     parent: null,
     type: 'foodtips',
     restaurant,
-    dishes: [],
     options: { fieldsProtected: ['name'], rules: { info: { maxLength: '5' } } },
     is_archived: false,
     is_deleted: false,
@@ -207,7 +198,6 @@ export const categoryTemp = ({ restaurant }) => [
     parent: null,
     type: 'specialDeals',
     restaurant,
-    dishes: [],
     options: { fieldsProtected: ['name'], rules: { info: { maxLength: '1' } } },
     is_archived: false,
     is_deleted: false,

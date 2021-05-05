@@ -15,31 +15,24 @@ export const CategoryFormWrapper = styled.div`
   border-radius: ${THEME.borderRadiusL};
   background-color: ${PALETTE.white};
   box-shadow: ${THEME.boxShadow1};
-  padding: 22px 20px 30px 22px;
+  padding: 0 20px 0 20px;
 `;
 
 export const FormStyled = styled(Form)`
+  margin-top: 22px;
   width: 100%;
-
-  > div {
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 `;
 
 export const FormCol = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-bottom: 22px;
 `;
 
 export const Form2Col = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-bottom: 22px;
 
   > div {
     width: 50%;
@@ -68,6 +61,10 @@ export const InputStyled = styled(InputForm)`
         font-size: 18px;
         font-family: ${FONTS.medium};
         color: ${PALETTE.black};
+
+        &:focus {
+          box-shadow: none;
+        }
       }
 
       .ant-input-group-addon {
@@ -92,6 +89,11 @@ export const TextAreaStyled = styled(TextAreaForm)`
   &.info {
     height: 48px !important;
   }
+`;
+
+export const Hr = styled.hr`
+  margin: 8px 0 30px;
+  border: 1px solid ${PALETTE.grey23};
 `;
 
 export const SelectStyled = styled(Select)`
@@ -219,11 +221,7 @@ export const OptionStyled = styled(Option)`
 `;
 
 export const FormItemStyled = styled(FormItem)`
-  margin-bottom: 0;
-
-  &:not(:last-child) {
-    margin-bottom: 22px;
-  }
+  margin-bottom: 22px;
 
   &.ant-form-item-has-success {
     .ant-form-item-children-icon {

@@ -27,6 +27,7 @@ import {
   FormItemStyled,
   InputStyled,
   TextAreaStyled,
+  Hr,
   SelectStyled, OptionStyled,
   Controls, Control,
 } from './styled';
@@ -146,31 +147,30 @@ export const CategoryForm = ({
             <Tooltip placement="top" title={t('common.words.save')}>
               <Control
                 htmlType="submit"
-                loading={loading}
-                disabled={!isChange}
+                disabled={!isChange || loading}
                 active
               >
                 <FloppyDiskSvg />
               </Control>
             </Tooltip>
           )}
-          {source && source.id ? (
+          {source && source.id && (
             <>
               {!archive && !isChange && (
                 <Tooltip placement="top" title={t('common.words.archive')}>
                   <Control
-                    loading={loading}
+                    disabled={loading}
                     onClick={() => handleEvent('archive')}
                   >
                     <ArchiveSvg />
                   </Control>
                 </Tooltip>
               )}
-              {archive ? (
+              {archive && source.is_archived && (
                 <>
                   <Tooltip placement="top" title={t('common.words.restore')}>
                     <Control
-                      loading={loading}
+                      disabled={loading}
                       onClick={() => handleEvent('restore')}
                     >
                       <PlusSvg />
@@ -178,35 +178,26 @@ export const CategoryForm = ({
                   </Tooltip>
                   <Tooltip placement="top" title={t('common.words.delete')}>
                     <Control
-                      loading={loading}
+                      disabled={loading}
                       onClick={() => handleEvent('delete')}
                     >
                       <TrashSvg />
                     </Control>
                   </Tooltip>
                 </>
-              ) : (
-                <Tooltip placement="top" title={t('common.words.close')}>
-                  <Control
-                    loading={loading}
-                    onClick={() => handleChange('close')}
-                  >
-                    <CloseSvg />
-                  </Control>
-                </Tooltip>
               )}
             </>
-          ) : (
-            <Tooltip placement="top" title={t('common.words.delete')}>
-              <Control
-                loading={loading}
-                onClick={() => handleEvent('delete')}
-              >
-                <TrashSvg />
-              </Control>
-            </Tooltip>
           )}
+          <Tooltip placement="top" title={t('common.words.close')}>
+            <Control
+              disabled={loading}
+              onClick={() => handleChange('close')}
+            >
+              <CloseSvg />
+            </Control>
+          </Tooltip>
         </Controls>
+        {archive }
         <Form2Col>
           <FormCol>
             <FormItemStyled
@@ -219,6 +210,7 @@ export const CategoryForm = ({
                 showSearch
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
+                disabled={archive}
               >
                 {categoryModel.map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
@@ -234,6 +226,7 @@ export const CategoryForm = ({
               rules={rule.text}
             >
               <InputStyled
+                disabled={archive}
                 placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
@@ -253,6 +246,7 @@ export const CategoryForm = ({
                     <TextAreaStyled
                       minRows={1}
                       placeholder={t('common.form.placeholder.text')}
+                      disabled={archive}
                     />
                   </FormItemStyled>
                 </FormCol>
@@ -268,6 +262,7 @@ export const CategoryForm = ({
                       step="0.01"
                       addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
                       placeholder={t('common.form.placeholder.floatExample')}
+                      disabled={archive}
                     />
                   </FormItemStyled>
                 </FormCol>
@@ -280,28 +275,35 @@ export const CategoryForm = ({
               >
                 <TextAreaStyled
                   placeholder={t('common.form.placeholder.text')}
+                  disabled={archive}
                 />
               </FormItemStyled>
             </FormCol>
           </>
         )}
         {formData.children && (
-          <FormItemStyled
-            label={t('common.words.group')}
-            name="children"
-            required
-            rules={rule.text}
-          >
-            <SelectStyled
-              mode="tags"
-              tokenSeparators={[',']}
-              placeholder={t('common.form.placeholder.text')}
-            >
-              {formData.children.map((str, i) => (
-                <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
-              ))}
-            </SelectStyled>
-          </FormItemStyled>
+          <>
+            <Hr />
+            <FormCol>
+              <FormItemStyled
+                label={t('common.words.group')}
+                name="children"
+                required
+                rules={rule.text}
+              >
+                <SelectStyled
+                  mode="tags"
+                  tokenSeparators={[',']}
+                  placeholder={t('common.form.placeholder.text')}
+                  disabled={archive}
+                >
+                  {formData.children.map((str, i) => (
+                    <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
+                  ))}
+                </SelectStyled>
+              </FormItemStyled>
+            </FormCol>
+          </>
         )}
       </FormStyled>
     </CategoryFormWrapper>

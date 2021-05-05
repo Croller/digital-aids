@@ -81,6 +81,7 @@ export const Img = styled.img`
 `;
 
 export const Delete = styled(Button)`
+  display: ${p => (p.show ? 'block' : 'none')};
   position: absolute;
   top: 16px;
   left: 16px;

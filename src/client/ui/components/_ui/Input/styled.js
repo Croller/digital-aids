@@ -22,6 +22,11 @@ export const InputStyled = styled(Input)`
     box-shadow: unset;
   }
 
+  .ant-input-disabled {
+    background-color: ${PALETTE.grey29} !important;
+    color: ${PALETTE.grey6};
+  }
+
   &.ant-input-affix-wrapper {
     border-width: 0;
     border-color: transparent !important;

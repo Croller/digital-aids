@@ -65,9 +65,7 @@ CREATE TABLE IF NOT EXISTS data_categories (
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  dishes VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY data_dishes
   images VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT '{}',
   is_archived BOOLEAN DEFAULT FALSE,
@@ -77,10 +75,9 @@ CREATE TABLE IF NOT EXISTS data_categories (
 CREATE TABLE IF NOT EXISTS data_categories_translate (
   number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  parent VARCHAR NOT NULL,
+  parent VARCHAR NOT NULL, -- DICTIONARY data_categories
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
   name VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT '{}'
 );
@@ -88,14 +85,17 @@ CREATE TABLE IF NOT EXISTS data_categories_translate (
 CREATE TABLE IF NOT EXISTS data_dishes (
   number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  category VARCHAR NOT NULL, -- DICTIONARY data_categories
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  count INT DEFAULT 0,
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  allergens VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY dictionary_translate
   images VARCHAR ARRAY DEFAULT NULL,
   price jsonb DEFAULT '[{"amount": "0.00", "cost": "0.00", "unit": "pc"}]',
   options jsonb DEFAULT '{}',
+  allergens VARCHAR ARRAY DEFAULT '{}', -- DICTIONARY dictionary_translate
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );

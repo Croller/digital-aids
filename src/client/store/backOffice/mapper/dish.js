@@ -1,23 +1,24 @@
 import { stringToKey } from 'client/utils/common';
 
-export const dataToForm = (data) => {
+export const dataToForm = (data, categories) => {
   const { 
     id,
-    number,
+    count,
     name,
     description,
     allergens,
     images,
     price,
+    category,
   } = data;
 
   return {
     id,
-    number,
+    count,
     name,
     description,
-    allergens,
-    images: images ? [images[0]] : [],
+    allergens: allergens || [],
+    images,
     ...price.reduce((arr, item, p) => ({
       ...arr,
       ...Object.keys(item).reduce((objArr, key) => ({
@@ -25,14 +26,16 @@ export const dataToForm = (data) => {
         [`price[${p}].${key}`]: item[key],
       }), {}),
     }), {}),
+    category: Array.isArray(categories) && category ? categories.find(f => f.id === category).name : null,
   };
 };
 
-export const dataToApi = (data, current = null) => {
+export const dataToApi = (data, categories, restaurant) => {
   const {
     id,
-    // number,
+    count,
     name,
+    category,
     description,
     allergens,
   } = data;
@@ -47,37 +50,42 @@ export const dataToApi = (data, current = null) => {
       }];
     }, []);
 
-  const priceObj = Object.keys(data).filter(f => f.indexOf('price') > -1).reduce((obj, k) => ({ ...obj, [k.replace('price[0].', '')]: data[k] }), {});
-  const { price } = priceObj;
-  
+  const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, k) => ({ ...obj, [k.replace('price[0].', '')]: data[k] }), {});
+  const categoryObj = Array.isArray(categories) ? categories.find(f => f.key === category || f.id === category).id : categories;
+
   return {
-    id: id || (current && current.id),
-    // number,
+    id: id || null,
+    count,
     key: (stringToKey(name) || ''),
     name,
     description,
     allergens,
     images,
-    price,
+    category: categoryObj,
+    price: JSON.stringify([priceObj]),
+    restaurant: restaurant.id,
   };
 };
 
 export const model = {
   id: null,
-  number: 2,
-  key: 'spicy-korean-salad',
-  name: 'Spicy Korean salad',
-  description: 'Spicy Korean salad with beef, fresh cucumbers and \n paprika',
-  allergens: ['dairy', 'celery', 'mustard'],
-  images: null,
+  category: null,
+  restaurant: null,
+  count: 0,
+  key: null,
+  name: null,
+  description: null,
   cuisine: null,
+  images: null,
   price: [
     {
-      amount: 100,
-      cost: 12.00,
-      unit: 'gr',
+      amount: null,
+      cost: null,
+      unit: null,
     },
   ],
+  options: null,
+  allergens: null,
   is_archived: false,
   is_deleted: false,
 };

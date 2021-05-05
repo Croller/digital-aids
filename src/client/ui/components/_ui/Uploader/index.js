@@ -17,7 +17,8 @@ import {
   Delete,
 } from './styled';
 
-export const Uploader = forwardRef(({ 
+export const Uploader = forwardRef(({
+  edit = true,
   max = 1,
   files = [],
   onUpload = () => {},
@@ -102,7 +103,7 @@ export const Uploader = forwardRef(({
         {files && files.length > 0 && files.map((file) => (
           <ImgBlock key={`_image_${file.uuid}`}>
             <Img src={file.base64} />
-            <Delete onClick={() => handleDelete(file)}>
+            <Delete show={edit} onClick={() => handleDelete(file)}>
               <TrashSvg />
             </Delete>
           </ImgBlock>
