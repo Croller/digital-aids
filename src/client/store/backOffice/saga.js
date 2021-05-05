@@ -9,9 +9,9 @@ import * as commonProvider from 'client/providers/common';
 import { updateItem } from 'client/utils/common';
 import { categoryTemp } from 'client/store/backOffice/mapper/category';
 
-function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
+function* getTableInit({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
-  const { token, language } = yield select((store) => store.user.info);
+  const { token } = yield select((store) => store.user.info);
 
   try {
     const tables = yield commonProvider.loadTable({
@@ -85,8 +85,8 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null } }) {
 }
 
 function* updateRow({ payload }) {
-  const { token, language } = yield select((store) => store.user.info);
-  const { name, data } = payload;
+  const { token } = yield select((store) => store.user.info);
+  const { name, data, language = 'en' } = payload;
   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
   let status = 'saved';
 
@@ -126,7 +126,7 @@ function* updateRow({ payload }) {
         });
         arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
       }
-      
+
       arr = updateItem(arr, table);
       
       yield put({
@@ -198,7 +198,7 @@ function* getTables({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* getTableRows({ payload: { name = 'data_restaurants', ids = null } }) {
+function* getTableRows({ payload: { name, ids = null } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { token, language, restaurants } = yield select((store) => store.user.info);
   const backOffice = yield select((store) => store.backOffice);
@@ -225,7 +225,7 @@ function* getTableRows({ payload: { name = 'data_restaurants', ids = null } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* getTableRowsByParam({ payload: { name = 'data_categories', data } }) {
+function* getTableRowsByParam({ payload: { name, data } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { token, language } = yield select((store) => store.user.info);
   try {

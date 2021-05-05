@@ -1,6 +1,6 @@
 import { stringToKey } from 'client/utils/common';
 
-export const dataToForm = (data, categories) => {
+export const dataToForm = (data) => {
   const { 
     id,
     count,
@@ -26,7 +26,7 @@ export const dataToForm = (data, categories) => {
         [`price[${p}].${key}`]: item[key],
       }), {}),
     }), {}),
-    category: Array.isArray(categories) && category ? categories.find(f => f.id === category).name : null,
+    category,
   };
 };
 

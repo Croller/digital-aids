@@ -46,7 +46,6 @@ export const DishForm = ({
   className,
   onChange = () => {},
 }) => {
-  console.log('source', source, categories);
   const [t] = useTranslation();
   const rule = rules(t);
   const [formData, setFormData] = useState(null);
@@ -80,7 +79,7 @@ export const DishForm = ({
   const initValue = () => {
     const data = { ...(source || model) };
 
-    setFiledsValue(dataToForm({ ...data, images: [] }, categories, resaurant));
+    setFiledsValue(dataToForm({ ...data, images: [] }));
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid) => {
         const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
