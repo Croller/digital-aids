@@ -3,19 +3,21 @@
 -- DROP TABLE IF EXISTS data_restaurants;
 
 -- DROP TABLE IF EXISTS data_categories;
-
 -- DROP TABLE IF EXISTS data_dishes;
 
 -- DROP TABLE IF EXISTS data_categories_translate;
 -- DROP TABLE IF EXISTS data_dishes_translate;
 
 -- DROP TABLE IF EXISTS dictionary_currency;
+-- DROP TABLE IF EXISTS dictionary_currency_translate;
 -- DROP TABLE IF EXISTS dictionary_languages;
+-- DROP TABLE IF EXISTS dictionary_languages_translate;
 -- DROP TABLE IF EXISTS dictionary_allergens;
+-- DROP TABLE IF EXISTS dictionary_allergens_translate;
 -- DROP TABLE IF EXISTS dictionary_units;
+-- DROP TABLE IF EXISTS dictionary_units_translate;
 -- DROP TABLE IF EXISTS dictionary_days;
--- DROP TABLE IF EXISTS dictionary_translate;
-
+-- DROP TABLE IF EXISTS dictionary_days_translate;
 
 
 

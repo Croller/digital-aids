@@ -73,10 +73,8 @@ CREATE TABLE IF NOT EXISTS data_categories (
 );
 
 CREATE TABLE IF NOT EXISTS data_categories_translate (
-  number serial,
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  parent VARCHAR NOT NULL, -- DICTIONARY data_categories
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
+  id VARCHAR NOT NULL, -- DICTIONARY data_categories
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT '{}'
@@ -93,7 +91,7 @@ CREATE TABLE IF NOT EXISTS data_dishes (
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   images VARCHAR ARRAY DEFAULT NULL,
-  price jsonb DEFAULT '[{"amount": "0.00", "cost": "0.00", "unit": "pc"}]',
+  price jsonb DEFAULT '[{"amount": "0.00", "cost": "0.00", "unit": "pc"}]', -- unit DICTIONARY dictionary_translate
   options jsonb DEFAULT '{}',
   allergens VARCHAR ARRAY DEFAULT '{}', -- DICTIONARY dictionary_translate
   is_archived BOOLEAN DEFAULT FALSE,
@@ -101,14 +99,11 @@ CREATE TABLE IF NOT EXISTS data_dishes (
 );
 
 CREATE TABLE IF NOT EXISTS data_dishes_translate (
-  number serial,
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  parent VARCHAR NOT NULL, -- DICTIONARY data_dishes
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
+  id VARCHAR NOT NULL, -- DICTIONARY data_dishes
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  price jsonb DEFAULT '[{"unit": "pc"}]',
   options jsonb DEFAULT '{}'
 );
 
@@ -122,9 +117,25 @@ CREATE TABLE IF NOT EXISTS dictionary_currency (
   symbol VARCHAR DEFAULT NULL
 );
 
+CREATE TABLE IF NOT EXISTS dictionary_currency_translate (
+  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_currency
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
 CREATE TABLE IF NOT EXISTS dictionary_languages (
   number serial,
   id VARCHAR DEFAULT NULL,
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS dictionary_languages_translate (
+  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_languages
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
@@ -138,9 +149,25 @@ CREATE TABLE IF NOT EXISTS dictionary_allergens (
   description VARCHAR DEFAULT NULL
 );
 
+CREATE TABLE IF NOT EXISTS dictionary_allergens_translate (
+  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_allergens
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
 CREATE TABLE IF NOT EXISTS dictionary_units (
   number serial,
   id VARCHAR DEFAULT NULL,
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS dictionary_units_translate (
+  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_units
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
@@ -154,16 +181,9 @@ CREATE TABLE IF NOT EXISTS dictionary_days (
   description VARCHAR DEFAULT NULL
 );
 
--- allergens
--- unit
--- week_days
--- type_categories
-CREATE TABLE IF NOT EXISTS dictionary_translate (
-  number serial,
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_translate
-  parent VARCHAR NOT NULL, -- DICTIONARY KEY
-  tablename VARCHAR NOT NULL, -- TABLE NAME
+CREATE TABLE IF NOT EXISTS dictionary_days_translate (
+  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_days
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
@@ -174,6 +194,22 @@ CREATE TABLE IF NOT EXISTS dictionary_translate (
 
 
 
+
+
+-- allergens
+-- unit
+-- week_days
+-- type_categories
+-- CREATE TABLE IF NOT EXISTS dictionary_translate (
+--   number serial,
+--   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+--   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+--   parent VARCHAR NOT NULL, -- DICTIONARY
+--   tablename VARCHAR NOT NULL, -- TABLE NAME
+--   name VARCHAR DEFAULT NULL,
+--   fullname VARCHAR DEFAULT NULL,
+--   description VARCHAR DEFAULT NULL
+-- );
 
 
 -- CREATE TABLE IF NOT EXISTS dictionary_type_categories (
@@ -190,7 +226,6 @@ CREATE TABLE IF NOT EXISTS dictionary_translate (
   -- offers INT ARRAY DEFAULT NULL, -- DICTIONARY data_offers
   -- foodtips INT ARRAY DEFAULT NULL, -- DICTIONARY data_foodtips
   -- opinions INT ARRAY DEFAULT NULL, -- DICTIONARY data_opinions
-
 
 
 -- CREATE TABLE data_socials (
