@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { update, deleteFiles } from 'client/store/backOffice';
+import { init, update, deleteFiles } from 'client/store/backOffice';
 import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
 import {
   AlertCircleSvg,
@@ -36,6 +36,7 @@ import {
 const Category = () => {
   const [t] = useTranslation();
   const params = useParams();
+  const { restaurant, language } = params;
   const { pathname } = useLocation();
   const history = useHistory();
   const rootDispatch = useDispatch();
@@ -57,16 +58,16 @@ const Category = () => {
   const pageActive = page.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
 
-  const init = () => {
+  const initCategory = () => {
     let categoryFilter = null;
     let categoryActive = null;
 
-    const rest = restaurants.find(f => f.id === params.restaurant);
+    const rest = restaurants.find(f => f.id === restaurant);
     if (rest) {
       rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
 
       const restCategories = [...(categories
-        ? dataApiToList(categories.filter(f => f.restaurant === params.restaurant))
+        ? dataApiToList(categories.filter(f => f.restaurant === restaurant))
         : [])];
       
       if (pageActive === null) {
@@ -119,7 +120,7 @@ const Category = () => {
   };
 
   const handleAddCategory = () => {
-    setDishCategory(null);
+    setDishCategory([]);
     setRestCategoryEdit(true);
     setRestCategoryActive(null);
     setRestCategory([...restCategory, null]);
@@ -153,7 +154,7 @@ const Category = () => {
       ...data,
       children: data.children ? data.children.filter(f => !f.is_deleted) : null,
     });
-    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo) }));
+    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language }));
   };
 
   const handleAddDish = () => {
@@ -162,9 +163,8 @@ const Category = () => {
   };
 
   const handleChangeDish = (data = null) => {
-    if (data) {
-      rootDispatch(update({ name: 'data_dishes', data }));
-    }
+    if (!data) return;
+    rootDispatch(update({ name: 'data_dishes', data, language }));
   };
 
   const handleChangeFiles = (data = null) => {
@@ -173,7 +173,7 @@ const Category = () => {
 
   useEffect(() => {
     if (restaurants && categories && dictionary) {
-      init();
+      initCategory();
     }
   }, [restaurants, categories, dictionary, pathname]);
 
@@ -182,6 +182,10 @@ const Category = () => {
       initDish();
     }
   }, [dishes, restCategoryActive, pathname]);
+
+  useEffect(() => {
+    rootDispatch(init({ ids: [restaurant], language }));
+  }, [params.language]);
 
   useEffect(() => {
     if (status) {

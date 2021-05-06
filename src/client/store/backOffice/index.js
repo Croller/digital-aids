@@ -33,6 +33,13 @@ export default function (state = initState, action) {
   }
 }
 
+export function init(payload) {
+  return {
+    type: Constants.BO_LOAD_INIT,
+    payload,
+  };
+}
+
 export function update(payload) {
   return {
     type: Constants.BO_UPDATE,

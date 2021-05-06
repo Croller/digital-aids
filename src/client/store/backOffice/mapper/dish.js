@@ -31,6 +31,7 @@ export const dataToForm = (data) => {
 };
 
 export const dataToApi = (data, categories, restaurant) => {
+  const keyFloat = ['amount', 'cost'];
   const {
     id,
     count,
@@ -50,7 +51,13 @@ export const dataToApi = (data, categories, restaurant) => {
       }];
     }, []);
 
-  const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, k) => ({ ...obj, [k.replace('price[0].', '')]: data[k] }), {});
+  const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, key) => {
+    let value = data[key];
+    if (keyFloat.some(s => key.indexOf(s) > -1)) {
+      value = parseFloat(value);
+    }
+    return { ...obj, [key.split('.')[1]]: value };
+  }, {});
   const categoryObj = Array.isArray(categories) ? categories.find(f => f.key === category || f.id === category).id : categories;
 
   return {

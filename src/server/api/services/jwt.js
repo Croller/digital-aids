@@ -21,13 +21,13 @@ module.exports = {
     return jwt.sign(obj, signature, { expiresIn: expiration });
   },
 
-  getToken: (req) => {
-    const { authorization } = commonUtils.getHeader(req);
-    if (authorization) {
-      return jwt.verify(authorization, signature);
-    }
-    return null;
-  },
+  // getToken: (req) => {
+  //   const { authorization } = commonUtils.getHeader(req);
+  //   if (authorization) {
+  //     return jwt.verify(authorization, signature);
+  //   }
+  //   return null;
+  // },
 
   verifyToken: async (req, res) => {
     const { authorization } = commonUtils.getHeader(req);

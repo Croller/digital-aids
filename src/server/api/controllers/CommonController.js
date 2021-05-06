@@ -60,20 +60,32 @@ const CommonController = () => {
 
   const getTableRecordByParam = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
+    const header = commonUtils.getHeader(req);
+    const language = header['accept-language'];
+
     if (!tokenData) return;
     try {
       const { name } = req.params;
       const { data } = req.body;
-      const queryStr = Object.keys(data).map((key, k) => {
-        if (data[key] && Array.isArray(data[key])) {
-          return `${key} = ANY ($${k + 1})`;
-        }
-        return `${key}=($${k + 1})`;
-      }).join(' AND ');
-      query = `SELECT * FROM ${name} WHERE ${queryStr} AND is_deleted=FALSE`;
-      values = Object.keys(data).map(key => data[key]);
-      const result = await db.queryValues(query, values);
-      res.json(result.rows);
+
+      let result = await queryUtils.getTableRecord(name, {
+        ...data,
+        is_deleted: false,
+      }, { req, res });
+
+      let result_transalate = [];
+      if (language !== 'en') {
+        query = query.replace(name, `${name}_translate`);
+        result_transalate = await queryUtils.getTableRecord(`${name}_translate`, {
+          id: result.map(item => item.id),
+          language,
+        }, { req, res });
+      }
+
+      if (result_transalate.length > 0) {
+        result = result_transalate;
+      }
+      res.json(result);
     } catch (err) {
       error.name = 'Query error';
       error.code = 'queryError';
@@ -85,19 +97,25 @@ const CommonController = () => {
 
   const updateTableRecord = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
+    const header = commonUtils.getHeader(req);
+    const language = header['accept-language'];
+
     const rolesExist = jwt.verifyRoles(req, res, tokenData.roles, [1, 2, 3]);
     if (!tokenData || !rolesExist) return;
     try {
       const { name } = req.params;
       const { data } = req.body;
-      if (Array.isArray(data)) {
-        results = await Promise.all(data.map(async (row) => {
-          const result = await queryUtils.updateTableRecord(name, row, { req, res, user: tokenData });
-          return result;
-        }));
-      } else {
-        results = await queryUtils.updateTableRecord(name, data, { req, res, user: tokenData });
-      }
+
+      const arr = Array.isArray(data) ? data : [data];
+      results = await Promise.all(arr.map(async (row) => {
+        const result = await queryUtils.updateTableRecord(name, row, {
+          req,
+          res,
+          language, 
+          user: tokenData,
+        });
+        return result;
+      }));
       res.json(results);
     } catch (err) {
       error.name = 'Query error';

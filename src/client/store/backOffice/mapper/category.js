@@ -88,8 +88,15 @@ export const dataApiToList = (data = null) => {
 };
 
 export const dataToApi = (data, restaurant) => {
+  const keyFloat = ['price'];
   const edited = {
-    ...Object.keys(data).filter(f => f.indexOf('options.') === -1).reduce((obj, key) => ({ ...obj, [key]: data[key] }), {}),
+    ...Object.keys(data).filter(f => f.indexOf('options.') === -1).reduce((obj, key) => {
+      let value = data[key];
+      if (keyFloat.some(s => key.indexOf(s) > -1)) {
+        value = parseFloat(value);
+      }
+      return { ...obj, [key]: value };
+    }, {}),
     restaurant: data.restaurant || restaurant.id,
   };
   const children = (edited.children || []).map((item) => {
@@ -154,7 +161,7 @@ export const categoryModel = [
     restaurant: null,
     children: [],
     options: {
-      price: '0.00',
+      price: 0.00,
       info: null,
       descriptions: null,
       at_work: {
