@@ -69,7 +69,7 @@ export const dataToApi = (data, categories, restaurant) => {
     allergens,
     images,
     category: categoryObj,
-    price: JSON.stringify([priceObj]),
+    price: [priceObj],
     restaurant: restaurant.id,
   };
 };

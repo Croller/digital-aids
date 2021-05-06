@@ -80,10 +80,16 @@ const CommonController = () => {
           id: result.map(item => item.id),
           language,
         }, { req, res });
-      }
 
-      if (result_transalate.length > 0) {
-        result = result_transalate;
+        if (result_transalate.length > 0) {
+          result = result.map(item => {
+            const exist = result_transalate.find(tr => tr.id === item.id);
+            if (exist) {
+              return { ...item, ...exist };
+            }
+            return item;
+          });
+        }
       }
       res.json(result);
     } catch (err) {

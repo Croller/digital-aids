@@ -72,22 +72,23 @@ const updateTableRecord = async (table, data, params) => {
     }
 
     let result = {};
+
+    // update table with translate
     if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
       const tr_model = await getTableFields(`${table}_translate`);
-      const [en] = await getTableRecord(table, { id: data.id }, params);
-      delete en.number;
-      delete en.images;
-      
-      const updateEN = await updateTableRecord(table, { id: data.id, ...addedDiff(tr_model, en) }, { res, user, language: 'en' });
-      let updateTR = { ...updatedDiff(tr_model, en), language };
-      updateTR = await updateTableRecord(`${table}_translate`, updateTR, params);
+      const tr_data = { ...data };
+      delete tr_data.images;
+
+      let updateTR = updatedDiff(tr_model, tr_data);
+      let updateEN = { id: data.id, ...addedDiff(updateTR, tr_data) };
+      updateTR = await updateTableRecord(`${table}_translate`, { ...updateTR, language }, params);
+      updateEN = await updateTableRecord(table, updateEN, { res, user, language: 'en' });
       delete updateTR.language;
-      
-      console.log('{ ...updateEN, ...updateTR }', updateEN, updateTR);
-      
+
       return { ...updateEN, ...updateTR };
     }
     
+    // insert/update for table without translate
     if (!data.id) {
       query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
       result = await db.queryValues(query, mapper.values);
@@ -101,13 +102,18 @@ const updateTableRecord = async (table, data, params) => {
     } else {
       query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 RETURNING *`;
       values = [data.id, ...mapper.values];
+
+      // insert/update for table with translate
       if (table.indexOf('translate') > -1) {
         const results = await getTableRecord(table, { id: data.id }, params);
+        query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 RETURNING *`;
+        values = [data.id, ...mapper.values];
         if (results.length === 0) {
           query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
           values = [...mapper.values];
         }
       }
+
       result = await db.queryValues(query, values);
     }
 
