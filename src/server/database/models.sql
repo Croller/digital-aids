@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   socials jsonb DEFAULT '{"thefork":{"rate":"0","url":"NULL", "comments":[]},"tripadviser":{"rate":"0","url":"NULL", "comments":[]},"facebook":"NULL","instagram":"NULL"}',
   at_work jsonb DEFAULT '{"description":"NULL","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
   options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
+  geom GEOMETRY DEFAULT NULL,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS data_dishes (
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   images VARCHAR ARRAY DEFAULT NULL,
-  price jsonb DEFAULT '[{"amount": "0.00", "cost": "0.00", "unit": "pc"}]', -- unit DICTIONARY dictionary_translate
+  price jsonb DEFAULT '[{"amount": "1", "cost": "0.00", "unit": "pc"}]', -- unit DICTIONARY dictionary_translate
   options jsonb DEFAULT '{}',
   allergens VARCHAR ARRAY DEFAULT '{}', -- DICTIONARY dictionary_translate
   is_archived BOOLEAN DEFAULT FALSE,

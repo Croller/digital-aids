@@ -37,6 +37,7 @@ import {
 export const DishForm = ({
   source = null,
   type = null,
+  dishes = null,
   categories = null,
   resaurant = null,
   controls = true,
@@ -80,7 +81,11 @@ export const DishForm = ({
   const initValue = () => {
     const data = { ...(source || model) };
 
-    setFiledsValue(dataToForm({ ...data, images: [] }));
+    setFiledsValue(dataToForm({
+      ...data,
+      images: [],
+      count: data.count === 0 ? (dishes ? dishes.length + 1 : 0) : data.count,
+    }));
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid) => {
         const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
@@ -120,6 +125,15 @@ export const DishForm = ({
   const handleValuesChange = (values) => {
     console.log('values - ', values);
     setIsChange(true);
+    if (values.copyDish && formData.copyDish !== values.copyDish) {
+      const { name, description } = dishes.find(f => f.id === values.copyDish);
+      setFiledsValue({
+        ...formData,
+        ...values,
+        name,
+        description,
+      });
+    }
   };
 
   const handleEvent = (key) => {
@@ -262,7 +276,7 @@ export const DishForm = ({
           <Col>
             {!loadFiles && (
               <UploaderImage
-                edit={edit}
+                disabled={!edit}
                 files={formData.images}
                 onUpload={handleUpload}
                 onStatus={showMessage}
@@ -306,6 +320,30 @@ export const DishForm = ({
                     />
                   </FormItemStyled>
                 )}
+                {type === 'foodtips' && dishes && (
+                  <FormItemStyled
+                    label={t('common.words.dish')}
+                    name="copyDish"
+                    rules={rule.select}
+                  >
+                    <SelectStyled
+                      showSearch
+                      mode="single"
+                      placeholder={t('common.form.placeholder.select')}
+                      optionFilterProp="label"
+                    >
+                      {dishes.map((item, i) => (
+                        <OptionStyled
+                          key={`_copy_dish_${i + 1}`}
+                          value={item.id}
+                          label={item.name}
+                        >
+                          {item.name}
+                        </OptionStyled>
+                      ))}
+                    </SelectStyled>
+                  </FormItemStyled>
+                )}
               </>
             ) : (
               <>
@@ -337,8 +375,8 @@ export const DishForm = ({
                       <FormItemStyled
                         label={t('common.words.weight')}
                         name="price[0].amount"
-                        required
-                        rules={rule.text}
+                        // required
+                        // rules={rule.text}
                       >
                         <InputStyled
                           className="addon-select"
@@ -348,8 +386,8 @@ export const DishForm = ({
                           addonAfter={(
                             <FormItemStyled
                               name="price[0].unit"
-                              required
-                              rules={rule.text}
+                              // required
+                              // rules={rule.text}
                             >
                               <SelectStyled>
                                 {dictionary && dictionary.units.map((item, i) => (

@@ -93,9 +93,9 @@ export const model = {
   images: null,
   price: [
     {
-      amount: null,
-      cost: null,
-      unit: null,
+      amount: 1,
+      cost: 0.00,
+      unit: 'pc',
     },
   ],
   options: {},

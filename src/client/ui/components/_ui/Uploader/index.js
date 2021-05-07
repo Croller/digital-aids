@@ -18,7 +18,7 @@ import {
 } from './styled';
 
 export const Uploader = forwardRef(({
-  edit = true,
+  disabled = false,
   max = 1,
   files = [],
   onUpload = () => {},
@@ -80,9 +80,11 @@ export const Uploader = forwardRef(({
       <Icon>
         <PictureAddSvg />
       </Icon>
-      <Text>
-        {t('common.words.upload')}
-      </Text>
+      {!disabled && (
+        <Text>
+          {t('common.words.upload')}
+        </Text>
+      )}
     </Adder>
   );
 
@@ -96,6 +98,7 @@ export const Uploader = forwardRef(({
         fileList={files}
         onChange={handleChange}
         customRequest={handleUpload}
+        disabled={disabled}
       >
         {files && files.length >= max ? null : uploadButton}
       </UploadStyled>
@@ -103,7 +106,7 @@ export const Uploader = forwardRef(({
         {files && files.length > 0 && files.map((file) => (
           <ImgBlock key={`_image_${file.uuid}`}>
             <Img src={file.base64} />
-            <Delete show={edit} onClick={() => handleDelete(file)}>
+            <Delete show={!disabled} onClick={() => handleDelete(file)}>
               <TrashSvg />
             </Delete>
           </ImgBlock>

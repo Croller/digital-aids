@@ -114,6 +114,11 @@ const Category = () => {
     return false;
   };
 
+  const getRestDishes = () => {
+    const defCategory = categories.filter(f => f.restaurant === restaurant && !f.is_archived && !page.includes(f.key));
+    return dishes.filter(f => f.restaurant === restaurant && !f.is_archived && defCategory.some(s => s.id === f.category));
+  };
+
   const handleRoute = (key, id) => {
     let path = `${pathname}/${key}`;
     if (id) {
@@ -130,7 +135,7 @@ const Category = () => {
     setRestCategoryEdit(true);
     setRestCategoryActive(null);
     setRestCategory([...restCategory, null]);
-    // handleRoute('language', 'en');
+    handleRoute('language', 'en');
   };
   
   const handleChangeCategory = (data = null) => {
@@ -166,11 +171,11 @@ const Category = () => {
   const handleAddDish = () => {
     setRestCategoryEdit(false);
     setDishCategory([null, ...dishCategory]);
+    handleRoute('language', 'en');
   };
 
   const handleChangeDish = (data = null) => {
     if (!data) return;
-    // !getRules(restCategoryActive)
     rootDispatch(update({ name: 'data_dishes', data, language }));
   };
 
@@ -305,6 +310,7 @@ const Category = () => {
                   source={dish}
                   type={restCategoryActive.type}
                   controls={!restCategoryActive.is_archived}
+                  dishes={getRestDishes()}
                   categories={restCategoryActive.children || restCategoryActive.id}
                   resaurant={restInfo}
                   dictionary={dictionary}

@@ -35,7 +35,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
     let results_restaurants = null;
     if (!ids) {
       results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
-      results_restaurants = results_restaurants.data_restaurants.sort((a, b) => a.number - b.number);
+      results_restaurants = results_restaurants.data_restaurants.sort((a, b) => b.number - a.number);
     } else {
       results_restaurants = yield commonProvider.loadRow({
         name,
@@ -66,7 +66,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
         language,
         data: { restaurant: restaurants_ids },
       });
-      results_dishes = results_dishes.sort((a, b) => a.number - b.number);
+      results_dishes = results_dishes.sort((a, b) => b.number - a.number);
     }
     
     const error = null;
@@ -136,8 +136,12 @@ function* updateRow({ payload }) {
         });
         arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
       }
-
+      
       arr = updateItem(arr, table);
+      arr.sort((a, b) => a.number - b.number);
+      if (['data_restaurants', 'data_dishes'].includes(name)) {
+        arr.sort((a, b) => b.number - a.number);
+      }
       
       yield put({
         type: Constants.BO_SET,
