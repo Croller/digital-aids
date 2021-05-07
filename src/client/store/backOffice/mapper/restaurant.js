@@ -81,7 +81,7 @@ export const dataToApi = (data, current) => {
     avg_price,
     languages: [main_language, ...sub_languages],
     images,
-    socials: JSON.stringify({
+    socials: {
       thefork: {
         ...current.socials.thefork,
         url: data['socials.thefork.url'] || null,
@@ -98,11 +98,11 @@ export const dataToApi = (data, current) => {
         ...current.socials.instagram,
         url: data['socials.instagram.url'] || null,
       },
-    }),
-    at_work: JSON.stringify({
+    },
+    at_work: {
       ...current.at_work,
       description: at_work || null,
-    }),
+    },
   };
 };
 

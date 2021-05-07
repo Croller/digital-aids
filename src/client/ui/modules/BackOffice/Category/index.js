@@ -108,9 +108,10 @@ const Category = () => {
 
   const getRules = (obj = null) => {
     if (!obj) return false;
-    if (obj.options.rules && dishCategory && obj.options.rules.info.maxLength === dishCategory.filter(f => f && !f.is_archived).length) {
+    if (pageActive && obj.options && obj.options.rules && dishCategory && obj.options.rules.info.maxLength <= dishCategory.filter(f => f && !f.is_archived).length) {
       return true;
     }
+    return false;
   };
 
   const handleRoute = (key, id) => {
@@ -168,7 +169,8 @@ const Category = () => {
   };
 
   const handleChangeDish = (data = null) => {
-    if (!data || !getRules(restCategoryActive)) return;
+    if (!data) return;
+    // !getRules(restCategoryActive)
     rootDispatch(update({ name: 'data_dishes', data, language }));
   };
 

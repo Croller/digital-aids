@@ -72,12 +72,13 @@ const updateTableRecord = async (table, data, params) => {
 
     // update table with translate
     if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
-      const tr_model = await getTableFields(`${table}_translate`);
+      let tr_model = await getTableFields(`${table}_translate`);
+      tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});
       const tr_data = { ...data };
       delete tr_data.images;
 
       let updateTR = updatedDiff(tr_model, tr_data);
-      let updateEN = { id: data.id, ...addedDiff(updateTR, data) };
+      let updateEN = { id: data.id, ...addedDiff(updateTR, tr_data) };
       updateTR = await updateTableRecord(`${table}_translate`, { ...updateTR, language }, params);
       updateEN = await updateTableRecord(table, updateEN, { res, user, language: 'en' });
       delete updateTR.language;
@@ -97,13 +98,13 @@ const updateTableRecord = async (table, data, params) => {
         await db.queryValues(query, values);
       }
     } else {
-      query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 RETURNING *`;
+      query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
       values = [data.id, ...mapper.values];
 
       // insert/update for table with translate
       if (table.indexOf('translate') > -1) {
-        const results = await getTableRecord(table, { id: data.id }, params);
-        query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 RETURNING *`;
+        const results = await getTableRecord(table, { id: data.id, language }, params);
+        query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
         values = [data.id, ...mapper.values];
         if (results.length === 0) {
           query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
