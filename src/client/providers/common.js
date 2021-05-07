@@ -1,5 +1,10 @@
 
-import { get, post, remove } from 'client/providers/fetch';
+import {
+  get,
+  getExternal,
+  post,
+  remove,
+} from 'client/providers/fetch';
 
 const headers = ({
   token = null,
@@ -64,6 +69,14 @@ export const deleteFiles = async ({
   data,
 }) => {
   const results = await remove('file/delete', { data }, headers({ token }));
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+};
+
+export const getCoordsByAddress = async (address) => {
+  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g, '+')}&key=${process.env.API_KEY_GOOGLE_MAP}`);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

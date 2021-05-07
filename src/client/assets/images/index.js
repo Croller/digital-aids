@@ -10,6 +10,7 @@ import MenuSvg from './svg/menu.svg';
 
 // back office
 import RestaurantSvg from './svg/backOffice/restaurant.svg';
+import QRCodeSvg from './svg/backOffice/qr-code.svg';
 
 // restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
@@ -126,7 +127,8 @@ export {
   TickSvg,
 
   RestaurantSvg,
-
+  QRCodeSvg,
+  
   ChefSvg,
   ChefHeadSvg,
   ThumbsUpGreenSvg,

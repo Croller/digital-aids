@@ -11,13 +11,18 @@ export const dataToForm = (data) => {
   } = data;
 
   const children = data.children ? data.children.map(child => (child.name)) : null;
-  
+
   return {
     id,
     type,
     name,
     children,
-    ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, key) => ({ ...item, [`options.${key}`]: options[key] }), {}) : {},
+    ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, key) => {
+      if (key === 'at_work') {
+        return { ...item, ...Object.keys(options.at_work).reduce((itemW, keyW) => ({ ...itemW, [`options.at_work.${keyW}`]: options.at_work[keyW] }), {}) };
+      }
+      return { ...item, [`options.${key}`]: options[key] };
+    }, {}) : {},
     is_archived,
     is_deleted,
   };
@@ -47,6 +52,16 @@ export const dataFromToList = (data, current = null) => {
     children = [...existChild, ...deletedChild, ...newChild];
   }
 
+  let at_work = Object.keys(data).filter(f => f.indexOf('options.at_work') > -1);
+  at_work = at_work.length > 0 ? at_work : {};
+  if (at_work.length > 0) {
+    at_work = {
+      at_work: {
+        ...at_work.reduce((item, key) => ({ ...item, [key.split('.')[2]]: data[key] }), {}),
+      },
+    };
+  }
+
   return {
     id: current ? current.id : null,
     key: (stringToKey(name) || ''),
@@ -56,12 +71,8 @@ export const dataFromToList = (data, current = null) => {
     parent,
     restaurant,
     options: {
-      ...Object.keys(data).reduce((item, key) => {
-        if (key.indexOf('options') > -1) {
-          return { ...item, [key.split('.')[1]]: data[key] };
-        }
-        return item;
-      }, {}),
+      ...Object.keys(data).filter(f => f.indexOf('options.') > -1 && f.indexOf('options.at_work') === -1).reduce((item, key) => ({ ...item, [key.split('.')[1]]: data[key] }), {}),
+      ...at_work,
     },
     is_archived: current ? current.is_archived : false,
     is_deleted: current ? current.is_deleted : false,
@@ -163,9 +174,16 @@ export const categoryModel = [
     options: {
       price: 0.00,
       info: null,
-      descriptions: null,
+      description: null,
       at_work: {
-        mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
+        description: '9:00-22:00',
+        mon: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
+        tue: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
+        wed: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
+        thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
+        fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
+        sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
+        sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
       }, 
     },
     is_archived: false,

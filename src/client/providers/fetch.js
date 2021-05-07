@@ -55,6 +55,18 @@ export const get = async (path, params = null, options = {}) => {
   }
 };
 
+export const getExternal = async (path, params = null, options = {}) => {
+  try {
+    return await axios.get(path, { headers: { ...options } });
+  } catch (err) {
+    return setError(err, { 
+      url: path,
+      params,
+      options,
+    });
+  }
+};
+
 export const post = async (path, params = {}, options = {}) => {
   try {
     return await api.post(`${getUrl()}/api/${path}`, params, { headers: { ...options } });

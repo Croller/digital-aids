@@ -1,3 +1,6 @@
+import html2canvas from 'html2canvas';
+import { jsPDF as Pdf } from 'jspdf';
+
 // ------------------------------------------------------------------------------------------------------------------------
 // logical func
 
@@ -15,6 +18,22 @@ export const compareBreakpoint = (width, constant) => width && constant && width
 
 export const htmlOverflowYHidden = (trigger) => {
   document.body.style.overflowY = trigger ? 'hidden' : 'unset';
+};
+
+export const htmlToImage = async (id) => {
+  const canvas = await html2canvas(document.querySelector(`#${id}`));
+  const basePng = canvas.toDataURL('image/png');
+  return basePng;
+};
+
+export const imgToPdf = async (base64, title) => {
+  const imgParams = await getImageParams(base64);
+  const { width, height } = imgParams;
+  const doc = new Pdf('portrait', 'px', [width, height], true, true);
+  doc.addImage(base64, 'PNG', 0, 0, width, height);
+  doc.save(`${title}.pdf`);
+  doc.output('bloburl', { filename: title });
+  // window.open(doc.output('bloburl', { filename: title }), '_blank');
 };
 
 // ------------------------------------------------------------------------------------------------------------------------
@@ -158,16 +177,10 @@ export const getBase64 = (file) => new Promise((resolve, reject) => {
 });
 
 export const downloadFile = (url, filename) => {
-  fetch(url).then((t) => t.blob().then((b) => {
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(b);
-    a.setAttribute('download', filename);
-    if (url.indexOf('pdf') > -1) {
-      window.open(url, '_blank');
-    } else {
-      a.click();
-    }
-  }));
+  const downloadLink = document.createElement('a');
+  downloadLink.href = url;
+  downloadLink.download = filename;
+  downloadLink.click();
 };
 
 export const loadFile = async (url = null, uuid = null) => {

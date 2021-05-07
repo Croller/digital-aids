@@ -64,6 +64,8 @@ export const FONTS = {
   medium: `'MontserratMedium', ${fontsCommon}`,
   bold: `'MontserratBold', ${fontsCommon}`,
   semiBold: `'MontserratSemiBold', ${fontsCommon}`,
+
+  regularMontaga: `'MontagaRegular', ${fontsCommon}`,
 };
 
 export const THEME = {

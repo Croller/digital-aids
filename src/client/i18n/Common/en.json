@@ -65,7 +65,10 @@
     "descriptions": "Descriptions",
     "group": "Group",
     "number": "Number",
-    "unit": "Unit"
+    "unit": "Unit",
+    "rate": "Rate",
+    "comments": "Comments",
+    "download": "Download"
   },
 
   "form" : {

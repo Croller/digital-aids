@@ -18,6 +18,7 @@ import MontserratExtraBold from 'client/assets/fonts/Montserrat-ExtraBold.ttf';
 import MontserratExtraBoldItalic from 'client/assets/fonts/Montserrat-ExtraBoldItalic.ttf';
 import MontserratBlack from 'client/assets/fonts/Montserrat-Black.ttf';
 import MontserratBlackItalic from 'client/assets/fonts/Montserrat-BlackItalic.ttf';
+import MontagaRegular from 'client/assets/fonts/Montaga-Regular.ttf';
 
 import {
   FONTS,
@@ -265,6 +266,13 @@ export const GlobalStyle = createGlobalStyle`
     font-style: italic;
     font-weight: 900;
     src: local('MontserratBlackItalic'), url(${MontserratBlackItalic}) format('truetype');
+  }
+
+  @font-face {
+    font-family: 'MontagaRegular';
+    font-style: normal;
+    font-weight: 400;
+    src: local('MontagaRegular'), url(${MontagaRegular}) format('truetype');
   }
 `;
 

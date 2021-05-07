@@ -31,11 +31,15 @@ export const dataToForm = (data) => {
     main_language: data.languages[0],
     sub_languages: data.languages.filter(f => f !== data.languages[0]),
     images,
-    'socials.thefork.url': socials.thefork.url,
-    'socials.tripadviser.url': socials.tripadviser.url,
     'socials.facebook.url': socials.facebook.url,
     'socials.instagram.url': socials.instagram.url,
-    at_work: at_work.description,
+    'socials.thefork.url': socials.thefork.url,
+    'socials.thefork.rate': parseFloat(socials.thefork.rate),
+    'socials.thefork.comments': parseInt(socials.thefork.comments, 0),
+    'socials.tripadviser.url': socials.tripadviser.url,
+    'socials.tripadviser.rate': parseFloat(socials.tripadviser.rate),
+    'socials.tripadviser.comments': parseInt(socials.tripadviser.comments, 0),
+    'at_work.description': at_work.description,
   };
 };
 
@@ -53,7 +57,6 @@ export const dataToApi = (data, current) => {
     avg_price,
     main_language,
     sub_languages,
-    at_work,
   } = data;
 
   const images = data.images && data.images
@@ -82,14 +85,7 @@ export const dataToApi = (data, current) => {
     languages: [main_language, ...sub_languages],
     images,
     socials: {
-      thefork: {
-        ...current.socials.thefork,
-        url: data['socials.thefork.url'] || null,
-      },
-      tripadviser: {
-        ...current.socials.tripadviser,
-        url: data['socials.tripadviser.url'] || null,
-      },
+
       facebook: {
         ...current.socials.facebook,
         url: data['socials.facebook.url'] || null,
@@ -98,10 +94,22 @@ export const dataToApi = (data, current) => {
         ...current.socials.instagram,
         url: data['socials.instagram.url'] || null,
       },
+      thefork: {
+        ...current.socials.thefork,
+        url: data['socials.thefork.url'] || null,
+        rate: parseFloat(data['socials.thefork.rate']) || null,
+        comments: parseInt(data['socials.thefork.comments'], 0) || null,
+      },
+      tripadviser: {
+        ...current.socials.tripadviser,
+        url: data['socials.tripadviser.url'] || null,
+        rate: parseFloat(data['socials.tripadviser.rate']) || null,
+        comments: parseInt(data['socials.tripadviser.comments'], 0) || null,
+      },
     },
     at_work: {
       ...current.at_work,
-      description: at_work || null,
+      description: data['at_work.description'] || null,
     },
   };
 };
@@ -122,11 +130,13 @@ export const model = {
   images: null,
   socials: {
     thefork: {
-      rate: null,
+      comments: 0,
+      rate: 0.0,
       url: 'www.tripadvisor.co.uk/Restaurant_Review-g1238605-',
     },
     tripadviser: {
-      rate: null,
+      comments: 0,
+      rate: 0.0,
       url: null,
     },
     facebook: {

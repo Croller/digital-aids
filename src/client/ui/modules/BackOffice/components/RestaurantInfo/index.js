@@ -12,6 +12,7 @@ import {
   RestaurantSvg,
   TrashSvg,
   PlusSvg,
+  QRCodeSvg,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -37,6 +38,11 @@ const CONTROL_CONFIG = [
     key: 'edit',
     icon: <EditSvg />,
     path: 'restaurant/:restaurant',
+  },
+  {
+    key: 'qrcode',
+    icon: <QRCodeSvg />,
+    path: '/back-office/restaurant/:restaurant/qrcode',
   },
   {
     key: 'restore',
@@ -97,7 +103,10 @@ export const RestaurantInfo = ({
       if (pathname.indexOf('/restaurants/archive') > -1) {
         return arr.slice(-2);
       }
-      return arr.splice(0, 2);
+      return arr.splice(0, 3);
+    }
+    if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
+      return [arr[2]];
     }
     return [];
   };

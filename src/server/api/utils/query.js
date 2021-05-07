@@ -40,6 +40,7 @@ const updateTableRecord = async (table, data, params) => {
   const { res, user, language } = params;
   const { login, password, restaurants } = user;
   const fieldsTable = await getTableFields(table);
+
   try {
     const mapper = (table.indexOf('translate') > -1 ? Object.keys(data) : Object.keys(data).filter(f => f !== 'id')).reduce((obj, key) => {
       if (key === 'images') {
@@ -48,7 +49,7 @@ const updateTableRecord = async (table, data, params) => {
           values: [...obj.values, (data[key] ? data[key].map((image) => (image ? image.uuid : null)) : null)],
         };
       }
-      if (fieldsTable[key].type === 'object') {
+      if (fieldsTable[key] && fieldsTable[key].type === 'object') {
         return {
           fields: [...obj.fields, key],
           values: [...obj.values, JSON.stringify(data[key])],

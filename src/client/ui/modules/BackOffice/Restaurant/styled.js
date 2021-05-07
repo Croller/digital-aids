@@ -34,7 +34,7 @@ export const Form2Col = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  margin-bottom: 102px;
+  margin-bottom: 22px;
 
   > div {
     width: 50%;

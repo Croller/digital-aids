@@ -59,20 +59,20 @@ const Restaurants = () => {
     }
   }, [restaurants]);
 
-  return restaurants && (
+  return (
     <RestaurantList>
-      {loading && (<LoaderStyled />)}
       <NavBarStyled
         onSearch={handleSearch}
         onEvent={handleEventAll}
       />
       <List>
+        {loading && (<LoaderStyled />)}
         {(searched || (filtred && filtred[isArchive].length === 0)) ? (
           <EmptyListRestaurant
             type={(searched && 'search') || (isArchive ? 'archive' : 'restaurants')}
             icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
           />
-        ) : (filtred && filtred[isArchive]).map((item, i) => (
+        ) : (restaurants && filtred && filtred[isArchive]).map((item, i) => (
           <RestaurantInfo
             {...item}
             key={`_restauran_${i + 1}_${item.id}`}

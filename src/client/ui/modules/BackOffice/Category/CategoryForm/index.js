@@ -235,27 +235,37 @@ export const CategoryForm = ({
         {['daily', 'organicWine'].includes(formData.type) && (
           <>
             <FormCol>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.info')}
+                  name="options.info"
+                  required
+                  rules={rule.text}
+                >
+                  <TextAreaStyled
+                    minRows={1}
+                    placeholder={t('common.form.placeholder.text')}
+                    disabled={archive}
+                  />
+                </FormItemStyled>
+              </FormCol>
+              <FormItemStyled
+                label={t('common.words.description')}
+                name="options.description"
+                required
+                rules={rule.text}
+              >
+                <TextAreaStyled
+                  placeholder={t('common.form.placeholder.text')}
+                  disabled={archive}
+                />
+              </FormItemStyled>
               <Form2Col>
-                <FormCol>
-                  <FormItemStyled
-                    label={t('common.words.info')}
-                    name="options.info"
-                    required
-                    rules={rule.text}
-                  >
-                    <TextAreaStyled
-                      minRows={1}
-                      placeholder={t('common.form.placeholder.text')}
-                      disabled={archive}
-                    />
-                  </FormItemStyled>
-                </FormCol>
                 <FormCol>
                   <FormItemStyled
                     label={t('common.words.price')}
                     name="options.price"
                     required
-                    rules={rule.float}
                   >
                     <InputStyled
                       type="number"
@@ -266,18 +276,20 @@ export const CategoryForm = ({
                     />
                   </FormItemStyled>
                 </FormCol>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.workingTime')}
+                    name="options.at_work.description"
+                    required
+                    rules={rule.text}
+                  >
+                    <InputStyled
+                      disabled={archive}
+                      placeholder={t('common.form.placeholder.text')}
+                    />
+                  </FormItemStyled>
+                </FormCol>
               </Form2Col>
-              <FormItemStyled
-                label={t('common.words.descriptions')}
-                name="options.descriptions"
-                required
-                rules={rule.text}
-              >
-                <TextAreaStyled
-                  placeholder={t('common.form.placeholder.text')}
-                  disabled={archive}
-                />
-              </FormItemStyled>
             </FormCol>
           </>
         )}

@@ -28,7 +28,7 @@ import {
 } from './styled';
 
 export const NavBar = ({
-  settings = null,
+  settings = {},
   onSearch = () => {},
   onEvent = () => {},
   className,
@@ -38,7 +38,7 @@ export const NavBar = ({
   const params = useParams();
   const { pathname } = useLocation();
   const { roles } = useSelector(state => state.user.info);
-  const [options, setOptions] = useState(settings || {
+  const [options, setOptions] = useState({
     back: false,
     loupe: false,
     delete: false,
@@ -167,8 +167,8 @@ export const NavBar = ({
         text: `${t(`common.words.${page}`)} ${t('common.words.archive')}`,
       };
     }
-
-    setOptions(data);
+    console.log('settings || data', { ...data, ...settings });
+    setOptions({ ...data, ...settings });
   }, [pathname]);
 
   return options && (

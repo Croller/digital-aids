@@ -9,6 +9,7 @@ import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/res
 import { getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { AlertCircleSvg } from 'client/assets/images';
+import { getCoordsByAddress } from 'client/providers/common';
 import {
   RestaurantWrapper,
   NavBarStyled,
@@ -53,6 +54,7 @@ const Restaurant = () => {
     }
 
     setFormData(dataToForm({ ...data, images: [] }));
+
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
@@ -95,13 +97,14 @@ const Restaurant = () => {
     });
   };
 
-  const handleValuesChange = (values) => {
+  const handleValuesChange = async (values) => {
     console.log('values - ', values);
     if (!values) return;
     const edited = {};
     const {
       main_language,
       sub_languages,
+      address,
     } = values;
 
     if (main_language) {
@@ -120,15 +123,19 @@ const Restaurant = () => {
       setFormData(obj);
       form.setFieldsValue(obj);
     }
-    
+
+    // TODO GEOCODE
+    // if (address) {
+    //   const results = await getCoordsByAddress(address);
+    //   console.log('results', results);
+    // }
     setIsChange(true);
   };
 
   const handleUpload = (key, files, deleted = null) => {
     let list = formData.images || [null];
     if (key === 'logo') {
-      // eslint-disable-next-line prefer-destructuring
-      list[0] = files[0] || null;
+      list[0] = { ...files[0] } || null;
     }
     if (key === 'photos') {
       list = [list[0], ...files];
@@ -304,22 +311,6 @@ const Restaurant = () => {
             
             {/* // socials */}
             <FormItemStyled
-              label="TheFork"
-              name="socials.thefork.url"
-            >
-              <InputStyled
-                placeholder={t('common.form.placeholder.link')}
-              />
-            </FormItemStyled>
-            <FormItemStyled
-              label="TripAdviser"
-              name="socials.tripadviser.url"
-            >
-              <InputStyled
-                placeholder={t('common.form.placeholder.link')}
-              />
-            </FormItemStyled>
-            <FormItemStyled
               label="Facebook"
               name="socials.facebook.url"
             >
@@ -335,6 +326,74 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
+            <FormItemStyled
+              label="TheFork"
+              name="socials.thefork.url"
+            >
+              <InputStyled
+                placeholder={t('common.form.placeholder.link')}
+              />
+            </FormItemStyled>
+            <Form2Col>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.rate')}
+                  name="socials.thefork.rate"
+                >
+                  <InputStyled
+                    type="number"
+                    step="0.1"
+                    placeholder={t('common.form.placeholder.floatExample')}
+                  />
+                </FormItemStyled>
+              </FormCol>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.comments')}
+                  name="socials.thefork.comments"
+                >
+                  <InputStyled
+                    type="number"
+                    step="1"
+                    placeholder={t('common.form.placeholder.number')}
+                  />
+                </FormItemStyled>
+              </FormCol>
+            </Form2Col>
+            <FormItemStyled
+              label="TripAdviser"
+              name="socials.tripadviser.url"
+            >
+              <InputStyled
+                placeholder={t('common.form.placeholder.link')}
+              />
+            </FormItemStyled>
+            <Form2Col>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.rate')}
+                  name="socials.tripadviser.rate"
+                >
+                  <InputStyled
+                    type="number"
+                    step="0.1"
+                    placeholder={t('common.form.placeholder.floatExample')}
+                  />
+                </FormItemStyled>
+              </FormCol>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.comments')}
+                  name="socials.tripadviser.comments"
+                >
+                  <InputStyled
+                    type="number"
+                    step="1"
+                    placeholder={t('common.form.placeholder.number')}
+                  />
+                </FormItemStyled>
+              </FormCol>
+            </Form2Col>
           </FormCol>
           <FormCol>
             <FormItemStyled
@@ -397,7 +456,7 @@ const Restaurant = () => {
             </FormItemStyled>
             <FormItemStyled
               label={t('common.words.workingTime')}
-              name="at_work"
+              name="at_work.description"
               required
               rules={rule.text}
             >

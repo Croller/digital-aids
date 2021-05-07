@@ -2,6 +2,11 @@
   "header": {
     "logo": "Manager"
   },
+  "text": {
+    "protocolCovid": "Prevention Protocol COVID-19",
+    "scanQRcode": "Scan QR code to review your menu",
+    "avaibleLanguage": "Available in your language"
+  },
   "emptyList": {
     "restaurants": "Add a new restaurante in your collection",
     "archive": "Your archive is empty",

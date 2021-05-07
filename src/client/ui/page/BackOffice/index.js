@@ -8,6 +8,7 @@ const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
+const RestaurantCode = lazy(() => import('client/ui/modules/BackOffice/RestaurantCode'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
@@ -43,6 +44,11 @@ export const BackOffice = () => {
                 `${PATH}/restaurants`,
               ]}
               component={Restaurants}
+            />
+            <Route
+              exact
+              path={`${PATH}/restaurant/:restaurant/qrcode`}
+              component={RestaurantCode}
             />
             <Route
               exact
