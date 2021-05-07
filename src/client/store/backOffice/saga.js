@@ -7,24 +7,30 @@ import {
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
 import { updateItem } from 'client/utils/common';
-import { categoryTemp } from 'client/store/backOffice/mapper/category';
+import { categoryModel } from 'client/store/backOffice/mapper/category';
 
 function* getTableInit({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
-  const { token } = yield select((store) => store.user.info);
-
+  const { user: { info }, backOffice } = yield select((store) => store);
+  const { token } = info;
   try {
-    const tables = yield commonProvider.loadTable({
-      token,
-      language,
-      data: [
-        'dictionary_currency',
-        'dictionary_languages',
-        'dictionary_days',
-        'dictionary_units',
-        'dictionary_allergens',
-      ],
-    });
+    const dictionaries = [
+      'dictionary_currency',
+      'dictionary_languages',
+      'dictionary_days',
+      'dictionary_units',
+      'dictionary_allergens',
+    ];
+
+    let results_dictionary = backOffice.dictionary;
+    if (!results_dictionary) {
+      results_dictionary = yield commonProvider.loadTable({
+        token,
+        language,
+        data: dictionaries,
+      });
+      results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
+    }
 
     let results_restaurants = null;
     if (!ids) {
@@ -38,7 +44,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
         data: ids,
       });
     }
-    results_restaurants = results_restaurants.sort((a, b) => a.number - b.number);
+    results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
 
     let results_categories = [];
     const restaurants_ids = results_restaurants.map(({ id }) => id);
@@ -67,13 +73,13 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
     
     if (error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: error.error });
-    } else if (tables && results_restaurants && results_categories && results_dishes) {
+    } else if (results_dictionary && results_restaurants && results_categories && results_dishes) {
       yield put({
         type: Constants.BO_SET,
         payload: {
           restaurants: results_restaurants,
           dishes: results_dishes,
-          dictionary: Object.keys(tables).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: tables[key] }), {}),
+          dictionary: results_dictionary,
           categories: results_categories,
         },
       });
@@ -92,7 +98,11 @@ function* updateRow({ payload }) {
 
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
-    const results = yield commonProvider.update({ ...payload, token, language });
+    const results = yield commonProvider.update({
+      ...payload,
+      token,
+      language: data.id ? language : 'en',
+    });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -105,7 +115,7 @@ function* updateRow({ payload }) {
           name: 'data_categories',
           token,
           language,
-          data: categoryTemp({ restaurant: results.id }).slice(-2), 
+          data: categoryModel.slice(-2).map(item => ({ ...item, restaurant: results[0].id })), 
         });
       }
 
@@ -142,34 +152,6 @@ function* updateRow({ payload }) {
   }
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
-
-// function* updateRows({ payload }) {
-//   const { token } = yield select((store) => store.user.info);
-//   const { name } = payload;
-//   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
-//   yield put({ type: Constants.BO_LOADING_SET, payload: true });
-//   try {
-//     const results = yield commonProvider.update({ ...payload, token });
-//     if (results.error) {
-//       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
-//     } else if (results) {
-//       const mapData = table.map(row => {
-//         const r = results.find(f => f.id === row.id);
-//         return r || row;
-//       });
-//       yield put({
-//         type: Constants.BO_SET,
-//         payload: {
-//           [name.split('_')[1]]: mapData,
-//           status: 'saved',
-//         }, 
-//       });
-//     }
-//   } catch (err) {
-//     throw err;
-//   }
-//   yield put({ type: Constants.BO_LOADING_SET, payload: false });
-// }
 
 function* getTables({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
@@ -294,9 +276,9 @@ export function* watchBOloadItemsByParam() {
 export function* watchAndLog() {
   while (true) {
     const action = yield take('*');
-    const state = yield select();
     const { type, payload } = action;
-    console.log('Saga watch', action, state);
+    // const state = yield select();
+    // console.log('Saga watch', action, state);
 
     if (payload) {
       const { token, roles } = payload;

@@ -59,7 +59,7 @@ const Category = () => {
   const isArchive = pathname.indexOf('/archive') > -1;
 
   const initCategory = () => {
-    let categoryFilter = null;
+    let categoryFilter = [];
     let categoryActive = null;
 
     const rest = restaurants.find(f => f.id === restaurant);
@@ -72,19 +72,19 @@ const Category = () => {
       
       if (pageActive === null) {
         categoryFilter = restCategories.filter(f => !page.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
-        setRestCategory(categoryFilter);
       }
-
-      if (pageActive) {
-        categoryActive = restCategories.find(f => f.key === pageActive);
-      }
-
-      categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : null;
+  
+      categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : {};
       if (restCategoryActive && categoryFilter.length > 0) {
         categoryActive = categoryFilter.find(f => f.key === restCategoryActive.key) || categoryFilter[0];
       }
 
+      if (pageActive) {
+        categoryActive = categories.find(f => f.key === pageActive && f.restaurant === restaurant);
+      }
+
       setRestCategoryActive(categoryActive);
+      setRestCategory(categoryFilter);
       setRestInfo(rest);
     }
   };
@@ -95,8 +95,6 @@ const Category = () => {
     if (restCategoryActive.children) {
       dishesFilter = dishes.filter(f => restCategoryActive.children.some(s => s.id === f.category) && !f.is_deleted && f.is_archived === isArchive);
     }
-    // console.log('dishes', dishes);
-    // console.log('dishesFilter', dishesFilter);
     setDishCategory(dishesFilter);
   };
 
@@ -106,6 +104,13 @@ const Category = () => {
       return item.name;
     }
     return 'error';
+  };
+
+  const getRules = (obj = null) => {
+    if (!obj) return false;
+    if (obj.options.rules && dishCategory && obj.options.rules.info.maxLength === dishCategory.filter(f => f && !f.is_archived).length) {
+      return true;
+    }
   };
 
   const handleRoute = (key, id) => {
@@ -124,7 +129,7 @@ const Category = () => {
     setRestCategoryEdit(true);
     setRestCategoryActive(null);
     setRestCategory([...restCategory, null]);
-    handleRoute('language', 'en');
+    // handleRoute('language', 'en');
   };
   
   const handleChangeCategory = (data = null) => {
@@ -163,7 +168,7 @@ const Category = () => {
   };
 
   const handleChangeDish = (data = null) => {
-    if (!data) return;
+    if (!data || !getRules(restCategoryActive)) return;
     rootDispatch(update({ name: 'data_dishes', data, language }));
   };
 
@@ -276,7 +281,7 @@ const Category = () => {
             <DishControls>
               <NewDish
                 onClick={handleAddDish}
-                disabled={restCategoryActive === null}
+                disabled={getRules(restCategoryActive)}
               >
                 {t('common.words.newAdd')}
                 <PlusSvg />
@@ -296,6 +301,7 @@ const Category = () => {
                 <DishFormStyled
                   key={`_dish_${dish ? dish.id : 'new'}`}
                   source={dish}
+                  type={restCategoryActive.type}
                   controls={!restCategoryActive.is_archived}
                   categories={restCategoryActive.children || restCategoryActive.id}
                   resaurant={restInfo}
@@ -303,7 +309,7 @@ const Category = () => {
                   currency={restInfo.currency[0]}
                   loading={loading}
                   archive={isArchive}
-                  onChange={(data) => handleChangeDish(data)}
+                  onChange={handleChangeDish}
                   onChangeFiles={handleChangeFiles}
                 />
               ))}

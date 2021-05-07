@@ -8,7 +8,7 @@ const initState = {
   foodtips: null,
   specialDeals: null,
 
-  dictionaty: null,
+  dictionary: null,
 
   loading: false,
   status: null,

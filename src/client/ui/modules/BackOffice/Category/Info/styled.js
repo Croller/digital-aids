@@ -17,7 +17,7 @@ export const Label = styled.label`
 
 export const Field = styled.p`
   width: 100%;
-  background-color: ${PALETTE.grey26};
+  background-color: ${PALETTE.grey16};
   border-radius: ${THEME.borderRadiusL};
   padding: 20px 22px;
   font-family: ${FONTS.medium};

@@ -57,6 +57,8 @@ export const Form2Col = styled.div`
 `;
 
 export const UploaderImage = styled(Uploader)`
+  margin-bottom: 22px;
+
   .ant-upload-picture-card-wrapper {
     .ant-upload-select {
       width: 338px;

@@ -9,6 +9,7 @@ export const dataToForm = (data) => {
     allergens,
     images,
     price,
+    options,
     category,
   } = data;
 
@@ -25,6 +26,10 @@ export const dataToForm = (data) => {
         ...objArr,
         [`price[${p}].${key}`]: item[key],
       }), {}),
+    }), {}),
+    ...Object.keys(options).reduce((objArr, key) => ({
+      ...objArr,
+      [`options.${key}`]: options[key],
     }), {}),
     category,
   };
@@ -51,6 +56,8 @@ export const dataToApi = (data, categories, restaurant) => {
       }];
     }, []);
 
+  const categoryObj = Array.isArray(categories) && categories.length > 0 ? categories.find(f => f.key === category || f.id === category).id : categories;
+  const optionsObj = Object.keys(data).filter(f => f.indexOf('options.') > -1).reduce((obj, key) => ({ ...obj, [key.split('.')[1]]: data[key] }), {});
   const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, key) => {
     let value = data[key];
     if (keyFloat.some(s => key.indexOf(s) > -1)) {
@@ -58,7 +65,6 @@ export const dataToApi = (data, categories, restaurant) => {
     }
     return { ...obj, [key.split('.')[1]]: value };
   }, {});
-  const categoryObj = Array.isArray(categories) ? categories.find(f => f.key === category || f.id === category).id : categories;
 
   return {
     id: id || null,
@@ -70,6 +76,7 @@ export const dataToApi = (data, categories, restaurant) => {
     images,
     category: categoryObj,
     price: [priceObj],
+    options: optionsObj,
     restaurant: restaurant.id,
   };
 };
@@ -91,7 +98,7 @@ export const model = {
       unit: null,
     },
   ],
-  options: null,
+  options: {},
   allergens: null,
   is_archived: false,
   is_deleted: false,

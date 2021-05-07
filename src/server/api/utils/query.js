@@ -1,7 +1,4 @@
-const {
-  diff, addedDiff, deletedDiff, detailedDiff, updatedDiff, 
-} = require('deep-object-diff');
-
+const { addedDiff, updatedDiff } = require('deep-object-diff');
 const db = require('../services/db');
 const commonUtils = require('../utils/common');
 
@@ -80,7 +77,7 @@ const updateTableRecord = async (table, data, params) => {
       delete tr_data.images;
 
       let updateTR = updatedDiff(tr_model, tr_data);
-      let updateEN = { id: data.id, ...addedDiff(updateTR, tr_data) };
+      let updateEN = { id: data.id, ...addedDiff(updateTR, data) };
       updateTR = await updateTableRecord(`${table}_translate`, { ...updateTR, language }, params);
       updateEN = await updateTableRecord(table, updateEN, { res, user, language: 'en' });
       delete updateTR.language;

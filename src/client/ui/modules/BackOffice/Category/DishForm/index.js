@@ -36,6 +36,7 @@ import {
 
 export const DishForm = ({
   source = null,
+  type = null,
   categories = null,
   resaurant = null,
   controls = true,
@@ -292,6 +293,19 @@ export const DishForm = ({
                     placeholder={t('common.form.placeholder.text')}
                   />
                 </FormItemStyled>
+                {type === 'specialDeals' && (
+                  <FormItemStyled
+                    label={t('common.words.specialPromotion')}
+                    name="options.specialPromotion"
+                    required
+                    rules={rule.text}
+                  >
+                    <TextAreaStyled
+                      minRows={1}
+                      placeholder={t('common.form.placeholder.text')}
+                    />
+                  </FormItemStyled>
+                )}
               </>
             ) : (
               <>
@@ -305,158 +319,174 @@ export const DishForm = ({
                     {formData.description}
                   </ViewItemStyled>
                 </ViewStyled>
+                {type === 'specialDeals' && (
+                  <ViewStyled layout="vertical">
+                    <ViewItemStyled label={t('common.words.specialPromotion')}>
+                      {formData['options.specialPromotion']}
+                    </ViewItemStyled>
+                  </ViewStyled>
+                )}
               </>
             )}
-            <Hr />
-            {!archive && edit ? (
-              <Form2Col>
-                <FormItemStyled
-                  label={t('common.words.weight')}
-                  name="price[0].amount"
-                  required
-                  rules={rule.text}
-                >
-                  <InputStyled
-                    className="addon-select"
-                    type="number"
-                    step="0.01"
-                    placeholder={t('common.form.placeholder.floatExample')}
-                    addonAfter={(
+            {!['specialDeals', 'foodtips'].includes(type) && (
+              <>
+                {!archive && edit ? (
+                  <>
+                    <Hr />
+                    <Form2Col>
                       <FormItemStyled
-                        name="price[0].unit"
+                        label={t('common.words.weight')}
+                        name="price[0].amount"
                         required
                         rules={rule.text}
                       >
-                        <SelectStyled>
-                          {dictionary && dictionary.units.map((item, i) => (
-                            <OptionStyled key={`_units_${i + 1}`} value={item.id}>
-                              {item.name}
-                            </OptionStyled>
-                          ))}
-                        </SelectStyled>
+                        <InputStyled
+                          className="addon-select"
+                          type="number"
+                          step="0.01"
+                          placeholder={t('common.form.placeholder.floatExample')}
+                          addonAfter={(
+                            <FormItemStyled
+                              name="price[0].unit"
+                              required
+                              rules={rule.text}
+                            >
+                              <SelectStyled>
+                                {dictionary && dictionary.units.map((item, i) => (
+                                  <OptionStyled key={`_units_${i + 1}`} value={item.id}>
+                                    {item.name}
+                                  </OptionStyled>
+                                ))}
+                              </SelectStyled>
+                            </FormItemStyled>
+                          )}
+                        />
                       </FormItemStyled>
-                    )}
-                  />
-                </FormItemStyled>
-                <FormItemStyled
-                  label={t('common.words.price')}
-                  name="price[0].cost"
-                  required
-                  rules={rule.number}
-                >
-                  <InputStyled
-                    type="number"
-                    step="0.01"
-                    placeholder={t('common.form.placeholder.floatExample')}
-                    addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
-                  />
-                </FormItemStyled>
-              </Form2Col>
-            ) : (
-              <ViewStyled layout="vertical">
-                <ViewItemStyled label={t('common.words.weight')}>
-                  {formData['price[0].amount']}
-                </ViewItemStyled>
-                <ViewItemStyled label={t('common.words.unit')}>
-                  {formData['price[0].unit']}
-                </ViewItemStyled>
-                <ViewItemStyled label={t('common.words.price')}>
-                  {formData['price[0].cost']}
-                </ViewItemStyled>
-              </ViewStyled>
-            )}
-            {!archive && edit ? (
-              <Form2Col>
-                <FormItemStyled
-                  label={t('common.words.allergens')}
-                  name="allergens"
-                  required
-                  rules={rule.text}
-                >
-                  <SelectStyled
-                    showSearch
-                    mode="multiple"
-                    placeholder={t('common.form.placeholder.select')}
-                    optionFilterProp="label"
-                    className="select-allergen"
-                  >
-                    {dictionary && dictionary.allergens.map(({ id, name }, i) => (
-                      <OptionStyled
-                        key={`_allergens_${i + 1}`}
-                        value={id}
-                        label={name}
-                        className="options-allergen"
+                      <FormItemStyled
+                        label={t('common.words.price')}
+                        name="price[0].cost"
+                        required
+                        rules={rule.number}
                       >
-                        <Img src={getDictionaryItem(id, 'key', ALLERGENS, 'src')} />
-                        <Text>
-                          {name}
-                        </Text>
-                      </OptionStyled>
-                    ))}
-                  </SelectStyled>
-                </FormItemStyled>
-                <FormItemStyled
-                  label={t('common.words.number')}
-                  name="count"
-                  required
-                  rules={rule.in}
-                >
-                  <InputStyled
-                    type="number"
-                    placeholder={t('common.form.placeholder.numberExample')}
-                  />
-                </FormItemStyled>
-              </Form2Col>
-            ) : (
-              <ViewStyled layout="vertical">
-                <ViewItemStyled label={t('common.words.allergens')}>
-                  {formData.allergens.map(id => (
-                    <Img
-                      key={`_img_${id}`}
-                      src={getDictionaryItem(id, 'key', ALLERGENS, 'src')}
-                    />
-                  ))}
-                </ViewItemStyled>
-                <ViewItemStyled label={t('common.words.number')}>
-                  {formData.count}
-                </ViewItemStyled>
-              </ViewStyled>
-            )}
-            {Array.isArray(categories) && (
-              <>
-                <Hr />
+                        <InputStyled
+                          type="number"
+                          step="0.01"
+                          placeholder={t('common.form.placeholder.floatExample')}
+                          addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
+                        />
+                      </FormItemStyled>
+                    </Form2Col>
+                  </>
+                ) : (
+                  <>
+                    <Hr />
+                    <ViewStyled layout="vertical">
+                      <ViewItemStyled label={t('common.words.weight')}>
+                        {formData['price[0].amount']}
+                      </ViewItemStyled>
+                      <ViewItemStyled label={t('common.words.unit')}>
+                        {formData['price[0].unit']}
+                      </ViewItemStyled>
+                      <ViewItemStyled label={t('common.words.price')}>
+                        {formData['price[0].cost']}
+                      </ViewItemStyled>
+                    </ViewStyled>
+                  </>
+                )}
                 {!archive && edit ? (
-                  <FormCol>
+                  <Form2Col>
                     <FormItemStyled
-                      label={t('common.words.group')}
-                      name="category"
+                      label={t('common.words.allergens')}
+                      name="allergens"
                       required
                       rules={rule.text}
                     >
                       <SelectStyled
                         showSearch
-                        mode="single"
+                        mode="multiple"
                         placeholder={t('common.form.placeholder.select')}
                         optionFilterProp="label"
+                        className="select-allergen"
                       >
-                        {categories.map((item, i) => (
+                        {dictionary && dictionary.allergens.map(({ id, name }, i) => (
                           <OptionStyled
-                            key={`_categories_${i + 1}`}
-                            value={item.id}
-                            label={item.name}
+                            key={`_allergens_${i + 1}`}
+                            value={id}
+                            label={name}
+                            className="options-allergen"
                           >
-                            {item.name}
+                            <Img src={getDictionaryItem(id, 'key', ALLERGENS, 'src')} />
+                            <Text>
+                              {name}
+                            </Text>
                           </OptionStyled>
                         ))}
                       </SelectStyled>
                     </FormItemStyled>
-                  </FormCol>
+                    <FormItemStyled
+                      label={t('common.words.number')}
+                      name="count"
+                      required
+                      rules={rule.in}
+                    >
+                      <InputStyled
+                        type="number"
+                        placeholder={t('common.form.placeholder.numberExample')}
+                      />
+                    </FormItemStyled>
+                  </Form2Col>
                 ) : (
                   <ViewStyled layout="vertical">
-                    <ViewItemStyled label={t('common.words.group')}>
-                      {getDictionaryItem(source.category, 'id', categories, 'name')}
+                    <ViewItemStyled label={t('common.words.allergens')}>
+                      {formData.allergens.map(id => (
+                        <Img
+                          key={`_img_${id}`}
+                          src={getDictionaryItem(id, 'key', ALLERGENS, 'src')}
+                        />
+                      ))}
+                    </ViewItemStyled>
+                    <ViewItemStyled label={t('common.words.number')}>
+                      {formData.count}
                     </ViewItemStyled>
                   </ViewStyled>
+                )}
+                {Array.isArray(categories) && (
+                <>
+                  <Hr />
+                  {!archive && edit ? (
+                    <FormCol>
+                      <FormItemStyled
+                        label={t('common.words.group')}
+                        name="category"
+                        required
+                        rules={rule.text}
+                      >
+                        <SelectStyled
+                          showSearch
+                          mode="single"
+                          placeholder={t('common.form.placeholder.select')}
+                          optionFilterProp="label"
+                        >
+                          {categories.map((item, i) => (
+                            <OptionStyled
+                              key={`_categories_${i + 1}`}
+                              value={item.id}
+                              label={item.name}
+                            >
+                              {item.name}
+                            </OptionStyled>
+                          ))}
+                        </SelectStyled>
+                      </FormItemStyled>
+                    </FormCol>
+                  ) : (
+                    <ViewStyled layout="vertical">
+                      <ViewItemStyled label={t('common.words.group')}>
+                        {source && getDictionaryItem(source.category, 'id', categories, 'name')}
+                      </ViewItemStyled>
+                    </ViewStyled>
+                  )}
+                </>
                 )}
               </>
             )}
