@@ -48,7 +48,7 @@ const RestaurantCode = () => {
       const rest = restaurants.find(f => f.id === restaurant);
       if (rest) {
         const host = getUrl();
-        setQrCode(`${host}/restaurant/${rest.key}/categories`);
+        setQrCode(`${host}/restaurant/${rest.key}/information`);
         setLngValue(rest.languages);
       }
     }
@@ -101,7 +101,7 @@ const RestaurantCode = () => {
             {`${t('common.words.download')} pdf`}
           </ButtonStyled>
           <ButtonStyled onClick={handleGetImg}>
-            {`${t('common.words.download')} jpeg`}
+            {`${t('common.words.download')} png`}
           </ButtonStyled>
         </LoadDocWrapper>
       </ContentWrapper>
