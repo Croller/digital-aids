@@ -16,14 +16,39 @@ const CommonController = () => {
   
   const getTableByNames = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
+    const header = commonUtils.getHeader(req);
+    const language = header['accept-language'];
+    
     if (!tokenData) return;
     try {
       const { data } = req.query;
-      const result = await Promise.all(data.split(',').map(async (name) => {
+      let result = await Promise.all(data.split(',').map(async (name) => {
         const desc = await db.query(`SELECT * FROM ${name} ${name.indexOf('data_') > -1 ? 'WHERE is_deleted=FALSE' : ''} `);
         return { [name]: desc.rows }; 
       }));
-      res.json(result.reduce((obj, arr) => ({ ...obj, ...arr }), {}));
+      result = result.reduce((obj, arr) => ({ ...obj, ...arr }), {});
+
+      if (language !== 'en') {
+        let result_transalate = await Promise.all(data.split(',').map(async (name) => {
+          const desc = await db.query(`SELECT * FROM ${name}_translate WHERE language='${language}' ${name.indexOf('data_') > -1 ? 'AND is_deleted=FALSE' : ''} `);
+          return { [name]: desc.rows }; 
+        }));
+        result_transalate = result_transalate.reduce((obj, arr) => ({ ...obj, ...arr }), {});
+        result = Object.keys(result).reduce((obj, key) => {
+          if (result_transalate[key].length === 0) {
+            return { ...obj, [key]: result[key] };
+          } 
+          return {
+            ...obj,
+            [key]: result_transalate[key].reduce((arr, item) => {
+              const it = { ...item };
+              delete it.language;
+              return [...arr, it];
+            }, []),
+          };
+        }, {});
+      } 
+      res.json(result);
     } catch (err) {
       error.name = 'Query error';
       error.code = 'queryError';
@@ -73,10 +98,9 @@ const CommonController = () => {
         is_deleted: false,
       }, { req, res });
 
-      let result_transalate = [];
       if (language !== 'en') {
         query = query.replace(name, `${name}_translate`);
-        result_transalate = await queryUtils.getTableRecord(`${name}_translate`, {
+        const result_transalate = await queryUtils.getTableRecord(`${name}_translate`, {
           id: result.map(item => item.id),
           language,
         }, { req, res });
