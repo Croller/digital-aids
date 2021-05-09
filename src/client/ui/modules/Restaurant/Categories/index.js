@@ -35,7 +35,7 @@ const Categories = () => {
   ));
   const [showOffer, hideOffer] = useModal(() => (
     <OfferRestaurantModal
-      source={offer.options}
+      source={offer}
       onClose={hideOffer}
     />
   ), [offer]);
