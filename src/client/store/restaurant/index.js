@@ -20,7 +20,7 @@ const initState = {
     socials: null, // object
     at_work: null, // object
     options: null, // object
-    geom: null,
+    geom: null, // object
   },
   
   order: null,

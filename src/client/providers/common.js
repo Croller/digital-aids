@@ -76,8 +76,11 @@ export const deleteFiles = async ({
   return results;
 };
 
-export const getCoordsByAddress = async (address) => {
-  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g, '+')}&key=${process.env.API_KEY_GOOGLE_MAP}`);
+export const getCoordsByAddress = async ({
+  address,
+  language = 'en',
+}) => {
+  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${process.env.API_KEY_GOOGLE_MAP}`);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

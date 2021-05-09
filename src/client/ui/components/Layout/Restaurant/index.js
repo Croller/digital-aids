@@ -25,7 +25,7 @@ export const Layout = ({
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
   
-  const logo = images ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
+  const logo = images && images[0] ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
   
   const handleRoute = useCallback((part) => {
     const path = `/restaurant/${key}`;

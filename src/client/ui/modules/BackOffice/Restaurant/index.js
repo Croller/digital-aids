@@ -10,6 +10,8 @@ import { getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { AlertCircleSvg } from 'client/assets/images';
 import { getCoordsByAddress } from 'client/providers/common';
+import { useDebounce } from 'client/ui/components/_base/Debounce';
+import { Marker } from 'google-maps-react';
 import {
   RestaurantWrapper,
   NavBarStyled,
@@ -25,15 +27,23 @@ import {
   FormUploader,
   UploaderLogo,
   UploaderPhotos,
+  AddressItemsWrapper,
+  AddressList,
+  AddressItem,
+  MapStyled,
 } from './styled';
 
 const Restaurant = () => {
   const {
-    restaurants,
-    dictionary,
-    status,
-    loading,
-  } = useSelector(store => store.backOffice);
+    user: { info: { language } },
+    backOffice: { 
+      restaurants,
+      dictionary,
+      status,
+      loading,
+    },
+  } = useSelector(s => s);
+
   const [t] = useTranslation();
   const rule = rules(t);
   const params = useParams();
@@ -43,24 +53,34 @@ const Restaurant = () => {
   const [loadFiles, setLoadFiles] = useState(true);
   const [formData, setFormData] = useState(null);
   const [deletedFiles, setDeletedFiles] = useState(null);
+  const [addressStr, setAddressStr] = useState(null);
+  const [addressRusults, setAddressResults] = useState(null);
+  const debouceSearch = useDebounce(addressStr, 500);
 
   const [form] = FormStyled.useForm();
 
+  const setData = (obj) => {
+    setFormData(obj);
+    form.setFieldsValue(obj);
+  };
+
   const initValue = () => {
     let data = { ...model };
-
+    
+    console.log(params.restaurant, restaurants);
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(f => f.id === params.restaurant);
     }
 
-    setFormData(dataToForm({ ...data, images: [] }));
+    console.log('data', data);
+    setData(dataToForm({ ...data, images: [] }));
 
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
         const file = await loadFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
         return file;
-      })).then(images => setFormData(dataToForm({ ...data, images })));
+      })).then(images => setData(dataToForm({ ...data, images })));
     }
     setLoadFiles(false);
   };
@@ -115,19 +135,17 @@ const Restaurant = () => {
       edited.sub_languages = sub_languages.some(s => s === 'en') ? sub_languages : ['en', ...sub_languages];
     }
 
+    // TODO GEOCODE
+    if (address) {
+      setAddressStr(address);
+    }
+
     if (Object.keys(edited).length > 0) {
       const obj = {
         ...formData,
         ...edited,
       };
-      setFormData(obj);
-      form.setFieldsValue(obj);
-    }
-
-    // TODO GEOCODE
-    if (address) {
-      const results = await getCoordsByAddress(address);
-      console.log('results', results);
+      setData(obj);
     }
     setIsChange(true);
   };
@@ -147,6 +165,34 @@ const Restaurant = () => {
     setIsChange(true);
   };
 
+  const handleDebouceSearch = async () => {
+    if (debouceSearch) {
+      const results = await getCoordsByAddress({ address: debouceSearch, language });
+      console.log('results', results.results);
+      if (results.status === 'OK') {
+        setAddressResults(results.results);
+      } else {
+        setAddressResults([]);
+      }
+    } else {
+      setAddressResults([]);
+    }
+  };
+
+  const handleUpdateAddress = (address, geometry) => {
+    setData({
+      ...formData,
+      address,
+      lat: geometry.lat,
+      lng: geometry.lng,
+    });
+    setAddressResults([]);
+  };
+
+  useEffect(() => {
+    handleDebouceSearch();
+  }, [debouceSearch]);
+
   useEffect(() => {
     window.prerenderReady = true;
     initValue();
@@ -154,7 +200,7 @@ const Restaurant = () => {
     return () => {
       form.resetFields();
     };
-  }, []);
+  }, [restaurants]);
 
   useEffect(() => {
     if (status) {
@@ -209,16 +255,6 @@ const Restaurant = () => {
                   <OptionStyled key={`_cuisine_${i + 1}`} value={str}>{str}</OptionStyled>
                 ))}
               </SelectStyled>
-            </FormItemStyled>
-            <FormItemStyled
-              label={t('common.words.address')}
-              name="address"
-              required
-              rules={rule.text}
-            >
-              <InputStyled
-                placeholder={t('common.form.placeholder.text')}
-              />
             </FormItemStyled>
             <FormItemStyled
               label={t('common.words.phone')}
@@ -466,6 +502,62 @@ const Restaurant = () => {
             </FormItemStyled>
             {params.restaurant !== 'new' && (
               <NavItemStyled onClick={handleRoute} />
+            )}
+            <FormItemStyled
+              label={t('common.words.address')}
+              name="address"
+              required
+              rules={rule.text}
+            >
+              <InputStyled
+                placeholder={t('common.form.placeholder.text')}
+              />
+            </FormItemStyled>
+            <AddressItemsWrapper>
+              <AddressList>
+                {addressRusults.map(({ place_id, formatted_address, geometry: { location } }) => (
+                  <AddressItem
+                    key={`_addres_item_${place_id}`}
+                    onClick={() => handleUpdateAddress(formatted_address, location)}
+                  >
+                    {formatted_address}
+                  </AddressItem>
+                ))}
+              </AddressList>
+            </AddressItemsWrapper>
+            <Form2Col>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.lat')}
+                  name="lat"
+                >
+                  <InputStyled
+                    type="number"
+                    step="0.0000001"
+                    placeholder={t('common.form.placeholder.floatExample')}
+                  />
+                </FormItemStyled>
+              </FormCol>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.lng')}
+                  name="lng"
+                >
+                  <InputStyled
+                    type="number"
+                    step="0.0000001"
+                    placeholder={t('common.form.placeholder.floatExample')}
+                  />
+                </FormItemStyled>
+              </FormCol>
+            </Form2Col>
+            {formData.lat && formData.lng && addressRusults.length === 0 && (
+              <MapStyled
+                initialCenter={{ lat: formData.lat, lng: formData.lng }}
+                zoom={!formData.lat && !formData.lng ? 1 : 15}
+              >
+                <Marker position={{ lat: formData.lat, lng: formData.lng }} />
+              </MapStyled>
             )}
             <FormUploader>
               {!loadFiles && (

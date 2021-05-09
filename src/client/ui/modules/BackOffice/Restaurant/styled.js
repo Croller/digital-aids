@@ -7,6 +7,7 @@ import { InputForm } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 import MaskedInput from 'antd-mask-input';
 import { Uploader } from 'client/ui/components/_ui/Uploader';
+import { GoogleMap } from 'client/ui/modules/Restaurant/components/GoogleMap';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -355,4 +356,47 @@ export const Save = styled(Button)`
   margin: auto;
   margin-bottom: 80px;
   border-radius: ${THEME.borderRadiusL};
+`;
+
+export const AddressItemsWrapper = styled.div`
+  position: relative;
+`;
+
+export const AddressList = styled.ul`
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  top: -23px;
+  left: 0;
+  z-index: 2;
+`;
+
+export const AddressItem = styled.li`
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 16px;
+  font-family: ${FONTS.semiBold};
+  border: 1px solid ${PALETTE.grey6};
+  background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadiusM};
+
+  /* border-bottom-right-radius: ${THEME.borderRadiusM};
+  border-bottom-left-radius: ${THEME.borderRadiusM}; */
+  &:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background-color: ${PALETTE.grey25};
+    cursor: pointer;
+  }
+`;
+
+export const MapStyled = styled(GoogleMap)`
+  position: relative !important;
+  width: 100% !important;
+  height: 180px !important;
+  margin-bottom: 22px;
 `;
