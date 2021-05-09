@@ -35,7 +35,7 @@ const Receipt = () => {
   const [t] = useTranslation();
   const [categoryOrder, setCategoryOrder] = useState(null);
 
-  const logo = images ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
+  const logo = images && images[0] ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
 
   const handleRouteOrder = () => {
     history.goBack();

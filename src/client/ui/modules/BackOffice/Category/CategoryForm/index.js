@@ -18,18 +18,24 @@ import {
   FloppyDiskSvg,
   TrashSvg,
   PlusSvg,
+  EditSvg,
 } from 'client/assets/images';
 import {
   CategoryFormWrapper,
   FormStyled,
   Form2Col,
   FormCol,
+  FormColControl,
   FormItemStyled,
   InputStyled,
   TextAreaStyled,
   Hr,
   SelectStyled, OptionStyled,
+  ControlsGroup,
   Controls, Control,
+  Img, Text,
+  ViewStyled,
+  ViewItemStyled,
 } from './styled';
 
 export const CategoryForm = ({
@@ -47,6 +53,7 @@ export const CategoryForm = ({
   const [formData, setFormData] = useState(null);
   const [form] = FormStyled.useForm();
   const [event, setEvent] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
       title={t(`backOffice.confirmModal.category.${event.key}`)}
@@ -121,6 +128,10 @@ export const CategoryForm = ({
     }
     onChange(obj);
     setFormData(null);
+  };
+
+  const handleDeleteGroup = (category) => {
+    console.log('category', category);
   };
 
   useEffect(() => {
@@ -297,6 +308,71 @@ export const CategoryForm = ({
           <>
             <Hr />
             <FormCol>
+              {formData.children.map((category, c) => (
+                <FormColControl key={`children[${c + 1}]`}>
+                  {/* <FormItemStyled
+                    label={t('common.words.group')}
+                    name={`children[${c}]`}
+                    required
+                    rules={rule.text}
+                  >
+                    <SelectStyled
+                      mode="tags"
+                      tokenSeparators={[',']}
+                      placeholder={t('common.form.placeholder.text')}
+                      disabled={archive}
+                    >
+                      {formData.children.map((str, i) => (
+                        <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
+                      ))}
+                    </SelectStyled>
+                  </FormItemStyled> */}
+                  <ViewStyled layout="vertical">
+                    <ViewItemStyled label={`${t('common.words.group')} ${c + 1}`}>
+                      {category}
+                    </ViewItemStyled>
+                  </ViewStyled>
+                  <ControlsGroup>
+                    <Tooltip placement="top" title={t('common.words.edit')}>
+                      <Control
+                        disabled={loading}
+                        // onClick={handleEdit}
+                      >
+                        <EditSvg />
+                      </Control>
+                    </Tooltip>
+                    <Tooltip placement="top" title={t('common.words.delete')}>
+                      <Control
+                        disabled={loading}
+                        onClick={() => handleEvent('delete')}
+                      >
+                        <TrashSvg />
+                      </Control>
+                    </Tooltip>
+                    <Tooltip placement="top" title={t('common.words.save')}>
+                      <Control
+                        disabled={!isChange || loading}
+                        active
+                      >
+                        <FloppyDiskSvg />
+                      </Control>
+                    </Tooltip>
+                    <Tooltip placement="top" title={t('common.words.close')}>
+                      <Control
+                        disabled={!isChange || loading}
+                        active
+                      >
+                        <CloseSvg />
+                      </Control>
+                    </Tooltip>
+                  </ControlsGroup>
+                  
+                </FormColControl>
+                
+              ))}
+            </FormCol>
+            
+            {/* <FormCol>
               <FormItemStyled
                 label={t('common.words.group')}
                 name="children"
@@ -314,7 +390,7 @@ export const CategoryForm = ({
                   ))}
                 </SelectStyled>
               </FormItemStyled>
-            </FormCol>
+            </FormCol> */}
           </>
         )}
       </FormStyled>

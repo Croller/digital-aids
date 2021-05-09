@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
-import { Form, Select } from 'antd';
+import { Form, Select, Descriptions } from 'antd';
 import { InputForm } from 'client/ui/components/_ui/Input';
 import { TextAreaForm } from 'client/ui/components/_ui/TextArea';
 import { Button } from 'client/ui/components/_ui/Button';
 
+const DescriptionsItem = Descriptions.Item;
 const FormItem = Form.Item;
 const { Option } = Select;
 
@@ -40,6 +41,25 @@ export const Form2Col = styled.div`
 
     &:not(:last-child) {
       margin-right: 26px;
+    }
+  }
+`;
+
+export const FormColControl = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+  > div {
+    width: 93%;
+    margin-bottom: unset;
+
+    &:not(:last-child) {
+      margin-right: 26px;
+    }
+
+    &:last-child {
+      width: 20%;
     }
   }
 `;
@@ -317,6 +337,21 @@ export const Controls = styled.div`
   }
 `;
 
+export const ControlsGroup = styled.div`
+  position: relative;
+  right: 22px;
+  top: 10px;
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+
+  > button {
+    &:not(:last-child) {
+      margin-right: 24px;
+    }
+  }
+`;
+
 export const Control = styled(Button)`
   display: flex;
   justify-content: center;
@@ -337,3 +372,41 @@ export const Control = styled(Button)`
   }
 `;
 
+export const ViewStyled = styled(Descriptions)`
+  display: flex;
+
+  .ant-descriptions-view {
+    .ant-descriptions-row {
+      > th {
+        &.ant-descriptions-item {
+          padding-bottom: 12px;
+
+          .ant-descriptions-item-label {
+            font-size: 16px;
+            font-family: ${FONTS.bold};
+            color: ${PALETTE.grey12};
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      .ant-descriptions-item-container {
+        .ant-descriptions-item-content {
+          display: flex;
+          flex-wrap: wrap;
+          font-size: 16px;
+          font-family: ${FONTS.medium};
+          color: ${PALETTE.black};
+
+          > img {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const ViewItemStyled = styled(DescriptionsItem)`
+  display: block;
+`;
