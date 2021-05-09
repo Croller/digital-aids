@@ -1,16 +1,17 @@
 import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { init } from 'client/store/restaurant';
+import { init, update } from 'client/store/restaurant';
+import { getUrlOrder } from 'client/utils/restaurant';
 import {
   Route,
   Switch,
   useLocation,
   useHistory,
 } from 'react-router-dom';
-
 import { Layout } from 'client/ui/components/Layout/Restaurant';
 import { Loader } from 'client/ui/components/_block/Loader';
 
+const { href } = window.location;
 const PATH = '/restaurant';
 
 const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
@@ -45,6 +46,10 @@ export const Restaurant = () => {
     if (!restaurant.info) {
       history.push('/404');
     }
+    if (restaurant.info && restaurant.info.id && href.indexOf('/receipt?params') > -1) {
+      const { dishes, categories } = restaurant;
+      rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+    }
   }, [restaurant.info]);
 
   return (
@@ -63,7 +68,7 @@ export const Restaurant = () => {
             <Route exac path={`${PATH}/:restaurant/reglament`} component={Reglament} />
             <Route exac path={`${PATH}/:restaurant/information`} component={Information} />
             <Route exac path={`${PATH}/:restaurant/foodtips`} component={FoodTips} />
-            <Route exac path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
+            <Route path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
             <Route exac path={`${PATH}/:restaurant/order`} component={Order} />
           </Switch>
     

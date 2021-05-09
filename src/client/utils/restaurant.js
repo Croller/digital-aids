@@ -43,6 +43,57 @@ export const getCategoryDish = (categories, dishes, pKey = 'parent') => {
   return results;
 };
 
+export const getUrlOrder = (url, dishes, categories) => {
+  const params = url.split('?params=')[1];
+  const trimOrder = JSON.parse(decodeURIComponent(params));
+  const newOrder = trimOrder.reduce((arr, item) => {
+    const catExist = categories.find(f => f.id === item.id);
+    if (catExist) {
+      if (!catExist.type === 'daily' || (!catExist.type === 'daily' && !catExist.children)) {
+        return [
+          ...arr,
+          {
+            ...catExist,
+            ...item,
+            order: item.order.reduce((arrDish, dish) => {
+              const dishExist = dishes.find(f => f.id === dish.id);
+              if (dishExist) {
+                return [...arrDish, { ...dishExist, ...dish }];
+              }
+              return arrDish;
+            }, []),
+          },
+        ];
+      }
+      return [
+        ...arr,
+        {
+          ...catExist,
+          order: item.order.reduce((arrDish, cat) => {
+            if (catExist.children) {
+              const group = catExist.children.find(f => f.id === cat.id);
+              const dishExist = dishes.find(f => f.id === cat.dish);
+              if (group) {
+                return [...arrDish, {
+                  ...group,
+                  dish: dishExist,
+                }];
+              }
+            }
+            const dishExist = dishes.find(f => f.id === cat.id);
+            return [...arrDish, {
+              ...dishExist,
+              ...cat,
+            }];
+          }, []),
+        },
+      ];
+    }
+    return arr;
+  }, []);
+  return newOrder;
+};
+
 // export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, parent = null) => {
 //   if (!value) return { [key]: value };
 //   if (key === 'name') {
