@@ -6,40 +6,26 @@ const error = {
   text: '',
 };
 
-console.log({
-  host: process.env.HOST_MAIL_SERVER,
-  port: process.env.HOST_MAIL_SERVER_PORT_IN,
-  secure: false,
-  auth: {
-    user: process.env.HOST_MAIL_LOGIN_INFO,
-    pass: process.env.HOST_MAIL_PASSWORD_INFO,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
-
 const transporter = nodemailer.createTransport({
   host: process.env.HOST_MAIL_SERVER,
-  port: process.env.HOST_MAIL_SERVER_PORT_IN,
-  secure: false,
+  port: process.env.HOST_MAIL_SERVER_PORT_OUT,
+  secure: true,
   auth: {
     user: process.env.HOST_MAIL_LOGIN_INFO,
     pass: process.env.HOST_MAIL_PASSWORD_INFO,
   },
   tls: {
-    rejectUnauthorized: false,
+    rejectUnauthorized: true,
   },
 });
 
-//   // verify connection configuration
-// transporter.verify((error, success) => {
-//   console.log(success);
-//   if (error) {
-//     console.log('DataBase connect error:', error.message);
-//   } else {
-//     console.log("Mailer connected");
-//   }
+// transporter.sendMail({
+//   from: `"Node js" <${process.env.HOST_MAIL_LOGIN_INFO}>`,
+//   to: '79104643015@yandex.ru',
+//   subject: 'Message from Node js',
+//   text: 'This message was sent from Node js server.',
+//   html:
+//     'true',
 // });
 
 module.exports = {
@@ -50,8 +36,8 @@ module.exports = {
   send: async (req, res) => {
     const { data } = req.body;
     const {
-      from = process.env.HOST_MAIL_LOGIN_INFO,
-      to = '71904643015@yandex.ru',
+      from = `"Digital Carte" <${process.env.HOST_MAIL_LOGIN_INFO}>`,
+      to = null,
       subject = null,
       body = null,
       files = null,
@@ -60,7 +46,7 @@ module.exports = {
 
     const mailOptions = {
       from,
-      to,
+      to: to || process.env.HOST_MAIL_LOGIN_INFO,
       subject,
       ...(html ? { html: body } : { text: body }),
       ...(files && {
@@ -72,7 +58,7 @@ module.exports = {
     };
     try {
       const result = await transporter.sendMail(mailOptions);
-      console.log('mailer send ', result);
+      console.log('mailer send:', mailOptions, result);
       res.json(result);
     } catch (err) {
       error.name = 'Mail error';
