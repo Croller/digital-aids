@@ -1,3 +1,107 @@
+export const restaurantMock = {
+  number: 1,
+  id: '20e026b2-d5d8-49fd-b48e-102718d43713',
+  key: 'las-ceuvasttest',
+  name: 'Las ceuvasTTEST',
+  address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
+  email: [
+    'robert@lascuevas.es',
+  ],
+  website: null,
+  opinion: 'robert@lascuevas.es',
+  phone: [
+    '+34 617 241 673',
+  ],
+  currency: [
+    'EUR',
+  ],
+  cuisine: [
+    'Spanish',
+  ],
+  employees: [
+    'Robert Johansen',
+  ],
+  avg_price: 25.2,
+  languages: [
+    'es',
+    'en',
+    'ru',
+    'el',
+    'it',
+    'de',
+    'fr',
+    'no',
+    'ja',
+  ],
+  images: [
+    '3eab1e0f-dabe-4928-9d8e-78ebd1478764',
+    '4d0973fd-ea30-41cc-8f5c-a1c00e496daa',
+    '0209a1de-cb10-4f16-8b89-3909134aad90',
+  ],
+  socials: {
+    thefork: {
+      url: 'www.tripadvisor.co.uk/Restaurant_Review-g1238605-',
+      rate: 2323,
+      comments: 2323,
+    },
+    facebook: {
+      url: 'www.facebook.com/Restaurantelascuevas/',
+      rate: null,
+    },
+    instagram: {
+      url: 'www.instagram.com/lascuevasrestaurante/',
+      rate: null,
+    },
+    tripadvisor: {
+      url: null,
+      rate: 2323,
+      comments: 2323,
+    },
+  },
+  at_work: {
+    fri: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    mon: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    sat: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    sun: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T00:00:00.000',
+    ],
+    thu: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    tue: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    wed: [
+      '2020-01-01T10:00:00.000',
+      '2020-01-01T22:00:00.000',
+    ],
+    description: '17.00- 22.00',
+  },
+  options: {
+    foodtips: {
+      max: '5',
+    },
+    specialsDeals: {
+      max: '1',
+    },
+  },
+  geom: null,
+  is_archived: false,
+  is_deleted: false,
+};
+
 export const categoriesMock = [
   {
     id: 1,

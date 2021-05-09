@@ -4,7 +4,7 @@ import { Button } from 'client/ui/components/_ui/Button';
 import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { Loader } from 'client/ui/components/_block/Loader';
 
-export const RestaurantCodeWrapper = styled.div`
+export const FlayerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

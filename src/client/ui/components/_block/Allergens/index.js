@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getDictionaryItem } from 'client/utils/common';
 import { ALLERGENS } from './constants';
 import { 
   Wrapper,
@@ -14,27 +15,23 @@ export const Allergens = memo(({
   source = null,
   className,
 }) => {
+  console.log('source', source);
   const [t] = useTranslation();
-
-  const getAllergens = (arr = null) => {
-    if (!arr) return ALLERGENS;
-    return ALLERGENS.filter(f => arr.some(s => s === f.key));
-  };
 
   return (
     <Wrapper className={className}>
-      <List>
-        {getAllergens(source).map(({ key, src }) => (
-          <Item
-            key={`_allergen_${key}`}
-          >
-            <ImgWrapper src={src} />
-            <Text>
-              {t(`restaurant.compAllergens.allergens.${key}`)}
-            </Text>
-          </Item>
-        ))}
-      </List>
+      {source && (
+        <List>
+          {source.map(({ id, name }) => (
+            <Item key={`_allergen_${id}`}>
+              <ImgWrapper src={getDictionaryItem(id, 'key', ALLERGENS, 'src')} />
+              <Text>
+                {name}
+              </Text>
+            </Item>
+          ))}
+        </List>
+      )}
       <Description>
         {t('restaurant.compAllergens.descriptions')}
       </Description>

@@ -25,6 +25,8 @@ export const InfoUser = () => {
       cookies: false,
       token: null,
       enter_at: null,
+      check18: false,
+      checkDaily: false,
     },
     restaurant: {
       offersViewed: [],
@@ -52,7 +54,17 @@ export const InfoUser = () => {
       rootDispatch(auth({ token: local.user.token }));
       local.user.token = null;
       local.user.enter_at = null;
-    } else if (process.env.NODE_ENV === 'development') {
+    }
+
+    if (pathname.indexOf('/restaurant') > -1 && pathname.indexOf(pathCurrent) === -1) {
+      rootDispatch(login({
+        login: process.env.REST_GUEST_LOGIN,
+        password: process.env.REST_GUEST_PASSWORD,
+        language: local.user.lng,
+      }));
+    }
+    
+    if (process.env.NODE_ENV === 'development' && pathname.indexOf(pathCurrent) > -1) {
       rootDispatch(login({
         login: process.env.BACK_OFFICE_ADMIN_LOGIN,
         password: process.env.BACK_OFFICE_ADMIN_PASSWORD,

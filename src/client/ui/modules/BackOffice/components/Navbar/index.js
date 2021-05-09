@@ -167,7 +167,6 @@ export const NavBar = ({
         text: `${t(`common.words.${page}`)} ${t('common.words.archive')}`,
       };
     }
-    console.log('settings || data', { ...data, ...settings });
     setOptions({ ...data, ...settings });
   }, [pathname]);
 

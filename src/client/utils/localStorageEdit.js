@@ -9,7 +9,6 @@ export const setOfferViewed = (offer = null, callback = () => {}) => {
   if (!offer) return null;
   const local = getLocalStorage(storageKey);
   const { offersViewed } = local.restaurant;
-  console.log('local', local);
   
   if (offer && local && offersViewed && !offersViewed.some(f => f === offer)) {
     setLocalStorage(storageKey, {
@@ -35,3 +34,19 @@ export const setUser = (obj) => {
     });
   }
 };
+
+export const setRestaurent = (obj) => {
+  const local = getLocalStorage(storageKey);
+  if (local) {
+    setLocalStorage(storageKey, {
+      ...local,
+      restaurant: {
+        ...local.restaurant,
+        ...obj,
+      },
+    });
+  }
+};
+
+export const getLocal = () => getLocalStorage(storageKey);
+export const setLocal = (obj) => setLocalStorage(storageKey, obj);

@@ -40,6 +40,13 @@ export default function (state = initState, action) {
   }
 }
 
+export function update(payload) {
+  return {
+    type: Constants.USER_UPDATE,
+    payload,
+  };
+}
+
 export function login(payload) {
   return {
     type: Constants.USER_LOGIN,

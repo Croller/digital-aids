@@ -9,7 +9,7 @@ import * as commonProvider from 'client/providers/common';
 import { updateItem } from 'client/utils/common';
 import { categoryModel } from 'client/store/backOffice/mapper/category';
 
-function* getTableInit({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
+function* init({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { user: { info }, backOffice } = yield select((store) => store);
   const { token } = info;
@@ -36,7 +36,8 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
     if (!ids) {
       results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
       results_restaurants = results_restaurants.data_restaurants.sort((a, b) => b.number - a.number);
-    } else {
+    }
+    if (ids && ids.length > 0) {
       results_restaurants = yield commonProvider.loadRow({
         name,
         token,
@@ -44,11 +45,14 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
         data: ids,
       });
     }
-    results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
 
     let results_categories = [];
-    const restaurants_ids = results_restaurants.map(({ id }) => id);
-    if (restaurants_ids.length > 0) {
+    let results_dishes = [];
+
+    if (results_restaurants.length > 0) {
+      results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
+
+      const restaurants_ids = results_restaurants.map(({ id }) => id);
       results_categories = yield commonProvider.loadRowByParam({
         name: 'data_categories',
         token,
@@ -56,10 +60,7 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
         data: { restaurant: restaurants_ids },
       });
       results_categories = results_categories.sort((a, b) => a.number - b.number);
-    }
     
-    let results_dishes = [];
-    if (restaurants_ids.length > 0) {
       results_dishes = yield commonProvider.loadRowByParam({
         name: 'data_dishes',
         token,
@@ -68,7 +69,6 @@ function* getTableInit({ payload: { name = 'data_restaurants', ids = null, langu
       });
       results_dishes = results_dishes.sort((a, b) => b.number - a.number);
     }
-    
     const error = null;
     
     if (error) {
@@ -95,14 +95,13 @@ function* updateRow({ payload }) {
   const { name, data, language = 'en' } = payload;
   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
   let status = 'saved';
-
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
     const results = yield commonProvider.update({
       ...payload,
       token,
-      language: data.id ? language : 'en',
-    });
+      language: ((Array.isArray(data) && data[0].id) || data.id) ? language : 'en',
+    }); 
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -244,18 +243,13 @@ function* deleteFiles({ payload }) {
     throw err;
   }
 }
-
-// export function* watchBOupdateStore() {
-//   yield takeLatest(Constants.BO_STORE_UPDATE, updateStore);
-// }
+export function* watchBOloadInit() {
+  yield takeLatest(Constants.BO_LOAD_INIT, init);
+}
 
 export function* watchBOupdate() {
   yield takeLatest(Constants.BO_UPDATE, updateRow);
 }
-
-// export function* watchBOupdateMany() {
-//   yield takeLatest(Constants.BO_UPDATE_MANY, updateRows);
-// }
 
 export function* watchBOdeleteFile() {
   yield takeLatest(Constants.BO_DELETE_FILE, deleteFiles);
@@ -263,10 +257,6 @@ export function* watchBOdeleteFile() {
 
 export function* watchBOload() {
   yield takeLatest(Constants.BO_LOAD, getTables);
-}
-
-export function* watchBOloadInit() {
-  yield takeLatest(Constants.BO_LOAD_INIT, getTableInit);
 }
 
 export function* watchBOloadItems() {
@@ -286,10 +276,10 @@ export function* watchAndLog() {
 
     if (payload) {
       const { token, roles } = payload;
-      if (token && roles && type === 'USER_SET') {
+      if (token && roles && ![5].some(s => roles.includes(s)) && type === 'USER_SET') {
         let ids = null;
         if ([2, 3].some(s => roles.includes(s)) && !roles.includes(1)) {
-          ids = payload.restaurants;
+          ids = payload.restaurants || [];
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
       }

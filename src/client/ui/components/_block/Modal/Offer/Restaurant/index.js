@@ -8,11 +8,17 @@ import {
   Image,
   Title,
   Description,
-  PriceWrapper, Price, Person,
+  PriceWrapper, Price,
+  // Person,
 } from './styled';
 
 export const OfferRestaurantModal = memo(({
-  source = null,
+  source = {
+    name: null,
+    description: null,
+    text: null,
+    images: null,
+  },
   onClose,
 }) => source && (
   <Modal>
@@ -21,21 +27,18 @@ export const OfferRestaurantModal = memo(({
         <CloseSvg />
       </CloseButton>
       <Content>
-        <Image src={source.link.src || CelebratyTempPng} />
+        <Image src={source.image || CelebratyTempPng} />
         <Title>
-          {source.text.title}
+          {source.name}
         </Title>
         <Description>
-          {source.text.description}
+          {source.description}
         </Description>
       </Content>
       <PriceWrapper>
         <Price>
-          {source.text.price}
+          {source.text}
         </Price>
-        <Person>
-          {source.text.person}
-        </Person>
       </PriceWrapper>
     </Wrapper>
   </Modal>

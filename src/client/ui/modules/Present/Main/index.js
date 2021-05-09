@@ -2,13 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
-import { setUser } from 'client/utils/localStorageEdit';
+import { setUser, getLocal } from 'client/utils/localStorageEdit';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
 import { Helmet } from 'react-helmet';
-import {
-  getLocalStorage,
-} from 'client/utils/localStorage';
 import {
   PhoneBlock1Png,
   SupportSvg,
@@ -101,7 +98,6 @@ const CLIENT_ICONS = {
 
 const Main = () => {
   const refCarousel = useRef();
-  const storageKey = process.env.LOCAL_STORAGE_KEY;
   const history = useHistory();
   const [t] = useTranslation();
   const [carausel, setCarousel] = useState({
@@ -144,7 +140,7 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const local = getLocalStorage(storageKey);
+    const local = getLocal();
     if (!local.user.cookies) {
       showCookies();
     }

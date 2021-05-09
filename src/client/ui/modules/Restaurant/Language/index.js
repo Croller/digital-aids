@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import translate, { languages } from 'client/i18n';
+import { useSelector, useDispatch } from 'react-redux';
+import translate from 'client/i18n';
 import { setUser } from 'client/utils/localStorageEdit';
-
+import { update } from 'client/store/user';
+import { getDictionaryItem } from 'client/utils/common';
 import {
   Wrapper,
   List,
@@ -11,10 +13,14 @@ import {
 
 const Language = () => {
   const history = useHistory();
+  const rootDispatch = useDispatch();
+  const state = useSelector(s => s);
+  const { user: { info }, restaurant: { info: { languages }, dictionary } } = state;
 
   const handleClick = (lng) => {
     translate.changeLanguage(lng);
     setUser({ lng });
+    rootDispatch(update({ ...info, language: lng }));
     
     if (history.action !== 'POP') {
       history.goBack();
@@ -30,12 +36,12 @@ const Language = () => {
   return (
     <Wrapper>
       <List>
-        {Object.keys(languages).map(lng => (
+        {languages.map(lng => (
           <ButtonStyled
             key={`_language_${lng}`}
             onClick={() => handleClick(lng)}
           >
-            {languages[lng].name}
+            {getDictionaryItem(lng, 'id', dictionary.languages, 'name')}
           </ButtonStyled>
         ))}
       </List>

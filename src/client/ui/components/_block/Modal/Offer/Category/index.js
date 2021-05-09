@@ -1,6 +1,7 @@
 import React, { memo } from 'react';
 import { Modal } from 'client/ui/components/_block/Modal';
 import { CloseSvg, OfferTempPng } from 'client/assets/images';
+import { getUrl } from 'client/utils/common';
 import {
   Wrapper,
   CloseButton,
@@ -19,7 +20,7 @@ export const OfferCategoryModal = memo(({
     window.open(source.link.url, '_blank').focus();
     onClose();
   };
-
+  console.log(source);
   return source && (
     <Modal>
       <Wrapper>
@@ -27,14 +28,15 @@ export const OfferCategoryModal = memo(({
           <CloseSvg />
         </CloseButton>
         <Content>
-          <Image src={source.link.src || OfferTempPng} />
+          <Image src={source.images ? `${getUrl()}/static/restaurants/logo/${source.images[0]}.png` : OfferTempPng} />
           <Description>
-            {source.text.description}
+            {source.description}
           </Description>
         </Content>
         <Controls>
           <Ok onClick={handleRoute}>
-            {source.text.button}
+            test
+            {/* {source.text.button} */}
           </Ok>
         </Controls>
       </Wrapper>

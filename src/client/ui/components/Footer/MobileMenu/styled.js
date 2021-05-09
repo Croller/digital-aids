@@ -41,8 +41,8 @@ export const Item = styled.div`
   }
 
   > div > svg {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
 
     path {
       fill: ${p => (p.active ? `${PALETTE.black}` : `${PALETTE.grey1}`)};

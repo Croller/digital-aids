@@ -17,8 +17,9 @@ const headers = ({
 export const loadTable = async ({
   token,
   data,
+  language = 'en',
 }) => {
-  const results = await get('table', { data }, headers({ token }));
+  const results = await get('table', { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

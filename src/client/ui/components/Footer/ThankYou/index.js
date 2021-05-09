@@ -16,20 +16,17 @@ import {
   SocialWrapper, SocialButton,
 } from './styled';
 
-const SOCIALS = [
-  {
-    key: 'instagram',
+const SOCIALS_MAPPER = {
+  instagram: {
     icon: <InstagramSvg />,
   },
-  {
-    key: 'facebook',
+  facebook: {
     icon: <FacebookSvg />,
   },
-  {
-    key: 'tripadviser',
+  tripadvisor: {
     icon: <RateTripadvisorSvg />,
   },
-];
+};
 
 export const ThankYou = memo(() => {
   const [t] = useTranslation();
@@ -53,18 +50,14 @@ export const ThankYou = memo(() => {
       </Description>
       {socials && (
         <SocialWrapper>
-          {socials.map(({ key, url }) => {
-            const social = SOCIALS.find(f => f.key === key);
-            return (
-              <SocialButton
-                key={key}
-                onClick={() => handleRoute(url)}
-              >
-                {social.icon}
-              </SocialButton>
-            );
-          })}
-
+          {Object.keys(socials).map(key => SOCIALS_MAPPER[key] && (
+            <SocialButton
+              key={key}
+              onClick={() => handleRoute(socials[key].url)}
+            >
+              {SOCIALS_MAPPER[key].icon}
+            </SocialButton>
+          ))}
         </SocialWrapper>
       )}
     </Wrapper>

@@ -44,6 +44,8 @@ export const Image = styled.img`
   height: 196px;
   border-top-right-radius: 12px;
   border-top-left-radius: 12px;
+  object-fit: contain;
+  object-position: center;
 `;
 
 export const Title = styled.div`

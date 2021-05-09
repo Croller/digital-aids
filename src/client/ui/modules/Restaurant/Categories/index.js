@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Confirm18Modal } from 'client/ui/components/_block/Modal/Confirm18';
 import { OfferRestaurantModal } from 'client/ui/components/_block/Modal/Offer/Restaurant';
-import { setOfferViewed } from 'client/utils/localStorageEdit';
+import { setOfferViewed, getLocal, setLocal } from 'client/utils/localStorageEdit';
+import { getUrl } from 'client/utils/common';
 import {
   Wrapper,
   Title,
@@ -15,15 +16,18 @@ import {
 
 const Categories = () => {
   const history = useHistory();
-  const { info, categories, offers } = useSelector(store => store.restaurant);
+  const { categories, offers } = useSelector(store => store.restaurant);
   const [t] = useTranslation();
   const [offer, setOffer] = useState(null);
   const [confirmAge, hideModal] = useModal(() => (
     <Confirm18Modal
       onCancel={hideModal}
       onOk={() => {
-        const category = categories.find(f => f.check_age);
+        const category = categories.find(f => f.type === 'alcohol');
         if (category) {
+          const local = getLocal();
+          local.user.check18 = true;
+          setLocal(local);
           history.push(`category/${category.key}`);
         }
       }}
@@ -31,10 +35,19 @@ const Categories = () => {
   ));
   const [showOffer, hideOffer] = useModal(() => (
     <OfferRestaurantModal
-      source={offer}
+      source={offer.options}
       onClose={hideOffer}
     />
   ), [offer]);
+
+  const handleItemClick = (category) => {
+    const { user } = getLocal();
+    if (category.type === 'alcohol' && !user.check18) {
+      confirmAge();
+      return;
+    }
+    handleRoute(category.key);
+  };
 
   const handleRoute = (key) => {
     history.push(`category/${key}`);
@@ -43,9 +56,23 @@ const Categories = () => {
   useEffect(() => {
     window.prerenderReady = true;
     
-    if (info.offers && info.offers[0]) {
-      setOfferViewed(info.offers[0], () => {
-        setOffer(offers.find(f => f.id === info.offers[0]));
+    if (offers && offers[0]) {
+      setOfferViewed(offers[0].id, () => {
+        const {
+          name,
+          description,
+          options: {
+            specialPromotion,
+          },
+          images,
+        } = { ...offers[0] };
+
+        setOffer({
+          name,
+          description,
+          text: specialPromotion,
+          image: images && images[0] ? `${getUrl()}/static/restaurants/dishes/${images[0]}.png` : null,
+        });
         showOffer();
       });
     }
@@ -61,7 +88,7 @@ const Categories = () => {
           {(categories).map(category => (
             <ButtonStyled
               key={category.key}
-              onClick={() => (category.check_age ? confirmAge() : handleRoute(category.key))}
+              onClick={() => handleItemClick(category)}
             >
               {category.name}
             </ButtonStyled>

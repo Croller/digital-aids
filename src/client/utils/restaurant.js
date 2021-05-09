@@ -13,6 +13,36 @@ export const getTotal = (arr) => {
   return 0;
 };
 
+export const getCategoryDish = (categories, dishes, pKey = 'parent') => {
+  const results = categories.reduce((result, item) => {
+    const copyCurrent = { ...item };
+    if (item[pKey]) {
+      const parent = result.map(itemParent => {
+        if (itemParent.id === copyCurrent[pKey]) {
+          const copyParent = { ...itemParent };
+          const itemDishes = dishes.filter(f => f.category === copyCurrent.id);
+          const copyItem = { ...copyCurrent, dishes: itemDishes };
+          let obj = copyParent;
+          if (itemParent.children) {
+            obj = { ...copyParent, children: [...copyParent.children, copyItem] };
+          } else {
+            copyParent.children = [copyItem];
+          }
+          return obj;
+        }
+        return itemParent;
+      }, []);
+      return parent;
+    }
+    const itemDishes = dishes.filter(f => f.category === copyCurrent.id);
+    if (itemDishes) {
+      return [...result, { ...copyCurrent, dishes: itemDishes }];
+    } 
+    return [...result, item];
+  }, []);
+  return results;
+};
+
 // export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, parent = null) => {
 //   if (!value) return { [key]: value };
 //   if (key === 'name') {

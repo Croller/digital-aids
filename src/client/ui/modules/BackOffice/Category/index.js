@@ -165,6 +165,7 @@ const Category = () => {
       ...data,
       children: data.children ? data.children.filter(f => !f.is_deleted) : null,
     });
+
     rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language }));
   };
 
@@ -311,7 +312,7 @@ const Category = () => {
                   type={restCategoryActive.type}
                   controls={!restCategoryActive.is_archived}
                   dishes={getRestDishes()}
-                  categories={restCategoryActive.children || restCategoryActive.id}
+                  categories={restCategoryActive.children || (restCategoryActive.type === 'specialDeals' && categories.filter(f => f.type !== 'specialDeals' && !f.parent))}
                   resaurant={restInfo}
                   dictionary={dictionary}
                   currency={restInfo.currency[0]}

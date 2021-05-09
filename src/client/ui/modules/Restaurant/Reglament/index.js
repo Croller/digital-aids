@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { 
   Wrapper,
@@ -11,6 +12,9 @@ import {
 
 const Reglament = memo(() => {
   const [t] = useTranslation();
+  const state = useSelector(s => s);
+  const { allergens } = state.restaurant.dictionary;
+
   return (
     <Wrapper>
       <Header>
@@ -21,7 +25,7 @@ const Reglament = memo(() => {
           {t('restaurant.pageAllergens.descriptions')}
         </Description>
       </Header>
-      <AllergensStyled />
+      <AllergensStyled source={allergens} />
       <ThankYou />
     </Wrapper>
   );

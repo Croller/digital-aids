@@ -68,7 +68,8 @@
     "unit": "Unit",
     "rate": "Rate",
     "comments": "Comments",
-    "download": "Download"
+    "download": "Download",
+    "qrcode": "QR Code"
   },
 
   "form" : {

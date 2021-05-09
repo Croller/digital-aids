@@ -1,9 +1,19 @@
-import { takeLatest, select, put } from 'redux-saga/effects';
+import { takeLatest, put } from 'redux-saga/effects';
 import * as Constants from 'client/store/user/constants';
 import * as authProvider from 'client/providers/auth';
 
+function* update({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    yield put({ type: Constants.USER_SET, payload });
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
+}
+
 function* login({ payload }) {
-  yield select((store) => store.user);
+  const { language } = payload;
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   yield put({ type: Constants.USER_SET, payload: null });
   try {
@@ -11,7 +21,7 @@ function* login({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield put({ type: Constants.USER_SET, payload: data });
+      yield put({ type: Constants.USER_SET, payload: { ...data, language } });
     }
   } catch (err) {
     throw err;
@@ -36,6 +46,10 @@ function* auth({ payload }) {
 
 function* logout() {
   yield put({ type: Constants.USER_SET, payload: null });
+}
+
+export function* watchUserUpdate() {
+  yield takeLatest(Constants.USER_UPDATE, update);
 }
 
 export function* watchUserLogin() {

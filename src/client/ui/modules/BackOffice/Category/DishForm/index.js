@@ -48,6 +48,7 @@ export const DishForm = ({
   className,
   onChange = () => {},
 }) => {
+  console.log('categories', categories);
   const [t] = useTranslation();
   const rule = rules(t);
   const [formData, setFormData] = useState(null);
@@ -126,13 +127,23 @@ export const DishForm = ({
     console.log('values - ', values);
     setIsChange(true);
     if (values.copyDish && formData.copyDish !== values.copyDish) {
-      const { name, description } = dishes.find(f => f.id === values.copyDish);
-      setFiledsValue({
+      const { name, description, images } = dishes.find(f => f.id === values.copyDish);
+
+      const obj = {
         ...formData,
         ...values,
         name,
         description,
-      });
+        images: [],
+      };
+      setFiledsValue(obj);
+
+      if (images && images.length > 0) {
+        Promise.all(images.map(async (uuid) => {
+          const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
+          return file;
+        })).then(imgs => setFiledsValue({ ...obj, images: imgs }));
+      }
     }
   };
 
@@ -308,17 +319,31 @@ export const DishForm = ({
                   />
                 </FormItemStyled>
                 {type === 'specialDeals' && (
-                  <FormItemStyled
-                    label={t('common.words.specialPromotion')}
-                    name="options.specialPromotion"
-                    required
-                    rules={rule.text}
-                  >
-                    <TextAreaStyled
-                      minRows={1}
-                      placeholder={t('common.form.placeholder.text')}
-                    />
-                  </FormItemStyled>
+                  <>
+                    <FormItemStyled
+                      label={t('common.words.specialPromotion')}
+                      name="options.specialPromotion"
+                      required
+                      rules={rule.text}
+                    >
+                      <TextAreaStyled
+                        minRows={1}
+                        placeholder={t('common.form.placeholder.text')}
+                      />
+                    </FormItemStyled>
+                    <Hr />
+                    {/* <FormItemStyled
+                      label={t('common.words.specialPromotion')}
+                      name="options.specialPromotion"
+                      required
+                      rules={rule.text}
+                    >
+                      <TextAreaStyled
+                        minRows={1}
+                        placeholder={t('common.form.placeholder.text')}
+                      />
+                    </FormItemStyled> */}
+                  </>
                 )}
                 {type === 'foodtips' && dishes && (
                   <FormItemStyled

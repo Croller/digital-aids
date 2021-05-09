@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { Modal } from 'client/ui/components/_block/Modal';
-import { CloseSvg } from 'client/assets/images';
+import { CloseSvg, InfoCircleSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
 import {
   Wrapper,
@@ -16,7 +16,6 @@ export const DailyInfoModal = memo(({
   onClose,
 }) => {
   const [t] = useTranslation();
-  
   return source && (
     <Modal>
       <Wrapper>
@@ -24,12 +23,13 @@ export const DailyInfoModal = memo(({
           <CloseSvg />
         </CloseButton>
         <Content>
+          <InfoCircleSvg />
           <Title>
-            {source.text.title}
+            {source.info}
           </Title>
           <Hr />
           <Description>
-            {source.text.description}
+            {source.description}
           </Description>
         </Content>
         <Controls>

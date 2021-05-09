@@ -83,6 +83,8 @@ export const ImgWrapper = styled.div`
 
 export const Img = styled.img`
   display: block;
+  object-fit: contain;
+  object-position: center;
 `;
 
 export const Content = styled.div`
@@ -147,7 +149,7 @@ export const IconTextWrapper = styled.div`
 
 export const IconText = styled.span`
   color: ${PALETTE.grey5};
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   font-size: 16px;
 `;
 
@@ -163,6 +165,7 @@ export const InfoControls = styled.div`
 `;
 
 export const CallButton = styled(Button)`
+  min-width: 130px;
   height: 30px;
   flex: 45%;
   font-size: 14px;
@@ -181,6 +184,7 @@ export const CallButton = styled(Button)`
 
 export const MenuButton = styled(Button)`
   flex: 45%;
+  min-width: 130px;
   height: 30px;
   background-color: ${PALETTE.green1};
   color: ${PALETTE.white};
@@ -206,7 +210,7 @@ export const AddessWrapper = styled.div`
 export const RestaurantName = styled.h3`
   margin: 0 18px;
   font-size: 16px;
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
 `;
 
 export const Hr = styled.hr`

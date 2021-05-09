@@ -10,7 +10,7 @@ import {
   imgToPdf,
 } from 'client/utils/common';
 import {
-  RestaurantCodeWrapper,
+  FlayerWrapper,
   LoaderStyled,
   NavBarStyled,
   ContentWrapper,
@@ -25,7 +25,7 @@ import {
   ButtonStyled,
 } from './styled';
 
-const RestaurantCode = () => {
+const Flayer = () => {
   const [t] = useTranslation();
   const [qrCode, setQrCode] = useState(null);
   const [lngValue, setLngValue] = useState(null);
@@ -55,7 +55,7 @@ const RestaurantCode = () => {
   }, [restaurants]);
 
   return (
-    <RestaurantCodeWrapper>
+    <FlayerWrapper>
       <NavBarStyled
         settings={{
           back: { text: 'back' },
@@ -105,8 +105,8 @@ const RestaurantCode = () => {
           </ButtonStyled>
         </LoadDocWrapper>
       </ContentWrapper>
-    </RestaurantCodeWrapper>
+    </FlayerWrapper>
   );
 };
 
-export default RestaurantCode;
+export default Flayer;

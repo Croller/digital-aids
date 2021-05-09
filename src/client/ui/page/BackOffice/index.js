@@ -8,14 +8,14 @@ const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
-const RestaurantCode = lazy(() => import('client/ui/modules/BackOffice/RestaurantCode'));
+const Flayer = lazy(() => import('client/ui/modules/BackOffice/Flayer'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
 
 export const BackOffice = () => {
-  const { token } = useSelector(store => store.user.info);
+  const { token, roles } = useSelector(store => store.user.info);
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -24,7 +24,7 @@ export const BackOffice = () => {
   return (
     <Layout>
       <Switch>
-        {token ? (
+        {token && [1, 2, 3, 4].some(s => roles.some(r => r === s)) ? (
           <>
             <Route
               exact
@@ -48,7 +48,7 @@ export const BackOffice = () => {
             <Route
               exact
               path={`${PATH}/restaurant/:restaurant/qrcode`}
-              component={RestaurantCode}
+              component={Flayer}
             />
             <Route
               exact

@@ -31,7 +31,7 @@ export const RateContainer = styled.div`
 `;
 
 export const RateTitle = styled.h3`
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
   font-size: 16px;
   margin-bottom: 22px;
   text-transform: uppercase;
@@ -79,6 +79,7 @@ export const CommentControl = styled(TextAreaForm)`
 `;
 
 export const SendButton = styled(Button)`
+  font-family: ${FONTS.semiBold};
   height: 52px;
   background-color: ${PALETTE.green1};
   text-transform: uppercase;

@@ -5,6 +5,7 @@ import { Header } from 'client/ui/components/Header/Restaurant';
 import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
+import { getUrl } from 'client/utils/common';
 
 import { 
   Wrapper,
@@ -20,9 +21,11 @@ export const Layout = ({
   footerMenu = null,
 }) => {
   const history = useHistory();
-  const { key, logo } = useSelector(store => store.restaurant.info);
+  const { key, images } = useSelector(store => store.restaurant.info);
   const { location: { pathname } } = history;
   const [isMobile, setIsMobile] = useState(true);
+  
+  const logo = images ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
   
   const handleRoute = useCallback((part) => {
     const path = `/restaurant/${key}`;

@@ -1,8 +1,4 @@
-import {
-  REST_SET_ORDER,
-  REST_REPLACE_ORDER,
-  REST_CLEAR_ORDER,
-} from './constants';
+import * as Constants from './constants';
 import {
   categoriesMock,
   dishesMock,
@@ -12,139 +8,55 @@ import {
 
 const initState = {
   info: {
-    // id
-    // key
-    // name
-    // address
-    // email
-    // opinion
-    // phone
-    // currency
-    // cuisine
-    // employees
-    // avg_price
-    // languages
-    // images
-    // socials
-    // at_work
-    // is_archived
-    // is_deleted
-    id: 213123,
-    name: 'Las Cuevas',
-    key: 'las-cuevas',
-    address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
-    geo: [37.9763475, -0.7892281],
-    phone: ['+34600001117', '34600001117'],
-    email: ['dc-google@gmail.com', 'dc-google@gmail.com'],
-    avg_price: 2.60,
-    currency: ['euro', 'rub'], // first current currency
-    cuisine: ['fusion'], // i18n added all kictchen could be
-    images: null, // array of image binary
-    logo: null,
-    languages: ['en', 'ru'], // first current laguage
-    employees: [
-      {
-        key: 'director',
-        name: 'Alex U',
-      }, {
-        key: 'manager',
-        name: 'Test. u',
-      },
-    ],
-    at_work: [
-      {
-        key: 'mon',
-        from: 0,
-        to: 0,
-        dayoff: false,
-      },
-      {
-        key: 'tue',
-        from: 0,
-        to: 0,
-        dayoff: false,
-      },
-      {
-        key: 'wed',
-        from: 0,
-        to: 0,
-        dayoff: false,
-      },
-      {
-        key: 'thu',
-        from: 0,
-        to: 0,
-        dayoff: false,
-      },
-      {
-        key: 'fri',
-        from: 0,
-        to: 0,
-        dayoff: false,
-      },
-      {
-        key: 'sat',
-        from: 0,
-        to: 0,
-        dayoff: true,
-      },
-      {
-        key: 'sun',
-        from: 0,
-        to: 0,
-        dayoff: true,
-      },
-    ],
-    raiting: {
-      common: {
-        rate: 9.5,
-        comments: [
-          {
-            name: 'Alex',
-            rate: 5.5,
-            text: 'Very good',
-          },
-        ],
-      },
-      tripadvisor: {
-        rate: 4,
-        comments: [],
-        url: 'https://www.tripadvisor.co.uk/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html',
-      },
-    },
-    socials: [
-      {
-        key: 'instagram',
-        name: 'Instagram',
-        url: 'https://www.instagram.com/lascuevasrestaurante/',
-      },
-      {
-        key: 'facebook',
-        name: 'FaceBook',
-        url: 'https://www.facebook.com/Restaurantelascuevas/?ref=bookmarks',
-      },
-      {
-        key: 'tripadviser',
-        name: 'TripAdviser',
-        url: 'https://www.tripadvisor.co.uk/Restaurant_Review-g1238605-d3329573-Reviews-Las_Cuevas-San_Miguel_de_Salinas_Costa_Blanca_Province_of_Alicante_Valencian_Cou.html',
-      },
-    ],
+    number: 1,
+    id: null, // string
+    key: null, // string
+    name: null, // string
+    address: null, // string
+    email: null, // array string
+    website: null, // string
+    opinion: null, // string
+    phone: null, // array string
+    currency: null, // array string
+    cuisine: null, // array string
+    employees: null, // array string
+    avg_price: null, // float
+    languages: null, // array string
+    images: null, // array string
+    socials: null, // object
+    at_work: null, // object
+    options: null, // object
+    geom: null,
   },
   
-  order: orderMock,
-  categories: categoriesMock,
-  dishes: dishesMock,
-  offers: offersMock,
-  
+  order: null,
+  categories: null,
+  dishes: null,
+  foodtips: null,
+  offers: null,
   orders: null,
 
+  dictionary: null,
+
   loading: false,
+  status: null,
   errors: null,
 };
 
 export default function (state = initState, action) {
   switch (action.type) {
-    case REST_SET_ORDER: {
+    case Constants.REST_SET:
+      return { ...state, ...action.payload };
+    case Constants.REST_ERROR_SET:
+      return { ...state, error: action.payload, loading: false };
+    case Constants.REST_LOADING_SET:
+      return {
+        ...state,
+        loading: action.payload,
+        error: null,
+        status: null,
+      };
+    case Constants.REST_SET_ORDER: {
       const { order } = state;
       const newOrder = action.payload;
       const stateOrder = [...(order || [])];
@@ -176,12 +88,12 @@ export default function (state = initState, action) {
         order: data,
       };
     }
-    case REST_CLEAR_ORDER: 
+    case Constants.REST_CLEAR_ORDER: 
       return {
         ...initState,
         order: null,
       };
-    case REST_REPLACE_ORDER: 
+    case Constants.REST_REPLACE_ORDER: 
       return {
         ...initState,
         order: action.payload,
@@ -191,22 +103,36 @@ export default function (state = initState, action) {
   }
 }
 
+export function init(payload) {
+  return {
+    type: Constants.REST_LOAD_INIT,
+    payload,
+  };
+}
+
+export function set(payload) {
+  return {
+    type: Constants.REST_SET,
+    payload,
+  };
+}
+
 export function replaceOrder(payload) {
   return {
-    type: REST_REPLACE_ORDER,
+    type: Constants.REST_REPLACE_ORDER,
     payload,
   };
 }
 
 export function updateOrder(payload) {
   return {
-    type: REST_SET_ORDER,
+    type: Constants.REST_SET_ORDER,
     payload,
   };
 }
 
 export function clearOrder() {
   return {
-    type: REST_CLEAR_ORDER,
+    type: Constants.REST_CLEAR_ORDER,
   };
 }

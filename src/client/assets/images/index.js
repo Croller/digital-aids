@@ -96,9 +96,9 @@ import MustardPng from './png/restaurant/allergens/mustard.png';
 import DairyPng from './png/restaurant/allergens/dairy.png';
 import EggsPng from './png/restaurant/allergens/eggs.png';
 import CeleryPng from './png/restaurant/allergens/celery.png';
-import MollusksPng from './png/restaurant/allergens/mollusks.png';
-import DioxPng from './png/restaurant/allergens/diox.png';
-import CrustaceansPng from './png/restaurant/allergens/crustaceans.png';
+import ShellfishPng from './png/restaurant/allergens/shellfish.png';
+import SulphitePng from './png/restaurant/allergens/sulphite.png';
+import CrustaceanPng from './png/restaurant/allergens/crustacean.png';
 import SoyPng from './png/restaurant/allergens/soy.png';
 import NutsPng from './png/restaurant/allergens/nuts.png';
 import FishPng from './png/restaurant/allergens/fish.png';
@@ -207,9 +207,9 @@ export {
   DairyPng,
   EggsPng,
   CeleryPng,
-  MollusksPng,
-  DioxPng,
-  CrustaceansPng,
+  ShellfishPng,
+  SulphitePng,
+  CrustaceanPng,
   SoyPng,
   NutsPng,
   FishPng,

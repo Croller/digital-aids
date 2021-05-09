@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button';
-import { THEME } from 'client/style/constants';
+import { FONTS, THEME } from 'client/style/constants';
 
 export const Wrapper = styled.div`
   display: block;
@@ -21,6 +21,7 @@ export const List = styled.div`
 export const ButtonStyled = styled(Button)`
   height: 60px;
   font-size: 22px;
+  font-family: ${FONTS.semiBold};
   background-color: transparent;
 
   &:not(:last-child) {

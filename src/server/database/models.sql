@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   avg_price FLOAT DEFAULT 0.00,
   languages VARCHAR ARRAY DEFAULT '{"NULL", "en"}', -- DICTIONARY dictionary_translate
   images VARCHAR ARRAY DEFAULT NULL,
-  socials jsonb DEFAULT '{"thefork":{"rate":0,"url":"NULL", "comments":0},"tripadviser":{"rate":"0","url":"NULL", "comments":0},"facebook":"NULL","instagram":"NULL"}',
+  socials jsonb DEFAULT '{"thefork":{"rate":0,"url":"NULL", "comments":0},"tripadvisor":{"rate":"0","url":"NULL", "comments":0},"facebook":"NULL","instagram":"NULL"}',
   at_work jsonb DEFAULT '{"description":"9:00-22:00","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
   options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
   geom GEOMETRY DEFAULT NULL,
@@ -232,7 +232,7 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 -- CREATE TABLE data_socials (
 --   id serial primary key,
 --   fork VARCHAR DEFAULT NULL,
---   tripadviser VARCHAR DEFAULT NULL,
+--   tripadvisor VARCHAR DEFAULT NULL,
 --   facebook VARCHAR DEFAULT NULL,
 --   instagram VARCHAR DEFAULT NULL
 -- );
@@ -248,7 +248,7 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 --   sun timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000"}'
 -- );
 
-  -- '{"thefork":{"name":"TheFork","rate":NULL,"url":NULL},"tripadviser":{"name":"Tripadviser","rate":NULL,"url":NULL},"facebook":{"name":"Facebook","rate":NULL,"url":NULL},"instagram":{"name":"Instagram","rate":NULL,"url":NULL}}'
+  -- '{"thefork":{"name":"TheFork","rate":NULL,"url":NULL},"tripadvisor":{"name":"Tripadviser","rate":NULL,"url":NULL},"facebook":{"name":"Facebook","rate":NULL,"url":NULL},"instagram":{"name":"Instagram","rate":NULL,"url":NULL}}'
 
 -- '{"mon":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000]}'
 

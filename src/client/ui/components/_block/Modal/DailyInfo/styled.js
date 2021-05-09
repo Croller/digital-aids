@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   border-radius: 12px;
   background-color: ${PALETTE.white};
-  padding: 70px 14px 38px;
+  padding: 41px 14px 38px;
   width: 278px;
 
 `;
@@ -36,6 +36,18 @@ export const CloseButton = styled(Button)`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  > svg {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 24px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
+  }
 `;
 
 export const Title = styled.div`

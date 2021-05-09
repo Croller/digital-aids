@@ -362,7 +362,7 @@ const Restaurant = () => {
             </Form2Col>
             <FormItemStyled
               label="TripAdviser"
-              name="socials.tripadviser.url"
+              name="socials.tripadvisor.url"
             >
               <InputStyled
                 placeholder={t('common.form.placeholder.link')}
@@ -372,7 +372,7 @@ const Restaurant = () => {
               <FormCol>
                 <FormItemStyled
                   label={t('common.words.rate')}
-                  name="socials.tripadviser.rate"
+                  name="socials.tripadvisor.rate"
                 >
                   <InputStyled
                     type="number"
@@ -384,7 +384,7 @@ const Restaurant = () => {
               <FormCol>
                 <FormItemStyled
                   label={t('common.words.comments')}
-                  name="socials.tripadviser.comments"
+                  name="socials.tripadvisor.comments"
                 >
                   <InputStyled
                     type="number"

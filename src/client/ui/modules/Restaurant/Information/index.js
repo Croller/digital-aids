@@ -16,8 +16,8 @@ import {
   LinkExternalSvg,
   RateImageSvg,
   RateTripadvisorSvg,
-  RestaurantInfoTempPng,
 } from 'client/assets/images';
+import { getUrl, getDictionaryItem } from 'client/utils/common';
 import { 
   Wrapper,
   CloseButton,
@@ -39,18 +39,22 @@ import {
 } from './styled';
 
 const Information = memo(() => {
-  const {
-    name,
-    address,
-    // geo,
-    phone,
-    avg_price,
-    cuisine,
-    images,
-    // at_work,
-    raiting,
-    currency,
-  } = useSelector(store => store.restaurant.info);
+  const { 
+    info: {
+      name,
+      key,
+      address,
+      // geo,
+      phone,
+      avg_price,
+      cuisine,
+      images,
+      at_work,
+      socials,
+      currency,
+    },
+    dictionary,
+  } = useSelector(store => store.restaurant);
   const refCarousel = useRef();
   const history = useHistory();
   const [t] = useTranslation();
@@ -62,6 +66,7 @@ const Information = memo(() => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  const getPathImage = (uuid) => `${getUrl()}/static/restaurants/photos/${uuid}.png`;
 
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
@@ -82,7 +87,7 @@ const Information = memo(() => {
     if (navigator.share) {
       await navigator.share({
         title: 'Digital Carte',
-        url: 'https://digital-carte.com/',
+        url: `${getUrl()}/${key}/information`,
       })
         .then(() => console.log('Successful share! 🎉'))
         .catch(err => console.error(err));
@@ -103,32 +108,34 @@ const Information = memo(() => {
     window.prerenderReady = true;
   }, []);
 
+  console.log('socials', socials);
+
   return (
     <Wrapper>
-      <CloseButton onClick={() => handleRoute('back')}>
-        <CloseSvg />
-      </CloseButton>
-      <CarouselControls>
-        {['prev', 'next'].map((direction, c) => (
-          <Control
-            key={`_slider_control_${c + 1}`}
-            onClick={() => hangleChangSlide(direction)}
-          >
-            <ChevronSvg />
-          </Control>
-        ))}
-      </CarouselControls>
-      <Carousel ref={refCarousel} {...settings}>
-        {images ? images.map((src, s) => (
-          <ImgWrapper key={`_image_${s + 1}`}>
-            <Img src={src} />
-          </ImgWrapper>
-        )) : [...(new Array(5))].map((src, s) => (
-          <ImgWrapper key={`_image_${s + 1}`}>
-            <Img src={RestaurantInfoTempPng} />
-          </ImgWrapper>
-        ))}
-      </Carousel>
+      {images && images.length > 0 && (
+        <>
+          <CloseButton onClick={() => handleRoute('back')}>
+            <CloseSvg />
+          </CloseButton>
+          <CarouselControls>
+            {['prev', 'next'].map((direction, c) => (
+              <Control
+                key={`_slider_control_${c + 1}`}
+                onClick={() => hangleChangSlide(direction)}
+              >
+                <ChevronSvg />
+              </Control>
+            ))}
+          </CarouselControls>
+          <Carousel ref={refCarousel} {...settings}>
+            {images && images.slice(1).map((uuid, s) => (
+              <ImgWrapper key={`_image_${s + 1}`}>
+                <Img src={getPathImage(uuid)} />
+              </ImgWrapper>
+            ))}
+          </Carousel>
+        </>
+      )} 
       <Content>
         <Restaurant>
           {name}
@@ -140,13 +147,14 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ClockSvg />
             <IconText>
-              am 10:00 pm 01:00 
+              {at_work && at_work.description ? at_work.description : ''}
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>
             <ChefHeadSvg />
             <IconText>
-              {t(`restaurant.common.cuisine_type.${cuisine[0]}`)}
+              {cuisine ? cuisine.join(', ') : ''}
+              {/* {t(`restaurant.common.cuisine_type.${cuisine[0]}`)} */}
               &nbsp;
               {t('restaurant.common.cuisine')}
             </IconText>
@@ -158,12 +166,12 @@ const Information = memo(() => {
               <Price>
                 ~
                 {avg_price.toFixed(2)}
-                {t(`restaurant.common.currency.${currency[0]}`)}
+                {getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}
               </Price>
             </IconText>
           </IconTextWrapper>
           <InfoControls>
-            <CallButton onClick={() => phone && handleRoute(`tel:${phone[0]}`, true)}>
+            <CallButton onClick={() => handleRoute(`tel:${phone ? phone[0] : ''}`, true)}>
               <PhoneCallSvg />
               {t('restaurant.common.call_us')} 
             </CallButton>
@@ -177,14 +185,14 @@ const Information = memo(() => {
         </ReservButton>
         <AddessWrapper>
           <RestaurantName>
-            {name}
+            {name || ''}
           </RestaurantName>
           <Hr />
           <AddressContainer>
             <AddressTitle>
               <MapMarkerSvg />
               <Address>
-                {address}
+                {address || ''}
               </Address>
             </AddressTitle>
             <MapStyled
@@ -195,43 +203,49 @@ const Information = memo(() => {
             </MapStyled>
           </AddressContainer>
         </AddessWrapper>
-        <RateWrapper>
-          <RateBlock>
-            <Rate>
-              <RateImageSvg />
-              <RateCurrent>
-                {raiting.common.rate.toFixed(1)}
-              </RateCurrent>
-              <RateMax>
-                &nbsp;/&nbsp;10
-              </RateMax>
-            </Rate>
-            <RateComment>
-              {raiting.common.comments.length}
-              &nbsp;
-              {t('restaurant.common.comments')} 
-            </RateComment>
-            <ReviewsButton onClick={() => handleRoute('categories', true)}>
-              {t('restaurant.common.reviewies')} 
-            </ReviewsButton>
-          </RateBlock>
-          <RateBlock>
-            <Rate>
-              <RateTripadvisorSvg />
-              <RateCurrent>
-                <RateCircle rate={raiting.tripadvisor.rate} />
-              </RateCurrent>
-            </Rate>
-            <RateComment>
-              {raiting.tripadvisor.comments.length}
-              &nbsp;
-              {t('restaurant.common.comments')} 
-            </RateComment>
-            <ReviewsButton onClick={() => handleRoute(raiting.tripadvisor.url, true)}>
-              {t('restaurant.common.reviewies')} 
-            </ReviewsButton>
-          </RateBlock>
-        </RateWrapper>
+        {socials && (
+          <RateWrapper>
+            <RateBlock>
+              <Rate>
+                <RateImageSvg />
+                <RateCurrent>
+                  {socials.thefork.rate}
+                </RateCurrent>
+                <RateMax>
+                  &nbsp;/&nbsp;10
+                </RateMax>
+              </Rate>
+              <RateComment>
+                {socials.thefork.comments}
+                &nbsp;
+                {t('restaurant.common.comments')} 
+              </RateComment>
+              {socials.thefork.url && (
+                <ReviewsButton onClick={() => handleRoute(socials.thefork.url, true)}>
+                  {t('restaurant.common.reviewies')} 
+                </ReviewsButton>
+              )}
+            </RateBlock>
+            <RateBlock>
+              <Rate>
+                <RateTripadvisorSvg />
+                <RateCurrent>
+                  <RateCircle rate={socials.tripadvisor.rate} />
+                </RateCurrent>
+              </Rate>
+              <RateComment>
+                {socials.tripadvisor.comments}
+                &nbsp;
+                {t('restaurant.common.comments')} 
+              </RateComment>
+              {socials.tripadvisor.url && (
+                <ReviewsButton onClick={() => handleRoute(socials.tripadvisor.url, true)}>
+                  {t('restaurant.common.reviewies')} 
+                </ReviewsButton>
+              )}
+            </RateBlock>
+          </RateWrapper>
+        )}
       </Content>
       <ThankYou />
     </Wrapper>

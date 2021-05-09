@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { languages } from 'client/i18n';
+import { useSelector } from 'react-redux';
+import { getDictionaryItem } from 'client/utils/common';
 import {
   QuestionCircleSvg,
   AlertCircleSvg,
@@ -16,7 +17,9 @@ import {
 
 const Menu = () => {
   const history = useHistory();
-  const [t, i18n] = useTranslation();
+  const [t] = useTranslation();
+  const { user: { info: { language } }, restaurant: { dictionary: { languages } } } = useSelector(s => s);
+
   const menu = [
     {
       path: 'reglament',
@@ -41,7 +44,7 @@ const Menu = () => {
       name: (
         <>
           <GlobalSvg />
-          <Text>{languages[i18n.language].name}</Text>
+          <Text>{getDictionaryItem(language, 'id', languages, 'name')}</Text>
         </>
       ),
     },

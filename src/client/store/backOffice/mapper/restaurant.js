@@ -36,9 +36,9 @@ export const dataToForm = (data) => {
     'socials.thefork.url': socials.thefork.url,
     'socials.thefork.rate': parseFloat(socials.thefork.rate),
     'socials.thefork.comments': parseInt(socials.thefork.comments, 0),
-    'socials.tripadviser.url': socials.tripadviser.url,
-    'socials.tripadviser.rate': parseFloat(socials.tripadviser.rate),
-    'socials.tripadviser.comments': parseInt(socials.tripadviser.comments, 0),
+    'socials.tripadvisor.url': socials.tripadvisor.url,
+    'socials.tripadvisor.rate': parseFloat(socials.tripadvisor.rate),
+    'socials.tripadvisor.comments': parseInt(socials.tripadvisor.comments, 0),
     'at_work.description': at_work.description,
   };
 };
@@ -100,11 +100,11 @@ export const dataToApi = (data, current) => {
         rate: parseFloat(data['socials.thefork.rate']) || null,
         comments: parseInt(data['socials.thefork.comments'], 0) || null,
       },
-      tripadviser: {
-        ...current.socials.tripadviser,
-        url: data['socials.tripadviser.url'] || null,
-        rate: parseFloat(data['socials.tripadviser.rate']) || null,
-        comments: parseInt(data['socials.tripadviser.comments'], 0) || null,
+      tripadvisor: {
+        ...current.socials.tripadvisor,
+        url: data['socials.tripadvisor.url'] || null,
+        rate: parseFloat(data['socials.tripadvisor.rate']) || null,
+        comments: parseInt(data['socials.tripadvisor.comments'], 0) || null,
       },
     },
     at_work: {
@@ -134,7 +134,7 @@ export const model = {
       rate: 0.0,
       url: 'www.tripadvisor.co.uk/Restaurant_Review-g1238605-',
     },
-    tripadviser: {
+    tripadvisor: {
       comments: 0,
       rate: 0.0,
       url: null,

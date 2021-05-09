@@ -114,7 +114,7 @@ const Opinion = () => {
         <CommentTitle>
           {t('restaurant.common.comments')}
         </CommentTitle>
-        <CommentControl rows={1} onChange={handleChangeComment} />
+        <CommentControl minRows={2} onChange={handleChangeComment} />
         <SendButton onClick={existOpinion}>
           {t('restaurant.common.send')}
         </SendButton>

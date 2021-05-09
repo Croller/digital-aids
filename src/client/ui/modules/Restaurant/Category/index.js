@@ -11,7 +11,8 @@ import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import { DailyConfirmModal } from 'client/ui/components/_block/Modal/DailyConfirm';
 import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
-import { setOfferViewed } from 'client/utils/localStorageEdit';
+import { getLocal, setLocal, setOfferViewed } from 'client/utils/localStorageEdit';
+import { getDictionaryItem } from 'client/utils/common';
 import {
   Wrapper,
   TitleWrapper,
@@ -30,12 +31,13 @@ import {
 } from './styled';
 
 const Category = () => {
-  const {
+  const { 
     info: { currency },
     categories,
     offers,
     dishes,
     order,
+    dictionary,
   } = useSelector(store => store.restaurant);
   const { category } = useParams();
   const history = useHistory();
@@ -59,7 +61,7 @@ const Category = () => {
 
   const [showDailyInfo, hideDailyInfo] = useModal(() => (
     <DailyInfoModal
-      source={offer}
+      source={categoryItem.options}
       onClose={hideDailyInfo}
     />
   ), [offer]);
@@ -84,7 +86,7 @@ const Category = () => {
 
   const handleSetOrder = (obj) => {
     let data = [];
-    if (categoryItem.dailymenu) {
+    if (categoryItem.type !== 'daily') {
       const bool = categoryOrder.some(s => s.id === obj.dish.id);
       data = [...categoryOrder.filter(f => f.id !== obj.id)];
       !bool && data.push(obj);
@@ -95,7 +97,7 @@ const Category = () => {
       ];
     }
 
-    if (!categoryItem.dailymenu) {
+    if (categoryItem.type === 'daily') {
       rootDispatch(updateOrder({
         ...categoryItem,
         order_id: orderId,
@@ -122,7 +124,7 @@ const Category = () => {
   };
 
   const handleShowDaily = () => {
-    setOffer(offers.find(f => f.id === categoryItem.offers[0]));
+    setOffer(categoryItem);
     showDailyInfo();
   };
 
@@ -135,20 +137,24 @@ const Category = () => {
 
   useEffect(() => {
     const categItem = categories.find(f => f.key === category) || null;
-    setCategoryItem(categItem || null);
-
-    if (categItem) {
-      if (categItem.offers && categItem.offers[0]) {
-        setOfferViewed(categItem.offers[0], () => {
-          setOffer(offers.find(f => f.id === categItem.offers[0]));
-          if (categItem.dailymenu) {
-            showDailyInfo();
-          } else {
-            showOffer();
-          }
+    
+    if (categItem && categItem.type === 'daily') {
+      setOfferViewed(categItem.id, () => {
+        setOffer(categItem);
+        showDailyInfo();
+      });
+    }
+    if (categItem.dishes) {
+      const specialDeal = offers.find(f => categItem.dishes.some(d => d.id === f.id));
+      console.log('specialDeal', specialDeal, categories);
+      if (specialDeal) {
+        setOfferViewed(specialDeal.id, () => {
+          setOffer(specialDeal);
+          showDailyInfo();
         });
       }
     }
+
     if (order) {
       const catOrder = order.find(f => f.key === category);
       setCategoryOrder(catOrder ? catOrder.order : []);
@@ -157,6 +163,7 @@ const Category = () => {
       setCategoryOrder([]);
     }
     setOrderId(order ? order.length + 1 : orderId);
+    setCategoryItem(categItem);
   }, []);
 
   return categoryItem && (
@@ -166,16 +173,16 @@ const Category = () => {
           <Title>
             {categoryItem.name}
           </Title>
-          {categoryItem.dailymenu && (
+          {categoryItem.type === 'daily' && (
             <InfoDailyButton onClick={handleShowDaily}>
               <InfoCircleSvg />
             </InfoDailyButton>
           )}
         </TitleWrapper>
-        {categoryItem.dailymenu && (
+        {categoryItem.type === 'daily' && (
           <WorkDailyButton>
             <ClockSvg />
-            TODO calc work time
+            {categoryItem.options.at_work.description}
           </WorkDailyButton>
         )}
         <DishList>
@@ -188,29 +195,29 @@ const Category = () => {
                 dish,
                 group,
                 order: categoryOrder,
-                dailymenu: categoryItem.dailymenu,
+                dailymenu: categoryItem.type === 'daily',
                 currency: t(`restaurant.common.currency.${currency[0]}`),
               }, handleToggleModalAllergens, handleSetOrder))}
             </DailyWrapper>
           ))}
-          {!categoryItem.dailymenu && !categoryItem.groups && getDishes(categoryItem.dishes).map(dish => DishBlock({
+          {!categoryItem.type !== 'daily' && !categoryItem.children && getDishes(categoryItem.dishes).map(dish => DishBlock({
             dish,
             order: categoryOrder,
             currency: t(`restaurant.common.currency.${currency[0]}`),
           }, handleToggleModalAllergens, handleSetOrder))} 
         </DishList>
-        {categoryItem.dailymenu && (
+        {categoryItem.type === 'daily' && (
           <DailyOrderWrapper>
             <PriceWrapper>
               <PriceText>
                 {t('restaurant.common.price')}
               </PriceText>
               <PriceDaily>
-                {`${categoryItem.options.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
+                {`${categoryItem.options.price} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}
               </PriceDaily>
             </PriceWrapper>
             <Include>
-              {`${t('restaurant.common.include')}: ${categoryItem.options.include}`}
+              {`${t('restaurant.common.include')}: ${categoryItem.options.description}`}
             </Include>
             <DailyOrderButton onClick={handleSetDailyOrder}>
               {t('restaurant.common.add_to_order')}

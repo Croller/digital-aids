@@ -78,8 +78,32 @@ export const updateItem = (data = null, current = null, key = 'id') => {
   };
 };
 
+export const objPlainToDeep = (arr, pKey = 'parent') => {
+  const results = arr.reduce((result, item) => {
+    if (item[pKey]) {
+      const parent = result.map(itemParent => {
+        if (itemParent.id === item[pKey]) {
+          const copy = { ...itemParent };
+          let obj = copy;
+          if (itemParent.children) {
+            obj = { ...copy, children: [...copy.children, item] };
+          } else {
+            copy.children = [item];
+          }
+          return obj;
+        }
+        return itemParent;
+      }, []);
+      return parent;
+    }
+    return [...result, item];
+  }, []);
+  return results;
+};
+
 export const objRecursive = (
   arr = null,
+  chKey = 'children',
   callback = (
     key,
     value,
@@ -88,7 +112,7 @@ export const objRecursive = (
 ) => {
   if (!arr) return arr;
   return arr.map((item) => Object.keys(item).reduce((results, key) => {
-    if (key === 'children' && item[key] && Array.isArray(item[key])) {
+    if (key === chKey && item[key] && Array.isArray(item[key])) {
       return {
         ...results,
         [key]: objRecursive(item[key], callback, (parent || results)),
