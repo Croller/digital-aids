@@ -125,10 +125,10 @@ const Restaurant = () => {
     }
 
     // TODO GEOCODE
-    // if (address) {
-    //   const results = await getCoordsByAddress(address);
-    //   console.log('results', results);
-    // }
+    if (address) {
+      const results = await getCoordsByAddress(address);
+      console.log('results', results);
+    }
     setIsChange(true);
   };
 
