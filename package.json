@@ -70,6 +70,7 @@
     "slick-carousel": "^1.8.1",
     "styled-breakpoints": "^10.0.0",
     "styled-components": "^5.1.1",
+    "styled-email-components": "^5.0.2",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

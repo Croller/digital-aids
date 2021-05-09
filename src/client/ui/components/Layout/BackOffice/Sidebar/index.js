@@ -4,6 +4,7 @@ import {
   UserCircleSvg,
   RestaurantSvg,
   AlertCircleSvg,
+  Conversation1Svg,
 } from 'client/assets/images';
 import { 
   SidebarWrapper,
@@ -16,14 +17,22 @@ const MENU_LIST = [
   {
     key: 'restaurants',
     icon: <RestaurantSvg />,
+    roles: [1, 2, 3, 4],
   },
   {
     key: 'users',
     icon: <UserCircleSvg />,
+    roles: [1],
+  },
+  {
+    key: 'mails',
+    icon: <Conversation1Svg />,
+    roles: [1],
   },
 ];
 
 export const Sidebar = memo(({
+  roles,
   path,
   onRoute,
 }) => {
@@ -32,7 +41,7 @@ export const Sidebar = memo(({
   return (
     <SidebarWrapper>
       <Menu>
-        {MENU_LIST.map(({ key, icon }) => (
+        {MENU_LIST.filter(f => roles.some(s => f.roles.includes(s))).map(({ key, icon }) => (
           <Item
             key={`_item_menu_${key}`}
             active={path.indexOf(key.slice(0, -1)) > -1}

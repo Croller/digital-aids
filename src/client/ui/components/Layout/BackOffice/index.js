@@ -20,7 +20,7 @@ export const Layout = ({
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
   const [showSideBar, setShowSideBar] = useState(true);
-  const { id, token } = useSelector(store => store.user.info);
+  const { id, token, roles } = useSelector(store => store.user.info);
 
   const handleRoute = useCallback((part = 'restaurants') => {
     if (part === 'logout') {
@@ -41,6 +41,7 @@ export const Layout = ({
       />
       {token && showSideBar && (
         <Sidebar
+          roles={roles}
           path={pathname}
           onRoute={handleRoute}
         />

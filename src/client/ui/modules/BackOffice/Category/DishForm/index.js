@@ -48,7 +48,6 @@ export const DishForm = ({
   className,
   onChange = () => {},
 }) => {
-  console.log('categories', categories);
   const [t] = useTranslation();
   const rule = rules(t);
   const [formData, setFormData] = useState(null);

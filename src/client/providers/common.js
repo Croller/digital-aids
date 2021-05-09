@@ -87,6 +87,17 @@ export const getCoordsByAddress = async ({
   return results;
 };
 
+export const sendFromInfo = async ({
+  token,
+  data,
+}) => {
+  const results = await post('mailer/send', { data }, headers({ token }));
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+};
+
 // export const getTableByNames = (arr) => async (dispatch) => {
 //   dispatch(setLoading(true));
 //   const results = await post('table/get', { names: arr });
