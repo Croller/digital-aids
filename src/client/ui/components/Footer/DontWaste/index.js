@@ -30,7 +30,7 @@ export const DontWaste = memo(() => {
   const { socials } = useSelector(store => store.restaurant.info);
 
   const handleRoute = (url) => {
-    window.location.replace(url);
+    window.open(url, '_blank').focus();
   };
   
   return (
