@@ -4,13 +4,13 @@ import React, {
   useCallback,
 } from 'react';
 import { Helmet } from 'react-helmet';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import {
   Route,
   Switch,
   Redirect,
   useHistory,
+  useLocation,
 } from 'react-router-dom';
 
 import { ErrorBoundary } from 'client/ui/components/_base/ErrorBoundary';
@@ -23,11 +23,11 @@ const Present = lazy(() => import('client/ui/page/Present'));
 const Page404 = lazy(() => import('client/ui/page/404'));
 
 export const Routers = () => {
-  const { logo, key } = useSelector(store => store.restaurant.info);
   const history = useHistory();
+  const { pathname } = useLocation();
   const [t] = useTranslation();
 
-  const handleRoute = useCallback((path = 'categories') => history.push(`/restaurant/${key}/${path}`), []);
+  const handleRoute = useCallback(() => history.push(pathname.split('/').slice(0, -1).join('/')), []);
 
   return (
     <React.Fragment>
@@ -42,10 +42,10 @@ export const Routers = () => {
             <Switch>
               <Route path="/back-office" component={BackOffice} />
               <Route path="/restaurant" component={Restaurant} />
-              <Route path="*" component={Present} />
               <Route path="/404">
-                <Page404 source={logo} onClick={handleRoute} />
+                <Page404 onClick={handleRoute} />
               </Route>
+              <Route path="*" component={Present} />
               <Redirect to="/404" />
             </Switch>
           </Suspense>

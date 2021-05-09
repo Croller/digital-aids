@@ -16,19 +16,18 @@ export const MobileMenu = memo(({
   onRoute,
 }) => {
   const [t, i18n] = useTranslation();
-  const { order, categories } = useSelector(store => store.restaurant);
+  const { order } = useSelector(store => store.restaurant);
 
   const getCount = () => {
-    if (categories && order) {
+    if (order) {
       return order.reduce((count, item) => {
-        const category = categories.find(f => f.key === item.key);
-        if (category.dailymenu) {
+        if (item.type === 'daily') {
           return count + 1;
         }
         return count + item.order.length;
       }, 0);
     }
-    return 0;
+    return null;
   };
 
   const MENU_ITEMS = [
@@ -59,7 +58,7 @@ export const MobileMenu = memo(({
             onClick={() => onRoute(key)}
           >
             <IconWrapper>
-              {m === 2 && order && (
+              {m === 2 && order && getCount() && (
                 <CountBandage>
                   {getCount()}
                 </CountBandage>

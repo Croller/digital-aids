@@ -1,16 +1,14 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Helmet } from 'react-helmet';
-import { RestaurantLogoTempPng } from 'client/assets/images';
 import {
   Wrapper,
   HintsBlockStyled,
-  Logo,
   Code,
   Text,
 } from './styled';
 
-const Page404 = memo(({ source, onClick }) => {
+const Page404 = memo(({ onClick }) => {
   const [t] = useTranslation();
 
   return (
@@ -22,10 +20,6 @@ const Page404 = memo(({ source, onClick }) => {
         </title>
       </Helmet>
       <Wrapper>
-        <Logo
-          src={source || RestaurantLogoTempPng}
-          onClick={() => onClick('information')}
-        />
         <HintsBlockStyled
           onClick={onClick}
           btn={t('restaurant.common.menu')}

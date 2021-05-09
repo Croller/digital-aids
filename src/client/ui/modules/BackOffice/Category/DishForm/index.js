@@ -331,8 +331,31 @@ export const DishForm = ({
                         placeholder={t('common.form.placeholder.text')}
                       />
                     </FormItemStyled>
-                    <Hr />
-                    {/* <FormItemStyled
+                    {/* <Hr />
+                    <FormItemStyled
+                      label={t('common.words.category')}
+                      name="parent"
+                      required
+                      rules={rule.text}
+                    >
+                      <SelectStyled
+                        showSearch
+                        mode="single"
+                        placeholder={t('common.form.placeholder.select')}
+                        optionFilterProp="label"
+                      >
+                        {categories.map((item, i) => (
+                          <OptionStyled
+                            key={`_categories_${i + 1}`}
+                            value={item.id}
+                            label={item.name}
+                          >
+                            {item.name}
+                          </OptionStyled>
+                        ))}
+                      </SelectStyled>
+                    </FormItemStyled>
+                     <FormItemStyled
                       label={t('common.words.specialPromotion')}
                       name="options.specialPromotion"
                       required

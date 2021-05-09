@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ChevronSvg, InfoCircleSvg, RestaurantLogoTempPng } from 'client/assets/images';
+import { ChevronSvg, InfoCircleSvg } from 'client/assets/images';
 import { getTotal } from 'client/utils/restaurant';
-import { replaceOrder } from 'client/store/restaurant';
+import { update } from 'client/store/restaurant';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
+import { getDictionaryItem, getUrl } from 'client/utils/common';
 import {
   Wrapper,
   Header, BackButton,
@@ -26,10 +27,11 @@ const Receipt = () => {
       lng,
     },
     restaurant: {
-      info: { key, currency, logo },
+      info: { key, currency, images },
       order,
       categories,
       dishes,
+      dictionary,
     },
   } = useSelector(store => store);
   const history = useHistory();
@@ -37,6 +39,8 @@ const Receipt = () => {
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [categoryOrder, setCategoryOrder] = useState(null);
+
+  const logo = images ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
 
   const handleRouteOrder = () => {
     history.goBack();
@@ -51,20 +55,22 @@ const Receipt = () => {
     return moment().format('DD.MM.YYYY HH:mm');
   };
 
-  const getDish = (item, dailyname) => {
-    const data = dailyname ? item.dish : item;
+  const getDish = (item, category) => {
+    const data = checkDaily(category) ? item.dish : item;
     return {
       ...data,
       order_count: data.order_count || 1,
     };
   };
 
+  const checkDaily = (category) => category.type === 'daily';
+
   const getQRCodeValue = () => {
     const trimOrder = order.map(item => ({
       id: item.id,
       order_id: item.order_id,
       order: item.order.map(cat => {
-        if (!item.dailymenu) {
+        if (!checkDaily(item)) {
           return {
             id: cat.id,
             order_count: cat.order_count,
@@ -86,7 +92,7 @@ const Receipt = () => {
   const setOrder = () => {
     const categoryGroup = order.reduce((arr, category) => {
       const existCategory = arr.find(s => s.id === category.id);
-      if (existCategory && existCategory.dailymenu) {
+      if (existCategory && checkDaily(existCategory)) {
         const editOrder = existCategory.order.reduce((arrDish, catDish) => {
           const existDish = category.order.find(f => f.dish.id === catDish.dish.id);
           if (existDish) {
@@ -110,6 +116,7 @@ const Receipt = () => {
       }
       return [...arr, category];
     }, []);
+    console.log(categoryGroup, order);
     setCategoryOrder(categoryGroup);
   };
 
@@ -122,7 +129,7 @@ const Receipt = () => {
         const newOrder = trimOrder.reduce((arr, item) => {
           const catExist = categories.find(f => f.id === item.id);
           if (catExist) {
-            if (!catExist.dailymenu || (!catExist.dailymenu && !catExist.group)) {
+            if (!checkDaily(catExist) || (!checkDaily(catExist) && !catExist.children)) {
               return [
                 ...arr,
                 {
@@ -143,7 +150,7 @@ const Receipt = () => {
               {
                 ...catExist,
                 order: item.order.reduce((arrDish, cat) => {
-                  const group = catExist.groups.find(f => f.id === cat.id);
+                  const group = catExist.children.find(f => f.id === cat.id);
                   const dishExist = dishes.find(f => f.id === cat.dish);
                   if (group) {
                     return [...arrDish, {
@@ -158,7 +165,7 @@ const Receipt = () => {
           }
           return arr;
         }, []);
-        rootDispatch(replaceOrder(newOrder));
+        rootDispatch(update({ order: newOrder }));
       }
     } catch (error) {
       handleRouteOrder();
@@ -167,7 +174,7 @@ const Receipt = () => {
 
   const getTitle = (arr, category, index) => (
     <NameWrapper>
-      {!category.dailymenu && ((arr[index - 1] && arr[index - 1].dailymenu) || index === 0) && (
+      {!checkDaily(category) && ((arr[index - 1] && checkDaily(arr[index - 1])) || index === 0) && (
         <>
           <Name>
             {t('restaurant.common.menu')}
@@ -179,9 +186,9 @@ const Receipt = () => {
         <Name>
           {category.name}
         </Name>
-        {category.dailymenu && (
+        {checkDaily(category) && (
           <Price>
-            {`${category.order_count ? category.order_count : 1} X ${category.options.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`} 
+            {`${category.order_count ? category.order_count : 1} X ${category.options.price} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`} 
           </Price>
         )}
       </NameCategory>
@@ -195,7 +202,7 @@ const Receipt = () => {
     if (order) {
       setOrder();
     }
-  }, [order]);
+  }, []);
 
   return order && (
     <Wrapper>
@@ -208,10 +215,12 @@ const Receipt = () => {
       {categoryOrder && (
         <>
           <QRCodeWrapper>
-            <Logo
-              src={logo || RestaurantLogoTempPng}
-              onClick={() => handleRoute('information')}
-            />
+            {logo && (
+              <Logo
+                src={logo}
+                onClick={() => handleRoute('information')}
+              />
+            )}
             <QRCode value={getQRCodeValue()} />
             <AlertWrapper>
               <AlertIcon>
@@ -229,7 +238,7 @@ const Receipt = () => {
                 {getTitle(categoryOrder, category, c)}
                 {category.order.map((item, k) => (
                   <GroupWrapper key={`_group_${k + 1}`}>
-                    {category.dailymenu && (
+                    {checkDaily(category) && (
                       <GroupTitle>
                         {item.name}
                       </GroupTitle>
@@ -237,13 +246,13 @@ const Receipt = () => {
                     <GroupItem>
                       <GroupName>
                         <DishNumber>
-                          {getDish(item, category.dailymenu).number}
+                          {getDish(item, category).number}
                         </DishNumber>
                         <DishName>
-                          {getDish(item, category.dailymenu).name}
+                          {getDish(item, category).name}
                         </DishName>
                         <Price>
-                          {`${getDish(item, category.dailymenu).order_count} X${category.dailymenu ? '' : ` ${getDish(item, category.dailymenu).price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}`} 
+                          {`${getDish(item, category).order_count} X${checkDaily(category) ? '' : ` ${getDish(item, category).price[0].cost} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}`} 
                         </Price>
                       </GroupName>
                     </GroupItem>
@@ -256,7 +265,7 @@ const Receipt = () => {
                 {`${t('restaurant.common.total')}:`}
               </TotalText>
               <TotalSumm>
-                {`${getTotal(order).toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
+                {`${getTotal(order).toFixed(2)} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}
               </TotalSumm>
             </Total>
           </ReceiptWrapper>

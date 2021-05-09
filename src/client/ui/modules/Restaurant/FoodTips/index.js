@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { updateOrder } from 'client/store/restaurant';
+import { getDictionaryItem, getUrl } from 'client/utils/common';
+import { v4 as uuidv4 } from 'uuid';
 import { 
   ChevronSvg,
   CloseSvg,
-  FoodTipsTempPng,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -29,8 +30,8 @@ import {
 const FoodTips = () => {
   const {
     info: { key, currency },
-    dishes,
-    categories,
+    dictionary,
+    foodtips,
     order,
   } = useSelector(store => store.restaurant);
   const rootDispatch = useDispatch();
@@ -74,9 +75,10 @@ const FoodTips = () => {
       return item;
     }));
 
-    let newOrder = { ...obj };
+    let newOrder = { ...foodtips };
+    newOrder.dish = { ...obj };
     newOrder.dish.order_count = 1;
-    newOrder.order_id = 1;
+    newOrder.order_id = uuidv4();
     newOrder.order = [newOrder.dish];
     delete newOrder.dish;
 
@@ -95,18 +97,7 @@ const FoodTips = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-
-    const foodtips = categories
-      .filter(f => !f.dailymenu && f.dishes)
-      .reduce((arr, category) => {
-        const arrDishes = category.dishes.map(id => ({
-          ...category,
-          dish: dishes.find(f => f.id === id),
-          added: false,
-        }));
-        return [...arr, ...arrDishes];
-      }, []);
-    setItems(foodtips.filter((f, i) => i <= 6));
+    setItems(foodtips.dishes.map(f => ({ ...f, added: false })));
   }, []);
 
   return items && (
@@ -130,21 +121,21 @@ const FoodTips = () => {
       {items.filter((f, i) => i === slide).map((item, i) => (
         <React.Fragment key={`_dish_${i + 1}`}>
           <ImgWrapper>
-            <Img src={item.dish.images ? item.dish.images[0] : FoodTipsTempPng} />
+            <Img src={item.images && item.images[0] ? `${getUrl()}/static/restaurants/dishes/${item.images[0]}.png` : null} />
             <Dish>
-              {item.dish.name}
+              {item.name}
             </Dish>
           </ImgWrapper>
           <Content>
             <Description>
-              {item.dish.foodtips}
+              {item.description}
             </Description>
             <PriceWrapper>
               <Total>
                 {`${t('restaurant.common.total')}:`}
               </Total>
               <Price>
-                {`${item.dish.price.toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
+                {`${item.price[0].cost} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}
               </Price>
             </PriceWrapper>
             <AddButton added={item.added} onClick={() => !item.added && handleSetOrder(item)}>

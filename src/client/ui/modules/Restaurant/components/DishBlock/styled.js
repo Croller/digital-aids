@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button';
 import { CheckBox } from 'client/ui/components/_ui/CheckBox';
-import { DishImage } from 'client/ui/components/_block/DishImage';
+import { DishImage } from 'client/ui/modules/Restaurant/components/DishImage';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 
 export const DishWrapper = styled.div`
   position: relative;
   box-shadow: ${THEME.boxShadow1};
+  border-radius: ${THEME.borderRadiusM};
   padding-bottom: 1px;
 
   img {
@@ -62,7 +63,7 @@ export const Price = styled.div`
 export const CheckBoxStyled = styled(CheckBox)`
   position: absolute;
   right: 12px;
-  top: 156px;
+  bottom: 40%;
   width: 24px;
   height: 24px;
 `;

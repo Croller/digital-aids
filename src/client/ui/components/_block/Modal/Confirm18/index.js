@@ -1,13 +1,10 @@
 import React, { memo } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { Modal } from 'client/ui/components/_block/Modal';
 import { useTranslation } from 'react-i18next';
-import { RestaurantLogoTempPng } from 'client/assets/images';
+import { InfoCircleSvg } from 'client/assets/images';
 import {
   Wrapper,
   Content,
-  Logo,
   Title,
   Description,
   Controls,
@@ -19,22 +16,12 @@ export const Confirm18Modal = memo(({
   onOk,
   onCancel,
 }) => {
-  const history = useHistory();
   const [t] = useTranslation();
-  const { key, logo } = useSelector(store => store.restaurant.info);
-
-  const handleRoute = (path = 'categories') => {
-    history.push(`/restaurant/${key}/${path}`);
-  };
-  
   return (
     <Modal>
       <Wrapper>
         <Content>
-          <Logo
-            src={logo || RestaurantLogoTempPng}
-            onClick={() => handleRoute('information')}
-          />
+          <InfoCircleSvg />
           <Title>
             {t('restaurant.compModal.confirm_age.title')}
           </Title>

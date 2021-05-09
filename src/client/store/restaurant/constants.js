@@ -1,8 +1,8 @@
 export const REST_SET = 'REST_SET';
+export const REST_UPDATE = 'REST_UPDATE';
 export const REST_ERROR_SET = 'REST_ERROR_SET';
 export const REST_LOADING_SET = 'REST_LOADING_SET';
 
-export const REST_VISITOR_SET = 'REST_VISITOR_SET';
 export const REST_LOAD_INIT = 'REST_LOAD_INIT';
 
 export const REST_SET_ORDER = 'REST_SET_ORDER';

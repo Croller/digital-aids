@@ -15,9 +15,7 @@ export const Allergens = memo(({
   source = null,
   className,
 }) => {
-  console.log('source', source);
   const [t] = useTranslation();
-
   return (
     <Wrapper className={className}>
       {source && (

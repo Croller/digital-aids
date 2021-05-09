@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { DishBlock } from 'client/ui/components/_block/DishBlock';
+import { DishBlock } from 'client/ui/modules/Restaurant/components/DishBlock';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { InfoCircleSvg, ClockSvg } from 'client/assets/images';
 import { updateOrder } from 'client/store/restaurant';
@@ -10,9 +10,10 @@ import { useModal } from 'react-modal-hook';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import { DailyConfirmModal } from 'client/ui/components/_block/Modal/DailyConfirm';
-import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
-import { getLocal, setLocal, setOfferViewed } from 'client/utils/localStorageEdit';
+// import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
+import { setOfferViewed } from 'client/utils/localStorageEdit';
 import { getDictionaryItem } from 'client/utils/common';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Wrapper,
   TitleWrapper,
@@ -34,8 +35,8 @@ const Category = () => {
   const { 
     info: { currency },
     categories,
-    offers,
-    dishes,
+    // offers,
+    // dishes,
     order,
     dictionary,
   } = useSelector(store => store.restaurant);
@@ -43,7 +44,7 @@ const Category = () => {
   const history = useHistory();
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
-  const [orderId, setOrderId] = useState(1);
+  const [orderId, setOrderId] = useState(uuidv4());
   const [categoryOrder, setCategoryOrder] = useState([]);
   const [categoryItem, setCategoryItem] = useState(null);
   const [allergens, setAllergens] = useState(null);
@@ -66,12 +67,12 @@ const Category = () => {
     />
   ), [offer]);
 
-  const [showOffer, hideOffer] = useModal(() => (
-    <OfferCategoryModal
-      source={offer}
-      onClose={hideOffer}
-    />
-  ), [offer]);
+  // const [showOffer, hideOffer] = useModal(() => (
+  //   <OfferCategoryModal
+  //     source={offer}
+  //     onClose={hideOffer}
+  //   />
+  // ), [offer]);
 
   const [showDailyConfirm, hideDailyConfirm] = useModal(() => (
     <DailyConfirmModal
@@ -86,18 +87,25 @@ const Category = () => {
 
   const handleSetOrder = (obj) => {
     let data = [];
-    if (categoryItem.type !== 'daily') {
-      const bool = categoryOrder.some(s => s.id === obj.dish.id);
-      data = [...categoryOrder.filter(f => f.id !== obj.id)];
-      !bool && data.push(obj);
-    } else {
-      data = [
-        ...categoryOrder.filter(f => f.id !== obj.id),
-        obj,
-      ];
+    let edited = null;
+    data = [...categoryOrder.filter(f => f.id !== obj.id)];
+    if (obj.dishes) {
+      const edit = {
+        ...obj,
+        dishes: obj.dishes.filter(f => f.order_count !== 0),
+      };
+      if (edit.dishes.length !== 0) {
+        edited = edit;
+      }
+    }
+    if (!obj.dishes && obj.order_count !== 0) {
+      edited = obj;
+    }
+    if (edited) {
+      data.push(obj);
     }
 
-    if (categoryItem.type === 'daily') {
+    if (categoryItem.type !== 'daily') {
       rootDispatch(updateOrder({
         ...categoryItem,
         order_id: orderId,
@@ -115,11 +123,12 @@ const Category = () => {
       order: categoryOrder,
     }));
     setCategoryOrder([]);
-    setOrderId(order ? order.length + 1 : orderId + 1);
+    setOrderId(order ? uuidv4() : orderId + 1);
   };
 
   const handleToggleModalAllergens = (arr) => {
-    setAllergens(allergens ? null : arr);
+    const edited = dictionary.allergens.filter(f => arr.includes(f.id));
+    setAllergens(edited);
     showAllergens();
   };
 
@@ -127,13 +136,6 @@ const Category = () => {
     setOffer(categoryItem);
     showDailyInfo();
   };
-
-  const getDishes = (arr) => dishes.reduce((items, dish) => {
-    if (arr.some(s => s === dish.id)) {
-      return [...items, dish];
-    }
-    return items;
-  }, []);
 
   useEffect(() => {
     const categItem = categories.find(f => f.key === category) || null;
@@ -144,26 +146,31 @@ const Category = () => {
         showDailyInfo();
       });
     }
-    if (categItem.dishes) {
-      const specialDeal = offers.find(f => categItem.dishes.some(d => d.id === f.id));
-      console.log('specialDeal', specialDeal, categories);
-      if (specialDeal) {
-        setOfferViewed(specialDeal.id, () => {
-          setOffer(specialDeal);
-          showDailyInfo();
-        });
-      }
-    }
+    // if (categItem.dishes) {
+    //   const specialDeal = offers.find(f => categItem.dishes.some(d => d.id === f.id));
+    //   console.log('specialDeal', specialDeal, categories);
+    //   if (specialDeal) {
+    //     setOfferViewed(specialDeal.id, () => {
+    //       setOffer(specialDeal);
+    //       showDailyInfo();
+    //     });
+    //   }
+    // }
 
     if (order) {
-      const catOrder = order.find(f => f.key === category);
+      const catOrder = order.find(f => f.key === category && categItem.type !== 'daily');
       setCategoryOrder(catOrder ? catOrder.order : []);
     }
     if (categItem && categItem.dailymenu) {
       setCategoryOrder([]);
     }
-    setOrderId(order ? order.length + 1 : orderId);
+    setOrderId(order ? uuidv4() : orderId);
     setCategoryItem(categItem);
+
+    return () => {
+      setOrderId(null);
+      setCategoryItem(null);
+    };
   }, []);
 
   return categoryItem && (
@@ -186,24 +193,25 @@ const Category = () => {
           </WorkDailyButton>
         )}
         <DishList>
-          {categoryItem.groups && categoryItem.groups.map(group => (
+          {categoryItem.children && categoryItem.children.map(group => group.dishes.length > 0 && (
             <DailyWrapper key={group.key}>
               <TitleGroup>
                 {group.name}
               </TitleGroup>
-              {getDishes(group.dishes).map(dish => DishBlock({
+              {group.dishes.map(dish => DishBlock({
                 dish,
-                group,
+                category: group,
                 order: categoryOrder,
                 dailymenu: categoryItem.type === 'daily',
-                currency: t(`restaurant.common.currency.${currency[0]}`),
+                currency: getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol'),
               }, handleToggleModalAllergens, handleSetOrder))}
             </DailyWrapper>
           ))}
-          {!categoryItem.type !== 'daily' && !categoryItem.children && getDishes(categoryItem.dishes).map(dish => DishBlock({
+          {!categoryItem.type !== 'daily' && !categoryItem.children && categoryItem.dishes.map(dish => DishBlock({
             dish,
+            category: categoryItem,
             order: categoryOrder,
-            currency: t(`restaurant.common.currency.${currency[0]}`),
+            currency: getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol'),
           }, handleToggleModalAllergens, handleSetOrder))} 
         </DishList>
         {categoryItem.type === 'daily' && (

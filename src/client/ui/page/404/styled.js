@@ -14,13 +14,6 @@ export const HintsBlockStyled = styled(HintsBlock)`
   margin-bottom: 80px;
 `;
 
-export const Logo = styled.img`
-  margin-top: 45px;
-  margin-bottom: 100px;
-  height: 62px;
-  width: 186px;
-`;
-
 export const Code = styled.h3`
   margin-top: 20px;
   margin-bottom: 25px;

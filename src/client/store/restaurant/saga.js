@@ -8,6 +8,16 @@ import * as Constants from 'client/store/restaurant/constants';
 import * as commonProvider from 'client/providers/common';
 import { getCategoryDish } from 'client/utils/restaurant';
 
+function* updateState({ payload }) {
+  yield put({ type: Constants.REST_LOADING_SET, payload: true });
+  try {
+    yield put({ type: Constants.REST_SET, payload });
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.REST_LOADING_SET, payload: false });
+}
+
 function* init({ payload: { restaurant = null } }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
   const store = yield select((s) => s);
@@ -67,16 +77,18 @@ function* init({ payload: { restaurant = null } }) {
 
       results_foodtips = results_categories.find(f => f.type === 'foodtips');
       results_offers = results_categories.find(f => f.type === 'specialDeals');
-      results_foodtips = results_foodtips ? results_foodtips.dishes : [];
+      results_foodtips = results_foodtips || [];
       results_offers = results_offers ? results_offers.dishes : [];
       results_categories = results_categories.filter(f => !['foodtips', 'specialDeals'].includes(f.type));
+    } else {
+      results_restaurant = null;
     }
 
     const error = null;
     
     if (error) {
       yield put({ type: Constants.REST_ERROR_SET, payload: error.error });
-    } else if (results_dictionary && results_restaurant && results_categories && results_dishes) {
+    } else if (results_dictionary && results_categories && results_dishes) {
       yield put({
         type: Constants.REST_SET,
         payload: {
@@ -95,10 +107,40 @@ function* init({ payload: { restaurant = null } }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }
 
-function* setState({ payload }) {
+function* setOrder({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
+  const { order } = yield select((store) => store.restaurant);
+  
   try {
-    yield put({ type: Constants.REST_SET, payload });
+    const newOrder = payload;
+    const stateOrder = [...(order || [])];
+    const existOrder = stateOrder.find(f => f.order_id === newOrder.order_id);
+    let data = [];
+    if (existOrder) {
+      // update
+      const filtred = stateOrder.reduce((arr, item) => {
+        if (item.order_id === newOrder.order_id) {
+          if (newOrder.order.length > 0) {
+            return [...arr, newOrder];
+          }
+          return arr;
+        }
+        return [...arr, item];
+      }, []);
+      data = filtred.length === 0 ? null : filtred;
+    } else {
+      // add new
+      data = [...stateOrder, newOrder];
+    }
+    // sort order, daily to top
+    if (data) {
+      data = [
+        ...data.filter(f => f.dailymenu),
+        ...data.filter(f => !f.dailymenu),
+      ];
+    } 
+    
+    yield put({ type: Constants.REST_SET, payload: { order: data } });
   } catch (err) {
     throw err;
   }
@@ -109,8 +151,12 @@ export function* watchRESTloadInit() {
   yield takeLatest(Constants.REST_LOAD_INIT, init);
 }
 
+export function* watchRESTupdate() {
+  yield takeLatest(Constants.REST_UPDATE, updateState);
+}
+
 export function* watchRESTset() {
-  yield takeLatest(Constants.REST_LOAD_INIT, setState);
+  yield takeLatest(Constants.REST_SET_ORDER, setOrder);
 }
 
 // export function* watchAndLog() {

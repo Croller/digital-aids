@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { CloseSvg, HamburgerSvg, RestaurantLogoTempPng } from 'client/assets/images';
+import { CloseSvg, HamburgerSvg } from 'client/assets/images';
 import {
   HeaderWrapper,
   LogoWrapper, LogoImg,
@@ -32,10 +32,12 @@ const HeaderComponent = ({
       isMobile={isMobile}
     >
       <LogoWrapper>
-        <LogoImg
-          src={logo || RestaurantLogoTempPng}
-          onClick={() => onRoute('information')}
-        />
+        {logo && (
+          <LogoImg
+            src={logo}
+            onClick={() => onRoute('information')}
+          />
+        )}
       </LogoWrapper>
       <ControlWrapper>
         {showClose ? (

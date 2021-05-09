@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { TrashSvg } from 'client/assets/images';
 import { clearOrder, updateOrder } from 'client/store/restaurant';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
-import { DishBlock } from 'client/ui/components/_block/DishBlock';
+import { DishBlock } from 'client/ui/modules/Restaurant/components/DishBlock';
 import { getTotal } from 'client/utils/restaurant';
 import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { RemoveOrderModal } from 'client/ui/components/_block/Modal/RemoveOrder';
+import { getDictionaryItem } from 'client/utils/common';
 import {
   Wrapper,
   HeaderWrapper,
@@ -37,6 +38,7 @@ const Order = () => {
   const {
     info: { currency },
     order,
+    dictionary,
   } = useSelector(store => store.restaurant);
   const rootDispatch = useDispatch();
   const history = useHistory();
@@ -73,13 +75,14 @@ const Order = () => {
   };
 
   const handleToggleModalAllergens = (arr) => {
-    setAllergens(allergens ? null : arr);
+    const edited = dictionary.allergens.filter(f => arr.includes(f.id));
+    setAllergens(edited);
     showAllergens();
   };
 
   const handleSetOrder = ({ obj, category }) => {
     let data = [];
-    if (category.dailymenu) {
+    if (category.type === 'daily') {
       data = [...category.order.filter(f => f.dish.id !== obj.id)];
     } else {
       data = category.order.reduce((arr, item) => {
@@ -106,7 +109,7 @@ const Order = () => {
 
   const getTitle = (arr, category, index) => (
     <>
-      {!category.dailymenu && ((arr[index - 1] && arr[index - 1].dailymenu) || index === 0) && (
+      {!category.type === 'daily' && ((arr[index - 1] && arr[index - 1].dailymenu) || index === 0) && (
         <>
           <Title>
             {t('restaurant.common.menu')}
@@ -145,18 +148,18 @@ const Order = () => {
                   <TitleWrapper>
                     {getTitle(order, category, c)}
                   </TitleWrapper>
-                  <DishList dailymenu={category.dailymenu}>
-                    {category.dailymenu && (
+                  <DishList dailymenu={category.type === 'daily'}>
+                    {category.type === 'daily' && (
                       <DailyHeader>
                         <DeleteButton onClick={() => handleDeleteDaily(category)}>
                           <TrashSvg />
                         </DeleteButton>
                         <Price>
-                          {`${category.options.price.toFixed(2)}${t(`restaurant.common.currency.${currency[0]}`)}`}
+                          {`${category.options.price}${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}
                         </Price>
                       </DailyHeader>
                     )}
-                    {category.dailymenu ? category.order.map((item) => (
+                    {category.type === 'daily' ? category.order.map((item) => (
                       <DailyCard key={`${item.key}_${item.id}`}>
                         <DailyWrapper>
                           <TitleGroup>
@@ -167,14 +170,14 @@ const Order = () => {
                             order: category.order,
                             group: item,
                             dailymenu: true,
-                            currency: t(`restaurant.common.currency.${currency[0]}`),
+                            currency: getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol'),
                           }, handleToggleModalAllergens, () => handleSetOrder({ obj: item.dish, category }))}
                         </DailyWrapper>
                       </DailyCard>
                     )) : category.order.map(dish => DishBlock({
                       dish,
                       order: category.order,
-                      currency: t(`restaurant.common.currency.${currency[0]}`),
+                      currency: getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol'),
                     }, handleToggleModalAllergens, (obj) => handleSetOrder({ obj, category })))} 
                   </DishList>
                 </React.Fragment>
@@ -187,7 +190,7 @@ const Order = () => {
                     {`${t('restaurant.common.total')}:`}
                   </TotalText>
                   <TotalSumm>
-                    {`${getTotal(order).toFixed(2)} ${t(`restaurant.common.currency.${currency[0]}`)}`}
+                    {`${getTotal(order).toFixed(2)} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}
                   </TotalSumm>
                 </Total>
                 <CreateButton onClick={handleCreateReceipt}>

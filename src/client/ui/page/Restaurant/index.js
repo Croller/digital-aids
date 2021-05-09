@@ -5,6 +5,7 @@ import {
   Route,
   Switch,
   useLocation,
+  useHistory,
 } from 'react-router-dom';
 
 import { Layout } from 'client/ui/components/Layout/Restaurant';
@@ -24,6 +25,7 @@ const Order = lazy(() => import('client/ui/modules/Restaurant/Order'));
 const Receipt = lazy(() => import('client/ui/modules/Restaurant/Receipt'));
 
 export const Restaurant = () => {
+  const history = useHistory();
   const { pathname } = useLocation();
   const rootDispatch = useDispatch();
   const state = useSelector(s => s);
@@ -39,23 +41,35 @@ export const Restaurant = () => {
     }
   }, [token, language]);
 
-  return !token || !restaurant.info.key ? (
-    <Loader />
-  ) : (
-    <Layout>
-      <Switch>
-        <Route exac path={`${PATH}/:restaurant/language`} component={Language} />
-        <Route exac path={`${PATH}/:restaurant/menu`} component={Menu} />
-        <Route exac path={`${PATH}/:restaurant/category/:category`} component={Category} />
-        <Route exac path={`${PATH}/:restaurant/categories`} component={Categories} />
-        <Route exac path={`${PATH}/:restaurant/opinion`} component={Opinion} />
-        <Route exac path={`${PATH}/:restaurant/reglament`} component={Reglament} />
-        <Route exac path={`${PATH}/:restaurant/information`} component={Information} />
-        <Route exac path={`${PATH}/:restaurant/foodtips`} component={FoodTips} />
-        <Route exac path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
-        <Route exac path={`${PATH}/:restaurant/order`} component={Order} />
-      </Switch>
-    </Layout>
+  useEffect(() => {
+    if (!restaurant.info) {
+      history.push('/404');
+    }
+  }, [restaurant.info]);
+
+  return (
+    <>
+      {(!token || (restaurant.info && !restaurant.info.id)) && (
+        <Loader />
+      )}
+      {restaurant.info && restaurant.info.id && (
+        <Layout>
+          <Switch>
+            <Route exac path={`${PATH}/:restaurant/language`} component={Language} />
+            <Route exac path={`${PATH}/:restaurant/menu`} component={Menu} />
+            <Route exac path={`${PATH}/:restaurant/category/:category`} component={Category} />
+            <Route exac path={`${PATH}/:restaurant/categories`} component={Categories} />
+            <Route exac path={`${PATH}/:restaurant/opinion`} component={Opinion} />
+            <Route exac path={`${PATH}/:restaurant/reglament`} component={Reglament} />
+            <Route exac path={`${PATH}/:restaurant/information`} component={Information} />
+            <Route exac path={`${PATH}/:restaurant/foodtips`} component={FoodTips} />
+            <Route exac path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
+            <Route exac path={`${PATH}/:restaurant/order`} component={Order} />
+          </Switch>
+    
+        </Layout>
+      )}
+    </>
   );
 };
 

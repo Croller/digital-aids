@@ -64,6 +64,7 @@
     "info": "Info",
     "descriptions": "Descriptions",
     "group": "Group",
+    "category": "Category",
     "number": "Number",
     "unit": "Unit",
     "rate": "Rate",

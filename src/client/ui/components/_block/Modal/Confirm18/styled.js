@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   border-radius: 12px;
   background-color: ${PALETTE.white};
-  padding: 22px 12px 44px;
+  padding: 30px 12px 44px;
   width: 306px;
 
 `;
@@ -15,12 +15,16 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
 
-export const Logo = styled.img`
-  margin-bottom: 30px;
-  width: 144px;
-  height: 48px;
+  > svg {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
+  }
 `;
 
 export const Title = styled.div`
@@ -53,6 +57,7 @@ export const Ok = styled(Button)`
   text-transform: uppercase;
   margin-bottom: 16px;
   font-size: 16px;
+  font-family: ${FONTS.semiBold};
 `;
 
 export const Cancel = styled(Button)`
@@ -60,4 +65,5 @@ export const Cancel = styled(Button)`
   width: 74%;
   text-transform: uppercase;
   font-size: 16px;
+  font-family: ${FONTS.semiBold};
 `;

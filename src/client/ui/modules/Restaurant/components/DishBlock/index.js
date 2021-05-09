@@ -1,6 +1,6 @@
 import React from 'react';
-import { DishImage } from 'client/ui/components/_block/DishImage';
-import { Counter } from 'client/ui/components/_block/Counter';
+import { DishImage } from 'client/ui/modules/Restaurant/components/DishImage';
+import { Counter } from 'client/ui/modules/Restaurant/components/Counter';
 import {
   DishWrapper,
   CounterWrapper,
@@ -11,7 +11,7 @@ import {
 export const DishBlock = ({
   dish,
   order,
-  group,
+  category,
   dailymenu = false,
   currency,
 }, onShowAllergens, onSelect) => {
@@ -28,7 +28,7 @@ export const DishBlock = ({
   return (
     <DishWrapper
       key={`${dish.key}_${dish.id}`}
-      onClick={() => dailymenu && onSelect({ ...group, dish })}
+      onClick={() => dailymenu && onSelect({ ...category, dish })}
     >
       <DishImage
         source={dish}
@@ -37,7 +37,7 @@ export const DishBlock = ({
       {dailymenu ? (
         <CheckBoxStyled
           value={getCheck(dish.id) || false}
-          onClick={() => onSelect({ ...group, dish })}
+          onClick={() => onSelect({ ...category, dish })}
         />
       ) : (
         <CounterWrapper>
@@ -46,7 +46,7 @@ export const DishBlock = ({
             onClick={(order_count) => onSelect({ ...dish, order_count })}
           />
           <Price selected={getCount(dish.id)}>
-            {`${dish.price.toFixed(2)}${currency[0]}`}
+            {`${dish.price[0].cost}${currency}`}
           </Price>
         </CounterWrapper>
       )}

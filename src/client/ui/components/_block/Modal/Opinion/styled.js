@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   position: relative;
   border-radius: 12px;
   background-color: ${PALETTE.white};
-  padding: 22px 0 29px;
+  padding: 31px 0 29px;
   width: 306px;
 
 `;
@@ -15,12 +15,16 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
 
-export const Logo = styled.img`
-  margin-bottom: 30px;
-  width: 144px;
-  height: 48px;
+  > svg {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 20px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
+  }
 `;
 
 export const Description = styled.div`

@@ -1,15 +1,9 @@
 import * as Constants from './constants';
-import {
-  categoriesMock,
-  dishesMock,
-  orderMock,
-  offersMock,
-} from './mock';
 
 const initState = {
   info: {
     number: 1,
-    id: null, // string
+    // id: null, // string
     key: null, // string
     name: null, // string
     address: null, // string
@@ -34,7 +28,6 @@ const initState = {
   dishes: null,
   foodtips: null,
   offers: null,
-  orders: null,
 
   dictionary: null,
 
@@ -56,38 +49,6 @@ export default function (state = initState, action) {
         error: null,
         status: null,
       };
-    case Constants.REST_SET_ORDER: {
-      const { order } = state;
-      const newOrder = action.payload;
-      const stateOrder = [...(order || [])];
-      const existOrder = stateOrder.find(f => f.order_id === newOrder.order_id);
-      let data = [];
-      if (existOrder) {
-        // update
-        const filtred = stateOrder.reduce((arr, item) => {
-          if (item.order_id === newOrder.order_id) {
-            if (newOrder.order.length > 0) {
-              return [...arr, newOrder];
-            }
-            return arr;
-          }
-          return [...arr, item];
-        }, []);
-        data = filtred.length === 0 ? null : filtred;
-      } else {
-        // add new
-        data = [...stateOrder, newOrder];
-      }
-      // sort order, daily to top
-      data = [
-        ...data.filter(f => f.dailymenu),
-        ...data.filter(f => !f.dailymenu),
-      ];
-      return {
-        ...initState,
-        order: data,
-      };
-    }
     case Constants.REST_CLEAR_ORDER: 
       return {
         ...initState,
@@ -110,16 +71,9 @@ export function init(payload) {
   };
 }
 
-export function set(payload) {
+export function update(payload) {
   return {
-    type: Constants.REST_SET,
-    payload,
-  };
-}
-
-export function replaceOrder(payload) {
-  return {
-    type: Constants.REST_REPLACE_ORDER,
+    type: Constants.REST_UPDATE,
     payload,
   };
 }

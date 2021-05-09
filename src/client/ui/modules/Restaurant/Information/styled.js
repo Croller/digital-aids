@@ -4,7 +4,7 @@ import { PALETTE, FONTS, THEME } from 'client/style/constants';
 import 'slick-carousel/slick/slick.css'; 
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
-import { GoogleMap } from 'client/ui/components/_block/GoogleMap';
+import { GoogleMap } from 'client/ui/modules/Restaurant/components/GoogleMap';
 
 export const Wrapper = styled.div`
   display: block;

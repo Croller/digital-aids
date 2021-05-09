@@ -5,16 +5,21 @@ import { PALETTE, THEME, FONTS } from 'client/style/constants';
 export const Wrapper = styled.div`
   display: block;
   background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadiusM};
 `;
 
 export const ImgWrapper = styled.div`
   position: relative;
+  min-height: 42px;
 `;
 
 export const Img = styled.img`
   width: 100%;
   height: 144px;
   object-fit: cover;
+  object-position: center;
+  border-top-left-radius: ${THEME.borderRadiusM};
+  border-top-right-radius: ${THEME.borderRadiusM};
 `;
 
 export const Number = styled.div`
@@ -45,7 +50,7 @@ export const Title = styled.h3`
 `;
 
 export const Description = styled.p`
-  font-size: 16px;
+  font-size: 17px;
   font-family: ${FONTS.regular};
   margin: 0;
   margin-bottom: 22px;
@@ -68,5 +73,5 @@ export const AllergensButton = styled(Button)`
 
 export const Weight = styled.span`
   font-size: 16px;
-  font-family: ${FONTS.bold};
+  font-family: ${FONTS.semiBold};
 `;

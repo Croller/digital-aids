@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Button } from 'client/ui/components/_ui/Button';
 import { CheckBox } from 'client/ui/components/_ui/CheckBox';
-import { DishImage } from 'client/ui/components/_block/DishImage';
+import { DishImage } from 'client/ui/modules/Restaurant/components/DishImage';
 import { FONTS, THEME, PALETTE } from 'client/style/constants';
 
 export const Wrapper = styled.div`
@@ -42,12 +42,15 @@ export const InfoDailyButton = styled(Button)`
 export const WorkDailyButton = styled(Button)`
   height: 46px;
   font-size: 14px;
+  font-family: ${FONTS.semiBold};
   margin-bottom: 32px;
+  justify-content: flex-start;
+  padding: 0 16px;
 
   > svg {
     width: 14px;
     height: 14px;
-    margin-right: 4px;
+    margin-right: 6px;
 
     path {
       fill: ${PALETTE.grey14};
@@ -167,7 +170,7 @@ export const PriceDaily = styled.span`
 
 export const Include = styled.p`
   font-family: ${FONTS.medium};
-  font-size: 18px;
+  font-size: 16px;
   text-transform: uppercase;
   margin: 0;
   margin-bottom: 44px;

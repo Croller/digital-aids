@@ -12,6 +12,7 @@ import {
 export const Wrapper = styled.div`
   padding: 20px 27px;
   height: auto;
+  margin-bottom: 30px;
 `;
 
 export const HeaderWrapper = styled.div`
@@ -165,8 +166,8 @@ export const CreateButton = styled(Button)`
   height: 48px;
   width: 172px;
   color: ${PALETTE.black};
-  font-size: 14px;
-  font-family: ${FONTS.medium};
+  font-size: 15px;
+  font-family: ${FONTS.semiBold};
   background-color: ${PALETTE.grey2};
   text-transform: uppercase;
   margin-right: 0;

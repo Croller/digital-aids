@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { PlateTempPng } from 'client/assets/images';
+import { getUrl } from 'client/utils/common';
 import {
   Wrapper,
   ImgWrapper,
@@ -16,24 +16,25 @@ import {
 
 export const DishImage = memo(({
   source: {
-    src = null,
     number = null,
     name = '',
     description = null,
-    amount = null,
-    amount_unit = null,
+    price = null,
     allergens = null,
+    images,
   },
   onShowAllergens,
 }) => {
   const [t] = useTranslation();
-
+  const src = images && images[0] ? `${getUrl()}/static/restaurants/dishes/${images[0]}.png` : null;
   return (
     <Wrapper>
       <ImgWrapper>
-        <Img src={src || PlateTempPng} />
+        {src && (
+          <Img src={src} />
+        )}
         <Number>
-          {number || 10}
+          {number}
         </Number>
       </ImgWrapper>
       <Content>
@@ -45,16 +46,14 @@ export const DishImage = memo(({
             {description}
           </Description>
         )}
-        {(allergens || amount) && (
+        {allergens && price && (
           <InfoWrapper>
             <AllergensButton onClick={onShowAllergens}>
               {t('restaurant.common.allergens')}
             </AllergensButton>
-            {amount && (
-              <Weight>
-                {`${amount || 0} ${amount_unit && t(`restaurant.common.unit.${amount_unit}`)}`}
-              </Weight>
-            )}
+            <Weight>
+              {`${price[0].amount || 0} ${price[0].unit}`}
+            </Weight>
           </InfoWrapper>
         )}
       </Content>
