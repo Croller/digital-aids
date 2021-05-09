@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronSvg, InfoCircleSvg } from 'client/assets/images';
 import { getTotal } from 'client/utils/restaurant';
-import { update } from 'client/store/restaurant';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
 import { getDictionaryItem, getUrl } from 'client/utils/common';
@@ -29,14 +28,10 @@ const Receipt = () => {
     restaurant: {
       info: { key, currency, images },
       order,
-      categories,
-      dishes,
       dictionary,
     },
   } = useSelector(store => store);
   const history = useHistory();
-  const location = useLocation();
-  const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [categoryOrder, setCategoryOrder] = useState(null);
 
@@ -85,7 +80,7 @@ const Receipt = () => {
     let str = JSON.stringify(trimOrder);
     str = str.replace(/ /g, '');
     const encode = encodeURIComponent(str);
-    const url = `https://dev.digital-carte.com/restaurant/${key}/order/receipt?params=${encode}`;
+    const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}`;
     return url;
   };
 
@@ -116,60 +111,7 @@ const Receipt = () => {
       }
       return [...arr, category];
     }, []);
-    console.log(categoryGroup, order);
     setCategoryOrder(categoryGroup);
-  };
-
-  const getOrderParams = () => {
-    // check url params, if exist get order and reload page
-    try {
-      if (location.search.indexOf('params') > -1) {
-        const params = location.search.replace('?params=', '');
-        const trimOrder = JSON.parse(decodeURIComponent(params));
-        const newOrder = trimOrder.reduce((arr, item) => {
-          const catExist = categories.find(f => f.id === item.id);
-          if (catExist) {
-            if (!checkDaily(catExist) || (!checkDaily(catExist) && !catExist.children)) {
-              return [
-                ...arr,
-                {
-                  ...catExist,
-                  ...item,
-                  order: item.order.reduce((arrDish, dish) => {
-                    const dishExist = dishes.find(f => f.id === dish.id);
-                    if (dishExist) {
-                      return [...arrDish, { ...dishExist, ...dish }];
-                    }
-                    return arrDish;
-                  }, []),
-                },
-              ];
-            }
-            return [
-              ...arr,
-              {
-                ...catExist,
-                order: item.order.reduce((arrDish, cat) => {
-                  const group = catExist.children.find(f => f.id === cat.id);
-                  const dishExist = dishes.find(f => f.id === cat.dish);
-                  if (group) {
-                    return [...arrDish, {
-                      ...group,
-                      dish: dishExist,
-                    }];
-                  }
-                  return arrDish;
-                }, []),
-              },
-            ];
-          }
-          return arr;
-        }, []);
-        rootDispatch(update({ order: newOrder }));
-      }
-    } catch (error) {
-      handleRouteOrder();
-    }
   };
 
   const getTitle = (arr, category, index) => (
@@ -197,7 +139,6 @@ const Receipt = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    getOrderParams();
 
     if (order) {
       setOrder();

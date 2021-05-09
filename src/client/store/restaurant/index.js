@@ -85,8 +85,3 @@ export function updateOrder(payload) {
   };
 }
 
-export function clearOrder() {
-  return {
-    type: Constants.REST_CLEAR_ORDER,
-  };
-}
