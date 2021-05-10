@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/Restaurant';
-import { Footer } from 'client/ui/components/Footer';
 import { MobileMenu } from 'client/ui/components/Footer/MobileMenu';
 import { BREAKPOINTS } from 'client/style/constants';
 import { getUrl } from 'client/utils/common';
@@ -17,7 +16,6 @@ export const Layout = ({
   children,
   className,
   header = null,
-  footer = null,
   footerMenu = null,
 }) => {
   const history = useHistory();
@@ -71,12 +69,12 @@ export const Layout = ({
           {children}
         </Content>
       </Cotainer>
-      {isMobile ? getShowFooterMenu(pathname) && (footerMenu || (
+      {isMobile && getShowFooterMenu(pathname) && (footerMenu || (
         <MobileMenu
           pathname={pathname}
           onRoute={handleRoute}
         />
-      )) : (footer || (<Footer />))}
+      ))}
     </Wrapper>
   );
 };

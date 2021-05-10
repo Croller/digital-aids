@@ -1,7 +1,13 @@
 import styled from 'styled-components';
+import { BREAKPOINTS } from 'client/style/constants';
 
 export const Wrapper = styled.div`
   display: block;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const Cotainer = styled.div`
@@ -14,4 +20,8 @@ export const Cotainer = styled.div`
 export const Content = styled.div`
   -webkit-overflow-scrolling: touch;
   overflow: auto;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    max-width: 1440px;
+  }
 `;

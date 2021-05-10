@@ -2,15 +2,6 @@
 import React from 'react';
 import { getDictionaryItem, getUrl } from 'client/utils/common';
 import { useTranslation } from 'react-i18next';
-import {
-  Valuation,
-  TitleRate,
-  TitleEmoji,
-  TitleDec,
-  Comments,
-  CommnetsBlock,
-  Footer,
-} from './styled';
 
 // const RATE = [
 //   'service',
