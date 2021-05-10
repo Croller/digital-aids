@@ -10,6 +10,9 @@ export const Wrapper = styled.div`
   display: block;
   position: relative;
 `;
+export const ImageWrapper = styled.div`
+  min-height: 217px;
+`;
 
 export const CloseButton = styled(Button)`
   position: absolute;

@@ -30,6 +30,7 @@ export const InfoUser = () => {
     },
     restaurant: {
       offersViewed: [],
+      opinionSend: false,
     },
   });
   const { token, enter_at } = useSelector(store => store.user.info);

@@ -74,6 +74,25 @@
       "satisfied": "Satisfied",
       "disappointed": "Disappointed",
       "angry": "Angry"
+    },
+    "mail": {
+      "logo": "We grow together!",
+      "title": "Customer opinion",
+      "footer": "Together we are stronger!",
+      "comments": "Comments",
+      "send": "Send",
+      "rate": {
+        "service": "Service",
+        "meal": "Meal",
+        "covid": "COVID-19 protocol security",
+        "menu": "Menu service"
+      },
+      "rating": {
+        "love": "With love",
+        "satisfied": "Satisfied",
+        "disappointed": "Disappointed",
+        "angry": "Angry"
+      }
     }
   },
   "pageOrder": {

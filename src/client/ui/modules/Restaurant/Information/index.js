@@ -20,6 +20,7 @@ import {
 import { getUrl, getDictionaryItem } from 'client/utils/common';
 import { 
   Wrapper,
+  ImageWrapper,
   CloseButton,
   CarouselControls, Control,
   Carousel,
@@ -108,34 +109,34 @@ const Information = memo(() => {
     window.prerenderReady = true;
   }, []);
 
-  console.log('socials', socials);
-
   return (
     <Wrapper>
-      {images && images.length > 0 && (
-        <>
-          <CloseButton onClick={() => handleRoute('back')}>
-            <CloseSvg />
-          </CloseButton>
-          <CarouselControls>
-            {['prev', 'next'].map((direction, c) => (
-              <Control
-                key={`_slider_control_${c + 1}`}
-                onClick={() => hangleChangSlide(direction)}
-              >
-                <ChevronSvg />
-              </Control>
-            ))}
-          </CarouselControls>
-          <Carousel ref={refCarousel} {...settings}>
-            {images && images.slice(1).map((uuid, s) => (
-              <ImgWrapper key={`_image_${s + 1}`}>
-                <Img src={getPathImage(uuid)} />
-              </ImgWrapper>
-            ))}
-          </Carousel>
-        </>
-      )} 
+      <ImageWrapper>
+        {images && images.length > 0 && (
+          <>
+            <CloseButton onClick={() => handleRoute('back')}>
+              <CloseSvg />
+            </CloseButton>
+            <CarouselControls>
+              {['prev', 'next'].map((direction, c) => (
+                <Control
+                  key={`_slider_control_${c + 1}`}
+                  onClick={() => hangleChangSlide(direction)}
+                >
+                  <ChevronSvg />
+                </Control>
+              ))}
+            </CarouselControls>
+            <Carousel ref={refCarousel} {...settings}>
+              {images && images.slice(1).map((uuid, s) => (
+                <ImgWrapper key={`_image_${s + 1}`}>
+                  <Img src={getPathImage(uuid)} />
+                </ImgWrapper>
+              ))}
+            </Carousel>
+          </>
+        )} 
+      </ImageWrapper>
       <Content>
         <Restaurant>
           {name}
@@ -209,7 +210,7 @@ const Information = memo(() => {
               <Rate>
                 <RateImageSvg />
                 <RateCurrent>
-                  {socials.thefork.rate}
+                  {socials.thefork.rate || 0}
                 </RateCurrent>
                 <RateMax>
                   &nbsp;/&nbsp;10

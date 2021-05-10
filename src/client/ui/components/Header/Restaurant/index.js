@@ -5,7 +5,7 @@ import {
   HeaderWrapper,
   LogoWrapper, LogoImg,
   ControlWrapper,
-  Close, Hamburger,
+  Close, Control,
 } from './styled';
 
 const PATH_SHOW_CLOSE = [
@@ -45,9 +45,9 @@ const HeaderComponent = ({
             <CloseSvg />
           </Close>
         ) : (
-          <Hamburger onClick={() => onRoute('menu')}>
+          <Control onClick={() => onRoute('menu')}>
             <HamburgerSvg />
-          </Hamburger>
+          </Control>
         )}
       </ControlWrapper>
     </HeaderWrapper>

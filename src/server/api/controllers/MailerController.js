@@ -1,4 +1,4 @@
-const mailer = require('../services/db');
+const mailer = require('../services/mailer');
 
 const MailerController = () => {
   const send = (req, res) => mailer.send(req, res);

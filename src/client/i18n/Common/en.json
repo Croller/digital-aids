@@ -70,7 +70,10 @@
     "rate": "Rate",
     "comments": "Comments",
     "download": "Download",
-    "qrcode": "QR Code"
+    "qrcode": "QR Code",
+    "mails": "Mails",
+    "lat": "Latitude",
+    "lng": "longitude"
   },
 
   "form" : {

@@ -66,6 +66,10 @@ export const FONTS = {
   semiBold: `'MontserratSemiBold', ${fontsCommon}`,
 
   regularMontaga: `'MontagaRegular', ${fontsCommon}`,
+
+  email: {
+    ...['regular', 'medium', 'bold', 'semiBold'].reduce((obj, key, k) => ({ ...obj, [key]: `https://fonts.googleapis.com/css2?family=Montserrat:wght@${k + 4}&display=swap` }), {}),
+  },
 };
 
 export const THEME = {
