@@ -1,0 +1,186 @@
+
+//ssh
+host: digital-carte.com
+user: carte
+pwd: dcfoodfans2021
+
+user: rootdc
+pwd: dcfoodfans2021
+
+1. added file from repo
+/home/carte/_DEPLOY/menus
+git pull
+2. local build client, copy to subdomen
+/home/carte/www/dev
+
+//pm2
+pm2 logs
+pm2 list
+pm2 restart api
+pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api
+pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api --env=/home/carte/_DEPLOY/menus/api/.env
+pm2 start /home/carte/_APP/src/server/index.js -n server
+pm2 status
+pm2 delete server
+pm2 start /home/carte/_APP/src/server/index.js -n server --interpreter=/home/carte/.nvm/versions/node/v12.11.0/bin/node
+
+// install postrgres centos
+sudo apt update
+sudo apt -y install postgresql-12 postgresql-client-12
+
+sudo yum update -y
+sudo yum install -y epel-release
+//sudo yum -y install https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+rpm -qi postgis25_12
+sudo yum install postgis25_12
+
+// load by ssh
+// download
+scp username@remote:/file/to/send /where/to/put
+sudo scp carte@digital-carte.com:/etc/apache2/conf/httpd.conf.datastore /Users/croller/Documents/FoodFans/project/Food-Fans/.ssh
+// copy
+sudo cp /etc/apache2/conf/httpd.conf.datastore /etc/apache2/conf/httpd.conf.datastore.backup
+
+
+//postgresql12-server
+cd /usr/pgsql-11/bin/
+postgresql-12-setup initdb
+sudo systemctl enable postgresql-12
+sudo systemctl start postgresql-12
+sudo systemctl status postgresql-12
+sudo systemctl restart postgresql-12
+
+sudo -i -u postgres
+
+//bash
+createuser opc
+createdb TrickServices -O opc
+psql -d TrickServices
+
+psql postgres
+CREATE ROLE trickRoot LOGIN PASSWORD 'tsRoot2021!';
+CREATE DATABASE TrickServices WITH OWNER = trickRoot;
+
+//postgress
+CREATE EXTENSION postgis;
+
+//login DB
+psql -h localhost -d mydatabase -U myuser -p <port>
+
+
+// delete postrgres centos
+yum remove postgresql
+
+//set port centos
+netstat -nlp | grep 5432
+sudo find / -name "postgresql.conf"
+sudo nano /var/lib/pgsql/12/data/postgresql.conf
+replace #listen_addresses = 'localhost' to listen_addresses = '*'
+sudo systemctl restart postgresql-12
+netstat -nlt
+
+//remote connect
+nslookup digital-carte.com
+psql -h 160.153.248.149 -U rootDC
+psql -h localhost -U rootDC
+
+sudo nano /var/lib/pgsql/12/data/pg_hba.conf 
+host    all             all             185.8.127.19/24 md5
+(to get real ip need connect by url, error in vscode show real ip)
+(ERROR: Error opening connection no pg_hba.conf entry for host "185.8.127.19")
+
+{
+  "previewLimit": 50,
+  "server": "160.153.248.149",
+  "port": 5432,
+  "driver": "PostgreSQL",
+  "name": "digital-carte",
+  "database": "DigitalCarte",
+  "username": "rootdc",
+  "password": "dc1231414"
+}
+
+// local access db
+psql -U rootdc -h 127.0.0.1 -p 5432 -d DigitalCarte
+sudo pg_dump -U rootdc -h 127.0.0.1 -p 5432 -f DigitalCarte > /database_backup/test.sql
+
+//postgress command
+sudo -u postgres psql postgres
+
+\l - list database
+\dt - list tables
+
+//docker
+//start
+open --background -a Docker
+//stop
+killall Docker && open /Applications/Docker.app
+
+
+//alter 
+yum -y install epel-release
+yum list | grep postgis
+yum install postgis25_12 postgis25_12-client
+
+// mac terminal
+sudo lsof -i :8086
+sudo kill -9 <PID>
+
+//apache
+// restart
+sudo systemctl reload httpd.service
+
+
+//htaccess
+# Options -MultiViews
+RewriteEngine On
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
+
+//nginx
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+
+sudo yum install mc
+sudo mc
+sudo nginx -t           // check config
+sudo nginx -s reload    // reload nginx
+
+//oracle linux
+//ssh
+ssh -i <path to id_rsa> opc@111.111.111.111
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 opc@193.122.2.215
+//download file
+scp your_username@remotehost.edu:foobar.txt /local/dir
+
+//postgres install 
+//https://www.postgresql.org/download/linux/redhat/
+sudo yum update
+sudo yum -y install vim bash-completion wget
+sudo yum -y upgrade
+sudo reboot
+sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+sudo yum install -y postgresql12-server
+sudo /usr/pgsql-12/bin/postgresql-12-setup initdb
+sudo systemctl enable postgresql-12
+sudo systemctl start postgresql-12
+sudo systemctl status postgresql-12
+
+sudo su postgres
+//bash
+createuser trickRoot
+createdb TrickServices -O trickRoot
+psql -d TrickServices
+CREATE ROLE trickRoot LOGIN PASSWORD 'tsRoot2021!';
+CREATE DATABASE TrickServices WITH OWNER = trickRoot;
+
+nc -l -p 5432 -c "nc 127.0.0.1 5432"
+
+//vim
+// save and exit
+:wq 
