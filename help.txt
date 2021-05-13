@@ -53,8 +53,8 @@ sudo systemctl restart postgresql-12
 sudo -i -u postgres
 
 //bash
-createuser opc
-createdb TrickServices -O opc
+createuser ubuntu
+createdb TrickServices -O ubuntu
 psql -d TrickServices
 
 psql postgres
@@ -144,21 +144,21 @@ RewriteRule ^ index.html [QSA,L]
 //nginx
 sudo systemctl enable nginx
 sudo systemctl start nginx
+sudo systemctl status nginx
 
-
-sudo yum install mc
+sudo apt install mc
 sudo mc
 sudo nginx -t           // check config
 sudo nginx -s reload    // reload nginx
 
 //oracle linux
 //ssh
-ssh -i <path to id_rsa> opc@111.111.111.111
-ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 opc@193.122.2.215
+ssh -i <path to id_rsa> ubuntu@111.111.111.111
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 ubuntu@193.122.12.91
 //download file
 scp your_username@remotehost.edu:foobar.txt /local/dir
 
-//postgres install 
+//postgres install linux
 //https://www.postgresql.org/download/linux/redhat/
 sudo yum update
 sudo yum -y install vim bash-completion wget
@@ -171,6 +171,10 @@ sudo systemctl enable postgresql-12
 sudo systemctl start postgresql-12
 sudo systemctl status postgresql-12
 
+// postgres ubuntu
+service postgresql status
+
+// postgres command for all os
 sudo su postgres
 //bash
 createuser trickRoot
@@ -179,7 +183,8 @@ psql -d TrickServices
 CREATE ROLE trickRoot LOGIN PASSWORD 'tsRoot2021!';
 CREATE DATABASE TrickServices WITH OWNER = trickRoot;
 
-nc -l -p 5432 -c "nc 127.0.0.1 5432"
+//port list 
+netstat -lntu
 
 //vim
 // save and exit
