@@ -1,1 +1,1 @@
-web: npm start
+NPM_CONFIG_PRODUCTION=false
