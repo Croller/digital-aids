@@ -1,14 +1,14 @@
 {
-  "name": "digital-carte",
+  "name": "digital-restaurants",
   "version": "1.0.0",
   "description": "",
   "main": "client/index.js",
-  "author": "DigitalCarte",
-  "homepage": "https://digital-carte.com/",
+  "author": "croller",
+  "homepage": "https://digital-restaurants.herokuapp.com/",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NBudnikova/Food-Fans.git"
+    "url": "git+https://github.com/Croller/restauran.git"
   },
   "scripts": {
     "build": "webpack --mode production --config ./webpack.config.js",
