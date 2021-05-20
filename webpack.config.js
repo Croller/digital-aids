@@ -149,7 +149,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    root: [
+    roots: [
       __dirname,
       path.resolve(__dirname, 'src/client'),
       path.resolve(__dirname, 'src/server'),
