@@ -149,11 +149,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['*', '.js', '.jsx'],
-    roots: [
-      __dirname,
-      path.resolve(__dirname, 'src/client'),
-      path.resolve(__dirname, 'src/server'),
-    ],
     alias: {
       'react-dom': '@hot-loader/react-dom',
       client: path.resolve(__dirname, 'src/client'),
