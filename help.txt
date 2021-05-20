@@ -1,11 +1,7 @@
 
 //ssh
-host: digital-carte.com
-user: carte
-pwd: dcfoodfans2021
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 ubuntu@193.122.12.91
 
-user: rootdc
-pwd: dcfoodfans2021
 
 1. added file from repo
 /home/carte/_DEPLOY/menus
@@ -19,7 +15,7 @@ pm2 list
 pm2 restart api
 pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api
 pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api --env=/home/carte/_DEPLOY/menus/api/.env
-pm2 start /home/carte/_APP/src/server/index.js -n server
+pm2 start /home/ubuntu/server/index.js -n server
 pm2 status
 pm2 delete server
 pm2 start /home/carte/_APP/src/server/index.js -n server --interpreter=/home/carte/.nvm/versions/node/v12.11.0/bin/node
@@ -45,10 +41,10 @@ sudo cp /etc/apache2/conf/httpd.conf.datastore /etc/apache2/conf/httpd.conf.data
 //postgresql12-server
 cd /usr/pgsql-11/bin/
 postgresql-12-setup initdb
-sudo systemctl enable postgresql-12
-sudo systemctl start postgresql-12
-sudo systemctl status postgresql-12
-sudo systemctl restart postgresql-12
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+sudo systemctl restart postgresql
 
 sudo -i -u postgres
 
@@ -185,7 +181,32 @@ CREATE DATABASE TrickServices WITH OWNER = trickRoot;
 
 //port list 
 netstat -lntu
+netstat -tulpn
 
 //vim
 // save and exit
 :wq 
+
+//ssh
+
+// iptables ubuntu 
+// https://www.digitalocean.com/community/tutorials/iptables-essentials-common-firewall-rules-and-commands
+iptables -L
+
+// Allow All Incoming HTTP and HTTPS
+sudo iptables -A INPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp -m multiport --dports 80,443 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+// Specific IP Address or Subnet
+sudo iptables -A INPUT -p tcp -s 185.8.127.32/32 --dport 5432 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -p tcp --sport 5432 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+// Specific Network Interface
+sudo iptables -A INPUT -i eth1 -p tcp --dport 3306 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth1 -p tcp --sport 3306 -m conntrack --ctstate ESTABLISHED -j ACCEPT
+
+sudo iptables-save > /etc/iptables/config/iptables.ipv6
+sudo iptables-restore -vV /etc/iptables/config/iptables.ipv6
+
+// vm oracle postgres
+// https://cloud.google.com/community/tutorials/setting-up-postgres
