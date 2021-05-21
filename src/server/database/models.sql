@@ -1,6 +1,6 @@
 
 -- CREATE SCHEMA "DigitalCarte";
--- ALTER DATABASE "DigitalCarte" SET timezone TO 'Europe/Moscow';
+ALTER DATABASE "d645c091lkk8mi" SET timezone TO 'Europe/Moscow';
 
 CREATE TABLE IF NOT EXISTS data_users (
   number serial,
@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   socials jsonb DEFAULT '{"thefork":{"rate":0,"url":"NULL", "comments":0},"tripadvisor":{"rate":"0","url":"NULL", "comments":0},"facebook":"NULL","instagram":"NULL"}',
   at_work jsonb DEFAULT '{"description":"9:00-22:00","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
   options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
+  geojson jsonb DEFAULT NULL,
   geom GEOMETRY DEFAULT NULL,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
