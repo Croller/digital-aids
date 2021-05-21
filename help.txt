@@ -36,7 +36,7 @@ scp username@remote:/file/to/send /where/to/put
 sudo scp carte@digital-carte.com:/etc/apache2/conf/httpd.conf.datastore /Users/croller/Documents/FoodFans/project/Food-Fans/.ssh
 // copy
 sudo cp /etc/apache2/conf/httpd.conf.datastore /etc/apache2/conf/httpd.conf.datastore.backup
-
+scp croller@172.20.10.2:/Users/croller/Documents/FoodFans/project/restauran/src/server/static.zip src/server
 
 //postgresql12-server
 cd /usr/pgsql-11/bin/

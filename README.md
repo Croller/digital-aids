@@ -1,2 +1,3 @@
-# Food-Fans
-Digital solutions for restaurants
+# Digital-Restaurants
+
+## Digital solutions for restaurants
