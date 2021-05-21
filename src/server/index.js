@@ -3,8 +3,8 @@ const express = require('express');
 const path = require('path');
 const mapRoutes = require('express-routes-mapper');
 const cors = require('cors');
-const https = require('https');
-const fs = require('fs');
+// const https = require('https');
+// const fs = require('fs');
 const routes = require('./api/routes');
 
 require('dotenv').config({
@@ -35,14 +35,12 @@ if (process.env.NODE_ENV === 'development') {
   // const server = https.createServer(options, app);
   // server.listen(process.env.HOST_SERVER_PORT);
   
-  const server = app.listen(process.env.HOST_SERVER_PORT);
+  const server = app.listen(process.env.PORT || process.env.HOST_SERVER_PORT);
   server.setTimeout(5100);
 }
 
-console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.LOCAL_SERVER_PORT : process.env.HOST_SERVER_PORT}`);
+console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.LOCAL_SERVER_PORT : (process.env.PORT || process.env.HOST_SERVER_PORT)}`);
 
-console.log('app path', path.resolve('dist/index.html'));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
-  // res.sendFile(path.join(`${__dirname.split('/').slice(0, __dirname.split('/').length - 2).join('/')}/dist/index.html`));
 });
