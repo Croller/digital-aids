@@ -47,6 +47,8 @@ if (process.env.NODE_ENV === 'development') {
 
 console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.LOCAL_SERVER_PORT : process.env.HOST_SERVER_PORT}`);
 
+console.log('app path', path.resolve('dist/index.html'));
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
+  res.sendFile(path.join(`${__dirname.split('/').slice(0, __dirname.split('/').length - 2).join('/')}/dist/index.html`));
 });
