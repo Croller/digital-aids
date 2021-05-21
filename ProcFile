@@ -1,1 +1,3 @@
 NPM_CONFIG_PRODUCTION=false
+NODE_MODULES_CACHE=false
+NODE_ENV=prodaction
