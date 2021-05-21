@@ -15,10 +15,10 @@ export const dataToForm = (data) => {
     images,
     socials,
     at_work,
-    geom,
+    geojson,
   } = data;
 
-  const goemEdit = (geom && geom.geometry.coordinates) || geom;
+  const goemEdit = (geojson && geojson.geometry.coordinates) || geojson;
 
   return {
     id,
@@ -43,8 +43,8 @@ export const dataToForm = (data) => {
     'socials.tripadvisor.rate': parseFloat(socials.tripadvisor.rate),
     'socials.tripadvisor.comments': parseInt(socials.tripadvisor.comments, 0),
     'at_work.description': at_work.description,
-    lat: geom ? parseFloat(goemEdit[0]) : 0,
-    lng: geom ? parseFloat(goemEdit[1]) : 0,
+    lat: geojson ? parseFloat(goemEdit[0]) : 0,
+    lng: geojson ? parseFloat(goemEdit[1]) : 0,
   };
 };
 
@@ -117,7 +117,7 @@ export const dataToApi = (data, current) => {
       ...current.at_work,
       description: data['at_work.description'] || null,
     },
-    geom: {
+    geojson: {
       type: 'Feature',
       properties: {},
       geometry: {
@@ -142,7 +142,7 @@ export const model = {
   avg_price: 25.2,
   languages: ['es', 'en', 'ru', 'el', 'it', 'de', 'fr', 'no', 'ja'],
   images: null,
-  geom: null,
+  geojson: null,
   socials: {
     thefork: {
       comments: 0,

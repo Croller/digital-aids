@@ -215,6 +215,8 @@ sudo iptables-restore -vV /etc/iptables/config/iptables.ipv6
 // heroku
 // log start app
 heroku logs --tail -a digital-restaurants
+// ssh
+heroku ps:exec -a digital-restaurants
 
 // heroku postgres
 postgres://gcbtdpbemmfbnd:bfe0350914660d6b8c57d42e3dd6966026045b670e52d70b434f0e03847cf9fc@ec2-52-209-134-160.eu-west-1.compute.amazonaws.com:5432/d645c091lkk8mi?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory
@@ -225,6 +227,7 @@ host: ec2-52-209-134-160.eu-west-1.compute.amazonaws.com
 database: d645c091lkk8mi
 port: 5432
 
-// heroku postgis
+// heroku postgres extensions
 heroku pg:psql -a digital-restaurants
-create extension postgis;
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
