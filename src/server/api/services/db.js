@@ -6,6 +6,9 @@ const CONFIG = {
   host: process.env.HOST_DB_HOST,
   port: Number(process.env.HOST_DB_PORT),
   database: process.env.HOST_DB_DATABASE,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 };
 
 if (process.env.NODE_ENV === 'production') {
