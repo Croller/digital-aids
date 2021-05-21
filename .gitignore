@@ -1,0 +1,10 @@
+dist/
+build/
+node_modules/
+npm-debug.log
+.DS_Store
+
+.eslintcache
+.idea
+.idea
+package-lock.json

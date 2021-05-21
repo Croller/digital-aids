@@ -119,6 +119,7 @@ export const NavBar = ({
   useEffect(() => {
     const data = { ...options };
     let page = 'restaurants';
+    
     data.loupe = true;
     data.search = false;
     data.back = false;
