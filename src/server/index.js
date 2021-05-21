@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === 'development') {
   // const server = https.createServer(options, app);
   // server.listen(process.env.HOST_SERVER_PORT);
   
-  const server = app.listen(process.env.LOCAL_SERVER_PORT);
+  const server = app.listen(process.env.HOST_SERVER_PORT);
   server.setTimeout(5100);
 }
 
