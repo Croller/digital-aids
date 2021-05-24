@@ -8,5 +8,3 @@ npm-debug.log
 .idea
 .idea
 package-lock.json
-
-src/server/static
