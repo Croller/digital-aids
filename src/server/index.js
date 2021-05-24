@@ -16,12 +16,14 @@ const app = express();
 app.use(cors());
 app.options('*', cors());
 
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '550mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
-app.use(express.static(path.resolve('src/server/static')));
+app.use(express.static(path.join(__dirname, 'src/server/static'), { maxAge: 86400000 }));
+console.log('static', path.join(__dirname, 'src/server/static'));
 
 app.use('/', mapRoutes(routes, 'src/server/api/controllers/'));
+app.use('/static', express.static(path.resolve('src/server/static')));
 
 if (process.env.NODE_ENV === 'development') {
   const server = app.listen(process.env.LOCAL_SERVER_PORT);
