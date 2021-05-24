@@ -168,7 +168,7 @@ module.exports = {
       secure: false,
       changeOrigin: false,
       // '/api': {
-      //   target: `https://${process.env.HOST}:${process.env.HOST_SERVER_PORT}`,
+      //   target: `https://${process.env.HOST}`,
       //   secure: false,
       //   changeOrigin: true,
       // },
