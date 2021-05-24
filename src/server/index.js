@@ -19,10 +19,9 @@ app.options('*', cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
+app.use(express.static(path.resolve('src/server/static')));
 
 app.use('/', mapRoutes(routes, 'src/server/api/controllers/'));
-app.use('/dist', express.static(path.resolve('dist')));
-app.use('/static', express.static(path.resolve('src/server/static')));
 
 if (process.env.NODE_ENV === 'development') {
   const server = app.listen(process.env.LOCAL_SERVER_PORT);
