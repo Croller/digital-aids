@@ -16,9 +16,9 @@ import {
   LoaderStyled,
   NavBarStyled,
   RestaurantInfoStyled,
-  MenuControl,
-  ListControls,
-  Control,
+  // MenuControl,
+  // ListControls,
+  // Control,
   ListLng,
   Lng,
   CategoryWrapper,
@@ -54,8 +54,8 @@ const Category = () => {
     loading,
   } = useSelector(state => state.backOffice);
 
-  const page = ['foodtips', 'special-deals'];
-  const pageActive = page.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
+  const pageSpec = ['foodtips', 'special-deals'];
+  const pageSpecActive = pageSpec.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
 
   const initCategory = () => {
@@ -70,8 +70,8 @@ const Category = () => {
         ? dataApiToList(categories.filter(f => f.restaurant === restaurant))
         : [])];
       
-      if (pageActive === null) {
-        categoryFilter = restCategories.filter(f => !page.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
+      if (pageSpecActive === null) {
+        categoryFilter = restCategories.filter(f => !pageSpec.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
       }
   
       categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : {};
@@ -79,8 +79,8 @@ const Category = () => {
         categoryActive = categoryFilter.find(f => f.key === restCategoryActive.key) || categoryFilter[0];
       }
 
-      if (pageActive) {
-        categoryActive = categories.find(f => f.key === pageActive && f.restaurant === restaurant);
+      if (pageSpecActive) {
+        categoryActive = categories.find(f => f.key === pageSpecActive && f.restaurant === restaurant);
       }
 
       setRestCategoryActive(categoryActive);
@@ -108,15 +108,27 @@ const Category = () => {
 
   const getRules = (obj = null) => {
     if (!obj) return false;
-    if (pageActive && obj.options && obj.options.rules && dishCategory && obj.options.rules.info.maxLength <= dishCategory.filter(f => f && !f.is_archived).length) {
+    if (pageSpecActive && obj.options && obj.options.rules && dishCategory && obj.options.rules.info.maxLength <= dishCategory.filter(f => f && !f.is_archived).length) {
       return true;
     }
     return false;
   };
 
   const getRestDishes = () => {
-    const defCategory = categories.filter(f => f.restaurant === restaurant && !f.is_archived && !page.includes(f.key));
+    const defCategory = categories.filter(f => f.restaurant === restaurant && !f.is_archived && !pageSpec.includes(f.key));
     return dishes.filter(f => f.restaurant === restaurant && !f.is_archived && defCategory.some(s => s.id === f.category));
+  };
+
+  const getRestDisheCategories = () => {
+    if (restCategoryActive.children) {
+      return restCategoryActive.children;
+    }
+    if (restCategoryActive.type === 'specialDeals') {
+      return categories.filter(f => f.type !== 'specialDeals' && !f.parent);
+    }
+    if (!restCategoryActive.children) {
+      return restCategoryActive;
+    }
   };
 
   const handleRoute = (key, id) => {
@@ -206,6 +218,11 @@ const Category = () => {
     }
   }, [status]);
 
+  useEffect(() => {
+    setRestCategoryEdit(false);
+    setDishCategory(dishCategory.map(m => m));
+  }, [pathname]);
+
   return (
     <>
       {loading && (<LoaderStyled />)}
@@ -217,7 +234,7 @@ const Category = () => {
           {!isArchive && (
             <>
               <RestaurantInfoStyled {...restInfo} />
-              {!pageActive && (
+              {/* {!pageSpecActive && (
                 <MenuControl>
                   <ListControls>
                     <Control>
@@ -226,7 +243,7 @@ const Category = () => {
                     </Control>
                   </ListControls>
                 </MenuControl>
-              )}
+              )} */}
             </>
           )}
           <ListLng>
@@ -241,7 +258,7 @@ const Category = () => {
               </Lng>
             ))}
           </ListLng>
-          {!pageActive && restCategory && (
+          {!pageSpecActive && restCategory && (
             <CategoryWrapper>
               <ListCategory>
                 {restCategory.map((item, i) => item && (
@@ -279,13 +296,13 @@ const Category = () => {
               onChange={handleChangeCategory}
             />
           )}
-          {pageActive && restCategoryActive && (
+          {pageSpecActive && restCategoryActive && (
             <InfoStyled
-              page={pageActive}
+              page={pageSpecActive}
               options={restCategoryActive.options}
             />
           )}
-          {!isArchive && (
+          {!isArchive && (restCategory.length > 0 || pageSpecActive) && (
             <DishControls>
               <NewDish
                 onClick={handleAddDish}
@@ -312,7 +329,7 @@ const Category = () => {
                   type={restCategoryActive.type}
                   controls={!restCategoryActive.is_archived}
                   dishes={getRestDishes()}
-                  categories={restCategoryActive.children || (restCategoryActive.type === 'specialDeals' && categories.filter(f => f.type !== 'specialDeals' && !f.parent))}
+                  categories={getRestDisheCategories()}
                   resaurant={restInfo}
                   dictionary={dictionary}
                   currency={restInfo.currency[0]}

@@ -536,42 +536,42 @@ export const DishForm = ({
                   </ViewStyled>
                 )}
                 {Array.isArray(categories) && (
-                <>
-                  <Hr />
-                  {!archive && edit ? (
-                    <FormCol>
-                      <FormItemStyled
-                        label={t('common.words.group')}
-                        name="category"
-                        required
-                        rules={rule.text}
-                      >
-                        <SelectStyled
-                          showSearch
-                          mode="single"
-                          placeholder={t('common.form.placeholder.select')}
-                          optionFilterProp="label"
+                  <>
+                    <Hr />
+                    {!archive && edit ? (
+                      <FormCol>
+                        <FormItemStyled
+                          label={t('common.words.group')}
+                          name="category"
+                          required
+                          rules={rule.text}
                         >
-                          {categories.map((item, i) => (
-                            <OptionStyled
-                              key={`_categories_${i + 1}`}
-                              value={item.id}
-                              label={item.name}
-                            >
-                              {item.name}
-                            </OptionStyled>
-                          ))}
-                        </SelectStyled>
-                      </FormItemStyled>
-                    </FormCol>
-                  ) : (
-                    <ViewStyled layout="vertical">
-                      <ViewItemStyled label={t('common.words.group')}>
-                        {source && getDictionaryItem(source.category, 'id', categories, 'name')}
-                      </ViewItemStyled>
-                    </ViewStyled>
-                  )}
-                </>
+                          <SelectStyled
+                            showSearch
+                            mode="single"
+                            placeholder={t('common.form.placeholder.select')}
+                            optionFilterProp="label"
+                          >
+                            {categories.map((item, i) => (
+                              <OptionStyled
+                                key={`_categories_${i + 1}`}
+                                value={item.id}
+                                label={item.name}
+                              >
+                                {item.name}
+                              </OptionStyled>
+                            ))}
+                          </SelectStyled>
+                        </FormItemStyled>
+                      </FormCol>
+                    ) : (
+                      <ViewStyled layout="vertical">
+                        <ViewItemStyled label={t('common.words.group')}>
+                          {source && getDictionaryItem(source.category, 'id', categories, 'name')}
+                        </ViewItemStyled>
+                      </ViewStyled>
+                    )}
+                  </>
                 )}
               </>
             )}

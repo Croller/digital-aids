@@ -56,7 +56,7 @@ export const dataToApi = (data, categories, restaurant) => {
       }];
     }, []);
 
-  const categoryObj = Array.isArray(categories) && categories.length > 0 ? categories.find(f => f.key === category || f.id === category).id : categories;
+  const categoryObj = Array.isArray(categories) && categories.length > 0 ? categories.find(f => f.key === category || f.id === category).id : categories.id;
   const optionsObj = Object.keys(data).filter(f => f.indexOf('options.') > -1).reduce((obj, key) => ({ ...obj, [key.split('.')[1]]: data[key] }), {});
   const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, key) => {
     let value = data[key];
