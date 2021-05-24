@@ -19,8 +19,7 @@ app.options('*', cors());
 app.use(express.json({ limit: '550mb' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
-app.use(express.static(path.join(__dirname, 'src/server/static'), { maxAge: 86400000 }));
-console.log('static', path.join(__dirname, 'src/server/static'));
+app.use(express.static('src/server/static', { maxAge: 86400000 }));
 
 app.use('/', mapRoutes(routes, 'src/server/api/controllers/'));
 app.use('/static', express.static(path.resolve('src/server/static')));

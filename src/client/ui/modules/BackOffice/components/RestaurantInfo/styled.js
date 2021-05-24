@@ -18,7 +18,7 @@ export const Wrapper = styled.div`
   margin-bottom: 22px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    height: 176px;
+    height: auto;
   }
 `;
 

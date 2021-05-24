@@ -212,7 +212,7 @@ export const CategoryForm = ({
                 optionFilterProp="label"
                 disabled={archive}
               >
-                {categoryModel.map((item, i) => (
+                {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.type)).map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
                 ))}
               </SelectStyled>
