@@ -3,8 +3,8 @@ const express = require('express');
 const path = require('path');
 const mapRoutes = require('express-routes-mapper');
 const cors = require('cors');
-// const https = require('https');
-// const fs = require('fs');
+const https = require('https');
+const fs = require('fs');
 const routes = require('./api/routes');
 
 require('dotenv').config({
@@ -24,20 +24,18 @@ app.use(express.static('src/server/static', { maxAge: 86400000 }));
 app.use('/', mapRoutes(routes, 'src/server/api/controllers/'));
 app.use('/static', express.static(path.resolve('src/server/static')));
 
+let server = null;
 if (process.env.NODE_ENV === 'development') {
-  const server = app.listen(process.env.LOCAL_SERVER_PORT);
-  server.setTimeout(5100);
+  server = app.listen(process.env.LOCAL_SERVER_PORT);
 } else {
-  // const options = {
-  //   key: fs.readFileSync(path.resolve('src/server/cert/server.key')),
-  //   cert: fs.readFileSync(path.resolve('src/server/cert/server.crt')),
-  // };
-  // const server = https.createServer(options, app);
-  // server.listen(process.env.HOST_SERVER_PORT);
-  
-  const server = app.listen(process.env.PORT || process.env.HOST_SERVER_PORT);
-  server.setTimeout(5100);
+  const options = {
+    key: fs.readFileSync(path.resolve('src/server/cert/server.key')),
+    cert: fs.readFileSync(path.resolve('src/server/cert/server.crt')),
+  };
+  server = https.createServer(options, app);
+  server.listen(process.env.HOST_SERVER_PORT);
 }
+server.setTimeout(5100);
 
 console.log(`Server listen on port ${process.env.NODE_ENV === 'development' ? process.env.LOCAL_SERVER_PORT : (process.env.PORT || process.env.HOST_SERVER_PORT)}`);
 
