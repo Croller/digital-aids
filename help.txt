@@ -36,7 +36,9 @@ scp username@remote:/file/to/send /where/to/put
 sudo scp carte@digital-carte.com:/etc/apache2/conf/httpd.conf.datastore /Users/croller/Documents/FoodFans/project/Food-Fans/.ssh
 // copy
 sudo cp /etc/apache2/conf/httpd.conf.datastore /etc/apache2/conf/httpd.conf.datastore.backup
-scp croller@172.20.10.2:/Users/croller/Documents/FoodFans/project/restauran/src/server/static.zip src/server
+
+zip -r static.zip src/server/static
+scp static.zip croller@172.20.10.2:/Users/croller/Documents/FoodFans/project/restauran/src/server/static.zip
 
 //postgresql12-server
 cd /usr/pgsql-11/bin/
@@ -105,6 +107,7 @@ sudo -u postgres psql postgres
 
 \l - list database
 \dt - list tables
+\du - list user/roles
 
 //docker
 //start
@@ -231,3 +234,86 @@ port: 5432
 heroku pg:psql -a digital-restaurants
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+
+
+//install soft ubuntu
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@144.126.247.24
+21121987!
+
+sudo su
+sudo apt update
+sudo apt -y upgrade
+
+apt install postgresql-12
+apt install postgis postgresql-postgis
+apt install nginx
+apt install mc
+apt install net-tools
+
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+apt install nodejs
+apt install npm
+npm install pm2@latest -g
+
+service postgresql status
+service nginx status
+
+sudo systemctl enable postgresql
+sudo systemctl enable nginx
+pm2 startup systemd
+
+sudo -i -u postgres
+createuser digitalRoot
+
+psql
+ALTER USER "digitalRoot" PASSWORD 'restaurantsRoot2021';
+ALTER USER "postgres" PASSWORD 'postgresRoot2021';
+CREATE DATABASE "digital-restaurants" WITH OWNER = 'digitalRoot';
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+exit
+logout
+
+cd etc/postgresql/12/main
+cp postgresql.conf /etc/postgresql/12/main/postgresql_backup.conf
+cp pg_hba.conf /etc/postgresql/12/main/pg_hba_backup.conf
+mc
+// run edit postgresql.conf
+// replace #listen_addresses = 'localhost' to listen_addresses = '*'
+// run edit pg_hba.conf
+// add line below
+// host    all             all             "your ip address"/24          md5
+sudo service postgresql restart
+
+cd /home
+mkdir app
+mkdir www
+
+
+// ubuntu command
+cd
+ls
+mc
+mkdir "name"
+rmdir "path"
+
+netstat -nlp | grep 5432
+netstat -nlt
+netstat -tulpn
+netstat -lntu
+
+pm2 logs
+pm2 list
+pm2 restart api
+pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api
+pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api --env=/home/carte/_DEPLOY/menus/api/.env
+pm2 start /home/ubuntu/server/index.js -n server
+pm2 status
+pm2 delete server
+pm2 start /home/carte/_APP/src/server/index.js -n server --interpreter=/home/carte/.nvm/versions/node/v12.11.0/bin/node
+
+sudo systemctl enable postgresql
+sudo systemctl start postgresql
+sudo systemctl status postgresql
+sudo systemctl restart postgresql
