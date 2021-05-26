@@ -309,8 +309,12 @@ npm i
 pm2 start /home/app/src/server/index.js -n server
 pm2 save
 
-
-
+// cert 
+apt install certbot python3-certbot-nginx
+// nginx.conf added domain
+sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@64.225.82.139:/etc/nginx/nginx.conf
+sudo certbot --nginx -d digital-aids.com
+// A enter / Y enter / 2 enter
 
 
 
