@@ -246,8 +246,9 @@ sudo su
 sudo apt update
 sudo apt -y upgrade
 
-apt install postgresql-12
-apt install postgis postgresql-postgis
+apt -y install postgresql-12 postgresql-client-12
+apt install postgis postgresql-12-postgis-3
+apt install postgresql-12-postgis-3-scripts
 apt install nginx
 apt install mc
 apt install net-tools
@@ -271,6 +272,8 @@ psql
 ALTER USER "digitalRoot" PASSWORD 'aidsRoot2021';
 ALTER USER "postgres" PASSWORD 'postgresRoot2021';
 CREATE DATABASE "digital-aids" WITH OWNER = 'digitalRoot';
+exit
+psql -d digital-aids
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 exit
