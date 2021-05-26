@@ -239,7 +239,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
 //install soft ubuntu
-ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@144.126.247.24
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139
 21121987!
 
 sudo su
@@ -284,12 +284,12 @@ mc
 // replace #listen_addresses = 'localhost' to listen_addresses = '*'
 // run edit pg_hba.conf
 // add line below
-// host    all             all             "your ip address"/24          md5
+// host    all             all             109.197.204.68/24          md5
 sudo service postgresql restart
 
 cd /etc/nginx/
 cp /etc/nginx/nginx.conf /etc/nginx/nginx_backup.conf
-sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@144.126.247.24:/etc/nginx/nginx.conf
+sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@64.225.82.139:/etc/nginx/nginx.conf
 nginx -t
 nginx -s reload
 
@@ -298,12 +298,14 @@ mkdir app
 mkdir www
 mkdir keys
 logout
-ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@144.126.247.24
+sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/app.zip root@64.225.82.139:/home/app.zip
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139
 
+cd /home/app
+npm i
 pm2 start /home/app/src/server/index.js -n server
+pm2 save
 
-rmdir /home/www
-mv /home/app/dist /home/www
 
 
 
