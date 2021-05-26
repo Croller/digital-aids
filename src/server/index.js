@@ -21,8 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('dist'));
 app.use(express.static('src/server/static', { maxAge: 86400000 }));
 
-console.log(`${__dirname}/api/controllers/`, process.cwd());
-
 app.use('/', mapRoutes(routes, 'src/server/api/controllers/'));
 app.use('/static', express.static(path.resolve('src/server/static')));
 
