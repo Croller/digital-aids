@@ -252,6 +252,7 @@ apt install postgresql-12-postgis-3-scripts
 apt install nginx
 apt install mc
 apt install net-tools
+apt install certbot python3-certbot-nginx
 
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt install nodejs
@@ -310,7 +311,6 @@ pm2 start /home/app/src/server/index.js -n server
 pm2 save
 
 // cert 
-apt install certbot python3-certbot-nginx
 // nginx.conf added domain
 sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@64.225.82.139:/etc/nginx/nginx.conf
 sudo certbot --nginx -d digital-aids.com
