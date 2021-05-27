@@ -96,14 +96,14 @@ host    all             all             185.8.127.19/24 md5
   "port": 5432,
   "driver": "PostgreSQL",
   "name": "digital-carte",
-  "database": "DigitalCarte",
+  "database": "DigitalAids",
   "username": "rootdc",
   "password": "dc1231414"
 }
 
 // local access db
-psql -U rootdc -h 127.0.0.1 -p 5432 -d DigitalCarte
-sudo pg_dump -U rootdc -h 127.0.0.1 -p 5432 -f DigitalCarte > /database_backup/test.sql
+psql -U rootdc -h 127.0.0.1 -p 5432 -d DigitalAids
+sudo pg_dump -U rootdc -h 127.0.0.1 -p 5432 -f DigitalAids > /database_backup/test.sql
 
 //postgress command
 sudo -u postgres psql postgres

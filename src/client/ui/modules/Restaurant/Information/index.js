@@ -86,7 +86,7 @@ const Information = memo(() => {
   const handleShare = async () => {
     if (navigator.share) {
       await navigator.share({
-        title: 'Digital Carte',
+        title: 'Digital Aids',
         url: `${getUrl()}/${key}/information`,
       })
         .then(() => console.log('Successful share! 🎉'))

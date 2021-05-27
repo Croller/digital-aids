@@ -93,9 +93,9 @@ const Tutorial = () => {
   return (
     <Container>
       <Helmet>
-        <meta content="Digital Carte" />
+        <meta content="Digital Aids" />
         <title>
-          Digital Carte
+          Digital Aids
         </title>
       </Helmet>
       <Content>
