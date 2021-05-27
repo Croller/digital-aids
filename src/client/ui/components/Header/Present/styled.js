@@ -71,7 +71,7 @@ export const LogoWrapper = styled.div`
 export const LogoText = styled.span`
   position: absolute;
   bottom: -2px;
-  right: 76px;
+  right: 60px;
   font-family: ${FONTS.semiBold};
   font-size: 8px;
   color: ${PALETTE.green1};
@@ -87,7 +87,7 @@ export const LogoText = styled.span`
 
 export const ControlWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: ${p => (p.show ? '100%' : '138px')};
   margin-left: auto;
@@ -167,6 +167,7 @@ export const Phone = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-right: 20px;
 
   svg {
     width: 28px;

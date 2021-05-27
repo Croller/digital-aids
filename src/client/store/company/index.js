@@ -1,8 +1,8 @@
 import {} from './constants';
 
 const initState = {
-  phone: '+34 912 568 714',
-  email: 'info@digital-carte.com',
+  phone: '+7 (910) 464 30 15',
+  email: 'info@digital-aids.com',
 
   loading: false,
   error: null,

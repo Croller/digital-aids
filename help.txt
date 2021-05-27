@@ -33,7 +33,7 @@ sudo yum install postgis25_12
 // load by ssh
 // download
 scp username@remote:/file/to/send /where/to/put
-sudo scp carte@digital-carte.com:/etc/apache2/conf/httpd.conf.datastore /Users/croller/Documents/FoodFans/project/Food-Fans/.ssh
+sudo scp carte@digital-aids.com:/etc/apache2/conf/httpd.conf.datastore /Users/croller/Documents/FoodFans/project/Food-Fans/.ssh
 // copy
 sudo cp /etc/apache2/conf/httpd.conf.datastore /etc/apache2/conf/httpd.conf.datastore.backup
 sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139:/home/keys
@@ -81,7 +81,7 @@ sudo systemctl restart postgresql-12
 netstat -nlt
 
 //remote connect
-nslookup digital-carte.com
+nslookup digital-aids.com
 psql -h 160.153.248.149 -U rootDC
 psql -h localhost -U rootDC
 
@@ -95,7 +95,7 @@ host    all             all             185.8.127.19/24 md5
   "server": "160.153.248.149",
   "port": 5432,
   "driver": "PostgreSQL",
-  "name": "digital-carte",
+  "name": "digital-aids",
   "database": "DigitalAids",
   "username": "rootdc",
   "password": "dc1231414"
@@ -322,6 +322,12 @@ git config --global user.name "Croller"
 git config --global user.email "nightcroller@yandex.ru"
 
 ssh-agent bash -c 'ssh-add /home/ssh/ssh_79104643015; git clone git@github.com:Croller/restauran.git'
+
+mv /home/restauran /home/app
+npm i
+pm2 start /home/app/src/server/index.js -n server
+
+cd /home/app npm i
 
 // cert 
 // nginx.conf added domain

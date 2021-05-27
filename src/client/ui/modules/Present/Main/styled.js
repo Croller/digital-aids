@@ -365,11 +365,11 @@ export const SpanBlack = styled.span`
 export const DigitalOptions = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 590px;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 `;
 
@@ -378,7 +378,6 @@ export const DigitalOption = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  flex: 0 48%;
   margin-bottom: 47px;
 
   svg {
@@ -393,6 +392,10 @@ export const DigitalOption = styled.div`
 
   &:nth-child(2n+1) {
     margin-right: 22px;
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    flex: 0 48%;
   }
 `;
 
@@ -597,7 +600,7 @@ export const ClientHeader = styled.div`
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  margin-bottom: 10px;
+  margin-bottom: 44px;
   height: 92px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {

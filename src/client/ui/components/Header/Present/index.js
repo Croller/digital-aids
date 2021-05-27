@@ -17,7 +17,8 @@ import {
   HeaderWrapper, HeaderContainer,
   LogoWrapper, LogoText,
   ControlWrapper,
-  Search, LoupeSvgStyled,
+  Search,
+  // LoupeSvgStyled,
   Phone, PhoneText,
   Lang, LangText,
   User,
@@ -73,16 +74,16 @@ const HeaderComponent = ({
           </LogoWrapper>
         )}
         <ControlWrapper show={showSearch}>
-          <Search
+          {/* <Search
             prefix={showSearch ? <LoupeSvg /> : false}
             suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
             show={showSearch}
-          />
+          /> */}
           {!showSearch && (
             <>
-              <LoupeSvgStyled
+              {/* <LoupeSvgStyled
                 onClick={() => setShowSearch(true)}
-              />
+              /> */}
               <Phone
                 onClick={() => handleRoute(`tel:${phone}`, true)}
               >
