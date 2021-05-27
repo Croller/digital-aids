@@ -571,6 +571,10 @@ export const CarouselStyled = styled(Slider)`
   .slick-slide {
     height: auto;
   }
+
+  .slick-arrow {
+    display: none;
+  }
 `;
 
 export const BlockClient = styled.div`
