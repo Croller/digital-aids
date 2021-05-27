@@ -33,7 +33,7 @@ export const Routers = () => {
     <React.Fragment>
       <Helmet>
         <title>
-          Digital Carte
+          Digital Aids
         </title>
       </Helmet>
       <ErrorBoundary t={t} onClick={handleRoute}>

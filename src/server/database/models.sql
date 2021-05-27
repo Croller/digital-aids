@@ -1,6 +1,6 @@
 
--- CREATE SCHEMA "DigitalCarte";
-ALTER DATABASE "d645c091lkk8mi" SET timezone TO 'Europe/Moscow';
+-- CREATE SCHEMA "DigitalAids";
+ALTER DATABASE "digital-aids" SET timezone TO 'Europe/Moscow';
 
 CREATE TABLE IF NOT EXISTS data_users (
   number serial,

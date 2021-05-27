@@ -36,7 +36,7 @@ module.exports = {
   send: async (req, res) => {
     const { data } = req.body;
     const {
-      from = `"Digital Carte" <${process.env.HOST_MAIL_LOGIN_INFO}>`,
+      from = `"Digital Aids" <${process.env.HOST_MAIL_LOGIN_INFO}>`,
       to = null,
       subject = null,
       body = null,
