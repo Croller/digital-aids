@@ -252,11 +252,8 @@ apt install postgresql-12-postgis-3-scripts
 apt install nginx
 apt install mc
 apt install net-tools
-<<<<<<< HEAD
 apt install zip
-=======
 apt install certbot python3-certbot-nginx
->>>>>>> feature/39-FF_ssl_ubuntu_create
 
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt install nodejs
@@ -373,6 +370,9 @@ sudo systemctl restart postgresql
 
 sudo nginx -t           // check config
 sudo nginx -s reload    // reload nginx
+
+unzip archive.zip -d /home/app/src/server/static/restaurants/logo
+zip -r static.zip src/server/static
 
 // logs 
 cd /var/log/nginx
