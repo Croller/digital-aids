@@ -329,6 +329,11 @@ pm2 start /home/app/src/server/index.js -n server
 
 cd /home/app npm i
 
+git pull
+npm run build
+rm -rf /home/www
+mv /home/app/dist /home/www
+
 // cert 
 // nginx.conf added domain
 sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@64.225.82.139:/etc/nginx/nginx.conf
