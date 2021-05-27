@@ -45,6 +45,8 @@ export const getCategoryDish = (categories, dishes, pKey = 'parent') => {
 
 export const getUrlOrder = (url, dishes, categories) => {
   const params = url.split('?params=')[1];
+  // TODO edit 
+  // const yourParamName = new URLSearchParams(window.location.search).getAll('yourParamName[]')
   const trimOrder = JSON.parse(decodeURIComponent(params));
   const newOrder = trimOrder.reduce((arr, item) => {
     const catExist = categories.find(f => f.id === item.id);

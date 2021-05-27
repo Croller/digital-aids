@@ -226,7 +226,7 @@ const Main = () => {
             <QRCodeTitle>
               {t('present.main.first.col3.title')}  
             </QRCodeTitle>
-            <QRCode size={178} value={`${process.env.HOST}/restaurant/las-cuevas`} />
+            <QRCode size={178} value={`${process.env.HOST}/restaurant/las-ceuvas/information`} />
             <QRCodeLanguage>
               {t('present.main.first.col3.language')}  
             </QRCodeLanguage>

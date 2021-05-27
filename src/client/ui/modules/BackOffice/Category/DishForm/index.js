@@ -415,67 +415,71 @@ export const DishForm = ({
             )}
             {!['specialDeals', 'foodtips'].includes(type) && (
               <>
-                {!archive && edit ? (
+                {!['daily'].includes(type) && (
                   <>
-                    <Hr />
-                    <Form2Col>
-                      <FormItemStyled
-                        label={t('common.words.weight')}
-                        name="price[0].amount"
-                        // required
-                        // rules={rule.text}
-                      >
-                        <InputStyled
-                          className="addon-select"
-                          type="number"
-                          step="0.01"
-                          placeholder={t('common.form.placeholder.floatExample')}
-                          addonAfter={(
-                            <FormItemStyled
-                              name="price[0].unit"
-                              // required
-                              // rules={rule.text}
-                            >
-                              <SelectStyled>
-                                {dictionary && dictionary.units.map((item, i) => (
-                                  <OptionStyled key={`_units_${i + 1}`} value={item.id}>
-                                    {item.name}
-                                  </OptionStyled>
-                                ))}
-                              </SelectStyled>
-                            </FormItemStyled>
-                          )}
-                        />
-                      </FormItemStyled>
-                      <FormItemStyled
-                        label={t('common.words.price')}
-                        name="price[0].cost"
-                        required
-                        rules={rule.number}
-                      >
-                        <InputStyled
-                          type="number"
-                          step="0.01"
-                          placeholder={t('common.form.placeholder.floatExample')}
-                          addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
-                        />
-                      </FormItemStyled>
-                    </Form2Col>
-                  </>
-                ) : (
-                  <>
-                    <Hr />
-                    <ViewStyled layout="vertical">
-                      <ViewItemStyled label={t('common.words.weight')}>
-                        {formData['price[0].amount']}
-                      </ViewItemStyled>
-                      <ViewItemStyled label={t('common.words.unit')}>
-                        {formData['price[0].unit']}
-                      </ViewItemStyled>
-                      <ViewItemStyled label={t('common.words.price')}>
-                        {formData['price[0].cost']}
-                      </ViewItemStyled>
-                    </ViewStyled>
+                    {!archive && edit ? (
+                      <>
+                        <Hr />
+                        <Form2Col>
+                          <FormItemStyled
+                            label={t('common.words.weight')}
+                            name="price[0].amount"
+                            // required
+                            // rules={rule.text}
+                          >
+                            <InputStyled
+                              className="addon-select"
+                              type="number"
+                              step="0.01"
+                              placeholder={t('common.form.placeholder.floatExample')}
+                              addonAfter={(
+                                <FormItemStyled
+                                  name="price[0].unit"
+                                  // required
+                                  // rules={rule.text}
+                                >
+                                  <SelectStyled>
+                                    {dictionary && dictionary.units.map((item, i) => (
+                                      <OptionStyled key={`_units_${i + 1}`} value={item.id}>
+                                        {item.name}
+                                      </OptionStyled>
+                                    ))}
+                                  </SelectStyled>
+                                </FormItemStyled>
+                              )}
+                            />
+                          </FormItemStyled>
+                          <FormItemStyled
+                            label={t('common.words.price')}
+                            name="price[0].cost"
+                            required
+                            rules={rule.number}
+                          >
+                            <InputStyled
+                              type="number"
+                              step="0.01"
+                              placeholder={t('common.form.placeholder.floatExample')}
+                              addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
+                            />
+                          </FormItemStyled>
+                        </Form2Col>
+                      </>
+                    ) : (
+                      <>
+                        <Hr />
+                        <ViewStyled layout="vertical">
+                          <ViewItemStyled label={t('common.words.weight')}>
+                            {formData['price[0].amount']}
+                          </ViewItemStyled>
+                          <ViewItemStyled label={t('common.words.unit')}>
+                            {formData['price[0].unit']}
+                          </ViewItemStyled>
+                          <ViewItemStyled label={t('common.words.price')}>
+                            {formData['price[0].cost']}
+                          </ViewItemStyled>
+                        </ViewStyled>
+                      </>
+                    )}
                   </>
                 )}
                 {!archive && edit ? (

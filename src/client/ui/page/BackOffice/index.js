@@ -25,7 +25,8 @@ export const BackOffice = () => {
   return (
     <Layout>
       <Switch>
-        {token && [1, 2, 3, 4].some(s => roles.some(r => r === s)) ? (
+        <Route path={`${PATH}/auth`} component={Auth} />
+        {token && [1, 2, 3, 4].some(s => roles.some(r => r === s)) && (
           <>
             <Route
               exact
@@ -78,12 +79,8 @@ export const BackOffice = () => {
             />
             <Redirect to={`${PATH}/restaurants`} />
           </>
-        ) : (
-          <>
-            <Route path={`${PATH}/auth`} component={Auth} />
-            <Redirect to={`${PATH}/auth`} />
-          </>
         )}
+        <Redirect to={`${PATH}/auth`} />
       </Switch>
     </Layout>
   

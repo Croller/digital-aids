@@ -290,6 +290,7 @@ cp /etc/postgresql/12/main/pg_hba.conf /etc/postgresql/12/main/pg_hba_backup.con
 mc
 // run edit postgresql.conf
 // replace #listen_addresses = 'localhost' to listen_addresses = '*'
+// replace #log_statement = 'none' to log_statement = 'all'
 // run edit pg_hba.conf
 // add line below
 // host    all             all             109.197.204.68/24          md5
@@ -372,3 +373,8 @@ sudo systemctl restart postgresql
 
 sudo nginx -t           // check config
 sudo nginx -s reload    // reload nginx
+
+// logs 
+cd /var/log/nginx
+cd /var/log/postgresql
+cd /root/.pm2/logs

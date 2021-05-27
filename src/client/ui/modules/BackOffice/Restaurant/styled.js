@@ -380,10 +380,17 @@ export const AddressItem = styled.li`
   font-family: ${FONTS.semiBold};
   border: 1px solid ${PALETTE.grey6};
   background-color: ${PALETTE.white};
-  border-radius: ${THEME.borderRadiusM};
 
-  /* border-bottom-right-radius: ${THEME.borderRadiusM};
-  border-bottom-left-radius: ${THEME.borderRadiusM}; */
+  &:first-child {
+    border-top-right-radius: ${THEME.borderRadiusM};
+    border-top-left-radius: ${THEME.borderRadiusM};
+  }
+
+  &:last-child {
+    border-bottom-right-radius: ${THEME.borderRadiusM};
+    border-bottom-left-radius: ${THEME.borderRadiusM};
+  }
+
   &:not(:last-child) {
     border-bottom: 0;
   }

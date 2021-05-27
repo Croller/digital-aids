@@ -5,6 +5,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { init, update, deleteFiles } from 'client/store/backOffice';
 import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
+import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -123,10 +124,7 @@ const Category = () => {
     if (restCategoryActive.children) {
       return restCategoryActive.children;
     }
-    if (restCategoryActive.type === 'specialDeals') {
-      return categories.filter(f => f.type !== 'specialDeals' && !f.parent);
-    }
-    if (!restCategoryActive.children) {
+    if (!restCategoryActive.children || ['specialDeals', 'foodtips'].includes(restCategoryActive.type)) {
       return restCategoryActive;
     }
   };
@@ -320,7 +318,7 @@ const Category = () => {
               </ArchiveBtn>
             </DishControls>
           )}
-          {dishCategory && restCategoryActive && (
+          {dishCategory.length > 0 && restCategoryActive ? (
             <DishList>
               {dishCategory.map((dish) => (
                 <DishFormStyled
@@ -340,6 +338,8 @@ const Category = () => {
                 />
               ))}
             </DishList>
+          ) : (
+            <EmptyBlock />
           )}
         </CategoryEditWrapper>
       )}
