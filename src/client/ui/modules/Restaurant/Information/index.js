@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { RateCircle } from 'client/ui/components/_block/RateCircle';
 import { Marker } from 'google-maps-react';
-import { getUrl, getDictionaryItem, loadFile } from 'client/utils/common';
 import {
   CloseSvg,
   ChevronSvg,
@@ -18,6 +17,7 @@ import {
   RateImageSvg,
   RateTripadvisorSvg,
 } from 'client/assets/images';
+import { getUrl, getDictionaryItem } from 'client/utils/common';
 import { 
   Wrapper,
   ImageWrapper,
@@ -67,6 +67,7 @@ const Information = memo(() => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  const getPathImage = (uuid) => `${getUrl()}/static/restaurants/photos/${uuid}.png`;
 
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
@@ -92,11 +93,6 @@ const Information = memo(() => {
         .then(() => console.log('Successful share! 🎉'))
         .catch(err => console.error(err));
     }
-  };
-
-  const getImage = async (uuid) => {
-    const img = await loadFile(`${getUrl()}/static/restaurants/photos/${uuid}.png`);
-    return img;
   };
 
   const getCoords = () => {
@@ -140,7 +136,7 @@ const Information = memo(() => {
             <Carousel ref={refCarousel} {...settings}>
               {images && images.slice(1).map((uuid, s) => (
                 <ImgWrapper key={`_image_${s + 1}`}>
-                  <Img src={getImage(uuid)} />
+                  <Img src={getPathImage(uuid)} />
                 </ImgWrapper>
               ))}
             </Carousel>
