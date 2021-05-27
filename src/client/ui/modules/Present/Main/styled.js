@@ -390,12 +390,12 @@ export const DigitalOption = styled.div`
     }
   }
 
-  &:nth-child(2n+1) {
-    margin-right: 22px;
-  }
-
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     flex: 0 48%;
+
+    &:nth-child(2n+1) {
+      margin-right: 22px;
+    }
   }
 `;
 

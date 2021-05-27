@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: ${FONTS.regular} !important;
     color: ${PALETTE.black};
     background-color: ${PALETTE.white};
-    overflow-x: hidden
+    overflow-x: hidden;
   }
 
   [ant-click-animating-without-extra-node]::after {
