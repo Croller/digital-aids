@@ -566,14 +566,12 @@ export const ClientCarouselControl = styled.div`
 `;
 
 export const CarouselStyled = styled(Slider)`
-  display: block;
-
   .slick-slide {
     height: auto;
   }
 
   .slick-arrow {
-    display: none;
+    display: none !important;
   }
 `;
 
