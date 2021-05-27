@@ -252,7 +252,11 @@ apt install postgresql-12-postgis-3-scripts
 apt install nginx
 apt install mc
 apt install net-tools
+<<<<<<< HEAD
 apt install zip
+=======
+apt install certbot python3-certbot-nginx
+>>>>>>> feature/39-FF_ssl_ubuntu_create
 
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt install nodejs
@@ -318,6 +322,12 @@ git config --global user.name "Croller"
 git config --global user.email "nightcroller@yandex.ru"
 
 ssh-agent bash -c 'ssh-add /home/ssh/ssh_79104643015; git clone git@github.com:Croller/restauran.git'
+
+// cert 
+// nginx.conf added domain
+sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@64.225.82.139:/etc/nginx/nginx.conf
+sudo certbot --nginx -d digital-aids.com
+// A enter / Y enter / 2 enter
 
 
 
