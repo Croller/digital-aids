@@ -8,7 +8,7 @@ export const getUrl = () => {
   if (process.env.NODE_ENV === 'development') {
     return '';
   }
-  return `http://${process.env.HOST_IP}`;
+  return `https://${process.env.HOST}`;
 };
 
 export const compareBreakpoint = (width, constant) => width && constant && width >= parseInt(constant.replace('px'), 0);

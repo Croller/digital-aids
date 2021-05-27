@@ -146,6 +146,7 @@
     "tokenNotExist": "Token not exist",
     "notEnoughRights": "Not enough rights",
     "504": "504 Gateway Timeout",
+    "502": "502 Bad Gateway",
     "413": "413 Payload Too Large",
     "400": "404 Bad Request"
   }
