@@ -45,7 +45,7 @@ const Information = memo(() => {
       name,
       key,
       address,
-      // geo,
+      geojson,
       phone,
       avg_price,
       cuisine,
@@ -97,6 +97,12 @@ const Information = memo(() => {
   const getImage = async (uuid) => {
     const img = await loadFile(`${getUrl()}/static/restaurants/photos/${uuid}.png`);
     return img;
+  };
+
+  const getCoords = () => {
+    if (!geojson) return;
+    const [lat, lng] = geojson.geometry.coordinates;
+    return { lat, lng };
   };
 
   const hangleChangSlide = (direction) => {
@@ -201,10 +207,10 @@ const Information = memo(() => {
               </Address>
             </AddressTitle>
             <MapStyled
-              initialCenter={{ lat: 37.778519, lng: -122.405640 }}
+              initialCenter={getCoords()}
               zoom={15}
             >
-              <Marker position={{ lat: 37.778519, lng: -122.405640 }} />
+              <Marker position={getCoords()} />
             </MapStyled>
           </AddressContainer>
         </AddessWrapper>
