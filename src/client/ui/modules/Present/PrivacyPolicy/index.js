@@ -92,7 +92,7 @@ const PrivacyPolicy = () => {
 
           Acceso a los datos de carácter personal 
 
-          &#183; Respecto a los datos de carácter personal que conservamos, DIGITAL AIDS ofrece acceso a ellos en cualquier momento, posibilitando las solicitudes de rectificación en caso de que sean incorrectos o de eliminación en caso de no estar obligados a conservarlos por imperativo legal o por razones legítimas de negocio. DIGITAL AIDS se reserva el derecho a no tramitar aquellas solicitudes que sean improcedentes, que pongan en riesgo la privacidad de terceros, que resulten inviables o para las que la legislación local no exija derecho de acceso. Las solicitudes de acceso, rectificación o eliminación podrán enviarse a nuestra dirección C/ Diego Ayllon, 8, P2J, CP 23048 Madrid o en la cuenta de correo electrónico info@digital-carte.com
+          &#183; Respecto a los datos de carácter personal que conservamos, DIGITAL AIDS ofrece acceso a ellos en cualquier momento, posibilitando las solicitudes de rectificación en caso de que sean incorrectos o de eliminación en caso de no estar obligados a conservarlos por imperativo legal o por razones legítimas de negocio. DIGITAL AIDS se reserva el derecho a no tramitar aquellas solicitudes que sean improcedentes, que pongan en riesgo la privacidad de terceros, que resulten inviables o para las que la legislación local no exija derecho de acceso. Las solicitudes de acceso, rectificación o eliminación podrán enviarse a nuestra dirección C/ Diego Ayllon, 8, P2J, CP 23048 Madrid o en la cuenta de correo electrónico info@digital-aids.com
 
           Datos de menores 
 

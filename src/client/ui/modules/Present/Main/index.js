@@ -183,9 +183,9 @@ const Main = () => {
   return (
     <Container>
       <Helmet>
-        <meta content="Digital Aids" />
+        <meta content="Digital Carte" />
         <title>
-          Digital Aids
+          Digital Carte
         </title>
       </Helmet>
       <Content>
@@ -226,7 +226,7 @@ const Main = () => {
             <QRCodeTitle>
               {t('present.main.first.col3.title')}  
             </QRCodeTitle>
-            <QRCode size={178} value="https://digital-carte.com/las-cuevas" />
+            <QRCode size={178} value={`${process.env.HOST}/restaurant/las-cuevas`} />
             <QRCodeLanguage>
               {t('present.main.first.col3.language')}  
             </QRCodeLanguage>
