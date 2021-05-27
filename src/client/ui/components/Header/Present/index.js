@@ -9,7 +9,7 @@ import {
   CloseSvg,
   GlobalSvg,
   LogoSvg,
-  LoupeSvg,
+  // LoupeSvg,
   PhoneCallSvg,
   UserCircleSvg,
 } from 'client/assets/images';
@@ -17,7 +17,7 @@ import {
   HeaderWrapper, HeaderContainer,
   LogoWrapper, LogoText,
   ControlWrapper,
-  Search,
+  // Search,
   // LoupeSvgStyled,
   Phone, PhoneText,
   Lang, LangText,

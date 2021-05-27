@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Icon = styled.span`
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 
   > svg {
     width: 80px;
@@ -28,6 +28,7 @@ export const Title = styled.h4`
   font-weight: ${FONTS.semiBold};
   color: ${PALETTE.green1};
   margin: 0;
+  margin-top: 30px;
   margin-bottom: 14px;
   text-transform: uppercase;
 `;

@@ -168,6 +168,7 @@ export const NavBar = ({
         text: `${t(`common.words.${page}`)} ${t('common.words.archive')}`,
       };
     }
+
     setOptions({ ...data, ...settings });
   }, [pathname]);
 

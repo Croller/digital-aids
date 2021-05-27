@@ -73,7 +73,8 @@
     "qrcode": "QR Code",
     "mails": "Mails",
     "lat": "Latitude",
-    "lng": "longitude"
+    "lng": "longitude",
+    "emptyList": "No data"
   },
 
   "form" : {

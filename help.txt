@@ -373,3 +373,8 @@ sudo systemctl restart postgresql
 
 sudo nginx -t           // check config
 sudo nginx -s reload    // reload nginx
+
+// logs 
+cd /var/log/nginx
+cd /var/log/postgresql
+cd /root/.pm2/logs

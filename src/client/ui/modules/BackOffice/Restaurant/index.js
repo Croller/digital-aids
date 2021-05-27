@@ -66,15 +66,11 @@ const Restaurant = () => {
 
   const initValue = () => {
     let data = { ...model };
-    
-    console.log(params.restaurant, restaurants);
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(f => f.id === params.restaurant);
     }
 
-    console.log('data', data);
     setData(dataToForm({ ...data, images: [] }));
-
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
@@ -92,6 +88,14 @@ const Restaurant = () => {
     } 
     return formData.images.slice(1);
   };
+
+  const getMapProps = () => ({
+    center: {
+      lat: formData.lat,
+      lng: formData.lng,
+    },
+    zoom: !formData.lat && !formData.lng ? 1 : 15,
+  });
 
   const handleRoute = (key) => {
     history.push(key);
@@ -118,28 +122,19 @@ const Restaurant = () => {
   };
 
   const handleValuesChange = async (values) => {
-    console.log('values - ', values);
+    console.log('values - ', { ...formData, ...values });
     if (!values) return;
-    const edited = {};
-    const {
-      main_language,
-      sub_languages,
-      address,
-    } = values;
+    const edited = { ...formData, ...values };
 
-    if (main_language) {
-      edited.main_language = main_language;
-      edited.sub_languages = formData.sub_languages.filter(f => f !== main_language);
+    if (edited.main_language) {
+      edited.sub_languages = edited.sub_languages.filter(f => f !== edited.main_language);
     }
-    if (sub_languages) {
-      edited.sub_languages = sub_languages.some(s => s === 'en') ? sub_languages : ['en', ...sub_languages];
+    if (edited.main_language !== 'en' && !edited.sub_languages.includes('en')) {
+      edited.sub_languages = ['en', ...edited.sub_languages];
     }
-
-    // TODO GEOCODE
-    if (address) {
-      setAddressStr(address);
+    if (edited.address) {
+      setAddressStr(edited.address);
     }
-
     if (Object.keys(edited).length > 0) {
       const obj = {
         ...formData,
@@ -168,15 +163,12 @@ const Restaurant = () => {
   const handleDebouceSearch = async () => {
     if (debouceSearch) {
       const results = await getCoordsByAddress({ address: debouceSearch, language });
-      console.log('results', results.results);
       if (results.status === 'OK') {
         setAddressResults(results.results);
-      } else {
-        setAddressResults([]);
+        return;
       }
-    } else {
-      setAddressResults([]);
     }
+    setAddressResults(null);
   };
 
   const handleUpdateAddress = (address, geometry) => {
@@ -186,7 +178,7 @@ const Restaurant = () => {
       lat: geometry.lat,
       lng: geometry.lng,
     });
-    setAddressResults([]);
+    setAddressResults(null);
   };
 
   useEffect(() => {
@@ -205,8 +197,7 @@ const Restaurant = () => {
   useEffect(() => {
     if (status) {
       if (status === 'created') {
-        const { id } = restaurants.slice(-1)[0];
-        history.push(id);
+        history.goBack();
       }
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
@@ -215,7 +206,6 @@ const Restaurant = () => {
   return formData && (
     <RestaurantWrapper>
       <NavBarStyled
-        settings={{ delete: params.restautant !== 'new' }}
         onEvent={handleEvent}
       />
       <FormStyled
@@ -513,18 +503,20 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
-            <AddressItemsWrapper>
-              <AddressList>
-                {addressRusults.map(({ place_id, formatted_address, geometry: { location } }) => (
-                  <AddressItem
-                    key={`_addres_item_${place_id}`}
-                    onClick={() => handleUpdateAddress(formatted_address, location)}
-                  >
-                    {formatted_address}
-                  </AddressItem>
-                ))}
-              </AddressList>
-            </AddressItemsWrapper>
+            {addressRusults && (
+              <AddressItemsWrapper>
+                <AddressList>
+                  {addressRusults.map(({ place_id, formatted_address, geometry: { location } }) => (
+                    <AddressItem
+                      key={`_addres_item_${place_id}`}
+                      onClick={() => handleUpdateAddress(formatted_address, location)}
+                    >
+                      {formatted_address}
+                    </AddressItem>
+                  ))}
+                </AddressList>
+              </AddressItemsWrapper>
+            )}
             <Form2Col>
               <FormCol>
                 <FormItemStyled
@@ -551,14 +543,13 @@ const Restaurant = () => {
                 </FormItemStyled>
               </FormCol>
             </Form2Col>
-            {formData.lat && formData.lng && addressRusults.length === 0 && (
-              <MapStyled
-                initialCenter={{ lat: formData.lat, lng: formData.lng }}
-                zoom={!formData.lat && !formData.lng ? 1 : 15}
-              >
-                <Marker position={{ lat: formData.lat, lng: formData.lng }} />
-              </MapStyled>
-            )}
+            <MapStyled
+              initialCenter={getMapProps().center}
+              zoom={getMapProps().zoom}
+              center={getMapProps().center}
+            >
+              <Marker position={getMapProps().center} />
+            </MapStyled>
             <FormUploader>
               {!loadFiles && (
                 <>

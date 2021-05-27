@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { RestaurantSvg } from 'client/assets/images';
+import { ArchiveSvg } from 'client/assets/images';
 import {
   Wrapper,
   Icon,
@@ -8,9 +8,9 @@ import {
   Descriptions,
 } from './styled';
 
-export const EmptyListRestaurant = ({
-  type = 'restaurants',
-  icon = <RestaurantSvg />,
+export const EmptyBlock = ({
+  type = 'noData',
+  icon = <ArchiveSvg />,
 }) => {
   const [t] = useTranslation();
   return (
@@ -26,7 +26,7 @@ export const EmptyListRestaurant = ({
         </Title>
       )}
       <Descriptions>
-        {type && t(`backOffice.emptyList.${type}`)}
+        {t(`backOffice.emptyList.${type}`)}
       </Descriptions>
     </Wrapper>
   );

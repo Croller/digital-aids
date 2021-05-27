@@ -3,18 +3,24 @@ import {
   Map,
   GoogleApiWrapper, 
 } from 'google-maps-react';
+// TODO lng to props, getLocal delete
+import { getLocal } from 'client/utils/localStorageEdit';
+
+const { user } = getLocal();
  
 const MapContainer = ({
   zoom = 15,
   initialCenter = { lat: 40.854885, lng: -88.081807 },
   google,
   className,
+  center,
   children,
 }) => (
   <Map
     className={className}
     google={google}
     zoom={zoom}
+    center={center}
     initialCenter={initialCenter}
   >
     {children}
@@ -22,6 +28,6 @@ const MapContainer = ({
 );
  
 export const GoogleMap = GoogleApiWrapper(({ lng = 'en' }) => ({
-  language: lng,
-  apiKey: 'AIzaSyA7uAl-dl4f0s9VKu_SGDA7gJr0d_xCfbg',
+  language: user.lng || lng,
+  apiKey: process.env.API_KEY_GOOGLE_MAP,
 }))(MapContainer);

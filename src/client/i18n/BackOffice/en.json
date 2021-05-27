@@ -10,7 +10,8 @@
   "emptyList": {
     "restaurants": "Add a new restaurante in your collection",
     "archive": "Your archive is empty",
-    "search": "No matching entries"
+    "search": "No matching entries",
+    "noData": "No data"
   },
   "confirmModal": {
     "restaurant": {

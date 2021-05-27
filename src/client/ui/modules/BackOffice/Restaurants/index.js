@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/RestaurantInfo';
 import { update } from 'client/store/backOffice';
-import { EmptyListRestaurant } from 'client/ui/modules/BackOffice/components/EmptyBlock';
+import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import { ArchiveSvg, RestaurantSvg } from 'client/assets/images';
 import {
   RestaurantList,
@@ -68,7 +68,7 @@ const Restaurants = () => {
       <List>
         {loading && (<LoaderStyled />)}
         {(searched || (filtred && filtred[isArchive].length === 0)) ? (
-          <EmptyListRestaurant
+          <EmptyBlock
             type={(searched && 'search') || (isArchive ? 'archive' : 'restaurants')}
             icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
           />
