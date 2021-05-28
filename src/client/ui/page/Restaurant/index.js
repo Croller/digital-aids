@@ -50,6 +50,17 @@ export const Restaurant = () => {
       const { dishes, categories } = restaurant;
       rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
     }
+    if (restaurant.info && restaurant.info.id) {
+      if (href.indexOf('/receipt?params') > -1) {
+        const { dishes, categories } = restaurant;
+        rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+      }
+      //TODO get table number and reroute without params at url
+      // if (href.indexOf('/?params') > -1) {
+      //   const { dishes, categories } = restaurant;
+      //   rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+      // }
+    }
   }, [restaurant.info]);
 
   return (

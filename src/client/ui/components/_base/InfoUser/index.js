@@ -66,12 +66,12 @@ export const InfoUser = () => {
       }));
     }
     
-    // if (process.env.NODE_ENV === 'development' && pathname.indexOf(pathCurrent) > -1) {
-    //   rootDispatch(login({
-    //     login: process.env.BACK_OFFICE_ADMIN_LOGIN,
-    //     password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
-    //   }));
-    // }
+    if (process.env.NODE_ENV === 'development' && pathname.indexOf(pathCurrent) > -1) {
+      rootDispatch(login({
+        login: process.env.BACK_OFFICE_ADMIN_LOGIN,
+        password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
+      }));
+    }
     
     setLocalStorage(storageKey, local);
     setStorage(local);

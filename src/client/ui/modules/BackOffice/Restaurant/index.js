@@ -52,7 +52,7 @@ const Restaurant = () => {
   const [isChange, setIsChange] = useState(false);
   const [loadFiles, setLoadFiles] = useState(true);
   const [formData, setFormData] = useState(null);
-  const [deletedFiles, setDeletedFiles] = useState(null);
+  const [deletedFiles, setDeletedFiles] = useState([]);
   const [addressStr, setAddressStr] = useState(null);
   const [addressRusults, setAddressResults] = useState(null);
   const debouceSearch = useDebounce(addressStr, 500);
@@ -146,15 +146,15 @@ const Restaurant = () => {
   };
 
   const handleUpload = (key, files, deleted = null) => {
-    let list = formData.images || [null];
+    let list = [...formData.images || [null]];
     if (key === 'logo') {
-      list[0] = { ...files[0] } || null;
+      list[0] = deleted ? null : { ...files[0] };
     }
     if (key === 'photos') {
       list = [list[0], ...files];
     }
-    if (deleted && list.some(s => s && s.uuid === deleted.uuid)) {
-      setDeletedFiles([...(deletedFiles || []), `/restaurants/${key}/${deleted.uuid}.png`]);
+    if (deleted) {
+      setDeletedFiles([...deletedFiles, `/restaurants/${key}/${deleted.uuid}.png`]);
     }
     setFormData({ ...formData, images: (list.slice(1).length > 0 || list[0] ? list : null) });
     setIsChange(true);
