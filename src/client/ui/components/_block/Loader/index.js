@@ -3,6 +3,7 @@ import {
   Wrapper,
   Background,
   Container,
+  Content,
   BounceFirst,
   BounceSecond,
 } from './styled';
@@ -15,8 +16,10 @@ export const Loader = memo(({
   <Wrapper className={className} height={height}>
     <Background />
     <Container>
-      <BounceSecond />
-      <BounceFirst color={color} />
+      <Content>
+        <BounceSecond />
+        <BounceFirst color={color} />
+      </Content>
     </Container>
   </Wrapper>
 ));

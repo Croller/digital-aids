@@ -29,30 +29,7 @@
     "yes_i": "Bekrefte",
     "not_i": "Jeg bekrefter ikke",
     "yes": "Yes",
-    "not": "Not",
-    "currency": {
-      "euro": "€"
-    },
-    "unit": {
-      "kg": "kg",
-      "gr": "gr",
-      "l": "l",
-      "ml": "ml",
-      "pc": "pc",
-      "pr": "pr"
-    },
-    "cuisine_type": {
-      "fusion": "Fusione"
-    },
-    "week_day_short": {
-      "mon": "Man",
-      "tue": "Tir",
-      "wed": "Ons",
-      "thu": "Tor",
-      "fri": "Fre",
-      "sat": "Lør",
-      "sun": "Søn"
-    }
+    "not": "Not"
   },
   "pageMenu": {
     "text":"Oops! Det ser ut til at noe gikk galt,\n men vi er her for å hjelpe deg!\n Vennligst prøv igjen."
@@ -83,23 +60,7 @@
     "ask_waiter": "Spør kelneren om å bekrefte bestillingen."
   },
   "compAllergens": {
-    "descriptions": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. \n\n Hvis du har allergier, spør kelneren på forhånd for mer informasjon om våre retter.",
-    "allergens": {
-      "mustard": "Sennep",
-      "lupins": "Lupiner",
-      "sesame": "Sesam",
-      "fish": "Fisk",
-      "nuts": "Hasselnøtt",
-      "diox": "Dioks, svovel og sulfitter",
-      "crustaceans": "Krepsdyr",
-      "soy": "Soya",
-      "mollusks": "Sjøbløtdyr",
-      "celery": "Selleri",
-      "eggs": "Egg",
-      "dairy": "Meieriprodukter",
-      "peanuts": "Peanøtter",
-      "gluten": "Gluten"
-    }
+    "descriptions": "Vi minner om at denne tabellen er veiledende og vi kan ikke garantere fravær av 100% allergener i alle produkter. \n\n Hvis du har allergier, spør kelneren på forhånd for mer informasjon om våre retter."
   },
   "compModal": {
     "order_delete": "Er du sikker på at du vil slette hele bestillingen?",

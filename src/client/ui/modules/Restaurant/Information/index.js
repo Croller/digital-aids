@@ -19,7 +19,7 @@ import {
 } from 'client/assets/images';
 import { getUrl, getDictionaryItem } from 'client/utils/common';
 import { 
-  Wrapper,
+  InformationWrapper,
   ImageWrapper,
   CloseButton,
   CarouselControls, Control,
@@ -116,7 +116,7 @@ const Information = memo(() => {
   }, []);
 
   return (
-    <Wrapper>
+    <InformationWrapper>
       <ImageWrapper>
         {images && images.length > 0 && (
           <>
@@ -187,7 +187,7 @@ const Information = memo(() => {
             </MenuButton>
           </InfoControls>
         </InfoWrapper>
-        <ReservButton>
+        <ReservButton onClick={() => handleRoute('reserve')}>
           {`${t('restaurant.common.reservation')} ${t('restaurant.common.online')}`} 
         </ReservButton>
         <AddessWrapper>
@@ -255,7 +255,7 @@ const Information = memo(() => {
         )}
       </Content>
       <ThankYou />
-    </Wrapper>
+    </InformationWrapper>
   );
 });
 

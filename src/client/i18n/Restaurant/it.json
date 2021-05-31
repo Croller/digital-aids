@@ -29,30 +29,7 @@
     "yes_i": "Confermo",
     "not_i": "No confermo",
     "yes": "Yes",
-    "not": "Not",
-    "currency": {
-      "euro": "€"
-    },
-    "unit": {
-      "kg": "kg",
-      "gr": "gr",
-      "l": "l",
-      "ml": "ml",
-      "pc": "pc",
-      "pr": "pr"
-    },
-    "cuisine_type": {
-      "fusion": "Fusione"
-    },
-    "week_day_short": {
-      "mon": "Lun",
-      "tue": "Mar",
-      "wed": "Mer",
-      "thu": "Gio",
-      "fri": "Ven",
-      "sat": "Sab",
-      "sun": "Dom"
-    }
+    "not": "Not"
   },
   "pageMenu": {
     "text":"Ops! Sembra che qualcosa sia andato storto,\n ma siamo qui per aiutare!\n Si prega di riprovare."
@@ -83,23 +60,7 @@
     "ask_waiter": "Rivolgersi al cameriere per \n confermare l'ordine."
   },
   "compAllergens": {
-    "descriptions": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. \n\n In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti.",
-    "allergens": {
-      "mustard": "Mostarda",
-      "lupins": "Lupini",
-      "sesame": "Sesamo",
-      "fish": "Pesce",
-      "nuts": "Nocciolino",
-      "diox": "Diox, zolfo e solfiti",
-      "crustaceans": "Crostacei",
-      "soy": "Soia",
-      "mollusks": "Molluschi di mare",
-      "celery": "Sedano",
-      "eggs": "Uovo",
-      "dairy": "Latticini",
-      "peanuts": "Arachidi",
-      "gluten": "Glutine"
-    }
+    "descriptions": "Ricordiamo che questa tabella è indicativa e non si può garantire l’assenza di allergeni al 100% in tutti i prodotti. \n\n In presenza di allergie, si prega di verificare prima con il cameriere ulteriori informazioni sui nostri piatti."
   },
   "compModal": {
     "order_delete": "Sei sicuro di voler\n rimuovere l'intero ordine?",

@@ -6,10 +6,11 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { GoogleMap } from 'client/ui/modules/Restaurant/components/GoogleMap';
 
-export const Wrapper = styled.div`
+export const InformationWrapper = styled.div`
   display: block;
   position: relative;
 `;
+
 export const ImageWrapper = styled.div`
   min-height: 217px;
 `;
@@ -93,7 +94,7 @@ export const Img = styled.img`
 export const Content = styled.div`
   position: relative;
   padding: 0 27px;
-  margin-top: -78px;
+  margin-top: -84px;
   z-index: 25;
 `;
 

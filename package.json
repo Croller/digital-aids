@@ -52,6 +52,7 @@
     "prop-types": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^16.5.2",
+    "react-calendar": "^3.4.0",
     "react-device-detect": "^1.13.1",
     "react-dom": "^16.5.2",
     "react-helmet": "^6.1.0",

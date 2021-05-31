@@ -2,7 +2,6 @@ import {
   takeLatest,
   put,
   select,
-  take,
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/restaurant/constants';
 import * as commonProvider from 'client/providers/common';
@@ -107,6 +106,23 @@ function* init({ payload: { restaurant = null } }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }
 
+function* updateRow({ payload }) {
+  const { token } = yield select((store) => store.user.info);
+  yield put({ type: Constants.REST_LOADING_SET, payload: true });
+  try {
+    const results = yield commonProvider.update({
+      ...payload,
+      token,
+    }); 
+    if (results.error) {
+      yield put({ type: Constants.REST_ERROR_SET, payload: results.error });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.REST_LOADING_SET, payload: false });
+}
+
 function* setOrder({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
   const { order } = yield select((store) => store.restaurant);
@@ -147,12 +163,16 @@ function* setOrder({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }
 
+export function* watchRESTupdate() {
+  yield takeLatest(Constants.REST_UPDATE, updateState);
+}
+
 export function* watchRESTloadInit() {
   yield takeLatest(Constants.REST_LOAD_INIT, init);
 }
 
-export function* watchRESTupdate() {
-  yield takeLatest(Constants.REST_UPDATE, updateState);
+export function* watchRESTupdateRow() {
+  yield takeLatest(Constants.REST_SET_ROW, updateRow);
 }
 
 export function* watchRESTset() {

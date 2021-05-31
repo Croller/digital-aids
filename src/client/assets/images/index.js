@@ -7,6 +7,9 @@ import FloppyDiskSvg from './svg/floppy-disk.svg';
 import PlusSvg from './svg/plus.svg';
 import PictureAddSvg from './svg/picture-add.svg';
 import MenuSvg from './svg/menu.svg';
+import CalendarSvg from './svg/calendar.svg';
+import UsersSvg from './svg/users.svg';
+import PaperPlaneSvg from './svg/paper-plane.svg';
 
 // back office
 import RestaurantSvg from './svg/backOffice/restaurant.svg';
@@ -39,7 +42,6 @@ import ChevronSvg from './svg/restaurant/chevron.svg';
 
 // present
 import LogoSvg from './svg/present/logo.svg';
-import CalendarSvg from './svg/present/calendar.svg';
 import ChecklistSvg from './svg/present/checklist.svg';
 import ChefsHatSvg from './svg/present/chefs-hat.svg';
 import Conversation1Svg from './svg/present/conversation-1.svg';
@@ -54,7 +56,6 @@ import LikeSvg from './svg/present/like.svg';
 import ManagerSvg from './svg/present/manager.svg';
 import OnlineBookingSvg from './svg/present/online-booking.svg';
 import OnlineChatSvg from './svg/present/online-chat.svg';
-import PaperPlaneSvg from './svg/present/paper-plane.svg';
 import PriceTagSvg from './svg/present/price-tag.svg';
 import ProtectionSvg from './svg/present/protection.svg';
 import RepeatSvg from './svg/present/repeat.svg';
@@ -64,7 +65,6 @@ import SunSvg from './svg/present/sun.svg';
 import SupportSvg from './svg/present/support.svg';
 import TelephoneSvg from './svg/present/telephone.svg';
 import TranslationSvg from './svg/present/translation.svg';
-import UsersSvg from './svg/present/users.svg';
 import WebSettingsSvg from './svg/present/web-settings.svg';
 import WineBottleSvg from './svg/present/wine-bottle.svg';
 import RedLine1Svg from './svg/present/red-line-1.svg';
@@ -125,7 +125,10 @@ export {
   PictureAddSvg,
   MenuSvg,
   TickSvg,
-
+  CalendarSvg,
+  UsersSvg,
+  PaperPlaneSvg,
+  
   RestaurantSvg,
   QRCodeSvg,
   
@@ -153,7 +156,6 @@ export {
   ChevronSvg,
 
   LogoSvg,
-  CalendarSvg,
   ChecklistSvg,
   ChefsHatSvg,
   Conversation1Svg,
@@ -168,7 +170,6 @@ export {
   ManagerSvg,
   OnlineBookingSvg,
   OnlineChatSvg,
-  PaperPlaneSvg,
   PriceTagSvg,
   ProtectionSvg,
   RepeatSvg,
@@ -178,7 +179,6 @@ export {
   SupportSvg,
   TelephoneSvg,
   TranslationSvg,
-  UsersSvg,
   WebSettingsSvg,
   WineBottleSvg,
   RedLine1Svg,

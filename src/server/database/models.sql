@@ -109,6 +109,16 @@ CREATE TABLE IF NOT EXISTS data_dishes_translate (
   options jsonb DEFAULT '{}'
 );
 
+CREATE TABLE IF NOT EXISTS data_reserve (
+  number serial,
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  name VARCHAR NOT NULL,
+  email VARCHAR NOT NULL,
+  persons INT NOT NULL,
+  table_number INT DEFAULT NULL,
+  reserve_at timestamp with time zone NOT NULL DEFAULT NULL,
+  is_approved BOOLEAN DEFAULT FALSE
+);
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
   number serial,

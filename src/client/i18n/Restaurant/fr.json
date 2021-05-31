@@ -29,30 +29,7 @@
     "yes_i": "Confirme",
     "not_i": "Non confirme",
     "yes": "Yes",
-    "not": "Not",
-    "currency": {
-      "euro": "€"
-    },
-    "unit": {
-      "kg": "kg",
-      "gr": "gr",
-      "l": "l",
-      "ml": "ml",
-      "pc": "pc",
-      "pr": "pr"
-    },
-    "cuisine_type": {
-      "fusion": "Fusion"
-    },
-    "week_day_short": {
-      "mon": "Lun",
-      "tue": "Mar",
-      "wed": "Mer",
-      "thu": "Jeu",
-      "fri": "Ven",
-      "sat": "Sam",
-      "sun": "Dim"
-    }
+    "not": "Not"
   },
   "pageMenu": {
     "text":"Ouille! Il semble que quelque chose ne va pas,\n mais nous sommes ici pour vous aider!\n S’il vous plaît appuyer sur le bouton pour réessayer. "
@@ -83,23 +60,7 @@
     "ask_waiter": "Veuillez demander au serveur de confirmer votre commande!"
   },
   "compAllergens": {
-    "descriptions": "Nous vous rappelons que ce tableau est fourni à titre informatif et que nous ne pouvons pas vous garantir l’absence complète d’allergènes dans tous nos produits. \n\n Si vous êtes allergique, veuillez demander au serveur les informations plus détaillées sur nos plats.",
-    "allergens": {
-      "mustard": "Moutarde",
-      "lupins": "Lupins",
-      "sesame": "Sésame",
-      "fish": "Poisson",
-      "nuts": "Noix",
-      "diox": "Diox, soufre et sulfites",
-      "crustaceans": "Crustacé",
-      "soy": "Soja",
-      "mollusks": "Mollusques",
-      "celery": "Céleri",
-      "eggs": "Des œufs",
-      "dairy": "Produits laitiers",
-      "peanuts": "Cacahuètes",
-      "gluten": "Gluten"
-    }
+    "descriptions": "Nous vous rappelons que ce tableau est fourni à titre informatif et que nous ne pouvons pas vous garantir l’absence complète d’allergènes dans tous nos produits. \n\n Si vous êtes allergique, veuillez demander au serveur les informations plus détaillées sur nos plats."
   },
   "compModal": {
     "order_delete": "Êtes-vous sûr(e), de vouloir supprimer toute votre commande?",

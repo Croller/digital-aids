@@ -5,6 +5,7 @@ export const REST_LOADING_SET = 'REST_LOADING_SET';
 
 export const REST_LOAD_INIT = 'REST_LOAD_INIT';
 
+export const REST_SET_ROW = 'REST_SET_ROW';
 export const REST_SET_ORDER = 'REST_SET_ORDER';
 export const REST_REPLACE_ORDER = 'REST_REPLACE_ORDER';
 export const REST_CLEAR_ORDER = 'REST_CLEAR_ORDER';

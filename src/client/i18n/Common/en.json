@@ -74,7 +74,8 @@
     "mails": "Mails",
     "lat": "Latitude",
     "lng": "longitude",
-    "emptyList": "No data"
+    "emptyList": "No data",
+    "ok": "Ok"
   },
 
   "form" : {
@@ -93,28 +94,31 @@
         "error": "Value not correct"
       },
       "number": {
-        "null": "Please input your number!",
+        "null": "Please set your number!",
         "error": "Number is not correct"
       },
       "float": {
-        "null": "Please input your float!",
+        "null": "Please set your float!",
         "error": "Float is not correct"
       },
       "login": {
-        "null": "Please input your login!",
+        "null": "Please set your login!",
         "error": "Please input login without space!"
       },
       "password": {
-        "null": "Please input your password!",
+        "null": "Please set your password!",
         "error": "Password is not correct"
       },
       "email": {
-        "null": "Please input your email!",
+        "null": "Please set your email!",
         "error": "E-mail is not correct"
       },
       "phone": {
-        "null": "Please input your phone!",
+        "null": "Please set your phone!",
         "error": "Phone is not correct"
+      },
+      "bool": {
+        "error": "Please set check"
       }
     },
 
