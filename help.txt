@@ -254,6 +254,8 @@ apt install mc
 apt install net-tools
 apt install zip
 apt install certbot python3-certbot-nginx
+apt install mailutils
+apt install s-nail
 
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt install nodejs
@@ -262,11 +264,15 @@ npm install pm2@latest -g
 
 service postgresql status
 service nginx status
+service postfix status
 
+// system onreboot start app
 sudo systemctl enable postgresql
 sudo systemctl enable nginx
+sudo systemctl enable postfix
 pm2 startup systemd
 
+// postgresql config 
 sudo -i -u postgres
 createuser digitalRoot
 
@@ -293,6 +299,7 @@ mc
 // host    all             all             109.197.204.68/24          md5
 sudo service postgresql restart
 
+// nginx config 
 cd /etc/nginx/
 cp /etc/nginx/nginx.conf /etc/nginx/nginx_backup.conf
 sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/restauran/nginx.conf root@64.225.82.139:/etc/nginx/nginx.conf
@@ -307,26 +314,14 @@ logout
 sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Documents/FoodFans/project/app.zip root@64.225.82.139:/home/app.zip
 ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139
 
+// pm2 start
 cd /home/app
 npm i
 pm2 start /home/app/src/server/index.js -n server
 pm2 save
 
-mkdir /home/ssh
-ssh-keygen -t rsa -b 4096 -C "79104643015@yandex.ru"
-/home/ssh/id_rsa
-
-git config --global user.name "Croller"
-git config --global user.email "nightcroller@yandex.ru"
-
+// build priject
 ssh-agent bash -c 'ssh-add /home/ssh/ssh_79104643015; git clone git@github.com:Croller/restauran.git'
-
-mv /home/restauran /home/app
-npm i
-pm2 start /home/app/src/server/index.js -n server
-
-cd /home/app npm i
-
 git pull
 npm run build
 rm -rf /home/www
@@ -338,6 +333,41 @@ sudo scp -i /Users/croller/Documents/SSH/mac/ssh_79104643015 /Users/croller/Docu
 sudo certbot --nginx -d digital-aids.com
 // A enter / Y enter / 2 enter
 
+//postfix
+cp /etc/postfix/main.cf /etc/postfix/main_backup.cf
+cp /etc/postfix/master.cf /etc/postfix/master_backup.cf
+smtpd_tls_cert_file=/etc/letsencrypt/live/digital-aids.com/fullchain.pem
+smtpd_tls_key_file=/etc/letsencrypt/live/digital-aids.com/privkey.pem
+smtp_use_tls=yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+sudo postconf -e 'home_mailbox= mail/'
+sudo postconf -e 'virtual_alias_maps= hash:/etc/postfix/virtual'
+sudo nano /etc/postfix/virtual
+info@digital-aids.com root
+support@digital-aids.com root
+
+sudo postmap /etc/postfix/virtual
+sudo systemctl restart postfix
+echo 'export MAIL=~/mail' | sudo tee -a /etc/bash.bashrc | sudo tee -a /etc/profile.d/mail.sh
+source /etc/profile.d/mail.sh
+
+cp /etc/s-nail.rc /etc/s-nail_backup.rc
+sudo nano /etc/s-nail.rc
+set emptystart
+set folder=/mail
+set record=+sent
+sudo nano /etc/aliases
+root:          79104643015@yandex.ru
+sudo newaliases
+
+echo 'init' | s-nail -s 'init' -Snorecord root
+
+cat ~/test_message | s-nail -s 'Test email subject line' -r info@digital-aids.com nightcroller@yandex.ru 
+echo "This is the body of an encrypted email" | s-nail -s "This is the subject line" info@digital-aids.com
+
+apt install mailutils
 
 
 // ubuntu command
@@ -378,3 +408,8 @@ zip -r static.zip src/server/static
 cd /var/log/nginx
 cd /var/log/postgresql
 cd /root/.pm2/logs
+
+//s-nail
+file +sent // send mail
+q \\ exit
+h \\ list message
