@@ -14,6 +14,7 @@ import { DailyConfirmModal } from 'client/ui/components/_block/Modal/DailyConfir
 import { setOfferViewed } from 'client/utils/localStorageEdit';
 import { getDictionaryItem } from 'client/utils/common';
 import { v4 as uuidv4 } from 'uuid';
+import { getWorkTime } from 'client/utils/restaurant';
 import {
   Wrapper,
   TitleWrapper,
@@ -189,7 +190,7 @@ const Category = () => {
         {categoryItem.type === 'daily' && (
           <WorkDailyButton>
             <ClockSvg />
-            {categoryItem.options.at_work.description}
+            {getWorkTime(categoryItem.options.at_work)}
           </WorkDailyButton>
         )}
         <DishList>

@@ -254,18 +254,11 @@ const Restaurant = () => {
               required
               rules={rule.text}
             >
-              {/* <InputStyled
-                placeholder={t('common.form.placeholder.text')}
-              /> */}
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
                 placeholder={t('common.form.placeholder.number')}
               />
-              {/* <InputMaskStyled
-                mask="111 1111 1111 1111"
-                placeholder={t('common.form.placeholder.text')}
-              /> */}
             </FormItemStyled>
             <FormItemStyled
               label={t('common.words.contactPerson')}

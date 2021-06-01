@@ -39,6 +39,8 @@ export const imgToPdf = async (base64, title) => {
 // ------------------------------------------------------------------------------------------------------------------------
 // variable func
 
+export const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
+
 export const stringToKey = (str = null) => {
   if (!str) return null;
   return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');

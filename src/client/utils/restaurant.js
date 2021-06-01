@@ -1,5 +1,7 @@
 // import { v4 as uuidv4 } from 'uuid';
 // import { stringToKey, objRecursive } from 'client/utils/common';
+import moment from 'moment';
+import { weekDays } from 'client/utils/common';
 
 export const getTotal = (arr) => {
   if (arr && Array.isArray(arr)) {
@@ -11,6 +13,15 @@ export const getTotal = (arr) => {
     }, 0);
   }
   return 0;
+};
+
+export const getWorkTime = (at_work = null) => {
+  const current_date = new Date();
+  const weekDayNum = current_date.getDay();
+  const weekDayKey = weekDays[weekDayNum];
+  const [from, to] = at_work[weekDayKey];
+  if (!moment(from).isValid() || !moment(to).isValid()) return '';
+  return [moment(from).format('HH:mm'), moment(to).format('HH:mm')].join(' - ');
 };
 
 export const getCategoryDish = (categories, dishes, pKey = 'parent') => {

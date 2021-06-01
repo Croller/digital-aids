@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { RateCircle } from 'client/ui/components/_block/RateCircle';
 import { Marker } from 'google-maps-react';
-import moment from 'moment';
 import {
   CloseSvg,
   ChevronSvg,
@@ -19,6 +18,7 @@ import {
   RateTripadvisorSvg,
 } from 'client/assets/images';
 import { getUrl, getDictionaryItem } from 'client/utils/common';
+import { getWorkTime } from 'client/utils/restaurant';
 import { 
   InformationWrapper,
   ImageWrapper,
@@ -69,17 +69,6 @@ const Information = memo(() => {
     slidesToScroll: 1,
   };
   const getPathImage = (uuid) => `${getUrl()}/static/restaurants/photos/${uuid}.png`;
-
-  const getWeekDay = () => {
-    const current_date = new Date();
-    return current_date.getDay();
-  };
-
-  const getWorkTime = () => {
-    const day = dictionary.days.find(f => f.number === getWeekDay());
-    const [from, to] = at_work[day.id];
-    return [moment(from).format('HH:mm'), moment(to).format('HH:mm')].join(' - ');
-  };
   
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
@@ -166,7 +155,7 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ClockSvg />
             <IconText>
-              {at_work && getWorkTime()}
+              {at_work && getWorkTime(at_work)}
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>
