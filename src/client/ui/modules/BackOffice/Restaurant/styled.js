@@ -113,10 +113,6 @@ export const SelectStyled = styled(Select)`
         font-size: 16px;
       }
 
-      .ant-select-selection-overflow-item {
-        margin-left: -10px;
-      }
-
       .ant-select-selection-placeholder {
         font-size: 18px;
         font-family: ${FONTS.medium};
@@ -128,22 +124,22 @@ export const SelectStyled = styled(Select)`
     .ant-select-arrow {
       top: 48%;
       font-size: 20px;
-      right: 28px !important;
+      right: 28px;
       color: ${PALETTE.black};
     }
 
     &:hover {
       .ant-select-selector {
-        border-color: ${PALETTE.grey6} !important;
-        box-shadow: unset !important;
+        border-color: ${PALETTE.grey6};
+        box-shadow: unset;
       }
     }
 
     &.ant-select-focused {
       .ant-select-selector {
-        outline: none !important;
-        border-color: ${PALETTE.grey6} !important;
-        box-shadow: unset !important;
+        outline: none;
+        border-color: ${PALETTE.grey6};
+        box-shadow: unset;
       }
     }
 
@@ -156,36 +152,40 @@ export const SelectStyled = styled(Select)`
     }
 
     &.ant-select-multiple {
-      .ant-select-selection-item {
-        height: 48px;
-        font-size: 18px;
-        font-family: ${FONTS.medium};
-        display: flex;
-        align-items: center;
-        border-radius: ${THEME.borderRadiusL};
-        background-color: ${PALETTE.grey16};
-        margin-right: 16px;
-        color: ${PALETTE.black};
+      .ant-select-selector {
+        padding: 4px 8px;
 
-        .ant-select-selection-item-content {
+        .ant-select-selection-item {
           height: 48px;
+          font-size: 18px;
+          font-family: ${FONTS.medium};
           display: flex;
           align-items: center;
-          padding: 4px 8px;
-        }
+          border-radius: ${THEME.borderRadiusL};
+          background-color: ${PALETTE.grey16};
+          margin-right: 6px;
+          color: ${PALETTE.black};
 
-        .ant-select-selection-item-remove {
-          font-size: 17px;
-          font-family: ${FONTS.medium};
+          .ant-select-selection-item-content {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+          }
 
-          .anticon-close {
-            margin-right: 4px;
+          .ant-select-selection-item-remove {
+            font-size: 17px;
+            font-family: ${FONTS.medium};
+
+            .anticon-close {
+              margin-right: 4px;
+            }
           }
         }
-      }
 
-      .ant-select-selection-placeholder {
-        left: 20px;
+        .ant-select-selection-placeholder {
+          left: 20px;
+        }
       }
     }
   }

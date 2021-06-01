@@ -4,7 +4,7 @@ import {
   UserCircleSvg,
   RestaurantSvg,
   AlertCircleSvg,
-  Conversation1Svg,
+  // Conversation1Svg,
 } from 'client/assets/images';
 import { 
   SidebarWrapper,
@@ -24,11 +24,11 @@ const MENU_LIST = [
     icon: <UserCircleSvg />,
     roles: [1],
   },
-  {
-    key: 'mails',
-    icon: <Conversation1Svg />,
-    roles: [1],
-  },
+  // {
+  //   key: 'mails',
+  //   icon: <Conversation1Svg />,
+  //   roles: [1],
+  // },
 ];
 
 export const Sidebar = memo(({

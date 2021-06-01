@@ -110,4 +110,14 @@ export const rules = (t) => ({
       },
     }),
   ],
+  select: [
+    () => ({
+      validator(_, value) {
+        if (!value || (value && value.length === 0)) {
+          return Promise.reject(new Error(t('common.form.validation.select.null')));
+        }
+        return Promise.resolve();
+      },
+    }),
+  ],
 });

@@ -457,7 +457,7 @@ const Restaurant = () => {
               label={t('common.words.translations')}
               name="sub_languages"
               required
-              rules={rule.email}
+              rules={rule.select}
             >
               <SelectStyled
                 showSearch

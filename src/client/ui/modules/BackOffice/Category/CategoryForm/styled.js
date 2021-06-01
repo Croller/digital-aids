@@ -135,10 +135,6 @@ export const SelectStyled = styled(Select)`
         font-size: 16px;
       }
 
-      .ant-select-selection-overflow-item {
-        margin-left: -10px;
-      }
-
       .ant-select-selection-placeholder {
         font-size: 18px;
         font-family: ${FONTS.medium};
@@ -178,36 +174,40 @@ export const SelectStyled = styled(Select)`
     }
 
     &.ant-select-multiple {
-      .ant-select-selection-item {
-        height: 36px;
-        font-size: 18px;
-        font-family: ${FONTS.medium};
-        display: flex;
-        align-items: center;
-        border-radius: ${THEME.borderRadiusS};
-        background-color: ${PALETTE.grey16};
-        margin-right: 16px;
-        color: ${PALETTE.black};
+      .ant-select-selector {
+        padding: 4px 8px;
 
-        .ant-select-selection-item-content {
+        .ant-select-selection-item {
           height: 36px;
+          font-size: 18px;
+          font-family: ${FONTS.medium};
           display: flex;
           align-items: center;
-          padding: 4px 8px;
-        }
+          border-radius: ${THEME.borderRadiusS};
+          background-color: ${PALETTE.grey16};
+          margin-right: 6px;
+          color: ${PALETTE.black};
 
-        .ant-select-selection-item-remove {
-          font-size: 17px;
-          font-family: ${FONTS.medium};
+          .ant-select-selection-item-content {
+            height: 36px;
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+          }
 
-          .anticon-close {
-            margin-right: 4px;
+          .ant-select-selection-item-remove {
+            font-size: 17px;
+            font-family: ${FONTS.medium};
+
+            .anticon-close {
+              margin-right: 4px;
+            }
           }
         }
-      }
 
-      .ant-select-selection-placeholder {
-        left: 20px;
+        .ant-select-selection-placeholder {
+          left: 20px;
+        }
       }
     }
   }

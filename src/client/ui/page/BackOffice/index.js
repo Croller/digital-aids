@@ -13,7 +13,7 @@ const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
-const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
+// const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
   const { token, roles } = useSelector(store => store.user.info);
@@ -71,12 +71,12 @@ export const BackOffice = () => {
               ]}
               component={User}
             />
-            <Route
+            {/* <Route
               path={[
                 `${PATH}/mails`,
               ]}
               component={Mails}
-            />
+            /> */}
             <Redirect to={`${PATH}/restaurants`} />
           </>
         )}

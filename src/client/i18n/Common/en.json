@@ -119,6 +119,9 @@
       },
       "bool": {
         "error": "Please set check"
+      },
+      "select": {
+        "null": "Please select value!"
       }
     },
 
