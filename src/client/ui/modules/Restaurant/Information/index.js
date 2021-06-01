@@ -18,8 +18,9 @@ import {
   RateTripadvisorSvg,
 } from 'client/assets/images';
 import { getUrl, getDictionaryItem } from 'client/utils/common';
+import { getWorkTime } from 'client/utils/restaurant';
 import { 
-  Wrapper,
+  InformationWrapper,
   ImageWrapper,
   CloseButton,
   CarouselControls, Control,
@@ -68,7 +69,7 @@ const Information = memo(() => {
     slidesToScroll: 1,
   };
   const getPathImage = (uuid) => `${getUrl()}/static/restaurants/photos/${uuid}.png`;
-
+  
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
       if (path.indexOf('tel') > -1) {
@@ -116,7 +117,7 @@ const Information = memo(() => {
   }, []);
 
   return (
-    <Wrapper>
+    <InformationWrapper>
       <ImageWrapper>
         {images && images.length > 0 && (
           <>
@@ -154,7 +155,7 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ClockSvg />
             <IconText>
-              {at_work && at_work.description ? at_work.description : ''}
+              {at_work && getWorkTime(at_work)}
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>
@@ -187,7 +188,7 @@ const Information = memo(() => {
             </MenuButton>
           </InfoControls>
         </InfoWrapper>
-        <ReservButton>
+        <ReservButton onClick={() => handleRoute('reserve')}>
           {`${t('restaurant.common.reservation')} ${t('restaurant.common.online')}`} 
         </ReservButton>
         <AddessWrapper>
@@ -255,7 +256,7 @@ const Information = memo(() => {
         )}
       </Content>
       <ThankYou />
-    </Wrapper>
+    </InformationWrapper>
   );
 });
 

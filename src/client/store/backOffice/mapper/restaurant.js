@@ -1,4 +1,5 @@
-import { stringToKey } from 'client/utils/common';
+import { stringToKey, weekDays } from 'client/utils/common';
+import moment from 'moment';
 
 export const dataToForm = (data) => {
   const { 
@@ -42,9 +43,14 @@ export const dataToForm = (data) => {
     'socials.tripadvisor.url': socials.tripadvisor.url,
     'socials.tripadvisor.rate': socials.tripadvisor.rate ? parseFloat(socials.tripadvisor.rate) : 0,
     'socials.tripadvisor.comments': socials.tripadvisor.comments ? parseInt(socials.tripadvisor.comments, 0) : 0,
-    'at_work.description': at_work.description,
     lat: geojson ? parseFloat(goemEdit[0]) : 0,
     lng: geojson ? parseFloat(goemEdit[1]) : 0,
+    'at_work.day': 'mon',
+    ...weekDays.reduce((obj, key) => ({
+      ...obj,
+      [`at_work.${key}.from`]: moment(at_work[key][0]).isValid ? moment(at_work[key][0]).format('HH:mm') : null,
+      [`at_work.${key}.to`]: moment(at_work[key][1]).isValid ? moment(at_work[key][1]).format('HH:mm') : null,
+    }), {}),
   };
 };
 
@@ -64,7 +70,8 @@ export const dataToApi = (data, current) => {
     sub_languages,
     lat, lng,
   } = data;
-
+  
+  const days = Object.keys(current.at_work).filter(f => f !== 'description');
   const images = data.images && data.images
     .reduce((arr, file, i) => {
       if (!file && i === 0) return [...arr, file];
@@ -114,8 +121,14 @@ export const dataToApi = (data, current) => {
       },
     },
     at_work: {
-      ...current.at_work,
       description: data['at_work.description'] || null,
+      ...days.reduce((obj, key) => ({
+        ...obj,
+        [key]: [
+          moment(data[`at_work.${key}.from`], 'HH:mm').isValid() ? `2020-01-01 ${data[`at_work.${key}.from`]}:00.000` : null,
+          moment(data[`at_work.${key}.to`], 'HH:mm').isValid() ? `2020-01-01 ${data[`at_work.${key}.to`]}:00.000` : null,
+        ],
+      }), {}),
     },
     geojson: {
       type: 'Feature',
@@ -191,80 +204,9 @@ export const model = {
     ],
     sun: [
       '2020-01-01T10:00:00.000',
-      '2020-01-01T00:00:00.000',
+      '2020-01-01T22:00:00.000',
     ],
   },
   is_archived: false,
   is_deleted: false,
 };
-
-// example 
-// {
-//   id: null,
-//   key: 'las-ceuvas',
-//   name: 'Las ceuvas',
-//   address: 'Barrio Primero de Mayo 13 - San Miguel de Salinas',
-//   email: ['robert@lascuevas.es'],
-//   opinion: 'robert@lascuevas.es',
-//   phone: ['+34 617 241 673'],
-//   currency: ['EUR'],
-//   cuisine: ['Spanish'],
-//   employees: ['Robert Johansen'],
-//   avg_price: 25.2,
-//   languages: ['es', 'en', 'ru', 'el', 'it', 'de', 'fr', 'no', 'ja'],
-//   images: null,
-//   geojson: null,
-//   socials: {
-//     thefork: {
-//       comments: 0,
-//       rate: 0.0,
-//       url: 'www.tripadvisor.co.uk/Restaurant_Review-g1238605-',
-//     },
-//     tripadvisor: {
-//       comments: 0,
-//       rate: 0.0,
-//       url: null,
-//     },
-//     facebook: {
-//       rate: null,
-//       url: 'www.facebook.com/Restaurantelascuevas/',
-//     },
-//     instagram: {
-//       rate: null,
-//       url: 'www.instagram.com/lascuevasrestaurante/',
-//     },
-//   },
-//   at_work: {
-//     description: '17.00- 22.00',
-//     mon: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T22:00:00.000',
-//     ],
-//     tue: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T22:00:00.000',
-//     ],
-//     wed: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T22:00:00.000',
-//     ],
-//     thu: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T22:00:00.000',
-//     ],
-//     fri: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T22:00:00.000',
-//     ],
-//     sat: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T22:00:00.000',
-//     ],
-//     sun: [
-//       '2020-01-01T10:00:00.000',
-//       '2020-01-01T00:00:00.000',
-//     ],
-//   },
-//   is_archived: false,
-//   is_deleted: false,
-// };

@@ -15,11 +15,28 @@ export const Wrapper = styled.div`
 `;
 
 export const Background = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   background-color: ${PALETTE.white};
-  opacity: 0.3;
+  opacity: 0.6;
+  z-index: ${Z_INDEX.loader + 1};
 `;
 
 export const Container = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: ${Z_INDEX.loader + 2};
+  display: flex;
+  align-items: center;
+`;
+
+export const Content = styled.div`
   width: 40px;
   height: 40px;
   position: relative;

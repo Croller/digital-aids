@@ -30,29 +30,11 @@
     "not_i": "Not, I not",
     "yes": "Yes",
     "not": "Not",
-    "currency": {
-      "euro": "€"
-    },
-    "unit": {
-      "kg": "kg",
-      "gr": "gr",
-      "l": "L",
-      "ml": "ml",
-      "pc": "pc",
-      "pr": "pr"
-    },
-    "cuisine_type": {
-      "fusion": "Fusion"
-    },
-    "week_day_short": {
-      "mon": "Mon",
-      "tue": "Tue",
-      "wed": "Wed",
-      "thu": "Thu",
-      "fri": "Fri",
-      "sat": "Sat",
-      "sun": "Sun"
-    }
+    "next": "Next",
+    "day": "Day",
+    "time": "Time",
+    "persons": "Persons",
+    "reserving": "Reserve"
   },
   "pageMenu": {
     "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
@@ -101,24 +83,12 @@
   "pageReceipt": {
     "ask_waiter": "Ask the waiter to confirm your order"
   },
+  "pageReserve": {
+    "accept": "I accept",
+    "policy": "Privacy Policy."
+  },
   "compAllergens": {
-    "descriptions": "We remind you that this table is indicative and that we cannot guarantee the absence of 100% allergens in all our products. \n\n In case you have any allegry, please, ask the waiter for more detailed information about our dishes.",
-    "allergens": {
-      "mustard": "Mustard",
-      "lupins": "Lupins",
-      "sesame": "Sesame",
-      "fish": "Fish",
-      "nuts": "Tree nuts",
-      "diox": "Diox, sulfur and sulfites",
-      "crustaceans": "Crustaceans",
-      "soy": "Soy",
-      "mollusks": "Mollusks",
-      "celery": "Celery",
-      "eggs": "Eggs",
-      "dairy": "Dairy products",
-      "peanuts": "Peanuts",
-      "gluten": "Gluten"
-    }
+    "descriptions": "We remind you that this table is indicative and that we cannot guarantee the absence of 100% allergens in all our products. \n\n In case you have any allegry, please, ask the waiter for more detailed information about our dishes."
   },
   "compModal": {
     "order_delete": "Are you sure you want to \n remove your entire order?",
@@ -127,7 +97,8 @@
     "confirm_age": {
       "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. \n Drink with moderation.",
       "description": "Please, confirm that you \n are over 18 years old"
-    }
+    },
+    "reserve_send": "Thank you for your reservation! \n\n We send you soon \n a confirmation e-mail."
   },
   "footer": {
     "thankyou": {

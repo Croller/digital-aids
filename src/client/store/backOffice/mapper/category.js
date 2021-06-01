@@ -1,4 +1,5 @@
-import { stringToKey } from 'client/utils/common';
+import { stringToKey, weekDays } from 'client/utils/common';
+import moment from 'moment';
 
 export const dataToForm = (data) => {
   const { 
@@ -18,8 +19,16 @@ export const dataToForm = (data) => {
     name,
     children,
     ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, key) => {
-      if (key === 'at_work') {
-        return { ...item, ...Object.keys(options.at_work).reduce((itemW, keyW) => ({ ...itemW, [`options.at_work.${keyW}`]: options.at_work[keyW] }), {}) };
+      if (key === 'at_work' && type === 'daily') {
+        return {
+          ...item,
+          'options.at_work.day': 'mon',
+          ...weekDays.reduce((obj, k) => ({
+            ...obj,
+            [`options.at_work.${k}.from`]: moment(options.at_work[k][0], 'HH:mm').isValid ? moment(options.at_work[k][0]).format('HH:mm') : null,
+            [`options.at_work.${k}.to`]: moment(options.at_work[k][1], 'HH:mm').isValid ? moment(options.at_work[k][1]).format('HH:mm') : null,
+          }), {}),
+        };
       }
       return { ...item, [`options.${key}`]: options[key] };
     }, {}) : {},
@@ -35,8 +44,8 @@ export const dataFromToList = (data, current = null) => {
     parent,
     restaurant,
   } = data;
-
   let children = null;
+  
   if (data.children && current && current.children) {
     const existChild = current.children.reduce((arr, f) => {
       const exist = data.children.includes(f.name);
@@ -52,13 +61,18 @@ export const dataFromToList = (data, current = null) => {
     children = [...existChild, ...deletedChild, ...newChild];
   }
 
-  let at_work = Object.keys(data).filter(f => f.indexOf('options.at_work') > -1);
-  at_work = at_work.length > 0 ? at_work : {};
-  if (at_work.length > 0) {
+  let at_work = Object.keys(data).filter(f => f.indexOf('options.at_work') > -1 && (f.indexOf('.from') > -1 || f.indexOf('.to') > -1));
+  at_work = at_work.length > 0 ? at_work : null;
+  if (at_work && at_work.length > 0) {
     at_work = {
-      at_work: {
-        ...at_work.reduce((item, key) => ({ ...item, [key.split('.')[2]]: data[key] }), {}),
-      },
+      description: data['options.at_work.description'] || null,
+      ...weekDays.reduce((obj, key) => ({
+        ...obj,
+        [key]: [
+          moment(data[`options.at_work.${key}.from`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${key}.from`]}:00.000` : null,
+          moment(data[`options.at_work.${key}.to`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${key}.to`]}:00.000` : null,
+        ],
+      }), {}),
     };
   }
 
@@ -71,8 +85,8 @@ export const dataFromToList = (data, current = null) => {
     parent,
     restaurant,
     options: {
+      ...({ at_work } || {}),
       ...Object.keys(data).filter(f => f.indexOf('options.') > -1 && f.indexOf('options.at_work') === -1).reduce((item, key) => ({ ...item, [key.split('.')[1]]: data[key] }), {}),
-      ...at_work,
     },
     is_archived: current ? current.is_archived : false,
     is_deleted: current ? current.is_deleted : false,
@@ -183,7 +197,7 @@ export const categoryModel = [
         thu: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
         fri: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
         sat: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'],
-        sun: ['2020-01-01T10:00:00.000', '2020-01-01T00:00:00.000'], 
+        sun: ['2020-01-01T10:00:00.000', '2020-01-01T22:00:00.000'], 
       }, 
     },
     is_archived: false,

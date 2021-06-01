@@ -78,6 +78,13 @@ export function update(payload) {
   };
 }
 
+export function updateRow(payload) {
+  return {
+    type: Constants.REST_SET_ROW,
+    payload,
+  };
+}
+
 export function updateOrder(payload) {
   return {
     type: Constants.REST_SET_ORDER,

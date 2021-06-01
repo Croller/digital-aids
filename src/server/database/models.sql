@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   languages VARCHAR ARRAY DEFAULT '{"NULL", "en"}', -- DICTIONARY dictionary_translate
   images VARCHAR ARRAY DEFAULT NULL,
   socials jsonb DEFAULT '{"thefork":{"rate":0,"url":"NULL", "comments":0},"tripadvisor":{"rate":"0","url":"NULL", "comments":0},"facebook":"NULL","instagram":"NULL"}',
-  at_work jsonb DEFAULT '{"description":"9:00-22:00","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T00:00:00.000"]}',
+  at_work jsonb DEFAULT '{"description":"NULL","mon":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"tue":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"wed":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"thu":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"fri":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sat":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"],"sun":["2020-01-01T10:00:00.000","2020-01-01T22:00:00.000"]}',
   options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
   geojson jsonb DEFAULT NULL,
   geom GEOMETRY DEFAULT NULL,
@@ -109,6 +109,16 @@ CREATE TABLE IF NOT EXISTS data_dishes_translate (
   options jsonb DEFAULT '{}'
 );
 
+CREATE TABLE IF NOT EXISTS data_reserve (
+  number serial,
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  name VARCHAR NOT NULL,
+  email VARCHAR NOT NULL,
+  persons INT NOT NULL,
+  table_number INT DEFAULT NULL,
+  reserve_at timestamp with time zone NOT NULL DEFAULT NULL,
+  is_approved BOOLEAN DEFAULT FALSE
+);
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
   number serial,

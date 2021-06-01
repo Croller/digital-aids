@@ -18,6 +18,8 @@ INSERT INTO dictionary_allergens (id, name) VALUES
 
 SELECT * FROM dictionary_allergens;
 
+TRUNCATE dictionary_allergens_translate RESTART IDENTITY CASCADE;
+
 INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('gluten', 'es', 'Gluten'),
   ('sesame', 'es', 'Sésamo'),
@@ -33,6 +35,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'es', 'Moluscos marinos'),
   ('lupins', 'es', 'Altramuces '),
   ('sulphite', 'es', '"Diox, azufre y sulfitos '),
+  
   ('gluten', 'el', 'Γκλουβάιν'),
   ('sesame', 'el', 'Σουσάμι'),
   ('nuts', 'el', 'Ξηροί καρποί'),
@@ -47,6 +50,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'el', 'Θαλάσσια μαλάκια'),
   ('lupins', 'el', 'Λούπινα'),
   ('sulphite', 'el', 'Διοξείδιο του θείου και θειώδη άλατα'),
+  
   ('gluten', 'it', 'Glutine'),
   ('sesame', 'it', 'Sesamo'),
   ('nuts', 'it', 'Nocciolino'),
@@ -61,6 +65,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'it', 'Molluschi di mare'),
   ('lupins', 'it', 'Lupini'),
   ('sulphite', 'it', '"Diox, zolfo e solfiti'),
+  
   ('gluten', 'de', 'Gluten'),
   ('sesame', 'de', 'Sesam'),
   ('nuts', 'de', 'Nüsse'),
@@ -75,6 +80,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'de', 'Seemollusken'),
   ('lupins', 'de', 'Lupinen'),
   ('sulphite', 'de', '"Diox, Schwefel und Sulfite'),
+  
   ('gluten', 'fr', 'Gluten'),
   ('sesame', 'fr', 'Sésame'),
   ('nuts', 'fr', ' Noisettes'),
@@ -89,6 +95,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'fr', 'Les mollusques'),
   ('lupins', 'fr', 'Lupins'),
   ('sulphite', 'fr', '"Diox, soufre et sulfites'),
+  
   ('gluten', 'no', 'Gluten'),
   ('sesame', 'no', 'Sesam'),
   ('nuts', 'no', 'Hasselnøtt'),
@@ -103,6 +110,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'no', 'Sjøbløtdyr'),
   ('lupins', 'no', 'Lupiner'),
   ('sulphite', 'no', '"Dioks, svovel og sulfitter'),
+  
   ('gluten', 'ja', 'グルテン'),
   ('sesame', 'ja', 'ゴマ'),
   ('nuts', 'ja', 'ナッツ'),
@@ -117,6 +125,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'ja', '貝類'),
   ('lupins', 'ja', 'ルピナス豆'),
   ('sulphite', 'ja', '二酸化硫黄と亜硫酸塩'),
+  
   ('gluten', 'ko', '글루텐'),
   ('sesame', 'ko', '참깨'),
   ('nuts', 'ko', '견과류'),
@@ -131,6 +140,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'ko', '조개류'),
   ('lupins', 'ko', '루피너스'),
   ('sulphite', 'ko', '아황산가스와 아황산염'),
+  
   ('gluten', 'ru', 'Глютен'),
   ('sesame', 'ru', 'Кунжут'),
   ('nuts', 'ru', 'Орехи'),
@@ -145,6 +155,7 @@ INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('shellfish', 'ru', 'Моллюски'),
   ('lupins', 'ru', 'Лупины'),
   ('sulphite', 'ru', 'Диоксид серы и сульфиты'),
+  
   ('gluten', 'zh', '谷朊'),
   ('sesame', 'zh', '芝麻'),
   ('nuts', 'zh', '坚果'),

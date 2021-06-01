@@ -37,12 +37,12 @@ export const Layout = ({
   }, []);
 
   const getShowHeader = (path) => {
-    const bool = !['information', 'foodtips', 'receipt'].some(f => path.indexOf(f) > -1);
+    const bool = !['information', 'foodtips', 'receipt', 'reserve'].some(f => path.indexOf(f) > -1);
     return bool;
   };
 
   const getShowFooterMenu = (path) => {
-    const bool = !['foodtips'].some(f => path.indexOf(f) > -1);
+    const bool = !['foodtips', 'reserve'].some(f => path.indexOf(f) > -1);
     return bool;
   };
 

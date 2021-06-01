@@ -30,6 +30,9 @@ import {
   Hr,
   SelectStyled, OptionStyled,
   Controls, Control,
+  Separator,
+  FormRange, RadioGroup, RadioButton,
+  InputMaskStyled,
 } from './styled';
 
 export const CategoryForm = ({
@@ -44,7 +47,7 @@ export const CategoryForm = ({
   const [t] = useTranslation();
   const rule = rules(t);
   const [isChange, setIsChange] = useState(false);
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState({});
   const [form] = FormStyled.useForm();
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
@@ -62,8 +65,7 @@ export const CategoryForm = ({
     />
   ), [event]);
 
-  const setFiledsValue = (obj = null) => {
-    if (!obj) return;
+  const setData = (obj) => {
     setFormData(obj);
     form.setFieldsValue(obj);
   };
@@ -72,7 +74,7 @@ export const CategoryForm = ({
     setIsChange(false);
     form.resetFields();
     if (!event) {
-      onChange(dataFromToList(values, (source || categoryModel.find(f => f.type === values.type))));
+      onChange(dataFromToList({ ...formData, ...values }, (source || categoryModel.find(f => f.type === values.type))));
     }
   };
 
@@ -85,14 +87,14 @@ export const CategoryForm = ({
   };
 
   const handleValuesChange = (values) => {
+    if (!values) return;
+    console.log('values - ', { ...formData, ...values });
+    let edited = { ...formData, ...values };
     if (values.type) {
-      const obj = categoryModel.find(f => f.type === values.type);
-      setFiledsValue({
-        ...formData,
-        ...values,
-        ...dataToForm(obj),
-      });
+      edited = { ...edited, ...dataToForm(categoryModel.find(f => f.type === values.type)) };
     }
+    console.log('edited');
+    setData(edited);
     setIsChange(true);
   };
 
@@ -124,8 +126,7 @@ export const CategoryForm = ({
   };
 
   useEffect(() => {
-    form.resetFields();
-    setFiledsValue(dataToForm(source || model));
+    setData(dataToForm(source || model));
     return () => {
       form.resetFields();
     };
@@ -235,32 +236,21 @@ export const CategoryForm = ({
         {['daily', 'organicWine'].includes(formData.type) && (
           <>
             <FormCol>
-              <FormCol>
-                <FormItemStyled
-                  label={t('common.words.info')}
-                  name="options.info"
-                  required
-                  rules={rule.text}
-                >
-                  <TextAreaStyled
-                    minRows={1}
-                    placeholder={t('common.form.placeholder.text')}
-                    disabled={archive}
-                  />
-                </FormItemStyled>
-              </FormCol>
-              <FormItemStyled
-                label={t('common.words.description')}
-                name="options.description"
-                required
-                rules={rule.text}
-              >
-                <TextAreaStyled
-                  placeholder={t('common.form.placeholder.text')}
-                  disabled={archive}
-                />
-              </FormItemStyled>
               <Form2Col>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.info')}
+                    name="options.info"
+                    required
+                    rules={rule.text}
+                  >
+                    <TextAreaStyled
+                      minRows={1}
+                      placeholder={t('common.form.placeholder.text')}
+                      disabled={archive}
+                    />
+                  </FormItemStyled>
+                </FormCol>
                 <FormCol>
                   <FormItemStyled
                     label={t('common.words.price')}
@@ -276,17 +266,50 @@ export const CategoryForm = ({
                     />
                   </FormItemStyled>
                 </FormCol>
+              </Form2Col>
+              <Form2Col>
                 <FormCol>
                   <FormItemStyled
-                    label={t('common.words.workingTime')}
-                    name="options.at_work.description"
+                    label={t('common.words.description')}
+                    name="options.description"
                     required
                     rules={rule.text}
                   >
-                    <InputStyled
-                      disabled={archive}
+                    <TextAreaStyled
                       placeholder={t('common.form.placeholder.text')}
+                      disabled={archive}
                     />
+                  </FormItemStyled>
+                </FormCol>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.workingTime')}
+                  >
+                    <FormItemStyled
+                      marginbottom={0}
+                      name="options.at_work.day"
+                    >
+                      <RadioGroup>
+                        {dictionary.days.map(({ id, name }) => (
+                          <RadioButton key={id} value={id}>{name}</RadioButton>
+                        ))}
+                      </RadioGroup>
+                    </FormItemStyled>
+                    <FormRange>
+                      <FormItemStyled
+                        name={`options.at_work.${formData['options.at_work.day']}.from`}
+                      >
+                        <InputMaskStyled mask="11:11" />
+                      </FormItemStyled>
+                      <Separator>
+                        -
+                      </Separator>
+                      <FormItemStyled
+                        name={`options.at_work.${formData['options.at_work.day']}.to`}
+                      >
+                        <InputMaskStyled mask="11:11" />
+                      </FormItemStyled>
+                    </FormRange>
                   </FormItemStyled>
                 </FormCol>
               </Form2Col>

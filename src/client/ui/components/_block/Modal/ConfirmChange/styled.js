@@ -31,7 +31,7 @@ export const CloseButton = styled(Button)`
     height: 22px;
 
     path {
-      fill: ${PALETTE.red1};
+      fill: ${PALETTE.grey1};
     }
   }
 `;

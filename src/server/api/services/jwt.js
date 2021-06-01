@@ -60,8 +60,8 @@ module.exports = {
     if (userRoles.some(r => roles.includes(r))) {
       return true;
     } 
-    error.name = 'Token not exist';
-    error.code = 'tokenNotExist';
+    error.name = 'Roles not exist';
+    error.code = 'rolesNotExist';
     res.json({ error });
     return null;
   }, 
