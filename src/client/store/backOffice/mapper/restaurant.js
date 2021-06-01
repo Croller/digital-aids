@@ -1,4 +1,5 @@
 import { stringToKey } from 'client/utils/common';
+import moment from 'moment';
 
 export const dataToForm = (data) => {
   const { 
@@ -19,6 +20,7 @@ export const dataToForm = (data) => {
   } = data;
 
   const goemEdit = (geojson && geojson.geometry.coordinates) || geojson;
+  const days = Object.keys(at_work).filter(f => f !== 'description');
 
   return {
     id,
@@ -42,9 +44,14 @@ export const dataToForm = (data) => {
     'socials.tripadvisor.url': socials.tripadvisor.url,
     'socials.tripadvisor.rate': socials.tripadvisor.rate ? parseFloat(socials.tripadvisor.rate) : 0,
     'socials.tripadvisor.comments': socials.tripadvisor.comments ? parseInt(socials.tripadvisor.comments, 0) : 0,
-    'at_work.description': at_work.description,
     lat: geojson ? parseFloat(goemEdit[0]) : 0,
     lng: geojson ? parseFloat(goemEdit[1]) : 0,
+    'at_work.day': 'mon',
+    ...days.reduce((obj, key) => ({
+      ...obj,
+      [`at_work.${key}.from`]: moment(at_work[key][0]).format('HH:mm'),
+      [`at_work.${key}.to`]: moment(at_work[key][1]).format('HH:mm'),
+    }), {}),
   };
 };
 
@@ -64,7 +71,8 @@ export const dataToApi = (data, current) => {
     sub_languages,
     lat, lng,
   } = data;
-
+  
+  const days = Object.keys(current.at_work).filter(f => f !== 'description');
   const images = data.images && data.images
     .reduce((arr, file, i) => {
       if (!file && i === 0) return [...arr, file];
@@ -114,8 +122,14 @@ export const dataToApi = (data, current) => {
       },
     },
     at_work: {
-      ...current.at_work,
       description: data['at_work.description'] || null,
+      ...days.reduce((obj, key) => ({
+        ...obj,
+        [key]: [
+          `2020-01-01 ${data[`at_work.${key}.from`]}:00.000`,
+          `2020-01-01 ${data[`at_work.${key}.to`]}:00.000`,
+        ],
+      }), {}),
     },
     geojson: {
       type: 'Feature',
@@ -191,7 +205,7 @@ export const model = {
     ],
     sun: [
       '2020-01-01T10:00:00.000',
-      '2020-01-01T00:00:00.000',
+      '2020-01-01T22:00:00.000',
     ],
   },
   is_archived: false,

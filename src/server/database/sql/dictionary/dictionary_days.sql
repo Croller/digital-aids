@@ -11,6 +11,8 @@ INSERT INTO dictionary_days (id, name) VALUES
 
 SELECT * FROM dictionary_days;
 
+TRUNCATE dictionary_days_translate RESTART IDENTITY CASCADE;
+
 INSERT INTO dictionary_days_translate (id, language, name) VALUES
   ('mon', 'es', 'Lun'),
   ('tue', 'es', 'Mar'),
@@ -56,13 +58,13 @@ INSERT INTO dictionary_days_translate (id, language, name) VALUES
   -- -
   -- ko
   -- -
-  ('mon', 'es', 'Пн'),
-  ('tue', 'es', 'Вт'),
-  ('wed', 'es', 'Ср'),
-  ('thu', 'es', 'Чт'),
-  ('fri', 'es', 'Пт'),
-  ('sat', 'es', 'Сб'),
-  ('sun', 'es', 'Вс');
+  ('mon', 'ru', 'Пн'),
+  ('tue', 'ru', 'Вт'),
+  ('wed', 'ru', 'Ср'),
+  ('thu', 'ru', 'Чт'),
+  ('fri', 'ru', 'Пт'),
+  ('sat', 'ru', 'Сб'),
+  ('sun', 'ru', 'Вс');
   -- zh
   -- -
 

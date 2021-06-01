@@ -18,6 +18,8 @@ INSERT INTO dictionary_allergens (id, name) VALUES
 
 SELECT * FROM dictionary_allergens;
 
+TRUNCATE dictionary_allergens_translate RESTART IDENTITY CASCADE;
+
 INSERT INTO dictionary_allergens_translate (id, language, name) VALUES
   ('gluten', 'es', 'Gluten'),
   ('sesame', 'es', 'Sésamo'),

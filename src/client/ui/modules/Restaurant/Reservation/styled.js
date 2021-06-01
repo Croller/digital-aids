@@ -405,6 +405,7 @@ export const InputStyled = styled(Input)`
 
 export const CheckBoxStyled = styled(Checkbox)`
   font-size: 18px !important;
+  margin-bottom: 72px;
 
   .ant-checkbox-inner {
     margin-right: 11px;

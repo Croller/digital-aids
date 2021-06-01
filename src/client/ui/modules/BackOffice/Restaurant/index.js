@@ -21,7 +21,6 @@ import {
   FormItemStyled,
   FormItemSubmit, Save,
   InputStyled,
-  // InputMaskStyled,
   SelectStyled, OptionStyled, UpperCase,
   NavItemStyled,
   FormUploader,
@@ -31,6 +30,9 @@ import {
   AddressList,
   AddressItem,
   MapStyled,
+  Separator,
+  FormRange, RadioGroup, RadioButton,
+  InputMaskStyled,
 } from './styled';
 
 const Restaurant = () => {
@@ -95,7 +97,7 @@ const Restaurant = () => {
       lng: formData.lng,
     },
     zoom: !formData.lat && !formData.lng ? 1 : 15,
-  });
+  }); 
 
   const handleRoute = (key) => {
     history.push(key);
@@ -285,7 +287,7 @@ const Restaurant = () => {
               label={t('common.words.email')}
               name="email"
               required
-              rules={rule.email}
+              rules={rule.select}
             >
               <SelectStyled
                 mode="tags"
@@ -431,11 +433,11 @@ const Restaurant = () => {
               )}
               name="main_language"
               required
-              rules={rule.text}
+              rules={rule.select}
             >
               <SelectStyled
                 showSearch
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.text')}
                 optionFilterProp="label"
               >
                 {dictionary && (dictionary.languages || []).map(({ id, name }, i) => (
@@ -462,7 +464,7 @@ const Restaurant = () => {
               <SelectStyled
                 showSearch
                 mode="multiple"
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.text')}
                 optionFilterProp="label"
               >
                 {dictionary && (dictionary.languages.filter(f => f.id !== formData.main_language) || []).map(({ id, name }, i) => (
@@ -482,13 +484,37 @@ const Restaurant = () => {
             </FormItemStyled>
             <FormItemStyled
               label={t('common.words.workingTime')}
-              name="at_work.description"
               required
-              rules={rule.text}
             >
-              <InputStyled
-                placeholder={t('common.form.placeholder.text')}
-              />
+              <FormItemStyled
+                marginbottom={0}
+                name="at_work.day"
+              >
+                <RadioGroup>
+                  {dictionary.days.map(({ id, name }) => (
+                    <RadioButton key={id} value={id}>{name}</RadioButton>
+                  ))}
+                </RadioGroup>
+              </FormItemStyled>
+              <FormRange>
+                <FormItemStyled
+                  name={`at_work.${formData['at_work.day']}.from`}
+                  required
+                  rules={rule.text}
+                >
+                  <InputMaskStyled mask="11:11" />
+                </FormItemStyled>
+                <Separator>
+                  -
+                </Separator>
+                <FormItemStyled
+                  name={`at_work.${formData['at_work.day']}.to`}
+                  required
+                  rules={rule.text}
+                >
+                  <InputMaskStyled mask="11:11" />
+                </FormItemStyled>
+              </FormRange>
             </FormItemStyled>
             {params.restaurant !== 'new' && (
               <NavItemStyled onClick={handleRoute} />

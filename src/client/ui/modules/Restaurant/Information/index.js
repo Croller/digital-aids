@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { RateCircle } from 'client/ui/components/_block/RateCircle';
 import { Marker } from 'google-maps-react';
+import moment from 'moment';
 import {
   CloseSvg,
   ChevronSvg,
@@ -69,6 +70,17 @@ const Information = memo(() => {
   };
   const getPathImage = (uuid) => `${getUrl()}/static/restaurants/photos/${uuid}.png`;
 
+  const getWeekDay = () => {
+    const current_date = new Date();
+    return current_date.getDay();
+  };
+
+  const getWorkTime = () => {
+    const day = dictionary.days.find(f => f.number === getWeekDay());
+    const [from, to] = at_work[day.id];
+    return [moment(from).format('HH:mm'), moment(to).format('HH:mm')].join(' - ');
+  };
+  
   const handleRoute = (path = 'categories', external = false) => {
     if (external) {
       if (path.indexOf('tel') > -1) {
@@ -154,7 +166,7 @@ const Information = memo(() => {
           <IconTextWrapper>
             <ClockSvg />
             <IconText>
-              {at_work && at_work.description ? at_work.description : ''}
+              {at_work && getWorkTime()}
             </IconText>
           </IconTextWrapper>
           <IconTextWrapper>

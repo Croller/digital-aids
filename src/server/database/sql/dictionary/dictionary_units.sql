@@ -10,6 +10,7 @@ INSERT INTO dictionary_units (id, name) VALUES
 
 SELECT * FROM dictionary_units;
 
+TRUNCATE dictionary_units_translate RESTART IDENTITY CASCADE;
 
 INSERT INTO dictionary_units_translate (id, language, name) VALUES
   ('pc', 'es', 'pz'),
