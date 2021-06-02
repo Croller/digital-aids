@@ -7,17 +7,18 @@ export const dataToForm = (data) => {
     type,
     name,
     options,
+    children,
     is_archived,
     is_deleted,
   } = data;
 
-  const children = data.children ? data.children.map(child => (child.name)) : null;
-
+  const childEdit = (children || []).reduce((obj, child, i) => ({ ...obj, [`children.${i}.name`]: child.name }), {});
+  
   return {
     id,
     type,
     name,
-    children,
+    ...childEdit,
     ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, key) => {
       if (key === 'at_work' && type === 'daily') {
         return {
@@ -43,27 +44,18 @@ export const dataFromToList = (data, current = null) => {
     name,
     parent,
     restaurant,
+    is_archived,
+    is_deleted,
   } = data;
-  let children = null;
-  
-  if (data.children && current && current.children) {
-    const existChild = current.children.reduce((arr, f) => {
-      const exist = data.children.includes(f.name);
-      if (exist) {
-        return [...arr, { ...f, ...exist }];
-      }
-      return arr;
-    }, []);
-    let deletedChild = current.children.filter(f => !data.children.includes(f.name));
-    let newChild = data.children.filter(f => !current.children.some(s => s.name === f));
-    deletedChild = deletedChild.map(item => ({ ...item, is_deleted: true }));
-    newChild = newChild.map(m => ({ ...model, name: m, key: stringToKey(m) }));
-    children = [...existChild, ...deletedChild, ...newChild];
+
+  let childrenEdited = current.children;
+  if (current && current.children) {
+    childrenEdited = current.children.map((child, i) => ({ ...child, name: data[`children.${i}.name`] }));
   }
 
   let at_work = Object.keys(data).filter(f => f.indexOf('options.at_work') > -1 && (f.indexOf('.from') > -1 || f.indexOf('.to') > -1));
   at_work = at_work.length > 0 ? at_work : null;
-  if (at_work && at_work.length > 0) {
+  if (at_work) {
     at_work = {
       description: data['options.at_work.description'] || null,
       ...weekDays.reduce((obj, key) => ({
@@ -81,15 +73,15 @@ export const dataFromToList = (data, current = null) => {
     key: (stringToKey(name) || ''),
     type,
     name,
-    children,
+    children: childrenEdited,
     parent,
     restaurant,
     options: {
-      ...({ at_work } || {}),
+      ...(current.options.at_work ? { at_work } : {}),
       ...Object.keys(data).filter(f => f.indexOf('options.') > -1 && f.indexOf('options.at_work') === -1).reduce((item, key) => ({ ...item, [key.split('.')[1]]: data[key] }), {}),
     },
-    is_archived: current ? current.is_archived : false,
-    is_deleted: current ? current.is_deleted : false,
+    is_archived,
+    is_deleted,
   };
 };
 
@@ -137,19 +129,6 @@ export const dataToApi = (data, restaurant) => {
   delete edited.children;
 
   return [edited, ...children];
-};
-
-export const model = {
-  id: null,
-  type: 'default', 
-  name: 'Default',
-  key: 'default',
-  parent: null,
-  restaurant: null,
-  children: null,
-  options: {},
-  is_archived: false,
-  is_deleted: false,
 };
 
 export const categoryModel = [
@@ -236,31 +215,6 @@ export const categoryModel = [
     parent: null,
     restaurant: null,
     options: { rules: { info: { maxLength: 1 } } },
-    is_archived: false,
-    is_deleted: false,
-  },
-];
-
-export const categoryTemp = ({ restaurant }) => [
-  {
-    id: null,
-    name: 'Foodtips',
-    key: 'foodtips',
-    parent: null,
-    type: 'foodtips',
-    restaurant,
-    options: { rules: { info: { maxLength: '5' } } },
-    is_archived: false,
-    is_deleted: false,
-  },
-  {
-    id: null,
-    name: 'Special deals',
-    key: 'special-deals',
-    parent: null,
-    type: 'specialDeals',
-    restaurant,
-    options: { rules: { info: { maxLength: '1' } } },
     is_archived: false,
     is_deleted: false,
   },

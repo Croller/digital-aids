@@ -28,6 +28,7 @@
 
 
 
+ALTER TABLE data_restaurants RENAME opinion TO description;
 
 
 

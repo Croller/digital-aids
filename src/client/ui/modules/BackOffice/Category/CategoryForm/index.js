@@ -9,7 +9,6 @@ import { getDictionaryItem } from 'client/utils/common';
 import {
   dataToForm,
   dataFromToList,
-  model,
   categoryModel,
 } from 'client/store/backOffice/mapper/category';
 import {
@@ -33,6 +32,10 @@ import {
   Separator,
   FormRange, RadioGroup, RadioButton,
   InputMaskStyled,
+  Group2Form,
+  GroupForm, 
+  GroupControl,
+  AddGroup,
 } from './styled';
 
 export const CategoryForm = ({
@@ -40,14 +43,16 @@ export const CategoryForm = ({
   loading = false,
   currency = null,
   dictionary = null,
-  className,
   archive = false,
+  language = 'en',
+  className,
   onChange = () => {},
 }) => {
   const [t] = useTranslation();
   const rule = rules(t);
   const [isChange, setIsChange] = useState(false);
-  const [formData, setFormData] = useState({});
+  const [current, setCurrent] = useState(null);
+  const [formData, setFormData] = useState(null);
   const [form] = FormStyled.useForm();
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
@@ -74,7 +79,7 @@ export const CategoryForm = ({
     setIsChange(false);
     form.resetFields();
     if (!event) {
-      onChange(dataFromToList({ ...formData, ...values }, (source || categoryModel.find(f => f.type === values.type))));
+      onChange(dataFromToList({ ...formData, ...values }, current));
     }
   };
 
@@ -91,9 +96,10 @@ export const CategoryForm = ({
     console.log('values - ', { ...formData, ...values });
     let edited = { ...formData, ...values };
     if (values.type) {
-      edited = { ...edited, ...dataToForm(categoryModel.find(f => f.type === values.type)) };
+      const def = categoryModel.find(f => f.type === values.type);
+      setCurrent({ ...current, ...def });
+      edited = { ...edited, ...dataToForm(def) };
     }
-    console.log('edited');
     setData(edited);
     setIsChange(true);
   };
@@ -106,7 +112,7 @@ export const CategoryForm = ({
     if (key === 'archive') params.is_archived = true;
 
     showConfirm();
-    let obj = dataFromToList({ ...formData }, (source || categoryModel.find(f => f.type === formData.type)));
+    let obj = current;
     obj = {
       ...obj,
       ...params,
@@ -119,20 +125,39 @@ export const CategoryForm = ({
     if (!key) return;
     let obj = null;
     if (key !== 'close') {
-      obj = { ...formData, ...(params || {}) };
+      obj = dataFromToList({ ...formData, ...(params || {}) }, current);
     }
     onChange(obj);
     setFormData(null);
   };
 
+  const handleEventGroup = (key, index) => {
+    setIsChange(true);
+    if (key === 'new') {
+      setCurrent({ ...current, children: [...current.children, categoryModel[0]] });
+      setData({ ...formData, [`children.${current.children.length}.name`]: '' });
+    }
+    if (key === 'delete') {
+      const edited = current.children.map((child, i) => {
+        if (i === index) {
+          return { ...child, is_deleted: true };
+        }
+        return child;
+      });
+      setCurrent({ ...current, children: edited });
+    } 
+  };
+
   useEffect(() => {
-    setData(dataToForm(source || model));
+    const obj = source || categoryModel[0];
+    setCurrent(obj);
+    setData(dataToForm(obj));
     return () => {
       form.resetFields();
     };
   }, [source]);
 
-  return formData && (
+  return current && (
     <CategoryFormWrapper className={className}>
       <FormStyled
         form={form}
@@ -147,7 +172,7 @@ export const CategoryForm = ({
           {isChange && (
             <Tooltip placement="top" title={t('common.words.save')}>
               <Control
-                htmlType="submit"
+                onClick={() => form.submit()}
                 disabled={!isChange || loading}
                 active
               >
@@ -155,7 +180,7 @@ export const CategoryForm = ({
               </Control>
             </Tooltip>
           )}
-          {source && source.id && (
+          {current.id && (
             <>
               {!archive && !isChange && (
                 <Tooltip placement="top" title={t('common.words.archive')}>
@@ -167,7 +192,7 @@ export const CategoryForm = ({
                   </Control>
                 </Tooltip>
               )}
-              {archive && source.is_archived && (
+              {archive && current.is_archived && (
                 <>
                   <Tooltip placement="top" title={t('common.words.restore')}>
                     <Control
@@ -198,7 +223,6 @@ export const CategoryForm = ({
             </Control>
           </Tooltip>
         </Controls>
-        {archive }
         <Form2Col>
           <FormCol>
             <FormItemStyled
@@ -211,7 +235,7 @@ export const CategoryForm = ({
                 showSearch
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
-                disabled={archive}
+                disabled={archive || language !== 'en' || (current && current.id)}
               >
                 {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.type)).map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
@@ -234,111 +258,145 @@ export const CategoryForm = ({
           </FormCol>
         </Form2Col>
         {['daily', 'organicWine'].includes(formData.type) && (
-          <>
-            <FormCol>
-              <Form2Col>
-                <FormCol>
-                  <FormItemStyled
-                    label={t('common.words.info')}
-                    name="options.info"
-                    required
-                    rules={rule.text}
-                  >
-                    <TextAreaStyled
-                      minRows={1}
-                      placeholder={t('common.form.placeholder.text')}
-                      disabled={archive}
-                    />
-                  </FormItemStyled>
-                </FormCol>
-                <FormCol>
-                  <FormItemStyled
-                    label={t('common.words.price')}
-                    name="options.price"
-                    required
-                  >
-                    <InputStyled
-                      type="number"
-                      step="0.01"
-                      addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
-                      placeholder={t('common.form.placeholder.floatExample')}
-                      disabled={archive}
-                    />
-                  </FormItemStyled>
-                </FormCol>
-              </Form2Col>
-              <Form2Col>
-                <FormCol>
-                  <FormItemStyled
-                    label={t('common.words.description')}
-                    name="options.description"
-                    required
-                    rules={rule.text}
-                  >
-                    <TextAreaStyled
-                      placeholder={t('common.form.placeholder.text')}
-                      disabled={archive}
-                    />
-                  </FormItemStyled>
-                </FormCol>
-                <FormCol>
-                  <FormItemStyled
-                    label={t('common.words.workingTime')}
-                  >
-                    <FormItemStyled
-                      marginbottom={0}
-                      name="options.at_work.day"
-                    >
-                      <RadioGroup>
-                        {dictionary.days.map(({ id, name }) => (
-                          <RadioButton key={id} value={id}>{name}</RadioButton>
-                        ))}
-                      </RadioGroup>
-                    </FormItemStyled>
-                    <FormRange>
-                      <FormItemStyled
-                        name={`options.at_work.${formData['options.at_work.day']}.from`}
-                      >
-                        <InputMaskStyled mask="11:11" />
-                      </FormItemStyled>
-                      <Separator>
-                        -
-                      </Separator>
-                      <FormItemStyled
-                        name={`options.at_work.${formData['options.at_work.day']}.to`}
-                      >
-                        <InputMaskStyled mask="11:11" />
-                      </FormItemStyled>
-                    </FormRange>
-                  </FormItemStyled>
-                </FormCol>
-              </Form2Col>
-            </FormCol>
-          </>
-        )}
-        {formData.children && (
-          <>
-            <Hr />
-            <FormCol>
-              <FormItemStyled
-                label={t('common.words.group')}
-                name="children"
-                required
-                rules={rule.text}
-              >
-                <SelectStyled
-                  mode="tags"
-                  tokenSeparators={[',']}
-                  placeholder={t('common.form.placeholder.text')}
-                  disabled={archive}
+          <FormCol>
+            <Form2Col>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.info')}
+                  name="options.info"
+                  required
+                  rules={rule.text}
                 >
-                  {formData.children.map((str, i) => (
-                    <OptionStyled key={`_group_${i + 1}`} value={str}>{str}</OptionStyled>
-                  ))}
-                </SelectStyled>
-              </FormItemStyled>
-            </FormCol>
-          </>
+                  <TextAreaStyled
+                    minRows={1}
+                    placeholder={t('common.form.placeholder.text')}
+                    disabled={archive}
+                  />
+                </FormItemStyled>
+              </FormCol>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.price')}
+                  name="options.price"
+                  required
+                >
+                  <InputStyled
+                    type="number"
+                    step="0.01"
+                    addonAfter={dictionary && getDictionaryItem(currency, 'id', dictionary.currency, 'symbol')}
+                    placeholder={t('common.form.placeholder.floatExample')}
+                    disabled={archive}
+                  />
+                </FormItemStyled>
+              </FormCol>
+            </Form2Col>
+            <Form2Col>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.description')}
+                  name="options.description"
+                  required
+                  rules={rule.text}
+                >
+                  <TextAreaStyled
+                    placeholder={t('common.form.placeholder.text')}
+                    disabled={archive}
+                  />
+                </FormItemStyled>
+              </FormCol>
+              <FormCol>
+                <FormItemStyled
+                  label={t('common.words.workingTime')}
+                >
+                  <FormItemStyled
+                    marginbottom={0}
+                    name="options.at_work.day"
+                  >
+                    <RadioGroup>
+                      {dictionary.days.map(({ id, name }) => (
+                        <RadioButton key={id} value={id}>{name}</RadioButton>
+                      ))}
+                    </RadioGroup>
+                  </FormItemStyled>
+                  <FormRange>
+                    <FormItemStyled
+                      name={`options.at_work.${formData['options.at_work.day']}.from`}
+                    >
+                      <InputMaskStyled
+                        mask="11:11"
+                        disabled={archive || language !== 'en'}
+                      />
+                    </FormItemStyled>
+                    <Separator>
+                      -
+                    </Separator>
+                    <FormItemStyled
+                      name={`options.at_work.${formData['options.at_work.day']}.to`}
+                    >
+                      <InputMaskStyled
+                        mask="11:11"
+                        disabled={archive || language !== 'en'}
+                      />
+                    </FormItemStyled>
+                  </FormRange>
+                </FormItemStyled>
+              </FormCol>
+            </Form2Col>
+          </FormCol>
+        )}
+        {current.children && (
+          <FormCol>
+            <Hr />
+            <FormItemStyled
+              label={t('common.words.group')}
+            >
+              <Group2Form>
+                {Object.keys(formData).filter(f => {
+                  if (f.indexOf('children.') > -1) {
+                    const index = Number(f.replace('children.', '').replace('.name', ''));
+                    const item = current.children[index];
+                    return !!(item && !item.is_deleted);
+                  }
+                  return false;
+                }).map((item) => {
+                  const index = Number(item.replace('children.', '').replace('.name', ''));
+                  return (
+                    <GroupForm key={`_group_control_${index}`}>
+                      <FormItemStyled
+                        name={`children.${index}.name`}
+                        required
+                        rules={rule.text}
+                      >
+                        <InputStyled
+                          placeholder={t('common.form.placeholder.text')}
+                          disabled={archive}
+                        />
+                      </FormItemStyled>
+                      <GroupControl>
+                        <Tooltip placement="top" title={t('common.words.delete')}>
+                          <Control
+                            disabled={loading || archive}
+                            onClick={() => handleEventGroup('delete', index)}
+                          >
+                            <TrashSvg />
+                          </Control>
+                        </Tooltip>
+                      </GroupControl>
+                    </GroupForm>
+                  );
+                })}
+              </Group2Form>
+            </FormItemStyled>
+            {!archive && (
+              <AddGroup
+                disabled={Object.keys(formData).some(f => f.indexOf('children.') > -1 && !formData[f])}
+                onClick={() => handleEventGroup('new')}
+              >
+                {t('common.words.newGroup')}
+                <PlusSvg />
+              </AddGroup>
+            )}
+          </FormCol>
         )}
       </FormStyled>
     </CategoryFormWrapper>

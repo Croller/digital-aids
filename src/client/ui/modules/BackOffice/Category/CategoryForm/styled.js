@@ -413,3 +413,57 @@ export const RadioButton = styled(Radio.Button)`
   }
 `;
 
+export const Group2Form = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  > div {
+    width: 48%;
+  }
+`;
+
+export const GroupForm = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .ant-form-item {
+    width: 100%;
+    margin-bottom: 0;
+  }
+`;
+
+export const GroupControl = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+`;
+
+export const AddGroup = styled(Button)`
+  height: 38px;
+  width: 142px;
+  background-color: transparent;
+  color: ${PALETTE.green1};
+  text-transform: uppercase;
+  font-family: ${FONTS.semiBold};
+  font-size: 16px;
+  margin-bottom: 16px;
+
+  > svg {
+    width: 22px;
+    height: 22px;
+    margin-left: 10px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
+  }
+`;
+

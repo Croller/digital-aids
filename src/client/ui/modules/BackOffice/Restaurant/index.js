@@ -319,7 +319,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.floatExample')}
               />
             </FormItemStyled>
-            <FormItemStyled
+            {/* <FormItemStyled
               label={t('common.words.opinion')}
               name="opinion"
               required
@@ -328,7 +328,7 @@ const Restaurant = () => {
               <InputStyled
                 placeholder={t('common.form.placeholder.text')}
               />
-            </FormItemStyled>
+            </FormItemStyled> */}
             
             {/* // socials */}
             <FormItemStyled
@@ -477,14 +477,13 @@ const Restaurant = () => {
             </FormItemStyled>
             <FormItemStyled
               label={t('common.words.workingTime')}
-              required
             >
               <FormItemStyled
                 marginbottom={0}
                 name="at_work.day"
               >
                 <RadioGroup>
-                  {dictionary.days.map(({ id, name }) => (
+                  {dictionary && dictionary.days.map(({ id, name }) => (
                     <RadioButton key={id} value={id}>{name}</RadioButton>
                   ))}
                 </RadioGroup>
@@ -492,8 +491,6 @@ const Restaurant = () => {
               <FormRange>
                 <FormItemStyled
                   name={`at_work.${formData['at_work.day']}.from`}
-                  required
-                  rules={rule.text}
                 >
                   <InputMaskStyled mask="11:11" />
                 </FormItemStyled>
@@ -502,8 +499,6 @@ const Restaurant = () => {
                 </Separator>
                 <FormItemStyled
                   name={`at_work.${formData['at_work.day']}.to`}
-                  required
-                  rules={rule.text}
                 >
                   <InputMaskStyled mask="11:11" />
                 </FormItemStyled>
