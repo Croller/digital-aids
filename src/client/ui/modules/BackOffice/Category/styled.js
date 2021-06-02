@@ -4,6 +4,7 @@ import { RestaurantInfo } from 'client/ui/modules/BackOffice/components/Restaura
 import { Button } from 'client/ui/components/_ui/Button';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Loader } from 'client/ui/components/_block/Loader';
+import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import { CategoryForm } from './CategoryForm';
 import { DishForm } from './DishForm';
 import { Info } from './Info';
@@ -240,5 +241,10 @@ export const DishFormStyled = styled(DishForm)`
   &:not(:last-child) {
     margin-bottom: 22px;
   }
+`;
+
+export const EmptyBlockStyled = styled(EmptyBlock)`
+  height: 300px;
+  min-height: 0;
 `;
 

@@ -32,7 +32,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
       results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
     }
 
-    let results_restaurants = null;
+    let results_restaurants = [];
     if (!ids) {
       results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
       results_restaurants = results_restaurants.data_restaurants.sort((a, b) => b.number - a.number);
@@ -100,7 +100,7 @@ function* updateRow({ payload }) {
     const results = yield commonProvider.update({
       ...payload,
       token,
-      language: ((Array.isArray(data) && data[0].id) || data.id) ? language : 'en',
+      // language: ((Array.isArray(data) && data[0].id) || data.id) ? language : 'en',
     }); 
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });

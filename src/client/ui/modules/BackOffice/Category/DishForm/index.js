@@ -367,11 +367,10 @@ export const DishForm = ({
                     </FormItemStyled> */}
                   </>
                 )}
-                {type === 'foodtips' && dishes && (
+                {dishes && (
                   <FormItemStyled
                     label={t('common.words.dish')}
                     name="copyDish"
-                    rules={rule.select}
                   >
                     <SelectStyled
                       showSearch
@@ -487,8 +486,6 @@ export const DishForm = ({
                     <FormItemStyled
                       label={t('common.words.allergens')}
                       name="allergens"
-                      required
-                      rules={rule.text}
                     >
                       <SelectStyled
                         showSearch

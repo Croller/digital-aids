@@ -11,10 +11,11 @@ import {
 export const EmptyBlock = ({
   type = 'noData',
   icon = <ArchiveSvg />,
+  className,
 }) => {
   const [t] = useTranslation();
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       {icon && (
         <Icon>
           {icon}

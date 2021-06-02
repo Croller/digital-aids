@@ -80,6 +80,8 @@ const updateTableRecord = async (table, data, params) => {
 
       let updateTR = updatedDiff(tr_model, tr_data);
       let updateEN = { id: data.id, ...addedDiff(updateTR, tr_data) };
+      console.log('updateTR', updateTR);
+      console.log('updateEN', updateEN);
       updateTR = await updateTableRecord(`${table}_translate`, { ...updateTR, language }, params);
       updateEN = await updateTableRecord(table, updateEN, { res, user, language: 'en' });
       delete updateTR.language;

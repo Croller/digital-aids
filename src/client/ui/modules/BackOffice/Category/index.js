@@ -5,7 +5,6 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { init, update, deleteFiles } from 'client/store/backOffice';
 import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
-import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -32,6 +31,7 @@ import {
   NewDish,
   ArchiveBtn,
   DishList, DishFormStyled,
+  EmptyBlockStyled,
 } from './styled';
 
 const Category = () => {
@@ -75,7 +75,7 @@ const Category = () => {
         categoryFilter = restCategories.filter(f => !pageSpec.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
       }
   
-      categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : {};
+      categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : null;
       if (restCategoryActive && categoryFilter.length > 0) {
         categoryActive = categoryFilter.find(f => f.key === restCategoryActive.key) || categoryFilter[0];
       }
@@ -91,10 +91,16 @@ const Category = () => {
   };
 
   const initDish = () => {
-    if (!restCategoryActive) return;
-    let dishesFilter = dishes.filter(f => f.category === restCategoryActive.id && !f.is_deleted && f.is_archived === isArchive);
-    if (restCategoryActive.children) {
-      dishesFilter = dishes.filter(f => restCategoryActive.children.some(s => s.id === f.category) && !f.is_deleted && f.is_archived === isArchive);
+    let dishesFilter = [];
+    if (restCategoryActive) {
+      dishesFilter = dishes.filter(f => f.category === restCategoryActive.id && !f.is_deleted && f.is_archived === isArchive);
+      if (restCategoryActive.children) {
+        dishesFilter = dishes.filter(f => restCategoryActive.children.some(s => s.id === f.category) && !f.is_deleted && f.is_archived === isArchive);
+      }
+    }
+    if (pageSpecActive) {
+      const categorySpec = categories.find(f => f.restaurant === restaurant && f.key === pageSpecActive);
+      dishesFilter = categorySpec ? dishes.filter(f => f.category === categorySpec.id && !f.is_deleted && f.is_archived === isArchive) : [];
     }
     setDishCategory(dishesFilter);
   };
@@ -201,7 +207,7 @@ const Category = () => {
   }, [restaurants, categories, dictionary, pathname]);
 
   useEffect(() => {
-    if (dishes && restCategoryActive) {
+    if (dishes) {
       initDish();
     }
   }, [dishes, restCategoryActive, pathname]);
@@ -277,7 +283,10 @@ const Category = () => {
               </ListCategory>
               {restCategory.length > 0 && !restCategoryEdit && (
                 <CategoryEdit
-                  onClick={() => setRestCategoryEdit(true)}
+                  onClick={() => { 
+                    setDishCategory([]);
+                    setRestCategoryEdit(true);
+                  }}
                 >
                   <EditSvg />
                 </CategoryEdit>
@@ -289,6 +298,7 @@ const Category = () => {
               source={restCategoryActive}
               dictionary={dictionary}
               currency={restInfo.currency[0]}
+              language={language}
               loading={loading}
               archive={isArchive}
               onChange={handleChangeCategory}
@@ -300,7 +310,7 @@ const Category = () => {
               options={restCategoryActive.options}
             />
           )}
-          {!isArchive && (restCategory.length > 0 || pageSpecActive) && (
+          {!isArchive && restCategoryActive && (
             <DishControls>
               <NewDish
                 onClick={handleAddDish}
@@ -318,7 +328,7 @@ const Category = () => {
               </ArchiveBtn>
             </DishControls>
           )}
-          {dishCategory.length > 0 && restCategoryActive ? (
+          {dishCategory.length > 0 ? (
             <DishList>
               {dishCategory.map((dish) => (
                 <DishFormStyled
@@ -339,7 +349,7 @@ const Category = () => {
               ))}
             </DishList>
           ) : (
-            <EmptyBlock />
+            <EmptyBlockStyled />
           )}
         </CategoryEditWrapper>
       )}
