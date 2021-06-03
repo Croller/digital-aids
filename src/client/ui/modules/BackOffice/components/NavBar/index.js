@@ -69,13 +69,15 @@ export const NavBar = ({
     const pathParts = pathname.split('/');
     let path = '';
     if (key === 'back') {
-      path = `${pathParts[0]}/${pathParts[1]}/restaurants`;
-      if (params.language && params.restaurant) {
-        path = `${pathParts.slice(0, -1).join('/')}/menu`;
-      }
-      if (pathname.indexOf('/archive') > -1) {
-        path = pathParts.slice(0, -1).join('/');
-      }
+      history.goBack();
+      return;
+      // path = `${pathParts[0]}/${pathParts[1]}/restaurants`;
+      // if (params.language && params.restaurant) {
+      //   path = `${pathParts.slice(0, -1).join('/')}/menu`;
+      // }
+      // if (pathname.indexOf('/archive') > -1) {
+      //   path = pathParts.slice(0, -1).join('/');
+      // }
     }
     if (key === 'archive') {
       path = `${pathParts.join('/')}/${key}`;

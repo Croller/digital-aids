@@ -155,7 +155,6 @@ const Reservation = () => {
           persons,
           email,
           name: data.name,
-          create_at: moment().format('YYYY-MM-DDTHH:mm:ss.SSS'),
         },
       }));
       showConfirm();

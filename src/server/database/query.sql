@@ -19,6 +19,7 @@
 -- DROP TABLE IF EXISTS dictionary_days;
 -- DROP TABLE IF EXISTS dictionary_days_translate;
 -- DROP TABLE IF EXISTS data_reserve;
+-- DROP TABLE IF EXISTS data_opinions;
 
 
 

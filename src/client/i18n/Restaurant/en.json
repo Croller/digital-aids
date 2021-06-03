@@ -48,8 +48,8 @@
     "rate": {
       "service": "Service",
       "meal": "Meal",
-      "covid": "COVID-19 protocol security",
-      "menu": "Menu service"
+      "covid": "COVID-19 \n protocol security",
+      "menu": "Menu \n service"
     },
     "rating": {
       "love": "With love",

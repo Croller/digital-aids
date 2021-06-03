@@ -15,7 +15,7 @@ export const setOfferViewed = (offer = null, callback = () => {}) => {
       ...local,
       restaurant: {
         ...local.restaurant,
-        offersViewed: [...offersViewed, offer],
+        offersViewed: [...local.restaurant.offersViewed, offer],
       },
     });
     callback();

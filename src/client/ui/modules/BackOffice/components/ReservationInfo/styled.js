@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Person = styled(IconText)`
-  font-size: 18px;
+  font-size: 16px;
   font-family: ${FONTS.medium};
   min-width: 180px;
 
@@ -56,7 +56,7 @@ export const Contact = styled(IconText)`
 `;
 
 export const Date = styled(IconText)`
-  font-size: 16px;
+  font-size: 14px;
   font-family: ${FONTS.medium};
 
   > span > svg {

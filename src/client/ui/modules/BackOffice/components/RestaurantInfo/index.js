@@ -14,6 +14,7 @@ import {
   PlusSvg,
   QRCodeSvg,
   ClockSvg,
+  TagSvg,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -31,12 +32,17 @@ import {
 
 const CONTROL_CONFIG = [
   {
+    key: 'opinions',
+    icon: <TagSvg />,
+    path: '/back-office/restaurant/:restaurant/opinions',
+  },
+  {
     key: 'reserve',
     icon: <ClockSvg />,
     path: '/back-office/restaurant/:restaurant/reserve',
   },
   {
-    key: 'qrcode',
+    key: 'flayer',
     icon: <QRCodeSvg />,
     path: '/back-office/restaurant/:restaurant/flayer',
   },
@@ -109,10 +115,10 @@ export const RestaurantInfo = ({
       if (pathname.indexOf('/restaurants/archive') > -1) {
         return arr.filter(({ key }) => ['restore', 'delete'].includes(key));
       }
-      return arr.filter(({ key }) => ['archive', 'edit', 'qrcode', 'reserve'].includes(key));
+      return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return [arr[2]];
+      return arr.filter(({ key }) => ['flayer', 'reserve', 'opinions'].includes(key));
     }
     return [];
   };

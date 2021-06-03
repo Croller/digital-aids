@@ -125,6 +125,19 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
+CREATE TABLE IF NOT EXISTS data_opinions (
+  number serial,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  name VARCHAR DEFAULT NULL,
+  email VARCHAR DEFAULT NULL,
+  phone VARCHAR DEFAULT NULL,
+  rate jsonb DEFAULT '{"service": "NULL", "meal": "NULL", "covid": "NULL", "menu": "NULL", "comments": "NULL"}',
+  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE
+);
+
 CREATE TABLE IF NOT EXISTS dictionary_currency (
   number serial,
   id VARCHAR DEFAULT NULL,

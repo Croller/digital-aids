@@ -5,7 +5,8 @@ const initState = {
   categories: null,
   dishes: null,
   reserve: null,
-
+  opinions: null,
+  
   dictionary: null,
 
   loading: false,
