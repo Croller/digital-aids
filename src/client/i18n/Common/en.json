@@ -76,7 +76,8 @@
     "lat": "Latitude",
     "lng": "longitude",
     "emptyList": "No data",
-    "ok": "Ok"
+    "ok": "Ok",
+    "reserve": "Reserve"
   },
 
   "form" : {

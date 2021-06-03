@@ -13,7 +13,8 @@ const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
-// const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
+const Reservations = lazy(() => import('client/ui/modules/BackOffice/Reservations'));
+const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
   const { token, roles } = useSelector(store => store.user.info);
@@ -28,6 +29,11 @@ export const BackOffice = () => {
         <Route path={`${PATH}/auth`} component={Auth} />
         {token && [1, 2, 3, 4].some(s => roles.some(r => r === s)) && (
           <>
+            <Route
+              exact
+              path={`${PATH}/restaurant/:restaurant/reserve`}
+              component={Reservations}
+            />
             <Route
               exact
               path={[
@@ -49,7 +55,7 @@ export const BackOffice = () => {
             />
             <Route
               exact
-              path={`${PATH}/restaurant/:restaurant/qrcode`}
+              path={`${PATH}/restaurant/:restaurant/flayer`}
               component={Flayer}
             />
             <Route
@@ -71,12 +77,12 @@ export const BackOffice = () => {
               ]}
               component={User}
             />
-            {/* <Route
+            <Route
               path={[
                 `${PATH}/mails`,
               ]}
               component={Mails}
-            /> */}
+            />
             <Redirect to={`${PATH}/restaurants`} />
           </>
         )}

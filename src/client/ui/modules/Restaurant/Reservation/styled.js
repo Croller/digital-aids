@@ -18,10 +18,6 @@ export const ReservationWrapper = styled.div`
   position: relative;
 `;
 
-export const ImageWrapper = styled.div`
-  min-height: 217px;
-`;
-
 export const CloseButton = styled(Button)`
   position: absolute;
   top: 21px;
@@ -44,6 +40,7 @@ export const CloseButton = styled(Button)`
 
 export const ImgWrapper = styled.div`
   width: 100%;
+  height: 138px;
   display: block;
 `;
 
@@ -94,6 +91,11 @@ export const TabButton = styled(Button)`
   background-color: ${PALETTE.grey2};
   border-radius: 3px;
   box-shadow: unset;
+  box-shadow: ${THEME.boxShadow1};
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
 
   ${p => p.active && css`
     background-color: ${PALETTE.green1};
@@ -234,7 +236,7 @@ export const SquareWrapper = styled.div`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 102px;
+  margin-bottom: 62px;
 
   ${p => p.key === 'persons' && css`
     margin-bottom: 234px;
@@ -268,7 +270,7 @@ export const SubButton = styled(Button)`
   color: ${PALETTE.black};
   background-color: ${PALETTE.grey2};
   margin: 0 auto;
-  margin-bottom: 64px;
+  margin-bottom: 84px;
 
   ${p => p.active && css`
     min-width: 244px;

@@ -111,13 +111,18 @@ CREATE TABLE IF NOT EXISTS data_dishes_translate (
 
 CREATE TABLE IF NOT EXISTS data_reserve (
   number serial,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   name VARCHAR NOT NULL,
   email VARCHAR NOT NULL,
+  phone VARCHAR DEFAULT NULL,
   persons INT NOT NULL,
   table_number INT DEFAULT NULL,
   reserve_at timestamp with time zone NOT NULL DEFAULT NULL,
-  is_approved BOOLEAN DEFAULT FALSE
+  is_approved BOOLEAN DEFAULT NULL,
+  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
