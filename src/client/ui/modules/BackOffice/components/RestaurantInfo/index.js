@@ -13,6 +13,8 @@ import {
   TrashSvg,
   PlusSvg,
   QRCodeSvg,
+  ClockSvg,
+  TagSvg,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -30,6 +32,21 @@ import {
 
 const CONTROL_CONFIG = [
   {
+    key: 'opinions',
+    icon: <TagSvg />,
+    path: '/back-office/restaurant/:restaurant/opinions',
+  },
+  {
+    key: 'reserve',
+    icon: <ClockSvg />,
+    path: '/back-office/restaurant/:restaurant/reserve',
+  },
+  {
+    key: 'flayer',
+    icon: <QRCodeSvg />,
+    path: '/back-office/restaurant/:restaurant/flayer',
+  },
+  {
     key: 'archive',
     icon: <ArchiveSvg />,
     path: null,
@@ -38,11 +55,6 @@ const CONTROL_CONFIG = [
     key: 'edit',
     icon: <EditSvg />,
     path: 'restaurant/:restaurant',
-  },
-  {
-    key: 'qrcode',
-    icon: <QRCodeSvg />,
-    path: '/back-office/restaurant/:restaurant/qrcode',
   },
   {
     key: 'restore',
@@ -101,12 +113,12 @@ export const RestaurantInfo = ({
     const arr = [...CONTROL_CONFIG];
     if (pathname.indexOf('/restaurants') > -1) {
       if (pathname.indexOf('/restaurants/archive') > -1) {
-        return arr.slice(-2);
+        return arr.filter(({ key }) => ['restore', 'delete'].includes(key));
       }
-      return arr.splice(0, 3);
+      return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return [arr[2]];
+      return arr.filter(({ key }) => ['flayer', 'reserve', 'opinions'].includes(key));
     }
     return [];
   };

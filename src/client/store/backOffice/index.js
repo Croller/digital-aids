@@ -4,10 +4,9 @@ const initState = {
   restaurants: null,
   categories: null,
   dishes: null,
-  offers: null,
-  foodtips: null,
-  specialDeals: null,
-
+  reserve: null,
+  opinions: null,
+  
   dictionary: null,
 
   loading: false,
@@ -47,6 +46,12 @@ export function update(payload) {
   };
 }
 
+export function loadByParam(payload) {
+  return {
+    type: Constants.BO_LOAD_ITEMS_BY_PARAM,
+    payload,
+  };
+}
 export function deleteFiles(payload) {
   return {
     type: Constants.BO_DELETE_FILE,

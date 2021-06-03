@@ -8,13 +8,13 @@ import { rules, collectError } from 'client/utils/validatorRules';
 import { updateRow } from 'client/store/restaurant';
 import { useModal } from 'react-modal-hook';
 import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
+import { getUrl } from 'client/utils/common';
 import {
   CloseSvg,
   ClockSvg,
   CalendarSvg,
   UsersSvg,
 } from 'client/assets/images';
-import { getUrl } from 'client/utils/common';
 import { 
   ReservationWrapper,
   CloseButton,
@@ -71,7 +71,7 @@ const Reservation = () => {
   const [selectedTab, setSelectedTab] = useState('day');
   const [isChange, setIsChange] = useState(false);
   const [reserve, setReserve] = useState({
-    day: null,
+    day: new Date(),
     time: null,
     persons: null,
     name: null,
@@ -106,13 +106,14 @@ const Reservation = () => {
     if (external) {
       if (path.indexOf('tel') > -1) {
         document.location.href = path;
-        return null;
+        return;
       }
       window.open(path, '_blank').focus();
+      return;
     }
     if (history.action !== 'POP' && path === 'back') {
       history.goBack();
-      return null;
+      return;
     }
     history.push(path === 'back' ? 'categories' : path);
   };
@@ -169,11 +170,11 @@ const Reservation = () => {
       <CloseButton onClick={() => handleRoute('back')}>
         <CloseSvg />
       </CloseButton>
-      {images && images[1] && (
-        <ImgWrapper>
+      <ImgWrapper>
+        {images && images[1] && (
           <Img src={getPathImage(images[1])} />
-        </ImgWrapper>
-      )}
+        )}
+      </ImgWrapper>
       <Content>
         <Restaurant>
           {name}
@@ -186,7 +187,7 @@ const Reservation = () => {
             <TabButton
               key={`_tab_${key}`}
               active={selectedTab === key}
-              onClick={() => setSelectedTab(key)}
+              onClick={() => reserve[key] && setSelectedTab(key)}
             >
               <TabIconText
                 icon={icon}
@@ -200,6 +201,7 @@ const Reservation = () => {
             {selectedTab === 'day' ? (
               <CalendarStyled
                 view="month"
+                minDate={new Date()}
                 minDetail="decade"
                 showNeighboringMonth={false}
                 locale={localeArray.find(f => f.indexOf(language) > -1)}
@@ -286,7 +288,9 @@ const Reservation = () => {
                 <CheckBoxStyled>
                   {t('restaurant.pageReserve.accept')}
                   &nbsp;
-                  <LinkText>{t('restaurant.pageReserve.policy')}</LinkText>
+                  <LinkText onClick={() => handleRoute(`${getUrl()}/privacy-policy`, true)}>
+                    {t('restaurant.pageReserve.policy')}
+                  </LinkText>
                 </CheckBoxStyled>
               </FormItemStyled>
               <SubButton

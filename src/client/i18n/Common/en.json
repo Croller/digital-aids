@@ -31,6 +31,7 @@
     "contactPerson": "Contact person",
     "email": "E-mail",
     "opinion": "Opinion",
+    "opinions": "Opinions",
     "authorization": "Authorization",
     "login": "Log in",
     "logout": "Log out",
@@ -72,11 +73,13 @@
     "comments": "Comments",
     "download": "Download",
     "qrcode": "QR Code",
+    "flayer": "Flayer",
     "mails": "Mails",
     "lat": "Latitude",
     "lng": "longitude",
     "emptyList": "No data",
-    "ok": "Ok"
+    "ok": "Ok",
+    "reserve": "Reserve"
   },
 
   "form" : {

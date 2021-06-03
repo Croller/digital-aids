@@ -18,6 +18,8 @@
 -- DROP TABLE IF EXISTS dictionary_units_translate;
 -- DROP TABLE IF EXISTS dictionary_days;
 -- DROP TABLE IF EXISTS dictionary_days_translate;
+-- DROP TABLE IF EXISTS data_reserve;
+-- DROP TABLE IF EXISTS data_opinions;
 
 
 
@@ -29,7 +31,7 @@
 
 
 ALTER TABLE data_restaurants RENAME opinion TO description;
-
+ALTER TABLE data_restaurants ADD COLUMN number serial;
 
 
 
