@@ -166,6 +166,7 @@ const Order = () => {
                             {item.name}
                           </TitleGroup>
                           {DishBlock({
+                            dictionary,
                             dish: item.dish,
                             order: category.order,
                             group: item,
@@ -175,6 +176,7 @@ const Order = () => {
                         </DailyWrapper>
                       </DailyCard>
                     )) : category.order.map(dish => DishBlock({
+                      dictionary,
                       dish,
                       order: category.order,
                       currency: getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol'),

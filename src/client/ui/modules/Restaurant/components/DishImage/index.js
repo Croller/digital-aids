@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getUrl } from 'client/utils/common';
+import { getUrl, getDictionaryItem } from 'client/utils/common';
 import {
   Wrapper,
   ImgWrapper,
@@ -23,6 +23,7 @@ export const DishImage = memo(({
     allergens = null,
     images,
   },
+  dictionary,
   onShowAllergens,
 }) => {
   const [t] = useTranslation();
@@ -52,7 +53,7 @@ export const DishImage = memo(({
               {t('restaurant.common.allergens')}
             </AllergensButton>
             <Weight>
-              {`${price[0].amount || 0} ${price[0].unit}`}
+              {`${price[0].amount || '0'} ${getDictionaryItem(price[0].unit, 'id', dictionary.units, 'name')}`}
             </Weight>
           </InfoWrapper>
         )}

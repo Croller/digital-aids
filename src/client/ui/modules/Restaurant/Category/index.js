@@ -201,6 +201,7 @@ const Category = () => {
               </TitleGroup>
               {group.dishes.map(dish => DishBlock({
                 dish,
+                dictionary,
                 category: group,
                 order: categoryOrder,
                 dailymenu: categoryItem.type === 'daily',
@@ -210,6 +211,7 @@ const Category = () => {
           ))}
           {!categoryItem.type !== 'daily' && !categoryItem.children && categoryItem.dishes.map(dish => DishBlock({
             dish,
+            dictionary,
             category: categoryItem,
             order: categoryOrder,
             currency: getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol'),
