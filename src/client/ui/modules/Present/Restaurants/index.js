@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { init } from 'client/store/company';
+import { Loader } from 'client/ui/components/_block/Loader';
+import { getLayerObj } from 'client/ui/components/_ui/MapBox/utils/create';
+import * as turf from '@turf/turf';
+
 import {
   LoupeSvg,
   RestaurantSvg,
@@ -33,6 +37,15 @@ const Restaurants = () => {
   const { token } = user.info;
   const { restaurants } = company;
 
+  const getLayer = (arr) => {
+    const { geojson } = getLayerObj({
+      id: 'restaurants',
+      features: arr.map(restaurant => turf.flip(restaurant)),
+      options: {},
+    });
+    return [geojson];
+  };
+
   const handleSearch = (str = null) => {
     let result = null;
     if (str && str.length > 0) { 
@@ -54,6 +67,10 @@ const Restaurants = () => {
     history.push(`/restaurant/${key}/information`);
   };
 
+  const handleClickMap = (obj = null) => {
+    console.log('map click', obj);
+  };
+
   useEffect(() => {
     if (token) {
       rootDispatch(init());
@@ -62,8 +79,10 @@ const Restaurants = () => {
 
   return (
     <RestaurantsWrapper>
-      <Content>
-        {restaurants && (
+      {!restaurants ? (
+        <Loader />
+      ) : (
+        <Content>
           <ListWrapper>
             <Search
               allowClear
@@ -85,14 +104,14 @@ const Restaurants = () => {
                       text={name}
                     />
                     {/* <Controls>
-                      {getControl().map(({ key, icon, path }) => (
-                        <Tooltip key={key} placement="top" title={t(`common.words.${key}`)}>
-                          <Control onClick={() => handleRoute(key, path)}>
-                            {icon}
-                          </Control>
-                        </Tooltip>
-                      ))}
-                    </Controls> */}
+                        {getControl().map(({ key, icon, path }) => (
+                          <Tooltip key={key} placement="top" title={t(`common.words.${key}`)}>
+                            <Control onClick={() => handleRoute(key, path)}>
+                              {icon}
+                            </Control>
+                          </Tooltip>
+                        ))}
+                      </Controls> */}
                   </Header>
                   <Hr />
                   <Contacts>
@@ -105,9 +124,9 @@ const Restaurants = () => {
               ))}
             </List>
           </ListWrapper>
-        )}
-        <MapBoxStyled />
-      </Content>
+          <MapBoxStyled layers={getLayer(search || restaurants)} onClick={handleClickMap} />
+        </Content>
+      )}
     </RestaurantsWrapper>
   );
 };

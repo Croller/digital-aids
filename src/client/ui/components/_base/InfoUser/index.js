@@ -58,7 +58,7 @@ export const InfoUser = () => {
       local.user.enter_at = null;
     }
 
-    if (['/restaurant', '/restaurants/search'].some(s => pathname.indexOf(s) > -1) && pathname.indexOf(pathCurrent) === -1) {
+    if (pathname.indexOf(pathCurrent) === -1) {
       rootDispatch(login({
         login: process.env.REST_GUEST_LOGIN,
         password: process.env.REST_GUEST_PASSWORD,

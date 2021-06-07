@@ -25,36 +25,3 @@ export const getJson = (feature, turf) => {
   }, {});
   return turf.feature(geometry, prop);
 };
-
-export const getPaintLayer = (arr, paints) => arr.reduce((edited, layer) => {
-  const { properties, features } = layer;
-  const { id, options } = properties;
-  const typeLayer = properties.type || 'geojson';
-  if (features.length > 0) {
-    const { geometry } = features[0];
-    const typePaint = geometry.type;
-    const paint = paints[typeLayer][typePaint];
-    const paintArr = paint.map((p) => {
-      const layerObj = {
-        ...p,
-        ...options,
-        id: `${id}_${p.id}`,
-        source: {
-          type: typeLayer,
-          data: layer,
-        },
-      };
-      if (typeLayer === 'vector') {
-        layerObj['source-layer'] = `${id.split('_')[1]}`;
-      }
-      if (typeLayer === 'image') {
-        layerObj.type = 'geojson';
-        layerObj.layout['icon-image'] = `${id}_image`;
-        layerObj['source-layer'] = `${id}_layer`;
-      }
-      return layerObj;
-    });
-    return [...edited, ...paintArr];
-  }
-  return edited;
-}, []);

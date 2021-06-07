@@ -4,12 +4,8 @@ import * as turf from '@turf/turf';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import * as mapGL from 'mapbox-gl';
-import {
-  getScale,
-  getJson,
-  getPaintLayer,
-  paintFeature,
-} from './utils';
+import { getScale } from './utils/common';
+import { setLayersConf, layerPaints } from './utils/create';
 import {
   Wrapper,
   Scale,
@@ -22,7 +18,6 @@ export const MapBox = ({
   mode = null,
   layers = null,
   onClick = () => {},
-  onCreate = () => {},
   className = '',
   showInfo = true,
   config = null,
@@ -52,46 +47,58 @@ export const MapBox = ({
   const getCoords = (e) => ({ x: e.lngLat.lat, y: e.lngLat.lng });
 
   const getLayer = (e, substr = 'layer') => map.queryRenderedFeatures(e.point)
-    .filter(f => f.layer.id.indexOf(substr) > -1)
-    .map((feature) => getJson(feature, turf));
+    .filter(f => f.layer.id.indexOf(substr) > -1);
 
-  const setZoomTo = (arr) => {
-    if (!arr) return null;
-    try {
-      const bounds = turf.bbox(turf.featureCollection(arr));
-      map.fitBounds(bounds, {
-        padding: {
-          top: 150,
-          bottom: 150,
-          left: 200,
-          right: 200,
-        },
+  // const setZoomTo = (arr) => {
+  //   if (!arr) return null;
+  //   try {
+  //     const bounds = turf.bbox(turf.featureCollection(arr));
+  //     map.fitBounds(bounds, {
+  //       padding: {
+  //         top: 150,
+  //         bottom: 150,
+  //         left: 200,
+  //         right: 200,
+  //       },
+  //     });
+  //   } catch (e) {
+  //     throw e;
+  //   }
+  // };
+
+  const setLayers = (list) => {
+    if (list && list.length > 0) {
+      const features = setLayersConf(list, layerPaints);
+      features.forEach((layer, i) => {
+        if ('layerConfig' in layer) {
+          const layerName = layer.layerConfig.id;
+          const source = map.getSource(layerName);
+          if (!source) {
+            let prevLayerName = '';
+            if (features.length > 0 && i > 0) {
+              prevLayerName = features[i - 1].layerConfig.id;
+            } else {
+              prevLayerName = '';
+            }
+            map.addLayer(layer.layerConfig, layer.layerBefore || prevLayerName);
+            map.on('mousemove', layerName, (e) => {
+              map.getCanvas().style.cursor = 'pointer';
+              map.setFilter(`${layer.id}_da_hover`, ['==', 'id', e.features[0].properties.id]);
+            });
+            map.on('mouseleave', layerName, () => {
+              map.getCanvas().style.cursor = '';
+              map.setFilter(`${layer.id}_da_hover`, ['==', 'id', '']);
+            });
+            // if (layer.layerConfig.source.type === 'geojson') {
+            //   this.setZoomTo(layer.layerConfig.source.data.features);
+            // }
+          } else {
+            source.setData(layer.layerConfig.source.data);
+          }
+          map.setLayoutProperty(layerName, 'visibility', layer.is_visible ? 'visible' : 'none');
+        }
       });
-    } catch (e) {
-      throw e;
     }
-  };
-
-  const setLayers = (colletions) => {
-    if (!colletions || colletions.length === 0) return null;
-    getPaintLayer(colletions, paintFeature).forEach((layer, i) => {
-      const { id } = layer;
-      const prevLayerName = i !== 0 ? id : '';
-      const source = map.getSource(id);
-      if (map.getLayer(id) || source) {
-        source.setData(layer.source.data);
-      } else {
-        map.addLayer(layer, layer.layerBefore === '' ? prevLayerName : layer.layerBefore);
-        map.setLayoutProperty(id, 'visibility', layer.is_visible ? 'visible' : 'none');
-        map.on('mousemove', id, () => {
-          map.getCanvas().style.cursor = 'pointer';
-        });
-        map.on('mouseleave', id, () => {
-          map.getCanvas().style.cursor = '';
-        });
-      }
-    });
-    setZoomTo(colletions.reduce((all, colletion) => [...all, ...colletion.features], []));
   };
 
   const mapLoad = () => {
@@ -120,25 +127,11 @@ export const MapBox = ({
     });
     map.on('mousemove', (e) => {
       setCoords(getCoords(e));
-      // if (isMesuaring) {
-      //   onMesuare(true);
-      // }
     });
     map.on('contextmenu', () => {});
-    map.on('moveend', () => {
-      // window.console.log(map.getStyle().sources);
-      // window.console.log(map.getStyle().layers);
-    });
+    map.on('moveend', () => {});
     map.on('wheel', () => {
       setScale(getScale(map, turf));
-    });
-    map.on('draw.create', (e) => {
-      // setDraw(setDrawMode(draw));
-      onCreate(e.features.map((feature) => getJson(feature, turf)));
-      onCreate(JSON.stringify(e.features.map((feature) => getJson(feature, turf))));
-    });
-    map.on('draw.update', (e) => {
-      onCreate(e.features.map((feature) => getJson(feature, turf)));
     });
   };
 

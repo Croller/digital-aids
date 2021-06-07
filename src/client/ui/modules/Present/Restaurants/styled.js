@@ -52,11 +52,10 @@ export const List = styled.div`
   flex-direction: column;
   height: auto;
   border-radius: ${THEME.borderRadiusM};
-  background-color: ${PALETTE.white};
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     max-height: calc(100vh - 262px);
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 `;
 
@@ -122,7 +121,7 @@ export const Restaurant = styled.div`
   cursor: pointer;
 
   &:not(:last-child) {
-    margin-bottom: 22px;
+    margin-bottom: 6px;
   }
 
   &:hover {
@@ -142,8 +141,12 @@ export const Header = styled.div`
 `;
 
 export const Name = styled(IconText)`
-  font-size: 18px;
+  width: 340px;
+  font-size: 16px;
   font-family: ${FONTS.semiBold};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 
   > span > svg {
     width: 24px;
