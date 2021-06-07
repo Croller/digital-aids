@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
 import moment from 'moment';
+import { Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 // import { useModal } from 'react-modal-hook';
 // import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import {
@@ -29,6 +31,8 @@ export const ReservationInfo = memo(({
   className,
   onEvent = () => {},
 }) => {
+  const [t] = useTranslation();
+
   const handleEvent = (bool) => {
     onEvent({ id, is_approved: bool });
   };
@@ -60,18 +64,22 @@ export const ReservationInfo = memo(({
         )}
       />
       <Controls>
-        <Control
-          disabled={is_approved !== null}
-          onClick={() => handleEvent(true)}
-        >
-          <PlusSvg />
-        </Control>
-        <Control
-          disabled={is_approved !== null}
-          onClick={() => handleEvent(false)}
-        >
-          <CloseSvg />
-        </Control>
+        <Tooltip placement="top" title={t('common.words.approved')}>
+          <Control
+            disabled={is_approved !== null}
+            onClick={() => handleEvent(true)}
+          >
+            <PlusSvg />
+          </Control>
+        </Tooltip>
+        <Tooltip placement="top" title={t('common.words.denied')}>
+          <Control
+            disabled={is_approved !== null}
+            onClick={() => handleEvent(false)}
+          >
+            <CloseSvg />
+          </Control>
+        </Tooltip>
       </Controls>
     </Wrapper>
   );

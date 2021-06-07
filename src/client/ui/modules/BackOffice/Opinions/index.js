@@ -80,7 +80,7 @@ const Opinions = () => {
         ) : filtred.map((item, i) => (
           <OpinionInfo 
             {...item}
-            key={`_reservation_${i + 1}_${item.id}`}
+            key={`_opinions_${i + 1}_${item.id}`}
           />
         ))}
       </List>

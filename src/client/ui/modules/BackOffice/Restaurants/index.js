@@ -48,7 +48,7 @@ const Restaurants = () => {
   useEffect(() => {
     window.prerenderReady = true;
     if (restaurants) {
-      const result = restaurants.reduce((obj, rest) => { 
+      const result = restaurants.sort((a, b) => a.number - b.number).reduce((obj, rest) => { 
         const val = rest.is_archived;
         if (rest.is_deleted) {
           return obj;
