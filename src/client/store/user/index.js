@@ -21,7 +21,8 @@ const initState = {
     lng: 'en',
     cookies: false,
   },
-  orders: null, // orders users
+
+  dictionary: null,
 
   loading: false,
   error: null,
@@ -30,7 +31,7 @@ const initState = {
 export default function (state = initState, action) {
   switch (action.type) {
     case Constants.USER_SET:
-      return { ...state, info: action.payload || initState.info };
+      return { ...state, ...action.payload };
     case Constants.USER_ERROR_SET:
       return { ...state, error: action.payload, loading: false };
     case Constants.USER_LOADING_SET:

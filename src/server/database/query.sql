@@ -1,5 +1,4 @@
 -- DROP TABLE IF EXISTS data_users;
--- DROP TABLE IF EXISTS data_roles;
 -- DROP TABLE IF EXISTS data_restaurants;
 
 -- DROP TABLE IF EXISTS data_categories;
@@ -8,6 +7,7 @@
 -- DROP TABLE IF EXISTS data_categories_translate;
 -- DROP TABLE IF EXISTS data_dishes_translate;
 
+-- DROP TABLE IF EXISTS dictionary_roles;
 -- DROP TABLE IF EXISTS dictionary_currency;
 -- DROP TABLE IF EXISTS dictionary_currency_translate;
 -- DROP TABLE IF EXISTS dictionary_languages;
@@ -30,9 +30,9 @@
 
 
 
-ALTER TABLE data_restaurants RENAME opinion TO description;
-ALTER TABLE data_restaurants ADD COLUMN number serial;
-
+-- ALTER TABLE data_restaurants RENAME opinion TO description;
+-- ALTER TABLE data_restaurants ADD COLUMN number serial;
+-- ALTER TABLE data_restaurants ADD is_publish BOOLEAN DEFAULT FALSE;
 
 
 
