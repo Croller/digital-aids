@@ -82,7 +82,10 @@
     "reserve": "Reserve",
     "approved": "Approved",
     "denied": "Denied",
-    "more": "More"
+    "more": "More",
+    "public": "Public",
+    "yes": "Yes",
+    "no": "No"
    },
 
   "form" : {

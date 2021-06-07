@@ -79,7 +79,8 @@
         "question": "Would you like to know me?",
         "description": "Let me join your team and I serve your clients as a multilingual waiter ",
         "time": "7 days and 24 hours",
-        "button": "Presentation"
+        "button": "Presentation",
+        "restaurants": "Restaurants"
       },
       "col3": {
         "title": "Scan QR code to check my example",

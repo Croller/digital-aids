@@ -16,7 +16,7 @@ export const Layout = ({
   const { location: { pathname } } = history;
 
   const getShowFooter = () => {
-    const bool = !['/restaurants/search'].some(f => pathname.indexOf(f) > -1);
+    const bool = !['/restaurants'].some(f => pathname.indexOf(f) > -1);
     return bool;
   };
 

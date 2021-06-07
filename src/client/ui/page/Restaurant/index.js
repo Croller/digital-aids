@@ -85,7 +85,7 @@ export const Restaurant = () => {
             <Route exac path={`${PATH}/:restaurant/foodtips`} component={FoodTips} />
             <Route exac path={`${PATH}/:restaurant/order/receipt`} component={Receipt} />
             <Route exac path={`${PATH}/:restaurant/order`} component={Order} />
-            <Redirect to="/restaurants/search" />
+            <Redirect to="/restaurants" />
           </Switch>
         </Layout>
       )}

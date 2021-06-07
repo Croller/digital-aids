@@ -34,6 +34,7 @@ import {
   PresentDescription,
   PresentTime,
   PresentButton,
+  RestButton,
   QRCodeWrapper,
   QRCodeTitle,
   QRCodeLanguage,
@@ -221,6 +222,9 @@ const Main = () => {
             <PresentButton onClick={() => handleRoute('/tutorial')}>
               {t('present.main.first.col2.button')}  
             </PresentButton>
+            <RestButton onClick={() => handleRoute('/restaurants')}>
+              {t('present.main.first.col2.restaurants')}  
+            </RestButton>
           </PresentWrapper>
           <QRCodeWrapper>
             <QRCodeTitle>

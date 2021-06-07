@@ -45,6 +45,11 @@ const Restaurants = () => {
     setSearched(result);
   };
 
+  const getList = () => {
+    if (!restaurants) return [];
+    return [...(searched || (filtred && filtred[isArchive]))];
+  };
+
   useEffect(() => {
     window.prerenderReady = true;
     if (restaurants) {
@@ -67,18 +72,22 @@ const Restaurants = () => {
       />
       <List>
         {loading && (<LoaderStyled />)}
-        {(searched || (filtred && filtred[isArchive].length === 0)) ? (
+        {((searched && searched.length === 0) || (filtred && filtred[isArchive].length === 0)) ? (
           <EmptyBlock
             type={(searched && 'search') || (isArchive ? 'archive' : 'restaurants')}
             icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
           />
-        ) : (restaurants && filtred && filtred[isArchive]).map((item, i) => (
-          <RestaurantInfo
-            {...item}
-            key={`_restauran_${i + 1}_${item.id}`}
-            onEvent={handleEvent}
-          />
-        ))}
+        ) : (
+          <>
+            {getList().map((item, i) => (
+              <RestaurantInfo
+                {...item}
+                key={`_restauran_${i + 1}_${item.id}`}
+                onEvent={handleEvent}
+              />
+            ))}
+          </>
+        )}
       </List>
     </RestaurantList>
   );

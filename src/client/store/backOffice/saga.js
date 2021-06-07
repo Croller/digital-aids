@@ -35,7 +35,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
     let results_restaurants = [];
     if (!ids) {
       results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
-      results_restaurants = results_restaurants.data_restaurants.sort((a, b) => b.number - a.number);
+      results_restaurants = results_restaurants.data_restaurants.sort((a, b) => a.number - b.number);
     }
     if (ids && ids.length > 0) {
       results_restaurants = yield commonProvider.loadRow({

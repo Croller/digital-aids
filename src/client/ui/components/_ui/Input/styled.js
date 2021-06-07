@@ -13,7 +13,8 @@ export const InputStyled = styled(Input)`
   background-color: ${PALETTE.white};
 
   &:hover {
-    border-color: ${PALETTE.grey3}
+    border-color: ${PALETTE.grey3};
+    box-shadow: unset;
   }
 
   &:focus {
@@ -23,18 +24,19 @@ export const InputStyled = styled(Input)`
   }
 
   .ant-input-disabled {
-    background-color: ${PALETTE.grey29} !important;
+    background-color: ${PALETTE.grey29};
     color: ${PALETTE.grey6};
   }
 
   &.ant-input-affix-wrapper {
     border-width: 0;
-    border-color: transparent !important;
+    border-color: transparent;
 
     &:not(.ant-input-affix-wrapper-disabled) {
       &:hover {
         border-width: 0;
-        border-color: transparent !important;
+        border-color: transparent;
+        box-shadow: unset;
       }
     }
   }

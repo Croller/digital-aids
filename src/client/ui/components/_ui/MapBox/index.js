@@ -72,9 +72,9 @@ export const MapBox = ({
     }
   };
 
-  const setLayers = (featureCollections) => {
-    if (!featureCollections || featureCollections.length === 0) return null;
-    getPaintLayer(featureCollections, paintFeature).forEach((layer, i) => {
+  const setLayers = (colletions) => {
+    if (!colletions || colletions.length === 0) return null;
+    getPaintLayer(colletions, paintFeature).forEach((layer, i) => {
       const { id } = layer;
       const prevLayerName = i !== 0 ? id : '';
       const source = map.getSource(id);
@@ -91,7 +91,7 @@ export const MapBox = ({
         });
       }
     });
-    setZoomTo(featureCollections.reduce((all, colletion) => [...all, ...colletion.features], []));
+    setZoomTo(colletions.reduce((all, colletion) => [...all, ...colletion.features], []));
   };
 
   const mapLoad = () => {

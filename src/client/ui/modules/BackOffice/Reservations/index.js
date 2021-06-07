@@ -82,12 +82,12 @@ const Reservations = () => {
       />
       <List>
         {loading && (<LoaderStyled />)}
-        {searched || filtred.length === 0 ? (
+        {(searched && searched.length === 0) || filtred.length === 0 ? (
           <EmptyBlock
             type={searched ? 'search' : 'noData'}
             icon={searched ? (<LoupeSvg />) : (<ArchiveSvg />)}
           />
-        ) : filtred.map((item, i) => (
+        ) : (searched || filtred).map((item, i) => (
           <ReservationInfo 
             {...item}
             key={`_reservation_${i + 1}_${item.id}`}

@@ -6,7 +6,7 @@ import { Layout } from 'client/ui/components/Layout/Present';
 const Main = lazy(() => import('client/ui/modules/Present/Main'));
 const Tutorial = lazy(() => import('client/ui/modules/Present/Tutorial'));
 const PrivacyPolicy = lazy(() => import('client/ui/modules/Present/PrivacyPolicy'));
-const Search = lazy(() => import('client/ui/modules/Present/Search'));
+const Restaurants = lazy(() => import('client/ui/modules/Present/Restaurants'));
 
 export const Present = () => {
   useEffect(() => {
@@ -18,7 +18,7 @@ export const Present = () => {
       <Switch>
         <Route exac path="/tutorial" component={Tutorial} />
         <Route exac path="/privacy-policy" component={PrivacyPolicy} />
-        <Route exac path="/restaurants/search" component={Search} />
+        <Route exac path="/restaurants" component={Restaurants} />
         <Route path="*" component={Main} />
         <Redirect to="*" />
       </Switch>

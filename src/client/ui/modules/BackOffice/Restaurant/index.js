@@ -415,6 +415,27 @@ const Restaurant = () => {
                 </FormItemStyled>
               </FormCol>
             </Form2Col>
+            <FormItemStyled
+              label={t('common.words.public')}
+              name="is_publish"
+              required
+              rules={rule.select}
+            >
+              <SelectStyled
+                placeholder={t('common.form.placeholder.select')}
+                optionFilterProp="label"
+              >
+                {[{ id: true, name: t('common.words.yes') }, { id: false, name: t('common.words.no') }].map(({ id, name }, i) => (
+                  <OptionStyled
+                    key={`_public_${i + 1}`}
+                    value={id}
+                    label={name}
+                  >
+                    {name}
+                  </OptionStyled>
+                ))}
+              </SelectStyled>
+            </FormItemStyled>
           </FormCol>
           <FormCol>
             <FormItemStyled
@@ -594,6 +615,7 @@ const Restaurant = () => {
                 </>
               )}
             </FormUploader>
+            
           </FormCol>
         </Form2Col>
         <FormItemSubmit>

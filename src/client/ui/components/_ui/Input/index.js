@@ -39,7 +39,8 @@ export const InputDefault = ({
   disabled = false,
   prefix = null,
   suffix = null,
-  defaultValue = null,
+  value = null,
+  allowClear = false,
   onChange = () => {},
   onPressEnter = () => {},
   className,
@@ -61,7 +62,8 @@ export const InputDefault = ({
       disabled={disabled}
       prefix={prefix}
       suffix={suffix}
-      defaultValue={defaultValue}
+      defaultValue={value}
+      allowClear={allowClear}
       onChange={handleChange}
       onPressEnter={onPressEnter}
     />
