@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { init } from 'client/store/company';
+import { getUrl } from 'client/utils/common';
 import {
   LoupeSvg,
   RestaurantSvg,
@@ -47,6 +48,11 @@ const Restaurants = () => {
     setSearch(result);
   };
 
+  const handleRoute = (key = null) => {
+    if (!key) return null;
+    window.open(`${getUrl()}/restaurant/${key}/information`, '_blank').focus();
+  };
+
   useEffect(() => {
     if (token) {
       rootDispatch(init());
@@ -71,7 +77,7 @@ const Restaurants = () => {
                   address,
                 },
               }) => (
-                <Restaurant key={`_rest_${key}`}>
+                <Restaurant key={`_rest_${key}`} onClick={() => handleRoute(key)}>
                   <Header>
                     <Name
                       icon={<RestaurantSvg />}
