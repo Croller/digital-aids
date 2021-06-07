@@ -49,7 +49,7 @@ function* init({ payload: { restaurant = null } }) {
         name: 'data_restaurants',
         token,
         language: 'en',
-        data: { key: restaurant },
+        data: { key: restaurant, is_archived: false, is_deleted: false },
       });
     }
 

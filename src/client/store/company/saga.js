@@ -42,6 +42,6 @@ function* init() {
   yield put({ type: Constants.PRESENT_LOADING_SET, payload: false });
 }
 
-export function* watchRESTloadInit() {
+export function* watchPRESENTloadInit() {
   yield takeLatest(Constants.PRESENT_LOAD_INIT, init);
 }
