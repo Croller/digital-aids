@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { init } from 'client/store/company';
-import { getUrl } from 'client/utils/common';
 import {
   LoupeSvg,
   RestaurantSvg,
@@ -27,6 +27,7 @@ const SEARCH_FIELDS = ['name', 'address', 'phone'];
 
 const Restaurants = () => {
   const rootDispatch = useDispatch();
+  const history = useHistory();
   const [search, setSearch] = useState(null);
   const { user, company } = useSelector(s => s);
   const { token } = user.info;
@@ -36,7 +37,7 @@ const Restaurants = () => {
     let result = null;
     if (str && str.length > 0) { 
       result = restaurants.filter(item => SEARCH_FIELDS.some(field => {
-        let value = item[field];
+        let value = item.properties[field];
         if (!value) return false;
         value = value.toString();
         if (Array.isArray(value)) {
@@ -50,7 +51,7 @@ const Restaurants = () => {
 
   const handleRoute = (key = null) => {
     if (!key) return null;
-    window.open(`${getUrl()}/restaurant/${key}/information`, '_blank').focus();
+    history.push(`/restaurant/${key}/information`);
   };
 
   useEffect(() => {

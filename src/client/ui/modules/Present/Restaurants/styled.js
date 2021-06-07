@@ -20,7 +20,7 @@ export const RestaurantsWrapper = styled.div`
 export const Content = styled.div`
   position: relative;
   margin: 0 auto;
-  height: calc(100vh - 73px);
+  height: auto;
   width: 100%;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
