@@ -1,6 +1,22 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import * as Constants from 'client/store/user/constants';
 import * as authProvider from 'client/providers/auth';
+import * as commonProvider from 'client/providers/common';
+
+function* getDictionary({ payload }) {
+  const { token, language = 'en', data } = payload;
+  const results_dictionary = yield commonProvider.loadTable({
+    token,
+    language,
+    data,
+  });
+  yield put({
+    type: Constants.USER_SET,
+    payload: {
+      dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
+    },
+  });
+}
 
 function* update({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
@@ -21,7 +37,8 @@ function* login({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield put({ type: Constants.USER_SET, payload: { ...data, language } });
+      yield getDictionary({ payload: { token: data.token, data: ['dictionary_roles'] } });
+      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language } } });
     }
   } catch (err) {
     throw err;
@@ -33,10 +50,12 @@ function* auth({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
     const data = yield authProvider.auth(payload);
+    
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield put({ type: Constants.USER_SET, payload: data });
+      yield getDictionary({ payload: { token: data.token, data: ['dictionary_roles'] } });
+      yield put({ type: Constants.USER_SET, payload: { info: data } });
     }
   } catch (err) {
     throw err;
@@ -45,7 +64,7 @@ function* auth({ payload }) {
 }
 
 function* logout() {
-  yield put({ type: Constants.USER_SET, payload: null });
+  yield put({ type: Constants.USER_SET, payload: { info: { token: null } } });
 }
 
 export function* watchUserUpdate() {

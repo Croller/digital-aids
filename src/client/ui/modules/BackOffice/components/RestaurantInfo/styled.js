@@ -67,7 +67,7 @@ export const Control = styled(Button)`
 
   > svg {
     width: 18px;
-    height: 18px;
+    height: 100%;
 
     path {
       fill: ${PALETTE.black1};

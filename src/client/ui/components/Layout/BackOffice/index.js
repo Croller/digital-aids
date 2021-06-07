@@ -23,7 +23,8 @@ export const Layout = ({
   const { id, token, roles } = useSelector(store => store.user.info);
 
   const handleRoute = useCallback((part = 'restaurants') => {
-    if (part === 'logout') {
+    if (part === 'auth') {
+      history.push(path);
       setUser({ token: null });
       rootDispatch(logout());
     }

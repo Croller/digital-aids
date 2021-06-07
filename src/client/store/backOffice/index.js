@@ -52,6 +52,7 @@ export function loadByParam(payload) {
     payload,
   };
 }
+
 export function deleteFiles(payload) {
   return {
     type: Constants.BO_DELETE_FILE,

@@ -22,18 +22,6 @@ CREATE TABLE IF NOT EXISTS data_users (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE IF NOT EXISTS data_roles (
-  id serial primary key,
-  name VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL,
-  create_restaurant BOOLEAN DEFAULT FALSE,
-  update_restaurant BOOLEAN DEFAULT FALSE,
-  delete_restaurant BOOLEAN DEFAULT FALSE,
-  create_user BOOLEAN DEFAULT FALSE,
-  update_user BOOLEAN DEFAULT FALSE,
-  delete_user BOOLEAN DEFAULT FALSE
-);
-
 CREATE TABLE IF NOT EXISTS data_restaurants (
   number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -55,6 +43,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   options jsonb DEFAULT '{"specialsDeals":{"max":"1"},"foodtips":{"max":"5"}}',
   geojson jsonb DEFAULT NULL,
   geom GEOMETRY DEFAULT NULL,
+  is_publish BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
@@ -136,6 +125,19 @@ CREATE TABLE IF NOT EXISTS data_opinions (
   create_at timestamp with time zone NOT NULL DEFAULT NOW(),
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS dictionary_roles (
+  id serial primary key,
+  name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
+  root BOOLEAN DEFAULT FALSE,
+  create_restaurant BOOLEAN DEFAULT FALSE,
+  update_restaurant BOOLEAN DEFAULT FALSE,
+  delete_restaurant BOOLEAN DEFAULT FALSE,
+  create_user BOOLEAN DEFAULT FALSE,
+  update_user BOOLEAN DEFAULT FALSE,
+  delete_user BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (

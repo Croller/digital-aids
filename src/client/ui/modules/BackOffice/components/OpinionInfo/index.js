@@ -1,8 +1,9 @@
 import React, { memo, useState } from 'react';
+import { Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 import { getDictionaryItem } from 'client/utils/common';
 import { OPINION_RATING } from 'client/utils/constants';
+import moment from 'moment';
 import {
   TagSvg,
   CalendarSvg,
@@ -42,7 +43,7 @@ export const OpinionInfo = memo(({
       <Head>
         <Rate
           icon={<TagSvg />}
-          text={rateCalc()}
+          text={`${rateCalc()} / ${category.length}`}
         />
         <ValuationWrapper>
           {category.map(key => (
@@ -67,11 +68,13 @@ export const OpinionInfo = memo(({
           )}
         />
         <Controls>
-          <Control
-            onClick={() => setCollapsed(!collapsed)}
-          >
-            {collapsed ? <CloseSvg /> : <PlusSvg />}
-          </Control>
+          <Tooltip placement="top" title={t('common.words.more')}>
+            <Control
+              onClick={() => setCollapsed(!collapsed)}
+            >
+              {collapsed ? <CloseSvg /> : <PlusSvg />}
+            </Control>
+          </Tooltip>
         </Controls>
       </Head>
       {collapsed && (

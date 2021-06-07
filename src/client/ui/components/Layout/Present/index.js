@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/Present';
 import { Footer } from 'client/ui/components/Footer/Present';
 
@@ -10,12 +11,24 @@ import {
 export const Layout = ({
   children,
   className,
-}) => (
-  <Wrapper className={className}>
-    <Header />
-    <Cotainer>
-      {children}
-    </Cotainer>
-    <Footer />
-  </Wrapper>
-);
+}) => {
+  const history = useHistory();
+  const { location: { pathname } } = history;
+
+  const getShowFooter = () => {
+    const bool = !['/restaurants'].some(f => pathname.indexOf(f) > -1);
+    return bool;
+  };
+
+  return (
+    <Wrapper className={className}>
+      <Header />
+      <Cotainer>
+        {children}
+      </Cotainer>
+      {getShowFooter() && (
+        <Footer />
+      )}
+    </Wrapper>
+  );
+};

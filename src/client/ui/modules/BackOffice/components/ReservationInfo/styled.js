@@ -58,6 +58,8 @@ export const Contact = styled(IconText)`
 export const Date = styled(IconText)`
   font-size: 14px;
   font-family: ${FONTS.medium};
+  margin-right: 100px;
+  margin-left: auto;
 
   > span > svg {
     width: 26px;
@@ -93,7 +95,7 @@ export const Control = styled(Button)`
 
   > svg {
     width: 18px;
-    height: 18px;
+    height: 100%;
 
     path {
       fill: ${PALETTE.black1};

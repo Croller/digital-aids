@@ -14,6 +14,7 @@ export const DishBlock = ({
   category,
   dailymenu = false,
   currency,
+  dictionary,
 }, onShowAllergens, onSelect) => {
   const getCount = (id) => {
     const item = order.find(f => f.id === id);
@@ -32,6 +33,7 @@ export const DishBlock = ({
     >
       <DishImage
         source={dish}
+        dictionary={dictionary}
         onShowAllergens={() => onShowAllergens(dish.allergens)}
       />
       {dailymenu ? (

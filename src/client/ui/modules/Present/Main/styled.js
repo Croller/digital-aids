@@ -140,7 +140,23 @@ export const PresentButton = styled(Button)`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 284px;
-    margin-top: 70px;
+    margin-top: 30px;
+  }
+`;
+
+export const RestButton = styled(Button)`
+  width: 100%;
+  height: 52px;
+  background-color: ${PALETTE.green1};
+  font-family: ${FONTS.semiBold};
+  font-size: 16px;
+  color: ${PALETTE.white};
+  text-transform: uppercase;
+  margin-top: 22px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    width: 284px;
+    margin-top: 14px;
   }
 `;
 

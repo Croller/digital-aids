@@ -55,7 +55,7 @@ export const Sidebar = memo(({
         ))}
       </Menu>
       <Menu>
-        <Item onClick={() => onRoute('logout')}>
+        <Item onClick={() => onRoute('auth')}>
           <Icon>
             <AlertCircleSvg />
           </Icon>

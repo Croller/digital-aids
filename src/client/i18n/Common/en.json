@@ -79,8 +79,14 @@
     "lng": "longitude",
     "emptyList": "No data",
     "ok": "Ok",
-    "reserve": "Reserve"
-  },
+    "reserve": "Reserve",
+    "approved": "Approved",
+    "denied": "Denied",
+    "more": "More",
+    "public": "Public",
+    "yes": "Yes",
+    "no": "No"
+   },
 
   "form" : {
     "placeholder": {

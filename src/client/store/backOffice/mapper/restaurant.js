@@ -17,6 +17,7 @@ export const dataToForm = (data) => {
     socials,
     at_work,
     geojson,
+    is_publish,
   } = data;
 
   const goemEdit = (geojson && geojson.geometry.coordinates) || geojson;
@@ -35,6 +36,7 @@ export const dataToForm = (data) => {
     main_language: data.languages[0],
     sub_languages: data.languages.filter(f => f !== data.languages[0]),
     images,
+    is_publish,
     'socials.facebook.url': socials.facebook.url,
     'socials.instagram.url': socials.instagram.url,
     'socials.thefork.url': socials.thefork.url,
@@ -68,6 +70,7 @@ export const dataToApi = (data, current) => {
     avg_price,
     main_language,
     sub_languages,
+    is_publish,
     lat, lng,
   } = data;
   
@@ -96,6 +99,7 @@ export const dataToApi = (data, current) => {
     employees,
     avg_price,
     languages: [main_language, ...sub_languages],
+    is_publish,
     images,
     socials: {
 
@@ -209,4 +213,5 @@ export const model = {
   },
   is_archived: false,
   is_deleted: false,
+  is_publish: false,
 };

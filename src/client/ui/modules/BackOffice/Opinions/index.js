@@ -72,15 +72,15 @@ const Opinions = () => {
       />
       <List>
         {loading && (<LoaderStyled />)}
-        {searched || filtred.length === 0 ? (
+        {(searched && searched.length === 0) || filtred.length === 0 ? (
           <EmptyBlock
             type={searched ? 'search' : 'noData'}
             icon={searched ? (<LoupeSvg />) : (<ArchiveSvg />)}
           />
-        ) : filtred.map((item, i) => (
+        ) : (searched || filtred).map((item, i) => (
           <OpinionInfo 
             {...item}
-            key={`_reservation_${i + 1}_${item.id}`}
+            key={`_opinions_${i + 1}_${item.id}`}
           />
         ))}
       </List>
