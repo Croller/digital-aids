@@ -40,7 +40,7 @@ export const CloseButton = styled(Button)`
 
 export const ImgWrapper = styled.div`
   width: 100%;
-  height: 138px;
+  height: 150px;
   display: block;
 `;
 
@@ -73,7 +73,7 @@ export const Title = styled.h4`
   font-family: ${FONTS.semiBold};
   color: ${PALETTE.white};
   margin: 0;
-  margin-bottom: 52px;
+  margin-bottom: 28px;
 `;
 
 export const Tab = styled.div`

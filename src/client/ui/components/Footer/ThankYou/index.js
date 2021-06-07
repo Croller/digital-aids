@@ -50,12 +50,12 @@ export const ThankYou = memo(() => {
       </Description>
       {socials && (
         <SocialWrapper>
-          {Object.keys(socials).map(key => SOCIALS_MAPPER[key] && (
+          {Object.keys(socials).map(social => SOCIALS_MAPPER[social] && (
             <SocialButton
-              key={key}
-              onClick={() => handleRoute(socials[key].url)}
+              key={social}
+              onClick={() => handleRoute(socials[social].url)}
             >
-              {SOCIALS_MAPPER[key].icon}
+              {SOCIALS_MAPPER[social].icon}
             </SocialButton>
           ))}
         </SocialWrapper>

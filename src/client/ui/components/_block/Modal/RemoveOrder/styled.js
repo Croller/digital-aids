@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
   border-radius: 12px;
   background-color: ${PALETTE.white};
   padding: 66px 0 54px;
-  width: 306px;
+  width: 320px;
 
 `;
 

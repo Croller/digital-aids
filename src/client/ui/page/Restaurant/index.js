@@ -37,11 +37,9 @@ export const Restaurant = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    console.log('language', language);
     if (token) {
       const key = pathname.split('/')[2];
       rootDispatch(init({ restaurant: key }));
-      console.log('restaurant load:', key);
     }
   }, [token, language]);
 
