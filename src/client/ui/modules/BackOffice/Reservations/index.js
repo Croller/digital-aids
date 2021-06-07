@@ -23,10 +23,10 @@ const Reservations = () => {
   const [t] = useTranslation();
   const [searched, setSearched] = useState(null);
   const [filtred, setFiltred] = useState([]);
-  const [data, setData] = useState({
+  const data = {
     filter: 'all', // is_approved  (true, false)
     day: moment().format('DD.MM.YYYY'),
-  });
+  };
 
   const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_reserve', data: obj }));

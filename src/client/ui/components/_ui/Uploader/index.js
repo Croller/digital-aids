@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { getBase64, imageToPng, validateBase64 } from 'client/utils/common';
+import { getBase64, imageToPng } from 'client/utils/common';
 import { PictureAddSvg, TrashSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';

@@ -19,6 +19,8 @@ import ShoppingBasketSvg from './svg/backOffice/shopping-basket.svg';
 import ThumbsDownSvg from './svg/backOffice/thumbs-down.svg';
 import ThumbsUpSvg from './svg/backOffice/thumbs-up.svg';
 import StarHalfDashedSvg from './svg/backOffice/star-half-dashed.svg';
+import ReceiptSvg from './svg/backOffice/receipt.svg';
+import ShoppingBagSvg from './svg/backOffice/shopping-bag.svg';
 
 // restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
@@ -141,6 +143,8 @@ export {
   ThumbsDownSvg,
   ThumbsUpSvg,
   StarHalfDashedSvg,
+  ReceiptSvg,
+  ShoppingBagSvg,
   
   ChefSvg,
   ChefHeadSvg,
