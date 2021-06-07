@@ -80,7 +80,7 @@ export const getCoordsByAddress = async ({
   address,
   language = 'en',
 }) => {
-  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${process.env.API_KEY_GOOGLE_MAP}`);
+  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${process.env.TOKEN_GOOGLE_MAP}`);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
