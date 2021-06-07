@@ -59,7 +59,7 @@ const Reservations = () => {
   useEffect(() => {
     if (reserve) {
       const { filter } = data;
-      const sorted = reserve.sort((a, b) => moment(a.create_at).diff(moment(b.create_at)));
+      const sorted = reserve.sort((a, b) => moment(b.create_at).diff(moment(a.create_at)));
       const result = filter === 'all' ? sorted : sorted.filter(({ is_approved }) => filter === is_approved);
       setFiltred(result);
     }

@@ -14,7 +14,7 @@ import {
   PlusSvg,
   QRCodeSvg,
   ClockSvg,
-  TagSvg,
+  StarHalfDashedSvg,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -33,7 +33,7 @@ import {
 const CONTROL_CONFIG = [
   {
     key: 'opinions',
-    icon: <TagSvg />,
+    icon: <StarHalfDashedSvg />,
     path: '/back-office/restaurant/:restaurant/opinions',
   },
   {

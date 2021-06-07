@@ -96,8 +96,9 @@ export const Date = styled(IconText)`
 export const Controls = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-direction: row;
+  width: 82px;
 `;
 
 export const Control = styled(Button)`

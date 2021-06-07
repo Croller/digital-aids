@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { getBase64, imageToPng } from 'client/utils/common';
+import { getBase64, imageToPng, validateBase64 } from 'client/utils/common';
 import { PictureAddSvg, TrashSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
@@ -63,6 +63,13 @@ export const Uploader = forwardRef(({
     onUpload(filtred, file);
   };
 
+  const handleError = (img) => {
+    const image = { ...img };
+    image.onerror = '';
+    image.src = '/images/noimage.gif';
+    return true;
+  };
+
   const transformFile = async (file) => {
     if (file.type !== 'image/png') {
       const png = await imageToPng(file.originFileObj, uuidv4());
@@ -105,7 +112,7 @@ export const Uploader = forwardRef(({
       <List className="list-images">
         {files && files.length > 0 && files.map((file) => (
           <ImgBlock key={`_image_${file.uuid}`}>
-            <Img src={file.base64} />
+            <Img src={file.base64} onError={handleError} />
             <Delete show={!disabled} onClick={() => handleDelete(file)}>
               <TrashSvg />
             </Delete>

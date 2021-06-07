@@ -9,8 +9,8 @@ import {
   UserCircleSvg,
   PhoneCallSvg,
   CalendarSvg,
-  PlusSvg,
-  CloseSvg,
+  ThumbsUpSvg,
+  ThumbsDownSvg,
 } from 'client/assets/images';
 import { 
   Wrapper,
@@ -19,6 +19,7 @@ import {
   Date,
   Controls,
   Control,
+  Status,
 } from './styled';
 
 export const ReservationInfo = memo(({
@@ -64,22 +65,30 @@ export const ReservationInfo = memo(({
         )}
       />
       <Controls>
-        <Tooltip placement="top" title={t('common.words.approved')}>
-          <Control
-            disabled={is_approved !== null}
-            onClick={() => handleEvent(true)}
-          >
-            <PlusSvg />
-          </Control>
-        </Tooltip>
-        <Tooltip placement="top" title={t('common.words.denied')}>
-          <Control
-            disabled={is_approved !== null}
-            onClick={() => handleEvent(false)}
-          >
-            <CloseSvg />
-          </Control>
-        </Tooltip>
+        {is_approved === null ? (
+          <>
+            <Tooltip placement="top" title={t('common.words.approved')}>
+              <Control
+                disabled={is_approved !== null}
+                onClick={() => handleEvent(true)}
+              >
+                <ThumbsUpSvg />
+              </Control>
+            </Tooltip>
+            <Tooltip placement="top" title={t('common.words.denied')}>
+              <Control
+                disabled={is_approved !== null}
+                onClick={() => handleEvent(false)}
+              >
+                <ThumbsDownSvg />
+              </Control>
+            </Tooltip>
+          </>
+        ) : (
+          <Status>
+            {is_approved ? <ThumbsUpSvg /> : <ThumbsDownSvg />}
+          </Status>
+        )}
       </Controls>
     </Wrapper>
   );

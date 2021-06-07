@@ -75,8 +75,9 @@ export const Date = styled(IconText)`
 export const Controls = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-direction: row;
+  width: 82px;
 `;
 
 export const Control = styled(Button)`
@@ -95,6 +96,27 @@ export const Control = styled(Button)`
 
   > svg {
     width: 18px;
+    height: 100%;
+
+    path {
+      fill: ${PALETTE.black1};
+    }
+  }
+`;
+
+export const Status = styled(Button)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  background-color: transparent;
+  border-radius: ${THEME.borderRadiusS};
+  cursor: default;
+
+  > svg {
+    width: 24px;
     height: 100%;
 
     path {
