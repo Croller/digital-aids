@@ -6,8 +6,17 @@ const initState = {
   dishes: null,
   reserve: null,
   opinions: null,
-  
+  orders: null,
+  notify: null,
+
   dictionary: null,
+
+  alert: {
+    reserve: false,
+    opinions: false,
+    orders: false,
+    notify: false,
+  },
 
   loading: false,
   status: null,
@@ -35,6 +44,13 @@ export default function (state = initState, action) {
 export function init(payload) {
   return {
     type: Constants.BO_LOAD_INIT,
+    payload,
+  };
+}
+
+export function set(payload) {
+  return {
+    type: Constants.BO_SET_STATE,
     payload,
   };
 }

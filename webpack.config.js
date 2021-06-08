@@ -164,7 +164,10 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
     proxy: {
-      ...['/api', '/static'].reduce((obj, key) => ({ ...obj, [key]: `http://0.0.0.0:${process.env.LOCAL_SERVER_PORT}` }), {}),
+      ...['/api', '/static', '/socket.io'].reduce((obj, key) => ({
+        ...obj,
+        [key]: `http://0.0.0.0:${process.env.LOCAL_SERVER_PORT}`,
+      }), {}),
       secure: false,
       changeOrigin: false,
       // '/api': {

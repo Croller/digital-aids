@@ -85,7 +85,10 @@
     "more": "More",
     "public": "Public",
     "yes": "Yes",
-    "no": "No"
+    "no": "No",
+    "notify": "Notifications",
+    "orders": "Orders",
+    "waiter": "Waiter"
    },
 
   "form" : {

@@ -163,8 +163,8 @@ function* setOrder({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }
 
-export function* watchRESTupdate() {
-  yield takeLatest(Constants.REST_UPDATE, updateState);
+export function* watchRESTupdateState() {
+  yield takeLatest(Constants.REST_SET_STATE, updateState);
 }
 
 export function* watchRESTloadInit() {
@@ -178,19 +178,3 @@ export function* watchRESTupdateRow() {
 export function* watchRESTset() {
   yield takeLatest(Constants.REST_SET_ORDER, setOrder);
 }
-
-// export function* watchAndLog() {
-//   while (true) {
-//     const action = yield take('*');
-//     const { type, payload } = action;
-// const state = yield select();
-// console.log('Saga watch', action, state);
-
-// if (payload) {
-//   const { token, roles } = payload;
-//   // if (token && roles && type === 'USER_SET') {
-//   //   yield put({ type: Constants.REST_LOAD_INIT, payload: { ids } });
-//   // }
-// } 
-//   }
-// }

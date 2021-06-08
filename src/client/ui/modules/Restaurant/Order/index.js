@@ -4,7 +4,7 @@ import { useModal } from 'react-modal-hook';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TrashSvg } from 'client/assets/images';
-import { updateOrder, update } from 'client/store/restaurant';
+import { updateOrder, set } from 'client/store/restaurant';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { DishBlock } from 'client/ui/modules/Restaurant/components/DishBlock';
 import { getTotal } from 'client/utils/restaurant';
@@ -60,7 +60,7 @@ const Order = () => {
       onCancel={hideConfirmDelete}
       onClose={hideConfirmDelete}
       onOk={() => {
-        rootDispatch(update({ order: null }));
+        rootDispatch(set({ order: null }));
         hideConfirmDelete();
       }}
     />

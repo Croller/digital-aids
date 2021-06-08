@@ -1,6 +1,6 @@
 import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { init, update } from 'client/store/restaurant';
+import { init, set } from 'client/store/restaurant';
 import { getUrlOrder } from 'client/utils/restaurant';
 import {
   Route,
@@ -49,12 +49,12 @@ export const Restaurant = () => {
     }
     if (restaurant.info && restaurant.info.id && href.indexOf('/receipt?params') > -1) {
       const { dishes, categories } = restaurant;
-      rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+      rootDispatch(set({ order: getUrlOrder(href, dishes, categories) }));
     }
     if (restaurant.info && restaurant.info.id) {
       if (href.indexOf('/receipt?params') > -1) {
         const { dishes, categories } = restaurant;
-        rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+        rootDispatch(set({ order: getUrlOrder(href, dishes, categories) }));
       }
       // TODO get table number and reroute without params at url
       // if (href.indexOf('/?params') > -1) {

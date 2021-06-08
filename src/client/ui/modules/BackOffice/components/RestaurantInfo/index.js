@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
+import { initSocket, subscribeChange, closeSocket } from 'client/providers/socket';
+import { set } from 'client/store/backOffice';
 import {
   ArchiveSvg,
   EditSvg,
@@ -30,6 +33,7 @@ import {
   Phone,
   Address,
   NavItemStyled,
+  Bandage,
 } from './styled';
 
 const CONTROL_CONFIG = [
@@ -39,9 +43,9 @@ const CONTROL_CONFIG = [
     path: '/back-office/restaurant/:restaurant/orders',
   },
   {
-    key: 'bells',
+    key: 'notify',
     icon: <BellSvg />,
-    path: '/back-office/restaurant/:restaurant/bells',
+    path: '/back-office/restaurant/:restaurant/notify',
   },
   {
     key: 'opinions',
@@ -90,6 +94,8 @@ export const RestaurantInfo = ({
 }) => {
   const [t] = useTranslation();
   const history = useHistory();
+  const rootDispatch = useDispatch();
+  const { alert } = useSelector(state => state.backOffice);
   const { pathname } = useLocation();
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
@@ -108,6 +114,11 @@ export const RestaurantInfo = ({
 
   const handleRoute = (key, path) => {
     const params = { id };
+
+    if (alert[key]) {
+      rootDispatch(set({ alert: { ...alert, [key]: false } }));
+    }
+    
     if (path) {
       history.push(path.replace(':restaurant', id));
       return;
@@ -130,10 +141,30 @@ export const RestaurantInfo = ({
       return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return arr.filter(({ key }) => ['orders', 'bells', 'flayer', 'reserve', 'opinions'].includes(key));
+      return arr.filter(({ key }) => ['orders', 'notify', 'flayer', 'reserve', 'opinions'].includes(key));
     }
     return [];
   };
+
+  useEffect(() => {
+    if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
+      initSocket(id);
+      subscribeChange((err, result) => {
+        if (err) return;
+        const { type, table } = result;
+        const nameTable = table.split('_')[1];
+        rootDispatch(set({
+          alert: {
+            ...alert,
+            [nameTable]: type === 'create',
+          },
+        }));
+      });
+    }
+    return () => {
+      closeSocket();
+    };
+  }, [pathname]);
 
   return (
     <Wrapper className={className}>
@@ -147,6 +178,7 @@ export const RestaurantInfo = ({
             <Tooltip key={key} placement="top" title={t(`common.words.${key}`)}>
               <Control onClick={() => handleRoute(key, path)}>
                 {icon}
+                {alert[key] && (<Bandage />)}
               </Control>
             </Tooltip>
           ))}

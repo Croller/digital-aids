@@ -71,9 +71,9 @@ export function init(payload) {
   };
 }
 
-export function update(payload) {
+export function set(payload) {
   return {
-    type: Constants.REST_UPDATE,
+    type: Constants.REST_SET_STATE,
     payload,
   };
 }
