@@ -5,7 +5,7 @@ import { getDictionaryItem } from 'client/utils/common';
 import { OPINION_RATING } from 'client/utils/constants';
 import moment from 'moment';
 import {
-  TagSvg,
+  StarHalfDashedSvg,
   CalendarSvg,
   PlusSvg,
   CloseSvg,
@@ -42,7 +42,7 @@ export const OpinionInfo = memo(({
     <Wrapper className={className}>
       <Head>
         <Rate
-          icon={<TagSvg />}
+          icon={<StarHalfDashedSvg />}
           text={`${rateCalc()} / ${category.length}`}
         />
         <ValuationWrapper>

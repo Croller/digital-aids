@@ -15,6 +15,7 @@ const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
 const Reservations = lazy(() => import('client/ui/modules/BackOffice/Reservations'));
 const Opinions = lazy(() => import('client/ui/modules/BackOffice/Opinions'));
+const Notify = lazy(() => import('client/ui/modules/BackOffice/Notify'));
 const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
@@ -45,6 +46,14 @@ export const BackOffice = () => {
                 `${PATH}/restaurant/:restaurant/opinions`,
               ]}
               component={Opinions}
+            />
+            <Route
+              exact
+              path={[
+                `${PATH}/restaurant/:restaurant/notify/archive`,
+                `${PATH}/restaurant/:restaurant/notify`,
+              ]}
+              component={Notify}
             />
             <Route
               exact

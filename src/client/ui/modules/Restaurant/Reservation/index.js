@@ -76,7 +76,7 @@ const Reservation = () => {
     persons: null,
     name: null,
     email: null,
-    policy: false,
+    policy: true,
   });
   const rule = rules(t);
   const getPathImage = (uuid) => `${getUrl()}/static/restaurants/photos/${uuid}.png`;

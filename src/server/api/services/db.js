@@ -22,25 +22,25 @@ if (process.env.NODE_ENV === 'production') {
 // verify connection configuration
 const db = new Client(CONFIG);
 db.connect()
-  .then(() => console.log(`DataBase connected on port ${process.env.HOST_DB_PORT}`))
+  .then(() => console.log(`DataBase listen on port: ${process.env.HOST_DB_PORT}`))
   .catch((err) => console.log('DataBase connect error:', err.message));
 
 module.exports = {
   query: str => new Promise((resolve, reject) => {
-    console.log('DataBase query: ', str);
+    console.log('DataBase query:', str);
     db.query(str)
       .then((res) => resolve(res))
       .catch((err) => {
-        console.log('DataBase query error: ', err.message);
+        console.log('DataBase query error:', err.message);
         reject(new Error(err));
       });
   }),
   queryValues: (str, values) => new Promise((resolve, reject) => {
-    console.log('DataBase query: ', str, values);
+    console.log('DataBase query:', str, values);
     db.query(str, values)
       .then((res) => resolve(res))
       .catch((err) => {
-        console.log('DataBase query error: ', err.message);
+        console.log('DataBase query error:', err.message);
         reject(new Error(err));
       });
   }),

@@ -42,6 +42,10 @@ export const ButtonStyled = styled(Button)`
   &:nth-child(4) {
     background-color: ${PALETTE.grey2};
   }
+
+  &:nth-child(5) {
+    background-color: ${PALETTE.grey2};
+  }
 `;
 
 export const Text = styled.span`

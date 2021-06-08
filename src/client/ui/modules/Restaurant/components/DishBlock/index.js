@@ -18,7 +18,7 @@ export const DishBlock = ({
 }, onShowAllergens, onSelect) => {
   const getCount = (id) => {
     const item = order.find(f => f.id === id);
-    return item ? item.order_count : 0;
+    return item ? item.count : 0;
   };
 
   const getCheck = (id) => {
@@ -45,7 +45,7 @@ export const DishBlock = ({
         <CounterWrapper>
           <Counter
             value={getCount(dish.id)}
-            onClick={(order_count) => onSelect({ ...dish, order_count })}
+            onClick={(count) => onSelect({ ...dish, count })}
           />
           <Price selected={getCount(dish.id)}>
             {`${dish.price[0].cost}${currency}`}

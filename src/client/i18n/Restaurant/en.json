@@ -34,7 +34,8 @@
     "day": "Day",
     "time": "Time",
     "persons": "Persons",
-    "reserving": "Reserve"
+    "reserving": "Reserve",
+    "assistant": "Assistant"
   },
   "pageMenu": {
     "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
@@ -98,7 +99,8 @@
       "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. \n Drink with moderation.",
       "description": "Please, confirm that you \n are over 18 years old"
     },
-    "reserve_send": "Thank you for your reservation! \n\n We send you soon \n a confirmation e-mail."
+    "reserve_send": "Thank you for your reservation! \n\n We send you soon \n a confirmation e-mail.",
+    "assistant_send": "Thank you! \n\n We'll do our best now."
   },
   "footer": {
     "thankyou": {

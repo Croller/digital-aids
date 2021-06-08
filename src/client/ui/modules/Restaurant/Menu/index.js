@@ -49,6 +49,10 @@ const Menu = () => {
       ),
     },
     {
+      path: 'assistant',
+      name: t('restaurant.common.assistant'),
+    },
+    {
       path: 'information',
       name: t('restaurant.common.reservation'),
     },

@@ -93,13 +93,13 @@ const Category = () => {
     if (obj.dishes) {
       const edit = {
         ...obj,
-        dishes: obj.dishes.filter(f => f.order_count !== 0),
+        dishes: obj.dishes.filter(f => f.count !== 0),
       };
       if (edit.dishes.length !== 0) {
         edited = edit;
       }
     }
-    if (!obj.dishes && obj.order_count !== 0) {
+    if (!obj.dishes && obj.count !== 0) {
       edited = obj;
     }
     if (edited) {

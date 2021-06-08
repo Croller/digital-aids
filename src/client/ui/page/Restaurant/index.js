@@ -1,6 +1,6 @@
 import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { init, update } from 'client/store/restaurant';
+import { init, set } from 'client/store/restaurant';
 import { getUrlOrder } from 'client/utils/restaurant';
 import {
   Route,
@@ -17,6 +17,7 @@ const PATH = '/restaurant';
 
 const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
 const Menu = lazy(() => import('client/ui/modules/Restaurant/Menu'));
+const Assistant = lazy(() => import('client/ui/modules/Restaurant/Assistant'));
 const Categories = lazy(() => import('client/ui/modules/Restaurant/Categories'));
 const Category = lazy(() => import('client/ui/modules/Restaurant/Category'));
 const Opinion = lazy(() => import('client/ui/modules/Restaurant/Opinion'));
@@ -37,11 +38,9 @@ export const Restaurant = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    console.log('language', language);
     if (token) {
       const key = pathname.split('/')[2];
       rootDispatch(init({ restaurant: key }));
-      console.log('restaurant load:', key);
     }
   }, [token, language]);
 
@@ -51,12 +50,12 @@ export const Restaurant = () => {
     }
     if (restaurant.info && restaurant.info.id && href.indexOf('/receipt?params') > -1) {
       const { dishes, categories } = restaurant;
-      rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+      rootDispatch(set({ order: getUrlOrder(href, dishes, categories) }));
     }
     if (restaurant.info && restaurant.info.id) {
       if (href.indexOf('/receipt?params') > -1) {
         const { dishes, categories } = restaurant;
-        rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
+        rootDispatch(set({ order: getUrlOrder(href, dishes, categories) }));
       }
       // TODO get table number and reroute without params at url
       // if (href.indexOf('/?params') > -1) {
@@ -76,6 +75,7 @@ export const Restaurant = () => {
           <Switch fallback={<Loader />}>
             <Route exac path={`${PATH}/:restaurant/language`} component={Language} />
             <Route exac path={`${PATH}/:restaurant/menu`} component={Menu} />
+            <Route exac path={`${PATH}/:restaurant/assistant`} component={Assistant} />
             <Route exac path={`${PATH}/:restaurant/category/:category`} component={Category} />
             <Route exac path={`${PATH}/:restaurant/categories`} component={Categories} />
             <Route exac path={`${PATH}/:restaurant/opinion`} component={Opinion} />

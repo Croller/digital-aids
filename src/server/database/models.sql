@@ -108,8 +108,8 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   persons INT NOT NULL,
   table_number INT DEFAULT NULL,
   reserve_at timestamp with time zone NOT NULL DEFAULT NULL,
-  is_approved BOOLEAN DEFAULT NULL,
   create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  is_approved BOOLEAN DEFAULT NULL,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
@@ -123,6 +123,34 @@ CREATE TABLE IF NOT EXISTS data_opinions (
   phone VARCHAR DEFAULT NULL,
   rate jsonb DEFAULT '{"service": "NULL", "meal": "NULL", "covid": "NULL", "menu": "NULL", "comments": "NULL"}',
   create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS data_orders (
+  number serial,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  options jsonb DEFAULT '{}',
+  status VARCHAR DEFAULT null,
+  table_number INT DEFAULT NULL,
+  create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
+  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  paid_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  is_paid BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS data_notify (
+  number serial,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  options jsonb DEFAULT '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
+  table_number INT DEFAULT NULL,
+  create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
+  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );

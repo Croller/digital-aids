@@ -9,6 +9,16 @@ import * as commonProvider from 'client/providers/common';
 import { getDictionaryItem, updateItem } from 'client/utils/common';
 import { categoryModel } from 'client/store/backOffice/mapper/category';
 
+function* updateState({ payload }) {
+  yield put({ type: Constants.BO_LOADING_SET, payload: true });
+  try {
+    yield put({ type: Constants.BO_SET, payload });
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.BO_LOADING_SET, payload: false });
+}
+
 function* init({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { user: { info }, backOffice } = yield select((store) => store);
@@ -243,8 +253,13 @@ function* deleteFiles({ payload }) {
     throw err;
   }
 }
+
 export function* watchBOloadInit() {
   yield takeLatest(Constants.BO_LOAD_INIT, init);
+}
+
+export function* watchBOupdateState() {
+  yield takeLatest(Constants.BO_SET_STATE, updateState);
 }
 
 export function* watchBOupdate() {

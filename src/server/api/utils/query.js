@@ -1,5 +1,6 @@
 const { addedDiff, updatedDiff } = require('deep-object-diff');
 const db = require('../services/db');
+const socket = require('../services/socket');
 const commonUtils = require('../utils/common');
 
 const error = {
@@ -114,6 +115,16 @@ const updateTableRecord = async (table, data, params) => {
       }
 
       result = await db.queryValues(query, values);
+    }
+    // socket emit change to client
+    if ('restaurant' in result.rows[0]) {
+      const { restaurant } = result.rows[0];
+      socket.emit({
+        type: !data.id ? 'create' : 'update',
+        id: restaurant,
+        table,
+        data: result.rows[0],
+      });
     }
 
     return result.rows[0];

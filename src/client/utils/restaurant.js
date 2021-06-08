@@ -9,7 +9,7 @@ export const getTotal = (arr) => {
       if (item.type === 'daily') {
         return count + parseFloat(item.options.price); 
       }
-      return count + item.order.reduce((num, ord) => num + (ord.price[0].cost * ord.order_count), 0);
+      return count + item.order.reduce((num, ord) => num + (ord.price[0].cost * ord.count), 0);
     }, 0);
   }
   return 0;

@@ -1,6 +1,7 @@
 export const BO_ERROR_SET = 'BO_ERROR_SET';
 export const BO_LOADING_SET = 'BO_LOADING_SET';
 export const BO_SET = 'BO_SET';
+export const BO_SET_STATE = 'BO_SET_STATE';
 export const BO_LOAD = 'BO_LOAD';
 export const BO_LOAD_INIT = 'BO_LOAD_INIT';
 export const BO_LOAD_ITEMS = 'BO_LOAD_ITEMS';

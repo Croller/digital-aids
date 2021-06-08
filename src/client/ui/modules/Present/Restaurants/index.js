@@ -49,14 +49,15 @@ const Restaurants = () => {
   const handleSearch = (str = null) => {
     let result = null;
     if (str && str.length > 0) { 
+      const lower = str.toLowerCase();
       result = restaurants.filter(item => SEARCH_FIELDS.some(field => {
         let value = item.properties[field];
         if (!value) return false;
-        value = value.toString();
         if (Array.isArray(value)) {
-          return value.some(val => val.toLowerCase().indexOf(str) > -1);
+          return value.some(val => val.toLowerCase().indexOf(lower) > -1);
         }
-        return value.toLowerCase().indexOf(str) > -1;
+        value = value.toString();
+        return value.toLowerCase().indexOf(lower) > -1;
       }));
     }
     setSearch(result);

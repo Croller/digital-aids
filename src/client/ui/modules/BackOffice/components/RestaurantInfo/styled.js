@@ -60,6 +60,7 @@ export const Control = styled(Button)`
   height: 32px;
   background-color: ${PALETTE.grey26};
   border-radius: ${THEME.borderRadiusS};
+  position: relative;
 
   &:not(:last-child) {
     margin-right: 18px;
@@ -122,4 +123,19 @@ export const NavItemStyled = styled(NavItem)`
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     margin-left: unset;
   }
+`;
+
+export const Bandage = styled.span`
+  position: absolute;
+  right: -5px;
+  top: -6px;
+  border-radius: 50%;
+  background-color: ${PALETTE.red1};
+  min-width: 12px;
+  height: 12px;
+  color: ${PALETTE.white};
+  font-family: ${FONTS.bold};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

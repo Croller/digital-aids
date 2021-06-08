@@ -20,13 +20,3 @@ export const auth = async ({ token }) => {
   return results;
 };
 
-// export const getTableByNames = (arr) => {
-//   dispatch(setLoading(true));
-//   const results = await post('table/get', { names: arr });
-//   if (results.status === 200 && !results.data.error) {
-//     dispatch(setSupportData(results.data));
-//   } else {
-//     dispatch(setError(results.data.error));
-//   }
-// };
-

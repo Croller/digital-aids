@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { TagSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
+import { StarHalfDashedSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
 import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import { loadByParam } from 'client/store/backOffice';
 import { OpinionInfo } from 'client/ui/modules/BackOffice/components/OpinionInfo';
@@ -50,7 +50,7 @@ const Opinions = () => {
 
   useEffect(() => {
     if (opinions) {
-      const result = opinions.sort((a, b) => moment(a.create_at).diff(moment(b.create_at)));
+      const result = opinions.sort((a, b) => moment(b.create_at).diff(moment(a.create_at)));
       setFiltred(result);
     }
   }, [opinions]);
@@ -65,7 +65,7 @@ const Opinions = () => {
           archive: true,
           back: { text: 'back' },
           title: {
-            icon: <TagSvg />,
+            icon: <StarHalfDashedSvg />,
             text: t('common.words.opinions'),
           },
         }}

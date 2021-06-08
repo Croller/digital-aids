@@ -17,11 +17,11 @@ function* updateState({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }
 
-function* init({ payload: { restaurant = null } }) {
+function* init({ payload: { restaurant = null, language = 'en' } }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
   const store = yield select((s) => s);
-  const { token, language } = store.user.info;
-
+  const { info } = store.user;
+  const { token } = info;
   try {
     const dictionaries = [
       'dictionary_currency',
@@ -39,7 +39,7 @@ function* init({ payload: { restaurant = null } }) {
 
     results_dictionary = yield commonProvider.loadTable({
       token,
-      language,
+      language: language || info.language,
       data: dictionaries,
     });
     results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
@@ -163,8 +163,8 @@ function* setOrder({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }
 
-export function* watchRESTupdate() {
-  yield takeLatest(Constants.REST_UPDATE, updateState);
+export function* watchRESTupdateState() {
+  yield takeLatest(Constants.REST_SET_STATE, updateState);
 }
 
 export function* watchRESTloadInit() {
@@ -178,19 +178,3 @@ export function* watchRESTupdateRow() {
 export function* watchRESTset() {
   yield takeLatest(Constants.REST_SET_ORDER, setOrder);
 }
-
-// export function* watchAndLog() {
-//   while (true) {
-//     const action = yield take('*');
-//     const { type, payload } = action;
-// const state = yield select();
-// console.log('Saga watch', action, state);
-
-// if (payload) {
-//   const { token, roles } = payload;
-//   // if (token && roles && type === 'USER_SET') {
-//   //   yield put({ type: Constants.REST_LOAD_INIT, payload: { ids } });
-//   // }
-// } 
-//   }
-// }
