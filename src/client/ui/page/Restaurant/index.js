@@ -17,6 +17,7 @@ const PATH = '/restaurant';
 
 const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
 const Menu = lazy(() => import('client/ui/modules/Restaurant/Menu'));
+const Assistant = lazy(() => import('client/ui/modules/Restaurant/Assistant'));
 const Categories = lazy(() => import('client/ui/modules/Restaurant/Categories'));
 const Category = lazy(() => import('client/ui/modules/Restaurant/Category'));
 const Opinion = lazy(() => import('client/ui/modules/Restaurant/Opinion'));
@@ -74,6 +75,7 @@ export const Restaurant = () => {
           <Switch fallback={<Loader />}>
             <Route exac path={`${PATH}/:restaurant/language`} component={Language} />
             <Route exac path={`${PATH}/:restaurant/menu`} component={Menu} />
+            <Route exac path={`${PATH}/:restaurant/assistant`} component={Assistant} />
             <Route exac path={`${PATH}/:restaurant/category/:category`} component={Category} />
             <Route exac path={`${PATH}/:restaurant/categories`} component={Categories} />
             <Route exac path={`${PATH}/:restaurant/opinion`} component={Opinion} />

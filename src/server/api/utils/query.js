@@ -119,12 +119,6 @@ const updateTableRecord = async (table, data, params) => {
     // socket emit change to client
     if ('restaurant' in result.rows[0]) {
       const { restaurant } = result.rows[0];
-      console.log('emited', {
-        type: !data.id ? 'create' : 'update',
-        id: restaurant,
-        table,
-        data: result.rows[0],
-      });
       socket.emit({
         type: !data.id ? 'create' : 'update',
         id: restaurant,

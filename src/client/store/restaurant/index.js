@@ -29,6 +29,7 @@ const initState = {
   foodtips: null,
   offers: null,
 
+  table_number: null,
   dictionary: null,
 
   loading: false,

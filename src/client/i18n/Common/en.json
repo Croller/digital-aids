@@ -88,7 +88,16 @@
     "no": "No",
     "notify": "Notifications",
     "orders": "Orders",
-    "waiter": "Waiter"
+
+    "waiter": "Waiter",
+    "receipt": "Receipt",
+    "napkin": "Napkin",
+    "appliances": "Appliances",
+    "manager": "Manager",
+    
+    "payment": "Payment",
+    "assembly": "Assembly",
+    "delivery": "Delivery"
    },
 
   "form" : {
