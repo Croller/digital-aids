@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { InputDefault } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 import { IconText } from 'client/ui/components/_block/IconText';
@@ -43,7 +43,6 @@ export const ListWrapper = styled.div`
     height: auto;
     max-height: calc(100vh - 182px);
     z-index: ${Z_INDEX.header - 1};
-    overflow-y: hidden;
   }
 `;
 
@@ -55,7 +54,6 @@ export const List = styled.div`
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     max-height: calc(100vh - 262px);
-    overflow-y: auto;
   }
 `;
 
@@ -113,6 +111,7 @@ export const Search = styled(InputDefault)`
 `;
 
 export const Restaurant = styled.div`
+  position: relative;
   width: 100%;
   background-color: ${PALETTE.white};
   border-radius: ${THEME.borderRadiusM};
@@ -125,12 +124,10 @@ export const Restaurant = styled.div`
   }
 
   &:hover {
-    background-color: ${PALETTE.grey29};
+    background-color: ${PALETTE.grey25};
   }
 
-  @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    height: auto;
-  }
+  ${p => p.active && css`background-color: ${PALETTE.grey25};`}
 `;
 
 export const Header = styled.div`
@@ -215,6 +212,22 @@ export const Address = styled(IconText)`
   > span > svg {
     margin-right: 8px;
   }
+`;
+
+export const QRCodeWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: -118px;
+  z-index: ${Z_INDEX.header + 1};
+  width: 104px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadiusM};
+  box-shadow: ${THEME.boxShadow2};
+  padding: 8px;
 `;
 
 export const MapBoxStyled = styled(MapBox)`

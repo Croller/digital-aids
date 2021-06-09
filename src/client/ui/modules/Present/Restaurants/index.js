@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { init } from 'client/store/company';
 import { Loader } from 'client/ui/components/_block/Loader';
 import { getLayerObj } from 'client/ui/components/_ui/MapBox/utils/create';
 import * as turf from '@turf/turf';
+import QRCode from 'qrcode.react';
+import { getUrl } from 'client/utils/common';
+import { detect } from 'detect-browser';
+import OutSideClick from 'react-outside-click-handler';
 
 import {
   LoupeSvg,
@@ -24,6 +27,7 @@ import {
   Hr,
   Contacts,
   Address,
+  QRCodeWrapper,
   MapBoxStyled,
 } from './styled';
 
@@ -31,11 +35,21 @@ const SEARCH_FIELDS = ['name', 'address', 'phone'];
 
 const Restaurants = () => {
   const rootDispatch = useDispatch();
-  const history = useHistory();
   const [search, setSearch] = useState(null);
+  const [active, setActive] = useState(null);
   const { user, company } = useSelector(s => s);
   const { token } = user.info;
   const { restaurants } = company;
+
+  const isMobile = () => {
+    const mobile = ['iOS', 'Android OS', 'BlackBerry OS', 'Windows Mobile'];
+    const browser = detect();
+
+    if (browser) {
+      return mobile.some(f => f === browser.os);
+    }
+    return true;
+  };
 
   const getLayer = (arr) => {
     const { geojson } = getLayerObj({
@@ -65,11 +79,15 @@ const Restaurants = () => {
 
   const handleRoute = (key = null) => {
     if (!key) return null;
-    history.push(`/restaurant/${key}/information`);
+    window.open(`${getUrl()}/restaurant/${key}/information`, '_blank').focus();
   };
 
   const handleClickMap = (obj = null) => {
-    console.log('map click', obj);
+    if (obj.layers) {
+      setActive(obj.layers[0].properties.id);
+      return;
+    }
+    setActive(null);
   };
 
   useEffect(() => {
@@ -93,12 +111,17 @@ const Restaurants = () => {
             <List>
               {(search || restaurants).map(({
                 properties: {
+                  id,
                   key,
                   name,
                   address,
                 },
               }) => (
-                <Restaurant key={`_rest_${key}`} onClick={() => handleRoute(key)}>
+                <Restaurant
+                  key={`_rest_${key}`}
+                  active={active === id}
+                  onClick={() => (isMobile() ? handleRoute(key) : setActive(id))}
+                >
                   <Header>
                     <Name
                       icon={<RestaurantSvg />}
@@ -121,11 +144,21 @@ const Restaurants = () => {
                       text={address}
                     />
                   </Contacts>
+                  {!isMobile() && active === id && (
+                    <QRCodeWrapper>
+                      <OutSideClick onOutsideClick={() => setActive(null)}>
+                        <QRCode size={90} value={`${getUrl()}/restaurant/${key}/information`} />
+                      </OutSideClick>
+                    </QRCodeWrapper>
+                  )}
                 </Restaurant>
               ))}
             </List>
           </ListWrapper>
-          <MapBoxStyled layers={getLayer(search || restaurants)} onClick={handleClickMap} />
+          <MapBoxStyled
+            layers={getLayer(search || restaurants)}
+            onClick={handleClickMap}
+          />
         </Content>
       )}
     </RestaurantsWrapper>

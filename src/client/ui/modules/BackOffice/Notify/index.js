@@ -18,7 +18,7 @@ const SEARCH_FIELDS = ['create_at'];
 
 const Notify = () => {
   const rootDispatch = useDispatch();
-  const { notify, loading } = useSelector(state => state.backOffice);
+  const { notify, alert, loading } = useSelector(state => state.backOffice);
   const { restaurant } = useParams();
   const [t] = useTranslation();
   const [searched, setSearched] = useState(null);
@@ -57,7 +57,7 @@ const Notify = () => {
       const result = notify.sort((a, b) => moment(b.create_at).diff(moment(a.create_at)));
       setFiltred(result);
     }
-  }, [notify]);
+  }, [alert.notify, notify && notify.length]);
 
   return notify && (
     <ReservationWrapper>

@@ -6,6 +6,7 @@ import { setUser, getLocal } from 'client/utils/localStorageEdit';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
 import { Helmet } from 'react-helmet';
+import QRCode from 'qrcode.react';
 import {
   PhoneBlock1Png,
   SupportSvg,
@@ -20,7 +21,6 @@ import {
   DoubleQuotesSvg,
   ChevronSvg,
 } from 'client/assets/images';
-import QRCode from 'qrcode.react';
 // import translate from 'client/i18n';
 import { 
   Container,
@@ -230,7 +230,7 @@ const Main = () => {
             <QRCodeTitle>
               {t('present.main.first.col3.title')}  
             </QRCodeTitle>
-            <QRCode size={178} value={`${process.env.HOST}/restaurant/las-ceuvas/information`} />
+            <QRCode size={178} value={`${process.env.HOST}/restaurant/example/information`} />
             <QRCodeLanguage>
               {t('present.main.first.col3.language')}  
             </QRCodeLanguage>

@@ -1,6 +1,12 @@
 import React, { lazy, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { closeSocket } from 'client/providers/socket';
+import {
+  Route,
+  Switch,
+  Redirect,
+  useParams,
+} from 'react-router-dom';
 
 import { Layout } from 'client/ui/components/Layout/BackOffice';
 
@@ -19,11 +25,18 @@ const Notify = lazy(() => import('client/ui/modules/BackOffice/Notify'));
 const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
+  const params = useParams();
   const { token, roles } = useSelector(store => store.user.info);
 
   useEffect(() => {
     window.prerenderReady = true;
   }, []);
+
+  useEffect(() => {
+    if (!params.restaurant) {
+      closeSocket();
+    }
+  }, [params.restaurant]);
 
   return (
     <Layout>

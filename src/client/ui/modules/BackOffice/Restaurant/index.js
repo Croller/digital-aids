@@ -419,7 +419,7 @@ const Restaurant = () => {
               label={t('common.words.public')}
               name="is_publish"
               required
-              rules={rule.select}
+              rules={rule.bool}
             >
               <SelectStyled
                 placeholder={t('common.form.placeholder.select')}

@@ -46,8 +46,10 @@ export const MapBox = ({
 
   const getCoords = (e) => ({ x: e.lngLat.lat, y: e.lngLat.lng });
 
-  const getLayer = (e, substr = 'layer') => map.queryRenderedFeatures(e.point)
-    .filter(f => f.layer.id.indexOf(substr) > -1);
+  const getLayer = (e, substr = 'layer') => {
+    const filtred = map.queryRenderedFeatures(e.point).filter(f => f.layer.id.indexOf(substr) > -1);
+    return filtred.length === 0 ? null : filtred;
+  };
 
   // const setZoomTo = (arr) => {
   //   if (!arr) return null;
@@ -80,14 +82,24 @@ export const MapBox = ({
             } else {
               prevLayerName = '';
             }
+            // console.log(layer.layerConfig);
             map.addLayer(layer.layerConfig, layer.layerBefore || prevLayerName);
             map.on('mousemove', layerName, (e) => {
               map.getCanvas().style.cursor = 'pointer';
+              // console.log(`${layer.id}_da_hover`, e.features);
+              // map.setFeatureState(
+              //   { source: `${layer.id}_da_layer` },
+              //   { hover: true },
+              // );
               map.setFilter(`${layer.id}_da_hover`, ['==', 'id', e.features[0].properties.id]);
             });
             map.on('mouseleave', layerName, () => {
               map.getCanvas().style.cursor = '';
               map.setFilter(`${layer.id}_da_hover`, ['==', 'id', '']);
+              // map.setFeatureState(
+              //   { source: `${layer.id}_da_layer` },
+              //   { hover: false },
+              // );
             });
             // if (layer.layerConfig.source.type === 'geojson') {
             //   this.setZoomTo(layer.layerConfig.source.data.features);

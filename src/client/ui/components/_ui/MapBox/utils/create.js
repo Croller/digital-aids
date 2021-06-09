@@ -215,18 +215,37 @@ export const layerPaints = (color = null) => ({
       },
     ],
     Point: [
+     
       {
         type: 'circle',
         name: 'da_layer',
         filter: ['!has', 'point_count'],
         paint: {
-          'circle-color': '#DE594E',
-          'circle-radius': 5,
-          'circle-stroke-width': 1,
+          'circle-color': '#219653',
+          'circle-radius': 6,
+          'circle-stroke-width': 3,
           'circle-stroke-color': (color || '#ffffff'),
+          // 'circle-color': [
+          //   'case',
+          //   ['boolean', ['feature-state', 'hover'], false],
+          //   '#219653',
+          //   '#7d9aff',
+          // ],
         },
         layout: {},
         layerBefore: 'place-city-sm',
+      },
+      {
+        type: 'circle',
+        name: 'da_shadow',
+        filter: ['!has', 'point_count'],
+        paint: {
+          'circle-color': '#000000',
+          'circle-radius': 12,
+          'circle-blur': 0.8,
+        },
+        layout: {},
+        layerBefore: null,
       },
       // {
       //   type: 'symbol',
@@ -310,7 +329,7 @@ export const layerPaints = (color = null) => ({
           'circle-stroke-color': '#ffffff',
         },
         layout: {},
-        layerBefore: 'place-city-sm',
+        layerBefore: null,
       },
     ],
   },
