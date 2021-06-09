@@ -46,8 +46,10 @@ export const MapBox = ({
 
   const getCoords = (e) => ({ x: e.lngLat.lat, y: e.lngLat.lng });
 
-  const getLayer = (e, substr = 'layer') => map.queryRenderedFeatures(e.point)
-    .filter(f => f.layer.id.indexOf(substr) > -1);
+  const getLayer = (e, substr = 'layer') => {
+    const filtred = map.queryRenderedFeatures(e.point).filter(f => f.layer.id.indexOf(substr) > -1);
+    return filtred.length === 0 ? null : filtred;
+  };
 
   // const setZoomTo = (arr) => {
   //   if (!arr) return null;
