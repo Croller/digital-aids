@@ -80,14 +80,24 @@ export const MapBox = ({
             } else {
               prevLayerName = '';
             }
+            // console.log(layer.layerConfig);
             map.addLayer(layer.layerConfig, layer.layerBefore || prevLayerName);
             map.on('mousemove', layerName, (e) => {
               map.getCanvas().style.cursor = 'pointer';
+              // console.log(`${layer.id}_da_hover`, e.features);
+              // map.setFeatureState(
+              //   { source: `${layer.id}_da_layer` },
+              //   { hover: true },
+              // );
               map.setFilter(`${layer.id}_da_hover`, ['==', 'id', e.features[0].properties.id]);
             });
             map.on('mouseleave', layerName, () => {
               map.getCanvas().style.cursor = '';
               map.setFilter(`${layer.id}_da_hover`, ['==', 'id', '']);
+              // map.setFeatureState(
+              //   { source: `${layer.id}_da_layer` },
+              //   { hover: false },
+              // );
             });
             // if (layer.layerConfig.source.type === 'geojson') {
             //   this.setZoomTo(layer.layerConfig.source.data.features);
