@@ -12,7 +12,7 @@ import {
   Header, BackButton,
   QRCodeWrapper, Logo, AlertWrapper, AlertIcon,
   ReceiptWrapper,
-  DateTime,
+  Info, DateTime, TableNumber,
   CategoryWrapper,
   NameWrapper, Name, Price, NameCategory,
   GroupWrapper, GroupTitle, GroupItem,
@@ -28,6 +28,7 @@ const Receipt = () => {
     restaurant: {
       info: { key, currency, images },
       order,
+      table_number,
       dictionary,
     },
   } = useSelector(store => store);
@@ -80,8 +81,8 @@ const Receipt = () => {
     let str = JSON.stringify(trimOrder);
     str = str.replace(/ /g, '');
     const encode = encodeURIComponent(str);
-    console.log('order', trimOrder);
-    const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}`;
+    const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}&table_number=${table_number}`;
+    console.log('url', url);
     return url;
   };
 
@@ -172,9 +173,15 @@ const Receipt = () => {
             </AlertWrapper>
           </QRCodeWrapper>
           <ReceiptWrapper>
-            <DateTime>
-              {getDateTime(lng)}
-            </DateTime>
+            <Info>
+              <DateTime>
+                {getDateTime(lng)}
+              </DateTime>
+              <TableNumber>
+                {`#${table_number || 0}`}
+              </TableNumber>
+            </Info>
+            
             {categoryOrder.map((category, c) => (
               <CategoryWrapper key={`_category_${c + 1}`}>
                 {getTitle(categoryOrder, category, c)}

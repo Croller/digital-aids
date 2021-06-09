@@ -26,11 +26,11 @@ const Assistant = () => {
   ));
 
   const menu = [
-    'waiter',
-    'receipt',
+    'manager',
     'napkin',
     'appliances',
-    'manager',
+    'receipt',
+    'waiter',
   ];
 
   const handleEmit = (key) => {
@@ -58,7 +58,7 @@ const Assistant = () => {
             key={key}
             onClick={() => handleEmit(key)}
           >
-            {t(`common.words.${key}`)}
+            {t(`restaurant.pageAssistent.${key}`)}
           </ButtonStyled>
         ))}
       </List>

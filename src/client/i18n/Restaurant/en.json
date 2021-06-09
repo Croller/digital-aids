@@ -37,6 +37,13 @@
     "reserving": "Reserve",
     "assistant": "Assistant"
   },
+  "pageAssistent": {
+    "waiter": "Waiter",
+    "receipt": "Receipt",
+    "napkin": "Napkin",
+    "appliances": "Appliances",
+    "manager": "Manager"
+  },
   "pageMenu": {
     "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
   },

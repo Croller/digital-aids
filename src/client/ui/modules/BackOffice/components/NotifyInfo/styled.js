@@ -40,11 +40,28 @@ export const Person = styled(IconText)`
   }
 `;
 
-export const Date = styled(IconText)`
+export const Table = styled(IconText)`
   font-size: 14px;
   font-family: ${FONTS.medium};
   margin-right: 100px;
   margin-left: auto;
+
+  > span > svg {
+    width: 26px;
+    height: 26px;
+    margin-right: 16px;
+
+    path: {
+      fill: ${PALETTE.green1};
+    }
+  }
+`;
+
+export const Date = styled(IconText)`
+  font-size: 14px;
+  font-family: ${FONTS.medium};
+  margin-right: 100px;
+  margin-left: 100px;
 
   > span > svg {
     width: 26px;

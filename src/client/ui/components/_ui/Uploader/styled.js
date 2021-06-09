@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Upload } from 'antd';
-import { Button } from '../Button';
+import { Button } from 'client/ui/components/_ui/Button';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -77,7 +77,6 @@ export const Img = styled.img`
   border-radius: ${THEME.borderRadiusL};
   object-fit: contain;
   object-position: center;
-  background-color: ${PALETTE.grey25};
 `;
 
 export const Delete = styled(Button)`
