@@ -7,11 +7,13 @@ import { useTranslation } from 'react-i18next';
 import {
   BellSvg,
   CalendarSvg,
+  MapMarkerSvg,
   ThumbsUpSvg,
 } from 'client/assets/images';
 import { 
   Wrapper,
   Person,
+  Table,
   Date,
   Controls,
   Control,
@@ -20,7 +22,7 @@ import {
 export const NotifyInfo = memo(({
   id,
   options,
-  // table_number,
+  table_number,
   create_at,
   is_viewed,
   className,
@@ -42,7 +44,11 @@ export const NotifyInfo = memo(({
     <Wrapper className={className}>
       <Person
         icon={<BellSvg />}
-        text={t(`common.words.${getEvent()}`)}
+        text={t(`restaurant.pageAssistent.${getEvent()}`)}
+      />
+      <Table
+        icon={<MapMarkerSvg />}
+        text={table_number || 0}
       />
       <Date
         icon={<CalendarSvg />}

@@ -48,20 +48,20 @@ export const Restaurant = () => {
     if (!restaurant.info) {
       history.push('/404');
     }
-    if (restaurant.info && restaurant.info.id && href.indexOf('/receipt?params') > -1) {
-      const { dishes, categories } = restaurant;
-      rootDispatch(set({ order: getUrlOrder(href, dishes, categories) }));
-    }
     if (restaurant.info && restaurant.info.id) {
-      if (href.indexOf('/receipt?params') > -1) {
-        const { dishes, categories } = restaurant;
-        rootDispatch(set({ order: getUrlOrder(href, dishes, categories) }));
+      const { dishes, categories } = restaurant;
+      let order = null;
+      let table_number = 0;
+      if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
+        const [path, number] = href.split('&table_number=');
+        order = getUrlOrder(path, dishes, categories);
+        table_number = parseInt(number, 0);
       }
-      // TODO get table number and reroute without params at url
-      // if (href.indexOf('/?params') > -1) {
-      //   const { dishes, categories } = restaurant;
-      //   rootDispatch(update({ order: getUrlOrder(href, dishes, categories) }));
-      // }
+      if (href.indexOf('/receipt?params=') === -1 && href.indexOf('table_number=') > -1) {
+        const number = href.split('table_number=')[1];
+        table_number = parseInt(number, 0);
+      }
+      rootDispatch(set({ order, table_number }));
     }
   }, [restaurant.info]);
 

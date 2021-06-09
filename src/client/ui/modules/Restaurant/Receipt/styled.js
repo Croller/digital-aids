@@ -24,7 +24,7 @@ export const BackButton = styled(Button)`
   > svg {
     width: 21px;
     height: 21px;
-    margin-right: 8px;
+    margin-right: 31%;
 
     path {
       fill: ${PALETTE.grey1};
@@ -75,11 +75,21 @@ export const ReceiptWrapper = styled.div`
   box-shadow: ${THEME.boxShadow1};
 `;
 
-export const DateTime = styled.h4`
+export const Info = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+`;
+
+export const DateTime = styled.span`
   font-family: ${FONTS.regular};
   font-size: 16px;
-  margin: 0;
-  margin-bottom: 22px;
+`;
+
+export const TableNumber = styled.span`
+  font-family: ${FONTS.regular};
+  font-size: 16px;
 `;
 
 export const CategoryWrapper = styled.div`
