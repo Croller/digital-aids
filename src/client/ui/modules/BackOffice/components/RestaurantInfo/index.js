@@ -5,7 +5,7 @@ import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
-import { initSocket, subscribeChange, closeSocket } from 'client/providers/socket';
+import { initSocket, subscribeChange } from 'client/providers/socket';
 import { set } from 'client/store/backOffice';
 import {
   ArchiveSvg,
@@ -161,9 +161,6 @@ export const RestaurantInfo = ({
         }));
       });
     }
-    return () => {
-      closeSocket();
-    };
   }, [pathname]);
 
   return (
