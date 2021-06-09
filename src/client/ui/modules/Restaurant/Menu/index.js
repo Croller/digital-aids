@@ -69,7 +69,7 @@ const Menu = () => {
   return (
     <Wrapper>
       <List>
-        {(menu).map(({ path, name }) => (
+        {menu.map(({ path, name }) => (
           <ButtonStyled
             key={path}
             onClick={() => history.push(path)}

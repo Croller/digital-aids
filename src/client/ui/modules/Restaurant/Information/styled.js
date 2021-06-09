@@ -17,20 +17,21 @@ export const ImageWrapper = styled.div`
 
 export const CloseButton = styled(Button)`
   position: absolute;
-  top: 21px;
-  right: 29px;
-  width: 20px;
-  height: 20px;
+  top: 18px;
+  right: 18px;
+  width: 30px;
+  height: 30px;
   padding: 0;
-  background-color: transparent;
+  background-color: ${PALETTE.white};
+  box-shadow: ${THEME.boxShadow2};
   z-index: 25;
 
   > svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
 
     path {
-      fill: ${PALETTE.white};
+      fill: ${PALETTE.grey8};
     }
   }
 `;
@@ -52,7 +53,7 @@ export const Control = styled.div`
   align-items: center;
   justify-content: center;
   width: 40px;
-  height: 80px;
+  height: 40px;
 
   > svg {
     width: 14px;
@@ -61,7 +62,7 @@ export const Control = styled.div`
     cursor: pointer;
 
     path {
-      fill: ${PALETTE.white};
+      fill: ${PALETTE.grey8};
     }
   }
 
@@ -101,9 +102,13 @@ export const Content = styled.div`
 export const Restaurant = styled.h2`
   font-size: 20px;
   font-family: ${FONTS.semiBold};
-  color: ${PALETTE.white};
+  color: ${PALETTE.grey8};
   margin: 0;
   margin-bottom: 32px;
+  width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 `;
 
 export const InfoWrapper = styled.div`
