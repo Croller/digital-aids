@@ -287,14 +287,13 @@ export function* watchAndLog() {
     const action = yield take('*');
     const { type, payload } = action;
     const { user } = yield select();
-    // console.log('Saga watch', action, state);
 
     if (payload && payload.info && type === 'USER_SET') {
       const { info: { token, roles } } = payload;
       if (token && roles && !['guest'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id')))) {
         let ids = null;
-        if (['owner', 'employees'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id'))) && !roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id'))) {
-          ids = payload.restaurants || [];
+        if (['owner', 'employees'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id')))) {
+          ids = payload.info.restaurants || [];
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
       }
