@@ -367,7 +367,7 @@ export const DishForm = ({
                     </FormItemStyled> */}
                   </>
                 )}
-                {dishes && (
+                {['specialDeals', 'foodtips'].includes(type) && dishes && (
                   <FormItemStyled
                     label={t('common.words.dish')}
                     name="copyDish"

@@ -103,7 +103,7 @@ export const rules = (t) => ({
   bool: [
     () => ({
       validator(_, value) {
-        if (!value) {
+        if (value === null) {
           return Promise.reject(new Error(t('common.form.validation.bool.error')));
         }
         return Promise.resolve();
