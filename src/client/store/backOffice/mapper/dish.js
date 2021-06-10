@@ -3,6 +3,7 @@ import { stringToKey } from 'client/utils/common';
 export const dataToForm = (data) => {
   const { 
     id,
+    key,
     count,
     name,
     description,
@@ -15,6 +16,7 @@ export const dataToForm = (data) => {
 
   return {
     id,
+    key,
     count,
     name,
     description,
@@ -22,23 +24,24 @@ export const dataToForm = (data) => {
     images,
     ...price.reduce((arr, item, p) => ({
       ...arr,
-      ...Object.keys(item).reduce((objArr, key) => ({
+      ...Object.keys(item).reduce((objArr, k) => ({
         ...objArr,
-        [`price[${p}].${key}`]: item[key],
+        [`price[${p}].${k}`]: item[k],
       }), {}),
     }), {}),
-    ...Object.keys(options).reduce((objArr, key) => ({
+    ...Object.keys(options).reduce((objArr, k) => ({
       ...objArr,
-      [`options.${key}`]: options[key],
+      [`options.${k}`]: options[k],
     }), {}),
     category,
   };
 };
 
-export const dataToApi = (data, categories, restaurant) => {
+export const dataToApi = (data, categories, restaurant, language) => {
   const keyFloat = ['amount', 'cost'];
   const {
     id,
+    key,
     count,
     name,
     category,
@@ -69,7 +72,7 @@ export const dataToApi = (data, categories, restaurant) => {
   return {
     id: id || null,
     count,
-    key: (stringToKey(name) || ''),
+    key: language === 'en' ? (stringToKey(name) || '') : key,
     name,
     description,
     allergens,
