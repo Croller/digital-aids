@@ -343,6 +343,7 @@ const Category = () => {
                   currency={restInfo.currency[0]}
                   loading={loading}
                   archive={isArchive}
+                  language={params.language}
                   onChange={handleChangeDish}
                   onChangeFiles={handleChangeFiles}
                 />

@@ -79,7 +79,7 @@ export const CategoryForm = ({
     setIsChange(false);
     form.resetFields();
     if (!event) {
-      onChange(dataFromToList({ ...formData, ...values }, current));
+      onChange(dataFromToList({ ...formData, ...values }, current, language));
     }
   };
 
@@ -125,7 +125,7 @@ export const CategoryForm = ({
     if (!key) return;
     let obj = null;
     if (key !== 'close') {
-      obj = dataFromToList({ ...formData, ...(params || {}) }, current);
+      obj = dataFromToList({ ...formData, ...(params || {}) }, current, language);
     }
     onChange(obj);
     setFormData(null);

@@ -4,6 +4,7 @@ import moment from 'moment';
 export const dataToForm = (data) => {
   const { 
     id,
+    key,
     type,
     name,
     options,
@@ -16,11 +17,12 @@ export const dataToForm = (data) => {
   
   return {
     id,
+    key,
     type,
     name,
     ...childEdit,
-    ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, key) => {
-      if (key === 'at_work' && type === 'daily') {
+    ...Object.keys(options).length > 0 ? Object.keys(options).reduce((item, okey) => {
+      if (okey === 'at_work' && type === 'daily') {
         return {
           ...item,
           'options.at_work.day': 'mon',
@@ -31,15 +33,16 @@ export const dataToForm = (data) => {
           }), {}),
         };
       }
-      return { ...item, [`options.${key}`]: options[key] };
+      return { ...item, [`options.${okey}`]: options[okey] };
     }, {}) : {},
     is_archived,
     is_deleted,
   };
 };
 
-export const dataFromToList = (data, current = null) => {
+export const dataFromToList = (data, current = null, language) => {
   const {
+    key,
     type,
     name,
     parent,
@@ -58,11 +61,11 @@ export const dataFromToList = (data, current = null) => {
   if (at_work) {
     at_work = {
       description: data['options.at_work.description'] || null,
-      ...weekDays.reduce((obj, key) => ({
+      ...weekDays.reduce((obj, k) => ({
         ...obj,
-        [key]: [
-          moment(data[`options.at_work.${key}.from`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${key}.from`]}:00.000` : null,
-          moment(data[`options.at_work.${key}.to`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${key}.to`]}:00.000` : null,
+        [k]: [
+          moment(data[`options.at_work.${k}.from`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${k}.from`]}:00.000` : null,
+          moment(data[`options.at_work.${k}.to`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${k}.to`]}:00.000` : null,
         ],
       }), {}),
     };
@@ -70,7 +73,7 @@ export const dataFromToList = (data, current = null) => {
 
   return {
     id: current ? current.id : null,
-    key: (stringToKey(name) || ''),
+    key: language === 'en' ? (stringToKey(name) || '') : key,
     type,
     name,
     children: childrenEdited,
@@ -78,7 +81,7 @@ export const dataFromToList = (data, current = null) => {
     restaurant,
     options: {
       ...(current.options.at_work ? { at_work } : {}),
-      ...Object.keys(data).filter(f => f.indexOf('options.') > -1 && f.indexOf('options.at_work') === -1).reduce((item, key) => ({ ...item, [key.split('.')[1]]: data[key] }), {}),
+      ...Object.keys(data).filter(f => f.indexOf('options.') > -1 && f.indexOf('options.at_work') === -1).reduce((item, k) => ({ ...item, [k.split('.')[1]]: data[k] }), {}),
     },
     is_archived,
     is_deleted,

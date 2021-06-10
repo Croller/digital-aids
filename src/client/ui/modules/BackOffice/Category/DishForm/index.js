@@ -45,6 +45,7 @@ export const DishForm = ({
   dictionary = null,
   currency = null,
   archive = false,
+  language = 'en',
   className,
   onChange = () => {},
 }) => {
@@ -109,7 +110,7 @@ export const DishForm = ({
       ...formData,
       ...values,
     };
-    onChange(dataToApi(obj, categories, resaurant));
+    onChange(dataToApi(obj, categories, resaurant, language));
     setEdit(false);
     setIsChange(false);
   };
