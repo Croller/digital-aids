@@ -40,7 +40,7 @@ export const Restaurant = () => {
     window.prerenderReady = true;
     if (token) {
       const key = pathname.split('/')[2];
-      rootDispatch(init({ restaurant: key }));
+      rootDispatch(init({ restaurant: key, language }));
     }
   }, [token, language]);
 
