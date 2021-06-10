@@ -6,6 +6,7 @@ import {
 import * as Constants from 'client/store/restaurant/constants';
 import * as commonProvider from 'client/providers/common';
 import { getCategoryDish } from 'client/utils/restaurant';
+import { setLocalRestaurant } from 'client/utils/localStorage';
 
 function* updateState({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
@@ -125,40 +126,45 @@ function* updateRow({ payload }) {
 
 function* setOrder({ payload }) {
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
-  const { order } = yield select((store) => store.restaurant);
+  const { order, info } = yield select((store) => store.restaurant);
   
-  try {
-    const newOrder = payload;
-    const stateOrder = [...(order || [])];
-    const existOrder = stateOrder.find(f => f.order_id === newOrder.order_id);
-    let data = [];
-    if (existOrder) {
-      // update
-      const filtred = stateOrder.reduce((arr, item) => {
-        if (item.order_id === newOrder.order_id) {
-          if (newOrder.order.length > 0) {
-            return [...arr, newOrder];
+  if (payload) {
+    try {
+      const newOrder = payload;
+      const stateOrder = [...(order || [])];
+      const existOrder = stateOrder.find(f => f.order_id === newOrder.order_id);
+      let data = [];
+      if (existOrder) {
+        // update
+        const filtred = stateOrder.reduce((arr, item) => {
+          if (item.order_id === newOrder.order_id) {
+            if (newOrder.order.length > 0) {
+              return [...arr, newOrder];
+            }
+            return arr;
           }
-          return arr;
-        }
-        return [...arr, item];
-      }, []);
-      data = filtred.length === 0 ? null : filtred;
-    } else {
-      // add new
-      data = [...stateOrder, newOrder];
+          return [...arr, item];
+        }, []);
+        data = filtred.length === 0 ? null : filtred;
+      } else {
+        // add new
+        data = [...stateOrder, newOrder];
+      }
+      // sort order, daily to top
+      if (data) {
+        data = [
+          ...data.filter(f => f.dailymenu),
+          ...data.filter(f => !f.dailymenu),
+        ];
+      } 
+      setLocalRestaurant(info.key, { order: data });
+      yield put({ type: Constants.REST_SET, payload: { order: data } });
+    } catch (err) {
+      throw err;
     }
-    // sort order, daily to top
-    if (data) {
-      data = [
-        ...data.filter(f => f.dailymenu),
-        ...data.filter(f => !f.dailymenu),
-      ];
-    } 
-    
-    yield put({ type: Constants.REST_SET, payload: { order: data } });
-  } catch (err) {
-    throw err;
+  } else {
+    setLocalRestaurant(info.key, { order: null });
+    yield put({ type: Constants.REST_SET, payload: { order: null } });
   }
   yield put({ type: Constants.REST_LOADING_SET, payload: false });
 }

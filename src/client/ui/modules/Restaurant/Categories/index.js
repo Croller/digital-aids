@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Confirm18Modal } from 'client/ui/components/_block/Modal/Confirm18';
 import { OfferRestaurantModal } from 'client/ui/components/_block/Modal/Offer/Restaurant';
-import { setOfferViewed, getLocal, setLocal } from 'client/utils/localStorageEdit';
+import { setOfferViewed, getLocal, setLocal } from 'client/utils/localStorage';
 import { getUrl } from 'client/utils/common';
 import {
   Wrapper,
@@ -16,7 +16,7 @@ import {
 
 const Categories = () => {
   const history = useHistory();
-  const { categories, offers } = useSelector(store => store.restaurant);
+  const { categories, offers, info } = useSelector(store => store.restaurant);
   const [t] = useTranslation();
   const [offer, setOffer] = useState(null);
   const [confirmAge, hideModal] = useModal(() => (
@@ -57,7 +57,7 @@ const Categories = () => {
     window.prerenderReady = true;
     
     if (offers && offers[0]) {
-      setOfferViewed(offers[0].id, () => {
+      setOfferViewed(info.key, offers[0].id, () => {
         const {
           name,
           description,

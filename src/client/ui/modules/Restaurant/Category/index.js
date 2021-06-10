@@ -11,7 +11,7 @@ import { AllergensModal } from 'client/ui/components/_block/Modal/Allergens';
 import { DailyInfoModal } from 'client/ui/components/_block/Modal/DailyInfo';
 import { DailyConfirmModal } from 'client/ui/components/_block/Modal/DailyConfirm';
 // import { OfferCategoryModal } from 'client/ui/components/_block/Modal/Offer/Category';
-import { setOfferViewed } from 'client/utils/localStorageEdit';
+import { setOfferViewed } from 'client/utils/localStorage';
 import { getDictionaryItem } from 'client/utils/common';
 import { v4 as uuidv4 } from 'uuid';
 import { getWorkTime } from 'client/utils/restaurant';
@@ -34,7 +34,7 @@ import {
 
 const Category = () => {
   const { 
-    info: { currency },
+    info: { currency, key },
     categories,
     // offers,
     // dishes,
@@ -142,7 +142,7 @@ const Category = () => {
     const categItem = categories.find(f => f.key === category) || null;
     
     if (categItem && categItem.type === 'daily') {
-      setOfferViewed(categItem.id, () => {
+      setOfferViewed(key, categItem.id, () => {
         setOffer(categItem);
         showDailyInfo();
       });

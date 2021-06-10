@@ -4,7 +4,7 @@ import { getUrl } from 'client/utils/common';
 let socket = null;
 
 export const initSocket = (id) => {
-  socket = io(getUrl());
+  socket = io('http://localhost:8086');
   if (socket && id) {
     socket.emit('join', id);
     console.log(`Socket join ${id}`);

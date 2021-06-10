@@ -2,6 +2,7 @@ import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { init, set } from 'client/store/restaurant';
 import { getUrlOrder } from 'client/utils/restaurant';
+import { getLocalRestaurant, setLocalRestaurant } from 'client/utils/localStorage';
 import {
   Route,
   Switch,
@@ -50,8 +51,9 @@ export const Restaurant = () => {
     }
     if (restaurant.info && restaurant.info.id) {
       const { dishes, categories } = restaurant;
-      let order = null;
-      let table_number = 0;
+      const localRest = getLocalRestaurant(restaurant.info.key);
+      let order = localRest.order || null;
+      let table_number = localRest.table_number || 0;
       if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
         const [path, number] = href.split('&table_number=');
         order = getUrlOrder(path, dishes, categories);
@@ -62,6 +64,7 @@ export const Restaurant = () => {
         table_number = parseInt(number, 0);
       }
       rootDispatch(set({ order, table_number }));
+      setLocalRestaurant(restaurant.info.key, { order, table_number });
     }
   }, [restaurant.info]);
 
