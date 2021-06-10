@@ -93,13 +93,13 @@ const Category = () => {
     if (obj.dishes) {
       const edit = {
         ...obj,
-        dishes: obj.dishes.filter(f => f.count !== 0),
+        dishes: obj.dishes.filter(f => f.order_count !== 0),
       };
       if (edit.dishes.length !== 0) {
         edited = edit;
       }
     }
-    if (!obj.dishes && obj.count !== 0) {
+    if (!obj.dishes && obj.order_count !== 0) {
       edited = obj;
     }
     if (edited) {
@@ -124,7 +124,7 @@ const Category = () => {
       order: categoryOrder,
     }));
     setCategoryOrder([]);
-    setOrderId(order ? uuidv4() : orderId + 1);
+    setOrderId(order ? uuidv4() : orderId);
   };
 
   const handleToggleModalAllergens = (arr) => {
@@ -160,12 +160,13 @@ const Category = () => {
 
     if (order) {
       const catOrder = order.find(f => f.key === category && categItem.type !== 'daily');
+      catOrder && setOrderId(catOrder.order_id);
       setCategoryOrder(catOrder ? catOrder.order : []);
     }
     if (categItem && categItem.dailymenu) {
       setCategoryOrder([]);
     }
-    setOrderId(order ? uuidv4() : orderId);
+    
     setCategoryItem(categItem);
 
     return () => {

@@ -38,8 +38,8 @@ export const initLocal = () => {
 };
 
 export const setOfferViewed = (key, offer = null, callback = () => {}) => {
-  if (!offer) return null;
   const local = getLocalStorage(storageKey);
+  if (!offer || !local.restaurant[key]) return null;
   const { offersViewed } = local.restaurant[key];
   
   if (offer && local && offersViewed && !offersViewed.some(f => f === offer)) {

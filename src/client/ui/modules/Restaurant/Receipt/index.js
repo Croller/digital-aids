@@ -56,7 +56,7 @@ const Receipt = () => {
     const data = checkDaily(category) ? item.dish : item;
     return {
       ...data,
-      count: data.count || 1,
+      order_count: data.order_count || 1,
     };
   };
 
@@ -82,16 +82,16 @@ const Receipt = () => {
                 ...existDish,
                 dish: {
                   ...existDish.dish,
-                  count: existDish.dish.count ? existDish.dish.count + 1 : 2,
+                  order_count: existDish.dish.order_count ? existDish.dish.order_count + 1 : 2,
                 },
               },
             ];
           }
-          return [...arrDish, { ...catDish, dish: { ...catDish.dish, count: 1 } }];
+          return [...arrDish, { ...catDish, dish: { ...catDish.dish, order_count: 1 } }];
         }, []);
         return [
           ...arr.filter(f => f.id !== category.id),
-          { ...category, order: editOrder, count: category.count ? category.count + 1 : 2 },
+          { ...category, order: editOrder, order_count: category.order_count ? category.order_count + 1 : 2 },
         ];
       }
       return [...arr, category];
@@ -115,7 +115,7 @@ const Receipt = () => {
         </Name>
         {checkDaily(category) && (
           <Price>
-            {`${category.count ? category.count : 1} X ${category.options.price} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`} 
+            {`${category.order_count ? category.order_count : 1} X ${category.options.price} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`} 
           </Price>
         )}
       </NameCategory>
@@ -184,7 +184,7 @@ const Receipt = () => {
                           {getDish(item, category).name}
                         </DishName>
                         <Price>
-                          {`${getDish(item, category).count} X${checkDaily(category) ? '' : ` ${getDish(item, category).price[0].cost} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}`} 
+                          {`${getDish(item, category).order_count} X${checkDaily(category) ? '' : ` ${getDish(item, category).price[0].cost} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}`} 
                         </Price>
                       </GroupName>
                     </GroupItem>

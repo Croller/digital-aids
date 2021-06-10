@@ -87,7 +87,7 @@ const Order = () => {
     } else {
       data = category.order.reduce((arr, item) => {
         if (item.id === obj.id) {
-          if (obj.count !== 0) {
+          if (obj.order_count !== 0) {
             return [...arr, obj];
           }
           return arr;
