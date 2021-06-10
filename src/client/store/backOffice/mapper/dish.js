@@ -60,13 +60,13 @@ export const dataToApi = (data, categories, restaurant, language) => {
     }, []);
 
   const categoryObj = Array.isArray(categories) && categories.length > 0 ? categories.find(f => f.key === category || f.id === category).id : categories.id;
-  const optionsObj = Object.keys(data).filter(f => f.indexOf('options.') > -1).reduce((obj, key) => ({ ...obj, [key.split('.')[1]]: data[key] }), {});
-  const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, key) => {
-    let value = data[key];
-    if (keyFloat.some(s => key.indexOf(s) > -1)) {
+  const optionsObj = Object.keys(data).filter(f => f.indexOf('options.') > -1).reduce((obj, k) => ({ ...obj, [k.split('.')[1]]: data[k] }), {});
+  const priceObj = Object.keys(data).filter(f => f.indexOf('price[') > -1).reduce((obj, k) => {
+    let value = data[k];
+    if (keyFloat.some(s => k.indexOf(s) > -1)) {
       value = parseFloat(value);
     }
-    return { ...obj, [key.split('.')[1]]: value };
+    return { ...obj, [k.split('.')[1]]: value };
   }, {});
 
   return {
