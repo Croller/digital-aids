@@ -5,7 +5,7 @@ import {
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/restaurant/constants';
 import * as commonProvider from 'client/providers/common';
-import { getCategoryDish } from 'client/utils/restaurant';
+import { getCategoryDish, setUrlOrder } from 'client/utils/restaurant';
 import { setLocalRestaurant } from 'client/utils/localStorage';
 
 function* updateState({ payload }) {
@@ -156,8 +156,8 @@ function* setOrder({ payload }) {
           ...data.filter(f => f.dailymenu),
           ...data.filter(f => !f.dailymenu),
         ];
-      } 
-      setLocalRestaurant(info.key, { order: data });
+      }
+      setLocalRestaurant(info.key, { order: setUrlOrder(data) });
       yield put({ type: Constants.REST_SET, payload: { order: data } });
     } catch (err) {
       throw err;

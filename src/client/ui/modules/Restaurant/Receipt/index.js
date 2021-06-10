@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronSvg, InfoCircleSvg } from 'client/assets/images';
-import { getTotal } from 'client/utils/restaurant';
+import { getTotal, setUrlOrder } from 'client/utils/restaurant';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
 import { getDictionaryItem, getUrl } from 'client/utils/common';
+
 import {
   Wrapper,
   Header, BackButton,
@@ -62,25 +63,7 @@ const Receipt = () => {
   const checkDaily = (category) => category.type === 'daily';
 
   const getQRCodeValue = () => {
-    const trimOrder = order.map(item => ({
-      id: item.id,
-      order_id: item.order_id,
-      order: item.order.map(cat => {
-        if (!checkDaily(item)) {
-          return {
-            id: cat.id,
-            count: cat.count,
-          };
-        }
-        return {
-          id: cat.id,
-          dish: cat.dish.id,
-        };
-      }),
-    }));
-    let str = JSON.stringify(trimOrder);
-    str = str.replace(/ /g, '');
-    const encode = encodeURIComponent(str);
+    const encode = setUrlOrder(order);
     const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}&table_number=${table_number}`;
     console.log('url', url);
     return url;
