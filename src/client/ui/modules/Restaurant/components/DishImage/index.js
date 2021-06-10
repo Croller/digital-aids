@@ -16,7 +16,7 @@ import {
 
 export const DishImage = memo(({
   source: {
-    number = null,
+    count = null,
     name = '',
     description = null,
     price = null,
@@ -35,7 +35,7 @@ export const DishImage = memo(({
           <Img src={src} />
         )}
         <Number>
-          {number}
+          {count || 0}
         </Number>
       </ImgWrapper>
       <Content>

@@ -292,7 +292,7 @@ export function* watchAndLog() {
       const { info: { token, roles } } = payload;
       if (token && roles && !['guest'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id')))) {
         let ids = null;
-        if (['owner', 'employees'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id')))) {
+        if (['owner', 'employees'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id'))) && !roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id'))) {
           ids = payload.info.restaurants || [];
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });

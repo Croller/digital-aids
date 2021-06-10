@@ -36,6 +36,7 @@ export const CloseButton = styled(Button)`
 export const Content = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 20px;
 `;
 
 export const Title = styled.div`

@@ -6,8 +6,9 @@ import translate from 'client/i18n';
 import moment from 'moment';
 
 import {
-  getLocalStorage,
-  setLocalStorage,
+  initLocal,
+  getUser,
+  setUser,
 } from 'client/utils/localStorage';
 
 export const InfoUser = () => {
@@ -28,41 +29,37 @@ export const InfoUser = () => {
       check18: false,
       checkDaily: false,
     },
-    restaurant: {
-      tableNumber: 0,
-      offersViewed: [],
-      opinionSend: false,
-    },
+    restaurant: {},
   });
   const { token, enter_at } = useSelector(store => store.user.info);
   const { pathname } = location;
 
   const initStorage = () => {
-    const local = getLocalStorage(storageKey) || storage;
-    translate.changeLanguage(local.user.lng);
-    local.user.token = local.user.token || token;
-    local.user.enter_at = local.user.enter_at || enter_at;
+    const localUser = getUser(storageKey) || storage;
+    translate.changeLanguage(localUser.lng);
+    localUser.token = localUser.token || token;
+    localUser.enter_at = localUser.enter_at || enter_at;
 
-    if (local.user.enter_at && enter_at && !initUrl) {
-      const diffEnterTime = moment().diff(moment(local.user.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
+    if (localUser.enter_at && enter_at && !initUrl) {
+      const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
 
       if (diffEnterTime > expireTime) {
         rootDispatch(logout());
-        local.user.token = null;
+        localUser.token = null;
       }
     }
 
-    if (local.user.token && !token && [pathCurrent].some(f => pathname.indexOf(f) > -1)) {
-      rootDispatch(auth({ token: local.user.token }));
-      local.user.token = null;
-      local.user.enter_at = null;
+    if (localUser.token && !token && [pathCurrent].some(f => pathname.indexOf(f) > -1)) {
+      rootDispatch(auth({ token: localUser.token }));
+      localUser.token = null;
+      localUser.enter_at = null;
     }
 
     if (pathname.indexOf(pathCurrent) === -1) {
       rootDispatch(login({
         login: process.env.REST_GUEST_LOGIN,
         password: process.env.REST_GUEST_PASSWORD,
-        language: local.user.lng,
+        language: localUser.lng,
       }));
     }
     
@@ -73,8 +70,8 @@ export const InfoUser = () => {
       }));
     }
     
-    setLocalStorage(storageKey, local);
-    setStorage(local);
+    setUser(localUser);
+    setStorage({ ...storage, user: localUser });
     setInitUrl(pathname);
   };
 
@@ -82,11 +79,12 @@ export const InfoUser = () => {
     const local = { ...storage };
     local.user.token = token;
     local.user.enter_at = enter_at;
-    setLocalStorage(storageKey, local);
+    setUser(local.user);
     setStorage(local);
   };
   
   useEffect(() => {
+    initLocal();
     console.log('Url enter:', pathname);
     initStorage();
     

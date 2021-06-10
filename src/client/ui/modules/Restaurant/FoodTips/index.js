@@ -77,7 +77,7 @@ const FoodTips = () => {
 
     let newOrder = { ...foodtips };
     newOrder.dish = { ...obj };
-    newOrder.dish.count = 1;
+    newOrder.dish.order_count = 1;
     newOrder.order_id = uuidv4();
     newOrder.order = [newOrder.dish];
     delete newOrder.dish;
@@ -87,7 +87,7 @@ const FoodTips = () => {
       newOrder = existOrder;
       newOrder.order = newOrder.order.reduce((arr, dish) => {
         if (obj.dish.id === dish.id) {
-          return [...arr, { ...dish, count: dish.count + 1 }];
+          return [...arr, { ...dish, order_count: dish.order_count + 1 }];
         }
         return [...arr, dish];
       }, []);

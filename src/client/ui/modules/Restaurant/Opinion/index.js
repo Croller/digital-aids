@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
 import { OpinionModal } from 'client/ui/components/_block/Modal/Opinion';
-import { getLocal, setLocal } from 'client/utils/localStorageEdit';
+import { getLocalRestaurant, setLocalRestaurant } from 'client/utils/localStorage';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { updateRow } from 'client/store/restaurant';
 import { OPINION_CATEGORY, OPINION_RATING } from 'client/utils/constants';
@@ -25,7 +25,7 @@ import {
 } from './styled';
 
 const Opinion = () => {
-  const { id } = useSelector(s => s.restaurant.info);
+  const { id, key } = useSelector(s => s.restaurant.info);
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [data, setData] = useState({
@@ -49,19 +49,19 @@ const Opinion = () => {
   };
 
   const handleSend = async () => {
-    const local = getLocal();
-    const { restaurant: { opnionSend } } = local;
+    const local = getLocalRestaurant(key);
+    const { opnionSend } = local;
 
     if (opnionSend) {
       existOpinion();
       return;
     }
-    const mapper = Object.keys(data).reduce((obj, key) => {
-      if (key !== 'comments') {
-        const rate = OPINION_RATING.find(f => f.key === data[key]);
-        return { ...obj, [key]: rate.value };
+    const mapper = Object.keys(data).reduce((obj, k) => {
+      if (k !== 'comments') {
+        const rate = OPINION_RATING.find(f => f.key === data[k]);
+        return { ...obj, [k]: rate.value };
       }
-      return { ...obj, [key]: data[key] };
+      return { ...obj, [k]: data[k] };
     }, {});
 
     rootDispatch(updateRow({
@@ -72,8 +72,8 @@ const Opinion = () => {
       },
     }));
     showMessage({ type: 'success', content: t('restaurant.pageOpinion.mail.send') });
-    local.restaurant.opnionSend = true;
-    setLocal(local);
+    local.opnionSend = true;
+    setLocalRestaurant(key, local);
   };
 
   useEffect(() => {
@@ -120,22 +120,22 @@ const Opinion = () => {
           {t('restaurant.pageOpinion.descriptions')}
         </Description>
         <RateWrapper>
-          {OPINION_CATEGORY.map((rate) => (
+          {OPINION_CATEGORY.map(rate => (
             <RateContainer key={rate}>
               <RateTitle>
                 {t(`restaurant.pageOpinion.rate.${rate}`)}
               </RateTitle>
               <ValuationWrapper>
-                {OPINION_RATING.map(({ key, icon }) => (
+                {OPINION_RATING.map(item => (
                   <Valuation
-                    key={key}
-                    active={(data[rate] && data[rate] === key) || false}
-                    onClick={() => handleClickRate({ [rate]: key })}
+                    key={item.key}
+                    active={(data[rate] && data[rate] === item.key) || false}
+                    onClick={() => handleClickRate({ [rate]: item.key })}
                   >
                     <EmojiWrapper>
-                      {icon}
+                      {item.icon}
                     </EmojiWrapper>
-                    {t(`restaurant.pageOpinion.rating.${key}`)}
+                    {t(`restaurant.pageOpinion.rating.${item.key}`)}
                   </Valuation>
                 ))}
               </ValuationWrapper>

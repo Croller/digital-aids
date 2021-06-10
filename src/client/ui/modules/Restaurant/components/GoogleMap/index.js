@@ -4,7 +4,7 @@ import {
   GoogleApiWrapper, 
 } from 'google-maps-react';
 // TODO lng to props, getLocal delete
-import { getLocal } from 'client/utils/localStorageEdit';
+import { getLocal } from 'client/utils/localStorage';
 
 const { user } = getLocal();
  

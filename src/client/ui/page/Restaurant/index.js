@@ -2,6 +2,7 @@ import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { init, set } from 'client/store/restaurant';
 import { getUrlOrder } from 'client/utils/restaurant';
+import { getLocalRestaurant } from 'client/utils/localStorage';
 import {
   Route,
   Switch,
@@ -40,7 +41,7 @@ export const Restaurant = () => {
     window.prerenderReady = true;
     if (token) {
       const key = pathname.split('/')[2];
-      rootDispatch(init({ restaurant: key }));
+      rootDispatch(init({ restaurant: key, language }));
     }
   }, [token, language]);
 
@@ -50,18 +51,21 @@ export const Restaurant = () => {
     }
     if (restaurant.info && restaurant.info.id) {
       const { dishes, categories } = restaurant;
-      let order = null;
-      let table_number = 0;
+      const localRest = getLocalRestaurant(restaurant.info.key);
+      let order = localRest.order ? getUrlOrder(localRest.order, dishes, categories) : null;
+
+      let table_number = localRest.table_number || 0;
       if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
         const [path, number] = href.split('&table_number=');
-        order = getUrlOrder(path, dishes, categories);
+        order = getUrlOrder(path.split('?params=')[1], dishes, categories);
         table_number = parseInt(number, 0);
       }
       if (href.indexOf('/receipt?params=') === -1 && href.indexOf('table_number=') > -1) {
         const number = href.split('table_number=')[1];
         table_number = parseInt(number, 0);
       }
-      rootDispatch(set({ order, table_number }));
+      console.log('order', order);
+      rootDispatch(set({ table_number, order }));
     }
   }, [restaurant.info]);
 

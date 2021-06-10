@@ -3,10 +3,11 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronSvg, InfoCircleSvg } from 'client/assets/images';
-import { getTotal } from 'client/utils/restaurant';
+import { getTotal, setUrlOrder } from 'client/utils/restaurant';
 import QRCode from 'qrcode.react';
 import moment from 'moment';
 import { getDictionaryItem, getUrl } from 'client/utils/common';
+
 import {
   Wrapper,
   Header, BackButton,
@@ -55,32 +56,14 @@ const Receipt = () => {
     const data = checkDaily(category) ? item.dish : item;
     return {
       ...data,
-      count: data.count || 1,
+      order_count: data.order_count || 1,
     };
   };
 
   const checkDaily = (category) => category.type === 'daily';
 
   const getQRCodeValue = () => {
-    const trimOrder = order.map(item => ({
-      id: item.id,
-      order_id: item.order_id,
-      order: item.order.map(cat => {
-        if (!checkDaily(item)) {
-          return {
-            id: cat.id,
-            count: cat.count,
-          };
-        }
-        return {
-          id: cat.id,
-          dish: cat.dish.id,
-        };
-      }),
-    }));
-    let str = JSON.stringify(trimOrder);
-    str = str.replace(/ /g, '');
-    const encode = encodeURIComponent(str);
+    const encode = setUrlOrder(order);
     const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}&table_number=${table_number}`;
     console.log('url', url);
     return url;
@@ -99,16 +82,16 @@ const Receipt = () => {
                 ...existDish,
                 dish: {
                   ...existDish.dish,
-                  count: existDish.dish.count ? existDish.dish.count + 1 : 2,
+                  order_count: existDish.dish.order_count ? existDish.dish.order_count + 1 : 2,
                 },
               },
             ];
           }
-          return [...arrDish, { ...catDish, dish: { ...catDish.dish, count: 1 } }];
+          return [...arrDish, { ...catDish, dish: { ...catDish.dish, order_count: 1 } }];
         }, []);
         return [
           ...arr.filter(f => f.id !== category.id),
-          { ...category, order: editOrder, count: category.count ? category.count + 1 : 2 },
+          { ...category, order: editOrder, order_count: category.order_count ? category.order_count + 1 : 2 },
         ];
       }
       return [...arr, category];
@@ -132,7 +115,7 @@ const Receipt = () => {
         </Name>
         {checkDaily(category) && (
           <Price>
-            {`${category.count ? category.count : 1} X ${category.options.price} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`} 
+            {`${category.order_count ? category.order_count : 1} X ${category.options.price} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`} 
           </Price>
         )}
       </NameCategory>
@@ -201,7 +184,7 @@ const Receipt = () => {
                           {getDish(item, category).name}
                         </DishName>
                         <Price>
-                          {`${getDish(item, category).count} X${checkDaily(category) ? '' : ` ${getDish(item, category).price[0].cost} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}`} 
+                          {`${getDish(item, category).order_count} X${checkDaily(category) ? '' : ` ${getDish(item, category).price[0].cost} ${getDictionaryItem(currency[0], 'id', dictionary.currency, 'symbol')}`}`} 
                         </Price>
                       </GroupName>
                     </GroupItem>

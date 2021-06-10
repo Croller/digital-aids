@@ -9,7 +9,7 @@ export const getTotal = (arr) => {
       if (item.type === 'daily') {
         return count + parseFloat(item.options.price); 
       }
-      return count + item.order.reduce((num, ord) => num + (ord.price[0].cost * ord.count), 0);
+      return count + item.order.reduce((num, ord) => num + (ord.price[0].cost * ord.order_count), 0);
     }, 0);
   }
   return 0;
@@ -54,8 +54,32 @@ export const getCategoryDish = (categories, dishes, pKey = 'parent') => {
   return results;
 };
 
+export const setUrlOrder = (order) => {
+  const trimOrder = order.map(item => ({
+    id: item.id,
+    order_id: item.order_id,
+    order: item.order.map(cat => {
+      if (item.type !== 'daily') {
+        return {
+          id: cat.id,
+          order_count: cat.order_count,
+        };
+      }
+      return {
+        id: cat.id,
+        dish: cat.dish.id,
+      };
+    }),
+  }));
+  let str = JSON.stringify(trimOrder);
+  str = str.replace(/ /g, '');
+  const encode = encodeURIComponent(str);
+  return encode;
+};
+
 export const getUrlOrder = (url, dishes, categories) => {
-  const params = url.split('?params=')[1];
+  if (typeof url !== 'string') return null;
+  const params = url;
   // TODO edit 
   // const yourParamName = new URLSearchParams(window.location.search).getAll('yourParamName[]')
   const trimOrder = JSON.parse(decodeURIComponent(params));

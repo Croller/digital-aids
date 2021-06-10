@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
-import { setUser, getLocal } from 'client/utils/localStorageEdit';
+import { setUser, getLocal } from 'client/utils/localStorage';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
 import { Helmet } from 'react-helmet';
@@ -184,9 +184,9 @@ const Main = () => {
   return (
     <Container>
       <Helmet>
-        <meta content="Digital Carte" />
+        <meta content="Digital Aids" />
         <title>
-          Digital Carte
+          Digital Aids
         </title>
       </Helmet>
       <Content>

@@ -4,7 +4,7 @@ import { useModal } from 'react-modal-hook';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { TrashSvg } from 'client/assets/images';
-import { updateOrder, set } from 'client/store/restaurant';
+import { updateOrder } from 'client/store/restaurant';
 import { ThankYou } from 'client/ui/components/Footer/ThankYou';
 import { DishBlock } from 'client/ui/modules/Restaurant/components/DishBlock';
 import { getTotal } from 'client/utils/restaurant';
@@ -60,7 +60,7 @@ const Order = () => {
       onCancel={hideConfirmDelete}
       onClose={hideConfirmDelete}
       onOk={() => {
-        rootDispatch(set({ order: null }));
+        rootDispatch(updateOrder(null));
         hideConfirmDelete();
       }}
     />
@@ -87,7 +87,7 @@ const Order = () => {
     } else {
       data = category.order.reduce((arr, item) => {
         if (item.id === obj.id) {
-          if (obj.count !== 0) {
+          if (obj.order_count !== 0) {
             return [...arr, obj];
           }
           return arr;

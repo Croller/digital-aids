@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import translate from 'client/i18n';
-import { setUser } from 'client/utils/localStorageEdit';
+import { setUser } from 'client/utils/localStorage';
 import { update } from 'client/store/user';
 import { getDictionaryItem } from 'client/utils/common';
 import { init } from 'client/store/restaurant';
