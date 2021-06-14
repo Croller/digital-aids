@@ -29,7 +29,7 @@ let plugins = [
         to: './fonts',
       },
       {
-        from: path.resolve(__dirname, './public/service-worker.js'),
+        from: path.resolve(__dirname, 'src/client/utils/service-worker.js'),
         to: './',
       },
     ],
@@ -39,6 +39,7 @@ let plugins = [
     short_name: 'DigitalAids',
     description: 'Digital solutions for business',
     background_color: '#ffffff',
+    orientation: 'portrait',
     crossorigin: 'use-credentials',
     start_url: '/',
     display: 'standalone',

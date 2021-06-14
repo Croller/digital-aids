@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 import { ModalProvider } from 'react-modal-hook';
+import * as serviceWorker from 'client/utils/service-worker';
 import configureStore from './store';
 import App from './App';
 import i18n from './i18n';
@@ -25,3 +26,4 @@ const root = (
 
 ReactDOM.render(root, document.getElementById('root'));
 
+serviceWorker.register();
