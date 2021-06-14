@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { InputForm } from 'client/ui/components/_ui/Input';
 import { Button } from 'client/ui/components/_ui/Button';
 import {
   PALETTE,
@@ -8,10 +7,6 @@ import {
   FONTS,
   Z_INDEX,
 } from 'client/style/constants';
-
-import {
-  LoupeSvg,
-} from 'client/assets/images';
 
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -89,76 +84,12 @@ export const ControlWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: ${p => (p.show ? '100%' : '138px')};
+  width: 138px;
   margin-left: auto;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     justify-content: center;
     width: auto;
-  }
-`;
-
-export const Search = styled(InputForm)`
-  display: ${p => (p.show ? 'flex' : 'none')};
-  width: 100%;
-  height: 42px;
-  background-color: ${PALETTE.grey11};
-  border: 0;
-  font-size: 18px;
-  padding: 0 18px;
-
-  svg {
-    width: 24px;
-    height: 24px;
-    transform: rotate(90deg);
-
-    path {
-      fill: ${PALETTE.grey12};
-    }
-  }
-
-  .ant-input-suffix {
-    svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  input {
-    padding: 0 10px;
-    background-color: ${PALETTE.grey11};
-  }
-
-  @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    width: 458px;
-    height: 60px;
-    display: flex;
-
-    input {
-      font-size: 18px;
-    }
-
-    .ant-input-suffix {
-      svg {
-        width: 24px;
-        height: 24px;
-      }
-    }
-  }
-`;
-
-export const LoupeSvgStyled = styled(LoupeSvg)`
-  display: block;
-  width: 28px;
-  height: 28px;
-  transform: rotate(90deg);
-
-  path {
-    fill: ${PALETTE.grey12};
-  }
-
-  @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    display: none;
   }
 `;
 
@@ -303,30 +234,6 @@ export const LangButton = styled(Button)`
 
   &:not(:last-child) {
     margin-bottom: 32px;
-  }
-`;
-
-export const User = styled.div`
-  display: none;
-  justify-content: center;
-  align-items: center;
-
-  svg {
-    width: 28px;
-    height: 28px;
-
-    path {
-      fill: ${PALETTE.green1};
-    }
-  }
-
-  @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    margin-left: 52px;
-
-    svg {
-      width: 40px;
-      height: 40px;
-    }
   }
 `;
 

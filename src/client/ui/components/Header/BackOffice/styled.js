@@ -1,10 +1,12 @@
 import styled from 'styled-components';
-import { InputForm } from 'client/ui/components/_ui/Input';
 import {
   PALETTE,
   FONTS,
   Z_INDEX,
+  BREAKPOINTS,
+  THEME,
 } from 'client/style/constants';
+import { Button } from 'client/ui/components/_ui/Button';
 
 export const HeaderWrapper = styled.div`
   display: flex;
@@ -72,57 +74,6 @@ export const Hamburger = styled.div`
   }
 `;
 
-export const Loupe = styled.div`
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  svg {
-    width: 31px;
-    height: 31px;
-  }
-`;
-
-export const Search = styled(InputForm)`
-  position: absolute;
-  right: 0;
-  top: -12px;
-  display: flex;
-  width: 324px;
-  height: 56px;
-  background-color: ${PALETTE.grey11};
-  border: 0;
-  padding: 0 18px;
-  z-index: 1;
-
-  svg {
-    width: 24px;
-    height: 24px;
-    transform: rotate(90deg);
-
-    path {
-      fill: ${PALETTE.grey12};
-    }
-  }
-
-  .ant-input-suffix {
-    cursor: pointer;
-
-    svg {
-      width: 14px;
-      height: 14px;
-    }
-  }
-
-  input {
-    padding: 0 10px;
-    font-size: 16px;
-    background-color: ${PALETTE.grey11};
-  }
-`;
-
 export const User = styled.div`
   cursor: pointer;
   display: flex;
@@ -136,6 +87,115 @@ export const User = styled.div`
     path {
       fill: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.black}`)};
     }
+  }
+`;
+
+export const Lang = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    margin-right: 8px;
+
+    path {
+      fill: ${PALETTE.green1};
+    }
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    position: relative;
+    width: 87px;
+    height: 60px;
+    border-radius: ${THEME.borderRadiusM};
+    box-shadow: ${THEME.boxShadow1};
+
+    svg {
+      margin-right: 8px;
+    }
+  }
+`;
+
+export const LangText = styled.span`
+  display: none;
+  font-family: ${FONTS.semiBold};
+  font-size: 16px;
+  text-transform: uppercase;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: block;
+  }
+`;
+
+export const LangWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  right: 27px;
+  left: 27px;
+  display: block;
+  background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadiusM};
+  z-index: ${Z_INDEX.modal};
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    top: 100px;
+    left: unset;
+  }
+`;
+
+export const CloseButton = styled(Button)`
+  position: absolute;
+  top: 25px;
+  right: 28px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+
+  > svg {
+    width: 26px;
+    height: 26px;
+
+    path {
+      fill: ${PALETTE.grey1};
+    }
+  }
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    display: none;
+  }
+`;
+
+export const LangList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: ${THEME.boxShadow1};
+  border-bottom-left-radius: ${THEME.borderRadiusM};
+  border-bottom-right-radius: ${THEME.borderRadiusM};
+  padding: 64px 98px;
+
+  @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    padding: 64px 86px;
+  }
+`;
+
+export const LangButton = styled(Button)`
+  width: unset;
+  height: unset;
+  font-size: 18px;
+  font-family: ${FONTS.semiBold};
+  background-color: transparent;
+  color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.black}`)};
+
+  &:not(:last-child) {
+    margin-bottom: 32px;
   }
 `;
 

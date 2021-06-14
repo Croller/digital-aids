@@ -27,12 +27,6 @@ import {
   TitleTableQR, InputStyled, BlockNumber,
 } from './styled';
 
-const TAB_CONFIG = [
-  { label: 'Info', value: 'info' },
-  { label: 'Table', value: 'table' },
-  { label: 'Waiter', value: 'waiter' },
-];
-
 const Flyer = () => {
   const [t] = useTranslation();
   const [tabValue, setTabValue] = useState('info');
@@ -44,6 +38,12 @@ const Flyer = () => {
   const { restaurants, loading } = useSelector(state => state.backOffice);
   const params = useParams();
   const { restaurant } = params;
+
+  const TAB_CONFIG = [
+    { label: t('common.words.info'), value: 'info' },
+    { label: t('common.words.table'), value: 'table' },
+    { label: t('common.words.waiter'), value: 'waiter' },
+  ];
 
   const handleGetImg = async (key = 'block-1-print') => {
     const img = await htmlToImage(key);

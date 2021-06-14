@@ -9,19 +9,14 @@ import {
   CloseSvg,
   GlobalSvg,
   LogoSvg,
-  // LoupeSvg,
   PhoneCallSvg,
-  UserCircleSvg,
 } from 'client/assets/images';
 import {
   HeaderWrapper, HeaderContainer,
   LogoWrapper, LogoText,
   ControlWrapper,
-  // Search,
-  // LoupeSvgStyled,
   Phone, PhoneText,
   Lang, LangText,
-  User,
   LangWrapper,
   CloseButton,
   LangList,
@@ -33,7 +28,6 @@ const HeaderComponent = ({
 }) => {
   const history = useHistory();
   const [t, i18n] = useTranslation();
-  const [showSearch, setShowSearch] = useState(false);
   const [langList, setLangList] = useState(false);
   const { phone } = useSelector(store => store.company);
 
@@ -63,63 +57,46 @@ const HeaderComponent = ({
   return (
     <HeaderWrapper className={className}>
       <HeaderContainer>
-        {!showSearch && (
-          <LogoWrapper
-            onClick={() => handleRoute()}
+        <LogoWrapper
+          onClick={() => handleRoute()}
+        >
+          <LogoSvg />
+          <LogoText>
+            {t('present.header.logo')}
+          </LogoText>
+        </LogoWrapper>
+        <ControlWrapper>
+          <Phone
+            onClick={() => handleRoute(`tel:${phone}`, true)}
           >
-            <LogoSvg />
-            <LogoText>
-              {t('present.header.logo')}
-            </LogoText>
-          </LogoWrapper>
-        )}
-        <ControlWrapper show={showSearch}>
-          {/* <Search
-            prefix={showSearch ? <LoupeSvg /> : false}
-            suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
-            show={showSearch}
-          /> */}
-          {!showSearch && (
-            <>
-              {/* <LoupeSvgStyled
-                onClick={() => setShowSearch(true)}
-              /> */}
-              <Phone
-                onClick={() => handleRoute(`tel:${phone}`, true)}
-              >
-                <PhoneCallSvg />
-                <PhoneText>{phone}</PhoneText>
-              </Phone>
-              <Lang onClick={() => setLangList(!langList)}>
-                <GlobalSvg />
-                <LangText>{i18n.language}</LangText>
+            <PhoneCallSvg />
+            <PhoneText>{phone}</PhoneText>
+          </Phone>
+          <Lang onClick={() => setLangList(!langList)}>
+            <GlobalSvg />
+            <LangText>{i18n.language}</LangText>
 
-                {langList && (
-                  <LangWrapper>
-                    <CloseButton onClick={() => handleLangChange()}>
-                      <CloseSvg />
-                    </CloseButton>
-                    <OutSideClick onOutsideClick={() => handleLangChange()}>
-                      <LangList>
-                        {['en', 'de', 'es', 'it', 'ru'].map(lng => (
-                          <LangButton
-                            key={`_language_${lng}`}
-                            onClick={() => handleLangChange(lng)}
-                            active={lng === i18n.language}
-                          >
-                            {languages[lng].name}
-                          </LangButton>
-                        ))}
-                      </LangList>
-                    </OutSideClick>
-                  </LangWrapper>
-                )}
-              </Lang>
-              <User>
-                <UserCircleSvg />
-              </User>
-            </>
-          )}
+            {langList && (
+              <LangWrapper>
+                <CloseButton onClick={() => handleLangChange()}>
+                  <CloseSvg />
+                </CloseButton>
+                <OutSideClick onOutsideClick={() => handleLangChange()}>
+                  <LangList>
+                    {['en', 'de', 'es', 'it', 'ru'].map(lng => (
+                      <LangButton
+                        key={`_language_${lng}`}
+                        onClick={() => handleLangChange(lng)}
+                        active={lng === i18n.language}
+                      >
+                        {languages[lng].name}
+                      </LangButton>
+                    ))}
+                  </LangList>
+                </OutSideClick>
+              </LangWrapper>
+            )}
+          </Lang>
         </ControlWrapper>
       </HeaderContainer>
     </HeaderWrapper>
