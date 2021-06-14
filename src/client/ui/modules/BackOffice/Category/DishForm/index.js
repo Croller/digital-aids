@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { showMessage } from 'client/ui/components/_ui/Message';
-import { getUrl, getDictionaryItem, loadFile } from 'client/utils/common';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
+import { ImageChange } from 'client/ui/components/_block/Modal/ImageChange';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/dish';
 import { ALLERGENS } from 'client/ui/components/_block/Allergens/constants';
+import { ImgCrop } from 'client/ui/components/_ui/ImgCrop';
+import {
+  getUrl,
+  getDictionaryItem,
+  loadFile,
+  imageResize,
+} from 'client/utils/common';
 import {
   ArchiveSvg,
   CloseSvg,
@@ -34,6 +41,13 @@ import {
   ViewItemStyled,
 } from './styled';
 
+const CROP_CONFIG = {
+  width: 338,
+  height: 216,
+  x: 0,
+  y: 0, 
+};
+
 export const DishForm = ({
   source = null,
   type = null,
@@ -57,6 +71,7 @@ export const DishForm = ({
   const [loadFiles, setLoadFiles] = useState(true);
   const [edit, setEdit] = useState(false);
   const [event, setEvent] = useState(null);
+  const [eventCrop, setEventCrop] = useState(null);
   const [form] = FormStyled.useForm();
   const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
@@ -72,6 +87,37 @@ export const DishForm = ({
       }}
     />
   ), [event]);
+  const [showCrop, hideCrop] = useModal(() => (
+    <ImageChange
+      title={t('backOffice.confirmModal.crop')}
+      textOk={t('common.words.apply')}
+      textCancel={t('common.words.no')}
+      onCancel={() => {
+        hideCrop();
+        setEventCrop(null);
+        setFormData(eventCrop.paramsBackup);
+      }}
+      onClose={() => {
+        hideCrop();
+        setEventCrop(null);
+        setFormData(eventCrop.paramsBackup);
+      }}
+      onOk={() => {
+        hideCrop();
+        setEventCrop(null);
+        setFormData(eventCrop.params);
+      }}
+    >
+      {eventCrop && (
+        <ImgCrop
+          locked
+          source={eventCrop.params.images[0]}
+          onComplete={handleCrop}
+          setting={CROP_CONFIG}
+        />
+      )}
+    </ImageChange>
+  ), [eventCrop]);
 
   const setFiledsValue = (obj = null) => {
     if (!obj) return;
@@ -101,8 +147,40 @@ export const DishForm = ({
     if (deleted && list.some(s => s && s.uuid === deleted.uuid)) {
       setDeletedFiles([...(deletedFiles || []), `/restaurants/dishes/${deleted.uuid}.png`]);
     }
-    setFormData({ ...formData, images: [...list] });
+    setFormData({ ...formData, images: [] });
+    if (list.length > 0) {
+      showCrop();
+      setEventCrop({
+        key: 'crop',
+        params: { ...formData, images: [...list] },
+      });
+    } 
     setIsChange(true);
+  };
+
+  const handleUploadEdit = () => {
+    showCrop();
+    setFormData({ ...formData, images: [] });
+    setEventCrop({
+      key: 'crop',
+      params: { ...formData, images: formData.images.filter(f => f.uuid.indexOf('-thumbnail') === -1) },
+      paramsBackup: { ...formData },
+    });
+    setIsChange(true);
+  };
+
+  const handleCrop = async (file, crop) => {
+    const ev = { ...eventCrop };
+    const cropped = await imageResize(file, crop);
+    cropped.uuid = `${cropped.uuid}-thumbnail`;
+    ev.params.images = [file, cropped];
+    setEventCrop(ev);
+  };
+  
+  const getThumbnail = (images = null) => {
+    if (!images || (images && images.length === 0)) return [];
+    const thumbnail = images.find(f => f.uuid.indexOf('-thumbnail') > -1);
+    return (thumbnail && [thumbnail]) || (images[0] && [images[0]]);
   };
 
   const handleFinish = (values = {}) => {
@@ -288,9 +366,10 @@ export const DishForm = ({
             {!loadFiles && (
               <UploaderImage
                 disabled={!edit}
-                files={formData.images}
+                files={getThumbnail(formData.images)}
                 onUpload={handleUpload}
                 onStatus={showMessage}
+                onEdit={handleUploadEdit}
                 max={1}
               />
             )}

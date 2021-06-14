@@ -98,3 +98,23 @@ export const Delete = styled(Button)`
     }
   }
 `;
+
+export const Edit = styled(Button)`
+  display: ${p => (p.show ? 'block' : 'none')};
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: ${PALETTE.grey26};
+
+  > svg {
+    width: 19px;
+    height: 19px;
+
+    path {
+      fill: ${PALETTE.black};
+    }
+  }
+`;

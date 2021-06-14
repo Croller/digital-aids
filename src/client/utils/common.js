@@ -1,5 +1,7 @@
 import html2canvas from 'html2canvas';
 import { jsPDF as Pdf } from 'jspdf';
+import imgCompress from 'browser-image-compression';
+import { v4 as uuidv4 } from 'uuid';
 
 // ------------------------------------------------------------------------------------------------------------------------
 // logical func
@@ -259,3 +261,67 @@ const getImageParams = (src) => new Promise((resolve, reject) => {
   img.onerror = reject;
   img.src = src;
 });
+
+export const imageResize = async (file, crop, type = 'image/png') => {
+  const imgParams = document.querySelector('.ReactCrop__image');
+  const {
+    width,
+    height,
+    naturalWidth,
+    naturalHeight,
+  } = imgParams;
+
+  const scaleX = naturalWidth / width;
+  const scaleY = naturalHeight / height;
+  const canvas = document.createElement('canvas');
+  const pixelRatio = window.devicePixelRatio;
+
+  canvas.width = crop.width * pixelRatio;
+  canvas.height = crop.height * pixelRatio;
+
+  const ctx = canvas.getContext('2d');
+  ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+  ctx.imageSmoothingQuality = 'high';
+
+  ctx.drawImage(
+    imgParams,
+    crop.x * scaleX,
+    crop.y * scaleY,
+    crop.width * scaleX,
+    crop.height * scaleY,
+    0,
+    0,
+    crop.width,
+    crop.height,
+  );
+  const basePng = canvas.toDataURL(type);
+  const result = await fetch(basePng);
+  const blob = await result.blob();
+  return {
+    type,
+    base64: basePng,
+    uuid: file.uuid,
+    originFileObj: new File([blob], file.uuid, { type }),
+  };
+};
+
+export const imageCompression = async (file, options = {}) => {
+  let png = file;
+  const uuid = png.uuid || uuidv4();
+  const opt = {
+    maxSizeMB: 15,
+    maxWidthOrHeight: 1920,
+    useWebWorker: true,
+    ...options,
+  };
+  if (png.type !== 'image/png') {
+    png = await imageConverter(png.originFileObj, uuid);
+  }
+  
+  const compresed = await imgCompress(png.originFileObj, opt);
+  return {
+    uuid,
+    originFileObj: compresed,
+    base64: await getBase64(compresed),
+  };
+};
