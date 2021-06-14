@@ -19,16 +19,16 @@ const MENU_LIST = [
     icon: <RestaurantSvg />,
     roles: [1, 2, 3, 4],
   },
-  {
-    key: 'users',
-    icon: <UserCircleSvg />,
-    roles: [1],
-  },
-  {
-    key: 'mails',
-    icon: <Conversation1Svg />,
-    roles: [1],
-  },
+  // {
+  //   key: 'users',
+  //   icon: <UserCircleSvg />,
+  //   roles: [1],
+  // },
+  // {
+  //   key: 'mails',
+  //   icon: <Conversation1Svg />,
+  //   roles: [1],
+  // },
 ];
 
 export const Sidebar = memo(({
