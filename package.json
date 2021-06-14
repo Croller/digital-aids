@@ -39,6 +39,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "express-routes-mapper": "^1.1.0",
+    "frappe-gantt": "^0.5.0",
     "geoip-lite": "^1.4.2",
     "google-maps-react": "^2.0.6",
     "html2canvas": "^1.0.0-rc.7",
