@@ -96,6 +96,7 @@ export const DishForm = ({
       onCancel={() => {
         hideCrop();
         setFormData(eventCrop.paramsBackup);
+        setEventCrop(null);
       }}
       onClose={() => {
         hideCrop();
