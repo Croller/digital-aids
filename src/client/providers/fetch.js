@@ -79,6 +79,18 @@ export const post = async (path, params = {}, options = {}) => {
   }
 };
 
+export const postExternal = async (path, params = {}, options = {}) => {
+  try {
+    return await api.post(path, params, { headers: { ...options } });
+  } catch (err) {
+    return setError(err, { 
+      url: path,
+      params,
+      options,
+    });
+  }
+};
+
 export const remove = async (path, params = {}, options = {}) => {
   try {
     return await api.delete(`${getUrl()}/api/${path}`, { headers: { ...options }, data: { ...params } });

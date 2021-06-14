@@ -3,6 +3,7 @@ import {
   get,
   getExternal,
   post,
+  postExternal,
   remove,
 } from 'client/providers/fetch';
 
@@ -85,6 +86,23 @@ export const getCoordsByAddress = async ({
     return results.data;
   }
   return results;
+};
+
+export const getTranslate = async ({
+  text,
+  language = 'en',
+}) => {
+  const params = {
+    q: text,
+    target: language,
+    key: process.env.API_KEY_GOOGLE_TRANSLATE,
+  };
+  const results = await postExternal('https://translation.googleapis.com/language/translate/v2', params, {});
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+  // https://stackoverflow.com/questions/49017152/how-to-use-google-translation-api-with-react
 };
 
 export const sendFromInfo = async ({
