@@ -17,13 +17,10 @@ const initState = {
     token: null,
     enter_at: null,
     meta: { browser: null, ip: null, geo: null },
-
-    lng: 'en',
-    cookies: false,
   },
+  position: 'guest',
 
   dictionary: null,
-
   loading: false,
   error: null,
 };

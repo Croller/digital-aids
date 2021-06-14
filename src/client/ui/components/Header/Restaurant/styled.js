@@ -4,6 +4,7 @@ import {
   Z_INDEX,
   THEME,
   BREAKPOINTS,
+  FONTS,
 } from 'client/style/constants';
 import { Button } from '../../_ui/Button';
 
@@ -30,8 +31,12 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  height: 45;
-  width: 140;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 45px;
+  width: 78%;
   margin-left: 20px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
@@ -46,6 +51,13 @@ export const LogoImg = styled.img`
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     height: 66px;
   }
+`;
+
+export const Name = styled.h1`
+  font-family: ${FONTS.semiBold};
+  font-size: 18px;
+  margin: 0;
+  margin-left: 12px;
 `;
 
 export const ControlWrapper = styled.div`

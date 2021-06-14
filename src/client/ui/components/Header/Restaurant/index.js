@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { CloseSvg, HamburgerSvg } from 'client/assets/images';
 import {
   HeaderWrapper,
-  LogoWrapper, LogoImg,
+  LogoWrapper, LogoImg, Name,
   ControlWrapper,
   Close, Control,
 } from './styled';
@@ -18,6 +18,7 @@ const PATH_SHOW_CLOSE = [
 
 const HeaderComponent = ({
   className,
+  name = null,
   logo = null,
   isMobile = false,
   history,
@@ -37,6 +38,11 @@ const HeaderComponent = ({
             src={logo}
             onClick={() => onRoute('information')}
           />
+        )}
+        {name && (
+          <Name>
+            {name}
+          </Name>
         )}
       </LogoWrapper>
       <ControlWrapper>

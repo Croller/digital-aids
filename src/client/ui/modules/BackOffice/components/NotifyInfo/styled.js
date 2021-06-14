@@ -96,6 +96,10 @@ export const Control = styled(Button)`
     margin-right: 18px;
   }
 
+  &:disabled {
+    cursor: not-allowed;
+  }
+
   > svg {
     width: 18px;
     height: 100%;

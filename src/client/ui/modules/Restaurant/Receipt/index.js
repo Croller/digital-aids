@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronSvg, InfoCircleSvg } from 'client/assets/images';
 import { getTotal, setUrlOrder } from 'client/utils/restaurant';
-import QRCode from 'qrcode.react';
+import { QRCode } from 'react-qrcode-logo';
 import moment from 'moment';
-import { getDictionaryItem, getUrl } from 'client/utils/common';
-
+import { getDictionaryItem, getUrl, random4Int } from 'client/utils/common';
+import { useModal } from 'react-modal-hook';
+import { updateRow } from 'client/store/restaurant';
+import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
 import {
   Wrapper,
   Header, BackButton,
-  QRCodeWrapper, Logo, AlertWrapper, AlertIcon,
+  QRCodeWrapper, AlertWrapper, AlertIcon,
+  // Logo, 
   ReceiptWrapper,
   Info, DateTime, TableNumber,
   CategoryWrapper,
@@ -19,25 +22,38 @@ import {
   GroupWrapper, GroupTitle, GroupItem,
   GroupName, DishNumber, DishName,
   Total, TotalText, TotalSumm,
+  ControlWrapper, EventButton,
 } from './styled';
 
 const Receipt = () => {
   const { 
     user: {
-      lng,
+      info: {
+        language,
+      },
+      position,
     },
     restaurant: {
-      info: { key, currency, images },
+      info: { id, key, currency },
       order,
       table_number,
       dictionary,
     },
   } = useSelector(store => store);
+  const rootDispatch = useDispatch();
   const history = useHistory();
   const [t] = useTranslation();
   const [categoryOrder, setCategoryOrder] = useState(null);
+  const [showConfirm] = useModal(() => (
+    <ReserveSend
+      title={t('restaurant.compModal.assistant_send')}
+      textOk={t('common.words.ok')}
+      onClose={() => history.goBack()}
+      onOk={() => history.goBack()}
+    />
+  ));
 
-  const logo = images ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
+  // const logo = images ? `${getUrl()}/static/restaurants/logo/${images[0]}.png` : null;
 
   const handleRouteOrder = () => {
     history.goBack();
@@ -67,6 +83,30 @@ const Receipt = () => {
     const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}&table_number=${table_number}`;
     console.log('url', url);
     return url;
+  };
+
+  const handleOrderEvent = () => {
+    if (position === 'waiter') {
+      rootDispatch(updateRow({
+        name: 'data_orders',
+        data: {
+          restaurant: id,
+          table_number,
+          order_url: setUrlOrder(order),
+          order_number: `RST-${random4Int()}-${random4Int()}`,
+        },
+      }));
+      return;
+    }
+    rootDispatch(updateRow({
+      name: 'data_notify',
+      data: {
+        restaurant: id,
+        options: { waiter: true },
+        table_number,
+      },
+    }));
+    showConfirm();
   };
 
   const setOrder = () => {
@@ -127,6 +167,8 @@ const Receipt = () => {
 
     if (order) {
       setOrder();
+    } else {
+      handleRoute('order');
     }
   }, []);
 
@@ -141,12 +183,12 @@ const Receipt = () => {
       {categoryOrder && (
         <>
           <QRCodeWrapper>
-            {logo && (
+            {/* {logo && (
               <Logo
                 src={logo}
                 onClick={() => handleRoute('information')}
               />
-            )}
+            )} */}
             <QRCode value={getQRCodeValue()} />
             <AlertWrapper>
               <AlertIcon>
@@ -158,7 +200,7 @@ const Receipt = () => {
           <ReceiptWrapper>
             <Info>
               <DateTime>
-                {getDateTime(lng)}
+                {getDateTime(language)}
               </DateTime>
               <TableNumber>
                 {`#${table_number || 0}`}
@@ -178,7 +220,7 @@ const Receipt = () => {
                     <GroupItem>
                       <GroupName>
                         <DishNumber>
-                          {getDish(item, category).number}
+                          {getDish(item, category).count}
                         </DishNumber>
                         <DishName>
                           {getDish(item, category).name}
@@ -201,6 +243,18 @@ const Receipt = () => {
               </TotalSumm>
             </Total>
           </ReceiptWrapper>
+          <ControlWrapper>
+            {table_number ? (
+              <EventButton onClick={handleOrderEvent}>
+                {position === 'waiter' ? t('restaurant.common.send') : t('restaurant.pageAssistent.waiter')}
+              </EventButton>
+            ) : (
+              <EventButton onClick={() => handleRoute('assistant')}>
+                {t('restaurant.pageReceipt.indicate')}
+              </EventButton>
+            )}
+            
+          </ControlWrapper>
         </>
       )}
     </Wrapper>

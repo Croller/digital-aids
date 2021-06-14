@@ -24,7 +24,7 @@ export const BackButton = styled(Button)`
   > svg {
     width: 21px;
     height: 21px;
-    margin-right: 31%;
+    margin-right: 8px;
 
     path {
       fill: ${PALETTE.grey1};
@@ -73,6 +73,7 @@ export const ReceiptWrapper = styled.div`
   padding: 22px 27px;
   background-color: ${PALETTE.white};
   box-shadow: ${THEME.boxShadow1};
+  margin-bottom: 16px;
 `;
 
 export const Info = styled.div`
@@ -189,4 +190,21 @@ export const TotalText = styled.span`
 export const TotalSumm = styled.span`
   font-family: ${FONTS.bold};
   font-size: 18px;
+`;
+
+export const ControlWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 27px;
+`;
+
+export const EventButton = styled(Button)`
+  height: 48px;
+  width: 100%;
+  font-size: 16px;
+  font-family: ${FONTS.semiBold};
+  color: ${PALETTE.black};
+  background-color: ${PALETTE.grey2};
+  text-transform: uppercase;
 `;

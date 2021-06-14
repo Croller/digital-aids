@@ -42,7 +42,13 @@
     "receipt": "Receipt",
     "napkin": "Napkin",
     "appliances": "Appliances",
-    "manager": "Manager"
+    "manager": "Manager",
+    "tableNumber": {
+      "title": "Scan the QR code",
+      "desc": "To call the waiter or perform other actions, \n you need to scan the QR code on your table",
+      "scan": "Scan",
+      "scaning": "Point the camera \n at the QR code on your desk"
+    }
   },
   "pageMenu": {
     "text": "Hmm, you have got lost! \n The page you have requested \n cannot be found. \n Please, try a new request."
@@ -86,10 +92,19 @@
     }
   },
   "pageOrder": {
+    "status": {
+      "waiting": "Waiting",
+      "cooking": "Cooking",
+      "delivery": "Delivery",
+      "payment": "Payment",
+      "paid": "Paid",
+      "canceled": "Canceled"
+    },
     "empty_order": "Your order is empty. \n The selected plate should be \n added to an order"
   },
   "pageReceipt": {
-    "ask_waiter": "Ask the waiter to confirm your order"
+    "ask_waiter": "Ask the waiter to confirm your order",
+    "indicate": "Indicate the table number"
   },
   "pageReserve": {
     "accept": "I accept",
@@ -106,7 +121,7 @@
       "title": "The alcoholic beverages are \n strictly reserved for adults. \n Alcohol abuse is dangerous \n for your health. \n Drink with moderation.",
       "description": "Please, confirm that you \n are over 18 years old"
     },
-    "reserve_send": "Thank you for your reservation! \n\n We send you soon \n a confirmation e-mail.",
+    "reserve_send": "Thank you for your reservation! \n\n We send you soon \n a confirmation e-mail",
     "assistant_send": "Thank you! \n\n We'll do our best now."
   },
   "footer": {

@@ -73,7 +73,7 @@
     "comments": "Comments",
     "download": "Download",
     "qrcode": "QR Code",
-    "flayer": "Flayer",
+    "flyer": "Flyer",
     "mails": "Mails",
     "lat": "Latitude",
     "lng": "longitude",
@@ -88,6 +88,8 @@
     "no": "No",
     "notify": "Notifications",
     "orders": "Orders",
+    "table": "Table",
+    "waiter": "Waiter",
     
     "payment": "Payment",
     "assembly": "Assembly",

@@ -1,20 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateRow } from 'client/store/restaurant';
 import { useModal } from 'react-modal-hook';
 import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
+import { QRCodeSvg } from 'client/assets/images';
+import QrReader from 'react-qr-reader';
 import {
   Wrapper,
   List,
   ButtonStyled,
+  ScanWrapper,
+  Title,
+  Description,
+  ScanButton,
 } from './styled';
 
 const Assistant = () => {
   const rootDispatch = useDispatch();
   const history = useHistory();
   const [t] = useTranslation();
+  const [showScan, setShowScan] = useState(false);
   const { user, restaurant } = useSelector(s => s);
   const [showConfirm] = useModal(() => (
     <ReserveSend
@@ -34,7 +41,6 @@ const Assistant = () => {
   ];
 
   const handleEmit = (key) => {
-    showConfirm();
     rootDispatch(updateRow({
       name: 'data_notify',
       data: {
@@ -44,6 +50,17 @@ const Assistant = () => {
         create_user: user.info.id,
       },
     }));
+    showConfirm();
+  };
+
+  const handleErrorReader = (err) => {
+    console.error('qrcode reader', err);
+  };
+
+  const handleScanReader = (data = null) => {
+    if (data) {
+      window.location.href = data;
+    }
   };
 
   useEffect(() => {
@@ -52,16 +69,42 @@ const Assistant = () => {
 
   return (
     <Wrapper>
-      <List>
-        {(menu).map(key => (
-          <ButtonStyled
-            key={key}
-            onClick={() => handleEmit(key)}
-          >
-            {t(`restaurant.pageAssistent.${key}`)}
-          </ButtonStyled>
-        ))}
-      </List>
+      {restaurant.table_number ? (
+        <List>
+          {(menu).map(key => (
+            <ButtonStyled
+              key={key}
+              onClick={() => handleEmit(key)}
+            >
+              {t(`restaurant.pageAssistent.${key}`)}
+            </ButtonStyled>
+          ))}
+        </List>
+      ) : (
+        <ScanWrapper>
+          <Title>
+            {!showScan ? t('restaurant.pageAssistent.tableNumber.title') : t('restaurant.pageAssistent.tableNumber.scaning')}
+          </Title>
+          {!showScan ? (
+            <>
+              <Description>
+                {t('restaurant.pageAssistent.tableNumber.desc')}
+              </Description>
+              <ScanButton onClick={() => setShowScan(true)}>
+                <QRCodeSvg />
+                {t('restaurant.pageAssistent.tableNumber.scan')}
+              </ScanButton>
+            </>
+          ) : (
+            <QrReader
+              delay={300}
+              onError={handleErrorReader}
+              onScan={handleScanReader}
+            />
+          )}
+        </ScanWrapper>
+      )}
+      
     </Wrapper>
   );
 };

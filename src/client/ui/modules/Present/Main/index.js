@@ -6,7 +6,7 @@ import { setUser, getLocal } from 'client/utils/localStorage';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
 import { Helmet } from 'react-helmet';
-import QRCode from 'qrcode.react';
+import { QRCode } from 'react-qrcode-logo';
 import {
   PhoneBlock1Png,
   SupportSvg,
