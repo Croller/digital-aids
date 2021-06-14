@@ -448,7 +448,7 @@ export const GroupControl = styled.div`
 
 export const AddGroup = styled(Button)`
   height: 38px;
-  width: 142px;
+  width: 170px;
   background-color: transparent;
   color: ${PALETTE.green1};
   text-transform: uppercase;
