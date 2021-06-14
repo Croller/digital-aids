@@ -147,6 +147,7 @@ export const TitleDoc = styled.h4`
   font-family: ${FONTS.medium};
   color: ${PALETTE.black};
   margin-bottom: 34px;
+  text-align: center;
 `;
 
 export const ButtonStyled = styled(Button)`

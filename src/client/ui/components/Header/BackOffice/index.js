@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRouteMatch } from 'react-router-dom';
+import translate, { languages } from 'client/i18n';
+import { setUser } from 'client/utils/localStorage';
+import OutSideClick from 'react-outside-click-handler';
 import {
   LogoSvg,
-  // LoupeSvg,
-  // CloseSvg,
+  CloseSvg,
   UserCircleSvg,
   HamburgerSvg,
+  GlobalSvg,
 } from 'client/assets/images';
 import {
   HeaderWrapper,
   LogoWrapper, LogoText,
   Control,
-  // Loupe, Search,
   Hamburger,
   User,
+  Lang, LangText,
+  LangWrapper,
+  CloseButton,
+  LangList,
+  LangButton,
 } from './styled';
 
 const HeaderComponent = ({
@@ -24,9 +31,17 @@ const HeaderComponent = ({
   onRoute = () => {},
   className,
 }) => {
-  const [t] = useTranslation();
+  const [t, i18n] = useTranslation();
   const match = useRouteMatch();
-  // const [showSearch, setShowSearch] = useState(false);
+  const [langList, setLangList] = useState(false);
+
+  const handleLangChange = (lng = null) => {
+    if (lng) {
+      translate.changeLanguage(lng);
+      setUser({ lng });
+    }
+    setLangList(false);
+  };
 
   return (
     <HeaderWrapper className={className}>
@@ -46,15 +61,6 @@ const HeaderComponent = ({
       <Control>
         {id && token && (
           <>
-            {/* <Loupe>
-              <LoupeSvg onClick={() => setShowSearch(true)} />
-              {showSearch && (
-                <Search
-                  prefix={showSearch ? <LoupeSvg /> : false}
-                  suffix={showSearch ? <CloseSvg onClick={() => setShowSearch(false)} /> : <LoupeSvg />}
-                />
-              )}
-            </Loupe> */}
             <User
               active={match.params[0] === `user/${id}`}
               onClick={() => onRoute(`user/${id}`)}
@@ -63,6 +69,31 @@ const HeaderComponent = ({
             </User>
           </>
         )}
+        <Lang onClick={() => setLangList(!langList)}>
+          <GlobalSvg />
+          <LangText>{i18n.language}</LangText>
+
+          {langList && (
+            <LangWrapper>
+              <CloseButton onClick={() => handleLangChange()}>
+                <CloseSvg />
+              </CloseButton>
+              <OutSideClick onOutsideClick={() => handleLangChange()}>
+                <LangList>
+                  {['en', 'ru'].map(lng => (
+                    <LangButton
+                      key={`_language_${lng}`}
+                      onClick={() => handleLangChange(lng)}
+                      active={lng === i18n.language}
+                    >
+                      {languages[lng].name}
+                    </LangButton>
+                  ))}
+                </LangList>
+              </OutSideClick>
+            </LangWrapper>
+          )}
+        </Lang>
       </Control>
     </HeaderWrapper>
   );
