@@ -75,8 +75,9 @@ export const Img = styled.img`
   width: 337px;
   height: 215px;
   border-radius: ${THEME.borderRadiusL};
-  object-fit: contain;
-  object-position: center;
+
+  /* object-fit: contain;
+  object-position: center; */
 `;
 
 export const Delete = styled(Button)`

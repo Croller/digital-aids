@@ -271,6 +271,10 @@ export const imageResize = async (file, crop, type = 'image/png') => {
     naturalHeight,
   } = imgParams;
 
+  if (naturalWidth > naturalHeight) {
+    imgParams.style.height = 'unset';
+  }
+  
   const scaleX = naturalWidth / width;
   const scaleY = naturalHeight / height;
   const canvas = document.createElement('canvas');

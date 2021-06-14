@@ -62,6 +62,7 @@ export const DishForm = ({
   language = 'en',
   className,
   onChange = () => {},
+  onChangeFiles = () => {},
 }) => {
   const [t] = useTranslation();
   const rule = rules(t);
@@ -94,18 +95,17 @@ export const DishForm = ({
       textCancel={t('common.words.no')}
       onCancel={() => {
         hideCrop();
-        setEventCrop(null);
         setFormData(eventCrop.paramsBackup);
       }}
       onClose={() => {
         hideCrop();
-        setEventCrop(null);
         setFormData(eventCrop.paramsBackup);
+        setEventCrop(null);
       }}
       onOk={() => {
         hideCrop();
-        setEventCrop(null);
         setFormData(eventCrop.params);
+        setEventCrop(null);
       }}
     >
       {eventCrop && (
@@ -144,8 +144,12 @@ export const DishForm = ({
 
   const handleUpload = (files, deleted = null) => {
     const list = [...files];
-    if (deleted && list.some(s => s && s.uuid === deleted.uuid)) {
-      setDeletedFiles([...(deletedFiles || []), `/restaurants/dishes/${deleted.uuid}.png`]);
+    if (deleted) {
+      const arr = [`/restaurants/dishes/${deleted.uuid}.png`];
+      if (deleted.uuid.indexOf('-thumbnail') > -1) {
+        arr.push(`/restaurants/dishes/${deleted.uuid.replace('-thumbnail', '')}.png`);
+      }
+      setDeletedFiles([...(deletedFiles || []), ...arr]);
     }
     setFormData({ ...formData, images: [] });
     if (list.length > 0) {
@@ -153,6 +157,7 @@ export const DishForm = ({
       setEventCrop({
         key: 'crop',
         params: { ...formData, images: [...list] },
+        paramsBackup: { ...formData },
       });
     } 
     setIsChange(true);
@@ -189,6 +194,7 @@ export const DishForm = ({
       ...values,
     };
     onChange(dataToApi(obj, categories, resaurant, language));
+    onChangeFiles(deletedFiles);
     setEdit(false);
     setIsChange(false);
   };
