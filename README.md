@@ -1,3 +1,3 @@
-# Digital-Restaurants
+# Digital-Aids
 
 ## Digital solutions for restaurants

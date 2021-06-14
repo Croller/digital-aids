@@ -17,12 +17,12 @@ self.addEventListener('fetch', (evt) => {
 function precache() {
   return caches.open(CACHE).then((cache) => cache.addAll([
     './',
-    '/assets/MWA.png',
-    '/assets/global.css',
-    '/assets/logos/favicon.ico',
-    '/assets/logos/yellow 192.png',
-    '/assets/logos/yellow 512.png',
-    '/robots.txt',
+    '/public/MWA.png',
+    '/public/global.css',
+    '/public/favicon.ico',
+    '/public/logo 192.png',
+    '/public/logo 512.png',
+    '/public/robots.txt',
   ]));
 }
 
