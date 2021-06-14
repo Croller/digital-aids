@@ -57,7 +57,7 @@ const Restaurant = () => {
   const [formData, setFormData] = useState(null);
   const [deletedFiles, setDeletedFiles] = useState([]);
   const [addressStr, setAddressStr] = useState(null);
-  const [addressRusults, setAddressResults] = useState(null);
+  const [addressResults, setAddressResults] = useState(null);
   const debouceSearch = useDebounce(addressStr, 500);
 
   const [form] = FormStyled.useForm();
@@ -163,9 +163,10 @@ const Restaurant = () => {
     setIsChange(true);
   };
 
-  const handleDebouceSearch = async () => {
+  const handleDebouceSearch = async (obj) => {
     if (debouceSearch) {
-      const results = await getCoordsByAddress({ address: debouceSearch, language });
+      console.log('language', { ...obj });
+      const results = await getCoordsByAddress(obj);
       if (results.status === 'OK') {
         setAddressResults(results.results);
         return;
@@ -185,7 +186,7 @@ const Restaurant = () => {
   };
 
   useEffect(() => {
-    handleDebouceSearch();
+    handleDebouceSearch({ address: debouceSearch, language });
   }, [debouceSearch]);
 
   useEffect(() => {
@@ -543,10 +544,10 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.text')}
               />
             </FormItemStyled>
-            {addressRusults && (
+            {addressResults && (
               <AddressItemsWrapper>
                 <AddressList>
-                  {addressRusults.map(({ place_id, formatted_address, geometry: { location } }) => (
+                  {addressResults.map(({ place_id, formatted_address, geometry: { location } }) => (
                     <AddressItem
                       key={`_addres_item_${place_id}`}
                       onClick={() => handleUpdateAddress(formatted_address, location)}

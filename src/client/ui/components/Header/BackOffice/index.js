@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
 import { setUser } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
+import { update } from 'client/store/user';
 import {
   LogoSvg,
   CloseSvg,
@@ -31,14 +33,17 @@ const HeaderComponent = ({
   onRoute = () => {},
   className,
 }) => {
+  const { info } = useSelector(s => s.user);
   const [t, i18n] = useTranslation();
   const match = useRouteMatch();
+  const rootDispatch = useDispatch();
   const [langList, setLangList] = useState(false);
 
   const handleLangChange = (lng = null) => {
     if (lng) {
       translate.changeLanguage(lng);
       setUser({ lng });
+      rootDispatch(update({ info: { ...info, language: lng } }));
     }
     setLangList(false);
   };
