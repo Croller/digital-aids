@@ -1,10 +1,10 @@
 {
-  "name": "digital-restaurants",
+  "name": "digital-aids",
   "version": "1.0.0",
   "description": "",
   "main": "client/index.js",
   "author": "croller",
-  "homepage": "https://digital-restaurants.herokuapp.com/",
+  "homepage": "https://digital-aids.com",
   "license": "ISC",
   "repository": {
     "type": "git",
