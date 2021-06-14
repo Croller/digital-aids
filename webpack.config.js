@@ -28,10 +28,10 @@ let plugins = [
         from: path.resolve(__dirname, 'src/client/assets/fonts'),
         to: './fonts',
       },
-      {
-        from: path.resolve(__dirname, 'src/client/utils/service-worker.js'),
-        to: './',
-      },
+      // {
+      //   from: path.resolve(__dirname, 'src/client/utils/service-worker.js'),
+      //   to: './',
+      // },
     ],
   }),
   new PwaManifestWebpackPlugin({
