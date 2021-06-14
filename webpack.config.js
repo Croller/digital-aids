@@ -28,10 +28,14 @@ let plugins = [
         from: path.resolve(__dirname, 'src/client/assets/fonts'),
         to: './fonts',
       },
+      {
+        from: path.resolve(__dirname, './public/service-worker.js'),
+        to: './',
+      },
     ],
   }),
   new PwaManifestWebpackPlugin({
-    name: 'Digital-aids',
+    name: 'Digital Aids',
     short_name: 'DA',
     description: 'Digital solutions for business',
     background_color: '#ffffff',

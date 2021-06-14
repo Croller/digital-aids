@@ -17,8 +17,6 @@ self.addEventListener('fetch', (evt) => {
 function precache() {
   return caches.open(CACHE).then((cache) => cache.addAll([
     './',
-    './public/MWA.png',
-    './public/global.css',
     './public/favicon.ico',
     './public/logo 192.png',
     './public/logo 512.png',
