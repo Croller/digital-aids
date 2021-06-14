@@ -300,10 +300,11 @@ export const FormUploader = styled.div`
 export const UploaderLogo = styled(Uploader)`
   .list-images {
     > div {
-      width: auto;
+      width: 100%;
+      border: 1px solid ${PALETTE.grey27};
+      border-radius: ${THEME.borderRadiusL};
 
       img {
-        width: 556px;
         height: 180px;
       }
     }
@@ -326,15 +327,6 @@ export const UploaderPhotos = styled(Uploader)`
       img {
         width: 267;
         height: 180px;
-      }
-
-      &:first-child {
-        width: 556px;
-
-        img {
-          width: 556px;
-          height: 180px;
-        }
       }
     }
   }

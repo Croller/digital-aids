@@ -6,12 +6,20 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getDictionaryItem, getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { AlertCircleSvg } from 'client/assets/images';
 import { getCoordsByAddress } from 'client/providers/common';
 import { useDebounce } from 'client/ui/components/_base/Debounce';
 import { Marker } from 'google-maps-react';
+import { ImageChange } from 'client/ui/components/_block/Modal/ImageChange';
+import { useModal } from 'react-modal-hook';
+import { ImgCrop } from 'client/ui/components/_ui/ImgCrop';
+import {
+  getUrl,
+  getDictionaryItem,
+  loadFile,
+  imageResize,
+} from 'client/utils/common';
 import {
   RestaurantWrapper,
   NavBarStyled,
@@ -34,6 +42,21 @@ import {
   FormRange, RadioGroup, RadioButton,
   InputMaskStyled,
 } from './styled';
+
+const CROP_CONFIG = {
+  logo: {
+    width: 400,
+    height: 220,
+    x: 0,
+    y: 0, 
+  },
+  photos: {
+    width: 500,
+    height: 240,
+    x: 0,
+    y: 0, 
+  },
+};
 
 const Restaurant = () => {
   const {
@@ -59,8 +82,40 @@ const Restaurant = () => {
   const [addressStr, setAddressStr] = useState(null);
   const [addressResults, setAddressResults] = useState(null);
   const debouceSearch = useDebounce(addressStr, 500);
-
   const [form] = FormStyled.useForm();
+  const [eventCrop, setEventCrop] = useState(null);
+  const [fileOriginal, setFileOriginal] = useState([]);
+  const [showCrop, hideCrop] = useModal(() => (
+    <ImageChange
+      title={t('backOffice.confirmModal.crop')}
+      textOk={t('common.words.apply')}
+      textCancel={t('common.words.no')}
+      onCancel={() => {
+        hideCrop();
+        setFormData(eventCrop.paramsBackup);
+        setEventCrop(null);
+      }}
+      onClose={() => {
+        hideCrop();
+        setFormData(eventCrop.paramsBackup);
+        setEventCrop(null);
+      }}
+      onOk={() => {
+        hideCrop();
+        setFormData(eventCrop.params);
+        setEventCrop(null);
+      }}
+    >
+      {eventCrop && (
+        <ImgCrop
+          locked
+          source={eventCrop.params.images[0]}
+          onComplete={handleCrop}
+          setting={CROP_CONFIG[eventCrop.type]}
+        />
+      )}
+    </ImageChange>
+  ), [eventCrop]);
 
   const setData = (obj) => {
     setFormData(obj);
@@ -148,19 +203,56 @@ const Restaurant = () => {
     setIsChange(true);
   };
 
-  const handleUpload = (key, files, deleted = null) => {
+  const handleUpload = (type, files, deleted = null) => {
     let list = [...formData.images || [null]];
-    if (key === 'logo') {
+    if (type === 'logo') {
       list[0] = deleted ? null : { ...files[0] };
     }
-    if (key === 'photos') {
+    if (type === 'photos') {
       list = [list[0], ...files];
     }
     if (deleted) {
-      setDeletedFiles([...deletedFiles, `/restaurants/${key}/${deleted.uuid}.png`]);
+      const arr = [`/restaurants/${type}/${deleted.uuid}.png`];
+      if (deleted.uuid.indexOf('-thumbnail') > -1) {
+        arr.push(`/restaurants/${type}/${deleted.uuid.replace('-thumbnail', '')}.png`);
+      }
+      setDeletedFiles([...(deletedFiles || []), ...arr]);
     }
-    setFormData({ ...formData, images: (list.slice(1).length > 0 || list[0] ? list : null) });
+    if ((type === 'photos' && list.slice(1).length > 0)) {
+      setFormData({ ...formData, images: [] });
+      showCrop();
+      setEventCrop({
+        type,
+        key: 'crop',
+        params: { ...formData, images: [files[files.length - 1]] },
+        paramsBackup: { ...formData },
+      });
+    } else {
+      setFormData({ ...formData, images: (list.slice(1).length > 0 || list[0] ? list : null) });
+    }
     setIsChange(true);
+  };
+
+  const handleUploadEdit = (type) => {
+    showCrop();
+    setFormData({ ...formData, images: [] });
+    setEventCrop({
+      type,
+      key: 'crop',
+      params: { ...formData, images: formData.images.filter(f => f.uuid.indexOf('-thumbnail') === -1) },
+      paramsBackup: { ...formData },
+    });
+    setIsChange(true);
+  };
+
+  const handleCrop = async (file, crop) => {
+    const ev = { ...eventCrop };
+    const cropped = await imageResize(file, crop);
+    cropped.uuid = `${cropped.uuid}-thumbnail`;
+    const [logo] = ev.paramsBackup;
+    setFileOriginal([...fileOriginal, file]);
+    ev.params.images = [...(logo ? [logo] : null), ...(ev.paramsBackup.lenght > 1 ? ev.paramsBackup.slice(1) : []), cropped];
+    setEventCrop(ev);
   };
 
   const handleDebouceSearch = async (obj) => {
@@ -603,6 +695,7 @@ const Restaurant = () => {
                       files={getFiles('logo')}
                       onUpload={(files, deleted) => handleUpload('logo', files, deleted)}
                       onStatus={showMessage}
+                      onEdit={() => handleUploadEdit('logo')}
                       max={1}
                     />
                   </FormItemStyled>
@@ -615,6 +708,7 @@ const Restaurant = () => {
                       files={getFiles()}
                       onUpload={(files, deleted) => handleUpload('photos', files, deleted)}
                       onStatus={showMessage}
+                      onEdit={() => handleUploadEdit('photos')}
                       max={10}
                     />
                   </FormItemStyled>
