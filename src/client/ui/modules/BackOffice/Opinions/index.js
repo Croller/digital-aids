@@ -8,7 +8,7 @@ import { loadByParam } from 'client/store/backOffice';
 import { OpinionInfo } from 'client/ui/modules/BackOffice/components/OpinionInfo';
 import moment from 'moment';
 import {
-  ReservationWrapper,
+  OpinionWrapper,
   NavBarStyled,
   List,
   LoaderStyled,
@@ -56,7 +56,7 @@ const Opinions = () => {
   }, [opinions]);
 
   return opinions && (
-    <ReservationWrapper>
+    <OpinionWrapper>
       <NavBarStyled
         onSearch={handleSearch}
         settings={{
@@ -84,7 +84,7 @@ const Opinions = () => {
           />
         ))}
       </List>
-    </ReservationWrapper>
+    </OpinionWrapper>
   );
 };
 

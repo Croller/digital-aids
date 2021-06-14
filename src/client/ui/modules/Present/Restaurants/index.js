@@ -4,7 +4,7 @@ import { init } from 'client/store/company';
 import { Loader } from 'client/ui/components/_block/Loader';
 import { getLayerObj } from 'client/ui/components/_ui/MapBox/utils/create';
 import * as turf from '@turf/turf';
-import QRCode from 'qrcode.react';
+import { QRCode } from 'react-qrcode-logo';
 import { getUrl } from 'client/utils/common';
 import { detect } from 'detect-browser';
 import OutSideClick from 'react-outside-click-handler';

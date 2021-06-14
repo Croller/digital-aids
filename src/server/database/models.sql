@@ -127,17 +127,23 @@ CREATE TABLE IF NOT EXISTS data_opinions (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
+DROP TABLE data_orders;
 CREATE TABLE IF NOT EXISTS data_orders (
   number serial,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
-  options jsonb DEFAULT '{}',
-  status VARCHAR DEFAULT null,
   table_number INT DEFAULT NULL,
-  create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
+  order_number VARCHAR NOT NULL,
+  order_url VARCHAR NOT NULL,
+  status VARCHAR DEFAULT 'waiting', --- DICTIONARY dictionary_order_status
+  create_by VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at timestamp with time zone NOT NULL DEFAULT NOW(),
-  paid_at timestamp with time zone NOT NULL DEFAULT NOW(),
-  is_paid BOOLEAN DEFAULT FALSE,
+  cooked_at timestamp with time zone DEFAULT NULL,
+  cook_options jsonb DEFAULT '{}',
+  delivered_at timestamp with time zone DEFAULT NULL,
+  delivery_options jsonb DEFAULT '{}',
+  paid_at timestamp with time zone DEFAULT NULL,
+  pay_options jsonb DEFAULT '{}',
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
@@ -249,6 +255,21 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
   description VARCHAR DEFAULT NULL
 );
 
+CREATE TABLE IF NOT EXISTS dictionary_order_status (
+  number serial,
+  id VARCHAR DEFAULT NULL,
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS dictionary_order_status_translate (
+  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_days
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
 
 
 

@@ -1,8 +1,9 @@
 import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { init, set } from 'client/store/restaurant';
+import { update } from 'client/store/user';
 import { getUrlOrder } from 'client/utils/restaurant';
-import { getLocalRestaurant } from 'client/utils/localStorage';
+import { getLocalRestaurant, setLocalRestaurant, setUser } from 'client/utils/localStorage';
 import {
   Route,
   Switch,
@@ -60,12 +61,19 @@ export const Restaurant = () => {
         order = getUrlOrder(path.split('?params=')[1], dishes, categories);
         table_number = parseInt(number, 0);
       }
-      if (href.indexOf('/receipt?params=') === -1 && href.indexOf('table_number=') > -1) {
-        const number = href.split('table_number=')[1];
-        table_number = parseInt(number, 0);
+      if (href.indexOf('/receipt?params=') === -1) {
+        if (href.indexOf('table_number=') > -1) {
+          const number = href.split('table_number=')[1];
+          table_number = parseInt(number, 0);
+        }
+        if (href.indexOf('position=waiter') > -1) {
+          const position = href.split('position=')[1];
+          setUser({ position });
+          rootDispatch(update({ position }));
+        }
       }
-      console.log('order', order);
       rootDispatch(set({ table_number, order }));
+      setLocalRestaurant(restaurant.info.key, { table_number });
     }
   }, [restaurant.info]);
 

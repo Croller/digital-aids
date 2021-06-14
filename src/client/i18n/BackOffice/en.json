@@ -4,8 +4,9 @@
   },
   "text": {
     "protocolCovid": "Prevention Protocol COVID-19",
-    "scanQRcode": "Scan QR code to review your menu",
-    "avaibleLanguage": "Available in your language"
+    "scanQRcode": "Flyer with information of restaurant",
+    "avaibleLanguage": "Available in your language",
+    "setTable": "Flyer for table"
   },
   "emptyList": {
     "restaurants": "Add a new restaurante in your collection",

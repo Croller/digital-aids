@@ -8,7 +8,7 @@ import { update, loadByParam } from 'client/store/backOffice';
 import { NotifyInfo } from 'client/ui/modules/BackOffice/components/NotifyInfo';
 import moment from 'moment';
 import {
-  ReservationWrapper,
+  NotifyWrapper,
   NavBarStyled,
   List,
   LoaderStyled,
@@ -60,7 +60,7 @@ const Notify = () => {
   }, [alert.notify, notify && notify.length]);
 
   return notify && (
-    <ReservationWrapper>
+    <NotifyWrapper>
       <NavBarStyled
         onSearch={handleSearch}
         settings={{
@@ -89,7 +89,7 @@ const Notify = () => {
           />
         ))}
       </List>
-    </ReservationWrapper>
+    </NotifyWrapper>
   );
 };
 

@@ -3,8 +3,10 @@ import { PALETTE, FONTS, THEME } from 'client/style/constants';
 import { Button } from 'client/ui/components/_ui/Button';
 import { NavBar } from 'client/ui/modules/BackOffice/components/NavBar';
 import { Loader } from 'client/ui/components/_block/Loader';
+import { InputDefault } from 'client/ui/components/_ui/Input';
+import { Radio } from 'antd';
 
-export const FlayerWrapper = styled.div`
+export const FlyerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,8 +14,41 @@ export const FlayerWrapper = styled.div`
 `;
 
 export const NavBarStyled = styled(NavBar)`
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   width: 100%;
+`;
+
+export const RadioStyled = styled(Radio.Group)`
+  display: block;
+  margin-bottom: 40px;
+
+  .ant-radio-button-wrapper {
+    font-size: 16px;
+    font-family: ${FONTS.medium};
+    color: ${PALETTE.black};
+    border: 1px solid ${PALETTE.black};
+    text-transform: uppercase;
+
+    &.ant-radio-button-wrapper-checked {
+      color: ${PALETTE.white};
+      border-color: ${PALETTE.green1};
+      background-color: ${PALETTE.green1};
+    }
+
+    &::before {
+      background-color: unset;
+    }
+
+    &:first-child {
+      border-top-left-radius: ${THEME.borderRadiusM};
+      border-bottom-left-radius: ${THEME.borderRadiusM};
+    }
+
+    &:last-child {
+      border-top-right-radius: ${THEME.borderRadiusM};
+      border-bottom-right-radius: ${THEME.borderRadiusM};
+    }
+  }
 `;
 
 export const ContentWrapper = styled.div`
@@ -29,6 +64,7 @@ export const LoaderStyled = styled(Loader)`
 `;
 
 export const QRCodeWrapper = styled.div`
+  position: relative;
   width: 298px;
   display: flex;
   flex-direction: column;
@@ -123,3 +159,34 @@ export const ButtonStyled = styled(Button)`
   text-transform: uppercase;
   margin-bottom: 22px;
 `;
+
+export const TitleTableQR = styled.h4`
+  font-size: 32px;
+  font-family: ${FONTS.regularMontaga};
+  color: ${PALETTE.black};
+  margin: 0;
+  margin-top: 44px;
+`;
+
+export const InputStyled = styled(InputDefault)`
+  width: 92px;
+  height: 52px;
+  font-size: 18px;
+  font-family: ${FONTS.medium};
+  border-radius: ${THEME.borderRadiusL};
+  margin-bottom: 22px;
+  text-align: center;
+`;
+
+export const BlockNumber = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: ${FONTS.regular};
+  font-size: 20px;
+  color: ${PALETTE.black};
+  background-color: ${PALETTE.white};
+  margin-bottom: 12px;
+`;
+

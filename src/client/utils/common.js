@@ -46,6 +46,8 @@ export const validateBase64 = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-
 
 export const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
 
+export const random4Int = () => Math.floor(1000 + Math.random() * 9000);
+
 export const stringToKey = (str = null) => {
   if (!str) return null;
   return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');

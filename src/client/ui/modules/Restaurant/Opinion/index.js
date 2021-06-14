@@ -50,9 +50,9 @@ const Opinion = () => {
 
   const handleSend = async () => {
     const local = getLocalRestaurant(key);
-    const { opnionSend } = local;
+    const { opinionSend } = local;
 
-    if (opnionSend) {
+    if (opinionSend) {
       existOpinion();
       return;
     }
@@ -72,7 +72,7 @@ const Opinion = () => {
       },
     }));
     showMessage({ type: 'success', content: t('restaurant.pageOpinion.mail.send') });
-    local.opnionSend = true;
+    local.opinionSend = true;
     setLocalRestaurant(key, local);
   };
 
@@ -82,8 +82,8 @@ const Opinion = () => {
 
   // const handleSend = async () => {
   //   const local = getLocal();
-  //   const { restaurant: { opnionSend } } = local;
-  //   if (opnionSend) {
+  //   const { restaurant: { opinionSend } } = local;
+  //   if (opinionSend) {
   //     existOpinion();
   //   } else {
   //     await sendFromInfo({
@@ -96,7 +96,7 @@ const Opinion = () => {
   //       },
   //     });
   //     showMessage({ type: 'success', content: t('restaurant.pageOpinion.mail.send') });
-  //     local.restaurant.opnionSend = true;
+  //     local.restaurant.opinionSend = true;
   //     setLocal(local);
   //   }
   // };

@@ -58,9 +58,9 @@ const CONTROL_CONFIG = [
     path: '/back-office/restaurant/:restaurant/reserve',
   },
   {
-    key: 'flayer',
+    key: 'flyer',
     icon: <QRCodeSvg />,
-    path: '/back-office/restaurant/:restaurant/flayer',
+    path: '/back-office/restaurant/:restaurant/flyer',
   },
   {
     key: 'archive',
@@ -141,7 +141,7 @@ export const RestaurantInfo = ({
       return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return arr.filter(({ key }) => ['orders', 'notify', 'flayer', 'reserve', 'opinions'].includes(key));
+      return arr.filter(({ key }) => ['orders', 'notify', 'flyer', 'reserve', 'opinions'].includes(key));
     }
     return [];
   };

@@ -10,9 +10,9 @@ export const removeLocalStorage = (key) => localStorage.removeItem(key);
 const storageKey = process.env.LOCAL_STORAGE_KEY;
 
 const restaurantSetting = {
-  table_number: 0,
-  offersViewed: [],
   opinionSend: false,
+  offersViewed: [],
+  table_number: 0,
   order: null,
 };
 
@@ -31,6 +31,7 @@ export const initLocal = () => {
         enter_at: null,
         check18: false,
         checkDaily: false,
+        position: 'guest',
       },
       restaurant: {},
     });
@@ -80,13 +81,14 @@ export const setUser = (obj) => {
 
 export const getLocalRestaurant = (key) => {
   const local = getLocalStorage(storageKey);
-  if (local) {
-    return local.restaurant[key] || restaurantSetting;
+  if (local && local.restaurant[key]) {
+    return local.restaurant[key];
   }
+  setLocalRestaurant(key);
   return restaurantSetting;
 };
 
-export const setLocalRestaurant = (key, obj) => {
+export const setLocalRestaurant = (key, obj = {}) => {
   const local = getLocalStorage(storageKey);
   const rest = local.restaurant[key] || restaurantSetting;
   if (local) {

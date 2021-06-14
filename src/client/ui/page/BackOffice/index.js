@@ -14,7 +14,7 @@ const PATH = '/back-office';
 
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
-const Flayer = lazy(() => import('client/ui/modules/BackOffice/Flayer'));
+const Flyer = lazy(() => import('client/ui/modules/BackOffice/Flyer'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
 const User = lazy(() => import('client/ui/modules/BackOffice/User'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
@@ -22,6 +22,7 @@ const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
 const Reservations = lazy(() => import('client/ui/modules/BackOffice/Reservations'));
 const Opinions = lazy(() => import('client/ui/modules/BackOffice/Opinions'));
 const Notify = lazy(() => import('client/ui/modules/BackOffice/Notify'));
+const Orders = lazy(() => import('client/ui/modules/BackOffice/Orders'));
 const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
@@ -71,6 +72,14 @@ export const BackOffice = () => {
             <Route
               exact
               path={[
+                `${PATH}/restaurant/:restaurant/orders/archive`,
+                `${PATH}/restaurant/:restaurant/orders`,
+              ]}
+              component={Orders}
+            />
+            <Route
+              exact
+              path={[
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals/archive`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
                 `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,
@@ -89,8 +98,8 @@ export const BackOffice = () => {
             />
             <Route
               exact
-              path={`${PATH}/restaurant/:restaurant/flayer`}
-              component={Flayer}
+              path={`${PATH}/restaurant/:restaurant/flyer`}
+              component={Flyer}
             />
             <Route
               exact

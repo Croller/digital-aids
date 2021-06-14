@@ -64,7 +64,7 @@ export const NotifyInfo = memo(({
         <Tooltip placement="top" title={t('common.words.approved')}>
           <Control
             disabled={is_viewed}
-            onClick={() => handleEvent(true)}
+            onClick={() => !is_viewed && handleEvent(true)}
           >
             <ThumbsUpSvg />
           </Control>
