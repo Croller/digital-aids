@@ -29,5 +29,5 @@ const MapContainer = ({
  
 export const GoogleMap = GoogleApiWrapper(({ lng = 'en' }) => ({
   language: user.lng || lng,
-  apiKey: process.env.TOKEN_GOOGLE_GEOCODE,
+  apiKey: process.env.API_KEY_GOOGLE_MAP,
 }))(MapContainer);

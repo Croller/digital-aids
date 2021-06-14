@@ -40,7 +40,7 @@ export const MapBox = ({
   };
 
   const settings = {
-    token: process.env.TOKEN_MAPBOX,
+    token: process.env.API_KEY_MAPBOX,
     init: (config || init),
   };
 
