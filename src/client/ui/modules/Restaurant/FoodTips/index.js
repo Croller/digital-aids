@@ -121,7 +121,7 @@ const FoodTips = () => {
       {items.filter((f, i) => i === slide).map((item, i) => (
         <React.Fragment key={`_dish_${i + 1}`}>
           <ImgWrapper>
-            <Img src={item.images && item.images[0] ? `${getUrl()}/static/restaurants/dishes/${item.images[0]}.png` : null} />
+            <Img src={item.images && item.images[0] ? `${getUrl()}/static/restaurants/dishes/${item.images[1] || item.images[0]}.png` : null} />
             <Dish>
               {item.name}
             </Dish>
