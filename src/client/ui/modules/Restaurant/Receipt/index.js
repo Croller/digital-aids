@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ChevronSvg, InfoCircleSvg } from 'client/assets/images';
 import { getTotal, setUrlOrder } from 'client/utils/restaurant';
-import { QRCode } from 'react-qrcode-logo';
+import QRCode from 'qrcode.react';
 import moment from 'moment';
 import { getDictionaryItem, getUrl, random4Int } from 'client/utils/common';
 import { useModal } from 'react-modal-hook';
@@ -189,7 +189,7 @@ const Receipt = () => {
                 onClick={() => handleRoute('information')}
               />
             )} */}
-            <QRCode value={getQRCodeValue()} />
+            <QRCode size={200} value={getQRCodeValue()} />
             <AlertWrapper>
               <AlertIcon>
                 <InfoCircleSvg />

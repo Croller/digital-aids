@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { QRCode } from 'react-qrcode-logo';
+import QRCode from 'qrcode.react';
 import {
   getUrl,
   htmlToImage,
