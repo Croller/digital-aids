@@ -36,7 +36,7 @@ let plugins = [
   }),
   new PwaManifestWebpackPlugin({
     name: 'Digital Aids',
-    short_name: 'DA',
+    short_name: 'DigitalAids',
     description: 'Digital solutions for business',
     background_color: '#ffffff',
     crossorigin: 'use-credentials',
