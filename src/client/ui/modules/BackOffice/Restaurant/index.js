@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getUrl, loadFile } from 'client/utils/common';
+import { getDictionaryItem, getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { AlertCircleSvg } from 'client/assets/images';
 import { getCoordsByAddress } from 'client/providers/common';
@@ -37,7 +37,8 @@ import {
 
 const Restaurant = () => {
   const {
-    user: { info: { language } },
+    user,
+    user: { info: { language, roles } },
     backOffice: { 
       restaurants,
       dictionary,
@@ -355,32 +356,34 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            <Form2Col>
-              <FormCol>
-                <FormItemStyled
-                  label={t('common.words.rate')}
-                  name="socials.thefork.rate"
-                >
-                  <InputStyled
-                    type="number"
-                    step="0.1"
-                    placeholder={t('common.form.placeholder.floatExample')}
-                  />
-                </FormItemStyled>
-              </FormCol>
-              <FormCol>
-                <FormItemStyled
-                  label={t('common.words.comments')}
-                  name="socials.thefork.comments"
-                >
-                  <InputStyled
-                    type="number"
-                    step="1"
-                    placeholder={t('common.form.placeholder.number')}
-                  />
-                </FormItemStyled>
-              </FormCol>
-            </Form2Col>
+            {roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id')) && (
+              <Form2Col>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.rate')}
+                    name="socials.thefork.rate"
+                  >
+                    <InputStyled
+                      type="number"
+                      step="0.1"
+                      placeholder={t('common.form.placeholder.floatExample')}
+                    />
+                  </FormItemStyled>
+                </FormCol>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.comments')}
+                    name="socials.thefork.comments"
+                  >
+                    <InputStyled
+                      type="number"
+                      step="1"
+                      placeholder={t('common.form.placeholder.number')}
+                    />
+                  </FormItemStyled>
+                </FormCol>
+              </Form2Col>
+            )}
             <FormItemStyled
               label="TripAdviser"
               name="socials.tripadvisor.url"
@@ -389,32 +392,34 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            <Form2Col>
-              <FormCol>
-                <FormItemStyled
-                  label={t('common.words.rate')}
-                  name="socials.tripadvisor.rate"
-                >
-                  <InputStyled
-                    type="number"
-                    step="0.1"
-                    placeholder={t('common.form.placeholder.floatExample')}
-                  />
-                </FormItemStyled>
-              </FormCol>
-              <FormCol>
-                <FormItemStyled
-                  label={t('common.words.comments')}
-                  name="socials.tripadvisor.comments"
-                >
-                  <InputStyled
-                    type="number"
-                    step="1"
-                    placeholder={t('common.form.placeholder.number')}
-                  />
-                </FormItemStyled>
-              </FormCol>
-            </Form2Col>
+            {roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id')) && (
+              <Form2Col>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.rate')}
+                    name="socials.tripadvisor.rate"
+                  >
+                    <InputStyled
+                      type="number"
+                      step="0.1"
+                      placeholder={t('common.form.placeholder.floatExample')}
+                    />
+                  </FormItemStyled>
+                </FormCol>
+                <FormCol>
+                  <FormItemStyled
+                    label={t('common.words.comments')}
+                    name="socials.tripadvisor.comments"
+                  >
+                    <InputStyled
+                      type="number"
+                      step="1"
+                      placeholder={t('common.form.placeholder.number')}
+                    />
+                  </FormItemStyled>
+                </FormCol>
+              </Form2Col>
+            )}
             <FormItemStyled
               label={t('common.words.public')}
               name="is_publish"
