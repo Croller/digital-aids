@@ -41,17 +41,17 @@ let plugins = [
     theme_color: '#219653',
     icons: [
       {
-        src: '/public/favicon.ico',
+        src: './public/favicon.ico',
         sizes: '64x64 32x32 24x24 16x16',
         type: 'image/x-icon',
       },
       {
-        src: '/public/logo 192.png',
+        src: './public/logo 192.png',
         type: 'image/png',
         sizes: '192x192',
       },
       {
-        src: '/public/logo 512.png',
+        src: './public/logo 512.png',
         type: 'image/png',
         sizes: '512x512',
       },
