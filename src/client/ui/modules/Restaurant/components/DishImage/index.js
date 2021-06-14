@@ -27,7 +27,7 @@ export const DishImage = memo(({
   onShowAllergens,
 }) => {
   const [t] = useTranslation();
-  const src = images && images[0] ? `${getUrl()}/static/restaurants/dishes/${images[0]}.png` : null;
+  const src = images && images[0] ? `${getUrl()}/static/restaurants/dishes/${images[1] || images[0]}.png` : null;
   return (
     <Wrapper>
       <ImgWrapper>

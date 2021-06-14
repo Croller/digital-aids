@@ -75,8 +75,9 @@ export const Img = styled.img`
   width: 337px;
   height: 215px;
   border-radius: ${THEME.borderRadiusL};
-  object-fit: contain;
-  object-position: center;
+
+  /* object-fit: contain;
+  object-position: center; */
 `;
 
 export const Delete = styled(Button)`
@@ -84,6 +85,26 @@ export const Delete = styled(Button)`
   position: absolute;
   top: 16px;
   left: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background-color: ${PALETTE.grey26};
+
+  > svg {
+    width: 19px;
+    height: 19px;
+
+    path {
+      fill: ${PALETTE.black};
+    }
+  }
+`;
+
+export const Edit = styled(Button)`
+  display: ${p => (p.show ? 'block' : 'none')};
+  position: absolute;
+  top: 16px;
+  right: 16px;
   width: 32px;
   height: 32px;
   padding: 0;

@@ -1,9 +1,7 @@
 import React, { forwardRef } from 'react';
-import { getBase64, imageToPng } from 'client/utils/common';
-import { PictureAddSvg, TrashSvg } from 'client/assets/images';
+import { imageCompression } from 'client/utils/common';
+import { PictureAddSvg, TrashSvg, EditSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
-import { v4 as uuidv4 } from 'uuid';
-// import Compressor from 'compressorjs';
 
 import {
   Wrapper,
@@ -15,17 +13,19 @@ import {
   ImgBlock,
   Img,
   Delete,
+  Edit,
 } from './styled';
 
 export const Uploader = forwardRef(({
   disabled = false,
   max = 1,
   files = [],
+  maxSize = 15,
   onUpload = () => {},
   onStatus = () => {},
+  onEdit = () => {},
   className,
 }, ref) => {
-  const limitSize = 15;
   const types = ['image/png', 'image/jpeg'];
   const [t] = useTranslation();
 
@@ -33,22 +33,22 @@ export const Uploader = forwardRef(({
     const { file } = info;
     if (file) {
       const support = types.includes(file.type);
-      const size = file.size / 1024 / 1024 < limitSize;
+      const size = file.size / 1024 / 1024 < maxSize;
       if (!support) {
         onStatus({ type: 'warning', content: t('common.form.file.error.type') });
         return;
       }
       if (!size) {
-        onStatus({ type: 'warning', content: `${t('common.form.file.error.size')} ${limitSize}` });
+        onStatus({ type: 'warning', content: `${t('common.form.file.error.size')} ${maxSize} Mb` });
         return;
       }
     }
-
     onStatus({ type: 'loading', content: `${t('common.words.loading')}...` });
-    // const compress = await new Compressor(file.originFileObj);
-    const transform = await transformFile(file);
 
-    onUpload([...files, transform], null);
+    const compresed = await imageCompression(file, { maxSizeMB: maxSize });
+    // console.log('file compresed', file.size / 1024 / 1024, compresed.originFileObj.size / 1024 / 1024);
+
+    onUpload([...files, compresed], null);
     onStatus({ type: 'success', content: `${t('common.words.success')}` });
   };
 
@@ -68,18 +68,6 @@ export const Uploader = forwardRef(({
     image.onerror = '';
     image.src = '/images/noimage.gif';
     return true;
-  };
-
-  const transformFile = async (file) => {
-    if (file.type !== 'image/png') {
-      const png = await imageToPng(file.originFileObj, uuidv4());
-      return png;
-    }
-    return {
-      ...file,
-      uuid: uuidv4(),
-      base64: await getBase64(file.originFileObj),
-    };
   };
 
   const uploadButton = (
@@ -116,6 +104,9 @@ export const Uploader = forwardRef(({
             <Delete show={!disabled} onClick={() => handleDelete(file)}>
               <TrashSvg />
             </Delete>
+            <Edit show={!disabled} onClick={() => onEdit(file)}>
+              <EditSvg />
+            </Edit>
           </ImgBlock>
         ))}
       </List>
