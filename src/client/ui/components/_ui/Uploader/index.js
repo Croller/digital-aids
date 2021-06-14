@@ -1,9 +1,9 @@
 import React, { forwardRef } from 'react';
-import { getBase64, imageToPng } from 'client/utils/common';
+import { getBase64, imageConverter } from 'client/utils/common';
 import { PictureAddSvg, TrashSvg } from 'client/assets/images';
 import { useTranslation } from 'react-i18next';
 import { v4 as uuidv4 } from 'uuid';
-// import Compressor from 'compressorjs';
+import imageCompression from 'browser-image-compression';
 
 import {
   Wrapper,
@@ -43,12 +43,17 @@ export const Uploader = forwardRef(({
         return;
       }
     }
-
     onStatus({ type: 'loading', content: `${t('common.words.loading')}...` });
-    // const compress = await new Compressor(file.originFileObj);
-    const transform = await transformFile(file);
 
-    onUpload([...files, transform], null);
+    let compresed = await imageCompression(file.originFileObj, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    });
+    compresed = await transformFile(compresed, uuidv4());
+    console.log('file compresed', file.size / 1024 / 1024, compresed.originFileObj.size / 1024 / 1024);
+    
+    onUpload([...files, compresed], null);
     onStatus({ type: 'success', content: `${t('common.words.success')}` });
   };
 
@@ -72,13 +77,13 @@ export const Uploader = forwardRef(({
 
   const transformFile = async (file) => {
     if (file.type !== 'image/png') {
-      const png = await imageToPng(file.originFileObj, uuidv4());
-      return png;
+      const data = await imageConverter(file.originFileObj, uuidv4());
+      return data;
     }
     return {
-      ...file,
+      originFileObj: file,
       uuid: uuidv4(),
-      base64: await getBase64(file.originFileObj),
+      base64: await getBase64(file),
     };
   };
 

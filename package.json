@@ -31,7 +31,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.19.0",
-    "compressorjs": "^1.0.7",
+    "browser-image-compression": "^1.0.14",
     "core-js": "^2.6.12",
     "cors": "^2.8.5",
     "deep-object-diff": "^1.1.0",

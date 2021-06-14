@@ -230,9 +230,8 @@ export const loadFile = async (url = null, uuid = null) => {
   };
 };
 
-export const imageToPng = async (file = null, uuid = null) => {
+export const imageConverter = async (file = null, uuid = null, type = 'image/png') => {
   if (!file && !file.type) return null;
-  const type = 'image/png';
   const base64 = await getBase64(file);
   const imgParams = await getImageParams(base64);
   const { width, height } = imgParams;
@@ -242,7 +241,7 @@ export const imageToPng = async (file = null, uuid = null) => {
   canvas.width = width;
   canvas.height = height;
   ctx.drawImage(imgParams, 0, 0);
-  const basePng = canvas.toDataURL('image/png');
+  const basePng = canvas.toDataURL(type);
   
   const result = await fetch(basePng);
   const blob = await result.blob();
