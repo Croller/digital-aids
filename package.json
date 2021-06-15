@@ -68,6 +68,7 @@
     "react-router-dom": "^5.2.0",
     "react-slick": "^0.28.1",
     "react-text-mask": "^5.4.3",
+    "reactour": "^1.18.4",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.3",
