@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { normalize } from 'styled-normalize';
 
 import MontserratThin from 'client/assets/fonts/Montserrat-Thin.ttf';
 import MontserratThinItalic from 'client/assets/fonts/Montserrat-ThinItalic.ttf';
@@ -27,6 +28,7 @@ import {
 } from './constants';
 
 export const GlobalStyle = createGlobalStyle`
+  ${normalize}
   body {
     height: 100%;
     margin: 0;
