@@ -74,9 +74,17 @@ if (PLATFORM === 'production') {
   );
   optimization = {
     minimize: true,
-    minimizer: [new UglifyJsPlugin({
-      include: /\.js$/,
-    })],
+    minimizer: [
+      new UglifyJsPlugin({
+        test: /\.js(\?.*)?$/i,
+        uglifyOptions: {
+          output: {
+            comments: false,
+          },
+        },
+        extractComments: false,
+      }),
+    ],
   };
 }
 
