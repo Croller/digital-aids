@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const PwaManifestWebpackPlugin = require('webpack-pwa-manifest');
+// const PwaManifestWebpackPlugin = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -34,34 +34,34 @@ let plugins = [
       // },
     ],
   }),
-  new PwaManifestWebpackPlugin({
-    name: 'Digital Aids',
-    short_name: 'DigitalAids',
-    description: 'Digital solutions for business',
-    background_color: '#ffffff',
-    orientation: 'portrait',
-    crossorigin: 'use-credentials',
-    start_url: '/',
-    display: 'standalone',
-    theme_color: '#219653',
-    icons: [
-      {
-        src: './public/favicon.ico',
-        sizes: '64x64 32x32 24x24 16x16',
-        type: 'image/x-icon',
-      },
-      {
-        src: './public/logo 192.png',
-        type: 'image/png',
-        sizes: '192x192',
-      },
-      {
-        src: './public/logo 512.png',
-        type: 'image/png',
-        sizes: '512x512',
-      },
-    ],
-  }),
+//   new PwaManifestWebpackPlugin({
+//     name: 'Digital Aids',
+//     short_name: 'DigitalAids',
+//     description: 'Digital solutions for business',
+//     background_color: '#ffffff',
+//     orientation: 'portrait',
+//     crossorigin: 'use-credentials',
+//     start_url: '/',
+//     display: 'standalone',
+//     theme_color: '#219653',
+//     icons: [
+//       {
+//         src: './public/favicon.ico',
+//         sizes: '64x64 32x32 24x24 16x16',
+//         type: 'image/x-icon',
+//       },
+//       {
+//         src: './public/logo 192.png',
+//         type: 'image/png',
+//         sizes: '192x192',
+//       },
+//       {
+//         src: './public/logo 512.png',
+//         type: 'image/png',
+//         sizes: '512x512',
+//       },
+//     ],
+//   }),
 ];
 
 if (PLATFORM === 'production') {
