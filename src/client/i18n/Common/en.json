@@ -94,7 +94,12 @@
     
     "payment": "Payment",
     "assembly": "Assembly",
-    "delivery": "Delivery"
+    "delivery": "Delivery",
+    
+    "staff": "Staff",
+    "reports": "Reports",
+    "chat": "Chat",
+    "news": "News"
    },
 
   "form" : {

@@ -165,13 +165,25 @@ CREATE TABLE IF NOT EXISTS dictionary_roles (
   id serial primary key,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
+  point VARCHAR DEFAULT 'restaurant',  -- groceries/clothing/literature/furniture
+  position VARCHAR DEFAULT 'employee',  -- employee/waiter/cook/cleaning/courier
   root BOOLEAN DEFAULT FALSE,
-  create_restaurant BOOLEAN DEFAULT FALSE,
-  update_restaurant BOOLEAN DEFAULT FALSE,
-  delete_restaurant BOOLEAN DEFAULT FALSE,
+  create_point BOOLEAN DEFAULT FALSE,
+  update_point BOOLEAN DEFAULT FALSE,
+  delete_point BOOLEAN DEFAULT FALSE,
+  view_point BOOLEAN DEFAULT FALSE,
   create_user BOOLEAN DEFAULT FALSE,
   update_user BOOLEAN DEFAULT FALSE,
-  delete_user BOOLEAN DEFAULT FALSE
+  delete_user BOOLEAN DEFAULT FALSE,
+  view_user BOOLEAN DEFAULT FALSE,
+  create_task BOOLEAN DEFAULT FALSE,
+  update_task BOOLEAN DEFAULT FALSE,
+  delete_task BOOLEAN DEFAULT FALSE,
+  view_task BOOLEAN DEFAULT FALSE,
+  create_report BOOLEAN DEFAULT FALSE,
+  update_report BOOLEAN DEFAULT FALSE,
+  delete_report BOOLEAN DEFAULT FALSE,
+  view_report BOOLEAN DEFAULT FALSE,
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (

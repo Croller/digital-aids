@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  UserCircleSvg,
   RestaurantSvg,
   AlertCircleSvg,
+  UsersSvg,
   Conversation1Svg,
+  Conversation2Svg,
+  ChecklistSvg,
 } from 'client/assets/images';
 import { 
   SidebarWrapper,
@@ -19,11 +21,31 @@ const MENU_LIST = [
     icon: <RestaurantSvg />,
     roles: [1, 2, 3, 4],
   },
-  // {
-  //   key: 'users',
-  //   icon: <UserCircleSvg />,
-  //   roles: [1],
-  // },
+  {
+    key: 'users',
+    icon: <UsersSvg />,
+    roles: [1],
+  },
+  {
+    key: 'staff',
+    icon: <UsersSvg />,
+    roles: [1],
+  },
+  {
+    key: 'reports',
+    icon: <ChecklistSvg />,
+    roles: [1],
+  },
+  {
+    key: 'chat',
+    icon: <Conversation1Svg />,
+    roles: [1],
+  },
+  {
+    key: 'news',
+    icon: <Conversation2Svg />,
+    roles: [1],
+  },
   // {
   //   key: 'mails',
   //   icon: <Conversation1Svg />,
