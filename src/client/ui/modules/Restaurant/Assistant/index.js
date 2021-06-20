@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { update } from 'client/store/user';
 import { updateRow } from 'client/store/restaurant';
 import { useModal } from 'react-modal-hook';
 import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
 import { QRCodeSvg } from 'client/assets/images';
 import QrReader from 'react-qr-reader';
+import { setLocalUser } from 'client/utils/localStorage';
 import {
   Wrapper,
   List,
@@ -19,20 +21,20 @@ import {
 
 const Assistant = () => {
   const rootDispatch = useDispatch();
-  const history = useHistory();
   const [t] = useTranslation();
   const [showScan, setShowScan] = useState(false);
   const { user, restaurant } = useSelector(s => s);
-  const [showConfirm] = useModal(() => (
+  const [showConfirm, hideConfirm] = useModal(() => (
     <ReserveSend
       title={t('restaurant.compModal.assistant_send')}
       textOk={t('common.words.ok')}
-      onClose={() => history.goBack()}
-      onOk={() => history.goBack()}
+      onClose={hideConfirm}
+      onOk={hideConfirm}
     />
   ));
 
   const menu = [
+    'guest',
     'manager',
     'napkin',
     'appliances',
@@ -41,16 +43,21 @@ const Assistant = () => {
   ];
 
   const handleEmit = (key) => {
-    rootDispatch(updateRow({
-      name: 'data_notify',
-      data: {
-        restaurant: restaurant.info.id,
-        options: menu.reduce((obj, k) => ({ ...obj, [k]: k === key }), {}),
-        table_number: restaurant.table_number,
-        create_user: user.info.id,
-      },
-    }));
-    showConfirm();
+    if (user.position === 'waiter' && key === 'guest') {
+      setLocalUser({ position: 'guest' });
+      rootDispatch(update({ position: 'guest' }));
+    } else {
+      rootDispatch(updateRow({
+        name: 'data_notify',
+        data: {
+          restaurant: restaurant.info.id,
+          options: menu.reduce((obj, k) => ({ ...obj, [k]: k === key }), {}),
+          table_number: restaurant.table_number,
+          create_user: user.info.id,
+        },
+      }));
+      showConfirm();
+    }
   };
 
   const handleErrorReader = (err) => {
@@ -71,7 +78,7 @@ const Assistant = () => {
     <Wrapper>
       {restaurant.table_number ? (
         <List>
-          {(menu).map(key => (
+          {menu.filter(f => f !== user.position).map(key => (
             <ButtonStyled
               key={key}
               onClick={() => handleEmit(key)}

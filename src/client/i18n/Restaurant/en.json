@@ -38,6 +38,7 @@
     "assistant": "Assistant"
   },
   "pageAssistent": {
+    "guest": "Chnage to Guest",
     "waiter": "Waiter",
     "receipt": "Receipt",
     "napkin": "Napkin",
