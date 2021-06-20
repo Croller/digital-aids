@@ -42,7 +42,7 @@ const HeaderComponent = ({
   const handleLangChange = (lng = null) => {
     if (lng) {
       translate.changeLanguage(lng);
-      setUser({ lng });
+      setLocalUser({ lng });
       rootDispatch(update({ info: { ...info, language: lng } }));
     }
     setLangList(false);

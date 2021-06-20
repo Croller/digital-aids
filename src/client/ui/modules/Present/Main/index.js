@@ -119,7 +119,7 @@ const Main = () => {
   ));
 
   const handleSetCookies = () => {
-    setUser({ cookies: true });
+    setLocalUser({ cookies: true });
   };
 
   // const handleChnageLng = (lng) => {

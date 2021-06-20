@@ -20,7 +20,7 @@ const Language = () => {
 
   const handleClick = (lng) => {
     translate.changeLanguage(lng);
-    setUser({ lng });
+    setLocalUser({ lng });
     rootDispatch(update({ ...info, language: lng }));
     rootDispatch(init({ restaurant: key, language: lng }));
     
