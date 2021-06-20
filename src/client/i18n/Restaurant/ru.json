@@ -5,7 +5,7 @@
     "language": "Язык",
     "reservation": "Бронирование",
     "opinion": "Ваше мнение",
-    "foodtips": "Foodtips",
+    "foodtips": "Советуем отведать",
     "menu": "Меню",
     "send": "Отправить",
     "comments": "Комментарии",
@@ -40,7 +40,7 @@
   "pageAssistent": {
     "guest": "Стать гостем",
     "waiter": "Официант",
-    "receipt": "Рецепт",
+    "receipt": "Чек",
     "napkin": "Салфетки",
     "appliances": "Приборы",
     "manager": "Менеджер",
