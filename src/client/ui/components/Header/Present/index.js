@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { setUser } from 'client/utils/localStorage';
+import { setLocalUser } from 'client/utils/localStorage';
 import translate, { languages } from 'client/i18n';
 import OutSideClick from 'react-outside-click-handler';
 import {

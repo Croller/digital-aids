@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
-import { setUser } from 'client/utils/localStorage';
+import { setLocalUser } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
 import { update } from 'client/store/user';
 import {
