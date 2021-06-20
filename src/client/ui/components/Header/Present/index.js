@@ -49,7 +49,7 @@ const HeaderComponent = ({
   const handleLangChange = (lng = null) => {
     if (lng) {
       translate.changeLanguage(lng);
-      setUser({ lng });
+      setLocalUser({ lng });
     }
     setLangList(false);
   };

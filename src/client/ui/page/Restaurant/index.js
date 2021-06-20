@@ -3,7 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { init, set } from 'client/store/restaurant';
 import { update } from 'client/store/user';
 import { getUrlOrder } from 'client/utils/restaurant';
-import { getLocalRestaurant, setLocalRestaurant, setUser } from 'client/utils/localStorage';
+import {
+  getLocalRestaurant,
+  getLocalUser,
+  setLocalRestaurant,
+  setLocalUser,
+} from 'client/utils/localStorage';
 import {
   Route,
   Switch,
@@ -53,9 +58,11 @@ export const Restaurant = () => {
     if (restaurant.info && restaurant.info.id) {
       const { dishes, categories } = restaurant;
       const localRest = getLocalRestaurant(restaurant.info.key);
+      const localUser = getLocalUser();
       let order = localRest.order ? getUrlOrder(localRest.order, dishes, categories) : null;
 
       let table_number = localRest.table_number || 0;
+      let position = localUser.position || 'guest';
       if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
         const [path, number] = href.split('&table_number=');
         order = getUrlOrder(path.split('?params=')[1], dishes, categories);
@@ -64,15 +71,16 @@ export const Restaurant = () => {
       if (href.indexOf('/receipt?params=') === -1) {
         if (href.indexOf('table_number=') > -1) {
           const number = href.split('table_number=')[1];
-          table_number = parseInt(number, 0);
+          table_number = number ? parseInt(number, 0) : table_number;
         }
         if (href.indexOf('position=waiter') > -1) {
-          const position = href.split('position=')[1];
-          setUser({ position });
-          rootDispatch(update({ position }));
+          const pos = href.split('position=')[1];
+          position = pos || 'guest';
         }
       }
+      rootDispatch(update({ position }));
       rootDispatch(set({ table_number, order }));
+      setLocalUser({ position });
       setLocalRestaurant(restaurant.info.key, { table_number });
     }
   }, [restaurant.info]);

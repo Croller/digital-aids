@@ -25,7 +25,7 @@ export const Layout = ({
   const handleRoute = useCallback((part = 'restaurants') => {
     if (part === 'auth') {
       history.push(path);
-      setUser({ token: null });
+      setLocalUser({ token: null });
       rootDispatch(logout());
     }
     const path = `/back-office/${part}`;
