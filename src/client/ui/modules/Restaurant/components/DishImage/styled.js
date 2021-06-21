@@ -15,11 +15,12 @@ export const ImgWrapper = styled.div`
 
 export const Img = styled.img`
   width: 100%;
-  height: 144px;
-  object-fit: cover;
-  object-position: center;
+  height: auto;
   border-top-left-radius: ${THEME.borderRadiusM};
   border-top-right-radius: ${THEME.borderRadiusM};
+
+  /* object-fit: cover;
+  object-position: center; */
 `;
 
 export const Number = styled.div`

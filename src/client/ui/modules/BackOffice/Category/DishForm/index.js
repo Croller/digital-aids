@@ -43,7 +43,7 @@ import {
 
 const CROP_CONFIG = {
   width: 338,
-  height: 216,
+  height: 200,
   x: 0,
   y: 0, 
 };
