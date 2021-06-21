@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
-import { Sidebar } from 'client/ui/components/Layout/BackOffice/Sidebar';
+import { LeftBar } from 'client/ui/components/Layout/BackOffice/LeftBar';
+import { RightBar } from 'client/ui/components/Layout/BackOffice/RightBar';
 import { setLocalUser } from 'client/utils/localStorage';
 import { logout } from 'client/store/user';
 import { 
@@ -41,7 +42,7 @@ export const Layout = ({
         onRoute={handleRoute}
       />
       {token && showSideBar && (
-        <Sidebar
+        <LeftBar
           roles={roles}
           path={pathname}
           onRoute={handleRoute}
@@ -56,6 +57,13 @@ export const Layout = ({
           </Block>
         </Content>
       </Cotainer>
+      {token && showSideBar && (
+        <RightBar
+          roles={roles}
+          path={pathname}
+          onRoute={handleRoute}
+        />
+      )}
     </Wrapper>
   );
 };
