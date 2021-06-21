@@ -162,16 +162,31 @@ CREATE TABLE IF NOT EXISTS data_notify (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_roles (
-  id serial primary key,
+  id number serial,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
+  parent INT DEFAULT NULL,
   root BOOLEAN DEFAULT FALSE,
-  create_restaurant BOOLEAN DEFAULT FALSE,
-  update_restaurant BOOLEAN DEFAULT FALSE,
-  delete_restaurant BOOLEAN DEFAULT FALSE,
   create_user BOOLEAN DEFAULT FALSE,
   update_user BOOLEAN DEFAULT FALSE,
   delete_user BOOLEAN DEFAULT FALSE
+  view_user BOOLEAN DEFAULT FALSE,
+  create_point BOOLEAN DEFAULT FALSE,
+  update_point BOOLEAN DEFAULT FALSE,
+  delete_point BOOLEAN DEFAULT FALSE,
+  view_point BOOLEAN DEFAULT FALSE,
+  create_item BOOLEAN DEFAULT FALSE,
+  update_item BOOLEAN DEFAULT FALSE,
+  delete_item BOOLEAN DEFAULT FALSE,
+  view_item BOOLEAN DEFAULT FALSE,
+  create_reserv BOOLEAN DEFAULT FALSE,
+  update_reserv BOOLEAN DEFAULT FALSE,
+  delete_reserv BOOLEAN DEFAULT FALSE,
+  view_reserv BOOLEAN DEFAULT FALSE,
+  create_order BOOLEAN DEFAULT FALSE,
+  update_order BOOLEAN DEFAULT FALSE,
+  delete_order BOOLEAN DEFAULT FALSE,
+  view_order BOOLEAN DEFAULT FALSE,
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
@@ -255,21 +270,21 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
   description VARCHAR DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS dictionary_order_status (
-  number serial,
-  id VARCHAR DEFAULT NULL,
-  name VARCHAR DEFAULT NULL,
-  fullname VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL
-);
+-- CREATE TABLE IF NOT EXISTS dictionary_order_status (
+--   number serial,
+--   id VARCHAR DEFAULT NULL,
+--   name VARCHAR DEFAULT NULL,
+--   fullname VARCHAR DEFAULT NULL,
+--   description VARCHAR DEFAULT NULL
+-- );
 
-CREATE TABLE IF NOT EXISTS dictionary_order_status_translate (
-  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_days
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
-  name VARCHAR DEFAULT NULL,
-  fullname VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL
-);
+-- CREATE TABLE IF NOT EXISTS dictionary_order_status_translate (
+--   id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_days
+--   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+--   name VARCHAR DEFAULT NULL,
+--   fullname VARCHAR DEFAULT NULL,
+--   description VARCHAR DEFAULT NULL
+-- );
 
 
 

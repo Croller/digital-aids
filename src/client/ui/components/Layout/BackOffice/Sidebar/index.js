@@ -4,7 +4,7 @@ import {
   UserCircleSvg,
   RestaurantSvg,
   AlertCircleSvg,
-  Conversation1Svg,
+  // Conversation1Svg,
 } from 'client/assets/images';
 import { 
   SidebarWrapper,
@@ -19,11 +19,11 @@ const MENU_LIST = [
     icon: <RestaurantSvg />,
     roles: [1, 2, 3, 4],
   },
-  // {
-  //   key: 'users',
-  //   icon: <UserCircleSvg />,
-  //   roles: [1],
-  // },
+  {
+    key: 'users',
+    icon: <UserCircleSvg />,
+    roles: [1, 2],
+  },
   // {
   //   key: 'mails',
   //   icon: <Conversation1Svg />,
@@ -59,7 +59,7 @@ export const Sidebar = memo(({
           <Icon>
             <AlertCircleSvg />
           </Icon>
-          {t('common.words.logout')}
+          {t('common.words.signout')}
         </Item>
       </Menu>
     </SidebarWrapper>
