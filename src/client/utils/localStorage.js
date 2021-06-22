@@ -58,7 +58,7 @@ export const setOfferViewed = (key, offer = null, callback = () => {}) => {
   }
 };
 
-export const getUser = () => {
+export const getLocalUser = () => {
   const local = getLocalStorage(storageKey);
   if (local) {
     return local.user;
@@ -66,7 +66,7 @@ export const getUser = () => {
   return null;
 };
 
-export const setUser = (obj) => {
+export const setLocalUser = (obj) => {
   const local = getLocalStorage(storageKey);
   if (local) {
     setLocalStorage(storageKey, {

@@ -4,16 +4,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { login, auth, logout } from 'client/store/user';
 import translate from 'client/i18n';
 import moment from 'moment';
-
 import {
   initLocal,
-  getUser,
-  setUser,
+  getLocalUser,
+  setLocalUser,
 } from 'client/utils/localStorage';
 
 export const InfoUser = () => {
   const pathCurrent = '/back-office';
-  const storageKey = process.env.LOCAL_STORAGE_KEY;
   const lng = navigator.language || navigator.userLanguage || 'en-EN';
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
@@ -35,7 +33,7 @@ export const InfoUser = () => {
   const { pathname } = location;
 
   const initStorage = () => {
-    const localUser = getUser(storageKey) || storage;
+    const localUser = getLocalUser() || storage;
     translate.changeLanguage(localUser.lng);
     localUser.token = localUser.token || token;
     localUser.enter_at = localUser.enter_at || enter_at;
@@ -70,7 +68,7 @@ export const InfoUser = () => {
       }));
     }
     
-    setUser(localUser);
+    setLocalUser(localUser);
     setStorage({ ...storage, user: localUser });
     setInitUrl(pathname);
   };
@@ -79,7 +77,7 @@ export const InfoUser = () => {
     const local = { ...storage };
     local.user.token = token;
     local.user.enter_at = enter_at;
-    setUser(local.user);
+    setLocalUser(local.user);
     setStorage(local);
   };
   

@@ -29,22 +29,22 @@ const MENU_LIST = [
   {
     key: 'staff',
     icon: <UsersSvg />,
-    roles: [1],
+    roles: [1, 2],
   },
   {
     key: 'reports',
     icon: <ChecklistSvg />,
-    roles: [1],
+    roles: [1, 2],
   },
   {
     key: 'chat',
     icon: <Conversation1Svg />,
-    roles: [1],
+    roles: [1, 2],
   },
   {
     key: 'news',
     icon: <Conversation2Svg />,
-    roles: [1],
+    roles: [1, 2],
   },
   // {
   //   key: 'mails',
@@ -81,7 +81,7 @@ export const Sidebar = memo(({
           <Icon>
             <AlertCircleSvg />
           </Icon>
-          {t('common.words.logout')}
+          {t('common.words.signout')}
         </Item>
       </Menu>
     </SidebarWrapper>

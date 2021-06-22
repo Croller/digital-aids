@@ -108,16 +108,13 @@ export const BackOffice = () => {
             />
             <Route
               path={[
-                `${PATH}/users/archive`,
+                `${PATH}/users/:user`,
                 `${PATH}/users`,
               ]}
               component={Users}
             />
             <Route
-              path={[
-                `${PATH}/user/:user`,
-                `${PATH}/profile/:user`,
-              ]}
+              path={`${PATH}/profile`}
               component={User}
             />
             <Route

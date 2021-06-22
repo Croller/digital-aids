@@ -33,9 +33,12 @@
     "opinion": "Opinion",
     "opinions": "Opinions",
     "authorization": "Authorization",
-    "login": "Log in",
-    "logout": "Log out",
+    "login": "Login",
+    "signin": "Log in",
+    "signout": "Log out",
     "signup": "Sign up",
+    "profile": "Profile",
+    "roles": "Roles",
     "password": "Password",
     "currency": "Currency",
     "avg_price": "Average price",
@@ -103,6 +106,13 @@
    },
 
   "form" : {
+    "user": {
+      "surname": "Surname",
+      "name": "Name",
+      "middlename": "Middlename",
+      "birthdate": "Birthdate"
+    },
+
     "placeholder": {
       "text": "text",
       "number": "number",
@@ -140,6 +150,10 @@
       "phone": {
         "null": "Please set your phone!",
         "error": "Phone is not correct"
+      },
+      "birthdate": {
+        "null": "Please set your birthdate!",
+        "error": "Birthdate is not correct"
       },
       "bool": {
         "error": "Please set check"

@@ -48,7 +48,7 @@ const Auth = memo(() => {
         >
           <FormWrapper>
             <FormItemStyled
-              label={t('common.words.login')}
+              label={t('common.words.signin')}
               name="login"
               rules={rule.login}
             >
@@ -70,7 +70,7 @@ const Auth = memo(() => {
           <ControlWrapper>
             <FormItemStyled>
               <Login type="primary" htmlType="submit" loading={loading}>
-                {t('common.words.login')}
+                {t('common.words.signin')}
               </Login>
             </FormItemStyled>
             <FormItemStyled>
