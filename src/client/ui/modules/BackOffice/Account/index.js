@@ -5,12 +5,12 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { dataToForm, dataToApi } from 'client/store/backOffice/mapper/user';
 import { getDictionaryItem } from 'client/utils/common';
-import { update } from 'client/store/backOffice';
+import { update } from 'client/store/user';
 import {
   UserCircleSvg,
 } from 'client/assets/images';
 import {
-  UserWrapper,
+  AccountWrapper,
   Header,
   Title,
   Controls,
@@ -27,7 +27,7 @@ import {
   Save,
 } from './styled';
 
-const User = () => {
+const Account = () => {
   const {
     info,
     dictionary,
@@ -55,7 +55,7 @@ const User = () => {
       ...formData,
       ...values,
     };
-    rootDispatch(update({ name: 'data_users', data: dataToApi(obj, info) }));
+    rootDispatch(update({ token: info.token, data: dataToApi(obj, info) }));
     setIsChange(false);
   };
 
@@ -91,7 +91,7 @@ const User = () => {
   }, [status]);
 
   return formData && (
-    <UserWrapper>
+    <AccountWrapper>
       <Header>
         <Title
           icon={<UserCircleSvg />}
@@ -198,6 +198,7 @@ const User = () => {
                   </FormItemStyled>
                   <FormItemStyled
                     label={t('common.words.phone')}
+                    rules={rule.phone}
                     name="phone"
                   >
                     <InputMaskStyled mask="+7 (111) 111-11-11" placeholder={t('common.form.placeholder.number')} />
@@ -252,8 +253,8 @@ const User = () => {
           )}
         </FormStyled>
       </Container>
-    </UserWrapper>
+    </AccountWrapper>
   );
 };
 
-export default User;
+export default Account;

@@ -1,6 +1,6 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import * as Constants from 'client/store/user/constants';
-import * as authProvider from 'client/providers/auth';
+import * as userProvider from 'client/providers/user';
 import * as commonProvider from 'client/providers/common';
 
 function* getDictionary({ payload }) {
@@ -18,10 +18,26 @@ function* getDictionary({ payload }) {
   });
 }
 
+function* updateState({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    yield put({ type: Constants.USER_SET, payload });
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
+}
+
 function* update({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
     yield put({ type: Constants.USER_SET, payload });
+    const data = yield userProvider.update(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      yield put({ type: Constants.USER_SET, payload: { info: { ...data } } });
+    }
   } catch (err) {
     throw err;
   }
@@ -33,7 +49,7 @@ function* login({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   yield put({ type: Constants.USER_SET, payload: null });
   try {
-    const data = yield authProvider.signIn(payload);
+    const data = yield userProvider.signIn(payload);
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
@@ -49,7 +65,7 @@ function* login({ payload }) {
 function* auth({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
-    const data = yield authProvider.auth(payload);
+    const data = yield userProvider.auth(payload);
     
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
@@ -65,6 +81,10 @@ function* auth({ payload }) {
 
 function* logout() {
   yield put({ type: Constants.USER_SET, payload: { info: { token: null } } });
+}
+
+export function* watchUserUpdateState() {
+  yield takeLatest(Constants.USER_SET_STATE, updateState);
 }
 
 export function* watchUserUpdate() {

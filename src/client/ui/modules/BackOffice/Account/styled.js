@@ -13,7 +13,7 @@ import MaskedInput from 'antd-mask-input';
 const FormItem = Form.Item;
 const DescriptionsItem = Descriptions.Item;
 
-export const UserWrapper = styled.div`
+export const AccountWrapper = styled.div`
   display: flex;
   flex-direction: column;
 `;

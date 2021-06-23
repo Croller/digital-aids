@@ -3,6 +3,7 @@ const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
 const commonUtils = require('../utils/common');
+const queryUtils = require('../utils/query');
 
 const error = {
   code: 0,
@@ -19,7 +20,7 @@ const UserController = () => {
       login,
       password,
       browser = null,
-    } = req.body;
+    } = req.body.data;
 
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
@@ -57,7 +58,7 @@ const UserController = () => {
   const auth = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
     if (!tokenData) return;
-    req.body = tokenData;
+    req.body.data = tokenData;
     UserController().signin(req, res);
   };
 
@@ -95,38 +96,29 @@ const UserController = () => {
   //   }
   // };
   
-  // const update = async (req, res) => {
-  //   try {
-  //     const { data } = req.body;
-  //     const user = await jwt.verifyToken(req, res);
-  //     if (user && (user.role === 1 || data.id === user.id)) {
-  //       const { id } = { ...data };
-  //       const check = await db.query(`SELECT * FROM data_users WHERE id='${id}'`);
-  //       if (check.rows.length === 1) {
-  //         delete data.id;
-  //         data.enter_at = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
-  //         const query = Object.keys(data).map(key => (`${key}='${data[key]}'`));
-  //         const upadateUser = await db.query(`UPDATE data_users SET ${query.join(', ')} WHERE id='${id}' RETURNING *`);
-  //         res.json(upadateUser.rows[0]);
-  //       } else {
-  //         error.name = 'Update user error';
-  //         error.text = 'This user does not exist';
-  //         res.status(201);
-  //         res.json({ error });
-  //       }
-  //     } else {
-  //       error.name = 'Permition error';
-  //       error.text = 'May be you are not role with admin or you try edit another account witch not your';
-  //       res.status(201);
-  //       res.json({ error });
-  //     }
-  //   } catch (err) {
-  //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err.message);
-  //     res.status(201);
-  //     res.json({ error });
-  //   }
-  // };
+  const update = async (req, res) => {
+    const tokenData = await jwt.verifyToken(req, res);
+    const isCurrent = jwt.verifyUser(req, res, tokenData);
+    if (!tokenData || !isCurrent) return;
+    try {
+      const { data } = req.body;
+      const user = await queryUtils.updateTableRecord('data_users', data, {
+        req,
+        res,
+        language: 'en', 
+        user: tokenData,
+      });
+      const token = jwt.generateToken(user);
+      delete user.password;
+      delete user.meta;
+      res.json({ ...user, token });
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
 
   // const remove = async (req, res) => {
   //   try {
@@ -162,7 +154,7 @@ const UserController = () => {
     signin,
     auth,
     // create,
-    // update,
+    update,
     // remove,
   };
 };

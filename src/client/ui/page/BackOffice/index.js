@@ -16,7 +16,7 @@ const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
 const Flyer = lazy(() => import('client/ui/modules/BackOffice/Flyer'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
-const User = lazy(() => import('client/ui/modules/BackOffice/User'));
+const Account = lazy(() => import('client/ui/modules/BackOffice/Account'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
 const Reservations = lazy(() => import('client/ui/modules/BackOffice/Reservations'));
@@ -114,8 +114,8 @@ export const BackOffice = () => {
               component={Users}
             />
             <Route
-              path={`${PATH}/profile`}
-              component={User}
+              path={`${PATH}/account`}
+              component={Account}
             />
             <Route
               path={[

@@ -21,18 +21,11 @@ module.exports = {
     return jwt.sign(obj, signature, { expiresIn: expiration });
   },
 
-  // getToken: (req) => {
-  //   const { authorization } = commonUtils.getHeader(req);
-  //   if (authorization) {
-  //     return jwt.verify(authorization, signature);
-  //   }
-  //   return null;
-  // },
-
   verifyToken: async (req, res) => {
     const { authorization } = commonUtils.getHeader(req);
     if (authorization) {
       const data = jwt.verify(authorization, signature);
+      console.log('data', data);
       if (data) {
         const { login, password } = data;
         const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
@@ -55,9 +48,22 @@ module.exports = {
     res.json({ error });
     return null;
   },
+
+  verifyUser: (req, res, tokenData) => {
+    if (!tokenData) return null;
+    const { body: { data: { login } } } = req;
+    if (tokenData.login === login) {
+      return true;
+    } 
+    error.name = 'User not same';
+    error.code = 'userNotSame';
+    res.json({ error });
+    return null;
+  }, 
   
-  verifyRoles: (req, res, userRoles, roles) => {
-    if (userRoles.some(r => roles.includes(r))) {
+  verifyRoles: (req, res, tokenData, roles) => {
+    if (!tokenData) return null;
+    if (tokenData.roles.some(r => roles.includes(r))) {
       return true;
     } 
     error.name = 'Roles not exist';

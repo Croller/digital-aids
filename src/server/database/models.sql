@@ -3,27 +3,49 @@
 ALTER DATABASE "digital-aids" SET timezone TO 'Europe/Moscow';
 
 CREATE TABLE IF NOT EXISTS data_users (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  login varchar DEFAULT NULL,
-  password varchar DEFAULT NULL,
-  surname varchar DEFAULT NULL,
-  name varchar DEFAULT NULL,
-  middlename varchar DEFAULT NULL,
-  birthdate timestamp with time zone DEFAULT NULL,
-  phone bigint array DEFAULT NULL,
-  email varchar array DEFAULT NULL,
-  language varchar DEFAULT 'en', -- DICTIONARY dictionary_translate
+  login VARCHAR DEFAULT NULL,
+  password VARCHAR DEFAULT NULL,
+  surname VARCHAR DEFAULT NULL,
+  name VARCHAR DEFAULT NULL,
+  middlename VARCHAR DEFAULT NULL,
+  birthdate TIMESTAMP with time zone DEFAULT NULL,
+  phone BIGINT array DEFAULT NULL,
+  email VARCHAR array DEFAULT NULL,
+  language VARCHAR DEFAULT 'en', -- DICTIONARY dictionary_translate
   roles int array DEFAULT NULL, -- DICTIONARY data_roles
-  restaurants varchar ARRAY DEFAULT NULL, -- DICTIONARY data_restaurant
-  enter_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  restaurants VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY data_restaurant
+  enter_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   meta jsonb DEFAULT '{"browser": "NULL", "ip": "NULL", "geo": "NULL"}',
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
+DROP TABLE data_users_test;
+CREATE TABLE IF NOT EXISTS data_users_test (
+  number SERIAL,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  login VARCHAR NOT NULL,
+  password VARCHAR NOT NULL,
+  surname VARCHAR DEFAULT NULL,
+  name VARCHAR DEFAULT NULL,
+  middlename VARCHAR DEFAULT NULL,
+  birthdate TIMESTAMP with time zone DEFAULT NULL,
+  phone BIGINT VARCHAR DEFAULT NULL,
+  email VARCHAR array DEFAULT NULL,
+  language VARCHAR DEFAULT 'en', -- DICTIONARY dictionary_translate
+  roles VARCHAR DEFAULT NULL, -- DICTIONARY data_roles
+  restaurants VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY data_restaurant
+  enter_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  meta jsonb DEFAULT '{"browser": "NULL", "ip": "NULL", "geo": "NULL"}',
+  is_confirmed BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE,
+);
+
 CREATE TABLE IF NOT EXISTS data_restaurants (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
@@ -49,7 +71,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
 );
 
 CREATE TABLE IF NOT EXISTS data_categories (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   parent VARCHAR NULL,
   restaurant VARCHAR NOT NULL,
@@ -72,7 +94,7 @@ CREATE TABLE IF NOT EXISTS data_categories_translate (
 );
 
 CREATE TABLE IF NOT EXISTS data_dishes (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   category VARCHAR NOT NULL, -- DICTIONARY data_categories
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
@@ -99,7 +121,7 @@ CREATE TABLE IF NOT EXISTS data_dishes_translate (
 );
 
 CREATE TABLE IF NOT EXISTS data_reserve (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   name VARCHAR NOT NULL,
@@ -107,29 +129,28 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   phone VARCHAR DEFAULT NULL,
   persons INT NOT NULL,
   table_number INT DEFAULT NULL,
-  reserve_at timestamp with time zone NOT NULL DEFAULT NULL,
-  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  reserve_at TIMESTAMP with time zone NOT NULL DEFAULT NULL,
+  create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_approved BOOLEAN DEFAULT NULL,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS data_opinions (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   name VARCHAR DEFAULT NULL,
   email VARCHAR DEFAULT NULL,
   phone VARCHAR DEFAULT NULL,
   rate jsonb DEFAULT '{"service": "NULL", "meal": "NULL", "covid": "NULL", "menu": "NULL", "comments": "NULL"}',
-  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
-DROP TABLE data_orders;
 CREATE TABLE IF NOT EXISTS data_orders (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   table_number INT DEFAULT NULL,
@@ -137,33 +158,34 @@ CREATE TABLE IF NOT EXISTS data_orders (
   order_url VARCHAR NOT NULL,
   status VARCHAR DEFAULT 'waiting', --- DICTIONARY dictionary_order_status
   create_by VARCHAR DEFAULT NULL, -- DICTIONARY data_users
-  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
-  cooked_at timestamp with time zone DEFAULT NULL,
+  create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  cooked_at TIMESTAMP with time zone DEFAULT NULL,
   cook_options jsonb DEFAULT '{}',
-  delivered_at timestamp with time zone DEFAULT NULL,
+  delivered_at TIMESTAMP with time zone DEFAULT NULL,
   delivery_options jsonb DEFAULT '{}',
-  paid_at timestamp with time zone DEFAULT NULL,
+  paid_at TIMESTAMP with time zone DEFAULT NULL,
   pay_options jsonb DEFAULT '{}',
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS data_notify (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   options jsonb DEFAULT '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   table_number INT DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
-  create_at timestamp with time zone NOT NULL DEFAULT NOW(),
+  create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_roles_test (
-  number serial,
+  number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
   name VARCHAR DEFAULT NULL,  -- restaurant/groceries/clothing/literature/furniture
   description VARCHAR DEFAULT NULL,
   parent VARCHAR DEFAULT NULL,
@@ -178,7 +200,7 @@ CREATE TABLE IF NOT EXISTS dictionary_roles_test (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
-  number serial,
+  number SERIAL,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -195,7 +217,7 @@ CREATE TABLE IF NOT EXISTS dictionary_currency_translate (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_languages (
-  number serial,
+  number SERIAL,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -211,7 +233,7 @@ CREATE TABLE IF NOT EXISTS dictionary_languages_translate (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_allergens (
-  number serial,
+  number SERIAL,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -227,7 +249,7 @@ CREATE TABLE IF NOT EXISTS dictionary_allergens_translate (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_units (
-  number serial,
+  number SERIAL,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -243,7 +265,7 @@ CREATE TABLE IF NOT EXISTS dictionary_units_translate (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_days (
-  number serial,
+  number SERIAL,
   id VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -259,7 +281,7 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 );
 
 -- CREATE TABLE IF NOT EXISTS dictionary_order_status (
---   number serial,
+--   number SERIAL,
 --   id VARCHAR DEFAULT NULL,
 --   name VARCHAR DEFAULT NULL,
 --   fullname VARCHAR DEFAULT NULL,
@@ -285,7 +307,7 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 -- week_days
 -- type_categories
 -- CREATE TABLE IF NOT EXISTS dictionary_translate (
---   number serial,
+--   number SERIAL,
 --   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
 --   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
 --   parent VARCHAR NOT NULL, -- DICTIONARY
@@ -297,7 +319,7 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 
 
 -- CREATE TABLE IF NOT EXISTS dictionary_type_categories (
---   number serial,
+--   number SERIAL,
 --   id VARCHAR DEFAULT NULL,
 --   name VARCHAR DEFAULT NULL,
 --   fullname VARCHAR DEFAULT NULL,
@@ -313,7 +335,7 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 
 
 -- CREATE TABLE data_socials (
---   id serial primary key,
+--   id SERIAL primary key,
 --   fork VARCHAR DEFAULT NULL,
 --   tripadvisor VARCHAR DEFAULT NULL,
 --   facebook VARCHAR DEFAULT NULL,
@@ -321,14 +343,14 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 -- );
 
 -- CREATE TABLE data_at_work (
---   id serial primary key,
---   mon timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
---   tue timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
---   wed timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
---   thu timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
---   fri timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
---   sat timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
---   sun timestamp with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000"}'
+--   id SERIAL primary key,
+--   mon TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   tue TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   wed TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   thu TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   fri TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   sat TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T22:00:00.000"}',
+--   sun TIMESTAMP with time zone ARRAY DEFAULT '{"2020-01-01T10:00:00.000", "2020-01-01T00:00:00.000"}'
 -- );
 
   -- '{"thefork":{"name":"TheFork","rate":NULL,"url":NULL},"tripadvisor":{"name":"Tripadviser","rate":NULL,"url":NULL},"facebook":{"name":"Facebook","rate":NULL,"url":NULL},"instagram":{"name":"Instagram","rate":NULL,"url":NULL}}'
@@ -337,38 +359,38 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 
 
 -- CREATE TABLE description_data_users (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- CREATE TABLE dictionary_roles (
 --   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
---   name varchar,
---   description varchar
+--   name VARCHAR,
+--   description VARCHAR
 -- );
 
 -- CREATE TABLE description_dictionary_roles (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- // --------------------------------------------------
 
 -- CREATE TABLE data_krt (
 --   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
---   name varchar,
---   proiz_zone varchar,
---   prom_zone varchar,
+--   name VARCHAR,
+--   proiz_zone VARCHAR,
+--   prom_zone VARCHAR,
 --   pzz int,
 --   vri text[],
 --   area float,
@@ -385,130 +407,130 @@ CREATE TABLE IF NOT EXISTS dictionary_days_translate (
 --   work_places_growth int,
 --   population int,
 --   population_growth int,
---   cadaster_number varchar,
---   address varchar,
---   region varchar,
+--   cadaster_number VARCHAR,
+--   address VARCHAR,
+--   region VARCHAR,
 --   district int,
 --   kurt int,
---   geom_string varchar,
+--   geom_string VARCHAR,
   -- is_deleted BOOLEAN DEFAULT FALSE
 --   type_zone number[],
 -- );
 
 -- CREATE TABLE description_data_krt (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN
 -- );
 
 -- CREATE TABLE data_monitoring (
---   id serial primary key,
+--   id SERIAL primary key,
 --   krt int,
---   stage varchar,
---   stage_status varchar,
---   date_start timestamp with time zone,
---   date_end timestamp with time zone,
---   stage_next varchar,
---   date_next timestamp with time zone,
---   descriptions varchar,
---   responsible varchar,
+--   stage VARCHAR,
+--   stage_status VARCHAR,
+--   date_start TIMESTAMP with time zone,
+--   date_end TIMESTAMP with time zone,
+--   stage_next VARCHAR,
+--   date_next TIMESTAMP with time zone,
+--   descriptions VARCHAR,
+--   responsible VARCHAR,
 --   monitoring_part int,
 --   monitoring_group int,
 --   monitoring_group_order int,
---   project_start timestamp with time zone,
---   project_end timestamp with time zone,
---   change_at timestamp with time zone NOT NULL DEFAULT NOW(),
+--   project_start TIMESTAMP with time zone,
+--   project_end TIMESTAMP with time zone,
+--   change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
 --   is_finish BOOLEAN DEFAULT FALSE,
 --   is_deleted BOOLEAN DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_data_monitoring (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- CREATE TABLE dictionary_district (
---   id serial primary key,
---   name varchar,
---   fullname varchar,
+--   id SERIAL primary key,
+--   name VARCHAR,
+--   fullname VARCHAR,
 --   is_deleted BOOLEAN DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_district (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- CREATE TABLE dictionary_monitoring_part_data_monitoring (
---   id serial primary key,
---   name varchar,
---   fullname varchar
+--   id SERIAL primary key,
+--   name VARCHAR,
+--   fullname VARCHAR
 --   is_deleted BOOLEAN DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_monitoring_part_data_monitoring (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- CREATE TABLE dictionary_monitoring_group_data_monitoring (
---   id serial primary key,
---   name varchar,
---   fullname varchar,
+--   id SERIAL primary key,
+--   name VARCHAR,
+--   fullname VARCHAR,
 --   order_at int,
 --   monitoring_part int,
 --   is_deleted BOOLEAN DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_monitoring_group_data_monitoring (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- CREATE TABLE description_tables (
---   id serial primary key,
---   key varchar,
---   name varchar,
+--   id SERIAL primary key,
+--   key VARCHAR,
+--   name VARCHAR,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );
 
 -- CREATE TABLE dictionary_type_zone_krt (
---   id serial primary key,
---   name varchar,
---   description varchar,
+--   id SERIAL primary key,
+--   name VARCHAR,
+--   description VARCHAR,
 --   is_deleted BOOLEAN DEFAULT FALSE
 -- );
 
 -- CREATE TABLE description_type_zone_krt (
---   key varchar,
---   name varchar,
---   type varchar,
+--   key VARCHAR,
+--   name VARCHAR,
+--   type VARCHAR,
 --   required BOOLEAN,
 --   edit BOOLEAN,
 --   system BOOLEAN,
---   dictionary varchar
+--   dictionary VARCHAR
 -- );

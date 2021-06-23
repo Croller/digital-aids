@@ -38,6 +38,13 @@ export default function (state = initState, action) {
   }
 }
 
+export function set(payload) {
+  return {
+    type: Constants.USER_SET_STATE,
+    payload,
+  };
+}
+
 export function update(payload) {
   return {
     type: Constants.USER_UPDATE,

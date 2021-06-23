@@ -1,6 +1,7 @@
 const routes = {
   'POST /api/user/signin': 'UserController.signin',
   'GET /api/user/auth': 'UserController.auth',
+  'POST /api/user/update': 'UserController.update',
 
   'GET /api/table': 'CommonController.getTableByNames',
   'GET /api/table/:name/record': 'CommonController.getTableRecordById',

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
 import { setLocalUser } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
-import { update } from 'client/store/user';
+import { set } from 'client/store/user';
 import {
   LogoSvg,
   CloseSvg,
@@ -43,7 +43,7 @@ const HeaderComponent = ({
     if (lng) {
       translate.changeLanguage(lng);
       setLocalUser({ lng });
-      rootDispatch(update({ info: { ...info, language: lng } }));
+      rootDispatch(set({ info: { ...info, language: lng } }));
     }
     setLangList(false);
   };
@@ -67,8 +67,8 @@ const HeaderComponent = ({
         {id && token && (
           <>
             <User
-              active={pathname.indexOf('profile') > -1}
-              onClick={() => onRoute('profile')}
+              active={pathname.indexOf('account') > -1}
+              onClick={() => onRoute('account')}
             >
               <UserCircleSvg />
             </User>
