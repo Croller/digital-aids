@@ -7,6 +7,7 @@ import {
   Conversation1Svg,
   Conversation2Svg,
   ChecklistSvg,
+  CalendarAltSvg,
 } from 'client/assets/images';
 import { 
   SidebarWrapper,
@@ -38,6 +39,11 @@ const MENU_USER_LIST = [
   {
     key: 'staff',
     icon: <UsersSvg />,
+    roles: ['root', 'root_back'],
+  },
+  {
+    key: 'schedule',
+    icon: <CalendarAltSvg />,
     roles: ['root', 'root_back'],
   },
   {

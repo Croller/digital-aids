@@ -5,6 +5,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { init, update, deleteFiles } from 'client/store/backOffice';
 import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
+import { getDictionaryItem } from 'client/utils/common';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -103,14 +104,6 @@ const Category = () => {
       dishesFilter = categorySpec ? dishes.filter(f => f.category === categorySpec.id && !f.is_deleted && f.is_archived === isArchive) : [];
     }
     setDishCategory(dishesFilter);
-  };
-
-  const getItemDictionary = (id) => {
-    const item = dictionary.languages.find(f => f.id === id);
-    if (item) {
-      return item.name;
-    }
-    return 'error';
   };
 
   const getRules = (obj = null) => {
@@ -258,7 +251,7 @@ const Category = () => {
                 onClick={() => handleRoute('language', lng)}
               >
                 {lng === 'en' && (<AlertCircleSvg />)}
-                {getItemDictionary(lng)}
+                {getDictionaryItem(lng, 'key', dictionary.language, 'name')}
               </Lng>
             ))}
           </ListLng>
