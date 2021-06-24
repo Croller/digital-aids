@@ -95,10 +95,10 @@ const updateTableRecord = async (table, data, params) => {
 
       // options added to users, restaurants created
       if (table === 'data_restaurants') {
-        query = 'INSERT INTO data_roles_test (name, restaurant, owner, owner_back, manager, manager_back, employee, guest) VALUES ($1, $2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE) RETURNING *';
+        query = 'INSERT INTO data_roles (name, restaurant, owner, owner_back, manager, manager_back, employee, guest) VALUES ($1, $2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE) RETURNING *';
         values = ['Owner', result.rows[0].id];
         const newroles = await db.queryValues(query, values);
-        query = 'UPDATE data_users_test SET roles=$1 WHERE login=$2 AND password=$3';
+        query = 'UPDATE data_users SET roles=$1 WHERE login=$2 AND password=$3';
         values = [[...roles, newroles.rows[0].id], login, password];
         await db.queryValues(query, values);
       }

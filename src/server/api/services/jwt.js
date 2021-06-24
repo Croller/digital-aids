@@ -44,7 +44,7 @@ const decodeToken = (req, res) => {
 const verifyToken = async (req, res) => {
   const data = decodeToken(req, res);
   const { login, password } = data;
-  const result = await db.query(`SELECT * FROM data_users_test WHERE login='${login}' AND password='${password}'`);
+  const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
   if (result.rows.length === 1) {
     const user = result.rows[0];
     return user;
@@ -67,7 +67,7 @@ const verifyUser = (req, res, tokenData) => {
 
 const verifyRoles = async (req, res, tokenData, roles) => {
   if (!tokenData) return null;
-  query = 'SELECT * FROM data_roles_test WHERE id = ANY ($1) AND is_deleted=FALSE';
+  query = 'SELECT * FROM data_roles WHERE id = ANY ($1) AND is_deleted=FALSE';
   values = [tokenData.roles];
   results = await db.queryValues(query, values);
   if (results.rows.length > 0 && roles.some(r => results.rows.some(s => s[r]))) {

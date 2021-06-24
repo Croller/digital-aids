@@ -23,7 +23,7 @@ const Users = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    rootDispatch(loadTables({ names: ['data_users_test', 'data_roles_test'] }));
+    rootDispatch(loadTables({ names: ['data_users', 'data_roles'] }));
   }, []);
 
   useEffect(() => {

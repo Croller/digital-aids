@@ -28,11 +28,11 @@ const UserController = () => {
     const meta = JSON.stringify({ ip, browser, geo });
 
     try {
-      query = 'SELECT * FROM data_users_test WHERE login=$1 AND password=$2';
+      query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
       values = [login, password];
       const result = await db.queryValues(query, values);
       if (result.rows.length === 1) {
-        query = 'UPDATE data_users_test SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
+        query = 'UPDATE data_users SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
         values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), login, password, meta];
         await db.queryValues(query, values);
         const user = result.rows[0];
@@ -66,7 +66,7 @@ const UserController = () => {
     try {
       const { data } = req.body;
       const { login, email } = data;
-      query = 'SELECT * FROM data_users_test WHERE login=$1 OR email=$2';
+      query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
       values = [login, email];
       let result = await db.queryValues(query, values);
 
@@ -76,7 +76,7 @@ const UserController = () => {
           values: [...obj.values, data[key]],
         }), { fields: [], values: [] });
 
-        query = `INSERT INTO data_users_test (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
+        query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
         result = await db.queryValues(query, mapper.values);
         
         res.status(200);
@@ -98,11 +98,11 @@ const UserController = () => {
   const reset = async (req, res) => {
     try {
       const { data } = req.body;
-      query = 'SELECT * FROM data_users_test WHERE email=$1';
+      query = 'SELECT * FROM data_users WHERE email=$1';
       values = [data.email];
       const result = await db.queryValues(query, values);
       if (result.rows.length === 1) {
-        query = 'UPDATE data_users_test SET password=$1 WHERE email=$2';
+        query = 'UPDATE data_users SET password=$1 WHERE email=$2';
         values = [commonUtils.getStringRandom(7), data.email];
         await db.queryValues(query, values);
 
@@ -128,7 +128,7 @@ const UserController = () => {
     if (!tokenData || !isCurrent) return;
     try {
       const { data } = req.body;
-      const user = await queryUtils.updateTableRecord('data_users_test', data, {
+      const user = await queryUtils.updateTableRecord('data_users', data, {
         req,
         res,
         language: 'en', 

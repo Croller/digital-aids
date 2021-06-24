@@ -49,7 +49,7 @@ function* signin({ payload }) {
       const roles = yield commonProvider.loadRowByParam({
         language,
         token: data.token,
-        name: 'data_roles_test',
+        name: 'data_roles',
         data: { restaurant: data.restaurants, id: data.roles }, 
       });
       yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
@@ -72,7 +72,7 @@ function* auth({ payload }) {
       const roles = yield commonProvider.loadRowByParam({
         language,
         token: data.token,
-        name: 'data_roles_test',
+        name: 'data_roles',
         data: { restaurant: data.restaurants, id: data.roles }, 
       });
       yield put({ type: Constants.USER_SET, payload: { info: data, roles } });
