@@ -1,5 +1,8 @@
 /* eslint-disable camelcase */
 
+// code example node-pg-migrate
+// https://github.com/salsita/node-pg-migrate/tree/master/test/migrations
+
 exports.comment = 'create/drop table t1';
 
 exports.up = (pgm) => {
