@@ -166,7 +166,7 @@ function* updateRow({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* getTables({ payload }) {
+function* loadTables({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { names } = payload;
   const { token, language } = yield select((store) => store.user.info);
@@ -193,34 +193,7 @@ function* getTables({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* getTableRows({ payload: { name, ids = null } }) {
-  yield put({ type: Constants.BO_LOADING_SET, payload: true });
-  const { token, language, restaurants } = yield select((store) => store.user.info);
-  const backOffice = yield select((store) => store.backOffice);
-  const arr = ids || restaurants;
-  try {
-    const results = yield commonProvider.loadRow({
-      name,
-      token,
-      language,
-      data: arr,
-    });
-    if (results.error) {
-      yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
-    } else if (results) {
-      const table = name.split('_')[1];
-      yield put({
-        type: Constants.BO_SET,
-        payload: { [table]: [...(backOffice.restaurants || []), ...results] },
-      });
-    }
-  } catch (err) {
-    throw err;
-  }
-  yield put({ type: Constants.BO_LOADING_SET, payload: false });
-}
-
-function* getTableRowsByParam({ payload: { name, data } }) {
+function* loadTableRows({ payload: { name, data } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { token, language } = yield select((store) => store.user.info);
   try {
@@ -270,16 +243,12 @@ export function* watchBOdeleteFile() {
   yield takeLatest(Constants.BO_DELETE_FILE, deleteFiles);
 }
 
-export function* watchBOload() {
-  yield takeLatest(Constants.BO_LOAD, getTables);
-}
-
 export function* watchBOloadItems() {
-  yield takeLatest(Constants.BO_LOAD_ITEMS, getTableRows);
+  yield takeLatest(Constants.BO_LOAD_ITEMS, loadTableRows);
 }
 
-export function* watchBOloadItemsByParam() {
-  yield takeLatest(Constants.BO_LOAD_ITEMS_BY_PARAM, getTableRowsByParam);
+export function* watchBOloadTables() {
+  yield takeLatest(Constants.BO_LOAD_TABLES, loadTables);
 }
 
 export function* watchAndLog() {

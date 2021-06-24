@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { StarHalfDashedSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
 import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
-import { loadByParam } from 'client/store/backOffice';
+import { loadItems } from 'client/store/backOffice';
 import { OpinionInfo } from 'client/ui/modules/BackOffice/components/OpinionInfo';
 import moment from 'moment';
 import {
@@ -42,7 +42,7 @@ const Opinions = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    rootDispatch(loadByParam({
+    rootDispatch(loadItems({
       name: 'data_opinions',
       data: { restaurant },
     }));

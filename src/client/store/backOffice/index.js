@@ -8,7 +8,7 @@ const initState = {
   opinions: null,
   orders: null,
   notify: null,
-
+  users: null,
   dictionary: null,
 
   alert: {
@@ -62,9 +62,16 @@ export function update(payload) {
   };
 }
 
-export function loadByParam(payload) {
+export function loadItems(payload) {
   return {
-    type: Constants.BO_LOAD_ITEMS_BY_PARAM,
+    type: Constants.BO_LOAD_ITEMS,
+    payload,
+  };
+}
+
+export function loadTables(payload) {
+  return {
+    type: Constants.BO_LOAD_TABLES,
     payload,
   };
 }

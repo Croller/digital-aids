@@ -23,7 +23,7 @@ export const Header = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 32px;
+  margin-bottom: 42px;
 `;
 
 export const Title = styled(IconText)`

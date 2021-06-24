@@ -105,6 +105,7 @@ const Account = () => {
           onFinish={handleFinish}
           onValuesChange={handleValuesChange}
           onFinishFailed={handleFinishFailed}
+          scrollToFirstError
         >
           {!isEdit ? (
             <>
@@ -185,15 +186,14 @@ const Account = () => {
                   <FormItemStyled
                     label={t('common.form.user.birthdate')}
                     name="birthdate"
-                    required
                     rules={rule.birthdate}
                   >
                     <InputMaskStyled mask="11.11.1111" placeholder={t('common.form.placeholder.text')} />
                   </FormItemStyled>
                   <FormItemStyled
                     label={t('common.words.phone')}
-                    rules={rule.phone}
                     name="phone"
+                    rules={rule.phone}
                   >
                     <InputMaskStyled mask="+7 (111) 111-11-11" placeholder={t('common.form.placeholder.number')} />
                   </FormItemStyled>

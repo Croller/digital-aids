@@ -19,7 +19,7 @@ export const dataToForm = (data) => {
     middlename,
     login,
     password,
-    birthdate: moment(birthdate).isValid ? moment(birthdate).format('DD.MM.YYYY') : null,
+    birthdate: moment(birthdate).isValid() ? moment(birthdate).format('DD.MM.YYYY') : null,
     email,
     phone,
     roles,

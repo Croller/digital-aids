@@ -6,7 +6,7 @@ import { ShoppingBagSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
 import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import { OrderInfo } from 'client/ui/modules/BackOffice/components/OrderInfo';
 import moment from 'moment';
-import { update, loadByParam } from 'client/store/backOffice';
+import { update, loadItems } from 'client/store/backOffice';
 import {
   OrderWrapper,
   NavBarStyled,
@@ -46,7 +46,7 @@ const Orders = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    rootDispatch(loadByParam({
+    rootDispatch(loadItems({
       name: 'data_orders',
       data: { restaurant },
     }));

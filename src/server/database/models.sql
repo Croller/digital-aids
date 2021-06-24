@@ -201,6 +201,13 @@ CREATE TABLE IF NOT EXISTS data_roles_test (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
+CREATE TABLE IF NOT EXISTS data_roles_test_translate (
+  id VARCHAR NOT NULL, -- DICTIONARY data_roles_test
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
 CREATE TABLE IF NOT EXISTS dictionary_currency (
   number SERIAL,
   id VARCHAR DEFAULT NULL,
