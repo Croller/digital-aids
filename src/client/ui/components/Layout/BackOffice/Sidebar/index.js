@@ -19,32 +19,32 @@ const MENU_LIST = [
   {
     key: 'restaurants',
     icon: <RestaurantSvg />,
-    roles: [1, 2, 3, 4],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
   },
   {
     key: 'users',
     icon: <UsersSvg />,
-    roles: [1],
+    roles: ['root', 'root_back'],
   },
   {
     key: 'staff',
     icon: <UsersSvg />,
-    roles: [1, 2],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee'],
   },
   {
     key: 'reports',
     icon: <ChecklistSvg />,
-    roles: [1, 2],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee'],
   },
   {
     key: 'chat',
     icon: <Conversation1Svg />,
-    roles: [1, 2],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee'],
   },
   {
     key: 'news',
     icon: <Conversation2Svg />,
-    roles: [1, 2],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee'],
   },
   // {
   //   key: 'mails',
@@ -63,7 +63,7 @@ export const Sidebar = memo(({
   return (
     <SidebarWrapper>
       <Menu>
-        {MENU_LIST.filter(f => roles.some(s => f.roles.includes(s))).map(({ key, icon }) => (
+        {MENU_LIST.filter(f => f.roles.some(s => roles.some(r => r[s]))).map(({ key, icon }) => (
           <Item
             key={`_item_menu_${key}`}
             active={path.indexOf(key.slice(0, -1)) > -1}

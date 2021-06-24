@@ -27,7 +27,7 @@ const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
   const params = useParams();
-  const { token, roles } = useSelector(store => store.user.info);
+  const { token } = useSelector(store => store.user.info);
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -43,7 +43,7 @@ export const BackOffice = () => {
     <Layout>
       <Switch>
         <Route path={`${PATH}/auth`} component={Auth} />
-        {token && [1, 2, 3, 4].some(s => roles.some(r => r === s)) && (
+        {token && (
           <>
             <Route
               exact

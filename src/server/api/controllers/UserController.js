@@ -28,11 +28,11 @@ const UserController = () => {
     const meta = JSON.stringify({ ip, browser, geo });
 
     try {
-      query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
+      query = 'SELECT * FROM data_users_test WHERE login=$1 AND password=$2';
       values = [login, password];
       const result = await db.queryValues(query, values);
       if (result.rows.length === 1) {
-        query = 'UPDATE data_users SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
+        query = 'UPDATE data_users_test SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
         values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), login, password, meta];
         await db.queryValues(query, values);
         const user = result.rows[0];
@@ -105,7 +105,7 @@ const UserController = () => {
         query = 'UPDATE data_users_test SET password=$1 WHERE email=$2';
         values = [commonUtils.getStringRandom(7), data.email];
         await db.queryValues(query, values);
-        
+
         res.status(200);
         res.send();
       } else {
@@ -128,7 +128,7 @@ const UserController = () => {
     if (!tokenData || !isCurrent) return;
     try {
       const { data } = req.body;
-      const user = await queryUtils.updateTableRecord('data_users', data, {
+      const user = await queryUtils.updateTableRecord('data_users_test', data, {
         req,
         res,
         language: 'en', 

@@ -28,7 +28,7 @@ INSERT INTO data_users_test (login, password, surname, name, middlename, birthda
 
 with _insert as 
 (
-  INSERT INTO dictionary_roles_test (name, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Admin', TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
     RETURNING id
 )
@@ -38,7 +38,7 @@ where login = 'rootAdmin';
 
 with _insert as 
 (
-  INSERT INTO dictionary_roles_test (name, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Admin Back', FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
     RETURNING id
 )
@@ -48,7 +48,7 @@ where login = 'root_backAdmin';
 
 with _role_current as 
 (
-  INSERT INTO dictionary_roles_test (name, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Guest', FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
     RETURNING id
 )
@@ -62,18 +62,17 @@ with _restaurant as
 )
 , _role_guest as 
 (
-  SELECT * FROM dictionary_roles_test WHERE name='Guest'
+  SELECT * FROM data_roles_test WHERE name='Guest'
 )
 , _role_current as 
 (
-  INSERT INTO dictionary_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Owner', (select id from _restaurant), FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
     RETURNING id
 )
 UPDATE data_users_test 
   SET
-    roles=ARRAY[(select id from _role_guest), (select id from _role_current)],
-    restaurants=ARRAY[(select id from _restaurant)]
+    roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 where login = 'owner';
 
 with _restaurant as 
@@ -82,18 +81,17 @@ with _restaurant as
 )
 , _role_guest as 
 (
-  SELECT * FROM dictionary_roles_test WHERE name='Guest'
+  SELECT * FROM data_roles_test WHERE name='Guest'
 )
 , _role_current as 
 (
-  INSERT INTO dictionary_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Owner Back', (select id from _restaurant), FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
     RETURNING id
 )
 UPDATE data_users_test 
     SET
-    roles=ARRAY[(select id from _role_guest), (select id from _role_current)],
-    restaurants=ARRAY[(select id from _restaurant)]
+    roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 where login = 'owner_back';
 
 with _restaurant as 
@@ -102,18 +100,17 @@ with _restaurant as
 )
 , _role_guest as 
 (
-  SELECT * FROM dictionary_roles_test WHERE name='Guest'
+  SELECT * FROM data_roles_test WHERE name='Guest'
 )
 , _role_current as 
 (
-  INSERT INTO dictionary_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Manager', (select id from _restaurant), FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
     RETURNING id
 )
 UPDATE data_users_test 
     SET
-    roles=ARRAY[(select id from _role_guest), (select id from _role_current)],
-    restaurants=ARRAY[(select id from _restaurant)]
+    roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 where login = 'manager';
 
 with _restaurant as 
@@ -122,18 +119,17 @@ with _restaurant as
 )
 , _role_guest as 
 (
-  SELECT * FROM dictionary_roles_test WHERE name='Guest'
+  SELECT * FROM data_roles_test WHERE name='Guest'
 )
 , _role_current as 
 (
-  INSERT INTO dictionary_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Manager Back', (select id from _restaurant), FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE)
     RETURNING id
 )
 UPDATE data_users_test 
     SET
-    roles=ARRAY[(select id from _role_guest), (select id from _role_current)],
-    restaurants=ARRAY[(select id from _restaurant)]
+    roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 where login = 'manager_back';
 
 with _restaurant as 
@@ -142,19 +138,18 @@ with _restaurant as
 )
 , _role_guest as 
 (
-  SELECT * FROM dictionary_roles_test WHERE name='Guest'
+  SELECT * FROM data_roles_test WHERE name='Guest'
 )
 , _role_current as 
 (
-  INSERT INTO dictionary_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
+  INSERT INTO data_roles_test (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, guest) VALUES 
     ('Employee', (select id from _restaurant), FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE)
     RETURNING id
 )
 UPDATE data_users_test 
     SET
-    roles=ARRAY[(select id from _role_guest), (select id from _role_current)],
-    restaurants=ARRAY[(select id from _restaurant)]
+    roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 where login = 'employee';
 
 SELECT * FROM data_users_test;
-SELECT * FROM dictionary_roles_test;
+SELECT * FROM data_roles_test;

@@ -25,10 +25,9 @@ module.exports = {
     const { authorization } = commonUtils.getHeader(req);
     if (authorization) {
       const data = jwt.verify(authorization, signature);
-      console.log('data', data);
       if (data) {
         const { login, password } = data;
-        const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
+        const result = await db.query(`SELECT * FROM data_users_test WHERE login='${login}' AND password='${password}'`);
         if (result.rows.length === 1) {
           const user = result.rows[0];
           return user;

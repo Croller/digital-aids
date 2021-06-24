@@ -3,20 +3,15 @@ import * as Constants from 'client/store/user/constants';
 import * as userProvider from 'client/providers/user';
 import * as commonProvider from 'client/providers/common';
 
-function* getDictionary({ payload }) {
-  const { token, language = 'en', data } = payload;
-  const results_dictionary = yield commonProvider.loadTable({
-    token,
-    language,
-    data,
-  });
-  yield put({
-    type: Constants.USER_SET,
-    payload: {
-      dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
-    },
-  });
-}
+// function* getDictionary({ payload }) {
+//   const results_dictionary = yield commonProvider.loadRowByParam(payload);
+//   yield put({
+//     type: Constants.USER_SET,
+//     payload: {
+//       dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
+//     },
+//   });
+// }
 
 function* updateState({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
@@ -51,8 +46,13 @@ function* signin({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield getDictionary({ payload: { token: data.token, data: ['dictionary_roles'] } });
-      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language } } });
+      const roles = yield commonProvider.loadRowByParam({
+        language,
+        token: data.token,
+        name: 'data_roles_test',
+        data: { restaurant: data.restaurants, id: data.roles }, 
+      });
+      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
     }
   } catch (err) {
     throw err;
@@ -61,6 +61,7 @@ function* signin({ payload }) {
 }
 
 function* auth({ payload }) {
+  const { language } = payload;
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
     const data = yield userProvider.auth(payload);
@@ -68,8 +69,13 @@ function* auth({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield getDictionary({ payload: { token: data.token, data: ['dictionary_roles'] } });
-      yield put({ type: Constants.USER_SET, payload: { info: data } });
+      const roles = yield commonProvider.loadRowByParam({
+        language,
+        token: data.token,
+        name: 'data_roles_test',
+        data: { restaurant: data.restaurants, id: data.roles }, 
+      });
+      yield put({ type: Constants.USER_SET, payload: { info: data, roles } });
     }
   } catch (err) {
     throw err;

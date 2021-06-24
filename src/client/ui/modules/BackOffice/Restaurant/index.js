@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getDictionaryItem, getUrl, loadFile } from 'client/utils/common';
+import { getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { AlertCircleSvg } from 'client/assets/images';
 import { getCoordsByAddress } from 'client/providers/common';
@@ -37,8 +37,7 @@ import {
 
 const Restaurant = () => {
   const {
-    user,
-    user: { info: { language, roles } },
+    user: { info: { language }, roles },
     backOffice: { 
       restaurants,
       dictionary,
@@ -357,7 +356,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            {roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id')) && (
+            {roles.some(f => f.root || f.root_back) && (
               <Form2Col>
                 <FormCol>
                   <FormItemStyled
@@ -393,7 +392,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            {roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id')) && (
+            {roles.some(f => f.root || f.root_back) && (
               <Form2Col>
                 <FormCol>
                   <FormItemStyled

@@ -28,14 +28,8 @@ import {
 } from './styled';
 
 const Account = () => {
-  const {
-    info,
-    dictionary,
-  } = useSelector(s => s.user);
-  const {
-    status,
-    loading,
-  } = useSelector(s => s.backOffice);
+  const { info, roles } = useSelector(s => s.user);
+  const { status, loading } = useSelector(s => s.backOffice);
   const [t] = useTranslation();
   const rule = rules(t);
   const rootDispatch = useDispatch();
@@ -79,7 +73,7 @@ const Account = () => {
 
   useEffect(() => {
     if (info && info.token) {
-      const rolesMap = info.roles.map(role => getDictionaryItem(role, 'id', dictionary.roles, 'name'));
+      const rolesMap = info.roles.map(role => getDictionaryItem(role, 'id', roles, 'name'));
       setFiledsValue({ ...dataToForm(info), roles: rolesMap.join(', ') });
     }
   }, [info, info.token]);
@@ -218,7 +212,7 @@ const Account = () => {
                     rules={rule.text}
                   >
                     <InputStyled
-                      disabled={info.roles.includes(1)}
+                      disabled={roles.some(s => s.root)}
                       placeholder={t('common.form.placeholder.text')}
                     />
                   </FormItemStyled>
@@ -230,7 +224,7 @@ const Account = () => {
                   >
                     <InputStyled
                       type="password"
-                      disabled={info.roles.includes(1)}
+                      disabled={roles.some(s => s.root)}
                       placeholder={t('common.form.placeholder.text')}
                     />
                   </FormItemStyled>

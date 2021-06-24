@@ -18,10 +18,10 @@ const initState = {
     enter_at: null,
     meta: { browser: null, ip: null, geo: null },
   },
+  roles: null,
+  dictionary: null,
   position: 'guest',
 
-  dictionary: null,
-  
   loading: false,
   status: null,
   error: null,

@@ -46,6 +46,10 @@ const Category = () => {
   const [restCategoryActive, setRestCategoryActive] = useState(null);
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
   const [dishCategory, setDishCategory] = useState([]);
+  const { user: { roles }, backOffice } = useSelector(s => s);
+  const pageSpec = ['foodtips', 'special-deals'];
+  const pageSpecActive = pageSpec.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
+  const isArchive = pathname.indexOf('/archive') > -1;
   const {
     restaurants,
     categories,
@@ -53,11 +57,7 @@ const Category = () => {
     dictionary,
     status,
     loading,
-  } = useSelector(state => state.backOffice);
-
-  const pageSpec = ['foodtips', 'special-deals'];
-  const pageSpecActive = pageSpec.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
-  const isArchive = pathname.indexOf('/archive') > -1;
+  } = backOffice;
 
   const initCategory = () => {
     let categoryFilter = [];
@@ -274,14 +274,14 @@ const Category = () => {
                     {item.name}
                   </Caterory>
                 ))}
-                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && (
+                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && roles.some(f => f.manager || f.manager_back) && (
                   <Caterory new onClick={handleAddCategory}>
                     {t('common.words.newCategory')}
                     <PlusSvg />
                   </Caterory>
                 )}
               </ListCategory>
-              {restCategory.length > 0 && !restCategoryEdit && (
+              {restCategory.length > 0 && !restCategoryEdit && roles.some(f => f.manager || f.manager_back) && (
                 <CategoryEdit
                   onClick={() => { 
                     setDishCategory([]);
@@ -310,7 +310,7 @@ const Category = () => {
               options={restCategoryActive.options}
             />
           )}
-          {!isArchive && restCategoryActive && (
+          {!isArchive && restCategoryActive && roles.some(f => f.manager || f.manager_back) && (
             <DishControls>
               <NewDish
                 onClick={handleAddDish}
@@ -334,6 +334,7 @@ const Category = () => {
                 <DishFormStyled
                   key={`_dish_${dish ? dish.id : 'new'}`}
                   source={dish}
+                  roles={roles}
                   type={restCategoryActive.type}
                   controls={!restCategoryActive.is_archived}
                   dishes={getRestDishes()}

@@ -95,7 +95,7 @@ export const RestaurantInfo = ({
   const [t] = useTranslation();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const { alert } = useSelector(state => state.backOffice);
+  const { backOffice: { alert }, user: { roles } } = useSelector(s => s);
   const { pathname } = useLocation();
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
@@ -138,10 +138,10 @@ export const RestaurantInfo = ({
       if (pathname.indexOf('/restaurants/archive') > -1) {
         return arr.filter(({ key }) => ['restore', 'delete'].includes(key));
       }
-      return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
+      return arr.filter(({ key }) => ['archive', 'edit'].includes(key) && roles.some(f => f.owner || f.owner_back));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return arr.filter(({ key }) => ['orders', 'notify', 'flyer', 'reserve', 'opinions'].includes(key));
+      return arr.filter(({ key }) => (['flyer', 'reserve', 'opinions'].includes(key) && roles.some(f => f.manager || f.manager_back)) || (['orders', 'notify'].includes(key) && roles.some(f => f.employee)));
     }
     return [];
   };

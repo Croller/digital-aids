@@ -6,7 +6,7 @@ import {
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
-import { getDictionaryItem, updateItem } from 'client/utils/common';
+import { updateItem } from 'client/utils/common';
 import { categoryModel } from 'client/store/backOffice/mapper/category';
 
 function* updateState({ payload }) {
@@ -286,14 +286,15 @@ export function* watchAndLog() {
   while (true) {
     const action = yield take('*');
     const { type, payload } = action;
-    const { user } = yield select();
+    // const { user } = yield select();
 
     if (payload && payload.info && type === 'USER_SET') {
-      const { info: { token, roles } } = payload;
-      if (token && roles && !['guest'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id')))) {
-        let ids = null;
-        if (['owner', 'employees'].some(s => roles.includes(getDictionaryItem(s, 'name', user.dictionary.roles, 'id'))) && !roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id'))) {
-          ids = payload.info.restaurants || [];
+      const { info: { token }, roles } = payload;
+      let ids = null;
+      if (roles && token) {
+        const isRoot = roles.some(f => f.root || f.root_back);
+        if (!isRoot) {
+          ids = roles.map(m => m.restaurant).filter(f => f) || [];
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
       }

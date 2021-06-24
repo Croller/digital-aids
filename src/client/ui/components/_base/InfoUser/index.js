@@ -49,7 +49,7 @@ export const InfoUser = () => {
     }
 
     if (localUser.token && !token && [pathCurrent].some(f => pathname.indexOf(f) > -1)) {
-      rootDispatch(auth({ token: localUser.token }));
+      rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
       localUser.token = null;
       localUser.enter_at = null;
     }
@@ -66,6 +66,7 @@ export const InfoUser = () => {
       rootDispatch(login({
         login: process.env.BACK_OFFICE_ADMIN_LOGIN,
         password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
+        language: localUser.lng,
       }));
     }
     

@@ -20,8 +20,8 @@ export const dataToForm = (data) => {
     login,
     password,
     birthdate: moment(birthdate).isValid ? moment(birthdate).format('DD.MM.YYYY') : null,
-    email: email[0] || '',
-    phone: phone[0] || '',
+    email,
+    phone,
     roles,
   };
 };
@@ -45,8 +45,8 @@ export const dataToApi = (data, source) => {
     middlename,
     login,
     birthdate: moment(birthdate).isValid ? moment(birthdate, 'DD.MM.YYYY').format('YYYY-MM-DDTHH:mm:ss.SSS') : null,
-    email: [email, ...source.email.filter((f, i) => i !== 0)],
-    phone: [phone, ...source.phone.filter((f, i) => i !== 0)],
+    email,
+    phone,
     ...(password === '1111111111' ? {} : { password }),
   };
 };

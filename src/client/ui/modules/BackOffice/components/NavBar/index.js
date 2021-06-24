@@ -37,7 +37,7 @@ export const NavBar = ({
   const history = useHistory();
   const params = useParams();
   const { pathname } = useLocation();
-  const { roles } = useSelector(state => state.user.info);
+  const { roles } = useSelector(state => state.user);
   const [options, setOptions] = useState({
     back: false,
     loupe: false,
@@ -116,8 +116,6 @@ export const NavBar = ({
     onSearch(str.toLowerCase());
   };
 
-  const haveRole = (arr) => arr.some(s => roles.includes(s));
-
   useEffect(() => {
     const data = { ...options };
     let page = 'restaurants';
@@ -183,7 +181,7 @@ export const NavBar = ({
             {t(`common.words.${options.back.text}`)}
           </BackBtn>
         )}
-        {options.add_new && haveRole([1, 2]) && (
+        {options.add_new && roles.some(f => f.guest) && (
           <AddBtn onClick={() => handleRoute('new')}>
             <PlusSvg />
             {t('common.words.newAdd')}
@@ -209,14 +207,14 @@ export const NavBar = ({
             <LoupeSvg />
           </LoupeBtn>
         )}
-        {options.delete && haveRole([1, 2]) && (
+        {options.delete && roles.some(f => f.owner || f.owner_back) && (
           <Tooltip placement="top" title={t('common.words.delete')}>
             <DeleteBtn onClick={() => handleChange('delete')}>
               <TrashSvg />
             </DeleteBtn>
           </Tooltip>
         )}
-        {options.archive && haveRole([1, 2]) && (
+        {options.archive && roles.some(f => f.owner || f.owner_back) && (
           <ArchiveBtn onClick={() => handleRoute('archive')}>
             <ArchiveSvg />
             {t('common.words.archive')}
