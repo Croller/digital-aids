@@ -8,6 +8,7 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
 import { getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
+import { auth } from 'client/store/user';
 import { AlertCircleSvg } from 'client/assets/images';
 import { getCoordsByAddress } from 'client/providers/common';
 import { useDebounce } from 'client/ui/components/_base/Debounce';
@@ -37,7 +38,7 @@ import {
 
 const Restaurant = () => {
   const {
-    user: { info: { language }, roles },
+    user: { info: { language, token }, roles },
     backOffice: { 
       restaurants,
       dictionary,
@@ -45,7 +46,6 @@ const Restaurant = () => {
       loading,
     },
   } = useSelector(s => s);
-
   const [t] = useTranslation();
   const rule = rules(t);
   const params = useParams();
@@ -200,6 +200,7 @@ const Restaurant = () => {
   useEffect(() => {
     if (status) {
       if (status === 'created') {
+        rootDispatch(auth({ token, language }));
         history.goBack();
       }
       showMessage({ type: 'success', content: t(`common.words.${status}`) });

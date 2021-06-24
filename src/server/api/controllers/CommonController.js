@@ -129,7 +129,7 @@ const CommonController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
-    const rolesExist = await jwt.verifyRoles(req, res, tokenData, ['manager', 'manager_back']);
+    const rolesExist = await jwt.verifyRoles(req, res, tokenData, ['guest']);
     if (!tokenData || !rolesExist) return null;
     try {
       const { name } = req.params;

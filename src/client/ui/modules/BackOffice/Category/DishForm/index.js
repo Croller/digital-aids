@@ -54,7 +54,7 @@ export const DishForm = ({
   type = null,
   dishes = null,
   categories = null,
-  resaurant = null,
+  restaurant = null,
   controls = true,
   loading = false,
   dictionary = null,
@@ -195,7 +195,7 @@ export const DishForm = ({
       ...formData,
       ...values,
     };
-    onChange(dataToApi(obj, categories, resaurant, language));
+    onChange(dataToApi(obj, categories, restaurant, language));
     onChangeFiles(deletedFiles);
     setEdit(false);
     setIsChange(false);
@@ -286,7 +286,7 @@ export const DishForm = ({
 
   return formData && (
     <DishFormWrapper className={className}>
-      {controls && roles.some(f => f.manager || f.manager_back) && (
+      {controls && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
         <Controls>
           {isChange && (
             <>

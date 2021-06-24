@@ -267,14 +267,14 @@ const Category = () => {
                     {item.name}
                   </Caterory>
                 ))}
-                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && roles.some(f => f.manager || f.manager_back) && (
+                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
                   <Caterory new onClick={handleAddCategory}>
                     {t('common.words.newCategory')}
                     <PlusSvg />
                   </Caterory>
                 )}
               </ListCategory>
-              {restCategory.length > 0 && !restCategoryEdit && roles.some(f => f.manager || f.manager_back) && (
+              {restCategory.length > 0 && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
                 <CategoryEdit
                   onClick={() => { 
                     setDishCategory([]);
@@ -303,7 +303,7 @@ const Category = () => {
               options={restCategoryActive.options}
             />
           )}
-          {!isArchive && restCategoryActive && roles.some(f => f.manager || f.manager_back) && (
+          {!isArchive && restCategoryActive && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
             <DishControls>
               <NewDish
                 onClick={handleAddDish}
@@ -332,7 +332,7 @@ const Category = () => {
                   controls={!restCategoryActive.is_archived}
                   dishes={getRestDishes()}
                   categories={getRestDisheCategories()}
-                  resaurant={restInfo}
+                  restaurant={restInfo}
                   dictionary={dictionary}
                   currency={restInfo.currency[0]}
                   loading={loading}
