@@ -1,20 +1,7 @@
 -- INSERT INTO data_restaurants (key, name) VALUES
 -- ('example', 'Example');
 
--- SELECT * FROM data_restaurants;
-
-
 -- TRUNCATE data_users RESTART IDENTITY CASCADE;
-
--- INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, roles) VALUES 
--- ('rootAdmin', 'rootAids2021', 'Admin', 'DC', 'root', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{1, 2, 3, 4}'),
--- ('owner', 'ownerAids2021Test', 'owner', 'ow', 'ner', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{2, 3, 4}'),
--- ('employees', 'employeesAids2021Test', 'employees', 'employ', 'emplo', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{3, 4}'),
--- ('user', 'userAids2021Test', 'user', 'user', 'user', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{4}'),
--- ('guest', 'guestAids2021Test', 'guest', 'guest', 'guest', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{5}');
-
--- SELECT * FROM data_users;
-
 
 INSERT INTO data_users_test (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
 ('rootAdmin', 'rootAids2021', 'Root', 'R', 'R', '1987-12-21T00:00:00.000', '{79104643015}', '79104643015@yandex.ru', TRUE),
@@ -151,5 +138,6 @@ UPDATE data_users_test
     roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 where login = 'employee';
 
+-- SELECT * FROM data_restaurants;
 SELECT * FROM data_users_test;
 SELECT * FROM data_roles_test;

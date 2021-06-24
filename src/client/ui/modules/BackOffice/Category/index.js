@@ -251,7 +251,7 @@ const Category = () => {
                 onClick={() => handleRoute('language', lng)}
               >
                 {lng === 'en' && (<AlertCircleSvg />)}
-                {getDictionaryItem(lng, 'key', dictionary.language, 'name')}
+                {getDictionaryItem(lng, 'id', dictionary.languages, 'name')}
               </Lng>
             ))}
           </ListLng>
