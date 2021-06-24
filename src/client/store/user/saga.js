@@ -31,7 +31,6 @@ function* updateState({ payload }) {
 function* update({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
-    yield put({ type: Constants.USER_SET, payload });
     const data = yield userProvider.update(payload);
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
@@ -44,12 +43,11 @@ function* update({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
-function* login({ payload }) {
+function* signin({ payload }) {
   const { language } = payload;
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
-  yield put({ type: Constants.USER_SET, payload: null });
   try {
-    const data = yield userProvider.signIn(payload);
+    const data = yield userProvider.signin(payload);
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
@@ -79,8 +77,34 @@ function* auth({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
-function* logout() {
-  yield put({ type: Constants.USER_SET, payload: { info: { token: null } } });
+function* signup({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    const data = yield userProvider.signup(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      yield put({ type: Constants.USER_SET, payload: { status: 'created' } });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
+}
+
+function* reset({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    const data = yield userProvider.reset(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      yield put({ type: Constants.USER_SET, payload: { status: 'reseted' } });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
 export function* watchUserUpdateState() {
@@ -92,14 +116,18 @@ export function* watchUserUpdate() {
 }
 
 export function* watchUserLogin() {
-  yield takeLatest(Constants.USER_LOGIN, login);
+  yield takeLatest(Constants.USER_LOGIN, signin);
 }
 
 export function* watchUserAuth() {
   yield takeLatest(Constants.USER_AUTH, auth);
 }
 
-export function* watchUserLogout() {
-  yield takeLatest(Constants.USER_LOGOUT, logout);
+export function* watchUserReg() {
+  yield takeLatest(Constants.USER_REGISTRATION, signup);
+}
+
+export function* watchUserReset() {
+  yield takeLatest(Constants.USER_RESET_PASSWORD, reset);
 }
 

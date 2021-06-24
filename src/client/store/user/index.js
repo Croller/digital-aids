@@ -21,7 +21,9 @@ const initState = {
   position: 'guest',
 
   dictionary: null,
+  
   loading: false,
+  status: null,
   error: null,
 };
 
@@ -66,10 +68,17 @@ export function auth(payload) {
   };
 }
 
-export function logout() {
+export function registration(payload) {
   return {
-    type: Constants.USER_LOGOUT,
-    payload: null,
+    type: Constants.USER_REGISTRATION,
+    payload,
+  };
+}
+
+export function reset(payload) {
+  return {
+    type: Constants.USER_RESET_PASSWORD,
+    payload,
   };
 }
 

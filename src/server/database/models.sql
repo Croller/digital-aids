@@ -32,16 +32,16 @@ CREATE TABLE IF NOT EXISTS data_users_test (
   name VARCHAR DEFAULT NULL,
   middlename VARCHAR DEFAULT NULL,
   birthdate TIMESTAMP with time zone DEFAULT NULL,
-  phone BIGINT VARCHAR DEFAULT NULL,
-  email VARCHAR array DEFAULT NULL,
+  phone VARCHAR DEFAULT NULL,
+  email VARCHAR DEFAULT NULL,
   language VARCHAR DEFAULT 'en', -- DICTIONARY dictionary_translate
-  roles VARCHAR DEFAULT NULL, -- DICTIONARY data_roles
+  roles VARCHAR ARRAY DEFAULT '{}', -- DICTIONARY data_roles
   restaurants VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY data_restaurant
   enter_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   meta jsonb DEFAULT '{"browser": "NULL", "ip": "NULL", "geo": "NULL"}',
   is_confirmed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE IF NOT EXISTS data_restaurants (
@@ -182,6 +182,7 @@ CREATE TABLE IF NOT EXISTS data_notify (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
+DROP TABLE dictionary_roles_test;
 CREATE TABLE IF NOT EXISTS dictionary_roles_test (
   number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),

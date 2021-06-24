@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { login, auth, logout } from 'client/store/user';
+import { login, auth, set } from 'client/store/user';
 import translate from 'client/i18n';
 import moment from 'moment';
 import {
@@ -29,7 +29,8 @@ export const InfoUser = () => {
     },
     restaurant: {},
   });
-  const { token, enter_at } = useSelector(store => store.user.info);
+  const { info } = useSelector(store => store.user);
+  const { token, enter_at } = info;
   const { pathname } = location;
 
   const initStorage = () => {
@@ -42,7 +43,7 @@ export const InfoUser = () => {
       const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
 
       if (diffEnterTime > expireTime) {
-        rootDispatch(logout());
+        rootDispatch(set({ info: { ...info, token } }));
         localUser.token = null;
       }
     }
@@ -88,7 +89,7 @@ export const InfoUser = () => {
     
     return () => {
       console.log('Logout before close');
-      rootDispatch(logout());
+      rootDispatch(set({ info: { ...info, token } }));
     };
   }, []);
 

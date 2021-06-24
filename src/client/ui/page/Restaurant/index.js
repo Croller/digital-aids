@@ -78,7 +78,7 @@ export const Restaurant = () => {
           position = pos || 'guest';
         }
       }
-      rootDispatch(userStore.update({ position }));
+      rootDispatch(userStore.set({ position }));
       rootDispatch(set({ table_number, order }));
       setLocalUser({ position });
       setLocalRestaurant(restaurant.info.key, { table_number });

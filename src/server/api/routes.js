@@ -1,6 +1,8 @@
 const routes = {
-  'POST /api/user/signin': 'UserController.signin',
   'GET /api/user/auth': 'UserController.auth',
+  'POST /api/user/signin': 'UserController.signin',
+  'POST /api/user/signup': 'UserController.create',
+  'POST /api/user/reset': 'UserController.reset',
   'POST /api/user/update': 'UserController.update',
 
   'GET /api/table': 'CommonController.getTableByNames',

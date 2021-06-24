@@ -9,7 +9,7 @@ const headers = ({
   ...(language ? { 'Accept-Language': language } : {}),
 });
 
-export const signIn = async (data) => {
+export const signin = async (data) => {
   const results = await post('user/signin', { data: { ...data, browser: { ...detect() } } });
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
@@ -25,6 +25,22 @@ export const auth = async ({ token }) => {
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
+  return results;
+};
+
+export const signup = async (data) => {
+  const results = await post('user/signup', { data });
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  } 
+  return results;
+};
+
+export const reset = async (data) => {
+  const results = await post('user/reset', { data });
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  } 
   return results;
 };
 

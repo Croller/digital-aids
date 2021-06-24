@@ -62,39 +62,65 @@ const UserController = () => {
     UserController().signin(req, res);
   };
 
-  // const create = async (req, res) => {
-  //   try {
-  //     const { data } = req.body;
-  //     if (data.role !== 1) {
-  //       const check = await db.query(`SELECT * FROM data_users WHERE login='${data.login}' OR email='${data.email}'`);
-  //       if (check.rows.length === 0) {
-  //         delete data.id;
-  //         data.enter_at = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
-  //         const query = Object.keys(data).reduce((obj, key) => ({
-  //           fields: [...obj.fields, key],
-  //           values: [...obj.values, data[key]],
-  //         }), { fields: [], values: [] });
-  //         const newUser = await db.query(`INSERT INTO data_users (${query.fields.join(', ')}) VALUES ('${query.values.join('\', \'')}') RETURNING *`);
-  //         res.json(newUser.rows[0]);
-  //       } else {
-  //         error.name = 'Create user error';
-  //         error.text = 'Same user already exist';
-  //         res.status(201);
-  //         res.json({ error });
-  //       }
-  //     } else {
-  //       error.name = 'Permition error';
-  //       error.text = 'User create is same role of admin or not valid token';
-  //       res.status(201);
-  //       res.json({ error });
-  //     }
-  //   } catch (err) {
-  //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err.message);
-  //     res.status(201);
-  //     res.json({ error });
-  //   }
-  // };
+  const create = async (req, res) => {
+    try {
+      const { data } = req.body;
+      const { login, email } = data;
+      query = 'SELECT * FROM data_users_test WHERE login=$1 OR email=$2';
+      values = [login, email];
+      let result = await db.queryValues(query, values);
+
+      if (result.rows.length === 0) {
+        const mapper = Object.keys(data).reduce((obj, key) => ({
+          fields: [...obj.fields, key],
+          values: [...obj.values, data[key]],
+        }), { fields: [], values: [] });
+
+        query = `INSERT INTO data_users_test (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
+        result = await db.queryValues(query, mapper.values);
+        
+        res.status(200);
+        res.send();
+      } else {
+        error.name = 'User exist';
+        error.code = 'useExist';
+        res.status(201);
+        res.json({ error });
+      }
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
+
+  const reset = async (req, res) => {
+    try {
+      const { data } = req.body;
+      query = 'SELECT * FROM data_users_test WHERE email=$1';
+      values = [data.email];
+      const result = await db.queryValues(query, values);
+      if (result.rows.length === 1) {
+        query = 'UPDATE data_users_test SET password=$1 WHERE email=$2';
+        values = [commonUtils.getStringRandom(7), data.email];
+        await db.queryValues(query, values);
+        
+        res.status(200);
+        res.send();
+      } else {
+        error.name = 'Account not found';
+        error.code = 'accountNotFound';
+        res.status(201);
+        res.json({ error });
+      }
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
   
   const update = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
@@ -119,43 +145,13 @@ const UserController = () => {
       res.json({ error });
     }
   };
-
-  // const remove = async (req, res) => {
-  //   try {
-  //     const { data } = req.body;
-  //     const user = await jwt.verifyToken(req, res);
-  //     if (user && (user.role === 1 || data.id === user.id)) {
-  //       const { id } = { ...data };
-  //       const check = await db.query(`SELECT * FROM data_users WHERE id='${id}'`);
-  //       if (check.rows.length === 1) {
-  //         await db.query(`DELETE FROM data_users WHERE id='${id}'`);
-  //         res.json({});
-  //       } else {
-  //         error.name = 'Update user error';
-  //         error.text = 'This user does not exist';
-  //         res.status(201);
-  //         res.json({ error });
-  //       }
-  //     } else {
-  //       error.name = 'Permition error';
-  //       error.text = 'May be you are not role with admin or you try edit another account witch not your';
-  //       res.status(201);
-  //       res.json({ error });
-  //     }
-  //   } catch (err) {
-  //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err.message);
-  //     res.status(201);
-  //     res.json({ error });
-  //   }
-  // };
   
   return {
     signin,
     auth,
-    // create,
+    create,
+    reset,
     update,
-    // remove,
   };
 };
 
