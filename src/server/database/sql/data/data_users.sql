@@ -1,5 +1,9 @@
-INSERT INTO data_restaurants (key, name) VALUES
-('example', 'Example');
+-- DELETE FROM data_restaurants WHERE id='848a49a0-964b-40d2-b988-ebd622fcea79';
+-- INSERT INTO data_restaurants (key, name) VALUES
+-- ('example', 'Example');
+
+-- DROP TABLE data_users;
+-- DROP TABLE data_roles;
 
 INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
 ('rootAdmin', 'rootAids2021', 'Root', 'R', 'R', '1987-12-21T00:00:00.000', '{79104643015}', '79104643015@yandex.ru', TRUE),

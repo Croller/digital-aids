@@ -267,14 +267,14 @@ const Category = () => {
                     {item.name}
                   </Caterory>
                 ))}
-                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
+                {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
                   <Caterory new onClick={handleAddCategory}>
                     {t('common.words.newCategory')}
                     <PlusSvg />
                   </Caterory>
                 )}
               </ListCategory>
-              {restCategory.length > 0 && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
+              {restCategory.length > 0 && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
                 <CategoryEdit
                   onClick={() => { 
                     setDishCategory([]);
@@ -303,7 +303,7 @@ const Category = () => {
               options={restCategoryActive.options}
             />
           )}
-          {!isArchive && restCategoryActive && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
+          {!isArchive && restCategoryActive && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
             <DishControls>
               <NewDish
                 onClick={handleAddDish}

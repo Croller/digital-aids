@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
@@ -95,7 +95,6 @@ export const RestaurantInfo = ({
   const [t] = useTranslation();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const { restaurant } = useParams();
   const { backOffice: { alert }, user: { roles } } = useSelector(s => s);
   const { pathname } = useLocation();
   const [event, setEvent] = useState(null);
@@ -139,10 +138,10 @@ export const RestaurantInfo = ({
       if (pathname.indexOf('/restaurants/archive') > -1) {
         return arr.filter(({ key }) => ['restore', 'delete'].includes(key));
       }
-      return arr.filter(({ key }) => ['archive', 'edit'].includes(key) && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant));
+      return arr.filter(({ key }) => ['archive', 'edit'].includes(key) && roles.some(f => (f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return arr.filter(({ key }) => (['flyer', 'reserve', 'opinions'].includes(key) && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant)) || (['orders', 'notify'].includes(key) && roles.some(f => f.employee && restaurant === f.restaurant)));
+      return arr.filter(({ key }) => (['flyer', 'reserve', 'opinions'].includes(key) && roles.some(f => ((f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))) || (['orders', 'notify'].includes(key) && roles.some(s => s.employee && (id === s.restaurant || (s.root || s.root_back)))))));
     }
     return [];
   };

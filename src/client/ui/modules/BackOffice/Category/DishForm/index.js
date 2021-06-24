@@ -286,7 +286,7 @@ export const DishForm = ({
 
   return formData && (
     <DishFormWrapper className={className}>
-      {controls && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
+      {controls && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
         <Controls>
           {isChange && (
             <>
