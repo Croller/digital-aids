@@ -4,7 +4,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
 import { Sidebar } from 'client/ui/components/Layout/BackOffice/Sidebar';
 import { setLocalUser } from 'client/utils/localStorage';
-import { logout } from 'client/store/user';
+import * as user from 'client/store/user';
+import { set } from 'client/store/backOffice';
 import { 
   Wrapper,
   Cotainer,
@@ -20,13 +21,15 @@ export const Layout = ({
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
   const [showSideBar, setShowSideBar] = useState(true);
-  const { id, token, roles } = useSelector(store => store.user.info);
+  const { info, roles } = useSelector(store => store.user);
+  const { id, token } = info;
 
   const handleRoute = useCallback((part = 'restaurants') => {
     if (part === 'auth') {
       history.push(path);
       setLocalUser({ token: null });
-      rootDispatch(logout());
+      rootDispatch(user.set({ info: { ...info, token: null } }));
+      rootDispatch(set({ restaurants: null }));
     }
     const path = `/back-office/${part}`;
     history.push(path);

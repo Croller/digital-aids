@@ -35,9 +35,9 @@ export const NavBar = ({
 }) => {
   const [t] = useTranslation();
   const history = useHistory();
-  const params = useParams();
+  const { restaurant, category } = useParams();
   const { pathname } = useLocation();
-  const { roles } = useSelector(state => state.user.info);
+  const { roles } = useSelector(state => state.user);
   const [options, setOptions] = useState({
     back: false,
     loupe: false,
@@ -103,7 +103,7 @@ export const NavBar = ({
       showConfirm();
       obj.event = {
         key,
-        title: params.restaurant ? 'restaurant.delete' : 'archive',
+        title: restaurant ? 'restaurant.delete' : 'archive',
         params: { is_deleted: true },
       };
       setOptions(obj);
@@ -115,8 +115,6 @@ export const NavBar = ({
   const handleSearch = (str) => {
     onSearch(str.toLowerCase());
   };
-
-  const haveRole = (arr) => arr.some(s => roles.includes(s));
 
   useEffect(() => {
     const data = { ...options };
@@ -147,16 +145,16 @@ export const NavBar = ({
         break;
     }
 
-    if (['/restaurant/'].some(f => pathname.indexOf(f) > -1) && params.restaurant && !params.category) {
+    if (['/restaurant/'].some(f => pathname.indexOf(f) > -1) && restaurant && !category) {
       data.back = { text: 'back' };
       data.loupe = false;
       data.search = false;
-      data.delete = params.restaurant !== 'new';
+      data.delete = restaurant !== 'new';
       data.archive = false;
       data.add_new = false;
       data.title = {
         icon: <RestaurantSvg />,
-        text: `${params.restaurant !== 'new' ? '' : `${t('common.words.create')} `}${t(`common.words.${page}`)}`,
+        text: `${restaurant !== 'new' ? '' : `${t('common.words.create')} `}${t(`common.words.${page}`)}`,
       };
     }
 
@@ -170,7 +168,6 @@ export const NavBar = ({
         text: `${t(`common.words.${page}`)} ${t('common.words.archive')}`,
       };
     }
-
     setOptions({ ...data, ...settings });
   }, [pathname]);
 
@@ -183,7 +180,7 @@ export const NavBar = ({
             {t(`common.words.${options.back.text}`)}
           </BackBtn>
         )}
-        {options.add_new && haveRole([1, 2]) && (
+        {options.add_new && roles.some(f => f.guest) && (
           <AddBtn onClick={() => handleRoute('new')}>
             <PlusSvg />
             {t('common.words.newAdd')}
@@ -209,14 +206,14 @@ export const NavBar = ({
             <LoupeSvg />
           </LoupeBtn>
         )}
-        {options.delete && haveRole([1, 2]) && (
+        {options.delete && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
           <Tooltip placement="top" title={t('common.words.delete')}>
             <DeleteBtn onClick={() => handleChange('delete')}>
               <TrashSvg />
             </DeleteBtn>
           </Tooltip>
         )}
-        {options.archive && haveRole([1, 2]) && (
+        {options.archive && roles.some(f => (f.manager || f.manager_back) && restaurant === f.restaurant) && (
           <ArchiveBtn onClick={() => handleRoute('archive')}>
             <ArchiveSvg />
             {t('common.words.archive')}

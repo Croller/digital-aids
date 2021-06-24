@@ -129,14 +129,13 @@ const CommonController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
-
-    const rolesExist = jwt.verifyRoles(req, res, tokenData.roles, [1, 2, 3, 5]);
-    if (!tokenData || !rolesExist) return;
+    const rolesExist = await jwt.verifyRoles(req, res, tokenData, ['guest']);
+    if (!tokenData || !rolesExist) return null;
     try {
       const { name } = req.params;
       const { data } = req.body;
-
       const arr = Array.isArray(data) ? data : [data];
+
       results = await Promise.all(arr.map(async (row) => {
         const result = await queryUtils.updateTableRecord(name, row, {
           req,
@@ -146,6 +145,7 @@ const CommonController = () => {
         });
         return result;
       }));
+
       res.json(results);
     } catch (err) {
       error.name = 'Query error';
@@ -177,7 +177,7 @@ const CommonController = () => {
 
   const deleteFile = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
-    const rolesExist = jwt.verifyRoles(req, res, tokenData.roles, [1, 2, 3]);
+    const rolesExist = jwt.verifyRoles(req, res, tokenData, ['guest']);
     if (!tokenData || !rolesExist) return;
     try {
       const { data } = req.body;
@@ -202,10 +202,8 @@ const CommonController = () => {
     getTableByNames,
     getTableRecordById,
     getTableRecordByParam,
-
     updateTableRecord,
     deleteTableRecord,
-
     deleteFile,
   };
 };

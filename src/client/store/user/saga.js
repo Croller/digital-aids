@@ -1,24 +1,19 @@
 import { takeLatest, put } from 'redux-saga/effects';
 import * as Constants from 'client/store/user/constants';
-import * as authProvider from 'client/providers/auth';
+import * as userProvider from 'client/providers/user';
 import * as commonProvider from 'client/providers/common';
 
-function* getDictionary({ payload }) {
-  const { token, language = 'en', data } = payload;
-  const results_dictionary = yield commonProvider.loadTable({
-    token,
-    language,
-    data,
-  });
-  yield put({
-    type: Constants.USER_SET,
-    payload: {
-      dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
-    },
-  });
-}
+// function* getDictionary({ payload }) {
+//   const results_dictionary = yield commonProvider.loadRowByParam(payload);
+//   yield put({
+//     type: Constants.USER_SET,
+//     payload: {
+//       dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
+//     },
+//   });
+// }
 
-function* update({ payload }) {
+function* updateState({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
     yield put({ type: Constants.USER_SET, payload });
@@ -28,17 +23,36 @@ function* update({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
-function* login({ payload }) {
-  const { language } = payload;
+function* update({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
-  yield put({ type: Constants.USER_SET, payload: null });
   try {
-    const data = yield authProvider.signIn(payload);
+    const data = yield userProvider.update(payload);
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield getDictionary({ payload: { token: data.token, data: ['dictionary_roles'] } });
-      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language } } });
+      yield put({ type: Constants.USER_SET, payload: { info: { ...data } } });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
+}
+
+function* signin({ payload }) {
+  const { language } = payload;
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    const data = yield userProvider.signin(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      const roles = yield commonProvider.loadRowByParam({
+        language,
+        token: data.token,
+        name: 'data_roles',
+        data: { restaurant: data.restaurants, id: data.roles }, 
+      });
+      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
     }
   } catch (err) {
     throw err;
@@ -47,15 +61,21 @@ function* login({ payload }) {
 }
 
 function* auth({ payload }) {
+  const { language } = payload;
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
-    const data = yield authProvider.auth(payload);
+    const data = yield userProvider.auth(payload);
     
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield getDictionary({ payload: { token: data.token, data: ['dictionary_roles'] } });
-      yield put({ type: Constants.USER_SET, payload: { info: data } });
+      const roles = yield commonProvider.loadRowByParam({
+        language,
+        token: data.token,
+        name: 'data_roles',
+        data: { restaurant: data.restaurants, id: data.roles }, 
+      });
+      yield put({ type: Constants.USER_SET, payload: { info: data, roles } });
     }
   } catch (err) {
     throw err;
@@ -63,8 +83,38 @@ function* auth({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: false });
 }
 
-function* logout() {
-  yield put({ type: Constants.USER_SET, payload: { info: { token: null } } });
+function* signup({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    const data = yield userProvider.signup(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      yield put({ type: Constants.USER_SET, payload: { status: 'created' } });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
+}
+
+function* reset({ payload }) {
+  yield put({ type: Constants.USER_LOADING_SET, payload: true });
+  try {
+    const data = yield userProvider.reset(payload);
+    if (data.error) {
+      yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+    } else if (data) {
+      yield put({ type: Constants.USER_SET, payload: { status: 'reseted' } });
+    }
+  } catch (err) {
+    throw err;
+  }
+  yield put({ type: Constants.USER_LOADING_SET, payload: false });
+}
+
+export function* watchUserUpdateState() {
+  yield takeLatest(Constants.USER_SET_STATE, updateState);
 }
 
 export function* watchUserUpdate() {
@@ -72,14 +122,18 @@ export function* watchUserUpdate() {
 }
 
 export function* watchUserLogin() {
-  yield takeLatest(Constants.USER_LOGIN, login);
+  yield takeLatest(Constants.USER_LOGIN, signin);
 }
 
 export function* watchUserAuth() {
   yield takeLatest(Constants.USER_AUTH, auth);
 }
 
-export function* watchUserLogout() {
-  yield takeLatest(Constants.USER_LOGOUT, logout);
+export function* watchUserReg() {
+  yield takeLatest(Constants.USER_REGISTRATION, signup);
+}
+
+export function* watchUserReset() {
+  yield takeLatest(Constants.USER_RESET_PASSWORD, reset);
 }
 

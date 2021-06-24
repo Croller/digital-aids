@@ -21,6 +21,7 @@ import ThumbsUpSvg from './svg/backOffice/thumbs-up.svg';
 import StarHalfDashedSvg from './svg/backOffice/star-half-dashed.svg';
 import ReceiptSvg from './svg/backOffice/receipt.svg';
 import ShoppingBagSvg from './svg/backOffice/shopping-bag.svg';
+import CalendarAltSvg from './svg/backOffice/calendar-alt.svg';
 
 // restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
@@ -145,6 +146,7 @@ export {
   StarHalfDashedSvg,
   ReceiptSvg,
   ShoppingBagSvg,
+  CalendarAltSvg,
   
   ChefSvg,
   ChefHeadSvg,

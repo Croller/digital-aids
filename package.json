@@ -18,7 +18,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "lint": "eslint --ext .jsx --ext .js ./src --fix",
     "stylelint": "stylelint ./src/client/**/*.js --fix",
-    "heroku-postbuild": "npm install && npm run build --prod"
+    "migrate-create": "node-pg-migrate create session-megration --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
+    "migrate-up": "node-pg-migrate up --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
+    "migrate-down": "node-pg-migrate down --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations"
   },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
@@ -40,6 +42,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "express-routes-mapper": "^1.1.0",
+    "frappe-gantt": "^0.5.0",
     "geoip-lite": "^1.4.2",
     "google-maps-react": "^2.0.6",
     "html2canvas": "^1.0.0-rc.7",
@@ -47,10 +50,11 @@
     "jsonwebtoken": "^8.5.1",
     "jspdf": "^2.3.1",
     "kill-port": "^1.6.1",
+    "mailgun-js": "^0.22.0",
     "mapbox-gl": "^2.3.0",
     "moment": "^2.29.1",
-    "nodemailer": "^6.6.0",
-    "pg": "^7.12.1",
+    "node-pg-migrate": "^5.9.0",
+    "pg": "^7.18.2",
     "prop-types": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^16.5.2",

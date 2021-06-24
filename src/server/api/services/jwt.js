@@ -11,58 +11,77 @@ const error = {
   text: '',
 };
 
+let query = '';
+let values = [];
+let results = null;
+
+const generateToken = (user) => {
+  const obj = {
+    id: user.id,
+    login: user.login,
+    password: user.password,
+  };
+  return jwt.sign(obj, signature, { expiresIn: expiration });
+};
+
+const decodeToken = (req, res) => {
+  const { authorization } = commonUtils.getHeader(req);
+  if (authorization) {
+    const data = jwt.verify(authorization, signature);
+    if (data) {
+      return data;
+    } 
+    error.name = 'Token not valid';
+    error.code = 'tokenNotValid';
+    res.json({ error });
+    return null;
+  } 
+  error.name = 'Token not exist';
+  error.code = 'tokenNotExist';
+  res.json({ error });
+};
+
+const verifyToken = async (req, res) => {
+  const data = decodeToken(req, res);
+  const { login, password } = data;
+  const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
+  if (result.rows.length === 1) {
+    const user = result.rows[0];
+    return user;
+  }
+  error.name = 'User not found';
+  error.code = 'userNotFound';
+  res.json({ error });
+};
+
+const verifyUser = (req, res, tokenData) => {
+  if (!tokenData) return null;
+  const { body: { data: { login } } } = req;
+  if (tokenData.login === login) {
+    return true;
+  } 
+  error.name = 'User not same';
+  error.code = 'userNotSame';
+  res.json({ error });
+}; 
+
+const verifyRoles = async (req, res, tokenData, roles) => {
+  if (!tokenData) return null;
+  query = 'SELECT * FROM data_roles WHERE id = ANY ($1) AND is_deleted=FALSE';
+  values = [tokenData.roles];
+  results = await db.queryValues(query, values);
+  if (results.rows.length > 0 && roles.some(r => results.rows.some(s => s[r]))) {
+    return true;
+  }
+  error.name = 'Roles not exist';
+  error.code = 'rolesNotExist';
+  res.json({ error });
+}; 
+
 module.exports = {
-  generateToken: (user) => {
-    const obj = {
-      id: user.id,
-      login: user.login,
-      password: user.password,
-    };
-    return jwt.sign(obj, signature, { expiresIn: expiration });
-  },
-
-  // getToken: (req) => {
-  //   const { authorization } = commonUtils.getHeader(req);
-  //   if (authorization) {
-  //     return jwt.verify(authorization, signature);
-  //   }
-  //   return null;
-  // },
-
-  verifyToken: async (req, res) => {
-    const { authorization } = commonUtils.getHeader(req);
-    if (authorization) {
-      const data = jwt.verify(authorization, signature);
-      if (data) {
-        const { login, password } = data;
-        const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
-        if (result.rows.length === 1) {
-          const user = result.rows[0];
-          return user;
-        }
-        error.name = 'User not found';
-        error.code = 'userNotFound';
-        res.json({ error });
-        return null;
-      } 
-      error.name = 'Token not valid';
-      error.code = 'tokenNotValid';
-      res.json({ error });
-      return null;
-    } 
-    error.name = 'Token not exist';
-    error.code = 'tokenNotExist';
-    res.json({ error });
-    return null;
-  },
-  
-  verifyRoles: (req, res, userRoles, roles) => {
-    if (userRoles.some(r => roles.includes(r))) {
-      return true;
-    } 
-    error.name = 'Roles not exist';
-    error.code = 'rolesNotExist';
-    res.json({ error });
-    return null;
-  }, 
+  generateToken,
+  decodeToken,
+  verifyToken,
+  verifyUser,
+  verifyRoles,
 };

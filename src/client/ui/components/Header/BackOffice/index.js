@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { useRouteMatch } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
 import { setLocalUser } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
-import { update } from 'client/store/user';
+import { set } from 'client/store/user';
 import {
   LogoSvg,
   CloseSvg,
@@ -35,7 +35,7 @@ const HeaderComponent = ({
 }) => {
   const { info } = useSelector(s => s.user);
   const [t, i18n] = useTranslation();
-  const match = useRouteMatch();
+  const { pathname } = useLocation();
   const rootDispatch = useDispatch();
   const [langList, setLangList] = useState(false);
 
@@ -43,7 +43,7 @@ const HeaderComponent = ({
     if (lng) {
       translate.changeLanguage(lng);
       setLocalUser({ lng });
-      rootDispatch(update({ info: { ...info, language: lng } }));
+      rootDispatch(set({ info: { ...info, language: lng } }));
     }
     setLangList(false);
   };
@@ -67,8 +67,8 @@ const HeaderComponent = ({
         {id && token && (
           <>
             <User
-              active={match.params[0] === `user/${id}`}
-              onClick={() => onRoute(`user/${id}`)}
+              active={pathname.indexOf('account') > -1}
+              onClick={() => onRoute('account')}
             >
               <UserCircleSvg />
             </User>

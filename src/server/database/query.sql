@@ -1,4 +1,6 @@
--- DROP TABLE IF EXISTS data_users;
+-- DROP TABLE IF EXISTS data_users_test;
+-- DROP TABLE IF EXISTS data_roles_test;
+-- DROP TABLE IF EXISTS data_roles_test_translate;
 -- DROP TABLE IF EXISTS data_restaurants;
 
 -- DROP TABLE IF EXISTS data_categories;
@@ -7,7 +9,6 @@
 -- DROP TABLE IF EXISTS data_categories_translate;
 -- DROP TABLE IF EXISTS data_dishes_translate;
 
--- DROP TABLE IF EXISTS dictionary_roles;
 -- DROP TABLE IF EXISTS dictionary_currency;
 -- DROP TABLE IF EXISTS dictionary_currency_translate;
 -- DROP TABLE IF EXISTS dictionary_languages;

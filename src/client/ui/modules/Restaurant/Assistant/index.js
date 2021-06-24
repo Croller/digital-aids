@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { update } from 'client/store/user';
+import { set } from 'client/store/user';
 import { updateRow } from 'client/store/restaurant';
 import { useModal } from 'react-modal-hook';
 import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
@@ -44,7 +44,7 @@ const Assistant = () => {
   const handleEmit = (key) => {
     if (user.position === 'waiter' && key === 'guest') {
       setLocalUser({ position: 'guest' });
-      rootDispatch(update({ position: 'guest' }));
+      rootDispatch(set({ position: 'guest' }));
     } else {
       rootDispatch(updateRow({
         name: 'data_notify',
