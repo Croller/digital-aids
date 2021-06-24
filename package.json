@@ -18,7 +18,9 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "lint": "eslint --ext .jsx --ext .js ./src --fix",
     "stylelint": "stylelint ./src/client/**/*.js --fix",
-    "heroku-postbuild": "npm install && npm run build --prod"
+    "migrate-create": "node-pg-migrate create session-megration --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
+    "migrate-up": "node-pg-migrate up --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
+    "migrate-down": "node-pg-migrate down --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations"
   },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
@@ -51,7 +53,8 @@
     "mailgun-js": "^0.22.0",
     "mapbox-gl": "^2.3.0",
     "moment": "^2.29.1",
-    "pg": "^7.12.1",
+    "node-pg-migrate": "^5.9.0",
+    "pg": "^7.18.2",
     "prop-types": "^15.7.2",
     "qrcode.react": "^1.0.1",
     "react": "^16.5.2",
