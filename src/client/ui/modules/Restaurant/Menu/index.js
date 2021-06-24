@@ -18,7 +18,7 @@ import {
 const Menu = () => {
   const history = useHistory();
   const [t] = useTranslation();
-  const { user: { info: { language } }, restaurant: { dictionary: { languages } } } = useSelector(s => s);
+  const { user: { info: { language } }, restaurant: { foodtips, dictionary: { languages } } } = useSelector(s => s);
 
   const menu = [
     {
@@ -72,6 +72,7 @@ const Menu = () => {
         {menu.map(({ path, name }) => (
           <ButtonStyled
             key={path}
+            disabled={path === 'foodtips' ? foodtips.dishes.length === 0 : false}
             onClick={() => history.push(path)}
           >
             {name}

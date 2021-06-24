@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { update } from 'client/store/user';
 import { updateRow } from 'client/store/restaurant';
 import { useModal } from 'react-modal-hook';
@@ -20,6 +21,7 @@ import {
 
 const Assistant = () => {
   const rootDispatch = useDispatch();
+  const history = useHistory();
   const [t] = useTranslation();
   const [showScan, setShowScan] = useState(false);
   const { user, restaurant } = useSelector(s => s);

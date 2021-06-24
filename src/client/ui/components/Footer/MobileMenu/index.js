@@ -19,15 +19,13 @@ export const MobileMenu = memo(({
   const { order } = useSelector(store => store.restaurant);
 
   const getCount = () => {
-    if (order) {
-      return order.reduce((count, item) => {
-        if (item.type === 'daily') {
-          return count + 1;
-        }
-        return count + item.order.length;
-      }, 0);
-    }
-    return null;
+    if (!order || (order && order.length === 0)) return null;
+    return order.reduce((count, item) => {
+      if (item.type === 'daily') {
+        return count + 1;
+      }
+      return count + item.order.length;
+    }, 0);
   };
 
   const MENU_ITEMS = [
