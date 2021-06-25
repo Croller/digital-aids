@@ -141,7 +141,7 @@ export const RestaurantInfo = ({
       return arr.filter(({ key }) => ['archive', 'edit'].includes(key) && roles.some(f => (f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))));
     }
     if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return arr.filter(({ key }) => (['flyer', 'reserve', 'opinions'].includes(key) && roles.some(f => ((f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))) || (['orders', 'notify'].includes(key) && roles.some(s => s.employee && (id === s.restaurant || (s.root || s.root_back)))))));
+      return arr.filter(({ key }) => (['flyer', 'reserve', 'opinions', 'orders', 'notify'].includes(key) && roles.some(f => ((f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))) || (['orders', 'notify'].includes(key) && roles.some(s => s.employee && (id === s.restaurant || (s.root || s.root_back)))))));
     }
     return [];
   };
