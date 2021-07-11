@@ -80,6 +80,7 @@ export const BackOffice = () => {
             <Route
               exact
               path={[
+                `${PATH}/restaurant/:restaurant/language/:language/dashboard`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals/archive`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
                 `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,

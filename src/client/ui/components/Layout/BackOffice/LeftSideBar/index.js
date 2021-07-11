@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   RestaurantSvg,
-  AlertCircleSvg,
+  QuestionCircleSvg,
   UsersSvg,
   Conversation1Svg,
   Conversation2Svg,
@@ -10,7 +10,7 @@ import {
   CalendarAltSvg,
 } from 'client/assets/images';
 import { 
-  SidebarWrapper,
+  LeftSideBarWrapper,
   Hr,
   Menu,
   Item,
@@ -23,11 +23,11 @@ const MENU_ROOT_LIST = [
     icon: <UsersSvg />,
     roles: ['root', 'root_back'],
   },
-  {
-    key: 'mails',
-    icon: <Conversation1Svg />,
-    roles: ['root', 'root_back'],
-  },
+  // {
+  //   key: 'mails',
+  //   icon: <Conversation1Svg />,
+  //   roles: ['root', 'root_back'],
+  // },
 ];
 
 const MENU_USER_LIST = [
@@ -63,7 +63,7 @@ const MENU_USER_LIST = [
   },
 ];
 
-export const Sidebar = memo(({
+export const LeftSideBar = memo(({
   roles,
   path,
   onRoute,
@@ -71,7 +71,7 @@ export const Sidebar = memo(({
   const [t] = useTranslation();
 
   return (
-    <SidebarWrapper>
+    <LeftSideBarWrapper>
       {roles.some(s => s.root || s.root_back) && (
         <>
           <Menu>
@@ -106,13 +106,13 @@ export const Sidebar = memo(({
         ))}
       </Menu>
       <Menu>
-        <Item onClick={() => onRoute('auth')}>
+        <Item>
           <Icon>
-            <AlertCircleSvg />
+            <QuestionCircleSvg />
           </Icon>
-          {t('common.words.signout')}
+          {t('common.words.support')}
         </Item>
       </Menu>
-    </SidebarWrapper>
+    </LeftSideBarWrapper>
   );
 });

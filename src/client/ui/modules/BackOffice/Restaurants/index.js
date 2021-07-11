@@ -77,17 +77,13 @@ const Restaurants = () => {
             type={(searched && 'search') || (isArchive ? 'archive' : 'restaurants')}
             icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
           />
-        ) : (
-          <>
-            {getList().map((item, i) => (
-              <RestaurantInfo
-                {...item}
-                key={`_restauran_${i + 1}_${item.id}`}
-                onEvent={handleEvent}
-              />
-            ))}
-          </>
-        )}
+        ) : (getList().map((item, i) => (
+          <RestaurantInfo
+            {...item}
+            key={`_restauran_${i + 1}_${item.id}`}
+            onEvent={handleEvent}
+          />
+        )))}
       </List>
     </RestaurantList>
   );

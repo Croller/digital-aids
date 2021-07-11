@@ -159,7 +159,7 @@ export const NavBar = ({
     }
 
     if (['/restaurants/archive', '/menu', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1)) {
-      data.back = pathname.indexOf('/archive') > -1 ? { text: 'back' } : { text: 'menu' };
+      data.back = { text: 'back' };
       data.archive = !['/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
       data.delete = pathname.indexOf('/archive') > -1;
       data.add_new = false;

@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
-import { Sidebar } from 'client/ui/components/Layout/BackOffice/Sidebar';
+import { LeftSideBar } from 'client/ui/components/Layout/BackOffice/LeftSideBar';
+import { RightSideBar } from 'client/ui/components/Layout/BackOffice/RightSideBar';
 import { setLocalUser } from 'client/utils/localStorage';
 import * as user from 'client/store/user';
 import { set } from 'client/store/backOffice';
@@ -20,7 +21,8 @@ export const Layout = ({
   const history = useHistory();
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
-  const [showSideBar, setShowSideBar] = useState(true);
+  const [showLeftSideBar, setShowLeftSideBar] = useState(true);
+  const [showRightSideBar, setShowRightSideBar] = useState(true);
   const { info, roles } = useSelector(store => store.user);
   const { id, token } = info;
 
@@ -33,6 +35,8 @@ export const Layout = ({
     }
     const path = `/back-office/${part}`;
     history.push(path);
+
+    setShowRightSideBar(true);
   }, []);
 
   return (
@@ -40,11 +44,11 @@ export const Layout = ({
       <Header
         id={id}
         token={token}
-        onShowSideBar={() => setShowSideBar(!showSideBar)}
+        onShowSideBar={() => setShowLeftSideBar(!showLeftSideBar)}
         onRoute={handleRoute}
       />
-      {token && showSideBar && (
-        <Sidebar
+      {token && showLeftSideBar && (
+        <LeftSideBar
           roles={roles}
           path={pathname}
           onRoute={handleRoute}
@@ -52,13 +56,20 @@ export const Layout = ({
       )}
       <Cotainer>
         <Content
-          sidebar={token && showSideBar}
+          sidebar={token && showLeftSideBar}
         >
           <Block>
             {children}
           </Block>
         </Content>
       </Cotainer>
+      {token && showRightSideBar && (
+        <RightSideBar
+          roles={roles}
+          path={pathname}
+          onRoute={handleRoute}
+        />
+      )}
     </Wrapper>
   );
 };

@@ -26,9 +26,17 @@ const mapFields = (type) => {
   return mapper[typeEdit];
 };
 
-const getTableFields = async (table) => {
+const checkTableByName = async (table_names = null) => {
+  if (!table_names || (table_names && !Array.isArray(table_names))) return null;
+  query = 'SELECT * FROM information_schema.tables WHERE table_name = ANY ($1)';
+  values = [table_names];
+  const result = await db.queryValues(query, values);
+  return result.rows.length > 0 ? result.rows.map(({ table_name }) => table_name) : [];
+};
+
+const getTableFields = async (table_name) => {
   query = 'SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1';
-  values = [table];
+  values = [table_name];
   const result = await db.queryValues(query, values);
 
   if (result.rows.length === 0) {
@@ -163,6 +171,7 @@ const getTableRecord = async (table, data, params) => {
 };
 
 module.exports = {
+  checkTableByName,
   getTableFields,
   updateTableRecord,
   getTableRecord,

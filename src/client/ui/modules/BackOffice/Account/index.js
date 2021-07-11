@@ -32,7 +32,7 @@ const Account = () => {
       <Header>
         <Title
           icon={<UserCircleSvg />}
-          text={t('common.words.profile')}
+          text={t('common.words.account')}
         />
         <Controls>
           <Control onClick={() => setIsEdit(!isEdit)}>

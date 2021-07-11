@@ -35,7 +35,7 @@ const Users = () => {
   const params = useParams();
   const { user: { info }, backOffice } = useSelector(s => s);
   const { users, roles, loading } = backOffice;
-  const { language } = info;
+  const { language, token } = info;
   const [t] = useTranslation();
   const [event, setEvent] = useState(null);
   const [tableData, setTableData] = useState({
@@ -127,7 +127,7 @@ const Users = () => {
                 <EditSvg />
               </TableControl>
             </Tooltip>
-            <Tooltip placement="top" title={t('common.words.archived')}>
+            <Tooltip placement="top" title={t('common.words.archive')}>
               <TableControl
                 disabled={!loading}
                 onClick={() => handleOnControls(user, user.is_archived ? 'restore' : 'archive')}
@@ -157,9 +157,10 @@ const Users = () => {
           </Controls>
         )}
       </Header>
-      {params.user ? (
+      {params.user && users ? (
         <AccountForm
-          source={info}
+          token={token}
+          source={users.find(f => f.id === params.user)}
           roles={roles}
           loading={loading}
           onSubmit={handleSubmit}

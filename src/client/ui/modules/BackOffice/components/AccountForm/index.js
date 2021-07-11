@@ -15,6 +15,7 @@ import {
 } from './styled';
 
 export const AccountForm = ({
+  token = null,
   source = null,
   roles = null,
   loading = false,
@@ -38,7 +39,7 @@ export const AccountForm = ({
       ...formData,
       ...values,
     };
-    onSubmit({ token: source.token, data: dataToApi(obj, source) });
+    onSubmit({ token, data: dataToApi(obj, source) });
     setIsChange(false);
   };
 
@@ -57,7 +58,7 @@ export const AccountForm = ({
   };
 
   useEffect(() => {
-    if (source && source.token && roles) {
+    if (source && token && roles) {
       const rolesMap = source.roles.map(role => getDictionaryItem(role, 'id', roles, 'name'));
       setFiledsValue({ ...dataToForm(source), roles: rolesMap.join(', ') });
     }

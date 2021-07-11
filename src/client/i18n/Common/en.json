@@ -42,7 +42,9 @@
     "signout": "Sign out",
     "signup": "Sign up",
     "reset": "Reset",
-    "profile": "Profile",
+    "account": "Profile",
+    "bookmarks": "Bookmarks",
+    "settings": "Settings",
     "roles": "Roles",
     "password": "Password",
     "currency": "Currency",
@@ -54,7 +56,7 @@
     "logo": "Logo",
     "photos": "Photos",
     "upload": "Upload",
-    "cancel": "Do not",
+    "cancel": "Cancel",
     "loading": "Loading",
     "success": "Success",
     "foodtips": "Foodtips",
@@ -87,6 +89,7 @@
     "lng": "longitude",
     "emptyList": "No data",
     "ok": "Ok",
+    "dashboard": "Dashboard",
     "reserve": "Reserve",
     "approved": "Approved",
     "denied": "Denied",
@@ -109,7 +112,8 @@
     "schedule": "Schedule",
     "reports": "Reports",
     "chat": "Chat",
-    "news": "News"
+    "news": "News",
+    "support": "Support"
   },
 
   "form" : {
