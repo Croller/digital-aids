@@ -107,6 +107,7 @@ export const BackOffice = () => {
               component={Restaurant}
             />
             <Route
+              exact
               path={[
                 `${PATH}/users/:user`,
                 `${PATH}/users`,

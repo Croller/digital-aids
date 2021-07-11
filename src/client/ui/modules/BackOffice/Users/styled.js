@@ -37,6 +37,26 @@ export const Title = styled(IconText)`
   }
 `;
 
+export const Controls = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+export const Control = styled(Button)`
+  background-color: transparent;
+  border-width: 0;
+  font-size: 16px;
+  font-family: ${FONTS.semiBold};
+  color: ${PALETTE.green1};
+
+  &:disabled {
+    cursor: not-allowed;
+    color: ${PALETTE.grey24};
+  }
+`;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -124,7 +144,7 @@ export const Item = styled.span`
   margin-bottom: 6px;
 `;
 
-export const Controls = styled.div`
+export const TableControls = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -137,7 +157,7 @@ export const Controls = styled.div`
   }
 `;
 
-export const Control = styled(Button)`
+export const TableControl = styled(Button)`
   width: 32px;
   height: 32px;
   padding: 0;

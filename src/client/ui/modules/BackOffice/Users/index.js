@@ -21,19 +21,21 @@ import {
   LoaderStyled,
   Header,
   Title,
+  Controls, Control,
   Container,
   TableStyled,
   Confirmed,
   Contacts, Item,
-  Controls, Control,
+  TableControls, TableControl,
 } from './styled';
 
 const Users = () => {
   const history = useHistory();
   const rootDispatch = useDispatch();
   const params = useParams();
-  const { user: { info: { language }, roles }, backOffice } = useSelector(s => s);
-  const { users, loading } = backOffice;
+  const { user: { info }, backOffice } = useSelector(s => s);
+  const { users, roles, loading } = backOffice;
+  const { language } = info;
   const [t] = useTranslation();
   const [event, setEvent] = useState(null);
   const [tableData, setTableData] = useState({
@@ -62,7 +64,7 @@ const Users = () => {
     if (key === 'restore') {
       rootDispatch(update({ name: 'data_users', data: { ...user, is_archived: !user.is_archived } }));
     }
-    history.push(`users/${user.id}`);
+    history.push(`/back-office/users/${user.id}`);
   };
 
   const handleConfirm = () => {
@@ -75,8 +77,10 @@ const Users = () => {
     hideConfirm();
   };
 
-  const handleSubmit = (obj) => {
-    rootDispatch(update(obj));
+  const handleSubmit = (obj = null) => {
+    if (obj) {
+      rootDispatch(update(obj));
+    }
     history.goBack();
   };
 
@@ -84,7 +88,7 @@ const Users = () => {
     window.prerenderReady = true;
     rootDispatch(loadTables({ names: ['data_users', 'data_roles'] }));
   }, []);
-
+  console.log('params.user', params.user, users, roles);
   useEffect(() => {
     if (users) {
       const columns = [
@@ -114,24 +118,24 @@ const Users = () => {
         ),
         'dataBase.data_users.enter_at': getDateTime(user.enter_at, dateTimeFormat.dateTime),
         'empty.1': user.login !== process.env.BACK_OFFICE_ADMIN_LOGIN && (
-          <Controls>
+          <TableControls>
             <Tooltip placement="top" title={t('common.words.edit')}>
-              <Control
+              <TableControl
                 disabled={!loading}
                 onClick={() => handleOnControls(user)}
               >
                 <EditSvg />
-              </Control>
+              </TableControl>
             </Tooltip>
             <Tooltip placement="top" title={t('common.words.archived')}>
-              <Control
+              <TableControl
                 disabled={!loading}
                 onClick={() => handleOnControls(user, user.is_archived ? 'restore' : 'archive')}
               >
                 {user.is_archived ? <PlusSvg /> : <ArchiveSvg />}
-              </Control>
+              </TableControl>
             </Tooltip>
-          </Controls>
+          </TableControls>
         ),
       }));
       setTableData({ columns, dataSource });
@@ -145,20 +149,27 @@ const Users = () => {
           icon={<UserCircleSvg />}
           text={t('common.words.users')}
         />
-      </Header>
-      <Container>
-        {loading && (<LoaderStyled />)}
-        {!params.users ? (
-          <TableStyled {...tableData} />
-        ) : (
-          <AccountForm
-            source={users.find(f => f.id === params.users)}
-            roles={roles}
-            loading={loading}
-            onSubmit={handleSubmit}
-          />
+        {params.user && (
+          <Controls>
+            <Control onClick={handleSubmit}>
+              {t('common.words.cancel')}
+            </Control>
+          </Controls>
         )}
-      </Container>
+      </Header>
+      {params.user ? (
+        <AccountForm
+          source={info}
+          roles={roles}
+          loading={loading}
+          onSubmit={handleSubmit}
+        />
+      ) : (
+        <Container>
+          {loading && (<LoaderStyled />)}
+          <TableStyled {...tableData} />
+        </Container>
+      )}
     </UsersWrapper>
   );
 };
