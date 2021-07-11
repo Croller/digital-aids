@@ -48,6 +48,32 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
+CREATE TABLE IF NOT EXISTS data_roles (
+  number SERIAL,
+  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
+  name VARCHAR DEFAULT NULL,  -- restaurant/groceries/clothing/literature/furniture
+  description VARCHAR DEFAULT NULL,
+  parent VARCHAR DEFAULT NULL,
+  root BOOLEAN DEFAULT FALSE,
+  root_back BOOLEAN DEFAULT FALSE,
+  owner BOOLEAN DEFAULT FALSE,
+  owner_back BOOLEAN DEFAULT FALSE,
+  manager BOOLEAN DEFAULT FALSE,
+  manager_back BOOLEAN DEFAULT FALSE,
+  employee BOOLEAN DEFAULT FALSE,
+  guest BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE IF NOT EXISTS data_roles_translate (
+  id VARCHAR NOT NULL, -- DICTIONARY data_roles
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
 CREATE TABLE IF NOT EXISTS data_categories (
   number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -160,31 +186,6 @@ CREATE TABLE IF NOT EXISTS data_notify (
   is_deleted BOOLEAN DEFAULT FALSE
 );
 
-CREATE TABLE IF NOT EXISTS data_roles (
-  number SERIAL,
-  id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
-  name VARCHAR DEFAULT NULL,  -- restaurant/groceries/clothing/literature/furniture
-  description VARCHAR DEFAULT NULL,
-  parent VARCHAR DEFAULT NULL,
-  root BOOLEAN DEFAULT FALSE,
-  root_back BOOLEAN DEFAULT FALSE,
-  owner BOOLEAN DEFAULT FALSE,
-  owner_back BOOLEAN DEFAULT FALSE,
-  manager BOOLEAN DEFAULT FALSE,
-  manager_back BOOLEAN DEFAULT FALSE,
-  employee BOOLEAN DEFAULT FALSE,
-  guest BOOLEAN DEFAULT FALSE,
-  is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
-);
-
-CREATE TABLE IF NOT EXISTS data_roles_translate (
-  id VARCHAR NOT NULL, -- DICTIONARY data_roles
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
-  name VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL
-);
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
   number SERIAL,

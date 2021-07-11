@@ -55,7 +55,7 @@ export const NavBar = ({
     <ConfirmChange
       title={t(`backOffice.confirmModal.${options.event.title}`)}
       textOk={t(`common.words.${options.event.key}`)}
-      textCancel={t('common.words.doNot')}
+      textCancel={t('common.words.cancel')}
       onCancel={hideConfirm}
       onClose={hideConfirm}
       onOk={() => {
@@ -180,7 +180,7 @@ export const NavBar = ({
             {t(`common.words.${options.back.text}`)}
           </BackBtn>
         )}
-        {options.add_new && roles.some(f => f.guest || (f.root || f.root_back)) && (
+        {options.add_new && roles.some(f => f.guest || f.root || f.root_back) && (
           <AddBtn onClick={() => handleRoute('new')}>
             <PlusSvg />
             {t('common.words.newAdd')}
@@ -206,14 +206,14 @@ export const NavBar = ({
             <LoupeSvg />
           </LoupeBtn>
         )}
-        {options.delete && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
+        {options.delete && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
           <Tooltip placement="top" title={t('common.words.delete')}>
             <DeleteBtn onClick={() => handleChange('delete')}>
               <TrashSvg />
             </DeleteBtn>
           </Tooltip>
         )}
-        {options.archive && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
+        {options.archive && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
           <ArchiveBtn onClick={() => handleRoute('archive')}>
             <ArchiveSvg />
             {t('common.words.archive')}

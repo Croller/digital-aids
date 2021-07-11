@@ -29,12 +29,14 @@
     "cuisine": "Кухня",
     "address": "Адрес",
     "phone": "Номер телефона",
+    "contacts": "Контакты",
     "contactPerson": "Контактное лицо",
     "email": "E-mail",
     "opinion": "Отзыв",
     "opinions": "Отзывы",
     "authorization": "Авторизация",
     "registration": "Регистрация",
+    "confirmed": "Подтвержден",
     "resetPassword": "Восстановить пароль",
     "login": "Логин",
     "signin": "Войти",
@@ -53,7 +55,7 @@
     "logo": "Логотип",
     "photos": "Фото",
     "upload": "Загрузить",
-    "doNot": "Отмена",
+    "cancel": "Отмена",
     "loading": "Загрузка",
     "success": "Выполнено",
     "foodtips": "Советы",
@@ -98,6 +100,7 @@
     "table": "Стол",
     "waiter": "Официант",
     "apply": "Применить",
+    "null": "",
     
     "payment": "Платеж",
     "assembly": "Сборка",
@@ -192,6 +195,7 @@
   "errorCode": {
     "serverError": "Ошибка сервера",
     "queryError": "Ошибка запроса базы данных",
+    "userDatanNotCorrect": "Данные пользователя не верны",
     "userNotFound": "Пользователь не найден",
     "tokenNotValid": "Токен недействителен",
     "tokenNotExist": "Токен не существует",
@@ -200,5 +204,12 @@
     "502": "502 Плохой шлюз",
     "413": "413 Payload Too Large",
     "400": "404 неверный запро"
+  },
+
+  "dataBase" : {
+    "data_users": {
+      "enter_at": "Последняя активность",
+      "is_confirmed": "Аккаунт подтвержден"
+    }
   }
 }

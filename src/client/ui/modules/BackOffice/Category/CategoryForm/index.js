@@ -59,14 +59,10 @@ export const CategoryForm = ({
     <ConfirmChange
       title={t(`backOffice.confirmModal.category.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
-      textCancel={t('common.words.doNot')}
-      onCancel={hideConfirm}
+      textCancel={t('common.words.cancel')}
       onClose={hideConfirm}
-      onOk={() => {
-        hideConfirm();
-        setEvent(null);
-        handleChange(event.key, event.params);
-      }}
+      onCancel={hideConfirm}
+      onOk={() => handleChange(event.key, event.params)}
     />
   ), [event]);
 
@@ -127,8 +123,10 @@ export const CategoryForm = ({
     if (key !== 'close') {
       obj = dataFromToList({ ...formData, ...(params || {}) }, current, language);
     }
-    onChange(obj);
+    hideConfirm();
+    setEvent(null);
     setFormData(null);
+    onChange(obj);
   };
 
   const handleEventGroup = (key, index) => {

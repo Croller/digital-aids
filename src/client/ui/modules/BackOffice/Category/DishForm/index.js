@@ -79,7 +79,7 @@ export const DishForm = ({
     <ConfirmChange
       title={t(`backOffice.confirmModal.dish.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
-      textCancel={t('common.words.doNot')}
+      textCancel={t('common.words.cancel')}
       onCancel={hideConfirm}
       onClose={hideConfirm}
       onOk={() => {
@@ -286,7 +286,7 @@ export const DishForm = ({
 
   return formData && (
     <DishFormWrapper className={className}>
-      {controls && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
+      {controls && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
         <Controls>
           {isChange && (
             <>

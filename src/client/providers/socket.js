@@ -4,7 +4,8 @@ import { getUrl } from 'client/utils/common';
 let socket = null;
 
 export const initSocket = (id) => {
-  socket = io(getUrl());
+  socket = process.env.NODE_ENV === 'development' ? getUrl() : 'http://localhost:8086';
+  socket = io(socket);
   if (socket && id) {
     socket.emit('join', id);
     console.log(`Socket join ${id}`);
