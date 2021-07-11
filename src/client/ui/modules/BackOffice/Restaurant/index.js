@@ -105,7 +105,7 @@ const Restaurant = () => {
 
   const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_restaurants', data: { id: params.restaurant, ...obj } }));
-    handleRoute('/back-office/restaurants');
+    handleRoute(`/back-office/language/${language}/restaurants`);
   };
 
   const handleFinish = (values) => {

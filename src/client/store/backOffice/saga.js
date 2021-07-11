@@ -6,7 +6,7 @@ import {
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
-import { updateItem } from 'client/utils/common';
+import { getSort, updateItem } from 'client/utils/common';
 import { categoryModel } from 'client/store/backOffice/mapper/category';
 
 function* updateState({ payload }) {
@@ -180,11 +180,12 @@ function* loadTables({ payload }) {
         type: Constants.BO_SET,
         payload: names.reduce((obj, name) => {
           const table = name.split('_')[1];
+          results[name] = getSort(results[name]);
           if (name.split('_')[0] === 'data') {
             return { ...obj, [table]: results[name] };
           }
           return { ...obj, dictionary: { ...obj.dictionary, [table]: results[name] } };
-        }, { dictionary: {} }), 
+        }, {}), 
       });
     }
   } catch (err) {

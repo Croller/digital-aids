@@ -102,7 +102,7 @@ export const RestaurantInfo = ({
     <ConfirmChange
       title={t(`backOffice.confirmModal.restaurant.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
-      textCancel={t('common.words.doNot')}
+      textCancel={t('common.words.cancel')}
       onCancel={hideConfirm}
       onClose={hideConfirm}
       onOk={() => {

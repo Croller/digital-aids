@@ -29,6 +29,7 @@
     "cuisine": "Cuisine",
     "address": "Address",
     "phone": "Phone number",
+    "contacts": "Contacts",
     "contactPerson": "Contact person",
     "email": "E-mail",
     "opinion": "Opinion",
@@ -53,7 +54,7 @@
     "logo": "Logo",
     "photos": "Photos",
     "upload": "Upload",
-    "doNot": "Do not",
+    "cancel": "Do not",
     "loading": "Loading",
     "success": "Success",
     "foodtips": "Foodtips",
@@ -98,6 +99,7 @@
     "table": "Table",
     "waiter": "Waiter",
     "apply": "Apply",
+    "null": "",
     
     "payment": "Payment",
     "assembly": "Assembly",
@@ -108,7 +110,7 @@
     "reports": "Reports",
     "chat": "Chat",
     "news": "News"
-   },
+  },
 
   "form" : {
     "user": {
@@ -188,10 +190,10 @@
     "text": "Opps! It seems that \n somithing was wrong. \n But we are here to help you! \n Please, just press \n the botton and try again."
   },
 
-
   "errorCode": {
     "serverError": "Server error",
     "queryError": "Data base query error",
+    "userDatanNotCorrect": "User data is not correct",
     "userNotFound": "User not found",
     "tokenNotValid": "Token not valid",
     "tokenNotExist": "Token not exist",
@@ -200,5 +202,12 @@
     "502": "502 Bad Gateway",
     "413": "413 Payload Too Large",
     "400": "404 Bad Request"
+  },
+
+  "dataBase" : {
+    "data_users": {
+      "enter_at": "Last ente",
+      "is_confirmed": "Account confirmed"
+    }
   }
 }

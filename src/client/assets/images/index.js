@@ -22,6 +22,10 @@ import StarHalfDashedSvg from './svg/backOffice/star-half-dashed.svg';
 import ReceiptSvg from './svg/backOffice/receipt.svg';
 import ShoppingBagSvg from './svg/backOffice/shopping-bag.svg';
 import CalendarAltSvg from './svg/backOffice/calendar-alt.svg';
+import CheckSvg from './svg/backOffice/check.svg';
+import CheckDoubleSvg from './svg/backOffice/check-double.svg';
+import CheckCircleSvg from './svg/backOffice/check-circle.svg';
+import CircleSvg from './svg/backOffice/circle.svg';
 
 // restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
@@ -147,6 +151,10 @@ export {
   ReceiptSvg,
   ShoppingBagSvg,
   CalendarAltSvg,
+  CheckSvg,
+  CheckDoubleSvg,
+  CheckCircleSvg,
+  CircleSvg,
   
   ChefSvg,
   ChefHeadSvg,

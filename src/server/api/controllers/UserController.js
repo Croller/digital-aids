@@ -32,14 +32,22 @@ const UserController = () => {
       values = [login, password];
       const result = await db.queryValues(query, values);
       if (result.rows.length === 1) {
-        query = 'UPDATE data_users SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
-        values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), login, password, meta];
-        await db.queryValues(query, values);
         const user = result.rows[0];
-        const token = jwt.generateToken(user);
-        delete user.password;
-        delete user.meta;
-        res.json({ ...user, token, enter_at: moment().format('YYYY-MM-DDTHH:mm:ss.SSS') });
+        const { is_deleted, is_archived } = user;
+        if (is_deleted || is_archived) {
+          error.name = 'User data is not correct';
+          error.code = 'userDatanNotCorrect';
+          res.status(201);
+          res.json({ error });
+        } else {
+          query = 'UPDATE data_users SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
+          values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), login, password, meta];
+          await db.queryValues(query, values);
+          const token = jwt.generateToken(user);
+          delete user.password;
+          delete user.meta;
+          res.json({ ...user, token, enter_at: moment().format('YYYY-MM-DDTHH:mm:ss.SSS') });
+        }
       } else {
         error.name = 'User not found';
         error.code = 'userNotFound';
