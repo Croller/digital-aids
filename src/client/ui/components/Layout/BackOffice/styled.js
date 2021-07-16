@@ -18,9 +18,8 @@ export const Content = styled.div`
   padding-top: 97px;
   display: flex;
   justify-content: center;
-
-  /* padding-left: ${p => (p.sidebar ? '245px' : '0')};
-  padding-right: 245px; */
+  padding-left: ${p => (p.leftbar ? '245px' : '0')};
+  padding-right: ${p => (p.rightbar ? '245px' : '0')};
 `;
 
 export const Block = styled.div`

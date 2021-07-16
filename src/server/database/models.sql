@@ -12,9 +12,8 @@ CREATE TABLE IF NOT EXISTS data_users (
   middlename VARCHAR DEFAULT NULL,
   birthdate TIMESTAMP with time zone DEFAULT NULL,
   phone VARCHAR DEFAULT NULL,
-  email VARCHAR DEFAULT NULL,
+  email VARCHAR NOT NULL,
   language VARCHAR DEFAULT 'en', -- DICTIONARY dictionary_translate
-  roles VARCHAR ARRAY DEFAULT '{}', -- DICTIONARY data_roles
   enter_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   meta jsonb DEFAULT '{"browser": "NULL", "ip": "NULL", "geo": "NULL"}',
   is_confirmed BOOLEAN DEFAULT FALSE,
@@ -51,17 +50,16 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
 CREATE TABLE IF NOT EXISTS data_roles (
   number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+  parent VARCHAR DEFAULT NULL,
+  user VARCHAR NOT NULL,
   restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
   name VARCHAR DEFAULT NULL,  -- restaurant/groceries/clothing/literature/furniture
   description VARCHAR DEFAULT NULL,
-  parent VARCHAR DEFAULT NULL,
   root BOOLEAN DEFAULT FALSE,
-  root_back BOOLEAN DEFAULT FALSE,
   owner BOOLEAN DEFAULT FALSE,
-  owner_back BOOLEAN DEFAULT FALSE,
   manager BOOLEAN DEFAULT FALSE,
-  manager_back BOOLEAN DEFAULT FALSE,
   employee BOOLEAN DEFAULT FALSE,
+  user BOOLEAN DEFAULT TRUE,
   guest BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
@@ -77,7 +75,7 @@ CREATE TABLE IF NOT EXISTS data_roles_translate (
 CREATE TABLE IF NOT EXISTS data_categories (
   number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  parent VARCHAR NULL,
+  parent VARCHAR NULL, -- DICTIONARY data_restaurants
   restaurant VARCHAR NOT NULL,
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,
@@ -134,8 +132,10 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   persons INT NOT NULL,
   table_number INT DEFAULT NULL,
   reserve_at TIMESTAMP with time zone NOT NULL DEFAULT NULL,
+  create_user VARCHAR DEFAULT NULL,
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_approved BOOLEAN DEFAULT NULL,
+  is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
@@ -146,9 +146,10 @@ CREATE TABLE IF NOT EXISTS data_opinions (
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   name VARCHAR DEFAULT NULL,
   email VARCHAR DEFAULT NULL,
-  phone VARCHAR DEFAULT NULL,
   rate jsonb DEFAULT '{"service": "NULL", "meal": "NULL", "covid": "NULL", "menu": "NULL", "comments": "NULL"}',
+  create_user VARCHAR DEFAULT NULL,
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );
@@ -161,7 +162,7 @@ CREATE TABLE IF NOT EXISTS data_orders (
   order_number VARCHAR NOT NULL,
   order_url VARCHAR NOT NULL,
   status VARCHAR DEFAULT 'waiting', --- DICTIONARY dictionary_order_status
-  create_by VARCHAR DEFAULT NULL, -- DICTIONARY data_users
+  create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   cooked_at TIMESTAMP with time zone DEFAULT NULL,
   cook_options jsonb DEFAULT '{}',
@@ -169,6 +170,7 @@ CREATE TABLE IF NOT EXISTS data_orders (
   delivery_options jsonb DEFAULT '{}',
   paid_at TIMESTAMP with time zone DEFAULT NULL,
   pay_options jsonb DEFAULT '{}',
+  is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE
 );

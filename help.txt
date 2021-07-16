@@ -302,7 +302,7 @@ mc
 // replace #log_statement = 'none' to log_statement = 'all'
 // run edit pg_hba.conf
 // add line below
-// host    all             all             109.197.204.68/24          md5
+// host    digital-aids             digitalRoot            91.193.176.92/24          md5
 sudo service postgresql restart
 
 // nginx config 

@@ -2,12 +2,12 @@ import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   RestaurantSvg,
-  QuestionCircleSvg,
   UsersSvg,
   Conversation1Svg,
   Conversation2Svg,
   ChecklistSvg,
   CalendarAltSvg,
+  QuestionCircleSvg,
 } from 'client/assets/images';
 import { 
   LeftSideBarWrapper,
@@ -34,7 +34,7 @@ const MENU_USER_LIST = [
   {
     key: 'restaurants',
     icon: <RestaurantSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
   },
   {
     key: 'staff',
@@ -106,7 +106,7 @@ export const LeftSideBar = memo(({
         ))}
       </Menu>
       <Menu>
-        <Item>
+        <Item onClick={() => onRoute('support')}>
           <Icon>
             <QuestionCircleSvg />
           </Icon>

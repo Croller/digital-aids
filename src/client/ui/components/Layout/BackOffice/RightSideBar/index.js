@@ -20,7 +20,7 @@ const MENU_ROOT_LIST = [
   {
     key: 'account',
     icon: <UserCircleSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
   },
 ];
 
@@ -28,22 +28,22 @@ const MENU_USER_LIST = [
   {
     key: 'orders',
     icon: <ShoppingBagSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
   },
   {
     key: 'notify',
     icon: <BellSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
   },
   {
     key: 'bookmarks',
     icon: <BookmarkSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
   },
   {
     key: 'settings',
     icon: <ToolsSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'guest'],
+    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
   },
 ];
 

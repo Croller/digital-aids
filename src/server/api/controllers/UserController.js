@@ -2,6 +2,7 @@ const moment = require('moment');
 const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
+const mailer = require('../services/mailer');
 const commonUtils = require('../utils/common');
 const queryUtils = require('../utils/query');
 
@@ -14,6 +15,7 @@ const error = {
 const UserController = () => {
   let query = '';
   let values = [];
+  let results = null;
 
   const signin = async (req, res) => {
     const {
@@ -30,9 +32,9 @@ const UserController = () => {
     try {
       query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
       values = [login, password];
-      const result = await db.queryValues(query, values);
-      if (result.rows.length === 1) {
-        const user = result.rows[0];
+      results = await db.queryValues(query, values);
+      if (results.rows.length === 1) {
+        const user = results.rows[0];
         const { is_deleted, is_archived } = user;
         if (is_deleted || is_archived) {
           error.name = 'User data is not correct';
@@ -40,8 +42,8 @@ const UserController = () => {
           res.status(201);
           res.json({ error });
         } else {
-          query = 'UPDATE data_users SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
-          values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), login, password, meta];
+          query = 'UPDATE data_users SET enter_at=$1, meta=$2 WHERE login=$3 AND password=$4';
+          values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), meta, login, password];
           await db.queryValues(query, values);
           const token = jwt.generateToken(user);
           delete user.password;
@@ -76,22 +78,23 @@ const UserController = () => {
       const { login, email } = data;
       query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
       values = [login, email];
-      let result = await db.queryValues(query, values);
-
-      if (result.rows.length === 0) {
+      results = await db.queryValues(query, values);
+      if (results.rows.length === 0) {
         const mapper = Object.keys(data).reduce((obj, key) => ({
           fields: [...obj.fields, key],
           values: [...obj.values, data[key]],
         }), { fields: [], values: [] });
-
         query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-        result = await db.queryValues(query, mapper.values);
-        
+        results = await db.queryValues(query, mapper.values);
+        query = `INSERT INTO data_roles (user) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
+
+        req.body.data.body = `${req.body.data.body} https://${process.env.HOST}/back-office?account=${jwt.generateToken({ ...results.rows[0], is_confirmed: true })}`;
+        await mailer.send(req, res);
         res.status(200);
         res.send();
       } else {
         error.name = 'User exist';
-        error.code = 'useExist';
+        error.code = 'userExist';
         res.status(201);
         res.json({ error });
       }
@@ -108,17 +111,19 @@ const UserController = () => {
       const { data } = req.body;
       query = 'SELECT * FROM data_users WHERE email=$1';
       values = [data.email];
-      const result = await db.queryValues(query, values);
-      if (result.rows.length === 1) {
+      results = await db.queryValues(query, values);
+      if (results.rows.length === 1) {
+        const password = commonUtils.getStringRandom(7);
         query = 'UPDATE data_users SET password=$1 WHERE email=$2';
-        values = [commonUtils.getStringRandom(7), data.email];
-        await db.queryValues(query, values);
-
+        values = [password, data.email];
+        results = await db.queryValues(query, values);
+        req.body.data.body = `${req.body.data.body} ${password}`;
+        await mailer.send(req, res);
         res.status(200);
         res.send();
       } else {
-        error.name = 'Account not found';
-        error.code = 'accountNotFound';
+        error.name = 'User not found';
+        error.code = 'userNotFound';
         res.status(201);
         res.json({ error });
       }
@@ -132,11 +137,10 @@ const UserController = () => {
   
   const update = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
-    const isCurrent = jwt.verifyUser(req, res, tokenData);
-    if (!tokenData || !isCurrent) return;
+    if (!tokenData) return;
     try {
-      const { data } = req.body;
-      const user = await queryUtils.updateTableRecord('data_users', data, {
+      const { data = null } = req.body;
+      const user = await queryUtils.updateTableRecord('data_users', (data || tokenData), {
         req,
         res,
         language: 'en', 

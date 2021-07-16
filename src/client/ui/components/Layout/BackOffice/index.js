@@ -7,6 +7,7 @@ import { RightSideBar } from 'client/ui/components/Layout/BackOffice/RightSideBa
 import { setLocalUser } from 'client/utils/localStorage';
 import * as user from 'client/store/user';
 import { set } from 'client/store/backOffice';
+import OutSideClick from 'react-outside-click-handler';
 import { 
   Wrapper,
   Cotainer,
@@ -22,9 +23,9 @@ export const Layout = ({
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
   const [showLeftSideBar, setShowLeftSideBar] = useState(true);
-  const [showRightSideBar, setShowRightSideBar] = useState(true);
+  const [showRightSideBar, setShowRightSideBar] = useState(false);
   const { info, roles } = useSelector(store => store.user);
-  const { id, token } = info;
+  const { token } = info;
 
   const handleRoute = useCallback((part = 'restaurants') => {
     if (part === 'auth') {
@@ -39,12 +40,21 @@ export const Layout = ({
     setShowRightSideBar(true);
   }, []);
 
+  const handleShowSideBar = (key) => {
+    if (key === 'left') {
+      setShowLeftSideBar(!showLeftSideBar);
+    }
+    if (key === 'right') {
+      setShowRightSideBar(!showRightSideBar);
+    }
+  };
+
   return (
     <Wrapper className={className}>
       <Header
-        id={id}
         token={token}
-        onShowSideBar={() => setShowLeftSideBar(!showLeftSideBar)}
+        showRightSideBar={showRightSideBar}
+        onShowSideBar={handleShowSideBar}
         onRoute={handleRoute}
       />
       {token && showLeftSideBar && (
@@ -56,7 +66,8 @@ export const Layout = ({
       )}
       <Cotainer>
         <Content
-          sidebar={token && showLeftSideBar}
+          leftbar={token && showLeftSideBar}
+          rightbar={token && showRightSideBar}
         >
           <Block>
             {children}
@@ -64,11 +75,13 @@ export const Layout = ({
         </Content>
       </Cotainer>
       {token && showRightSideBar && (
-        <RightSideBar
-          roles={roles}
-          path={pathname}
-          onRoute={handleRoute}
-        />
+        <OutSideClick onOutsideClick={() => handleShowSideBar('right')}>
+          <RightSideBar
+            roles={roles}
+            path={pathname}
+            onRoute={handleRoute}
+          />
+        </OutSideClick>
       )}
     </Wrapper>
   );

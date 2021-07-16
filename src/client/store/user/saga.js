@@ -30,7 +30,7 @@ function* update({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      yield put({ type: Constants.USER_SET, payload: { info: { ...data } } });
+      yield put({ type: Constants.USER_SET, payload: { info: { ...data }, status: 'updated' } });
     }
   } catch (err) {
     throw err;

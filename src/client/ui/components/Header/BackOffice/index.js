@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
 import { setLocalUser } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
@@ -27,16 +26,14 @@ import {
 } from './styled';
 
 const HeaderComponent = ({
-  id = null,
   token = null,
-  onShowSideBar,
   onRoute = () => {},
+  onShowSideBar = () => {},
   className,
 }) => {
+  const rootDispatch = useDispatch();
   const { info } = useSelector(s => s.user);
   const [t, i18n] = useTranslation();
-  const { pathname } = useLocation();
-  const rootDispatch = useDispatch();
   const [langList, setLangList] = useState(false);
 
   const handleLangChange = (lng = null) => {
@@ -52,7 +49,7 @@ const HeaderComponent = ({
     <HeaderWrapper className={className}>
       <Control>
         {token && (
-          <Hamburger onClick={onShowSideBar}>
+          <Hamburger onClick={() => onShowSideBar('left')}>
             <HamburgerSvg />
           </Hamburger>
         )}
@@ -64,26 +61,20 @@ const HeaderComponent = ({
         </LogoText>
       </LogoWrapper>
       <Control>
-        {id && token && (
-          <>
-            <User
-              active={pathname.indexOf('account') > -1}
-              onClick={() => onRoute('account')}
-            >
-              <UserCircleSvg />
-            </User>
-          </>
+        {token && (
+          <User onClick={() => onShowSideBar('right')}>
+            <UserCircleSvg />
+          </User>
         )}
         <Lang onClick={() => setLangList(!langList)}>
           <GlobalSvg />
           <LangText>{i18n.language}</LangText>
-
           {langList && (
             <LangWrapper>
-              <CloseButton onClick={() => handleLangChange()}>
+              <CloseButton onClick={handleLangChange}>
                 <CloseSvg />
               </CloseButton>
-              <OutSideClick onOutsideClick={() => handleLangChange()}>
+              <OutSideClick onOutsideClick={handleLangChange}>
                 <LangList>
                   {['en', 'ru'].map(lng => (
                     <LangButton

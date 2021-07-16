@@ -11,7 +11,6 @@ const mg = mailgun({
 //   subject: 'Hello',
 //   text: 'Testing some Mailgun awesomeness!',
 // };
-
 // mg.messages().send(info, (error, body) => {
 //   console.log(error, body);
 // });
@@ -22,11 +21,11 @@ const error = {
   text: '',
 };
 
-const getMail = (type) => {
-  if (['registration', 'restore'].includes(type)) {
-    return process.env.HOST_MAIL_LOGIN_SUPPORT;
+const getMail = (type = null) => {
+  if (type && ['registration', 'restore'].includes(type)) {
+    return `support@${process.env.HOST}`;
   }
-  return process.env.HOST_MAIL_LOGIN_INFO;
+  return `info@${process.env.HOST}`;
 };
 
 module.exports = {
@@ -34,17 +33,17 @@ module.exports = {
     const { data } = req.body;
     const {
       from = `"Digital Aids" <${getMail(data.type)}>`,
-      to = null,
+      email = null,
       subject = null,
-      body = null,
       files = null,
       html = false, // true for html emails
+      body = null,
     } = data;
 
     const mailOptions = {
       from,
-      to,
-      subject,
+      to: email,
+      subject: `Digital Aids - ${subject}`,
       ...(html ? { html: body } : { text: body }),
       ...(files && {
         attachments: files.map(file => ({
@@ -54,12 +53,12 @@ module.exports = {
       }),
     };
     try {
+      console.log('Mailer send:', mailOptions);
       const result = await mg.messages().send(mailOptions);
-      console.log('mail send:', mailOptions, result);
       res.json(result);
     } catch (err) {
-      error.name = 'Mail error';
-      error.code = 'sendError';
+      error.name = 'Mailer send error';
+      error.code = 'mailerSendError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });

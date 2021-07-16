@@ -148,7 +148,7 @@
       },
       "login": {
         "null": "Please set your login!",
-        "error": "Please input login without space!"
+        "error": "Login is not correct"
       },
       "password": {
         "null": "Please set your password!",
@@ -173,14 +173,12 @@
         "null": "Please select value!"
       }
     },
-
     "file": {
       "error": {
         "type": "File format not support",
         "size": "Size of file more than"
       }
     },
-
     "error": {
       "notFilled": "Form is incomplete"
     }
@@ -198,16 +196,32 @@
     "serverError": "Server error",
     "queryError": "Data base query error",
     "userDatanNotCorrect": "User data is not correct",
+    "userExist": "User already exist",
     "userNotFound": "User not found",
     "tokenNotValid": "Token not valid",
     "tokenNotExist": "Token not exist",
     "notEnoughRights": "Not enough rights",
+    "mailerSendError": "Mail send error",
     "504": "504 Gateway Timeout",
     "502": "502 Bad Gateway",
     "413": "413 Payload Too Large",
     "400": "404 Bad Request"
   },
-
+  "account": {
+    "status": {
+      "updated": "Email confirmed"
+    },
+    "mail": {
+      "registration": {
+        "subject": "Registration",
+        "text": "Welcome! \n\n You have registered on our site. \n Confirm your email address by clicking the link below. \n\n"
+      },
+      "restore": {
+        "subject": "Restore access",
+        "text": "Hello! \n\n You have requested password recovery on our website. \n Your new password:"
+      }
+    }
+  },
   "dataBase" : {
     "data_users": {
       "enter_at": "Last ente",

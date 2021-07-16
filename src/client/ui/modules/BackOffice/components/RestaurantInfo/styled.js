@@ -163,6 +163,14 @@ export const DashItem = styled.div`
       fill: ${PALETTE.black1};
     }
   }
+
+  &:hover {
+    > svg {
+      path {
+        fill: ${PALETTE.green1};
+      }
+    }
+  }
 `;
 
 export const Bandage = styled.span`

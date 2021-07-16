@@ -289,63 +289,61 @@ export const DishForm = ({
       {controls && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
         <Controls>
           {isChange && (
-            <>
-              <Tooltip placement="top" title={t('common.words.save')}>
-                <Control
-                  disabled={!isChange || loading}
-                  active
-                  onClick={() => form.submit()}
-                >
-                  <FloppyDiskSvg />
-                </Control>
-              </Tooltip>
-            </>
+            <Tooltip placement="top" title={t('common.words.save')}>
+              <Control
+                disabled={!isChange || loading}
+                active
+                onClick={() => form.submit()}
+              >
+                <FloppyDiskSvg />
+              </Control>
+            </Tooltip>
           )}
           {source && source.id && (
             <>
               {!archive && !isChange && (
-              <>
-                {!edit && (
-                  <>
-                    <Tooltip placement="top" title={t('common.words.edit')}>
-                      <Control
-                        disabled={loading}
-                        onClick={handleEdit}
-                      >
-                        <EditSvg />
-                      </Control>
-                    </Tooltip>
-                    <Tooltip placement="top" title={t('common.words.archive')}>
-                      <Control
-                        disabled={loading}
-                        onClick={() => handleEvent('archive')}
-                      >
-                        <ArchiveSvg />
-                      </Control>
-                    </Tooltip>
-                  </>
-                )}
-              </>
+                <>
+                  {!edit && (
+                    <>
+                      <Tooltip placement="top" title={t('common.words.edit')}>
+                        <Control
+                          disabled={loading}
+                          onClick={handleEdit}
+                        >
+                          <EditSvg />
+                        </Control>
+                      </Tooltip>
+                      <Tooltip placement="top" title={t('common.words.archive')}>
+                        <Control
+                          disabled={loading}
+                          onClick={() => handleEvent('archive')}
+                        >
+                          <ArchiveSvg />
+                        </Control>
+                      </Tooltip>
+                    </>
+                  )}
+                </>
               )}
               {archive && (
-              <>
-                <Tooltip placement="top" title={t('common.words.restore')}>
-                  <Control
-                    disabled={loading}
-                    onClick={() => handleEvent('restore')}
-                  >
-                    <PlusSvg />
-                  </Control>
-                </Tooltip>
-                <Tooltip placement="top" title={t('common.words.delete')}>
-                  <Control
-                    disabled={loading}
-                    onClick={() => handleEvent('delete')}
-                  >
-                    <TrashSvg />
-                  </Control>
-                </Tooltip>
-              </>
+                <>
+                  <Tooltip placement="top" title={t('common.words.restore')}>
+                    <Control
+                      disabled={loading}
+                      onClick={() => handleEvent('restore')}
+                    >
+                      <PlusSvg />
+                    </Control>
+                  </Tooltip>
+                  <Tooltip placement="top" title={t('common.words.delete')}>
+                    <Control
+                      disabled={loading}
+                      onClick={() => handleEvent('delete')}
+                    >
+                      <TrashSvg />
+                    </Control>
+                  </Tooltip>
+                </>
               )}
             </>
           )}

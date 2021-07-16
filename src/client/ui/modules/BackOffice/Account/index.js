@@ -18,12 +18,13 @@ import {
 const Account = () => {
   const { info, roles } = useSelector(s => s.user);
   const { loading } = useSelector(s => s.backOffice);
+  const { token } = info;
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [isEdit, setIsEdit] = useState(false);
 
   const handleSubmit = (obj) => {
-    rootDispatch(update(obj));
+    rootDispatch(update({ ...obj, token }));
     setIsEdit(!isEdit);
   };
 
@@ -64,7 +65,7 @@ const Account = () => {
                 {info.middlename}
               </ViewItemStyled>
               <ViewItemStyled label={t('common.words.roles')}>
-                {info.roles}
+                {info.roles.map(id => roles.find(f => f.id === id).name).join(', ')}
               </ViewItemStyled>
             </ViewStyled>
             <ViewStyled layout="vertical">

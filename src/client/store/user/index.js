@@ -34,7 +34,12 @@ export default function (state = initState, action) {
     case Constants.USER_ERROR_SET:
       return { ...state, error: action.payload, loading: false };
     case Constants.USER_LOADING_SET:
-      return { ...state, loading: action.payload, error: null };
+      return {
+        ...state,
+        loading: action.payload,
+        error: null,
+        status: null,
+      };
     default:
       return state;
   }

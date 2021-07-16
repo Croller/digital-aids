@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { dataToForm, dataToApi } from 'client/store/backOffice/mapper/user';
-import { getDictionaryItem } from 'client/utils/common';
 import {
   AccountFormWrapper,
   FormCol,
@@ -11,11 +10,13 @@ import {
   FormItemStyled,
   InputStyled,
   InputMaskStyled,
+  SelectStyled,
+  OptionStyled,
   Save,
 } from './styled';
 
 export const AccountForm = ({
-  token = null,
+  showRoles = false,
   source = null,
   roles = null,
   loading = false,
@@ -39,7 +40,7 @@ export const AccountForm = ({
       ...formData,
       ...values,
     };
-    onSubmit({ token, data: dataToApi(obj, source) });
+    onSubmit({ data: dataToApi(obj, source) });
     setIsChange(false);
   };
 
@@ -58,9 +59,8 @@ export const AccountForm = ({
   };
 
   useEffect(() => {
-    if (source && token && roles) {
-      const rolesMap = source.roles.map(role => getDictionaryItem(role, 'id', roles, 'name'));
-      setFiledsValue({ ...dataToForm(source), roles: rolesMap.join(', ') });
+    if (source && roles) {
+      setFiledsValue({ ...dataToForm(source) });
     }
   }, [source, roles]);
 
@@ -156,12 +156,29 @@ export const AccountForm = ({
               placeholder={t('common.form.placeholder.text')}
             />
           </FormItemStyled>
-          <FormItemStyled
-            label={t('common.words.roles')}
-            name="roles"
-          >
-            <InputStyled disabled placeholder={t('common.form.placeholder.text')} />
-          </FormItemStyled>
+          {showRoles && (
+            <FormItemStyled
+              label={t('common.words.roles')}
+              name="roles"
+            >
+              <SelectStyled
+                showSearch
+                mode="multiple"
+                placeholder={t('common.form.placeholder.select')}
+                optionFilterProp="label"
+              >
+                {roles.map((item, i) => (
+                  <OptionStyled
+                    key={`_roles_${i + 1}`}
+                    value={item.id}
+                    label={item.name}
+                  >
+                    {item.name}
+                  </OptionStyled>
+                ))}
+              </SelectStyled>
+            </FormItemStyled>
+          )}
         </FormCol>
       </Form2Col>
       <Save
