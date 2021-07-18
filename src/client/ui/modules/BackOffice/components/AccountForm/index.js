@@ -10,13 +10,13 @@ import {
   FormItemStyled,
   InputStyled,
   InputMaskStyled,
-  SelectStyled,
-  OptionStyled,
+  // SelectStyled,
+  // OptionStyled,
   Save,
 } from './styled';
 
 export const AccountForm = ({
-  showRoles = false,
+  // showRoles = false,
   source = null,
   roles = null,
   loading = false,
@@ -156,7 +156,7 @@ export const AccountForm = ({
               placeholder={t('common.form.placeholder.text')}
             />
           </FormItemStyled>
-          {showRoles && (
+          {/* {showRoles && (
             <FormItemStyled
               label={t('common.words.roles')}
               name="roles"
@@ -178,7 +178,7 @@ export const AccountForm = ({
                 ))}
               </SelectStyled>
             </FormItemStyled>
-          )}
+          )} */}
         </FormCol>
       </Form2Col>
       <Save

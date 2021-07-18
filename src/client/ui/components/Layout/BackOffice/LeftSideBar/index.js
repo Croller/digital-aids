@@ -34,32 +34,32 @@ const MENU_USER_LIST = [
   {
     key: 'restaurants',
     icon: <RestaurantSvg />,
-    roles: ['root', 'root_back', 'owner', 'owner_back', 'manager', 'manager_back', 'employee', 'user'],
+    roles: ['root', 'root_back', 'owner', 'manager', 'employee', 'account'],
   },
   {
     key: 'staff',
     icon: <UsersSvg />,
-    roles: ['root', 'root_back'],
+    roles: ['root'],
   },
   {
     key: 'schedule',
     icon: <CalendarAltSvg />,
-    roles: ['root', 'root_back'],
+    roles: ['root'],
   },
   {
     key: 'reports',
     icon: <ChecklistSvg />,
-    roles: ['root', 'root_back'],
+    roles: ['root'],
   },
   {
     key: 'news',
     icon: <Conversation2Svg />,
-    roles: ['root', 'root_back'],
+    roles: ['root'],
   },
   {
     key: 'chat',
     icon: <Conversation1Svg />,
-    roles: ['root', 'root_back'],
+    roles: ['root'],
   },
 ];
 

@@ -47,10 +47,10 @@ function* signin({ payload }) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
       const roles = yield commonProvider.loadRowByParam({
-        language,
-        token: data.token,
         name: 'data_roles',
-        data: { restaurant: data.restaurants, id: data.roles }, 
+        token: data.token,
+        language,
+        data: { user_id: data.id }, 
       });
       yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
     }
@@ -73,7 +73,7 @@ function* auth({ payload }) {
         language,
         token: data.token,
         name: 'data_roles',
-        data: { restaurant: data.restaurants, id: data.roles }, 
+        data: { user_id: data.id },
       });
       yield put({ type: Constants.USER_SET, payload: { info: data, roles } });
     }

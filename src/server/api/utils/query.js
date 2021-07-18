@@ -1,4 +1,5 @@
 const { addedDiff, updatedDiff } = require('deep-object-diff');
+const moment = require('moment');
 const db = require('../services/db');
 const socket = require('../services/socket');
 const commonUtils = require('../utils/common');
@@ -11,9 +12,10 @@ const error = {
 
 let query = '';
 let values = [];
+let result = {};
 
 const mapFields = (type) => {
-  const typeEdit = type.replace(/ /g, '_');
+  const typeEdit = type.replace(/ /g, '_').toLowerCase();
   const mapper = {
     integer: { type: 'number', value: 0 },
     double_precision: { type: 'float', value: 0.0 },
@@ -21,37 +23,31 @@ const mapFields = (type) => {
     character_varying: { type: 'string', value: '' },
     jsonb: { type: 'object', value: {} },
     boolean: { type: 'boolean', value: false },
-    ARRAY: { type: 'array', value: [] },
+    array: { type: 'array', value: [] },
+    timestamp_with_time_zone: { type: 'datetime', value: moment() },
   };
   return mapper[typeEdit];
 };
 
 const checkTable = async (table = null) => {
-  query = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
-  values = [table];
-  const result = await db.queryValues(query, values);
+  result = await db.query(`SELECT * FROM information_schema.tables WHERE table_name = '${table}'`);
   if (result.rows.length === 0) return false;
   return true;
 };
 
-const getTableFields = async (table_name) => {
-  query = 'SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1';
-  values = [table_name];
-  const result = await db.queryValues(query, values);
+const getTableFields = async (table) => {
+  result = await db.query(`SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '${table}'`);
   if (result.rows.length === 0) return null;
   return result.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
-};
+};  
 
 const updateTableRecord = async (table, data, params) => {
   const source = { ...data };
   const { res, user, language = 'en' } = params;
   const fieldsTable = await getTableFields(table);
-  if (fieldsTable && fieldsTable.change_user && table.includes('data_')) {
-    source.change_user = user.id;
-  }
   try {
     const mapper = Object.keys(source)
-      .filter(f => (['logs_', '_translate'].some(s => !table.includes(s)) ? f !== 'id' : f))
+      .filter(f => (['_translate'].some(s => table.includes(s)) ? f : f !== 'id'))
       .reduce((obj, key) => {
         if (key === 'images') {
           return {
@@ -71,15 +67,13 @@ const updateTableRecord = async (table, data, params) => {
         };
       }, { fields: [], values: [] });
 
-    if (source.images) {
+    if (source.images && table.includes('data_')) {
       await Promise.all(source.images.filter(f => f).map(async (image) => {
         const { base64, path } = image;
         const file = await commonUtils.writeFile(path, base64);
         return file;
       }));
     }
-
-    let result = {};
     // update table with translate
     if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
       let tr_model = await getTableFields(`${table}_translate`);
@@ -96,35 +90,34 @@ const updateTableRecord = async (table, data, params) => {
       return { ...updateEN, ...updateTR };
     }
     
+    result = {};
     // insert/update for table without translate
-    if (!source.id || table.includes('logs_')) {
+    if (!source.id) {
       query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
       result = await db.queryValues(query, mapper.values);
 
-      // options create user roles for new point
+      // options create user roles for new restaurant
       if (table === 'data_restaurants') {
-        query = 'INSERT INTO data_roles (name, restaurant, owner, owner_back, manager, manager_back, employee, guest) VALUES ($1, $2, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE) RETURNING *';
-        values = ['Owner', result.rows[0].id];
+        query = 'INSERT INTO data_roles (user_id, restaurant, owner, manager, employee) VALUES ($1, $2, TRUE, TRUE, TRUE) RETURNING *';
+        values = [user.id, result.rows[0].id];
         await db.queryValues(query, values);
       }
     } else {
       // update table logs before update 
-      const logsTable = table.replace('data_', 'logs_');
-      const existTable = await checkTable(logsTable);
-      if (table.includes('data_') && existTable) {
-        query = `SELECT * FROM ${table} WHERE id=$1`;
-        values = [source.id];
-        result = await db.queryValues(query, values);
-        if (result.rows.length === 1) {
-          await updateTableRecord(logsTable, result.rows[0], params);
+      if (table.includes('logs_')) {
+        const logsTable = table.replace('data_', 'logs_');
+        const existTable = await checkTable(logsTable);
+        if (table.includes('data_') && existTable) {
+          await db.query(`INSERT INTO ${logsTable} (SELECT * FROM ${table} WHERE id='${source.id}')`);
+          await db.query(`UPDATE ${logsTable} SET change_at='${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}', change_user='${user.id}' WHERE id='${source.id}'`);
         }
       }
       // insert/update for table with translate
       if (table.includes('_translate')) {
-        const results = await getTableRecord(table, { id: source.id, language }, params);
+        result = await getTableRecord(table, { id: source.id, language }, params);
         query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
         values = [source.id, ...mapper.values];
-        if (results.length === 0) {
+        if (result.length === 0) {
           query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
           values = [...mapper.values];
         }
@@ -132,9 +125,9 @@ const updateTableRecord = async (table, data, params) => {
         query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
         values = [source.id, ...mapper.values];
       }
-
       result = await db.queryValues(query, values);
     }
+
     // socket emit change to client
     if ('restaurant' in result.rows[0]) {
       const { restaurant } = result.rows[0];
@@ -167,7 +160,7 @@ const getTableRecord = async (table, data, params) => {
     }).join(' AND ');
     query = `SELECT * FROM ${table} WHERE ${queryStr}`;
     values = Object.keys(data).map(key => data[key]);
-    const result = await db.queryValues(query, values);
+    result = await db.queryValues(query, values);
     return result.rows;
   } catch (err) {
     error.name = 'Query error';

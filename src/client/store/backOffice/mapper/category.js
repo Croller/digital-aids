@@ -72,7 +72,7 @@ export const dataFromToList = (data, current = null, language) => {
   }
 
   return {
-    id: current ? current.id : null,
+    ...(current && current.id ? { id: current.id } : {}),
     key: language === 'en' ? (stringToKey(name) || '') : key,
     type,
     name,

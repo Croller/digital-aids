@@ -42,13 +42,18 @@ const UserController = () => {
           res.status(201);
           res.json({ error });
         } else {
-          query = 'UPDATE data_users SET enter_at=$1, meta=$2 WHERE login=$3 AND password=$4';
-          values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), meta, login, password];
-          await db.queryValues(query, values);
-          const token = jwt.generateToken(user);
+          user.enter_at = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
+          user.meta = meta;
+          await queryUtils.updateTableRecord('data_users', user, {
+            req,
+            res,
+            language: 'en', 
+            user,
+          });
+          user.token = jwt.generateToken(user);
           delete user.password;
           delete user.meta;
-          res.json({ ...user, token, enter_at: moment().format('YYYY-MM-DDTHH:mm:ss.SSS') });
+          res.json(user);
         }
       } else {
         error.name = 'User not found';
@@ -86,10 +91,14 @@ const UserController = () => {
         }), { fields: [], values: [] });
         query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
         results = await db.queryValues(query, mapper.values);
-        query = `INSERT INTO data_roles (user) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
+        const user = results.rows[0];
+        query = 'INSERT INTO data_roles (user) VALUES ($1) RETURNING *';
+        values = [user.id];
+        results = await db.queryValues(query, mapper.values);
 
         req.body.data.body = `${req.body.data.body} https://${process.env.HOST}/back-office?account=${jwt.generateToken({ ...results.rows[0], is_confirmed: true })}`;
         await mailer.send(req, res);
+        
         res.status(200);
         res.send();
       } else {

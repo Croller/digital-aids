@@ -129,8 +129,7 @@ const CommonController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
-    const rolesExist = await jwt.verifyRoles(req, res, tokenData, ['user', 'guest']);
-    if (!tokenData || !rolesExist) return null;
+    if (!tokenData) return null;
     try {
       const { name } = req.params;
       const { data } = req.body;
@@ -178,8 +177,7 @@ const CommonController = () => {
 
   const deleteFile = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
-    const rolesExist = jwt.verifyRoles(req, res, tokenData, ['user', 'guest']);
-    if (!tokenData || !rolesExist) return;
+    if (!tokenData) return;
     try {
       const { data } = req.body;
       if (Array.isArray(data)) {

@@ -224,7 +224,7 @@
   },
   "dataBase" : {
     "data_users": {
-      "enter_at": "Last ente",
+      "enter_at": "Last enter",
       "is_confirmed": "Account confirmed"
     }
   }
