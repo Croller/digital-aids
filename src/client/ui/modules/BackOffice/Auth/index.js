@@ -82,11 +82,7 @@ const Auth = memo(() => {
         <FormStyled
           form={form}
           layout="vertical"
-          initialValues={{
-            login: 'test',
-            password: '2323232',
-            email: 'nightcroller@yandex.ru',
-          }}
+          initialValues={{}}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           scrollToFirstError
