@@ -32,13 +32,11 @@ const Auth = memo(() => {
     formKey === 'auth' && rootDispatch(login(values));
     formKey === 'reg' && rootDispatch(registration({
       ...values,
-      type: formKey,
       subject: t('common.account.mail.registration.subject'),
       body: t('common.account.mail.registration.text'),
     }));
     formKey === 'reset' && rootDispatch(reset({
       ...values,
-      type: formKey,
       subject: t('common.account.mail.restore.subject'),
       body: t('common.account.mail.restore.text'),
     }));
