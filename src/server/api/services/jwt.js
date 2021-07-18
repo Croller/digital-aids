@@ -15,12 +15,8 @@ let query = '';
 let values = [];
 let results = null;
 
-const generateToken = (user) => {
-  const obj = {
-    id: user.id,
-    login: user.login,
-    password: user.password,
-  };
+const generateToken = (obj = null) => {
+  if (!obj) return null;
   return jwt.sign(obj, signature, { expiresIn: expiration });
 };
 
@@ -44,9 +40,11 @@ const decodeToken = (req, res) => {
 const verifyToken = async (req, res) => {
   const data = decodeToken(req, res);
   const { login, password } = data;
-  const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
-  if (result.rows.length === 1) {
-    const user = result.rows[0];
+  query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2 AND is_deleted=FALSE';
+  values = [login, password];
+  results = await db.queryValues(query, values);
+  if (results.rows.length === 1) {
+    const user = results.rows[0];
     return user;
   }
   error.name = 'User not found';
@@ -54,19 +52,7 @@ const verifyToken = async (req, res) => {
   res.json({ error });
 };
 
-const verifyUser = (req, res, tokenData) => {
-  if (!tokenData) return null;
-  const { body: { data: { login } } } = req;
-  if (tokenData.login === login) {
-    return true;
-  } 
-  error.name = 'User not same';
-  error.code = 'userNotSame';
-  res.json({ error });
-}; 
-
 const verifyRoles = async (req, res, tokenData, roles) => {
-  if (!tokenData) return null;
   query = 'SELECT * FROM data_roles WHERE id = ANY ($1) AND is_deleted=FALSE';
   values = [tokenData.roles];
   results = await db.queryValues(query, values);
@@ -82,6 +68,5 @@ module.exports = {
   generateToken,
   decodeToken,
   verifyToken,
-  verifyUser,
   verifyRoles,
 };

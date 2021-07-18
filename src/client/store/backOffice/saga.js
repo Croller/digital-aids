@@ -262,7 +262,7 @@ export function* watchAndLog() {
       const { info: { token }, roles } = payload;
       let ids = null;
       if (roles && token) {
-        const isRoot = roles.some(f => f.root || f.root_back);
+        const isRoot = roles.some(f => f.root);
         if (!isRoot) {
           ids = roles.map(m => m.restaurant).filter(f => f) || [];
         }

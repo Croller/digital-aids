@@ -5,14 +5,14 @@ import {
   FONTS,
 } from 'client/style/constants';
 
-export const SidebarWrapper = styled.div`
+export const RightSideBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 245px;
   height: calc(100% - 97px);
   position: fixed;
   top: 97px;
-  left: 0;
+  right: 0;
   box-shadow: ${THEME.boxShadowHeader};
 `;  
 

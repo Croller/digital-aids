@@ -7,11 +7,9 @@ import {
   Redirect,
   useParams,
 } from 'react-router-dom';
-
 import { Layout } from 'client/ui/components/Layout/BackOffice';
 
 const PATH = '/back-office';
-
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
 const Flyer = lazy(() => import('client/ui/modules/BackOffice/Flyer'));
@@ -80,6 +78,7 @@ export const BackOffice = () => {
             <Route
               exact
               path={[
+                `${PATH}/restaurant/:restaurant/language/:language/dashboard`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals/archive`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
                 `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,

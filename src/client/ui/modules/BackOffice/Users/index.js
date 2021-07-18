@@ -6,7 +6,7 @@ import { update, loadTables } from 'client/store/backOffice';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
-import { dateTimeFormat, getDateTime } from 'client/utils/common';
+import { dateTimeFormat, getDateTime, getDictionaryItem } from 'client/utils/common';
 import { AccountForm } from 'client/ui/modules/BackOffice/components/AccountForm';
 import {
   EditSvg,
@@ -35,7 +35,7 @@ const Users = () => {
   const params = useParams();
   const { user: { info }, backOffice } = useSelector(s => s);
   const { users, roles, loading } = backOffice;
-  const { language } = info;
+  const { language, token } = info;
   const [t] = useTranslation();
   const [event, setEvent] = useState(null);
   const [tableData, setTableData] = useState({
@@ -79,7 +79,7 @@ const Users = () => {
 
   const handleSubmit = (obj = null) => {
     if (obj) {
-      rootDispatch(update(obj));
+      rootDispatch(update({ ...obj, token }));
     }
     history.goBack();
   };
@@ -88,7 +88,7 @@ const Users = () => {
     window.prerenderReady = true;
     rootDispatch(loadTables({ names: ['data_users', 'data_roles'] }));
   }, []);
-  console.log('params.user', params.user, users, roles);
+
   useEffect(() => {
     if (users) {
       const columns = [
@@ -127,7 +127,7 @@ const Users = () => {
                 <EditSvg />
               </TableControl>
             </Tooltip>
-            <Tooltip placement="top" title={t('common.words.archived')}>
+            <Tooltip placement="top" title={t('common.words.archive')}>
               <TableControl
                 disabled={!loading}
                 onClick={() => handleOnControls(user, user.is_archived ? 'restore' : 'archive')}
@@ -157,9 +157,10 @@ const Users = () => {
           </Controls>
         )}
       </Header>
-      {params.user ? (
+      {params.user && users ? (
         <AccountForm
-          source={info}
+          showRoles={info.roles.map(role => ['root', 'root_back'].some(s => getDictionaryItem(role, 'id', roles, s)))}
+          source={users.find(f => f.id === params.user)}
           roles={roles}
           loading={loading}
           onSubmit={handleSubmit}

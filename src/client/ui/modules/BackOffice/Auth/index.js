@@ -30,8 +30,18 @@ const Auth = memo(() => {
 
   const onFinish = (values) => {
     formKey === 'auth' && rootDispatch(login(values));
-    formKey === 'reg' && rootDispatch(registration(values));
-    formKey === 'reset' && rootDispatch(reset(values));
+    formKey === 'reg' && rootDispatch(registration({
+      ...values,
+      type: formKey,
+      subject: t('common.account.mail.registration.subject'),
+      body: t('common.account.mail.registration.text'),
+    }));
+    formKey === 'reset' && rootDispatch(reset({
+      ...values,
+      type: formKey,
+      subject: t('common.account.mail.restore.subject'),
+      body: t('common.account.mail.restore.text'),
+    }));
   };
 
   const onFinishFailed = ({ errorFields }) => {
@@ -49,10 +59,11 @@ const Auth = memo(() => {
       formKey === 'reg' && setFormKey('reset');
       formKey === 'reset' && setFormKey('auth');
     }
+    form.setFieldsValue({});
   };
 
   useEffect(() => {
-    if (status) {
+    if (status && status !== 'updated') {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
       rootDispatch(set({ satus: null }));
       setFormKey('auth');
@@ -73,6 +84,11 @@ const Auth = memo(() => {
         <FormStyled
           form={form}
           layout="vertical"
+          initialValues={{
+            login: 'test',
+            password: '2323232',
+            email: 'nightcroller@yandex.ru',
+          }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           scrollToFirstError
@@ -81,7 +97,7 @@ const Auth = memo(() => {
             {['auth', 'reg'].includes(formKey) && (
               <>
                 <FormItemStyled
-                  label={t('common.words.signin')}
+                  label={t('common.words.login')}
                   name="login"
                   rules={rule.login}
                 >
@@ -114,16 +130,16 @@ const Auth = memo(() => {
             )}
           </FormWrapper>
           <ControlWrapper>
-            <Submit type="primary" htmlType="submit" loading={loading}>
+            <Submit type="primary" htmlType="submit" loading={loading} disabled={loading}>
               {formKey === 'auth' && t('common.words.signin')}
               {formKey === 'reg' && t('common.words.signup')}
               {formKey === 'reset' && t('common.words.reset')}
             </Submit>
-            <Switch onClick={() => handleSwitchForm('first')}>
+            <Switch disabled={loading} onClick={() => handleSwitchForm('first')}>
               {['auth', 'reset'].includes(formKey) && t('common.words.registration')}
               {['reg'].includes(formKey) && t('common.words.authorization')}
             </Switch>
-            <Switch onClick={() => handleSwitchForm('second')}>
+            <Switch disabled={loading} onClick={() => handleSwitchForm('second')}>
               {['auth', 'reg'].includes(formKey) && t('common.words.resetPassword')}
               {['reset'].includes(formKey) && t('common.words.authorization')}
             </Switch>

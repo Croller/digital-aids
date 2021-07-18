@@ -9,13 +9,17 @@ import { Button } from 'client/ui/components/_ui/Button';
 import { IconText } from 'client/ui/components/_block/IconText';
 import { NavItem } from 'client/ui/modules/BackOffice/components/NavItem';
 
-export const Wrapper = styled.div`
+export const RestaurantInfoWrapper = styled.div`
+  width: 100%;
+`;
+
+export const InfoWrapper = styled.div`
   width: 100%;
   background-color: ${PALETTE.white};
   border-radius: ${THEME.borderRadiusL};
   box-shadow: ${THEME.boxShadow2};
   padding: 22px 23px 20px 24px;
-  margin-bottom: 22px;
+  margin-bottom: 30px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     height: auto;
@@ -125,10 +129,54 @@ export const NavItemStyled = styled(NavItem)`
   }
 `;
 
+export const DashboardWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  width: calc(100% + 2%);
+  margin-left: -1%;
+`;
+export const DashItem = styled.div`
+  position: relative;
+  width: 18%;
+  height: 160px;
+  margin: 0 1% 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 22px 18px;
+  border-radius: ${THEME.borderRadiusL};
+  box-shadow: ${THEME.boxShadow2};
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: auto;
+  }
+
+  > svg {
+    margin: 12px 0 18px;
+    width: 44px;
+    height: 44px;
+
+    path {
+      fill: ${PALETTE.black1};
+    }
+  }
+
+  &:hover {
+    > svg {
+      path {
+        fill: ${PALETTE.green1};
+      }
+    }
+  }
+`;
+
 export const Bandage = styled.span`
   position: absolute;
-  right: -5px;
-  top: -6px;
+  right: 8px;
+  top: 7px;
   border-radius: 50%;
   background-color: ${PALETTE.red1};
   min-width: 12px;
@@ -138,4 +186,10 @@ export const Bandage = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const DashItemName = styled.span`
+  font-size: 16px;
+  font-family: ${FONTS.bold};
+  text-transform: uppercase;
 `;

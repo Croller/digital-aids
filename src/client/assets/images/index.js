@@ -15,6 +15,7 @@ import PaperPlaneSvg from './svg/paper-plane.svg';
 import RestaurantSvg from './svg/backOffice/restaurant.svg';
 import QRCodeSvg from './svg/backOffice/qr-code.svg';
 import BellSvg from './svg/backOffice/bell.svg';
+import BellOnSvg from './svg/backOffice/bell-on.svg';
 import ShoppingBasketSvg from './svg/backOffice/shopping-basket.svg';
 import ThumbsDownSvg from './svg/backOffice/thumbs-down.svg';
 import ThumbsUpSvg from './svg/backOffice/thumbs-up.svg';
@@ -26,6 +27,9 @@ import CheckSvg from './svg/backOffice/check.svg';
 import CheckDoubleSvg from './svg/backOffice/check-double.svg';
 import CheckCircleSvg from './svg/backOffice/check-circle.svg';
 import CircleSvg from './svg/backOffice/circle.svg';
+import ToolsSvg from './svg/backOffice/tools.svg';
+import BookmarkSvg from './svg/backOffice/bookmark.svg';
+import CloneSvg from './svg/backOffice/clone.svg';
 
 // restaurant
 import ChefSvg from './svg/restaurant/chef.svg';
@@ -144,6 +148,7 @@ export {
   RestaurantSvg,
   QRCodeSvg,
   BellSvg,
+  BellOnSvg,
   ShoppingBasketSvg,
   ThumbsDownSvg,
   ThumbsUpSvg,
@@ -155,7 +160,10 @@ export {
   CheckDoubleSvg,
   CheckCircleSvg,
   CircleSvg,
-  
+  ToolsSvg,
+  BookmarkSvg,
+  CloneSvg,
+
   ChefSvg,
   ChefHeadSvg,
   ThumbsUpGreenSvg,

@@ -89,7 +89,7 @@ export const CategoryForm = ({
 
   const handleValuesChange = (values) => {
     if (!values) return;
-    console.log('values - ', { ...formData, ...values });
+    // console.log('values - ', { ...formData, ...values });
     let edited = { ...formData, ...values };
     if (values.type) {
       const def = categoryModel.find(f => f.type === values.type);

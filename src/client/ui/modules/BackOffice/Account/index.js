@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AccountForm } from 'client/ui/modules/BackOffice/components/AccountForm';
 import { UserCircleSvg } from 'client/assets/images';
 import { update } from 'client/store/user';
+import * as moment from 'moment';
 import {
   AccountWrapper,
   Header,
@@ -18,12 +19,13 @@ import {
 const Account = () => {
   const { info, roles } = useSelector(s => s.user);
   const { loading } = useSelector(s => s.backOffice);
+  const { token } = info;
   const rootDispatch = useDispatch();
   const [t] = useTranslation();
   const [isEdit, setIsEdit] = useState(false);
 
   const handleSubmit = (obj) => {
-    rootDispatch(update(obj));
+    rootDispatch(update({ ...obj, token }));
     setIsEdit(!isEdit);
   };
 
@@ -32,7 +34,7 @@ const Account = () => {
       <Header>
         <Title
           icon={<UserCircleSvg />}
-          text={t('common.words.profile')}
+          text={t('common.words.account')}
         />
         <Controls>
           <Control onClick={() => setIsEdit(!isEdit)}>
@@ -63,13 +65,10 @@ const Account = () => {
               <ViewItemStyled label={t('common.form.user.middlename')}>
                 {info.middlename}
               </ViewItemStyled>
-              <ViewItemStyled label={t('common.words.roles')}>
-                {info.roles}
-              </ViewItemStyled>
             </ViewStyled>
             <ViewStyled layout="vertical">
               <ViewItemStyled label={t('common.form.user.birthdate')}>
-                {info.birthdate}
+                {moment(info.birthdate).isValid() ? moment(info.birthdate).format('DD.MM.YYYY') : '00.00.0000'}
               </ViewItemStyled>
             </ViewStyled>
             <ViewStyled layout="vertical">
