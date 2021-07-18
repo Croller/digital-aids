@@ -32,11 +32,13 @@ const Auth = memo(() => {
     formKey === 'auth' && rootDispatch(login(values));
     formKey === 'reg' && rootDispatch(registration({
       ...values,
+      type: formKey,
       subject: t('common.account.mail.registration.subject'),
       body: t('common.account.mail.registration.text'),
     }));
     formKey === 'reset' && rootDispatch(reset({
       ...values,
+      type: formKey,
       subject: t('common.account.mail.restore.subject'),
       body: t('common.account.mail.restore.text'),
     }));
@@ -47,6 +49,7 @@ const Auth = memo(() => {
   };
 
   const handleSwitchForm = (key) => {
+    form.resetFields();
     if (key === 'first') {
       formKey === 'auth' && setFormKey('reg');
       formKey === 'reg' && setFormKey('auth');
@@ -57,13 +60,12 @@ const Auth = memo(() => {
       formKey === 'reg' && setFormKey('reset');
       formKey === 'reset' && setFormKey('auth');
     }
-    form.setFieldsValue({});
   };
 
   useEffect(() => {
     if (status && status !== 'updated') {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
-      rootDispatch(set({ satus: null }));
+      rootDispatch(set({ status: null }));
       setFormKey('auth');
     }
   }, [status]);
@@ -80,9 +82,10 @@ const Auth = memo(() => {
           </LogoText>
         </LogoWrapper>
         <FormStyled
+          key={formKey}
           form={form}
           layout="vertical"
-          initialValues={{}}
+          initialValues={null}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           scrollToFirstError

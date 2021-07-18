@@ -85,16 +85,16 @@ const UserController = () => {
       values = [login, email];
       results = await db.queryValues(query, values);
       if (results.rows.length === 0) {
-        const mapper = Object.keys(data).reduce((obj, key) => ({
+        const mapper = ['login', 'password', 'email'].reduce((obj, key) => ({
           fields: [...obj.fields, key],
           values: [...obj.values, data[key]],
         }), { fields: [], values: [] });
         query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
         results = await db.queryValues(query, mapper.values);
         const user = results.rows[0];
-        query = 'INSERT INTO data_roles (user) VALUES ($1) RETURNING *';
+        query = 'INSERT INTO data_roles (user_id) VALUES ($1) RETURNING *';
         values = [user.id];
-        results = await db.queryValues(query, mapper.values);
+        results = await db.queryValues(query, values);
 
         req.body.data.body = `${req.body.data.body} https://${process.env.HOST}/back-office?account=${jwt.generateToken({ ...results.rows[0], is_confirmed: true })}`;
         await mailer.send(req, res);
