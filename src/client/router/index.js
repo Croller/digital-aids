@@ -27,7 +27,6 @@ export const Routers = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [t] = useTranslation();
-  console.log('pathname', pathname);
   const handleRoute = useCallback(() => history.push(pathname.split('/').slice(0, -1).join('/')), []);
 
   return (

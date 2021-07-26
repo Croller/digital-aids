@@ -326,7 +326,7 @@ npm i
 pm2 start /home/app/src/server/index.js -n server
 pm2 save
 
-// build priject
+// build project
 ssh-agent bash -c 'ssh-add /home/ssh/ssh_79104643015; git clone git@github.com:Croller/restauran.git'
 git pull
 npm run build
