@@ -158,9 +158,14 @@ export const NavBar = ({
       };
     }
 
-    if (['/restaurants/archive', '/menu', '/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1)) {
+    if ([
+      '/restaurants/archive',
+      '/menu',
+      '/special-deals',
+      '/foodtips',
+    ].some(f => pathname.indexOf(f) > -1)) {
       data.back = { text: 'back' };
-      data.archive = !['/special-deals', '/foodtips'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
+      data.archive = !['/special-deals', '/foodtips', '/notify', '/opinions', '/reserve', '/orders'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
       data.delete = pathname.indexOf('/archive') > -1;
       data.add_new = false;
       data.title = pathname.indexOf('/archive') > -1 && {
@@ -206,14 +211,14 @@ export const NavBar = ({
             <LoupeSvg />
           </LoupeBtn>
         )}
-        {options.delete && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
+        {options.delete && (
           <Tooltip placement="top" title={t('common.words.delete')}>
             <DeleteBtn onClick={() => handleChange('delete')}>
               <TrashSvg />
             </DeleteBtn>
           </Tooltip>
         )}
-        {options.archive && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
+        {options.archive && pathname.indexOf('/archive') === -1 && (
           <ArchiveBtn onClick={() => handleRoute('archive')}>
             <ArchiveSvg />
             {t('common.words.archive')}
