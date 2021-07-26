@@ -6,7 +6,7 @@ import { update, loadTables } from 'client/store/backOffice';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
-import { dateTimeFormat, getDateTime, getDictionaryItem } from 'client/utils/common';
+import { dateTimeFormat, getDateTime } from 'client/utils/common';
 import { AccountForm } from 'client/ui/modules/BackOffice/components/AccountForm';
 import {
   EditSvg,
@@ -159,7 +159,7 @@ const Users = () => {
       </Header>
       {params.user && users ? (
         <AccountForm
-          showRoles={info.roles.map(role => ['root', 'root_back'].some(s => getDictionaryItem(role, 'id', roles, s)))}
+          showRoles={false}
           source={users.find(f => f.id === params.user)}
           roles={roles}
           loading={loading}

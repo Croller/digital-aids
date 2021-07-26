@@ -25,7 +25,7 @@ const Auth = memo(() => {
   const [form] = FormStyled.useForm();
   const [t] = useTranslation();
   const [formKey, setFormKey] = useState('auth');
-  const { loading, status } = useSelector(store => store.user);
+  const { loading, status } = useSelector(s => s.user);
   const rule = rules(t);
 
   const onFinish = (values) => {
@@ -33,12 +33,14 @@ const Auth = memo(() => {
     formKey === 'reg' && rootDispatch(registration({
       ...values,
       type: formKey,
+      html: true,
       subject: t('common.account.mail.registration.subject'),
       body: t('common.account.mail.registration.text'),
     }));
     formKey === 'reset' && rootDispatch(reset({
       ...values,
       type: formKey,
+      html: true,
       subject: t('common.account.mail.restore.subject'),
       body: t('common.account.mail.restore.text'),
     }));
@@ -64,7 +66,7 @@ const Auth = memo(() => {
 
   useEffect(() => {
     if (status && status !== 'updated') {
-      showMessage({ type: 'success', content: t(`common.words.${status}`) });
+      showMessage({ type: 'success', content: t(`common.account.status.${status}`) });
       rootDispatch(set({ status: null }));
       setFormKey('auth');
     }

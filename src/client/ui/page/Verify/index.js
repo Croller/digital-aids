@@ -11,28 +11,28 @@ const { href } = window.location;
 export const Verify = () => {
   const rootDispatch = useDispatch();
   const history = useHistory();
-  const { user } = useSelector(s => s);
+  const { status } = useSelector(s => s.user);
   const [t] = useTranslation();
   const [initUrl, setInitUrl] = useState(null);
 
   useEffect(() => {
     let url = null;
     if (href.indexOf('/verify?account=') > -1) {
-      const token = href.split('?account=')[1];
+      const [, token] = href.split('?account=');
       if (token && typeof token === 'string') {
         url = href;
         rootDispatch(update({ token, data: null }));
       }
     }
     setInitUrl(url);
-    history.push('/verify');
   }, []);
 
   useEffect(() => {
     if (initUrl && initUrl.indexOf('/verify?account=') > -1) {
       showMessage({ type: 'success', content: t(`common.account.status.${status}`) });
+      history.push('/back-office');
     }
-  }, [user.status]);
+  }, [status]);
 
   return (<Loader />);
 };

@@ -41,7 +41,7 @@ export const Routers = () => {
         <ScrollToTop>
           <Suspense fallback={<Loader />}>
             <Switch>
-              <Route exact path="/verify" component={Verify} />
+              <Route path="/verify" component={Verify} />
               <Route path="/back-office" component={BackOffice} />
               <Route path="/restaurant" component={Restaurant} />
               <Route path="/404">
