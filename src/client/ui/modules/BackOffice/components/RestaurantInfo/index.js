@@ -93,7 +93,7 @@ const CONTROL_CONFIG = [
   {
     key: 'edit',
     icon: <EditSvg />,
-    path: 'restaurant/:restaurant',
+    path: '/back-office/restaurant/:restaurant',
   },
   {
     key: 'restore',
@@ -226,7 +226,7 @@ export const RestaurantInfo = ({
       {pathname.indexOf('/dashboard') > -1 && (
         <DashboardWrapper>
           {getDashItem().map(({ key, icon, path }) => (
-            <DashItem onClick={() => handleRoute(key, path)}>
+            <DashItem key={key} onClick={() => handleRoute(key, path)}>
               {icon}
               {alert[key] && (<Bandage />)}
               <DashItemName>
