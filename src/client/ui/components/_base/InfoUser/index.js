@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
-import { login, auth, logout } from 'client/store/user';
+import { login, auth, set } from 'client/store/user';
 import translate from 'client/i18n';
 import moment from 'moment';
-
 import {
   initLocal,
-  getUser,
-  setUser,
+  getLocalUser,
+  setLocalUser,
 } from 'client/utils/localStorage';
 
 export const InfoUser = () => {
   const pathCurrent = '/back-office';
-  const storageKey = process.env.LOCAL_STORAGE_KEY;
   const lng = navigator.language || navigator.userLanguage || 'en-EN';
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
@@ -31,11 +29,12 @@ export const InfoUser = () => {
     },
     restaurant: {},
   });
-  const { token, enter_at } = useSelector(store => store.user.info);
+  const { info } = useSelector(store => store.user);
+  const { token, enter_at } = info;
   const { pathname } = location;
 
   const initStorage = () => {
-    const localUser = getUser(storageKey) || storage;
+    const localUser = getLocalUser() || storage;
     translate.changeLanguage(localUser.lng);
     localUser.token = localUser.token || token;
     localUser.enter_at = localUser.enter_at || enter_at;
@@ -44,13 +43,13 @@ export const InfoUser = () => {
       const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
 
       if (diffEnterTime > expireTime) {
-        rootDispatch(logout());
+        rootDispatch(set({ info: { ...info, token } }));
         localUser.token = null;
       }
     }
 
     if (localUser.token && !token && [pathCurrent].some(f => pathname.indexOf(f) > -1)) {
-      rootDispatch(auth({ token: localUser.token }));
+      rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
       localUser.token = null;
       localUser.enter_at = null;
     }
@@ -67,10 +66,11 @@ export const InfoUser = () => {
       rootDispatch(login({
         login: process.env.BACK_OFFICE_ADMIN_LOGIN,
         password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
+        language: localUser.lng,
       }));
     }
     
-    setUser(localUser);
+    setLocalUser(localUser);
     setStorage({ ...storage, user: localUser });
     setInitUrl(pathname);
   };
@@ -79,7 +79,7 @@ export const InfoUser = () => {
     const local = { ...storage };
     local.user.token = token;
     local.user.enter_at = enter_at;
-    setUser(local.user);
+    setLocalUser(local.user);
     setStorage(local);
   };
   
@@ -90,7 +90,7 @@ export const InfoUser = () => {
     
     return () => {
       console.log('Logout before close');
-      rootDispatch(logout());
+      rootDispatch(set({ info: { ...info, token } }));
     };
   }, []);
 

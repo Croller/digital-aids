@@ -1,4 +1,6 @@
--- DROP TABLE IF EXISTS data_users;
+-- DROP TABLE IF EXISTS data_users_test;
+-- DROP TABLE IF EXISTS data_roles_test;
+-- DROP TABLE IF EXISTS data_roles_test_translate;
 -- DROP TABLE IF EXISTS data_restaurants;
 
 -- DROP TABLE IF EXISTS data_categories;
@@ -7,7 +9,6 @@
 -- DROP TABLE IF EXISTS data_categories_translate;
 -- DROP TABLE IF EXISTS data_dishes_translate;
 
--- DROP TABLE IF EXISTS dictionary_roles;
 -- DROP TABLE IF EXISTS dictionary_currency;
 -- DROP TABLE IF EXISTS dictionary_currency_translate;
 -- DROP TABLE IF EXISTS dictionary_languages;
@@ -22,9 +23,6 @@
 -- DROP TABLE IF EXISTS data_opinions;
 -- DROP TABLE IF EXISTS data_orders;
 -- DROP TABLE IF EXISTS data_notify;
-
-
-
 
 
 
@@ -121,7 +119,6 @@
 
 
 
-
 -- TRUNCATE description_data_monitoring CASCADE;
 -- TRUNCATE dictionary RESTART IDENTITY;
 
@@ -185,3 +182,22 @@
 -- CSV HEADER;
 
 -- SELECT * FROM data_krt;
+
+-- with _restaurant as 
+-- (
+--   SELECT * FROM data_restaurants WHERE key='example'
+-- )
+-- , _role_guest as 
+-- (
+--   SELECT * FROM data_roles WHERE name='Guest'
+-- )
+-- , _role_current as 
+-- (
+--   INSERT INTO data_roles (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, user, guest) VALUES 
+--     ('Employee', (select id from _restaurant), FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE)
+--     RETURNING id
+-- )
+-- UPDATE data_users 
+--     SET
+--     roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
+-- where login = 'employee';

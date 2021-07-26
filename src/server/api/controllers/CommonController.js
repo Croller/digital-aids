@@ -129,14 +129,12 @@ const CommonController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
-
-    const rolesExist = jwt.verifyRoles(req, res, tokenData.roles, [1, 2, 3, 5]);
-    if (!tokenData || !rolesExist) return;
+    if (!tokenData) return null;
     try {
       const { name } = req.params;
       const { data } = req.body;
-
       const arr = Array.isArray(data) ? data : [data];
+
       results = await Promise.all(arr.map(async (row) => {
         const result = await queryUtils.updateTableRecord(name, row, {
           req,
@@ -146,11 +144,13 @@ const CommonController = () => {
         });
         return result;
       }));
+
       res.json(results);
     } catch (err) {
       error.name = 'Query error';
       error.code = 'queryError';
       error.text = JSON.stringify(err.message);
+      res.status(201);
       res.json({ error });
     }
   };
@@ -177,8 +177,7 @@ const CommonController = () => {
 
   const deleteFile = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
-    const rolesExist = jwt.verifyRoles(req, res, tokenData.roles, [1, 2, 3]);
-    if (!tokenData || !rolesExist) return;
+    if (!tokenData) return;
     try {
       const { data } = req.body;
       if (Array.isArray(data)) {
@@ -194,6 +193,7 @@ const CommonController = () => {
       error.name = 'Delete file error';
       error.code = 'deleteFile';
       error.text = JSON.stringify(err.message);
+      res.status(201);
       res.json({ error });
     }
   };
@@ -202,10 +202,8 @@ const CommonController = () => {
     getTableByNames,
     getTableRecordById,
     getTableRecordByParam,
-
     updateTableRecord,
     deleteTableRecord,
-
     deleteFile,
   };
 };

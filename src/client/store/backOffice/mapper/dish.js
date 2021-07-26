@@ -70,7 +70,7 @@ export const dataToApi = (data, categories, restaurant, language) => {
   }, {});
 
   return {
-    id: id || null,
+    ...(id ? { id } : {}),
     count,
     key: language === 'en' ? (stringToKey(name) || '') : key,
     name,

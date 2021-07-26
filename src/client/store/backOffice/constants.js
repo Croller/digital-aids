@@ -5,6 +5,6 @@ export const BO_SET_STATE = 'BO_SET_STATE';
 export const BO_LOAD = 'BO_LOAD';
 export const BO_LOAD_INIT = 'BO_LOAD_INIT';
 export const BO_LOAD_ITEMS = 'BO_LOAD_ITEMS';
-export const BO_LOAD_ITEMS_BY_PARAM = 'BO_LOAD_ITEMS_BY_PARAM';
+export const BO_LOAD_TABLES = 'BO_LOAD_TABLES';
 export const BO_UPDATE = 'BO_UPDATE';
 export const BO_DELETE_FILE = 'BO_DELETE_FILE';
