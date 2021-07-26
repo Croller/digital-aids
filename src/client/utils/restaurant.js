@@ -77,8 +77,8 @@ export const setUrlOrder = (order) => {
   return encode;
 };
 
-export const getUrlOrder = (url, dishes, categories) => {
-  if (typeof url !== 'string') return null;
+export const getUrlOrder = (url = null, dishes = null, categories = null) => {
+  if (typeof url !== 'string' || !dishes || !categories) return null;
   const params = url;
   // TODO edit 
   // const yourParamName = new URLSearchParams(window.location.search).getAll('yourParamName[]')

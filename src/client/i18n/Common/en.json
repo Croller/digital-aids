@@ -209,16 +209,17 @@
   },
   "account": {
     "status": {
-      "updated": "Email confirmed"
+      "updated": "Email confirmed",
+      "created": "Account created"
     },
     "mail": {
       "registration": {
         "subject": "Registration",
-        "text": "Welcome! \n\n You have registered on our site. \n Confirm your email address by clicking the link below. \n\n"
+        "text": "<div><h3>Welcome!</h3><p>You have registered on our site.</p><p>Confirm your email address by click the <a href=\"confirm_link\">link</a></p></div>"
       },
       "restore": {
         "subject": "Restore access",
-        "text": "Hello! \n\n You have requested password recovery on our website. \n Your new password:"
+        "text": "<div><h3>Hello!</h3><p>You have requested password recovery on our website.</p><p>Your new password: new_password</p></div>"
       }
     }
   },
