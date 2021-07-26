@@ -2,11 +2,7 @@ import React, { memo } from 'react';
 import { IconText } from 'client/ui/components/_block/IconText';
 import { useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import {
-  MenuSvg,
-  InfoCircleSvg,
-  ChefHeadSvg,
-} from 'client/assets/images';
+import { CloneSvg } from 'client/assets/images';
 import { 
   NavItemWrapper,
   Item,
@@ -14,22 +10,9 @@ import {
 
 const NAV_CONFIG = [
   {
-    key: 'menu',
-    icon: (<MenuSvg />),
-    path: '/back-office/restaurant/:restaurant/language/en/menu',
-    part: '/menu',
-  },
-  {
-    key: 'specialDeals',
-    icon: (<InfoCircleSvg />),
-    path: '/back-office/restaurant/:restaurant/language/en/special-deals',
-    part: '/special-deals',
-  },
-  {
-    key: 'foodtips',
-    icon: (<ChefHeadSvg />),
-    path: '/back-office/restaurant/:restaurant/language/en/foodtips',
-    part: '/foodtips',
+    key: 'dashboard',
+    icon: <CloneSvg />,
+    path: '/back-office/restaurant/:restaurant/language/en/dashboard',
   },
 ];
 
@@ -42,32 +25,16 @@ export const NavItem = memo(({
   const params = useParams();
   const { pathname } = useLocation();
 
-  const checkPath = (arr) => arr.some(f => pathname.indexOf(f) > -1);
-
-  const getNav = () => {
-    if (pathname.indexOf('/restaurants/archive') > -1) {
-      return [];
-    }
-    if (pathname.indexOf('/restaurants') > -1) {
-      return [NAV_CONFIG[0]];
-    }
-    if (checkPath(['/menu', '/special-deals', '/foodtips'])) {
-      return NAV_CONFIG.slice(-2);
-    }
-    return NAV_CONFIG;
-  };
-
   return (
     <NavItemWrapper className={className}>
-      {getNav().map(({
+      {NAV_CONFIG.map(({
         key,
         icon,
         path,
-        part,
       }) => (
         <Item
           key={key}
-          active={pathname.indexOf(part) > -1}
+          active={pathname.indexOf(path.split('/').splice(-1)) > -1}
           onClick={() => onClick(path.replace(':restaurant', id || params.restaurant))}
         >
           <IconText

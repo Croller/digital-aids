@@ -7,16 +7,14 @@ import {
   Redirect,
   useParams,
 } from 'react-router-dom';
-
 import { Layout } from 'client/ui/components/Layout/BackOffice';
 
 const PATH = '/back-office';
-
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
 const Flyer = lazy(() => import('client/ui/modules/BackOffice/Flyer'));
 const Restaurants = lazy(() => import('client/ui/modules/BackOffice/Restaurants'));
-const User = lazy(() => import('client/ui/modules/BackOffice/User'));
+const Account = lazy(() => import('client/ui/modules/BackOffice/Account'));
 const Users = lazy(() => import('client/ui/modules/BackOffice/Users'));
 const Category = lazy(() => import('client/ui/modules/BackOffice/Category'));
 const Reservations = lazy(() => import('client/ui/modules/BackOffice/Reservations'));
@@ -27,7 +25,7 @@ const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
   const params = useParams();
-  const { token, roles } = useSelector(store => store.user.info);
+  const { token } = useSelector(store => store.user.info);
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -43,7 +41,7 @@ export const BackOffice = () => {
     <Layout>
       <Switch>
         <Route path={`${PATH}/auth`} component={Auth} />
-        {token && [1, 2, 3, 4].some(s => roles.some(r => r === s)) && (
+        {token && (
           <>
             <Route
               exact
@@ -80,6 +78,7 @@ export const BackOffice = () => {
             <Route
               exact
               path={[
+                `${PATH}/restaurant/:restaurant/language/:language/dashboard`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals/archive`,
                 `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
                 `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,
@@ -107,18 +106,16 @@ export const BackOffice = () => {
               component={Restaurant}
             />
             <Route
+              exact
               path={[
-                `${PATH}/users/archive`,
+                `${PATH}/users/:user`,
                 `${PATH}/users`,
               ]}
               component={Users}
             />
             <Route
-              path={[
-                `${PATH}/user/:user`,
-                `${PATH}/profile/:user`,
-              ]}
-              component={User}
+              path={`${PATH}/account`}
+              component={Account}
             />
             <Route
               path={[

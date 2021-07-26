@@ -50,7 +50,7 @@ export const NavBarStyled = styled(NavBar)`
 `;
 
 export const RestaurantInfoStyled = styled(RestaurantInfo)`
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 `;
 
 export const MenuControl = styled.div`

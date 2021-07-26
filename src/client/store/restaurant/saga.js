@@ -157,7 +157,7 @@ function* setOrder({ payload }) {
           ...data.filter(f => !f.dailymenu),
         ];
       }
-      setLocalRestaurant(info.key, { order: setUrlOrder(data) });
+      setLocalRestaurant(info.key, { order: data ? setUrlOrder(data) : null });
       yield put({ type: Constants.REST_SET, payload: { order: data } });
     } catch (err) {
       throw err;

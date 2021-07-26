@@ -6,8 +6,9 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getDictionaryItem, getUrl, loadFile } from 'client/utils/common';
+import { getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
+import { auth } from 'client/store/user';
 import { AlertCircleSvg } from 'client/assets/images';
 import { getCoordsByAddress } from 'client/providers/common';
 import { useDebounce } from 'client/ui/components/_base/Debounce';
@@ -37,8 +38,7 @@ import {
 
 const Restaurant = () => {
   const {
-    user,
-    user: { info: { language, roles } },
+    user: { info: { language, token }, roles },
     backOffice: { 
       restaurants,
       dictionary,
@@ -46,7 +46,6 @@ const Restaurant = () => {
       loading,
     },
   } = useSelector(s => s);
-
   const [t] = useTranslation();
   const rule = rules(t);
   const params = useParams();
@@ -106,7 +105,7 @@ const Restaurant = () => {
 
   const handleEvent = (obj) => {
     rootDispatch(update({ name: 'data_restaurants', data: { id: params.restaurant, ...obj } }));
-    handleRoute('/back-office/restaurants');
+    handleRoute(`/back-office/language/${language}/restaurants`);
   };
 
   const handleFinish = (values) => {
@@ -201,6 +200,7 @@ const Restaurant = () => {
   useEffect(() => {
     if (status) {
       if (status === 'created') {
+        rootDispatch(auth({ token, language }));
         history.goBack();
       }
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
@@ -357,7 +357,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            {roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id')) && (
+            {roles.some(f => f.root || f.root_back) && (
               <Form2Col>
                 <FormCol>
                   <FormItemStyled
@@ -393,7 +393,7 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            {roles.includes(getDictionaryItem('admin', 'name', user.dictionary.roles, 'id')) && (
+            {roles.some(f => f.root || f.root_back) && (
               <Form2Col>
                 <FormCol>
                   <FormItemStyled

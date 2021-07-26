@@ -23,9 +23,11 @@ module.exports = {
   getHeader: (req) => {
     const { headers } = req;
     const { authorization } = headers;
+    if (!authorization) return null;
+    const [bearer, token] = authorization.split(' ');
     return {
       ...headers,
-      authorization: (authorization && authorization.split(' ')[0] === 'Bearer' ? authorization.split(' ')[1] : null),
+      authorization: (authorization && bearer && token ? token : null),
     };
   },
   readFile: async (url) => new Promise((resolve, reject) => {

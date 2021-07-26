@@ -87,7 +87,7 @@ export const dataToApi = (data, current) => {
     }, []);
 
   return {
-    id: id || current.id,
+    ...(current && current.id ? { id: current.id } : {}),
     name,
     key: (stringToKey(name) || ''),
     address,

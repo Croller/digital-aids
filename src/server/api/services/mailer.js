@@ -1,4 +1,19 @@
-const nodemailer = require('nodemailer');
+const mailgun = require('mailgun-js');
+
+const mg = mailgun({
+  apiKey: process.env.API_KEY_MAILGUN,
+  domain: process.env.HOST,
+});
+
+// const info = {
+//   from: 'Information <info@digital-aids.com>',
+//   to: '79104643015@yandex.ru',
+//   subject: 'Hello',
+//   text: 'Testing some Mailgun awesomeness!',
+// };
+// mg.messages().send(info, (error, body) => {
+//   console.log(error, body);
+// });
 
 const error = {
   code: 0,
@@ -6,48 +21,29 @@ const error = {
   text: '',
 };
 
-const transporter = nodemailer.createTransport({
-  host: process.env.HOST_MAIL_SERVER,
-  port: process.env.HOST_MAIL_SERVER_PORT_OUT,
-  secure: true,
-  auth: {
-    user: process.env.HOST_MAIL_LOGIN_INFO,
-    pass: process.env.HOST_MAIL_PASSWORD_INFO,
-  },
-  tls: {
-    rejectUnauthorized: true,
-  },
-});
-
-// transporter.sendMail({
-//   from: `"Node js" <${process.env.HOST_MAIL_LOGIN_INFO}>`,
-//   to: '79104643015@yandex.ru',
-//   subject: 'Message from Node js',
-//   text: 'This message was sent from Node js server.',
-//   html:
-//     'true',
-// });
+const getMail = (type = null) => {
+  if (type && ['registration', 'restore'].includes(type)) {
+    return `support@${process.env.HOST}`;
+  }
+  return `info@${process.env.HOST}`;
+};
 
 module.exports = {
-  verify: () => transporter.verify()
-    .then(() => console.log('Mailer connected'))
-    .catch((err) => console.log('Mailer connect error:', err.message)),
-
   send: async (req, res) => {
     const { data } = req.body;
     const {
-      from = `"Digital Aids" <${process.env.HOST_MAIL_LOGIN_INFO}>`,
-      to = null,
+      from = `"Digital Aids" <${getMail(data.type)}>`,
+      email = null,
       subject = null,
-      body = null,
       files = null,
-      html = false, // true for html emails 
+      html = false, // true for html emails
+      body = null,
     } = data;
 
     const mailOptions = {
       from,
-      to: to || process.env.HOST_MAIL_LOGIN_INFO,
-      subject,
+      to: email,
+      subject: `Digital Aids - ${subject}`,
       ...(html ? { html: body } : { text: body }),
       ...(files && {
         attachments: files.map(file => ({
@@ -57,12 +53,12 @@ module.exports = {
       }),
     };
     try {
-      const result = await transporter.sendMail(mailOptions);
-      console.log('mailer send:', mailOptions, result);
+      console.log('Mailer send:', mailOptions);
+      const result = await mg.messages().send(mailOptions);
       res.json(result);
     } catch (err) {
-      error.name = 'Mail error';
-      error.code = 'sendError';
+      error.name = 'Mailer send error';
+      error.code = 'mailerSendError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });

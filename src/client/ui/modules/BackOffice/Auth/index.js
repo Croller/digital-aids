@@ -1,10 +1,15 @@
-import React, { memo } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from 'client/store/user';
 import { useTranslation } from 'react-i18next';
 import { UserCircleSvg } from 'client/assets/images';
 import { rules, collectError } from 'client/utils/validatorRules';
-
+import { showMessage } from 'client/ui/components/_ui/Message';
+import {
+  login,
+  registration,
+  reset,
+  set,
+} from 'client/store/user';
 import {
   Wrapper, Container,
   LogoWrapper,
@@ -12,23 +17,60 @@ import {
   FormStyled,
   FormItemStyled,
   FormWrapper, InputStyled,
-  ControlWrapper, Login, Signup,
+  ControlWrapper, Submit, Switch,
 } from './styled';
 
 const Auth = memo(() => {
   const rootDispatch = useDispatch();
   const [form] = FormStyled.useForm();
   const [t] = useTranslation();
-  const { loading } = useSelector(store => store.user);
+  const [formKey, setFormKey] = useState('auth');
+  const { loading, status } = useSelector(s => s.user);
   const rule = rules(t);
 
   const onFinish = (values) => {
-    rootDispatch(login(values));
+    formKey === 'auth' && rootDispatch(login(values));
+    formKey === 'reg' && rootDispatch(registration({
+      ...values,
+      type: formKey,
+      html: true,
+      subject: t('common.account.mail.registration.subject'),
+      body: t('common.account.mail.registration.text'),
+    }));
+    formKey === 'reset' && rootDispatch(reset({
+      ...values,
+      type: formKey,
+      html: true,
+      subject: t('common.account.mail.restore.subject'),
+      body: t('common.account.mail.restore.text'),
+    }));
   };
 
   const onFinishFailed = ({ errorFields }) => {
     collectError(errorFields);
   };
+
+  const handleSwitchForm = (key) => {
+    form.resetFields();
+    if (key === 'first') {
+      formKey === 'auth' && setFormKey('reg');
+      formKey === 'reg' && setFormKey('auth');
+      formKey === 'reset' && setFormKey('reg');
+    }
+    if (key === 'second') {
+      formKey === 'auth' && setFormKey('reset');
+      formKey === 'reg' && setFormKey('reset');
+      formKey === 'reset' && setFormKey('auth');
+    }
+  };
+
+  useEffect(() => {
+    if (status && status !== 'updated') {
+      showMessage({ type: 'success', content: t(`common.account.status.${status}`) });
+      rootDispatch(set({ status: null }));
+      setFormKey('auth');
+    }
+  }, [status]);
 
   return (
     <Wrapper>
@@ -36,48 +78,70 @@ const Auth = memo(() => {
         <LogoWrapper>
           <UserCircleSvg />
           <LogoText>
-            {t('common.words.authorization')}
+            {formKey === 'auth' && t('common.words.authorization')}
+            {formKey === 'reg' && t('common.words.registration')}
+            {formKey === 'reset' && t('common.words.resetPassword')}
           </LogoText>
         </LogoWrapper>
         <FormStyled
+          key={formKey}
           form={form}
           layout="vertical"
+          initialValues={null}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           scrollToFirstError
         >
           <FormWrapper>
-            <FormItemStyled
-              label={t('common.words.login')}
-              name="login"
-              rules={rule.login}
-            >
-              <InputStyled
-                placeholder={t('common.form.placeholder.text')}
-              />
-            </FormItemStyled>
-            <FormItemStyled
-              label={t('common.words.password')}
-              name="password"
-              rules={rule.password}
-            >
-              <InputStyled
-                type="password"
-                placeholder={t('common.form.placeholder.text')}
-              />
-            </FormItemStyled>
+            {['auth', 'reg'].includes(formKey) && (
+              <>
+                <FormItemStyled
+                  label={t('common.words.login')}
+                  name="login"
+                  rules={rule.login}
+                >
+                  <InputStyled
+                    placeholder={t('common.form.placeholder.text')}
+                  />
+                </FormItemStyled>
+                <FormItemStyled
+                  label={t('common.words.password')}
+                  name="password"
+                  rules={rule.password}
+                >
+                  <InputStyled
+                    type="password"
+                    placeholder={t('common.form.placeholder.text')}
+                  />
+                </FormItemStyled>
+              </>
+            )}
+            {['reg', 'reset'].includes(formKey) && (
+              <FormItemStyled
+                label={t('common.words.email')}
+                name="email"
+                rules={rule.email}
+              >
+                <InputStyled
+                  placeholder={t('common.form.placeholder.text')}
+                />
+              </FormItemStyled>
+            )}
           </FormWrapper>
           <ControlWrapper>
-            <FormItemStyled>
-              <Login type="primary" htmlType="submit" loading={loading}>
-                {t('common.words.login')}
-              </Login>
-            </FormItemStyled>
-            <FormItemStyled>
-              <Signup path="/present">
-                {t('common.words.signup')}
-              </Signup>
-            </FormItemStyled>
+            <Submit type="primary" htmlType="submit" loading={loading} disabled={loading}>
+              {formKey === 'auth' && t('common.words.signin')}
+              {formKey === 'reg' && t('common.words.signup')}
+              {formKey === 'reset' && t('common.words.reset')}
+            </Submit>
+            <Switch disabled={loading} onClick={() => handleSwitchForm('first')}>
+              {['auth', 'reset'].includes(formKey) && t('common.words.registration')}
+              {['reg'].includes(formKey) && t('common.words.authorization')}
+            </Switch>
+            <Switch disabled={loading} onClick={() => handleSwitchForm('second')}>
+              {['auth', 'reg'].includes(formKey) && t('common.words.resetPassword')}
+              {['reset'].includes(formKey) && t('common.words.authorization')}
+            </Switch>
           </ControlWrapper>
         </FormStyled>
       </Container>

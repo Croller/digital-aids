@@ -3,7 +3,6 @@ import { FONTS, PALETTE, THEME } from 'client/style/constants';
 import { Form } from 'antd';
 import { Button } from 'client/ui/components/_ui/Button';
 import { InputForm } from 'client/ui/components/_ui/Input';
-import { Link } from 'client/ui/components/_ui/Link';
 
 const FormItem = Form.Item;
 
@@ -155,17 +154,9 @@ export const ControlWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  > div {
-    margin-bottom: 0;
-
-    &:not(:last-child) {
-      margin-bottom: 48px;
-    }
-  }
 `;
 
-export const Login = styled(Button)`
+export const Submit = styled(Button)`
   min-width: 202px;
   height: 62px;
   background-color: ${PALETTE.green1};
@@ -174,11 +165,17 @@ export const Login = styled(Button)`
   color: ${PALETTE.white};
   text-transform: uppercase;
   border-radius: ${THEME.borderRadiusL};
+  margin-bottom: 28px;
 `;
 
-export const Signup = styled(Link)`
+export const Switch = styled(Button)`
+  min-width: 202px;
+  height: 20px;
+  background-color: transparent;
   font-family: ${FONTS.semiBold};
-  font-size: 18px;
+  font-size: 16px;
   color: ${PALETTE.green1};
   text-transform: uppercase;
+  border-width: 0;
+  margin-bottom: 18px;
 `;

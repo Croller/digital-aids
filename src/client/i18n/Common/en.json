@@ -5,6 +5,7 @@
     "description": "Description",
     "create": "Create",
     "created": "Created",
+    "reseted": "Reseted",
     "save": "Save",
     "saved": "Saved",
     "edit": "Edit",
@@ -28,14 +29,23 @@
     "cuisine": "Cuisine",
     "address": "Address",
     "phone": "Phone number",
+    "contacts": "Contacts",
     "contactPerson": "Contact person",
     "email": "E-mail",
     "opinion": "Opinion",
     "opinions": "Opinions",
     "authorization": "Authorization",
-    "login": "Log in",
-    "logout": "Log out",
+    "registration": "Registration",
+    "resetPassword": "Reset password",
+    "login": "Login",
+    "signin": "Sign in",
+    "signout": "Sign out",
     "signup": "Sign up",
+    "reset": "Reset",
+    "account": "Profile",
+    "bookmarks": "Bookmarks",
+    "settings": "Settings",
+    "roles": "Roles",
     "password": "Password",
     "currency": "Currency",
     "avg_price": "Average price",
@@ -46,7 +56,7 @@
     "logo": "Logo",
     "photos": "Photos",
     "upload": "Upload",
-    "doNot": "Do not",
+    "cancel": "Cancel",
     "loading": "Loading",
     "success": "Success",
     "foodtips": "Foodtips",
@@ -79,6 +89,7 @@
     "lng": "longitude",
     "emptyList": "No data",
     "ok": "Ok",
+    "dashboard": "Dashboard",
     "reserve": "Reserve",
     "approved": "Approved",
     "denied": "Denied",
@@ -91,13 +102,28 @@
     "table": "Table",
     "waiter": "Waiter",
     "apply": "Apply",
+    "null": "",
     
     "payment": "Payment",
     "assembly": "Assembly",
-    "delivery": "Delivery"
-   },
+    "delivery": "Delivery",
+    
+    "staff": "Staff",
+    "schedule": "Schedule",
+    "reports": "Reports",
+    "chat": "Chat",
+    "news": "News",
+    "support": "Support"
+  },
 
   "form" : {
+    "user": {
+      "surname": "Surname",
+      "name": "Name",
+      "middlename": "Middlename",
+      "birthdate": "Birthdate"
+    },
+
     "placeholder": {
       "text": "text",
       "number": "number",
@@ -122,7 +148,7 @@
       },
       "login": {
         "null": "Please set your login!",
-        "error": "Please input login without space!"
+        "error": "Login is not correct"
       },
       "password": {
         "null": "Please set your password!",
@@ -136,6 +162,10 @@
         "null": "Please set your phone!",
         "error": "Phone is not correct"
       },
+      "birthdate": {
+        "null": "Please set your birthdate!",
+        "error": "Birthdate is not correct"
+      },
       "bool": {
         "error": "Please set check"
       },
@@ -143,14 +173,12 @@
         "null": "Please select value!"
       }
     },
-
     "file": {
       "error": {
         "type": "File format not support",
         "size": "Size of file more than"
       }
     },
-
     "error": {
       "notFilled": "Form is incomplete"
     }
@@ -164,17 +192,41 @@
     "text": "Opps! It seems that \n somithing was wrong. \n But we are here to help you! \n Please, just press \n the botton and try again."
   },
 
-
   "errorCode": {
     "serverError": "Server error",
     "queryError": "Data base query error",
+    "userDatanNotCorrect": "User data is not correct",
+    "userExist": "User already exist",
     "userNotFound": "User not found",
     "tokenNotValid": "Token not valid",
     "tokenNotExist": "Token not exist",
     "notEnoughRights": "Not enough rights",
+    "mailerSendError": "Mail send error",
     "504": "504 Gateway Timeout",
     "502": "502 Bad Gateway",
     "413": "413 Payload Too Large",
     "400": "404 Bad Request"
+  },
+  "account": {
+    "status": {
+      "updated": "Email confirmed",
+      "created": "Account created"
+    },
+    "mail": {
+      "registration": {
+        "subject": "Registration",
+        "text": "<div><h3>Welcome!</h3><p>You have registered on our site.</p><p>Confirm your email address by click the <a href=\"confirm_link\">link</a></p></div>"
+      },
+      "restore": {
+        "subject": "Restore access",
+        "text": "<div><h3>Hello!</h3><p>You have requested password recovery on our website.</p><p>Your new password: new_password</p></div>"
+      }
+    }
+  },
+  "dataBase" : {
+    "data_users": {
+      "enter_at": "Last enter",
+      "is_confirmed": "Account confirmed"
+    }
   }
 }

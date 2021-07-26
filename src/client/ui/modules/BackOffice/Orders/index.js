@@ -6,7 +6,8 @@ import { ShoppingBagSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
 import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
 import { OrderInfo } from 'client/ui/modules/BackOffice/components/OrderInfo';
 import moment from 'moment';
-import { update, loadByParam } from 'client/store/backOffice';
+import { update, loadItems } from 'client/store/backOffice';
+import { getUrlOrder } from 'client/utils/restaurant';
 import {
   OrderWrapper,
   NavBarStyled,
@@ -17,8 +18,15 @@ import {
 const SEARCH_FIELDS = ['comments', 'create_at'];
 
 const Orders = () => {
+  const {
+    orders,
+    dishes,
+    categories,
+    restaurants,
+    dictionary,
+    loading,
+  } = useSelector(s => s.backOffice);
   const rootDispatch = useDispatch();
-  const { orders, loading } = useSelector(state => state.backOffice);
   const { restaurant } = useParams();
   const [t] = useTranslation();
   const [searched, setSearched] = useState(null);
@@ -46,18 +54,22 @@ const Orders = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    rootDispatch(loadByParam({
+    rootDispatch(loadItems({
       name: 'data_orders',
       data: { restaurant },
     }));
   }, []);
 
   useEffect(() => {
-    if (orders) {
-      const result = orders.sort((a, b) => moment(b.create_at).diff(moment(a.create_at)));
-      setFiltred(result);
+    if (orders && dishes && categories) {
+      let results = orders.sort((a, b) => moment(b.create_at).diff(moment(a.create_at)));
+      results = results.map(item => ({
+        ...item,
+        order_decode: getUrlOrder(item.order_url, dishes, categories),
+      }));
+      setFiltred(results);
     }
-  }, [orders]);
+  }, [orders, dishes, categories]);
 
   return orders && (
     <OrderWrapper>
@@ -84,6 +96,8 @@ const Orders = () => {
         ) : (searched || filtred).map((item, i) => (
           <OrderInfo 
             {...item}
+            restaurant={restaurants.find(({ id }) => id === restaurant)}
+            dictionary={dictionary}
             key={`_orders_${i + 1}_${item.id}`}
             onEvent={handleEvent}
           />

@@ -38,6 +38,7 @@ const Flyer = () => {
   const { restaurants, loading } = useSelector(state => state.backOffice);
   const params = useParams();
   const { restaurant } = params;
+  const fileName = `Мenu_${tabValue}${tabValue === 'table' ? `_${tableNumber}` : ''}`;
 
   const TAB_CONFIG = [
     { label: t('common.words.info'), value: 'info' },
@@ -47,12 +48,12 @@ const Flyer = () => {
 
   const handleGetImg = async (key = 'block-1-print') => {
     const img = await htmlToImage(key);
-    downloadFile(img, 'restaurant.png');
+    downloadFile(img, `${fileName}.png`);
   };
 
   const handleGetPdf = async (key = 'block-1-print') => {
     const img = await htmlToImage(key);
-    await imgToPdf(img, 'restaurant');
+    await imgToPdf(img, fileName);
   };
 
   const handleChangeTable = (str) => {

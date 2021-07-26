@@ -2,6 +2,17 @@ import html2canvas from 'html2canvas';
 import { jsPDF as Pdf } from 'jspdf';
 import imgCompress from 'browser-image-compression';
 import { v4 as uuidv4 } from 'uuid';
+import * as moment from 'moment';
+
+// ------------------------------------------------------------------------------------------------------------------------
+// constants
+
+export const dateTimeFormat = {
+  date: 'DD.MM.YYYY',
+  dateTime: 'DD.MM.YYYY HH:mm:ss.S',
+  time: 'HH:mm',
+  database: 'YYYY-MM-DDTHH:mm:ss.SSS',
+};
 
 // ------------------------------------------------------------------------------------------------------------------------
 // logical func
@@ -12,8 +23,6 @@ export const getUrl = () => {
   }
   return `https://${process.env.HOST}`;
 };
-
-export const compareBreakpoint = (width, constant) => width && constant && width >= parseInt(constant.replace('px'), 0);
 
 // ------------------------------------------------------------------------------------------------------------------------
 // dom func
@@ -55,12 +64,29 @@ export const stringToKey = (str = null) => {
   return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');
 };
 
-export const getDictionaryItem = (value, key, array, prop = null) => {
+export const getDictionaryItem = (value = null, key = 'id', array = null, prop = null) => {
+  if (!value || !array || (array && array.length === 0)) return null;
   const result = array.find(f => f[key] === value);
   if (prop) {
     return result ? result[prop] : null;
   }
   return result;
+};
+
+export const getDateTime = (value = null, format = dateTimeFormat.date, reverse = false) => {
+  if (!value || (value && !moment(value).isValid)) return null;
+  if (reverse) {
+    return moment(value, format).format(dateTimeFormat.database);
+  }
+  return moment(value).format(format);
+};
+
+export const getSort = (array = null, key = 'number') => {
+  if (!array || (array && !array[0]) || (array && !array[0][key])) return [];
+  if (typeof array[0][key] === 'number') {
+    return array.sort((a, b) => a[key] - b[key]);
+  }
+  return array;
 };
 
 export const updateItem = (data = null, current = null, key = 'id') => {

@@ -36,7 +36,6 @@ export class ErrorBoundary extends React.Component {
             onClick={onClick}
           />
         </Container>
-        
       ) : (
         <Text>
           Opps! It seems that somithing was wrong.

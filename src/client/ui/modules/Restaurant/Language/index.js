@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import translate from 'client/i18n';
-import { setUser } from 'client/utils/localStorage';
-import { update } from 'client/store/user';
+import { setLocalUser } from 'client/utils/localStorage';
+import { set } from 'client/store/user';
 import { getDictionaryItem } from 'client/utils/common';
 import { init } from 'client/store/restaurant';
 import {
@@ -20,8 +20,8 @@ const Language = () => {
 
   const handleClick = (lng) => {
     translate.changeLanguage(lng);
-    setUser({ lng });
-    rootDispatch(update({ ...info, language: lng }));
+    setLocalUser({ lng });
+    rootDispatch(set({ info: { ...info, language: lng } }));
     rootDispatch(init({ restaurant: key, language: lng }));
     
     if (history.action !== 'POP') {

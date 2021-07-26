@@ -2,7 +2,9 @@ const moment = require('moment');
 const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
+const mailer = require('../services/mailer');
 const commonUtils = require('../utils/common');
+const queryUtils = require('../utils/query');
 
 const error = {
   code: 0,
@@ -13,13 +15,14 @@ const error = {
 const UserController = () => {
   let query = '';
   let values = [];
+  let results = null;
 
   const signin = async (req, res) => {
     const {
       login,
       password,
       browser = null,
-    } = req.body;
+    } = req.body.data;
 
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
@@ -29,16 +32,29 @@ const UserController = () => {
     try {
       query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
       values = [login, password];
-      const result = await db.queryValues(query, values);
-      if (result.rows.length === 1) {
-        query = 'UPDATE data_users SET enter_at=$1, meta=$4 WHERE login=$2 AND password=$3';
-        values = [moment().format('YYYY-MM-DDTHH:mm:ss.SSS'), login, password, meta];
-        await db.queryValues(query, values);
-        const user = result.rows[0];
-        const token = jwt.generateToken(user);
-        delete user.password;
-        delete user.meta;
-        res.json({ ...user, token, enter_at: moment().format('YYYY-MM-DDTHH:mm:ss.SSS') });
+      results = await db.queryValues(query, values);
+      if (results.rows.length === 1) {
+        const user = results.rows[0];
+        const { is_deleted, is_archived } = user;
+        if (is_deleted || is_archived) {
+          error.name = 'User data is not correct';
+          error.code = 'userDatanNotCorrect';
+          res.status(201);
+          res.json({ error });
+        } else {
+          user.enter_at = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
+          user.meta = meta;
+          await queryUtils.updateTableRecord('data_users', user, {
+            req,
+            res,
+            language: 'en', 
+            user,
+          });
+          user.token = jwt.generateToken(user);
+          delete user.password;
+          delete user.meta;
+          res.json(user);
+        }
       } else {
         error.name = 'User not found';
         error.code = 'userNotFound';
@@ -57,113 +73,107 @@ const UserController = () => {
   const auth = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
     if (!tokenData) return;
-    req.body = tokenData;
+    req.body.data = tokenData;
     UserController().signin(req, res);
   };
 
-  // const create = async (req, res) => {
-  //   try {
-  //     const { data } = req.body;
-  //     if (data.role !== 1) {
-  //       const check = await db.query(`SELECT * FROM data_users WHERE login='${data.login}' OR email='${data.email}'`);
-  //       if (check.rows.length === 0) {
-  //         delete data.id;
-  //         data.enter_at = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
-  //         const query = Object.keys(data).reduce((obj, key) => ({
-  //           fields: [...obj.fields, key],
-  //           values: [...obj.values, data[key]],
-  //         }), { fields: [], values: [] });
-  //         const newUser = await db.query(`INSERT INTO data_users (${query.fields.join(', ')}) VALUES ('${query.values.join('\', \'')}') RETURNING *`);
-  //         res.json(newUser.rows[0]);
-  //       } else {
-  //         error.name = 'Create user error';
-  //         error.text = 'Same user already exist';
-  //         res.status(201);
-  //         res.json({ error });
-  //       }
-  //     } else {
-  //       error.name = 'Permition error';
-  //       error.text = 'User create is same role of admin or not valid token';
-  //       res.status(201);
-  //       res.json({ error });
-  //     }
-  //   } catch (err) {
-  //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err.message);
-  //     res.status(201);
-  //     res.json({ error });
-  //   }
-  // };
-  
-  // const update = async (req, res) => {
-  //   try {
-  //     const { data } = req.body;
-  //     const user = await jwt.verifyToken(req, res);
-  //     if (user && (user.role === 1 || data.id === user.id)) {
-  //       const { id } = { ...data };
-  //       const check = await db.query(`SELECT * FROM data_users WHERE id='${id}'`);
-  //       if (check.rows.length === 1) {
-  //         delete data.id;
-  //         data.enter_at = moment().format('YYYY-MM-DDTHH:mm:ss.SSS');
-  //         const query = Object.keys(data).map(key => (`${key}='${data[key]}'`));
-  //         const upadateUser = await db.query(`UPDATE data_users SET ${query.join(', ')} WHERE id='${id}' RETURNING *`);
-  //         res.json(upadateUser.rows[0]);
-  //       } else {
-  //         error.name = 'Update user error';
-  //         error.text = 'This user does not exist';
-  //         res.status(201);
-  //         res.json({ error });
-  //       }
-  //     } else {
-  //       error.name = 'Permition error';
-  //       error.text = 'May be you are not role with admin or you try edit another account witch not your';
-  //       res.status(201);
-  //       res.json({ error });
-  //     }
-  //   } catch (err) {
-  //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err.message);
-  //     res.status(201);
-  //     res.json({ error });
-  //   }
-  // };
+  const create = async (req, res) => {
+    try {
+      const { data } = req.body;
+      const { login, email } = data;
+      query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
+      values = [login, email];
+      results = await db.queryValues(query, values);
+      if (results.rows.length === 0) {
+        const mapper = ['login', 'password', 'email'].reduce((obj, key) => ({
+          fields: [...obj.fields, key],
+          values: [...obj.values, data[key]],
+        }), { fields: [], values: [] });
+        query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
+        results = await db.queryValues(query, mapper.values);
+        const user = results.rows[0];
+        query = 'INSERT INTO data_roles (user_id) VALUES ($1) RETURNING *';
+        values = [user.id];
+        results = await db.queryValues(query, values);
+        
+        const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
+        req.body.data.body = req.body.data.body.replace('confirm_link', link);
+        await mailer.send(req, res);
+        
+        res.status(200);
+        res.send();
+      } else {
+        error.name = 'User exist';
+        error.code = 'userExist';
+        res.status(201);
+        res.json({ error });
+      }
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
 
-  // const remove = async (req, res) => {
-  //   try {
-  //     const { data } = req.body;
-  //     const user = await jwt.verifyToken(req, res);
-  //     if (user && (user.role === 1 || data.id === user.id)) {
-  //       const { id } = { ...data };
-  //       const check = await db.query(`SELECT * FROM data_users WHERE id='${id}'`);
-  //       if (check.rows.length === 1) {
-  //         await db.query(`DELETE FROM data_users WHERE id='${id}'`);
-  //         res.json({});
-  //       } else {
-  //         error.name = 'Update user error';
-  //         error.text = 'This user does not exist';
-  //         res.status(201);
-  //         res.json({ error });
-  //       }
-  //     } else {
-  //       error.name = 'Permition error';
-  //       error.text = 'May be you are not role with admin or you try edit another account witch not your';
-  //       res.status(201);
-  //       res.json({ error });
-  //     }
-  //   } catch (err) {
-  //     error.name = 'Query error';
-  //     error.text = JSON.stringify(err.message);
-  //     res.status(201);
-  //     res.json({ error });
-  //   }
-  // };
+  const reset = async (req, res) => {
+    try {
+      const { data } = req.body;
+      query = 'SELECT * FROM data_users WHERE email=$1';
+      values = [data.email];
+      results = await db.queryValues(query, values);
+      if (results.rows.length === 1) {
+        const password = commonUtils.getStringRandom(7);
+        query = 'UPDATE data_users SET password=$1 WHERE email=$2';
+        values = [password, data.email];
+        results = await db.queryValues(query, values);
+        req.body.data.body = req.body.data.body.replace('new_password', password);
+        await mailer.send(req, res);
+        res.status(200);
+        res.send();
+      } else {
+        error.name = 'User not found';
+        error.code = 'userNotFound';
+        res.status(201);
+        res.json({ error });
+      }
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
+  
+  const update = async (req, res) => {
+    const tokenData = await jwt.verifyToken(req, res);
+    if (!tokenData) return;
+    try {
+      const { data = null } = req.body;
+      const user = await queryUtils.updateTableRecord('data_users', (data || tokenData), {
+        req,
+        res,
+        language: 'en', 
+        user: tokenData,
+      });
+      const token = jwt.generateToken(user);
+      delete user.password;
+      delete user.meta;
+      res.json({ ...user, token });
+    } catch (err) {
+      error.name = 'Query error';
+      error.code = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
   
   return {
     signin,
     auth,
-    // create,
-    // update,
-    // remove,
+    create,
+    reset,
+    update,
   };
 };
 

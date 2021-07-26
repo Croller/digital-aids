@@ -46,6 +46,92 @@ export const Form2Col = styled.div`
   }
 `;
 
+export const FormItemStyled = styled(FormItem)`
+  margin-bottom: 0;
+
+  &:not(:last-child) {
+    margin-bottom: ${p => p.marginbottom || '22px'};
+  }
+
+  &.ant-form-item-has-success {
+    .ant-form-item-children-icon {
+      position: absolute;
+      top: 34px;
+      right: 15px;
+      z-index: 1;
+      width: 17px;
+      height: 14px;
+      font-size: 15px;
+    }
+
+    .ant-form-item-explain-success {
+      display: none;
+    }
+  }
+
+  &.ant-form-item-has-error {
+    .ant-input {
+      border-color: ${PALETTE.red2};
+
+      &:focus {
+        outline: none;
+        box-shadow: unset;
+      }
+    }
+
+    .ant-form-item-children-icon {
+      position: absolute;
+      top: 34px;
+      right: 15px;
+      z-index: 1;
+      width: 17px;
+      height: 14px;
+      font-size: 15px;
+    }
+
+    .ant-form-item-explain-error {
+      position: absolute;
+      bottom: -23px;
+      right: 0;
+      font-size: 13px;
+      font-family: ${FONTS.medium};
+    }
+  }
+
+  .ant-form-item-label {
+    padding: 0 0 18px;
+
+    label {
+      font-size: 16px;
+      font-family: ${FONTS.bold};
+      color: ${PALETTE.black};
+      text-transform: uppercase;
+
+      svg {
+        margin-right: 8px;
+        width: 22px;
+        height: 22px;
+      }
+
+      &.ant-form-item-required {
+        &::before {
+          display: none !important;
+        }
+
+        &::after {
+          display: block;
+          margin-left: 4px;
+          color: ${PALETTE.red2};
+          font-size: 16px;
+          font-family: ${FONTS.bold};
+          line-height: 1;
+          content: '*';
+        }
+      }
+    }
+  }
+`;
+
 export const InputStyled = styled(InputForm)`
   height: 62px;
   font-size: 18px;
@@ -201,92 +287,6 @@ export const OptionStyled = styled(Option)`
 
 export const UpperCase = styled.span`
   text-transform: uppercase;
-`;
-
-export const FormItemStyled = styled(FormItem)`
-  margin-bottom: 0;
-
-  &:not(:last-child) {
-    margin-bottom: ${p => p.marginbottom || '22px'};
-  }
-
-  &.ant-form-item-has-success {
-    .ant-form-item-children-icon {
-      position: absolute;
-      top: 34px;
-      right: 15px;
-      z-index: 1;
-      width: 17px;
-      height: 14px;
-      font-size: 15px;
-    }
-
-    .ant-form-item-explain-success {
-      display: none;
-    }
-  }
-
-  &.ant-form-item-has-error {
-    .ant-input {
-      border-color: ${PALETTE.red2};
-
-      &:focus {
-        outline: none;
-        box-shadow: unset;
-      }
-    }
-
-    .ant-form-item-children-icon {
-      position: absolute;
-      top: 34px;
-      right: 15px;
-      z-index: 1;
-      width: 17px;
-      height: 14px;
-      font-size: 15px;
-    }
-
-    .ant-form-item-explain-error {
-      position: absolute;
-      bottom: -23px;
-      right: 0;
-      font-size: 13px;
-      font-family: ${FONTS.medium};
-    }
-  }
-
-  .ant-form-item-label {
-    padding: 0 0 18px;
-
-    label {
-      font-size: 16px;
-      font-family: ${FONTS.bold};
-      color: ${PALETTE.black};
-      text-transform: uppercase;
-
-      svg {
-        margin-right: 8px;
-        width: 22px;
-        height: 22px;
-      }
-
-      &.ant-form-item-required {
-        &::before {
-          display: none !important;
-        }
-
-        &::after {
-          display: block;
-          margin-left: 4px;
-          color: ${PALETTE.red2};
-          font-size: 16px;
-          font-family: ${FONTS.bold};
-          line-height: 1;
-          content: '*';
-        }
-      }
-    }
-  }
 `;
 
 export const NavItemStyled = styled(NavItem)`
