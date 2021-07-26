@@ -20,7 +20,8 @@
     "stylelint": "stylelint ./src/client/**/*.js --fix",
     "migrate-create": "node-pg-migrate create session-megration --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
     "migrate-up": "node-pg-migrate up --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
-    "migrate-down": "node-pg-migrate down --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations"
+    "migrate-down": "node-pg-migrate down --database-url-var HOST_DB_URL --migrations-dir ./src/server/migrations",
+    "cypress": "cypress open"
   },
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
@@ -97,6 +98,8 @@
     "concurrently": "^4.0.0",
     "copy-webpack-plugin": "^6.3.2",
     "css-loader": "^2.1.1",
+    "cypress": "^8.0.0",
+    "cypress-react-selector": "^2.3.11",
     "dotenv-webpack": "^4.0.0",
     "eslint": "^5.0.0",
     "eslint-config-airbnb": "^17.0.0",

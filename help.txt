@@ -419,3 +419,12 @@ cd /root/.pm2/logs
 file +sent // send mail
 q \\ exit
 h \\ list message
+
+
+
+//cypress
+npm install cypress --save-dev
+./node_modules/.bin/cypress open
+
+add scripts to packages.json
+"cypress:open": "cypress open"
