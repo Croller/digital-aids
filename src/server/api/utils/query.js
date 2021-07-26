@@ -104,16 +104,16 @@ const updateTableRecord = async (table, data, params) => {
       }
     } else {
       // update table logs before update 
-      if (table.includes('logs_')) {
+      if (table.indexOf('data_') > -1) {
         const logsTable = table.replace('data_', 'logs_');
         const existTable = await checkTable(logsTable);
-        if (table.includes('data_') && existTable) {
+        if (existTable) {
           await db.query(`INSERT INTO ${logsTable} (SELECT * FROM ${table} WHERE id='${source.id}')`);
           await db.query(`UPDATE ${logsTable} SET change_at='${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}', change_user='${user.id}' WHERE id='${source.id}'`);
         }
       }
       // insert/update for table with translate
-      if (table.includes('_translate')) {
+      if (table.indexOf('_translate') > -1) {
         result = await getTableRecord(table, { id: source.id, language }, params);
         query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
         values = [source.id, ...mapper.values];
