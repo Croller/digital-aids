@@ -27,7 +27,6 @@ export const Routers = () => {
   const history = useHistory();
   const { pathname } = useLocation();
   const [t] = useTranslation();
-  console.log('pathname', pathname);
   const handleRoute = useCallback(() => history.push(pathname.split('/').slice(0, -1).join('/')), []);
 
   return (
@@ -41,7 +40,7 @@ export const Routers = () => {
         <ScrollToTop>
           <Suspense fallback={<Loader />}>
             <Switch>
-              <Route exact path="/verify" component={Verify} />
+              <Route path="/verify" component={Verify} />
               <Route path="/back-office" component={BackOffice} />
               <Route path="/restaurant" component={Restaurant} />
               <Route path="/404">

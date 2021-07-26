@@ -95,8 +95,9 @@ const UserController = () => {
         query = 'INSERT INTO data_roles (user_id) VALUES ($1) RETURNING *';
         values = [user.id];
         results = await db.queryValues(query, values);
-
-        req.body.data.body = `${req.body.data.body} https://${process.env.HOST}/back-office?account=${jwt.generateToken({ ...results.rows[0], is_confirmed: true })}`;
+        
+        const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
+        req.body.data.body = req.body.data.body.replace('confirm_link', link);
         await mailer.send(req, res);
         
         res.status(200);
@@ -126,7 +127,7 @@ const UserController = () => {
         query = 'UPDATE data_users SET password=$1 WHERE email=$2';
         values = [password, data.email];
         results = await db.queryValues(query, values);
-        req.body.data.body = `${req.body.data.body} ${password}`;
+        req.body.data.body = req.body.data.body.replace('new_password', password);
         await mailer.send(req, res);
         res.status(200);
         res.send();
