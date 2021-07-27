@@ -18,7 +18,6 @@ const CommonController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
-    
     if (!tokenData) return;
     try {
       const { data } = req.query;

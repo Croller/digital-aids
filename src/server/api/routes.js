@@ -13,6 +13,11 @@ const routes = {
   
   'POST /api/mailer/send': 'MailerController.send',
 
+  'GET /api/external/address-to-coords': 'ExternalController.getCoordsByAddress_Google',
+  'GET /api/external/coords-to-address': 'ExternalController.getAddressByCoords_Google',
+  'GET /api/external/text-language-change': 'ExternalController.getTextTranslate_Google',
+  'POST /api/external/geolocation': 'ExternalController.getGeolocation_Google',
+
   'DELETE /api/file/delete': 'CommonController.deleteFile',
 };
 

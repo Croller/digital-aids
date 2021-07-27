@@ -26,7 +26,7 @@ const UserController = () => {
 
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
-    const geo = geoip.lookup(commonUtils.nodeEnv() ? ip : '83.220.237.49');
+    const geo = geoip.lookup(commonUtils.getNodeEnv() ? ip : '83.220.237.49');
     const meta = JSON.stringify({ ip, browser, geo });
 
     try {
