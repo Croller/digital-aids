@@ -6,6 +6,7 @@ import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { getDictionaryItem } from 'client/utils/common';
+import { getTranslate } from 'client/providers/common';
 import {
   dataToForm,
   dataFromToList,
@@ -66,16 +67,36 @@ export const CategoryForm = ({
     />
   ), [event]);
 
+  const translateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
+    const separator = ' || ';
+    if (!obj || !sourceLng || sourceLng === targetLng) return obj;
+    const text = Object.keys(obj).map(key => obj[key]).join(separator);
+    const results = await getTranslate({ text, sourceLng, targetLng });
+    const { translatedText } = results.data.translations[0];
+    const textArr = translatedText.split(separator);
+    return Object.keys(obj).reduce((ob, key, k) => {
+      if (typeof ob[key] === 'string') {
+        return { ...ob, [key]: textArr[k] };
+      }
+      return ob;
+    }, obj);
+  };
+
   const setData = (obj) => {
     setFormData(obj);
     form.setFieldsValue(obj);
   };
 
-  const handleFinish = (values) => {
+  const handleFinish = async (values) => {
     setIsChange(false);
     form.resetFields();
     if (!event) {
-      onChange(dataFromToList({ ...formData, ...values }, current, language));
+      const edited = { ...formData, ...values };
+      if (!current.id) {
+        const edited_EN = await translateObj(edited, language);
+        onChange(dataFromToList(edited_EN, current, language), language);
+      }
+      onChange(dataFromToList(edited, current, language));
     }
   };
 
@@ -89,7 +110,6 @@ export const CategoryForm = ({
 
   const handleValuesChange = (values) => {
     if (!values) return;
-    // console.log('values - ', { ...formData, ...values });
     let edited = { ...formData, ...values };
     if (values.type) {
       const def = categoryModel.find(f => f.type === values.type);
@@ -233,7 +253,7 @@ export const CategoryForm = ({
                 showSearch
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
-                disabled={archive || language !== 'en' || (current && current.id)}
+                disabled={archive || (current && current.id)}
               >
                 {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.type)).map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
@@ -322,7 +342,7 @@ export const CategoryForm = ({
                     >
                       <InputMaskStyled
                         mask="11:11"
-                        disabled={archive || language !== 'en'}
+                        disabled={archive}
                       />
                     </FormItemStyled>
                     <Separator>
@@ -333,7 +353,7 @@ export const CategoryForm = ({
                     >
                       <InputMaskStyled
                         mask="11:11"
-                        disabled={archive || language !== 'en'}
+                        disabled={archive}
                       />
                     </FormItemStyled>
                   </FormRange>

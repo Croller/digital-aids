@@ -10,13 +10,14 @@ import {
   setLocalUser,
 } from 'client/utils/localStorage';
 
+const PATH = '/back-office';
+
 export const InfoUser = () => {
-  const pathCurrent = '/back-office';
   const lng = navigator.language || navigator.userLanguage || 'en-EN';
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const [initUrl, setInitUrl] = useState(null);
   const [storage, setStorage] = useState({
     user: {
@@ -29,9 +30,8 @@ export const InfoUser = () => {
     },
     restaurant: {},
   });
-  const { info } = useSelector(store => store.user);
+  const { info } = useSelector(s => s.user);
   const { token, enter_at } = info;
-  const { pathname } = location;
 
   const initStorage = () => {
     const localUser = getLocalUser() || storage;
@@ -48,13 +48,13 @@ export const InfoUser = () => {
       }
     }
 
-    if (localUser.token && !token && [pathCurrent].some(f => pathname.indexOf(f) > -1)) {
+    if (localUser.token && !token && [PATH].some(f => pathname.indexOf(f) > -1)) {
       rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
       localUser.token = null;
       localUser.enter_at = null;
     }
 
-    if (pathname.indexOf(pathCurrent) === -1) {
+    if (pathname.indexOf(PATH) === -1) {
       rootDispatch(login({
         login: process.env.REST_GUEST_LOGIN,
         password: process.env.REST_GUEST_PASSWORD,
@@ -62,7 +62,7 @@ export const InfoUser = () => {
       }));
     }
     
-    if (process.env.NODE_ENV === 'development' && pathname.indexOf(pathCurrent) > -1) {
+    if (process.env.NODE_ENV === 'development' && pathname.indexOf(PATH) > -1) {
       rootDispatch(login({
         login: process.env.BACK_OFFICE_ADMIN_LOGIN,
         password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
@@ -82,6 +82,12 @@ export const InfoUser = () => {
     setLocalUser(local.user);
     setStorage(local);
   };
+
+  const logout = () => {
+    const localUser = getLocalUser();
+    rootDispatch(set({ info: { ...info, token } }));
+    setLocalUser({ ...localUser, token: null, enter_at: null });
+  };
   
   useEffect(() => {
     initLocal();
@@ -90,15 +96,18 @@ export const InfoUser = () => {
     
     return () => {
       console.log('Logout before close');
-      rootDispatch(set({ info: { ...info, token } }));
+      logout();
     };
   }, []);
 
   useEffect(() => {
     if (token && initUrl) {
-      const url = initUrl.indexOf('auth') > -1 ? `${pathCurrent}/restaurants` : initUrl;
+      const url = initUrl.indexOf('auth') > -1 ? `${PATH}/restaurants` : initUrl;
       updateStorage();
       history.push(url);
+    }
+    if (info.login === process.env.REST_GUEST_LOGIN && pathname.indexOf(PATH) > -1) {
+      logout();
     }
   }, [token, initUrl]);
 

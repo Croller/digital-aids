@@ -1,7 +1,7 @@
 import html2canvas from 'html2canvas';
 import { jsPDF as Pdf } from 'jspdf';
-import imgCompress from 'browser-image-compression';
 import { v4 as uuidv4 } from 'uuid';
+import imgCompress from 'browser-image-compression';
 import * as moment from 'moment';
 
 // ------------------------------------------------------------------------------------------------------------------------
@@ -55,8 +55,6 @@ export const validateBase64 = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-
 // ------------------------------------------------------------------------------------------------------------------------
 // variable func
 
-export const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-
 export const random4Int = () => Math.floor(1000 + Math.random() * 9000);
 
 export const stringToKey = (str = null) => {
@@ -73,9 +71,9 @@ export const getDictionaryItem = (value = null, key = 'id', array = null, prop =
   return result;
 };
 
-export const getDateTime = (value = null, format = dateTimeFormat.date, reverse = false) => {
+export const getDateTime = (value = null, format = dateTimeFormat.date, toDataBase = false) => {
   if (!value || (value && !moment(value).isValid)) return null;
-  if (reverse) {
+  if (toDataBase) {
     return moment(value, format).format(dateTimeFormat.database);
   }
   return moment(value).format(format);

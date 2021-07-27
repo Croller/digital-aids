@@ -66,7 +66,7 @@ const Category = () => {
 
     const rest = restaurants.find(f => f.id === restaurant);
     if (rest) {
-      rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
+      // rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
 
       const restCategories = [...(categories
         ? dataApiToList(categories.filter(f => f.restaurant === restaurant))
@@ -144,10 +144,9 @@ const Category = () => {
     setRestCategoryEdit(true);
     setRestCategoryActive(null);
     setRestCategory([...restCategory, null]);
-    handleRoute('language', 'en');
   };
   
-  const handleChangeCategory = (data = null) => {
+  const handleChangeCategory = async (data = null, lng = language) => {
     setRestCategoryEdit(false);
     if (!data && !restCategory[restCategory.length - 1]) {
       const withoutLast = restCategory.slice(0, restCategory.length - 1);
@@ -159,29 +158,29 @@ const Category = () => {
       return;
     }
     if (restCategoryActive && (restCategoryActive.is_archived !== data.is_archived || restCategoryActive.is_deleted !== data.is_deleted)) {
-      setTimeout(() => {
-        rootDispatch(update({
-          name: 'data_dishes',
-          data: dishCategory.map(dish => ({
-            id: dish.id,
-            is_archived: data.is_archived,
-            is_deleted: data.is_deleted,
-          })), 
-        }));
-      }, 1500);
+      // setTimeout(() => {
+      //   rootDispatch(update({
+      //     language, 
+      //     name: 'data_dishes',
+      //     data: dishCategory.map(dish => ({
+      //       id: dish.id,
+      //       is_archived: data.is_archived,
+      //       is_deleted: data.is_deleted,
+      //     })),
+      //   }));
+      // }, 1500);
     }
     setRestCategoryActive({
       ...data,
       children: data.children ? data.children.filter(f => !f.is_deleted) : null,
     });
-
-    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language }));
+    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language: lng }));
   };
 
   const handleAddDish = () => {
     setRestCategoryEdit(false);
     setDishCategory([null, ...dishCategory]);
-    handleRoute('language', 'en');
+    // handleRoute('language', 'en');
   };
 
   const handleChangeDish = (data = null) => {
@@ -234,13 +233,13 @@ const Category = () => {
           {pathname.indexOf('/dashboard') === -1 && (
             <>
               <ListLng>
-                {restInfo.languages.map(lng => (
+                {restInfo.languages.map((lng, l) => (
                   <Lng
                     key={`_lng_${lng}`}
                     active={lng === params.language}
                     onClick={() => handleRoute('language', lng)}
                   >
-                    {lng === 'en' && (<AlertCircleSvg />)}
+                    {l === 0 && (<AlertCircleSvg />)}
                     {getDictionaryItem(lng, 'id', dictionary.languages, 'name')}
                   </Lng>
                 ))}

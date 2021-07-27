@@ -1,4 +1,5 @@
-import { stringToKey, weekDays } from 'client/utils/common';
+import { stringToKey } from 'client/utils/common';
+import { WEEK_DAYS } from 'client/utils/constants';
 import moment from 'moment';
 
 export const dataToForm = (data) => {
@@ -26,7 +27,7 @@ export const dataToForm = (data) => {
         return {
           ...item,
           'options.at_work.day': 'mon',
-          ...weekDays.reduce((obj, k) => ({
+          ...WEEK_DAYS.reduce((obj, k) => ({
             ...obj,
             [`options.at_work.${k}.from`]: moment(options.at_work[k][0], 'HH:mm').isValid ? moment(options.at_work[k][0]).format('HH:mm') : null,
             [`options.at_work.${k}.to`]: moment(options.at_work[k][1], 'HH:mm').isValid ? moment(options.at_work[k][1]).format('HH:mm') : null,
@@ -61,7 +62,7 @@ export const dataFromToList = (data, current = null, language) => {
   if (at_work) {
     at_work = {
       description: data['options.at_work.description'] || null,
-      ...weekDays.reduce((obj, k) => ({
+      ...WEEK_DAYS.reduce((obj, k) => ({
         ...obj,
         [k]: [
           moment(data[`options.at_work.${k}.from`], 'HH:mm').isValid() ? `2020-01-01 ${data[`options.at_work.${k}.from`]}:00.000` : null,
