@@ -6,7 +6,7 @@ import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { getDictionaryItem } from 'client/utils/common';
-import { getTranslate } from 'client/providers/common';
+import { getTextTranslate } from 'client/providers/external';
 import {
   dataToForm,
   dataFromToList,
@@ -71,9 +71,8 @@ export const CategoryForm = ({
     const separator = ' || ';
     if (!obj || !sourceLng || sourceLng === targetLng) return obj;
     const text = Object.keys(obj).map(key => obj[key]).join(separator);
-    const results = await getTranslate({ text, sourceLng, targetLng });
-    const { translatedText } = results.data.translations[0];
-    const textArr = translatedText.split(separator);
+    const results = await getTextTranslate({ text, sourceLng, targetLng });
+    const textArr = results[0].translatedText.split(separator);
     return Object.keys(obj).reduce((ob, key, k) => {
       if (typeof ob[key] === 'string') {
         return { ...ob, [key]: textArr[k] };

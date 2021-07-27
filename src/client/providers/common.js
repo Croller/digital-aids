@@ -1,6 +1,5 @@
 import {
   get,
-  getExternal,
   post,
   remove,
 } from 'client/providers/fetch';
@@ -69,29 +68,6 @@ export const deleteFiles = async ({
   data,
 }) => {
   const results = await remove('file/delete', { data }, headers({ token }));
-  if (results.status && results.data && [200, 201].includes(results.status)) {
-    return results.data;
-  }
-  return results;
-};
-
-export const getCoordsByAddress = async ({
-  address,
-  language = 'en',
-}) => {
-  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${process.env.API_KEY_GOOGLE_GEOCODING}`);
-  if (results.status && results.data && [200, 201].includes(results.status)) {
-    return results.data;
-  }
-  return results;
-};
-
-export const getTranslate = async ({
-  text,
-  sourceLng = 'en',
-  targetLng = 'en',
-}) => {
-  const results = await getExternal(`https://translation.googleapis.com/language/translate/v2?key=${process.env.API_KEY_GOOGLE_TRANSLATE}&q=${text}&source=${sourceLng}&target=${targetLng}`);
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

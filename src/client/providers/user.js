@@ -18,10 +18,7 @@ export const signin = async (data) => {
 };
 
 export const auth = async ({ token }) => {
-  const options = {
-    Authorization: `Bearer ${token}`,
-  };
-  const results = await get('user/auth', null, options);
+  const results = await get('user/auth', null, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

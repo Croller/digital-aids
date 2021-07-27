@@ -10,9 +10,9 @@ import { getUrl, loadFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { auth } from 'client/store/user';
 import { AlertCircleSvg } from 'client/assets/images';
-import { getCoordsByAddress } from 'client/providers/common';
 import { useDebounce } from 'client/ui/components/_base/Debounce';
 import { Marker } from 'google-maps-react';
+import { getCoordsByAddress } from 'client/providers/external';
 import {
   RestaurantWrapper,
   NavBarStyled,
@@ -163,15 +163,11 @@ const Restaurant = () => {
   };
 
   const handleDebouceSearch = async (obj) => {
+    let results = null;
     if (debouceSearch) {
-      console.log('language', { ...obj });
-      const results = await getCoordsByAddress(obj);
-      if (results.status === 'OK') {
-        setAddressResults(results.results);
-        return;
-      }
+      results = await getCoordsByAddress(obj, token);
     }
-    setAddressResults(null);
+    setAddressResults(results);
   };
 
   const handleUpdateAddress = (address, geometry) => {
