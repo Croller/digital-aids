@@ -40,7 +40,7 @@ export const AccountForm = ({
       ...formData,
       ...values,
     };
-    onSubmit({ data: dataToApi(obj, source) });
+    onSubmit({ name: 'data_users', data: dataToApi(obj, source) });
     setIsChange(false);
   };
 

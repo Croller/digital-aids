@@ -21,20 +21,26 @@ const generateToken = (obj = null) => {
 };
 
 const decodeToken = (req, res) => {
-  const { authorization } = commonUtils.getHeader(req);
-  if (authorization) {
-    const data = jwt.verify(authorization, signature);
-    if (data) {
-      return data;
+  try {
+    const { authorization } = commonUtils.getHeader(req);
+    if (authorization) {
+      const data = jwt.verify(authorization, signature);
+      if (data) {
+        return data;
+      } 
     } 
+
+    error.name = 'Token not exist';
+    error.code = 'tokenNotExist';
+    res.status(201);
+    res.json({ error });
+  } catch (err) {
     error.name = 'Token not valid';
     error.code = 'tokenNotValid';
+    error.text = JSON.stringify(err.message);
+    res.status(201);
     res.json({ error });
-    return null;
-  } 
-  error.name = 'Token not exist';
-  error.code = 'tokenNotExist';
-  res.json({ error });
+  }
 };
 
 const verifyToken = async (req, res) => {
@@ -43,30 +49,31 @@ const verifyToken = async (req, res) => {
   query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2 AND is_deleted=FALSE';
   values = [login, password];
   results = await db.queryValues(query, values);
+
   if (results.rows.length === 1) {
-    const user = results.rows[0];
-    return user;
+    return results.rows[0];
   }
   error.name = 'User not found';
   error.code = 'userNotFound';
+  res.status(201);
   res.json({ error });
 };
 
-const verifyRoles = async (req, res, tokenData, roles) => {
-  query = 'SELECT * FROM data_roles WHERE id = ANY ($1) AND is_deleted=FALSE';
-  values = [tokenData.roles];
-  results = await db.queryValues(query, values);
-  if (results.rows.length > 0 && roles.some(r => results.rows.some(s => s[r]))) {
-    return true;
-  }
-  error.name = 'Roles not exist';
-  error.code = 'rolesNotExist';
-  res.json({ error });
-}; 
+// const verifyRoles = async (req, res, tokenData, roles) => {
+//   query = 'SELECT * FROM data_roles WHERE id = ANY ($1) AND is_deleted=FALSE';
+//   values = [tokenData.roles];
+//   results = await db.queryValues(query, values);
+//   if (results.rows.length > 0 && roles.some(r => results.rows.some(s => s[r]))) {
+//     return true;
+//   }
+//   error.name = 'Roles not exist';
+//   error.code = 'rolesNotExist';
+//   res.json({ error });
+// }; 
 
 module.exports = {
   generateToken,
   decodeToken,
   verifyToken,
-  verifyRoles,
+  // verifyRoles,
 };
