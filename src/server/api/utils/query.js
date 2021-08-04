@@ -108,8 +108,8 @@ const updateTableRecord = async (table, data, params) => {
         const logsTable = table.replace('data_', 'logs_');
         const existTable = await checkTable(logsTable);
         if (existTable) {
-          await db.query(`INSERT INTO ${logsTable} (SELECT * FROM ${table} WHERE id='${source.id}')`);
-          await db.query(`UPDATE ${logsTable} SET change_at='${moment().format('YYYY-MM-DD HH:mm:ss.SSS')}', change_user='${user.id}' WHERE id='${source.id}'`);
+          const copy = await db.query(`INSERT INTO ${logsTable} (SELECT * FROM ${table} WHERE id='${source.id}') RETURNING *`);
+          await db.query(`UPDATE ${logsTable} SET change_user='${user.id}' WHERE id='${source.id}' AND change_at='${moment(copy.rows[0].change_at).format('YYYY-MM-DD HH:mm:ss.SSS')}'`);
         }
       }
       // insert/update for table with translate

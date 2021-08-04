@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS logs_restaurants (
 CREATE TABLE IF NOT EXISTS data_categories (
   number SERIAL,
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-  parent VARCHAR NULL, -- DICTIONARY data_restaurants
+  parent VARCHAR NULL, -- DICTIONARY data_categories
   restaurant VARCHAR NOT NULL,
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,
@@ -177,7 +177,7 @@ CREATE TABLE IF NOT EXISTS logs_categories_translate (
 CREATE TABLE IF NOT EXISTS logs_categories (
   number INT DEFAULT NULL,
   id VARCHAR DEFAULT NULL,
-  parent VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
+  parent VARCHAR DEFAULT NULL, -- DICTIONARY data_categories
   restaurant VARCHAR DEFAULT NULL,
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,

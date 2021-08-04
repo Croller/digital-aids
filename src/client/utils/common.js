@@ -89,7 +89,6 @@ export const getSort = (array = null, key = 'number') => {
 
 export const updateItem = (data = null, current = null, key = 'id') => {
   if (!data || !current) return data;
-
   if (Array.isArray(data) && Array.isArray(current)) {
     if (current && current.length > 0) {
       return data.reduce((arr, item) => {
@@ -113,44 +112,20 @@ export const updateItem = (data = null, current = null, key = 'id') => {
   };
 };
 
-export const objPlainToDeep = (arr, pKey = 'parent') => {
-  const results = arr.reduce((result, item) => {
-    if (item[pKey]) {
-      const parent = result.map(itemParent => {
-        if (itemParent.id === item[pKey]) {
-          const copy = { ...itemParent };
-          let obj = copy;
-          if (itemParent.children) {
-            obj = { ...copy, children: [...copy.children, item] };
-          } else {
-            copy.children = [item];
-          }
-          return obj;
-        }
-        return itemParent;
-      }, []);
-      return parent;
-    }
-    return [...result, item];
-  }, []);
-  return results;
-};
-
 export const objRecursive = (
   arr = null,
-  chKey = 'children',
   callback = (
     key,
     value,
   ) => ({ [key]: value }),
   parent = null,
 ) => {
-  if (!arr) return arr;
+  if (!arr || (arr && !Array.isArray(arr))) return arr;
   return arr.map((item) => Object.keys(item).reduce((results, key) => {
-    if (key === chKey && item[key] && Array.isArray(item[key])) {
+    if (item[key] && Array.isArray(item[key])) {
       return {
         ...results,
-        [key]: objRecursive(item[key], callback, (parent || results)),
+        [key]: objRecursive(item[key], callback(), (parent || results)),
       };
     }
     return {
@@ -184,7 +159,7 @@ export const objRecUpdate = (
         ...items.updated,
         {
           ...Object.keys(item).reduce((obj, key) => {
-            let plainKey = `${itemKey}children.`;
+            let plainKey = `${itemKey}.`;
             let results = { updated: [], plain: {}, array: [] };
             results = objRecUpdate(item[key], callback, (parent || obj.id));
             if (key !== 'children') {
@@ -221,8 +196,32 @@ export const objRecUpdate = (
     delete copyChild.children;
     return copyChild;
   });
-  
   return calculate;
+};
+
+export const objDeepToPlain = (
+  source = null,
+  parent = '',
+) => {
+  if (!source) return null;
+  if (Array.isArray(source)) {
+    return source.reduce((ob, item, i) => {
+      const dot = Array.isArray(item) ? '' : '.';
+      return { ...ob, ...objDeepToPlain(item, `${parent || 'obj'}[${i}]${dot}`) };
+    }, {});
+  }
+  return Object.keys(source).reduce((results, key) => {
+    let edited = { [`${parent}${key}`]: source[key] };
+    if (!source[key]) return { ...results, ...edited };
+    if (Array.isArray(source[key]) || typeof source[key] === 'object') {
+      let parentSub = '';
+      if (typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        parentSub = '.';
+      }
+      edited = objDeepToPlain(source[key], `${parent}${key}${parentSub}`);
+    }
+    return { ...results, ...edited };
+  }, {});
 };
 
 // ------------------------------------------------------------------------------------------------------------------------
