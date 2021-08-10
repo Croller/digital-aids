@@ -40,14 +40,17 @@ import {
 } from './styled';
 
 export const CategoryForm = ({
+  token = null,
   source = null,
   loading = false,
   currency = null,
   dictionary = null,
   archive = false,
   language = 'en',
+  restaurant,
   className,
   onChange = () => {},
+  onCreateTranslate = () => {},
 }) => {
   const [t] = useTranslation();
   const rule = rules(t);
@@ -67,11 +70,11 @@ export const CategoryForm = ({
     />
   ), [event]);
 
-  const translateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
+  const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
     const separator = ' || ';
-    if (!obj || !sourceLng || sourceLng === targetLng) return obj;
+    if (!obj || !sourceLng || sourceLng === targetLng || !token) return obj;
     const text = Object.keys(obj).map(key => obj[key]).join(separator);
-    const results = await getTextTranslate({ text, sourceLng, targetLng });
+    const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
     const textArr = results[0].translatedText.split(separator);
     return Object.keys(obj).reduce((ob, key, k) => {
       if (typeof ob[key] === 'string') {
@@ -87,15 +90,35 @@ export const CategoryForm = ({
   };
 
   const handleFinish = async (values) => {
-    setIsChange(false);
     form.resetFields();
+    setIsChange(false);
+    const edited = { ...formData, ...values };
+    const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
+    const editedLng = [language, ...restaurant.languages.filter(f => f !== language)];
     if (!event) {
-      const edited = { ...formData, ...values };
       if (!current.id) {
-        const edited_EN = await translateObj(edited, language);
-        onChange(dataFromToList(edited_EN, current, language), language);
+        const transObj = Object.keys(edited).filter(f => translateKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
+        const editedOther = await Promise.allSettled(editedLng.map(async (lng) => {
+          const resuslts = await getTranslateObj(transObj, language, lng);
+          return resuslts;
+        }));
+        const results = [...editedOther.map(({ value }) => value)].map((value, i, arr) => dataFromToList({
+          ...edited,
+          ...value,
+          ...(i !== 0 && arr[0] ? { key: arr[0].key } : {}),
+          ...(i !== 0 ? { language: editedLng[i] } : {}),
+          restaurant: restaurant.id,
+        },
+        current,
+        editedLng[i]));
+        const enLngIndex = editedLng.findIndex(f => f === 'en');
+        const enCatalog = results[enLngIndex];
+        const lngCatalogs = results.reduce((obj, item, i) => ({ ...obj, [editedLng[i]]: item }), {});
+        onCreateTranslate({ data_catalogories: lngCatalogs });
+        onChange(enCatalog, 'en');
+        return;
       }
-      onChange(dataFromToList(edited, current, language));
+      onChange(dataFromToList(edited, current, language), language);
     }
   };
 

@@ -17,7 +17,9 @@ CREATE TABLE IF NOT EXISTS data_users (
   meta jsonb DEFAULT '{"browser": "NULL", "ip": "NULL", "geo": "NULL"}',
   enter_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_confirmed BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS logs_users (
@@ -36,7 +38,7 @@ CREATE TABLE IF NOT EXISTS logs_users (
   enter_at TIMESTAMP DEFAULT NULL,
   is_confirmed BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -56,14 +58,18 @@ CREATE TABLE IF NOT EXISTS data_roles (
   account BOOLEAN DEFAULT TRUE,
   guest BOOLEAN DEFAULT TRUE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS data_roles_translate (
   id VARCHAR NOT NULL, -- DICTIONARY data_roles
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL
+  description VARCHAR DEFAULT NULL,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS logs_roles (
@@ -83,7 +89,7 @@ CREATE TABLE IF NOT EXISTS logs_roles (
   guest BOOLEAN DEFAULT NULL,
   is_archived BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -110,7 +116,9 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   geom GEOMETRY DEFAULT NULL,
   is_publish BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS logs_restaurants (
@@ -137,7 +145,7 @@ CREATE TABLE IF NOT EXISTS logs_restaurants (
   is_publish BOOLEAN DEFAULT NULL,
   is_archived BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -153,7 +161,9 @@ CREATE TABLE IF NOT EXISTS data_categories (
   images VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT '{}',
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS data_categories_translate (
@@ -161,7 +171,9 @@ CREATE TABLE IF NOT EXISTS data_categories_translate (
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  options jsonb DEFAULT '{}'
+  options jsonb DEFAULT '{}',
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS logs_categories_translate (
@@ -170,7 +182,7 @@ CREATE TABLE IF NOT EXISTS logs_categories_translate (
   name VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -187,7 +199,7 @@ CREATE TABLE IF NOT EXISTS logs_categories (
   options jsonb DEFAULT NULL,
   is_archived BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -206,7 +218,9 @@ CREATE TABLE IF NOT EXISTS data_dishes (
   options jsonb DEFAULT '{}',
   allergens VARCHAR ARRAY DEFAULT '{}', -- DICTIONARY dictionary_translate
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS data_dishes_translate (
@@ -215,7 +229,9 @@ CREATE TABLE IF NOT EXISTS data_dishes_translate (
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
-  options jsonb DEFAULT '{}'
+  options jsonb DEFAULT '{}',
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS logs_dishes_translate (
@@ -225,7 +241,7 @@ CREATE TABLE IF NOT EXISTS logs_dishes_translate (
   description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -245,7 +261,7 @@ CREATE TABLE IF NOT EXISTS logs_dishes (
   allergens VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY dictionary_translate
   is_archived BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -264,7 +280,9 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   is_approved BOOLEAN DEFAULT NULL,
   is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS data_opinions (
@@ -278,7 +296,9 @@ CREATE TABLE IF NOT EXISTS data_opinions (
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS data_orders (
@@ -299,7 +319,9 @@ CREATE TABLE IF NOT EXISTS data_orders (
   pay_options jsonb DEFAULT '{}',
   is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
 
 CREATE TABLE IF NOT EXISTS logs_orders (
@@ -321,7 +343,7 @@ CREATE TABLE IF NOT EXISTS logs_orders (
   is_viewed BOOLEAN DEFAULT NULL,
   is_archived BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
-  change_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
 
@@ -335,9 +357,10 @@ CREATE TABLE IF NOT EXISTS data_notify (
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_viewed BOOLEAN DEFAULT FALSE,
   is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
 );
-
 
 CREATE TABLE IF NOT EXISTS dictionary_currency (
   number SERIAL,

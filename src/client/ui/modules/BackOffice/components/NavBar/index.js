@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { IconText } from 'client/ui/components/_block/IconText';
+import {
+  useHistory,
+  useLocation,
+  useParams,
+  generatePath,
+  withRouter,
+} from 'react-router-dom';
 import {
   ChevronSvg,
   LoupeSvg,
@@ -27,11 +33,12 @@ import {
   Search,
 } from './styled';
 
-export const NavBar = ({
+export const NavBar = withRouter(({
   settings = {},
   onSearch = () => {},
   onEvent = () => {},
   className,
+  match,
 }) => {
   const [t] = useTranslation();
   const history = useHistory();
@@ -66,26 +73,22 @@ export const NavBar = ({
   ), [options]);
 
   const handleRoute = (key) => {
+    const { path, params } = match;
     const pathParts = pathname.split('/');
-    let path = '';
+    //TODO сделать на контексте хранение всей истории роутов для пропуска смены языков
+    let part = '';
     if (key === 'back') {
-      history.goBack();
-      return;
-      // path = `${pathParts[0]}/${pathParts[1]}/restaurants`;
-      // if (params.language && params.restaurant) {
-      //   path = `${pathParts.slice(0, -1).join('/')}/menu`;
-      // }
-      // if (pathname.indexOf('/archive') > -1) {
-      //   path = pathParts.slice(0, -1).join('/');
-      // }
-    }
+      if (history.action !== 'POP') return history.goBack();
+      const str = generatePath(path, params);
+      part = `${str}/dashboard`;
+    } 
     if (key === 'archive') {
-      path = `${pathParts.join('/')}/${key}`;
+      part = `${pathParts.join('/')}/${key}`;
     }
     if (key === 'new') {
-      path = `${pathParts[0]}/${pathParts[1]}/${pathParts[2].slice(0, -1)}/${key}`;
+      part = `${pathParts[0]}/${pathParts[1]}/${pathParts[2].slice(0, -1)}/${key}`;
     }
-    history.push(path);
+    history.push(part);
   };
 
   const handleChange = (key = null) => {
@@ -227,4 +230,4 @@ export const NavBar = ({
       </Control>
     </NavBarWrapper>
   );
-};
+});

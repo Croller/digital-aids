@@ -33,14 +33,14 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
     ];
 
     let results_dictionary = backOffice.dictionary;
-    if (!results_dictionary) {
-      results_dictionary = yield commonProvider.loadTable({
-        token,
-        language,
-        data: dictionaries,
-      });
-      results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
-    }
+    // if (!results_dictionary) {
+    results_dictionary = yield commonProvider.loadTable({
+      token,
+      language,
+      data: dictionaries,
+    });
+    results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
+    // }
 
     let results_restaurants = [];
     if (!ids) {
@@ -107,11 +107,7 @@ function* updateRow({ payload }) {
   let status = 'saved';
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
-    const results = yield commonProvider.update({
-      ...payload,
-      token,
-      // language: ((Array.isArray(data) && data[0].id) || data.id) ? language : 'en',
-    }); 
+    const results = yield commonProvider.update({ ...payload, token }); 
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -129,19 +125,20 @@ function* updateRow({ payload }) {
       }
 
       // update children parent after create new category group
-      let children = arr.slice(1);
-      children = children.filter(f => !f.parent && f);
+      const parent = arr[0];
+      const children = [...arr.slice(1)].reduce((arrCh, child) => {
+        if (!child.parent && child.id !== parent.id) {
+          return [...arrCh, { ...child, parent: parent.id }];
+        }
+        return arrCh;
+      }, []);
       if (name === 'data_categories' && arr.length > 1 && children.length > 0) {
         status = 'created';
         const arrChild = yield commonProvider.update({
           name,
           token,
           language,
-          data: children.map(child => {
-            const obj = { ...child };
-            delete obj.children;
-            return { ...obj, parent: arr[0].id };
-          }), 
+          data: children, 
         });
         arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
       }

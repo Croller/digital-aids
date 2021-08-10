@@ -1,6 +1,8 @@
--- DROP TABLE IF EXISTS data_users_test;
--- DROP TABLE IF EXISTS data_roles_test;
--- DROP TABLE IF EXISTS data_roles_test_translate;
+-- DROP TABLE IF EXISTS data_users;
+-- DROP TABLE IF EXISTS logs_users;
+-- DROP TABLE IF EXISTS data_roles;
+-- DROP TABLE IF EXISTS logs_roles;
+-- DROP TABLE IF EXISTS data_roles_translate;
 -- DROP TABLE IF EXISTS data_restaurants;
 
 -- DROP TABLE IF EXISTS data_categories;
@@ -24,12 +26,90 @@
 -- DROP TABLE IF EXISTS data_orders;
 -- DROP TABLE IF EXISTS data_notify;
 
+ALTER TABLE data_users DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_users ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_users DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_users ADD COLUMN change_user VARCHAR DEFAULT NULL;
 
+
+
+
+ALTER TABLE ONLY logs_users ALTER COLUMN change_at SET DEFAULT NOW();
+ALTER TABLE ONLY logs_roles ALTER COLUMN change_at SET DEFAULT NOW();
+
+ALTER TABLE data_restaurants DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_restaurants ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_restaurants DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_restaurants ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+
+
+ALTER TABLE ONLY logs_restaurants ALTER COLUMN change_at SET DEFAULT NOW();
+
+ALTER TABLE data_roles DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_roles ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_roles DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_roles ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+ALTER TABLE data_categories DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_categories ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_categories DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_categories ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+
+ALTER TABLE ONLY logs_categories_translate ALTER COLUMN change_at SET DEFAULT NOW();
+ALTER TABLE ONLY logs_categories ALTER COLUMN change_at SET DEFAULT NOW();
+
+ALTER TABLE data_dishes DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_dishes ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_dishes DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_dishes ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+
+
+ALTER TABLE ONLY logs_dishes_translate ALTER COLUMN change_at SET DEFAULT NOW();
+ALTER TABLE ONLY logs_dishes ALTER COLUMN change_at SET DEFAULT NOW();
+
+ALTER TABLE data_reserve DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_reserve ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_reserve DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_reserve ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+
+ALTER TABLE data_opinions DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_opinions ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+
+ALTER TABLE data_opinions DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_opinions ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+
+
+ALTER TABLE data_orders DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_orders ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_orders DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_orders ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+
+
+ALTER TABLE ONLY logs_orders ALTER COLUMN change_at SET DEFAULT NOW();
+
+ALTER TABLE data_notify DROP COLUMN IF EXISTS change_at;
+ALTER TABLE data_notify ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_notify DROP COLUMN IF EXISTS change_user;
+ALTER TABLE data_notify ADD COLUMN change_user VARCHAR DEFAULT NULL;
+
+ALTER TABLE data_dishes_translate ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_dishes_translate ADD COLUMN change_user VARCHAR DEFAULT NULL;
+ALTER TABLE data_roles_translate ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_roles_translate ADD COLUMN change_user VARCHAR DEFAULT NULL;
+ALTER TABLE data_categories_translate ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
+ALTER TABLE data_categories_translate ADD COLUMN change_user VARCHAR DEFAULT NULL;
 
 -------------------------- TEMP QUERY --------------------------
 
 
 
+-- DELETE FROM logs_categories_translate WHERE change_at BETWEEN '2021-08-04T21:26:56.822294' AND '2021-08-05T21:26:56.822294';
 -- ALTER TABLE data_restaurants RENAME opinion TO description;
 -- ALTER TABLE data_restaurants ADD COLUMN number serial;
 -- ALTER TABLE data_restaurants ADD is_publish BOOLEAN DEFAULT FALSE;

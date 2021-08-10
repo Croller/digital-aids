@@ -21,9 +21,10 @@ const UserController = () => {
     const {
       login,
       password,
-      browser = null,
+      language = 'en',
+      browser = {},
     } = req.body.data;
-
+    
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
     const geo = geoip.lookup(commonUtils.getNodeEnv() ? ip : '83.220.237.49');
@@ -36,24 +37,24 @@ const UserController = () => {
       if (results.rows.length === 1) {
         const user = results.rows[0];
         const { is_deleted, is_archived } = user;
-        if (is_deleted || is_archived) {
-          error.name = 'User data is not correct';
-          error.code = 'userDatanNotCorrect';
-          res.status(201);
-          res.json({ error });
-        } else {
+        if (!is_deleted && !is_archived) {
           user.enter_at = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
           user.meta = meta;
           await queryUtils.updateTableRecord('data_users', user, {
             req,
             res,
-            language: 'en', 
+            language,
             user,
           });
           user.token = jwt.generateToken(user);
           delete user.password;
           delete user.meta;
           res.json(user);
+        } else {
+          error.name = 'User data is not correct';
+          error.code = 'userDatanNotCorrect';
+          res.status(201);
+          res.json({ error });
         }
       } else {
         error.name = 'User not found';

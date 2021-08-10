@@ -9,6 +9,7 @@ import { ImageChange } from 'client/ui/components/_block/Modal/ImageChange';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/dish';
 import { ALLERGENS } from 'client/ui/components/_block/Allergens/constants';
 import { ImgCrop } from 'client/ui/components/_ui/ImgCrop';
+import { getTextTranslate } from 'client/providers/external';
 import {
   getUrl,
   getDictionaryItem,
@@ -49,6 +50,7 @@ const CROP_CONFIG = {
 };
 
 export const DishForm = ({
+  token = null,
   source = null,
   roles = null,
   type = null,
@@ -121,6 +123,20 @@ export const DishForm = ({
     </ImageChange>
   ), [eventCrop]);
 
+  const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
+    const separator = ' || ';
+    if (!obj || !sourceLng || sourceLng === targetLng || !token) return obj;
+    const text = Object.keys(obj).map(key => obj[key]).join(separator);
+    const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
+    const textArr = results[0].translatedText.split(separator);
+    return Object.keys(obj).reduce((ob, key, k) => {
+      if (typeof ob[key] === 'string') {
+        return { ...ob, [key]: textArr[k] };
+      }
+      return ob;
+    }, obj);
+  };
+
   const setFiledsValue = (obj = null) => {
     if (!obj) return;
     setFormData(obj);
@@ -190,12 +206,17 @@ export const DishForm = ({
     return (thumbnail && [thumbnail]) || (images[0] && [images[0]]);
   };
 
-  const handleFinish = (values = {}) => {
-    const obj = {
-      ...formData,
-      ...values,
-    };
-    onChange(dataToApi(obj, categories, restaurant, language));
+  const handleFinish = async (values = {}) => {
+    const excludeKeys = ['id', 'category', 'restaurant', 'count', 'cuisine', 'images', 'price', 'options', 'allergens', 'is_archived', 'is_deleted'];
+    const edited = { ...formData, ...values };
+    if (!edited.id && language !== 'en') {
+      const transObj = Object.keys(edited).filter(f => !excludeKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
+      const edited_EN = await getTranslateObj(transObj, language);
+      const dataApi = dataToApi({ ...edited, ...edited_EN }, categories, restaurant, 'en');
+      edited.key = dataApi.key;
+      onChange(dataApi);
+    }
+    onChange(dataToApi(edited, categories, restaurant, language), language);
     onChangeFiles(deletedFiles);
     setEdit(false);
     setIsChange(false);

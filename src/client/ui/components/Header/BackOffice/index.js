@@ -81,7 +81,7 @@ const HeaderComponent = ({
               <CloseButton onClick={handleLangChange}>
                 <CloseSvg />
               </CloseButton>
-              <OutSideClick onOutsideClick={handleLangChange}>
+              <OutSideClick onOutsideClick={() => setLangList(false)}>
                 <LangList>
                   {['en', 'ru'].map(lng => (
                     <LangButton
