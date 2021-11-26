@@ -13,7 +13,7 @@ import { getTextTranslate } from 'client/providers/external';
 import {
   getUrl,
   getDictionaryItem,
-  loadFile,
+ getFile,
   imageResize,
 } from 'client/utils/common';
 import {
@@ -153,7 +153,7 @@ export const DishForm = ({
     }));
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid) => {
-        const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
+        const file = await getFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
         return file;
       })).then(images => setFiledsValue(dataToForm({ ...data, images })));
     }
@@ -247,7 +247,7 @@ export const DishForm = ({
 
       if (images && images.length > 0) {
         Promise.all(images.map(async (uuid) => {
-          const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
+          const file = await getFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
           return file;
         })).then(imgs => setFiledsValue({ ...obj, images: imgs }));
       }

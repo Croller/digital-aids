@@ -38,7 +38,7 @@ export const htmlToImage = async (id) => {
 };
 
 export const imgToPdf = async (base64, title) => {
-  const imgParams = await getImageParams(base64);
+  const imgParams = await getImage(base64);
   const { width, height } = imgParams;
   const doc = new Pdf('portrait', 'px', [width, height], true, true);
   doc.addImage(base64, 'PNG', 0, 0, width, height);
@@ -227,7 +227,7 @@ export const objDeepToPlain = (
 // ------------------------------------------------------------------------------------------------------------------------
 // file func
 
-export const getBase64 = (file) => new Promise((resolve, reject) => {
+export const getFileBase64 = (file) => new Promise((resolve, reject) => {
   const reader = new FileReader();
   reader.readAsDataURL(file);
   reader.onload = () => resolve(reader.result);
@@ -241,11 +241,11 @@ export const downloadFile = (url, filename) => {
   downloadLink.click();
 };
 
-export const loadFile = async (url = null, uuid = null) => {
+export const getFile = async (url = null, uuid = null) => {
   if (!url || !uuid) return null;
   const result = await fetch(url);
   const blob = await result.blob();
-  const base64 = await getBase64(blob);
+  const base64 = await getFileBase64(blob);
   const type = base64 && base64.split(';base64')[0].replace('data:', '');
   return {
     type,
@@ -255,10 +255,17 @@ export const loadFile = async (url = null, uuid = null) => {
   };
 };
 
+const getImage = (src) => new Promise((resolve, reject) => {
+  const img = new Image();
+  img.onload = () => resolve(img);
+  img.onerror = reject;
+  img.src = src;
+});
+
 export const imageConverter = async (file = null, uuid = null, type = 'image/png') => {
   if (!file && !file.type) return null;
-  const base64 = await getBase64(file);
-  const imgParams = await getImageParams(base64);
+  const base64 = await getFileBase64(file);
+  const imgParams = await getImage(base64);
   const { width, height } = imgParams;
 
   const canvas = document.createElement('canvas');
@@ -277,13 +284,6 @@ export const imageConverter = async (file = null, uuid = null, type = 'image/png
     originFileObj: new File([blob], uuid, { type }),
   };
 };
-
-const getImageParams = (src) => new Promise((resolve, reject) => {
-  const img = new Image();
-  img.onload = () => resolve(img);
-  img.onerror = reject;
-  img.src = src;
-});
 
 export const imageResize = async (file, crop, type = 'image/png') => {
   const imgParams = document.querySelector('.ReactCrop__image');
@@ -349,6 +349,6 @@ export const imageCompression = async (file, options = {}) => {
   return {
     uuid,
     originFileObj: compresed,
-    base64: await getBase64(compresed),
+    base64: await getFileBase64(compresed),
   };
 };
