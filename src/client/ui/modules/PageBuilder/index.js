@@ -66,10 +66,11 @@ export const PageBuilderModule = ({
 
   const handleOnSelect = (name = null, index) => {
     if (!name) return null;
+
     const comp = components.find(f => f.name === name);
     if (comp) {
       const { value } = comp;
-      handleOnCopy({ name, value }, index);
+      handleOnCopy(index, { name, value });
     }
   };
 

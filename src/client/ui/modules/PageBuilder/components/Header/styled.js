@@ -4,6 +4,7 @@ import { EditText } from '../EditText';
 
 export const HeaderWrapper = styled.div`
   width: 768px;
+  padding: 16px 0 18px;
 
   &:hover {
     > div {
@@ -17,6 +18,4 @@ export const EditTextStyled = styled(EditText)`
   text-align: center;
   font-size: 24px;
   border: 2px solid transparent;
-
-  
 `;

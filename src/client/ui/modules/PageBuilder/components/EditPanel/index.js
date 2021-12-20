@@ -62,9 +62,9 @@ export const EditPanel = ({
     ],
   ];
 
-  const handleOnSelect = (name = null) => {
+  const handleOnSelect = (name = null, i) => {
     if (!name) return;
-    onSelect(name, index + 1);
+    onSelect(name, i + 1);
     setShowAddComp(false);
   };
 
@@ -93,7 +93,7 @@ export const EditPanel = ({
             {components.map(({ label, name }) => (
               <AddCompBlock
                 key={`_add_comp_${name}`}
-                onClick={() => handleOnSelect(name)}
+                onClick={() => handleOnSelect(name, index)}
               >
                 {label}
               </AddCompBlock>
