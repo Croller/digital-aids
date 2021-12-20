@@ -1,40 +1,18 @@
--- DROP TABLE IF EXISTS data_users_test;
--- DROP TABLE IF EXISTS data_roles_test;
--- DROP TABLE IF EXISTS data_roles_test_translate;
--- DROP TABLE IF EXISTS data_restaurants;
 
--- DROP TABLE IF EXISTS data_categories;
--- DROP TABLE IF EXISTS data_dishes;
 
--- DROP TABLE IF EXISTS data_categories_translate;
--- DROP TABLE IF EXISTS data_dishes_translate;
 
--- DROP TABLE IF EXISTS dictionary_currency;
--- DROP TABLE IF EXISTS dictionary_currency_translate;
--- DROP TABLE IF EXISTS dictionary_languages;
--- DROP TABLE IF EXISTS dictionary_languages_translate;
--- DROP TABLE IF EXISTS dictionary_allergens;
--- DROP TABLE IF EXISTS dictionary_allergens_translate;
--- DROP TABLE IF EXISTS dictionary_units;
--- DROP TABLE IF EXISTS dictionary_units_translate;
--- DROP TABLE IF EXISTS dictionary_days;
--- DROP TABLE IF EXISTS dictionary_days_translate;
--- DROP TABLE IF EXISTS data_reserve;
--- DROP TABLE IF EXISTS data_opinions;
--- DROP TABLE IF EXISTS data_orders;
--- DROP TABLE IF EXISTS data_notify;
+
+
+
+
 
 
 
 -------------------------- TEMP QUERY --------------------------
 
-
-
 -- ALTER TABLE data_restaurants RENAME opinion TO description;
 -- ALTER TABLE data_restaurants ADD COLUMN number serial;
 -- ALTER TABLE data_restaurants ADD is_publish BOOLEAN DEFAULT FALSE;
-
-
 
 -- TRUNCATE data_roles RESTART IDENTITY CASCADE;
 -- TRUNCATE data_users RESTART IDENTITY CASCADE;
@@ -48,7 +26,6 @@
 -- SELECT * FROM data_at_work;
 -- SELECT * FROM dictionary_currency;
 -- SELECT * FROM dictionary_languages;
-
 
 -- INSERT INTO data_users (login, password, role, enter_at) VALUES ('view', 'view', '2', '2020-10-28T10:01:11.258')
 -- SELECT * FROM data_users;

@@ -7,7 +7,7 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const routes = require('./api/routes');
-const socket = require('./api/services/socket');
+// const socket = require('./api/services/socket');
 
 require('dotenv').config({
   path: path.resolve('.env'),
@@ -37,12 +37,12 @@ if (process.env.NODE_ENV === 'development') {
   server = https.createServer(options, app);
 }
 
-socket.create(server);
+// socket.create(server);
 
 server.listen(process.env.LOCAL_SERVER_PORT);
 server.setTimeout(5100);
 
-console.log(`Env mode: ${process.env.NODE_ENV}`);
+console.log(`Node env: ${process.env.NODE_ENV}`);
 console.log(`Server listen on port: ${process.env.LOCAL_SERVER_PORT}`);
 
 app.get('*', (req, res) => {
