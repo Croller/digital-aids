@@ -4,9 +4,7 @@ const webpack = require('webpack');
 const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const PwaManifestWebpackPlugin = require('webpack-pwa-manifest');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -22,46 +20,6 @@ let plugins = [
     favicon: './public/favicon.ico',
   }),
   new webpack.HotModuleReplacementPlugin(),
-  new CopyWebpackPlugin({
-    patterns: [
-      {
-        from: path.resolve(__dirname, 'src/client/assets/fonts'),
-        to: './fonts',
-      },
-      // {
-      //   from: path.resolve(__dirname, 'src/client/utils/service-worker.js'),
-      //   to: './',
-      // },
-    ],
-  }),
-//   new PwaManifestWebpackPlugin({
-//     name: 'Digital Aids',
-//     short_name: 'DigitalAids',
-//     description: 'Digital solutions for business',
-//     background_color: '#ffffff',
-//     orientation: 'portrait',
-//     crossorigin: 'use-credentials',
-//     start_url: '/',
-//     display: 'standalone',
-//     theme_color: '#219653',
-//     icons: [
-//       {
-//         src: './public/favicon.ico',
-//         sizes: '64x64 32x32 24x24 16x16',
-//         type: 'image/x-icon',
-//       },
-//       {
-//         src: './public/logo 192.png',
-//         type: 'image/png',
-//         sizes: '192x192',
-//       },
-//       {
-//         src: './public/logo 512.png',
-//         type: 'image/png',
-//         sizes: '512x512',
-//       },
-//     ],
-//   }),
 ];
 
 if (PLATFORM === 'production') {
@@ -195,19 +153,6 @@ module.exports = {
     open: false,
     hot: true,
     historyApiFallback: true,
-    proxy: {
-      ...['/api', '/static', '/socket.io'].reduce((obj, key) => ({
-        ...obj,
-        [key]: `http://0.0.0.0:${process.env.LOCAL_SERVER_PORT}`,
-      }), {}),
-      secure: false,
-      changeOrigin: false,
-      // '/api': {
-      //   target: `https://${process.env.HOST}`,
-      //   secure: false,
-      //   changeOrigin: true,
-      // },
-    },
   },
   plugins,
   node: {

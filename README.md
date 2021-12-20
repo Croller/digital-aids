@@ -1,3 +1,11 @@
-# Digital-Aids
+# Boilerpalte client
 
-## Digital solutions for restaurants
+## Install
+```
+npm i
+```
+
+## Run
+```
+npm run client
+```
