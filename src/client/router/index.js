@@ -8,7 +8,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-// const BackOffice = lazy(() => import('client/ui/page/BackOffice'));
+const PageBuilder = lazy(() => import('client/ui/page/PageBuilder'));
 
 export const Routers = () => (
   <React.Fragment>
@@ -19,7 +19,7 @@ export const Routers = () => (
     </Helmet>
     <Suspense fallback>
       <Switch>
-        {/* <Route path="/verify" component={Verify} /> */}
+        <Route path="/" component={PageBuilder} />
       </Switch>
     </Suspense>
   </React.Fragment>
