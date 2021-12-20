@@ -1,8 +1,0 @@
-{
-  "watch": ["src/server/"],
-  "events": {
-    "restart": "kill-port 8086",
-    "crash": "kill-port 8086"
-  },
-  "delay": "1500"
-}
