@@ -22,11 +22,13 @@ export const ImageWrapper = styled.div`
 
   &:hover {
     > div {
-      border: 2px dashed ${PALETTE.grey1};
-    }
+      > div {
+        border: 2px dashed ${PALETTE.grey1};
+      }
 
-    > img {
-      border: 2px dashed ${PALETTE.grey1};
+      > img {
+        border: 2px dashed ${PALETTE.grey1};
+      }
     }
   }
 `;

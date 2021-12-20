@@ -19,16 +19,18 @@ export const VideoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 32px 0 18px;
+  padding: 68px 0 48px;
   background-color: ${PALETTE.grey3};
 
   &:hover {
     > div {
-      border: 2px dashed ${PALETTE.grey1};
-    }
+      > div {
+        border: 2px dashed ${PALETTE.grey1};
+      }
 
-    > img {
-      border: 2px dashed ${PALETTE.grey1};
+      > img {
+        border: 2px dashed ${PALETTE.grey1};
+      }
     }
   }
 `;

@@ -4,7 +4,8 @@ import { EditTextArea } from '../EditTextArea';
 
 export const ParagraphWrapper = styled.div`
   width: 768px;
-
+  padding: 12px 0 48px;
+  
   &:hover {
     > div {
       border: 2px dashed ${PALETTE.grey1};
