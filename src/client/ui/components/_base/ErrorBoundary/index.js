@@ -1,48 +1,23 @@
 import React from 'react';
-import { highlightErrorLog } from 'client/utils/errorHandler';
-import { HintsBlock } from 'client/ui/components/_block/HintsBlock';
-import {
-  Container,
-  HintsBlockStyled,
-  Text,
-} from './styled';
+import { ErrorBoundary as Boundary } from 'react-error-boundary';
 
-export class ErrorBoundary extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+export const ErrorBoundary = ({ children }) => {
+  const ErrorFallback = ({ error }) => (
+    <div role="alert">
+      <p>Something went wrong:</p>
+      <pre>{error.message}</pre>
+      {/* <button onClick={resetErrorBoundary}>Try again</button> */}
+    </div>
+  );
 
-  static getDerivedStateFromError(error) {
-    highlightErrorLog({ err: { message: error }, component: 'unknown' });
-    return { hasError: true };
-  }
-
-  componentDidCatch(error) {
-    highlightErrorLog({ err: { message: error }, component: 'unknown' });
-    this.setState({ hasError: true });
-  }
-  
-  render() {
-    const { hasError } = this.state;
-    const { t, children, onClick } = this.props;
-
-    if (hasError) {
-      return HintsBlock ? (
-        <Container>
-          <HintsBlockStyled
-            btn="menu"
-            text={t && t('common.pageError.text')}
-            onClick={onClick}
-          />
-        </Container>
-      ) : (
-        <Text>
-          Opps! It seems that somithing was wrong.
-        </Text>
-      );
-    }
-    return children;
-  }
-}
-
+  return (
+    <Boundary
+      FallbackComponent={ErrorFallback}
+      onReset={() => {
+        // reset the state of your app so the error doesn't happen again
+      }}
+    >
+      {children}
+    </Boundary>
+  );
+};

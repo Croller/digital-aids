@@ -1,17 +1,14 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
-import { GlobalStyle } from 'client/style/base';
-import { InfoUser } from 'client/ui/components/_base/InfoUser';
-import { ErrorMessage } from 'client/ui/components/_base/ErrorMessage';
+import { GlobalStyle } from 'client/style/index';
 
 import { Routers } from './router';
 
 const App = () => (
   <>
+    TemplateProject
     <GlobalStyle />
     <Routers />
-    <ErrorMessage />
-    <InfoUser />
   </>
 );
 

@@ -1,7 +1,7 @@
 import * as Constants from './constants';
 
 const initState = {
-  info: {
+  user: {
     id: null,
     login: null,
     password: null,
@@ -20,76 +20,62 @@ const initState = {
   },
   roles: null,
   dictionary: null,
-  position: 'guest',
 
   loading: false,
   status: null,
   error: null,
 };
 
-export default function (state = initState, action) {
-  switch (action.type) {
+export default (state = initState, action) => {
+  const { type, payload } = action;
+  switch (type) {
     case Constants.USER_SET:
-      return { ...state, ...action.payload };
-    case Constants.USER_ERROR_SET:
-      return { ...state, error: action.payload, loading: false };
-    case Constants.USER_LOADING_SET:
+      return { ...state, ...payload };
+    case Constants.USER_SET_ERROR:
+      return { ...state, error: payload, loading: false };
+    case Constants.USER_SET_LOADING:
       return {
         ...state,
-        loading: action.payload,
+        loading: payload,
         error: null,
         status: null,
       };
     default:
       return state;
   }
-}
+};
 
-export function set(payload) {
-  return {
-    type: Constants.USER_SET_STATE,
-    payload,
-  };
-}
+export const set = (payload) => ({
+  type: Constants.USER_SET,
+  payload,
+});
 
-export function update(payload) {
-  return {
-    type: Constants.USER_UPDATE,
-    payload,
-  };
-}
+export const update = (payload) => ({
+  type: Constants.USER_UPDATE,
+  payload,
+});
 
-export function login(payload) {
-  return {
-    type: Constants.USER_LOGIN,
-    payload,
-  };
-}
+export const login = (payload) => ({
+  type: Constants.USER_SIGNIN,
+  payload,
+});
 
-export function auth(payload) {
-  return {
-    type: Constants.USER_AUTH,
-    payload,
-  };
-}
+export const auth = (payload) => ({
+  type: Constants.USER_AUTH,
+  payload,
+});
 
-export function registration(payload) {
-  return {
-    type: Constants.USER_REGISTRATION,
-    payload,
-  };
-}
+export const reg = (payload) => ({
+  type: Constants.USER_SIGNUP,
+  payload,
+});
 
-export function reset(payload) {
-  return {
-    type: Constants.USER_RESET_PASSWORD,
-    payload,
-  };
-}
+export const reset = (payload) => ({
+  type: Constants.USER_RESET_PASSWORD,
+  payload,
+});
 
-export function error(payload) {
-  return {
-    type: Constants.USER_ERROR_SET,
-    payload,
-  };
-}
+export const error = (payload) => ({
+  type: Constants.USER_SET_ERROR,
+  payload,
+});

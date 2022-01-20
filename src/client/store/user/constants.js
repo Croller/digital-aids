@@ -1,9 +1,11 @@
 export const USER_SET = 'USER_SET';
 export const USER_UPDATE = 'USER_UPDATE';
-export const USER_SET_STATE = 'USER_SET_STATE';
-export const USER_ERROR_SET = 'USER_ERROR_SET';
-export const USER_LOADING_SET = 'USER_LOADING_SET';
-export const USER_LOGIN = 'USER_LOGIN';
+export const USER_SIGNIN = 'USER_SIGNIN';
+export const USER_SIGNOUT = 'USER_SIGNOUT';
+export const USER_SIGNUP = 'USER_SIGNUP';
 export const USER_AUTH = 'USER_AUTH';
-export const USER_REGISTRATION = 'USER_REGISTRATION';
+export const USER_AUTH_TWOFACTOR = 'USER_AUTH_TWOFACTOR';
 export const USER_RESET_PASSWORD = 'USER_RESET_PASSWORD';
+
+export const USER_SET_ERROR = 'USER_SET_ERROR';
+export const USER_SET_LOADING = 'USER_SET_LOADING';

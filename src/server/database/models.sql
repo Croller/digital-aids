@@ -2,7 +2,7 @@
 
 -------------------------- TEMP TABLE --------------------------
 
--- CREATE SCHEMA "DigitalAids";
+-- CREATE SCHEMA "TemplateProject";
 -- ALTER DATABASE "digital-aids" SET timezone TO 'Europe/Moscow';
 
 -- CREATE TABLE IF NOT EXISTS data_users (
