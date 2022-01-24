@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  parser: '@babel/eslint-parser',
+  parser: 'babel-eslint',
   extends: ['plugin:react-hooks/recommended', 'airbnb'],
   settings: {
     'import/resolver': {
