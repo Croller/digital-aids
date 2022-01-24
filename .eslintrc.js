@@ -3,15 +3,15 @@ module.exports = {
     browser: true,
     es6: true,
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   extends: ['plugin:react-hooks/recommended', 'airbnb'],
   settings: {
     'import/resolver': {
-      'alias': [
+      alias: [
         ['client', './src/client'],
-        ['server', './src/server']
-       ]
-    }
+        ['server', './src/server'],
+      ],
+    },
   },
   rules: {
     'class-methods-use-this': [
@@ -30,7 +30,7 @@ module.exports = {
       'error',
       'single',
     ],
-    "semi": [2, "always"],
+    semi: [2, 'always'],
     'import/prefer-default-export': 0,
     'react/prop-types': 0,
     'react/jsx-tag-spacing': [
@@ -55,10 +55,9 @@ module.exports = {
     'import/no-unresolved': [0, { ignore: ['./styled'] }],
     'react-hooks/rules-of-hooks': 'error',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 0,
     'no-eval': 0,
-    'camelcase': 0,
+    camelcase: 0,
     'no-restricted-globals': 0,
   },
 };

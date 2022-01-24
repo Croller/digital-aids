@@ -1,5 +1,9 @@
 {
-  "extends": "stylelint-config-recommended",
+  "processors": ["stylelint-processor-styled-components"],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-config-styled-components"
+  ],
   "rules": {
     "block-closing-brace-empty-line-before": null,
     "block-closing-brace-newline-after": null,
