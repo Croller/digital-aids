@@ -11,9 +11,9 @@
     "url": "git+https://github.com/Croller/restauran.git"
   },
   "scripts": {
-    "build": "webpack --mode production --config ./webpack.config.js",
-    "start": "node src/server/index.js",
-    "client": "webpack-dev-server --mode development --devtool inline-source-map --history-api-fallback",
+    "build": "webpack --mode production",
+    "start": "npm run build && node src/server/index.js",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "server": "nodemon src/server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "lint": "eslint --ext .jsx --ext .js ./src --fix",
@@ -46,7 +46,6 @@
     "react-redux": "^7.2.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-text-mask": "^5.4.3",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
     "redux-saga": "^1.1.3",
