@@ -1,109 +1,34 @@
--- DROP TABLE IF EXISTS data_users;
--- DROP TABLE IF EXISTS logs_users;
--- DROP TABLE IF EXISTS data_roles;
--- DROP TABLE IF EXISTS logs_roles;
--- DROP TABLE IF EXISTS data_roles_translate;
--- DROP TABLE IF EXISTS data_restaurants;
+DROP TABLE IF EXISTS data_users;
+DROP TABLE IF EXISTS logs_users;
+DROP TABLE IF EXISTS data_roles;
+DROP TABLE IF EXISTS data_roles_translate;
+DROP TABLE IF EXISTS logs_roles;
+DROP TABLE IF EXISTS data_restaurants;
+DROP TABLE IF EXISTS logs_restaurants;
+DROP TABLE IF EXISTS data_categories;
+DROP TABLE IF EXISTS data_categories_translate;
+DROP TABLE IF EXISTS logs_categories_translate;
+DROP TABLE IF EXISTS logs_categories;
+DROP TABLE IF EXISTS data_dishes;
+DROP TABLE IF EXISTS data_dishes_translate;
+DROP TABLE IF EXISTS logs_dishes_translate;
+DROP TABLE IF EXISTS logs_dishes;
+DROP TABLE IF EXISTS data_reserve;
+DROP TABLE IF EXISTS data_opinions;
+DROP TABLE IF EXISTS data_orders;
+DROP TABLE IF EXISTS logs_orders;
+DROP TABLE IF EXISTS data_notify;
+DROP TABLE IF EXISTS dictionary_currency;
+DROP TABLE IF EXISTS dictionary_currency_translate;
+DROP TABLE IF EXISTS dictionary_languages;
+DROP TABLE IF EXISTS dictionary_languages_translate;
+DROP TABLE IF EXISTS dictionary_allergens;
+DROP TABLE IF EXISTS dictionary_allergens_translate;
+DROP TABLE IF EXISTS dictionary_units;
+DROP TABLE IF EXISTS dictionary_units_translate;
+DROP TABLE IF EXISTS dictionary_days;
+DROP TABLE IF EXISTS dictionary_days_translate;
 
--- DROP TABLE IF EXISTS data_categories;
--- DROP TABLE IF EXISTS data_dishes;
-
--- DROP TABLE IF EXISTS data_categories_translate;
--- DROP TABLE IF EXISTS data_dishes_translate;
-
--- DROP TABLE IF EXISTS dictionary_currency;
--- DROP TABLE IF EXISTS dictionary_currency_translate;
--- DROP TABLE IF EXISTS dictionary_languages;
--- DROP TABLE IF EXISTS dictionary_languages_translate;
--- DROP TABLE IF EXISTS dictionary_allergens;
--- DROP TABLE IF EXISTS dictionary_allergens_translate;
--- DROP TABLE IF EXISTS dictionary_units;
--- DROP TABLE IF EXISTS dictionary_units_translate;
--- DROP TABLE IF EXISTS dictionary_days;
--- DROP TABLE IF EXISTS dictionary_days_translate;
--- DROP TABLE IF EXISTS data_reserve;
--- DROP TABLE IF EXISTS data_opinions;
--- DROP TABLE IF EXISTS data_orders;
--- DROP TABLE IF EXISTS data_notify;
-
-ALTER TABLE data_users DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_users ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_users DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_users ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-
-
-ALTER TABLE ONLY logs_users ALTER COLUMN change_at SET DEFAULT NOW();
-ALTER TABLE ONLY logs_roles ALTER COLUMN change_at SET DEFAULT NOW();
-
-ALTER TABLE data_restaurants DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_restaurants ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_restaurants DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_restaurants ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-
-ALTER TABLE ONLY logs_restaurants ALTER COLUMN change_at SET DEFAULT NOW();
-
-ALTER TABLE data_roles DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_roles ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_roles DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_roles ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-ALTER TABLE data_categories DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_categories ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_categories DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_categories ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-ALTER TABLE ONLY logs_categories_translate ALTER COLUMN change_at SET DEFAULT NOW();
-ALTER TABLE ONLY logs_categories ALTER COLUMN change_at SET DEFAULT NOW();
-
-ALTER TABLE data_dishes DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_dishes ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_dishes DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_dishes ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-
-ALTER TABLE ONLY logs_dishes_translate ALTER COLUMN change_at SET DEFAULT NOW();
-ALTER TABLE ONLY logs_dishes ALTER COLUMN change_at SET DEFAULT NOW();
-
-ALTER TABLE data_reserve DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_reserve ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_reserve DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_reserve ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-ALTER TABLE data_opinions DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_opinions ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-
-ALTER TABLE data_opinions DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_opinions ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-
-ALTER TABLE data_orders DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_orders ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_orders DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_orders ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-
-
-ALTER TABLE ONLY logs_orders ALTER COLUMN change_at SET DEFAULT NOW();
-
-ALTER TABLE data_notify DROP COLUMN IF EXISTS change_at;
-ALTER TABLE data_notify ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_notify DROP COLUMN IF EXISTS change_user;
-ALTER TABLE data_notify ADD COLUMN change_user VARCHAR DEFAULT NULL;
-
-ALTER TABLE data_dishes_translate ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_dishes_translate ADD COLUMN change_user VARCHAR DEFAULT NULL;
-ALTER TABLE data_roles_translate ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_roles_translate ADD COLUMN change_user VARCHAR DEFAULT NULL;
-ALTER TABLE data_categories_translate ADD COLUMN change_at timestamp with time zone DEFAULT NOW();
-ALTER TABLE data_categories_translate ADD COLUMN change_user VARCHAR DEFAULT NULL;
 
 -------------------------- TEMP QUERY --------------------------
 

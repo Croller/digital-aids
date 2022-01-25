@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS data_restaurants;
 DROP TABLE IF EXISTS data_users;
 DROP TABLE IF EXISTS data_roles;
 
@@ -19,8 +18,8 @@ with _user as
   ('rootAdmin', 'rootAids2021', 'Root', 'R', 'R', '1987-12-21T00:00:00.000', '{79104643015}', '79104643015@yandex.ru', TRUE)
   RETURNING id
 )
-INSERT INTO data_roles (user_id, root, owner, manager, employee, account, guest) VALUES 
-((select id from _user), TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
+INSERT INTO data_roles (user_id, parts) VALUES 
+((select id from _user), '{"root", "owner", "manager", "employee", "account", "guest"}')
 RETURNING id;
 
 with _user as 
@@ -29,8 +28,8 @@ with _user as
   ('root_backAdmin', 'root_back_DigitalAids2021', 'Root Back', 'R', 'R', '1987-12-21T00:00:00.000', NUll, '@.com', TRUE)
   RETURNING id
 )
-INSERT INTO data_roles (user_id, root, owner, manager, employee, account, guest) VALUES 
-((select id from _user), TRUE, TRUE, TRUE, TRUE, TRUE, TRUE)
+INSERT INTO data_roles (user_id, parts) VALUES 
+((select id from _user), '{"root", "owner", "manager", "employee", "account", "guest"}')
 RETURNING id;
 
 with _user as 
@@ -39,8 +38,8 @@ with _user as
   ('user_test', 'user_DigitalAids2021Test', 'User', 'U', 'U', NULL, NULL, '@.com', TRUE)
   RETURNING id
 )
-INSERT INTO data_roles (user_id, root, owner, manager, employee, account, guest) VALUES 
-((select id from _user), FALSE, FALSE, FALSE, FALSE, TRUE, TRUE)
+INSERT INTO data_roles (user_id, parts) VALUES 
+((select id from _user), '{"account", "guest"}')
 RETURNING id;
 
 with _user as 
@@ -49,20 +48,9 @@ with _user as
   ('guest', 'guest_DigitalAids2021Test', 'User', 'U', 'U', NULL, NULL, '@.com', TRUE)
   RETURNING id
 )
-INSERT INTO data_roles (user_id, root, owner, manager, employee, account, guest) VALUES 
-((select id from _user), FALSE, FALSE, FALSE, FALSE, FALSE, TRUE)
+INSERT INTO data_roles (user_id, parts) VALUES 
+((select id from _user), '{"guest"}')
 RETURNING id;
-
-with _user as 
-(
-  INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
-  ('owner_test', 'owner_DigitalAids2021Test', 'Owner', 'O', 'O', NULL, NULL, '@.com', TRUE)
-  RETURNING id
-)
-INSERT INTO data_roles (user_id, restaurant, root, owner, manager, employee, account, guest) VALUES 
-((select id from _user), '12984a86-1483-40c2-86c5-18f2ba20f389', FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
-RETURNING id;
-
 
 SELECT * FROM data_users;
 SELECT * FROM data_roles;
