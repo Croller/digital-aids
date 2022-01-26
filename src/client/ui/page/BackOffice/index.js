@@ -8,6 +8,7 @@ import {
   useParams,
 } from 'react-router-dom';
 import { Layout } from 'client/ui/components/Layout/BackOffice';
+import { getAccess } from 'client/utils/common';
 
 const PATH = '/back-office';
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
@@ -25,7 +26,8 @@ const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
   const params = useParams();
-  const { token, login } = useSelector(store => store.user.info);
+  const { info: { token, login }, roles } = useSelector(store => store.user);
+  const access = token && getAccess({ role: 'account', roles });
 
   useEffect(() => {
     window.prerenderReady = true;
@@ -41,7 +43,7 @@ export const BackOffice = () => {
     <Layout>
       <Switch>
         <Route path={`${PATH}/auth`} component={Auth} />
-        {token && login !== 'guest' && (
+        {access && (
           <Route>
             <Switch>
               <Route

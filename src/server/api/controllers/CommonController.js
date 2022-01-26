@@ -35,25 +35,24 @@ const CommonController = () => {
           const desc = await db.query(`SELECT * FROM ${name} WHERE language='${language}' ${name.indexOf('data_') > -1 ? 'AND is_deleted=FALSE' : ''} `);
           return { [name]: desc.rows }; 
         }));
-        result_transalate = result_transalate.reduce((obj, arr) => ({ ...obj, ...arr }), {});
+        result_transalate = result_transalate.reduce((obj, item) => ({ ...obj, ...item }), {});
         result = Object.keys(result).reduce((obj, key) => {
-          if (result_transalate[key].length === 0) {
+          const rows = result_transalate[key];
+          if (!rows || (rows && rows.length === 0)) {
             return { ...obj, [key]: result[key] };
           } 
-          return {
-            ...obj,
-            [key]: result_transalate[key].reduce((arr, item) => {
-              const it = { ...item };
-              delete it.language;
-              return [...arr, it];
-            }, []),
-          };
+          const rowsTr = rows.reduce((arr, item) => {
+            const it = { ...item };
+            delete it.language;
+            return [...arr, it];
+          }, []);
+          return { ...obj, [key]: rowsTr };
         }, {});
       } 
       res.json(result);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -78,7 +77,7 @@ const CommonController = () => {
       res.json(result.rows);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -96,7 +95,8 @@ const CommonController = () => {
       const { data } = req.body;
       results = await queryUtils.getTableRecord(name, { ...data, is_deleted: false }, { req, res });
 
-      if (language !== 'en') {
+      const tableExist = await queryUtils.checkTable(`${name}_translate`);
+      if (tableExist && language !== 'en') {
         query = query.replace(name, `${name}_translate`);
         const result_tr = await queryUtils.getTableRecord(`${name}_translate`, { id: results.map(item => item.id), language }, { req, res });
 
@@ -110,7 +110,7 @@ const CommonController = () => {
       res.json(results);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -138,7 +138,7 @@ const CommonController = () => {
       res.json(results);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -158,7 +158,7 @@ const CommonController = () => {
       res.json(result.rows);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -181,7 +181,7 @@ const CommonController = () => {
       res.json({});
     } catch (err) {
       error.name = 'Delete file error';
-      error.code = 'deleteFile';
+      error.id = 'deleteFile';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });

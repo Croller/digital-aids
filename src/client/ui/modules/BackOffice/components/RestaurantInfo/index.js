@@ -112,8 +112,8 @@ export const RestaurantInfo = ({
   name,
   address,
   phone,
-  onEvent = () => {},
   className,
+  onEvent = () => {},
 }) => {
   const [t] = useTranslation();
   const history = useHistory();

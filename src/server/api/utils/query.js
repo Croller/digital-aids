@@ -1,5 +1,4 @@
 const { addedDiff, updatedDiff } = require('deep-object-diff');
-const moment = require('moment');
 const db = require('../services/db');
 const socket = require('../services/socket');
 const commonUtils = require('../utils/common');
@@ -23,8 +22,8 @@ const mapFields = (type) => {
     character_varying: { type: 'string', value: '' },
     jsonb: { type: 'object', value: {} },
     boolean: { type: 'boolean', value: false },
-    array: { type: 'array', value: [] },
-    timestamp_with_time_zone: { type: 'datetime', value: moment() },
+    ARRAY: { type: 'array', value: [] },
+    timestamp_with_time_zone: { type: 'datetime', value: null },
     geometry: { type: 'geometry', value: null },
   };
   return mapper[typeEdit];
@@ -37,16 +36,20 @@ const getTableBase = async () => {
 };
 
 const checkTable = async (table = null) => {
-  result = await db.query(`SELECT * FROM information_schema.tables ${!table ? '' : `WHERE table_name = '${table}'`}`);
+  query = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
+  values = [table];
+  result = await db.queryValues(query, values);
   if (result.rows.length === 0) return false;
   return true;
 };
 
 const getTableFields = async (table) => {
-  result = await db.query(`SELECT column_name, data_type FROM information_schema.columns WHERE table_name = '${table}'`);
+  query = 'SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1';
+  values = [table];
+  result = await db.queryValues(query, values);
   if (result.rows.length === 0) return null;
   return result.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
-};  
+};
 
 const updateTableRecord = async (table, data, params) => {
   const source = { ...data };
@@ -86,7 +89,7 @@ const updateTableRecord = async (table, data, params) => {
     if (source.images && table.includes('data_')) {
       await Promise.all(source.images.filter(f => f).map(async (image) => {
         const { base64, path } = image;
-        const file = await commonUtils.writeFile(path, base64);
+        const file = await commonUtils.fileWrite(path, base64);
         return file;
       }));
     }
@@ -99,8 +102,8 @@ const updateTableRecord = async (table, data, params) => {
 
       // options create user roles for new restaurant
       if (table === 'data_restaurants') {
-        query = 'INSERT INTO data_roles (user_id, restaurant, owner, manager, employee) VALUES ($1, $2, TRUE, TRUE, TRUE) RETURNING *';
-        values = [user.id, result.rows[0].id];
+        query = 'INSERT INTO data_roles (user_id, project, access) VALUES ($1, $2, $3) RETURNING *';
+        values = [user.id, table, '{"owner", "manager", "employee", "account", "guest"}'];
         await db.queryValues(query, values);
       }
     } else {
@@ -113,7 +116,8 @@ const updateTableRecord = async (table, data, params) => {
         }
       }
       // update table with translate
-      if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
+      const tableExist = await checkTable(`${table}_translate`);
+      if (tableExist && language !== 'en') {
         let tr_model = await getTableFields(`${table}_translate`);
         tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});
         const tr_data = { ...source };
@@ -158,7 +162,7 @@ const updateTableRecord = async (table, data, params) => {
     return result.rows[0];
   } catch (err) {
     error.name = 'Query error';
-    error.code = 'queryError';
+    error.id = 'queryError';
     error.query = { query, values };
     error.text = JSON.stringify(err.message);
     res.status(201);
@@ -181,7 +185,7 @@ const getTableRecord = async (table, data, params) => {
     return result.rows;
   } catch (err) {
     error.name = 'Query error';
-    error.code = 'queryError';
+    error.id = 'queryError';
     error.text = JSON.stringify(err.message);
     res.status(201);
     res.json({ error });

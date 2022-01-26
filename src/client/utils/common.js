@@ -24,6 +24,18 @@ export const getUrl = () => {
   return `https://${process.env.HOST}`;
 };
 
+export const getAccess = ({
+  project = null,
+  role = null,
+  roles = null,
+  project_id = null,
+}) => {
+  if (!role || !roles) return false;
+  return roles
+    .filter(f => project === f.project && (project_id ? project_id === f.project_id : true))
+    .some(f => f.access.some(s => s === role));
+};
+
 // ------------------------------------------------------------------------------------------------------------------------
 // dom func
 

@@ -47,12 +47,11 @@ const getStringRandom = (length = 15) => {
 
 const getHeader = (req) => {
   const { headers } = req;
-  const { authorization } = headers;
-  if (!authorization) return null;
-  const [bearer, token] = authorization.split(' ');
+  if (!headers.authorization) return null;
+  const [, token] = headers.authorization.split(' ');
   return {
     ...headers,
-    authorization: (authorization && bearer && token ? token : null),
+    authorization: token || null,
   };
 };
 

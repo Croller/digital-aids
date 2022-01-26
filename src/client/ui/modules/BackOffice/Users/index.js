@@ -117,7 +117,7 @@ const Users = () => {
           </Contacts>
         ),
         'dataBase.data_users.enter_at': getDateTime(user.enter_at, dateTimeFormat.dateTime),
-        'empty.1': user.login !== process.env.BACK_OFFICE_ADMIN_LOGIN && (
+        'empty.1': user.login !== process.env.ROOT_LOGIN && (
           <TableControls>
             <Tooltip placement="top" title={t('common.words.edit')}>
               <TableControl
@@ -141,7 +141,7 @@ const Users = () => {
       setTableData({ columns, dataSource });
     }
   }, [users, language]);
-
+  console.log('tableData', tableData);
   return (
     <UsersWrapper>
       <Header>

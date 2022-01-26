@@ -21,6 +21,7 @@ import {
   RestaurantSvg,
   CloseSvg,
 } from 'client/assets/images';
+import { getAccess } from 'client/utils/common';
 import {
   NavBarWrapper,
   Control,
@@ -75,7 +76,7 @@ export const NavBar = withRouter(({
   const handleRoute = (key) => {
     const { path, params } = match;
     const pathParts = pathname.split('/');
-    //TODO сделать на контексте хранение всей истории роутов для пропуска смены языков
+    // TODO сделать на контексте хранение всей истории роутов для пропуска смены языков
     let part = '';
     if (key === 'back') {
       if (history.action !== 'POP') return history.goBack();
@@ -188,7 +189,7 @@ export const NavBar = withRouter(({
             {t(`common.words.${options.back.text}`)}
           </BackBtn>
         )}
-        {options.add_new && roles.some(f => f.guest || f.root || f.root_back) && (
+        {options.add_new && getAccess({ role: 'account', roles }) && (
           <AddBtn onClick={() => handleRoute('new')}>
             <PlusSvg />
             {t('common.words.newAdd')}

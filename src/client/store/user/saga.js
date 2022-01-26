@@ -52,7 +52,11 @@ function* signin({ payload }) {
         language,
         data: { user_id: data.id }, 
       });
-      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
+      if (roles.error) {
+        yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+      } else if (roles) {
+        yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
+      }
     }
   } catch (err) {
     throw err;

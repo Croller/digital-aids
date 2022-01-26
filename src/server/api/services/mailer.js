@@ -50,7 +50,7 @@ const send = async (req, res) => {
     res.json(result);
   } catch (err) {
     error.name = 'Mailer send error';
-    error.code = 'mailerSendError';
+    error.id = 'mailerSendError';
     error.text = JSON.stringify(err.message);
     res.status(201);
     res.json({ error });

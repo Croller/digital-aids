@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getUrl,getFile } from 'client/utils/common';
+import { getUrl, getFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { auth } from 'client/store/user';
 import { AlertCircleSvg } from 'client/assets/images';

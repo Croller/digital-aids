@@ -6,7 +6,7 @@ import {
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
-import { getSort, updateItem } from 'client/utils/common';
+import { getAccess, getSort, updateItem } from 'client/utils/common';
 import { categoryModel } from 'client/store/backOffice/mapper/category';
 
 function* updateState({ payload }) {
@@ -253,15 +253,13 @@ export function* watchAndLog() {
   while (true) {
     const action = yield take('*');
     const { type, payload } = action;
-    // const { user } = yield select();
 
     if (payload && payload.info && type === 'USER_SET') {
       const { info: { token }, roles } = payload;
       let ids = null;
       if (roles && token) {
-        const isRoot = roles.some(f => f.root);
-        if (!isRoot) {
-          ids = roles.map(m => m.restaurant).filter(f => f) || [];
+        if (!getAccess({ role: 'root', roles })) {
+          ids = roles.map(m => m.project_id);
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
       }

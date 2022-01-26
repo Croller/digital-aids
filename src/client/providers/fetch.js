@@ -21,7 +21,7 @@ const error = {
 const setError = (err, data) => {
   const { status, statusText } = err.request;
   error.name = statusText;
-  error.code = status;
+  error.id = status;
   error.text = err.message;
 
   console.log('Request error:', {

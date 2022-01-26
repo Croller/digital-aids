@@ -30,6 +30,17 @@ const getAddressByCoords = async ({
   return null;
 };
 
+const getGeolocation = async ({
+  data = {},
+}) => {
+  if (!data) return null;
+  results = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, data);
+  if (results.status === 200 && results.statusText === 'OK') {
+    return results.data;
+  }
+  return null;
+};
+
 const getTextTranslate = async ({
   text = null,
   sourceLng = 'en',
@@ -43,20 +54,9 @@ const getTextTranslate = async ({
   return null;
 };
 
-const getGeolocation = async ({
-  data = {},
-}) => {
-  if (!data) return null;
-  results = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, data);
-  if (results.status === 200 && results.statusText === 'OK') {
-    return results.data;
-  }
-  return null;
-};
-
 module.exports = {
   getCoordsByAddress,
   getAddressByCoords,
-  getTextTranslate,
   getGeolocation,
+  getTextTranslate,
 };

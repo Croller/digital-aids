@@ -44,9 +44,9 @@ CREATE TABLE IF NOT EXISTS data_roles (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id VARCHAR NOT NULL,
   description VARCHAR DEFAULT NULL,
-  parts VARCHAR ARRAY DEFAULT '{"guest"}', -- root, owner, manager, employee, account, guest
+  access VARCHAR ARRAY DEFAULT '{"guest"}', -- dictionary_access
+  project VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants, data_agros
   project_id VARCHAR DEFAULT NULL,
-  project_name VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants, data_agros
   options jsonb DEFAULT NULL,
   is_archived BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE,
@@ -54,30 +54,16 @@ CREATE TABLE IF NOT EXISTS data_roles (
   change_user VARCHAR DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS data_roles_translate (
-  id VARCHAR NOT NULL, -- DICTIONARY data_roles
-  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
-  description VARCHAR DEFAULT NULL,
-  change_at TIMESTAMP with time zone DEFAULT NOW(),
-  change_user VARCHAR DEFAULT NULL
-);
-
 CREATE TABLE IF NOT EXISTS logs_roles (
   id VARCHAR NOT NULL,
-  parent VARCHAR DEFAULT NULL,
   user_id VARCHAR NOT NULL,
-  restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
-  name VARCHAR DEFAULT NULL,  -- restaurant/groceries/clothing/literature/furniture
   description VARCHAR DEFAULT NULL,
+  access VARCHAR ARRAY DEFAULT '{"guest"}', -- dictionary_access
+  project VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants, data_agros
+  project_id VARCHAR DEFAULT NULL,
   options jsonb DEFAULT NULL,
-  root BOOLEAN DEFAULT NULL,
-  owner BOOLEAN DEFAULT NULL,
-  manager BOOLEAN DEFAULT NULL,
-  employee BOOLEAN DEFAULT NULL,
-  account BOOLEAN DEFAULT NULL,
-  guest BOOLEAN DEFAULT NULL,
-  is_archived BOOLEAN DEFAULT NULL,
-  is_deleted BOOLEAN DEFAULT NULL,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE,
   change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
@@ -329,7 +315,23 @@ CREATE TABLE IF NOT EXISTS logs_orders (
 CREATE TABLE IF NOT EXISTS data_notify (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
-  options jsonb DEFAULT '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
+  description VARCHAR DEFAULT NULL,
+  options VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
+  table_number INT DEFAULT NULL,
+  create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
+  create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
+  is_viewed BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS logs_notify (
+  id VARCHAR DEFAULT NULL,
+  restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  description VARCHAR DEFAULT NULL,
+  options VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   table_number INT DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
@@ -394,7 +396,7 @@ CREATE TABLE IF NOT EXISTS dictionary_units (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_units_translate (
-  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_units
+  id VARCHAR DEFAULT NULL,
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
@@ -409,9 +411,25 @@ CREATE TABLE IF NOT EXISTS dictionary_days (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_days_translate (
-  id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_days
+  id VARCHAR DEFAULT NULL,
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
 );
+
+CREATE TABLE IF NOT EXISTS dictionary_access (
+  id VARCHAR DEFAULT NULL,
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS dictionary_access_translate (
+  id VARCHAR DEFAULT NULL, 
+  language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  fullname VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL
+);
+

@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS data_users;
 DROP TABLE IF EXISTS logs_users;
 DROP TABLE IF EXISTS data_roles;
-DROP TABLE IF EXISTS data_roles_translate;
 DROP TABLE IF EXISTS logs_roles;
 DROP TABLE IF EXISTS data_restaurants;
 DROP TABLE IF EXISTS logs_restaurants;
@@ -18,6 +17,7 @@ DROP TABLE IF EXISTS data_opinions;
 DROP TABLE IF EXISTS data_orders;
 DROP TABLE IF EXISTS logs_orders;
 DROP TABLE IF EXISTS data_notify;
+DROP TABLE IF EXISTS logs_notify;
 DROP TABLE IF EXISTS dictionary_currency;
 DROP TABLE IF EXISTS dictionary_currency_translate;
 DROP TABLE IF EXISTS dictionary_languages;
@@ -28,7 +28,8 @@ DROP TABLE IF EXISTS dictionary_units;
 DROP TABLE IF EXISTS dictionary_units_translate;
 DROP TABLE IF EXISTS dictionary_days;
 DROP TABLE IF EXISTS dictionary_days_translate;
-
+DROP TABLE IF EXISTS dictionary_access;
+DROP TABLE IF EXISTS dictionary_access_translate;
 
 -------------------------- TEMP QUERY --------------------------
 

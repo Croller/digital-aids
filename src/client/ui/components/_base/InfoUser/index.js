@@ -56,16 +56,16 @@ export const InfoUser = () => {
 
     if (pathname.indexOf(PATH) === -1) {
       rootDispatch(login({
-        login: process.env.REST_GUEST_LOGIN,
-        password: process.env.REST_GUEST_PASSWORD,
+        login: process.env.GUEST_LOGIN,
+        password: process.env.GUEST_PASSWORD,
         language: localUser.lng,
       }));
     }
     
     if (process.env.NODE_ENV === 'development' && pathname.indexOf(PATH) > -1) {
       rootDispatch(login({
-        login: process.env.BACK_OFFICE_ADMIN_LOGIN,
-        password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
+        login: process.env.ROOT_LOGIN,
+        password: process.env.ROOT_PASSWORD,
         language: localUser.lng,
       }));
     }
@@ -106,7 +106,7 @@ export const InfoUser = () => {
       updateStorage();
       history.push(url);
     }
-    if (info.login === process.env.REST_GUEST_LOGIN && pathname.indexOf(PATH) > -1) {
+    if (info.login === process.env.GUEST_LOGIN && pathname.indexOf(PATH) > -1) {
       logout();
     }
   }, [token, initUrl]);

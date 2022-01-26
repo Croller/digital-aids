@@ -91,20 +91,14 @@ host    all             all             185.8.127.19/24 md5
 (ERROR: Error opening connection no pg_hba.conf entry for host "185.8.127.19")
 
 {
-  "pgOptions": {
-    "ssl": {
-      "rejectUnauthorized": false,
-      "requestCert": true
-    }
-  },
   "previewLimit": 50,
   "server": "64.225.82.139",
   "port": 5432,
   "driver": "PostgreSQL",
-  "name": "digital-aids",
   "database": "digital-aids",
   "username": "digitalRoot",
-  "password": "aidsRoot2021"
+  "password": "aidsRoot2021",
+  "name": "digital-aids"
 }
 
 // local access db
