@@ -12,8 +12,8 @@ const getCoordsByAddress = async ({
 }) => {
   if (!address) return null;
   results = await commonUtils.get(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${googleApiGeocode}`);
-  if (results.status === 200 && results.statusText === 'OK') {
-    return results.data.results;
+  if (results.status === 200) {
+    return results.data;
   }
   return null;
 };
@@ -24,8 +24,8 @@ const getAddressByCoords = async ({
 }) => {
   if (!latlng) return null;
   results = await commonUtils.get(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&latlng=${latlng}&key=${googleApiGeocode}`);
-  if (results.status === 200 && results.statusText === 'OK') {
-    return results.data.results;
+  if (results.status === 200) {
+    return results.data;
   }
   return null;
 };
@@ -35,7 +35,7 @@ const getGeolocation = async ({
 }) => {
   if (!data) return null;
   results = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, data);
-  if (results.status === 200 && results.statusText === 'OK') {
+  if (results.status === 200) {
     return results.data;
   }
   return null;
@@ -48,7 +48,7 @@ const getTextTranslate = async ({
 }) => {
   if (!text || sourceLng === targetLng) return null;
   results = await commonUtils.get(`https://translation.googleapis.com/language/translate/v2?key=${googleApiTranslate}&q=${text.replace(/ /g, '+')}&source=${sourceLng}&target=${targetLng}`);
-  if (results.status === 200 && results.statusText === 'OK') {
+  if (results.status === 200) {
     return results.data.data.translations;
   }
   return null;

@@ -2,9 +2,9 @@ const jwt = require('../services/jwt');
 const google = require('../services/google');
 
 const setError = (error) => ({
+  id: 'serviceError',
   name: 'Service error',
-  code: 'serviceError',
-  text: JSON.stringify(error.message),
+  text: error,
 });
 
 const ExternalController = () => {
@@ -16,11 +16,16 @@ const ExternalController = () => {
     try {
       const data = req.query;
       results = await google.getCoordsByAddress(data);
-      res.status(200);
-      res.json(results);
+      if (!results || (results && results.status === 'REQUEST_DENIED')) {
+        res.status(201);
+        res.json(setError(results || (results && results.error_message)));
+      } else {
+        res.status(200);
+        res.json(results.results);
+      }
     } catch (err) {
       res.status(201);
-      res.json(setError(err));
+      res.json(setError(JSON.stringify(err.message)));
     }
   };
 
@@ -30,11 +35,16 @@ const ExternalController = () => {
     try {
       const data = req.query;
       results = await google.getAddressByCoords(data);
-      res.status(200);
-      res.json(results);
+      if (!results || (results && results.status === 'REQUEST_DENIED')) {
+        res.status(201);
+        res.json(setError(results || (results && results.error_message)));
+      } else {
+        res.status(200);
+        res.json(results.results);
+      }
     } catch (err) {
       res.status(201);
-      res.json(setError(err));
+      res.json(setError(JSON.stringify(err.message)));
     }
   };
 
@@ -44,11 +54,16 @@ const ExternalController = () => {
     try {
       const data = req.query;
       results = await google.getTextTranslate(data);
-      res.status(200);
-      res.json(results);
+      if (!results || (results && results.status === 'REQUEST_DENIED')) {
+        res.status(201);
+        res.json(setError(results || (results && results.error_message)));
+      } else {
+        res.status(200);
+        res.json(results.results);
+      }
     } catch (err) {
       res.status(201);
-      res.json(setError(err));
+      res.json(setError(JSON.stringify(err.message)));
     }
   };
 
@@ -58,12 +73,16 @@ const ExternalController = () => {
     try {
       const data = req.body;
       results = await google.getGeolocation(data);
-      console.log('geoloc', results);
-      res.status(200);
-      res.json(results);
+      if (!results || (results && results.status === 'REQUEST_DENIED')) {
+        res.status(201);
+        res.json(setError(results || (results && results.error_message)));
+      } else {
+        res.status(200);
+        res.json(results);
+      }
     } catch (err) {
       res.status(201);
-      res.json(setError(err));
+      res.json(setError(JSON.stringify(err.message)));
     }
   };
 
