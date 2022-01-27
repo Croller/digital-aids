@@ -11,7 +11,7 @@ const error = {
 
 let query = '';
 let values = [];
-let result = {};
+let results = {};
 
 const mapFields = (type) => {
   const typeEdit = type.replace(/ /g, '_').toLowerCase();
@@ -30,25 +30,194 @@ const mapFields = (type) => {
 };
 
 const getTableBase = async () => {
-  result = await db.query('SELECT * FROM information_schema.tables');
-  if (result.rows.length === 0) return null;
-  return result.rows;
+  results = await db.query('SELECT * FROM information_schema.tables');
+  if (results.rows.length === 0) return null;
+  return results.rows;
 };
 
 const checkTable = async (table = null) => {
   query = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
   values = [table];
-  result = await db.queryValues(query, values);
-  if (result.rows.length === 0) return false;
+  results = await db.queryValues(query, values);
+  if (results.rows.length === 0) return false;
   return true;
 };
 
 const getTableFields = async (table) => {
   query = 'SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1';
   values = [table];
-  result = await db.queryValues(query, values);
-  if (result.rows.length === 0) return null;
-  return result.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
+  results = await db.queryValues(query, values);
+  if (results.rows.length === 0) return null;
+  return results.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
+};
+
+const getTableStats = async (table, params) => {
+  const { res } = params;
+  try {
+    const fieldsTable = await getTableFields(table);
+    results = await Promise.all(Object.keys(fieldsTable).map(async (key) => {
+      query = `SELECT ${key} FROM ${table} GROUP BY ${key}`;
+      const promise = await db.query(query);
+      return promise;
+    }));
+    results = results.reduce((obj, result) => {
+      const key = Object.keys(result.rows[0])[0];
+      return { ...obj, [key]: result.rows.map(row => row[key]) };
+    }, {});
+    return results;
+  } catch (err) {
+    error.name = 'Query error';
+    error.code = 'queryError';
+    error.text = JSON.stringify(err.message);
+    res.status(201);
+    res.json({ error });
+  }
+};
+
+const searchTableRecord = async (table, data, params) => {
+  const { res } = params;
+  const logical = data.settings && data.settings.search ? 'OR' : 'AND';
+  const mapping = data.settings && !!data.settings.view;
+  const paging = data.settings && data.settings.page_length && data.settings.page;
+  const sorting = data.settings && data.settings.order_by;
+  
+  try {
+    const fieldsTable = await getTableFields(table);
+
+    let where = Object.keys(data).reduce((arr, key) => {
+      const keyEdited = key.replace('_from', '').replace('_to', '');
+      if (!data[keyEdited] || (data[keyEdited] && data[keyEdited].length === 0) || !fieldsTable[keyEdited]) return arr;
+      const { type } = fieldsTable[keyEdited];
+      let str = `${table}.${key} = ${data[key]}`;
+
+      if (['number', 'float'].some(s => s === type)) {
+        let value = !isNaN(data[key]) ? parseInt(data[key], 0) : data[key];
+        if (type === 'float') {
+          value = !isNaN(data[key]) ? parseFloat(data[key]) : data[key];
+        }
+        
+        str = `${table}.${keyEdited} = ${value}`;
+        if (Array.isArray(value)) {
+          str = `${key} = ANY ('{"${value.join('", "')}"}')`;
+          // if (value.length === 1) {
+          //   str = `${table}.${keyEdited} >= ${value}`;
+          // }
+          // if (value.length === 2) {
+          //   str = `${table}.${keyEdited} BETWEEN ${value[0]} AND ${value[1]}`; // fix search at array
+          // }
+        }
+        if (['_from', '_to'].some(s => key.indexOf(s) > -1)) {
+          if (data[`${table}.${keyEdited}_from`] && !data[`${table}.${keyEdited}_to`]) {
+            str = `${table}.${keyEdited} >= ${value}`;
+          }
+          if (data[`${table}.${keyEdited}_to`] && !data[`${table}.${keyEdited}_from`]) {
+            str = `${table}.${keyEdited} <= ${value}`;
+          }
+          if (data[`${table}.${keyEdited}_from`] && data[`${table}.${keyEdited}_to`]) {
+            str = `${table}.${keyEdited} BETWEEN '${data[`${table}.${keyEdited}_from`]}' AND '${data[`${table}.${keyEdited}_to`]}'`;
+          }
+        }
+      }
+      if (type === 'string') {
+        if (Array.isArray(data[key])) {
+          str = `${table}.${keyEdited} = ANY ('{"${data[key].join('", "')}"}')`;
+        } else if (logical) {
+          str = `LOWER(${table}.${keyEdited}) LIKE '%' || LOWER('${data[key]}') || '%'`;
+        } else {
+          str = `${key} = '${data[key]}'`;
+        }
+      }
+      if (type === 'array') {
+        if (Array.isArray(data[keyEdited])) {
+          str = `${table}.${keyEdited} @> '{"${data[key].join('", "')}"}'`;
+        } else {
+          str = `${table}.${keyEdited} @> '{"${data[key]}"}'`;
+        }
+      }
+      if (type === 'datetime') {
+        str = `${key} = '${data[key]}'`;
+        if (['_from', '_to'].some(s => key.indexOf(s) > -1)) {
+          if (data[`${table}.${keyEdited}_from`] && !data[`${table}.${keyEdited}_to`]) {
+            str = `${table}.${keyEdited} >= '${data[key]}'`;
+          }
+          if (data[`${table}.${keyEdited}_to`] && !data[`${table}.${keyEdited}_from`]) {
+            str = `${table}.${keyEdited} <= '${data[key]}'`;
+          }
+          if (data[`${table}.${keyEdited}_from`] && data[`${table}.${keyEdited}_to`]) {
+            str = `${table}.${keyEdited} BETWEEN '${data[`${table}.${keyEdited}_from`]}' AND '${data[`${table}.${keyEdited}_to`]}'`;
+          }
+        }
+      }
+      if (type === 'object') {
+        if (logical) {
+          str = `LOWER(${table}.${keyEdited}::text) LIKE '%' || LOWER('${data[key]}') || '%'`;
+        } else {
+          str = `${key} = '${data[key]}'`;
+        }
+      }
+      return [...arr, str];
+    }, []);
+
+    // view, join fields where name start with "id_"
+    let mapper = '';
+    let join = '';
+    const keys = Object.keys(fieldsTable).filter(f => f.indexOf('id_') > -1 && fieldsTable[f].type === 'string');
+    if (mapping && keys.length > 0) {
+      mapper = ['', ...keys.map(key => {
+        const nameTable = key.replace('id_', 'data_');
+        return `row_to_json(${nameTable}.*) as ${key.replace('id_', 'item_')}`;
+      })].join(', ');
+      join = keys.map(key => {
+        const nameTable = key.replace('id_', 'data_');
+        return `LEFT JOIN ${nameTable} ON ${table}.${key}::text = ${nameTable}.id::text`;
+      }).join(', ');
+    }
+
+    // order, data sort by field and way
+    let sorter = '';
+    if (sorting) {
+      const { order_by } = data.settings;
+      const strArr = Object.keys(order_by).map(key => {
+        const keyEdited = key.indexOf('.') === -1 ? `${table}.${key}` : key;
+        const way = order_by[key] === 'asc' ? 'ASC' : 'DESC';
+        return `${keyEdited} ${way}`;
+      });
+      sorter = `ORDER BY ${strArr.join(', ')}`;
+    }
+
+    // where
+    where = where.length > 0 ? `WHERE ((${where.join(`) ${logical} (`)}))` : '';
+
+    query = `SELECT ${table}.* ${mapper} FROM ${table} ${join} ${where} ${sorter}`;
+
+    // TODO edit offset at query to db
+    const result = await db.query(query);
+    let resp = {
+      features: result.rows,
+      page: 1,
+      pages: 1,
+      total: result.rows.length,
+    };
+
+    // paging response
+    if (paging) {
+      const { page, page_length } = data.settings;
+      const pages = result.rows.length / page_length;
+      resp = {
+        ...resp,
+        features: result.rows.slice((page - 1) * page_length, page * page_length),
+        page,
+        pages: pages > 0 && pages < 1 ? 1 : Math.floor(pages) + 1,
+      };
+    }
+    return resp;
+  } catch (err) {
+    error.name = 'Query error';
+    error.code = 'queryError';
+    error.text = JSON.stringify(err.message);
+    res.status(201);
+    res.json({ error });
+  }
 };
 
 const updateTableRecord = async (table, data, params) => {
@@ -60,24 +229,48 @@ const updateTableRecord = async (table, data, params) => {
   }
   try {
     const mapper = Object.keys(source)
-      .filter(f => (['_translate'].some(s => table.includes(s)) ? f : f !== 'id'))
+      .filter(f => (table.indexOf('logs_') > -1 ? f : !['id'].some(k => f === k)))
       .reduce((obj, key) => {
-        if (key === 'images') {
+        if (!fieldsTable[key]) return obj;
+        if (source[key] === null || (source[key] && source[key].length === 0) || source[key] === undefined) {
           return {
             fields: [...obj.fields, key],
-            values: [...obj.values, (source[key] ? source[key].map((image) => (image ? image.uuid : null)) : null)],
+            values: [...obj.values, null],
           };
         }
-        if (fieldsTable[key] && fieldsTable[key].type === 'object') {
+        if (['images', 'files'].includes(key)) {
+          return {
+            fields: [...obj.fields, key],
+            values: [...obj.values, (source[key] ? source[key].map((file) => (file && typeof file === 'object' ? file.uuid : file)) : null)],
+          };
+        }
+        if (fieldsTable[key].type === 'object') {
           return {
             fields: [...obj.fields, key],
             values: [...obj.values, JSON.stringify(source[key])],
           };
         }
-        if (fieldsTable[key] && fieldsTable[key].type === 'geo') {
+        if (fieldsTable[key].type === 'number') {
+          const val = typeof source[key] === 'string' && !isNaN(source[key]) ? parseInt(source[key], 0) : fieldsTable[key].value;
+          if (isNaN(val)) return obj;
           return {
             fields: [...obj.fields, key],
-            values: [...obj.values, JSON.stringify(source[key])],
+            values: [...obj.values, val],
+          };
+        }
+        if (fieldsTable[key].type === 'float') {
+          const val = typeof source[key] === 'string' && !isNaN(source[key]) ? parseFloat(source[key]) : fieldsTable[key].value;
+          if (isNaN(val)) return obj;
+          return {
+            fields: [...obj.fields, key],
+            values: [...obj.values, val],
+          };
+        }
+        if (fieldsTable[key].type === 'array') {
+          const type = source[key] && Array.isArray(source[key]) ? source[key].reduce((t, value) => (isNaN(Number(value)) && t === 'string' ? 'string' : 'number'), 'string') : 'string';
+          return {
+            fields: [...obj.fields, key],
+            values: [...obj.values, Array.isArray(source[key]) ? type === 'string' ? `{"${source[key].split('|').join('", "')}"}` : `{${source[key].join(', ')}}` : `{${type === 'string' ? `"${source[key]}"` : source[key]}}`],
           };
         }
         return {
@@ -93,12 +286,19 @@ const updateTableRecord = async (table, data, params) => {
         return file;
       }));
     }
+    if (source.files) {
+      await Promise.all(source.files.filter(f => f).map(async (item) => {
+        const { base64, path } = item;
+        const file = await commonUtils.fileWrite(path, base64);
+        return file;
+      }));
+    }
     
-    result = {};
+    results = {};
     // insert/update for table without translate
     if (!source.id) {
       query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-      result = await db.queryValues(query, mapper.values);
+      results = await db.queryValues(query, mapper.values);
 
       // options create user roles for new restaurant
       if (table === 'data_restaurants') {
@@ -116,8 +316,8 @@ const updateTableRecord = async (table, data, params) => {
         }
       }
       // update table with translate
-      const tableExist = await checkTable(`${table}_translate`);
-      if (tableExist && language !== 'en') {
+   
+      if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
         let tr_model = await getTableFields(`${table}_translate`);
         tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});
         const tr_data = { ...source };
@@ -135,31 +335,29 @@ const updateTableRecord = async (table, data, params) => {
       if (table.indexOf('_translate') > -1) {
         const resultTrExist = await getTableRecord(table, { id: source.id, language }, params);
         if (resultTrExist.length === 0) {
-          query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-          values = [...mapper.values];
+          query = `INSERT INTO ${table} (id, ${mapper.fields.join(', ')}) VALUES ($1, ${mapper.fields.map((key, i) => `$${i + 2}`).join(', ')}) RETURNING *`;
+          values = [source.id, ...mapper.values];
         }
       } else {
         // set logic select if langeage !== en
         const logicalTr = table.indexOf('_translate') > -1 && language !== 'en' ? `AND language = '${language}'` : '';
-
         query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${logicalTr} RETURNING *`;
         values = [source.id, ...mapper.values];
       }
-      result = await db.queryValues(query, values);
+      results = await db.queryValues(query, values);
     }
     
     // socket emit change to client
-    if ('restaurant' in result.rows[0]) {
-      const { restaurant } = result.rows[0];
+    if ('restaurant' in results.rows[0]) {
       socket.emit({
         type: !source.id ? 'create' : 'update',
-        id: restaurant,
+        id: results.rows[0].restaurant,
         table,
-        data: result.rows[0],
+        data: results.rows[0],
       });
     }
     
-    return result.rows[0];
+    return results.rows[0];
   } catch (err) {
     error.name = 'Query error';
     error.id = 'queryError';
@@ -181,8 +379,8 @@ const getTableRecord = async (table, data, params) => {
     }).join(' AND ');
     query = `SELECT * FROM ${table} WHERE ${queryStr}`;
     values = Object.keys(data).map(key => data[key]);
-    result = await db.queryValues(query, values);
-    return result.rows;
+    results = await db.queryValues(query, values);
+    return results.rows;
   } catch (err) {
     error.name = 'Query error';
     error.id = 'queryError';
@@ -196,6 +394,8 @@ module.exports = {
   getTableBase,
   checkTable,
   getTableFields,
+  getTableStats,
+  searchTableRecord,
   updateTableRecord,
   getTableRecord,
 };

@@ -59,7 +59,7 @@ const ExternalController = () => {
         res.json(setError(results || (results && results.error_message)));
       } else {
         res.status(200);
-        res.json(results.data.translations[0]);
+        res.json(results.data.translations);
       }
     } catch (err) {
       res.status(201);
