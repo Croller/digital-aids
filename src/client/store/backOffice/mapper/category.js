@@ -120,7 +120,7 @@ export const dataToApi = (data, restaurant) => {
     }, {}),
     restaurant: data.restaurant || restaurant.id,
   };
-  const children = (edited.children || []).map((item) => {
+  const children = !edited.children ? [] : edited.children.map((item) => {
     const edit = {
       ...categoryModel.find(f => f.type === item.type),
       ...item,

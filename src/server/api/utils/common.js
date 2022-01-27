@@ -5,7 +5,7 @@ const path = require('path');
 
 const staticPath = process.env.SERVER_STORAGE;
 
-const getNodeEnv = () => {
+const getEnv = () => {
   if (process.env.NODE_ENV === 'development') {
     return false;
   }
@@ -92,7 +92,7 @@ const fileMove = async (url) => new Promise((resolve, reject) => {
 module.exports = {
   get,
   post,
-  getNodeEnv,
+  getEnv,
   getMailAddress,
   getStringRandom,
   getHeader,

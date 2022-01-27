@@ -59,7 +59,7 @@ const ExternalController = () => {
         res.json(setError(results || (results && results.error_message)));
       } else {
         res.status(200);
-        res.json(results.results);
+        res.json(results.data.translations);
       }
     } catch (err) {
       res.status(201);
@@ -71,8 +71,7 @@ const ExternalController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     if (!tokenData) return;
     try {
-      const data = req.body;
-      results = await google.getGeolocation(data);
+      results = await google.getGeolocation();
       if (!results || (results && results.status === 'REQUEST_DENIED')) {
         res.status(201);
         res.json(setError(results || (results && results.error_message)));
