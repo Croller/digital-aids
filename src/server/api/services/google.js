@@ -30,11 +30,8 @@ const getAddressByCoords = async ({
   return null;
 };
 
-const getGeolocation = async ({
-  data = {},
-}) => {
-  if (!data) return null;
-  results = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, data);
+const getGeolocation = async () => {
+  results = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, {});
   if (results.status === 200) {
     return results.data;
   }
@@ -49,7 +46,7 @@ const getTextTranslate = async ({
   if (!text || sourceLng === targetLng) return null;
   results = await commonUtils.get(`https://translation.googleapis.com/language/translate/v2?key=${googleApiTranslate}&q=${text.replace(/ /g, '+')}&source=${sourceLng}&target=${targetLng}`);
   if (results.status === 200) {
-    return results.data.data.translations;
+    return results.data;
   }
   return null;
 };
