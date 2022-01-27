@@ -39,40 +39,38 @@ export const InfoUser = () => {
     localUser.token = localUser.token || token;
     localUser.enter_at = localUser.enter_at || enter_at;
 
-    if (localUser.enter_at && enter_at && !initUrl) {
-      const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
+    setLocalUser({ token, enter_at });
+    setStorage({ ...storage, user: localUser });
+    setInitUrl(pathname);
 
-      if (diffEnterTime > expireTime) {
-        rootDispatch(set({ info: { ...info, token } }));
-        localUser.token = null;
-      }
+    if (token && localUser.enter_at && enter_at && !initUrl) {
+      const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
+      rootDispatch(set({ info: { ...info, token: (diffEnterTime > expireTime ? null : token) } }));
+      return null;
     }
 
     if (localUser.token && !token && [PATH].some(f => pathname.indexOf(f) > -1)) {
       rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
-      localUser.token = null;
-      localUser.enter_at = null;
+      return null;
     }
-
+    
     if (pathname.indexOf(PATH) === -1) {
       rootDispatch(login({
         login: process.env.GUEST_LOGIN,
         password: process.env.GUEST_PASSWORD,
         language: localUser.lng,
       }));
+      return null;
     }
-    
+
     if (process.env.NODE_ENV === 'development' && pathname.indexOf(PATH) > -1) {
       rootDispatch(login({
         login: process.env.ROOT_LOGIN,
         password: process.env.ROOT_PASSWORD,
         language: localUser.lng,
       }));
+      return null;
     }
-    
-    setLocalUser(localUser);
-    setStorage({ ...storage, user: localUser });
-    setInitUrl(pathname);
   };
 
   const updateStorage = () => {
