@@ -6,6 +6,7 @@ import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { getDictionaryItem } from 'client/utils/common';
+import { getTextTranslate } from 'client/providers/external';
 import {
   dataToForm,
   dataFromToList,
@@ -39,14 +40,17 @@ import {
 } from './styled';
 
 export const CategoryForm = ({
+  token = null,
   source = null,
   loading = false,
   currency = null,
   dictionary = null,
   archive = false,
   language = 'en',
+  restaurant,
   className,
   onChange = () => {},
+  onCreateTranslate = () => {},
 }) => {
   const [t] = useTranslation();
   const rule = rules(t);
@@ -66,16 +70,55 @@ export const CategoryForm = ({
     />
   ), [event]);
 
+  const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
+    const separator = ' || ';
+    if (!obj || !sourceLng || sourceLng === targetLng || !token) return obj;
+    const text = Object.keys(obj).map(key => obj[key]).join(separator);
+    const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
+    const textArr = results[0].translatedText.split(separator);
+    return Object.keys(obj).reduce((ob, key, k) => {
+      if (typeof ob[key] === 'string') {
+        return { ...ob, [key]: textArr[k] };
+      }
+      return ob;
+    }, obj);
+  };
+
   const setData = (obj) => {
     setFormData(obj);
     form.setFieldsValue(obj);
   };
 
-  const handleFinish = (values) => {
-    setIsChange(false);
+  const handleFinish = async (values) => {
     form.resetFields();
+    setIsChange(false);
+    const edited = { ...formData, ...values };
+    const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
+    const editedLng = [language, ...restaurant.languages.filter(f => f !== language)];
     if (!event) {
-      onChange(dataFromToList({ ...formData, ...values }, current, language));
+      if (!current.id) {
+        const transObj = Object.keys(edited).filter(f => translateKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
+        const editedOther = await Promise.allSettled(editedLng.map(async (lng) => {
+          const resuslts = await getTranslateObj(transObj, language, lng);
+          return resuslts;
+        }));
+        const results = [...editedOther.map(({ value }) => value)].map((value, i, arr) => dataFromToList({
+          ...edited,
+          ...value,
+          ...(i !== 0 && arr[0] ? { key: arr[0].key } : {}),
+          ...(i !== 0 ? { language: editedLng[i] } : {}),
+          restaurant: restaurant.id,
+        },
+        current,
+        editedLng[i]));
+        const enLngIndex = editedLng.findIndex(f => f === 'en');
+        const enCatalog = results[enLngIndex];
+        const lngCatalogs = results.reduce((obj, item, i) => ({ ...obj, [editedLng[i]]: item }), {});
+        onCreateTranslate({ data_catalogories: lngCatalogs });
+        onChange(enCatalog, 'en');
+        return;
+      }
+      onChange(dataFromToList(edited, current, language), language);
     }
   };
 
@@ -89,7 +132,6 @@ export const CategoryForm = ({
 
   const handleValuesChange = (values) => {
     if (!values) return;
-    // console.log('values - ', { ...formData, ...values });
     let edited = { ...formData, ...values };
     if (values.type) {
       const def = categoryModel.find(f => f.type === values.type);
@@ -233,7 +275,7 @@ export const CategoryForm = ({
                 showSearch
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
-                disabled={archive || language !== 'en' || (current && current.id)}
+                disabled={archive || (current && current.id)}
               >
                 {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.type)).map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
@@ -322,7 +364,7 @@ export const CategoryForm = ({
                     >
                       <InputMaskStyled
                         mask="11:11"
-                        disabled={archive || language !== 'en'}
+                        disabled={archive}
                       />
                     </FormItemStyled>
                     <Separator>
@@ -333,7 +375,7 @@ export const CategoryForm = ({
                     >
                       <InputMaskStyled
                         mask="11:11"
-                        disabled={archive || language !== 'en'}
+                        disabled={archive}
                       />
                     </FormItemStyled>
                   </FormRange>

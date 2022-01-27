@@ -18,40 +18,41 @@ const CommonController = () => {
     const tokenData = await jwt.verifyToken(req, res);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
-    
     if (!tokenData) return;
     try {
       const { data } = req.query;
-      let result = await Promise.all(data.split(',').map(async (name) => {
+      const tableNames = data.split(',');
+      let result = await Promise.all(tableNames.map(async (name) => {
         const desc = await db.query(`SELECT * FROM ${name} ${name.indexOf('data_') > -1 ? 'WHERE is_deleted=FALSE' : ''} `);
         return { [name]: desc.rows }; 
       }));
       result = result.reduce((obj, arr) => ({ ...obj, ...arr }), {});
 
       if (language !== 'en') {
-        let result_transalate = await Promise.all(data.split(',').map(async (name) => {
-          const desc = await db.query(`SELECT * FROM ${name}_translate WHERE language='${language}' ${name.indexOf('data_') > -1 ? 'AND is_deleted=FALSE' : ''} `);
+        const tableTrExist = await queryUtils.getTableBase();
+        const tableTrNames = tableNames.filter(name => tableTrExist.some(s => s === `${name}_translate}`));
+        let result_transalate = await Promise.all(tableTrNames.map(async (name) => {
+          const desc = await db.query(`SELECT * FROM ${name} WHERE language='${language}' ${name.indexOf('data_') > -1 ? 'AND is_deleted=FALSE' : ''} `);
           return { [name]: desc.rows }; 
         }));
-        result_transalate = result_transalate.reduce((obj, arr) => ({ ...obj, ...arr }), {});
+        result_transalate = result_transalate.reduce((obj, item) => ({ ...obj, ...item }), {});
         result = Object.keys(result).reduce((obj, key) => {
-          if (result_transalate[key].length === 0) {
+          const rows = result_transalate[key];
+          if (!rows || (rows && rows.length === 0)) {
             return { ...obj, [key]: result[key] };
           } 
-          return {
-            ...obj,
-            [key]: result_transalate[key].reduce((arr, item) => {
-              const it = { ...item };
-              delete it.language;
-              return [...arr, it];
-            }, []),
-          };
+          const rowsTr = rows.reduce((arr, item) => {
+            const it = { ...item };
+            delete it.language;
+            return [...arr, it];
+          }, []);
+          return { ...obj, [key]: rowsTr };
         }, {});
       } 
       res.json(result);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -76,7 +77,7 @@ const CommonController = () => {
       res.json(result.rows);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -92,33 +93,24 @@ const CommonController = () => {
     try {
       const { name } = req.params;
       const { data } = req.body;
+      results = await queryUtils.getTableRecord(name, { ...data, is_deleted: false }, { req, res });
 
-      let result = await queryUtils.getTableRecord(name, {
-        ...data,
-        is_deleted: false,
-      }, { req, res });
-
-      if (language !== 'en') {
+      const tableExist = await queryUtils.checkTable(`${name}_translate`);
+      if (tableExist && language !== 'en') {
         query = query.replace(name, `${name}_translate`);
-        const result_transalate = await queryUtils.getTableRecord(`${name}_translate`, {
-          id: result.map(item => item.id),
-          language,
-        }, { req, res });
+        const result_tr = await queryUtils.getTableRecord(`${name}_translate`, { id: results.map(item => item.id), language }, { req, res });
 
-        if (result_transalate.length > 0) {
-          result = result.map(item => {
-            const exist = result_transalate.find(tr => tr.id === item.id);
-            if (exist) {
-              return { ...item, ...exist };
-            }
-            return item;
+        if (result_tr.length > 0) {
+          results = results.map(item => {
+            const exist = result_tr.find(tr => tr.id === item.id);
+            return exist ? { ...item, ...exist } : item;
           });
         }
       }
-      res.json(result);
+      res.json(results);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -134,7 +126,6 @@ const CommonController = () => {
       const { name } = req.params;
       const { data } = req.body;
       const arr = Array.isArray(data) ? data : [data];
-
       results = await Promise.all(arr.map(async (row) => {
         const result = await queryUtils.updateTableRecord(name, row, {
           req,
@@ -144,11 +135,10 @@ const CommonController = () => {
         });
         return result;
       }));
-
       res.json(results);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -168,7 +158,7 @@ const CommonController = () => {
       res.json(result.rows);
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
@@ -191,7 +181,7 @@ const CommonController = () => {
       res.json({});
     } catch (err) {
       error.name = 'Delete file error';
-      error.code = 'deleteFile';
+      error.id = 'deleteFile';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });

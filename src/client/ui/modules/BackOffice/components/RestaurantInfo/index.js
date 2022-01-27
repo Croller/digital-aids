@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
@@ -47,18 +47,18 @@ const CONTROL_CONFIG = [
   {
     key: 'menu',
     icon: (<MenuSvg />),
-    path: '/back-office/restaurant/:restaurant/language/en/menu',
+    path: '/back-office/restaurant/:restaurant/language/:language/menu',
     part: '/menu',
   },
   {
     key: 'specialDeals',
     icon: <InfoCircleSvg />,
-    path: '/back-office/restaurant/:restaurant/language/en/special-deals',
+    path: '/back-office/restaurant/:restaurant/language/:language/special-deals',
   },
   {
     key: 'foodtips',
     icon: <ChefHeadSvg />,
-    path: '/back-office/restaurant/:restaurant/language/en/foodtips',
+    path: '/back-office/restaurant/:restaurant/language/:language/foodtips',
   },
   {
     key: 'orders',
@@ -93,7 +93,7 @@ const CONTROL_CONFIG = [
   {
     key: 'edit',
     icon: <EditSvg />,
-    path: 'restaurant/:restaurant',
+    path: '/back-office/restaurant/:restaurant',
   },
   {
     key: 'restore',
@@ -112,13 +112,14 @@ export const RestaurantInfo = ({
   name,
   address,
   phone,
-  onEvent = () => {},
   className,
+  onEvent = () => {},
 }) => {
   const [t] = useTranslation();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const { backOffice: { alert }, user: { roles } } = useSelector(s => s);
+  const { backOffice: { alert } } = useSelector(s => s);
+  const params = useParams();
   const { pathname } = useLocation();
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
@@ -136,22 +137,26 @@ export const RestaurantInfo = ({
   ), [event]);
 
   const handleRoute = (key, path) => {
-    const params = { id };
+    const param = { id };
 
     if (alert[key]) {
       rootDispatch(set({ alert: { ...alert, [key]: false } }));
     }
     
     if (path) {
-      history.push(path.replace(':restaurant', id));
+      let ePath = path.replace(':restaurant', id);
+      if (ePath.indexOf(':language') > -1) {
+        ePath = ePath.replace(':language', params.language);
+      }
+      history.push(ePath);
       return;
     }
 
-    if (key === 'restore') params.is_archived = false;
-    if (key === 'delete') params.is_deleted = true;
-    if (key === 'archive') params.is_archived = true;
+    if (key === 'restore') param.is_archived = false;
+    if (key === 'delete') param.is_deleted = true;
+    if (key === 'archive') param.is_archived = true;
 
-    setEvent({ key, params });
+    setEvent({ key, params: param });
     showConfirm();
   };
 
@@ -161,14 +166,14 @@ export const RestaurantInfo = ({
       if (pathname.indexOf('/restaurants/archive') > -1) {
         return arr.filter(({ key }) => ['restore', 'delete'].includes(key));
       }
-      return arr.filter(({ key }) => ['archive', 'edit'].includes(key) && roles.some(f => (f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))));
+      return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
     }
     return [];
   };
 
   const getDashItem = () => {
     const arr = [...CONTROL_CONFIG];
-    return arr.filter(({ key }) => (['flyer', 'reserve', 'opinions', 'orders', 'notify', 'menu', 'specialDeals', 'foodtips'].includes(key) && roles.some(f => ((f.manager || f.manager_back) && (id === f.restaurant || (f.root || f.root_back))) || (['orders', 'notify'].includes(key) && roles.some(s => s.employee && (id === s.restaurant || (s.root || s.root_back)))))));
+    return arr.filter(({ key }) => ['flyer', 'reserve', 'opinions', 'orders', 'notify', 'menu', 'specialDeals', 'foodtips'].includes(key));
   };
 
   useEffect(() => {
@@ -226,7 +231,7 @@ export const RestaurantInfo = ({
       {pathname.indexOf('/dashboard') > -1 && (
         <DashboardWrapper>
           {getDashItem().map(({ key, icon, path }) => (
-            <DashItem onClick={() => handleRoute(key, path)}>
+            <DashItem key={key} onClick={() => handleRoute(key, path)}>
               {icon}
               {alert[key] && (<Bandage />)}
               <DashItemName>
