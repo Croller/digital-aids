@@ -10,13 +10,14 @@ import {
   setLocalUser,
 } from 'client/utils/localStorage';
 
+const PATH = '/back-office';
+
 export const InfoUser = () => {
-  const pathCurrent = '/back-office';
   const lng = navigator.language || navigator.userLanguage || 'en-EN';
   const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
   const history = useHistory();
-  const location = useLocation();
+  const { pathname } = useLocation();
   const [initUrl, setInitUrl] = useState(null);
   const [storage, setStorage] = useState({
     user: {
@@ -29,9 +30,8 @@ export const InfoUser = () => {
     },
     restaurant: {},
   });
-  const { info } = useSelector(store => store.user);
+  const { info } = useSelector(s => s.user);
   const { token, enter_at } = info;
-  const { pathname } = location;
 
   const initStorage = () => {
     const localUser = getLocalUser() || storage;
@@ -39,40 +39,38 @@ export const InfoUser = () => {
     localUser.token = localUser.token || token;
     localUser.enter_at = localUser.enter_at || enter_at;
 
-    if (localUser.enter_at && enter_at && !initUrl) {
-      const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
-
-      if (diffEnterTime > expireTime) {
-        rootDispatch(set({ info: { ...info, token } }));
-        localUser.token = null;
-      }
-    }
-
-    if (localUser.token && !token && [pathCurrent].some(f => pathname.indexOf(f) > -1)) {
-      rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
-      localUser.token = null;
-      localUser.enter_at = null;
-    }
-
-    if (pathname.indexOf(pathCurrent) === -1) {
-      rootDispatch(login({
-        login: process.env.REST_GUEST_LOGIN,
-        password: process.env.REST_GUEST_PASSWORD,
-        language: localUser.lng,
-      }));
-    }
-    
-    if (process.env.NODE_ENV === 'development' && pathname.indexOf(pathCurrent) > -1) {
-      rootDispatch(login({
-        login: process.env.BACK_OFFICE_ADMIN_LOGIN,
-        password: process.env.BACK_OFFICE_ADMIN_PASSWORD,
-        language: localUser.lng,
-      }));
-    }
-    
-    setLocalUser(localUser);
+    setLocalUser({ token, enter_at });
     setStorage({ ...storage, user: localUser });
     setInitUrl(pathname);
+
+    if (token && localUser.enter_at && enter_at && !initUrl) {
+      const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
+      rootDispatch(set({ info: { ...info, token: (diffEnterTime > expireTime ? null : token) } }));
+      return null;
+    }
+
+    if (localUser.token && !token && [PATH].some(f => pathname.indexOf(f) > -1)) {
+      rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
+      return null;
+    }
+    
+    if (pathname.indexOf(PATH) === -1) {
+      rootDispatch(login({
+        login: process.env.GUEST_LOGIN,
+        password: process.env.GUEST_PASSWORD,
+        language: localUser.lng,
+      }));
+      return null;
+    }
+
+    if (process.env.NODE_ENV === 'development' && pathname.indexOf(PATH) > -1) {
+      rootDispatch(login({
+        login: process.env.ROOT_LOGIN,
+        password: process.env.ROOT_PASSWORD,
+        language: localUser.lng,
+      }));
+      return null;
+    }
   };
 
   const updateStorage = () => {
@@ -82,6 +80,12 @@ export const InfoUser = () => {
     setLocalUser(local.user);
     setStorage(local);
   };
+
+  const logout = () => {
+    const localUser = getLocalUser();
+    rootDispatch(set({ info: { ...info, token } }));
+    setLocalUser({ ...localUser, token: null, enter_at: null });
+  };
   
   useEffect(() => {
     initLocal();
@@ -90,15 +94,18 @@ export const InfoUser = () => {
     
     return () => {
       console.log('Logout before close');
-      rootDispatch(set({ info: { ...info, token } }));
+      logout();
     };
   }, []);
 
   useEffect(() => {
     if (token && initUrl) {
-      const url = initUrl.indexOf('auth') > -1 ? `${pathCurrent}/restaurants` : initUrl;
+      const url = initUrl.indexOf('auth') > -1 ? `${PATH}/restaurants` : initUrl;
       updateStorage();
       history.push(url);
+    }
+    if (info.login === process.env.GUEST_LOGIN && pathname.indexOf(PATH) > -1) {
+      logout();
     }
   }, [token, initUrl]);
 

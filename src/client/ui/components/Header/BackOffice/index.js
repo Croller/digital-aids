@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
 import { setLocalUser } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
@@ -32,15 +33,21 @@ const HeaderComponent = ({
   className,
 }) => {
   const rootDispatch = useDispatch();
+  const { pathname } = useLocation();
   const { info } = useSelector(s => s.user);
   const [t, i18n] = useTranslation();
   const [langList, setLangList] = useState(false);
 
   const handleLangChange = (lng = null) => {
     if (lng) {
+      const lngBefore = i18n.language;
       translate.changeLanguage(lng);
       setLocalUser({ lng });
       rootDispatch(set({ info: { ...info, language: lng } }));
+
+      if (pathname.indexOf('/language') > -1) {
+        onRoute(pathname.replace(`/${lngBefore}/`, `/${lng}/`).replace('/back-office/', ''));
+      }
     }
     setLangList(false);
   };
@@ -74,7 +81,7 @@ const HeaderComponent = ({
               <CloseButton onClick={handleLangChange}>
                 <CloseSvg />
               </CloseButton>
-              <OutSideClick onOutsideClick={handleLangChange}>
+              <OutSideClick onOutsideClick={() => setLangList(false)}>
                 <LangList>
                   {['en', 'ru'].map(lng => (
                     <LangButton

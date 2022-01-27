@@ -1,35 +1,41 @@
--- DROP TABLE IF EXISTS data_users_test;
--- DROP TABLE IF EXISTS data_roles_test;
--- DROP TABLE IF EXISTS data_roles_test_translate;
--- DROP TABLE IF EXISTS data_restaurants;
-
--- DROP TABLE IF EXISTS data_categories;
--- DROP TABLE IF EXISTS data_dishes;
-
--- DROP TABLE IF EXISTS data_categories_translate;
--- DROP TABLE IF EXISTS data_dishes_translate;
-
--- DROP TABLE IF EXISTS dictionary_currency;
--- DROP TABLE IF EXISTS dictionary_currency_translate;
--- DROP TABLE IF EXISTS dictionary_languages;
--- DROP TABLE IF EXISTS dictionary_languages_translate;
--- DROP TABLE IF EXISTS dictionary_allergens;
--- DROP TABLE IF EXISTS dictionary_allergens_translate;
--- DROP TABLE IF EXISTS dictionary_units;
--- DROP TABLE IF EXISTS dictionary_units_translate;
--- DROP TABLE IF EXISTS dictionary_days;
--- DROP TABLE IF EXISTS dictionary_days_translate;
--- DROP TABLE IF EXISTS data_reserve;
--- DROP TABLE IF EXISTS data_opinions;
--- DROP TABLE IF EXISTS data_orders;
--- DROP TABLE IF EXISTS data_notify;
-
-
+DROP TABLE IF EXISTS data_users;
+DROP TABLE IF EXISTS logs_users;
+DROP TABLE IF EXISTS data_roles;
+DROP TABLE IF EXISTS logs_roles;
+DROP TABLE IF EXISTS data_restaurants;
+DROP TABLE IF EXISTS logs_restaurants;
+DROP TABLE IF EXISTS data_categories;
+DROP TABLE IF EXISTS data_categories_translate;
+DROP TABLE IF EXISTS logs_categories_translate;
+DROP TABLE IF EXISTS logs_categories;
+DROP TABLE IF EXISTS data_dishes;
+DROP TABLE IF EXISTS data_dishes_translate;
+DROP TABLE IF EXISTS logs_dishes_translate;
+DROP TABLE IF EXISTS logs_dishes;
+DROP TABLE IF EXISTS data_reserve;
+DROP TABLE IF EXISTS data_opinions;
+DROP TABLE IF EXISTS data_orders;
+DROP TABLE IF EXISTS logs_orders;
+DROP TABLE IF EXISTS data_notify;
+DROP TABLE IF EXISTS logs_notify;
+DROP TABLE IF EXISTS dictionary_currency;
+DROP TABLE IF EXISTS dictionary_currency_translate;
+DROP TABLE IF EXISTS dictionary_languages;
+DROP TABLE IF EXISTS dictionary_languages_translate;
+DROP TABLE IF EXISTS dictionary_allergens;
+DROP TABLE IF EXISTS dictionary_allergens_translate;
+DROP TABLE IF EXISTS dictionary_units;
+DROP TABLE IF EXISTS dictionary_units_translate;
+DROP TABLE IF EXISTS dictionary_days;
+DROP TABLE IF EXISTS dictionary_days_translate;
+DROP TABLE IF EXISTS dictionary_access;
+DROP TABLE IF EXISTS dictionary_access_translate;
 
 -------------------------- TEMP QUERY --------------------------
 
 
 
+-- DELETE FROM logs_categories_translate WHERE change_at BETWEEN '2021-08-04T21:26:56.822294' AND '2021-08-05T21:26:56.822294';
 -- ALTER TABLE data_restaurants RENAME opinion TO description;
 -- ALTER TABLE data_restaurants ADD COLUMN number serial;
 -- ALTER TABLE data_restaurants ADD is_publish BOOLEAN DEFAULT FALSE;

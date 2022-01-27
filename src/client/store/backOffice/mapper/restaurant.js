@@ -1,4 +1,5 @@
-import { stringToKey, weekDays } from 'client/utils/common';
+import { stringToKey } from 'client/utils/common';
+import { WEEK_DAYS } from 'client/utils/constants';
 import moment from 'moment';
 
 export const dataToForm = (data) => {
@@ -48,7 +49,7 @@ export const dataToForm = (data) => {
     lat: geojson ? parseFloat(goemEdit[0]) : 0,
     lng: geojson ? parseFloat(goemEdit[1]) : 0,
     'at_work.day': 'mon',
-    ...weekDays.reduce((obj, key) => ({
+    ...WEEK_DAYS.reduce((obj, key) => ({
       ...obj,
       [`at_work.${key}.from`]: moment(at_work[key][0]).isValid ? moment(at_work[key][0]).format('HH:mm') : null,
       [`at_work.${key}.to`]: moment(at_work[key][1]).isValid ? moment(at_work[key][1]).format('HH:mm') : null,
@@ -58,7 +59,6 @@ export const dataToForm = (data) => {
 
 export const dataToApi = (data, current) => {
   const {
-    id,
     name,
     address,
     email,

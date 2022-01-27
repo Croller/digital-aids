@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getAccess } from 'client/utils/common';
 import {
   BellSvg,
   AlertCircleSvg,
@@ -20,7 +21,7 @@ const MENU_ROOT_LIST = [
   {
     key: 'account',
     icon: <UserCircleSvg />,
-    roles: ['root', 'account'],
+    role: 'account',
   },
 ];
 
@@ -28,22 +29,22 @@ const MENU_USER_LIST = [
   {
     key: 'orders',
     icon: <ShoppingBagSvg />,
-    roles: ['root', 'account'],
+    role: 'account',
   },
   {
     key: 'notify',
     icon: <BellSvg />,
-    roles: ['root', 'account'],
+    role: 'account',
   },
   {
     key: 'bookmarks',
     icon: <BookmarkSvg />,
-    roles: ['root', 'account'],
+    role: 'account',
   },
   {
     key: 'settings',
     icon: <ToolsSvg />,
-    roles: ['root', 'account'],
+    role: 'account',
   },
 ];
 
@@ -72,7 +73,7 @@ export const RightSideBar = memo(({
       </Menu>
       <Hr />
       <Menu>
-        {MENU_USER_LIST.filter(f => f.roles.some(s => roles.some(r => r[s]))).map(({ key, icon }) => (
+        {MENU_USER_LIST.filter(f => getAccess({ role: f.role, roles })).map(({ key, icon }) => (
           <Item
             key={`_item_menu_${key}`}
             active={path.indexOf(key.slice(0, -1)) > -1}

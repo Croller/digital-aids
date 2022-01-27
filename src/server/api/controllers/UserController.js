@@ -17,16 +17,24 @@ const UserController = () => {
   let values = [];
   let results = null;
 
+  const auth = async (req, res) => {
+    const tokenData = await jwt.verifyToken(req, res);
+    if (!tokenData) return;
+    req.body.data = tokenData;
+    UserController().signin(req, res);
+  };
+
   const signin = async (req, res) => {
     const {
       login,
       password,
-      browser = null,
+      language = 'en',
+      browser = {},
     } = req.body.data;
-
+    
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
-    const geo = geoip.lookup(commonUtils.nodeEnv() ? ip : '83.220.237.49');
+    const geo = geoip.lookup(commonUtils.getNodeEnv() ? ip : '83.220.237.49');
     const meta = JSON.stringify({ ip, browser, geo });
 
     try {
@@ -36,51 +44,44 @@ const UserController = () => {
       if (results.rows.length === 1) {
         const user = results.rows[0];
         const { is_deleted, is_archived } = user;
-        if (is_deleted || is_archived) {
-          error.name = 'User data is not correct';
-          error.code = 'userDatanNotCorrect';
-          res.status(201);
-          res.json({ error });
-        } else {
+        if (!is_deleted && !is_archived) {
           user.enter_at = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
           user.meta = meta;
           await queryUtils.updateTableRecord('data_users', user, {
             req,
             res,
-            language: 'en', 
+            language,
             user,
           });
           user.token = jwt.generateToken(user);
           delete user.password;
           delete user.meta;
           res.json(user);
+        } else {
+          error.name = 'User data is not correct';
+          error.id = 'userDatanNotCorrect';
+          res.status(201);
+          res.json({ error });
         }
       } else {
         error.name = 'User not found';
-        error.code = 'userNotFound';
+        error.id = 'userNotFound';
         res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.status(201);
       res.json({ error });
     }
   };
 
-  const auth = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
-    if (!tokenData) return;
-    req.body.data = tokenData;
-    UserController().signin(req, res);
-  };
-
-  const create = async (req, res) => {
+  const signup = async (req, res) => {
     try {
       const { data } = req.body;
-      const { login, email } = data;
+      const { login, email, project } = data;
       query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
       values = [login, email];
       results = await db.queryValues(query, values);
@@ -89,28 +90,59 @@ const UserController = () => {
           fields: [...obj.fields, key],
           values: [...obj.values, data[key]],
         }), { fields: [], values: [] });
+
         query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
         results = await db.queryValues(query, mapper.values);
         const user = results.rows[0];
-        query = 'INSERT INTO data_roles (user_id) VALUES ($1) RETURNING *';
-        values = [user.id];
-        results = await db.queryValues(query, values);
-        
-        const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
-        req.body.data.body = req.body.data.body.replace('confirm_link', link);
-        await mailer.send(req, res);
-        
+
+        query = 'INSERT INTO data_roles (user_id, project, access) VALUES ($1, $2, $3) RETURNING *';
+        values = [user.id, project, '{"guest", "account"}'];
+        await db.queryValues(query, values);
+
+        try {
+          const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
+          req.body.data.body = req.body.data.body.replace('confirm_link', link);
+          await mailer.send(req, res);
+        } catch (err) {
+          error.name = 'Mail error';
+          error.id = 'mailError';
+          error.text = JSON.stringify(err.message);
+          res.json({ error });
+        }
         res.status(200);
         res.send();
       } else {
         error.name = 'User exist';
-        error.code = 'userExist';
+        error.id = 'userExist';
         res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
+      error.text = JSON.stringify(err.message);
+      res.json({ error });
+    }
+  };
+
+  const update = async (req, res) => {
+    const tokenData = await jwt.verifyToken(req, res);
+    if (!tokenData) return;
+    try {
+      const { data = null } = req.body;
+      const user = await queryUtils.updateTableRecord('data_users', (data || tokenData), {
+        req,
+        res,
+        language: 'en', 
+        user: tokenData,
+      });
+      const token = jwt.generateToken(user);
+      delete user.password;
+      delete user.meta;
+      res.json({ ...user, token });
+    } catch (err) {
+      error.name = 'Query error';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.json({ error });
     }
@@ -133,47 +165,24 @@ const UserController = () => {
         res.send();
       } else {
         error.name = 'User not found';
-        error.code = 'userNotFound';
+        error.id = 'userNotFound';
         res.status(201);
         res.json({ error });
       }
     } catch (err) {
       error.name = 'Query error';
-      error.code = 'queryError';
-      error.text = JSON.stringify(err.message);
-      res.json({ error });
-    }
-  };
-  
-  const update = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
-    if (!tokenData) return;
-    try {
-      const { data = null } = req.body;
-      const user = await queryUtils.updateTableRecord('data_users', (data || tokenData), {
-        req,
-        res,
-        language: 'en', 
-        user: tokenData,
-      });
-      const token = jwt.generateToken(user);
-      delete user.password;
-      delete user.meta;
-      res.json({ ...user, token });
-    } catch (err) {
-      error.name = 'Query error';
-      error.code = 'queryError';
+      error.id = 'queryError';
       error.text = JSON.stringify(err.message);
       res.json({ error });
     }
   };
   
   return {
-    signin,
     auth,
-    create,
-    reset,
+    signin,
+    signup,
     update,
+    reset,
   };
 };
 

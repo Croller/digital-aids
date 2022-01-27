@@ -22,7 +22,7 @@ export const Layout = ({
   const history = useHistory();
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
-  const [showLeftSideBar, setShowLeftSideBar] = useState(true);
+  const [showLeftSideBar, setShowLeftSideBar] = useState(false);
   const [showRightSideBar, setShowRightSideBar] = useState(false);
   const { info, roles } = useSelector(store => store.user);
   const { token } = info;
@@ -57,7 +57,7 @@ export const Layout = ({
         onShowSideBar={handleShowSideBar}
         onRoute={handleRoute}
       />
-      {token && showLeftSideBar && (
+      {showLeftSideBar && (
         <LeftSideBar
           roles={roles}
           path={pathname}
@@ -66,15 +66,15 @@ export const Layout = ({
       )}
       <Cotainer>
         <Content
-          leftbar={token && showLeftSideBar}
-          rightbar={token && showRightSideBar}
+          leftbar={showLeftSideBar}
+          rightbar={showRightSideBar}
         >
           <Block>
             {children}
           </Block>
         </Content>
       </Cotainer>
-      {token && showRightSideBar && (
+      {showRightSideBar && (
         <OutSideClick onOutsideClick={() => handleShowSideBar('right')}>
           <RightSideBar
             roles={roles}

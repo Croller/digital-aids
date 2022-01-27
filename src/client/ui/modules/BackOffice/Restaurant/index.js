@@ -6,13 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { rules, collectError } from 'client/utils/validatorRules';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getUrl, loadFile } from 'client/utils/common';
+import { getUrl, getFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { auth } from 'client/store/user';
 import { AlertCircleSvg } from 'client/assets/images';
-import { getCoordsByAddress } from 'client/providers/common';
 import { useDebounce } from 'client/ui/components/_base/Debounce';
 import { Marker } from 'google-maps-react';
+import { getCoordsByAddress } from 'client/providers/external';
 import {
   RestaurantWrapper,
   NavBarStyled,
@@ -76,7 +76,7 @@ const Restaurant = () => {
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
-        const file = await loadFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
+        const file = await getFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
         return file;
       })).then(images => setData(dataToForm({ ...data, images })));
     }
@@ -163,15 +163,11 @@ const Restaurant = () => {
   };
 
   const handleDebouceSearch = async (obj) => {
+    let results = null;
     if (debouceSearch) {
-      console.log('language', { ...obj });
-      const results = await getCoordsByAddress(obj);
-      if (results.status === 'OK') {
-        setAddressResults(results.results);
-        return;
-      }
+      results = await getCoordsByAddress(obj, token);
     }
-    setAddressResults(null);
+    setAddressResults(results);
   };
 
   const handleUpdateAddress = (address, geometry) => {
