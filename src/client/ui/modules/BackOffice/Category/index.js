@@ -96,15 +96,16 @@ const Category = () => {
       setRestInfo(rest);
 
       if (orderTR && orderTR.data_catalogories && categoryActive && categoryActive.id) {
-        console.log(orderTR && orderTR.data_catalogories && categoryActive && categoryActive.id);
         const { key, type, name } = orderTR.data_catalogories.en;
         const { id } = categoryActive;
         if (categoryActive.key === key && categoryActive.type === type && categoryActive.name === name) {
-          const results = await Promise.allSettled(Object.keys(orderTR.data_catalogories).filter(f => f !== 'en').map(async (lng) => {
+          await Promise.allSettled(Object.keys(orderTR.data_catalogories).filter(f => f !== 'en').map(async (lng) => {
             const obj = orderTR.data_catalogories[lng];
             const { children } = obj;
             obj.id = id;
-            obj.children = children.map(it => ({ ...it, parent: id }));
+            if (children) {
+              obj.children = children.map(it => ({ ...it, parent: id }));
+            }
             return rootDispatch(update({ name: 'data_categories', data: dataToApi(obj, restInfo), language: lng }));
           }));
           console.log(results);
