@@ -1,3 +1,29 @@
+- Hosting
+Ubuntu 16, 18, Linux
+Nginx, PM2, SSH, htaccess
+
+
+- Front делается у нас так 
+JavaScript, React js, Redux, Saga как модная middleware
+CSS, SCSS, SASS, Styled-Components, StyleLintr
+Bootstrap, Ant Design Ui, Grid styling
+Webpack, Axios, i18n translate,
+WebSockets, MapBox GL, Google Api
+PWA App, Native App a little bit
+etc.
+
+- Back 
+Nodejs, Express js, ESLint
+HTTP/S, Server, RESTfull API
+AuthO2, Encrypt request,
+PostrgesSQL only
+Docker, Containering, 
+Postman Mock, GitHub
+
+Из живого, вот пример,..
+https://digital-aids.com/
+
+
 
 //ssh
 ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 ubuntu@193.122.12.91
