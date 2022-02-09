@@ -5,8 +5,12 @@
       "types/*": [
         "./types/*"
       ],
-      "client/*": ["./src/client"],
-      "server/*": ["./src/server"],
+      "client/*": [
+        "./src/client"
+      ],
+      "server/*": [
+        "./src/server"
+      ],
     },
     "allowJs": true, // Allow JavaScript files to be compiled
     "skipLibCheck": true, // Skip type checking of all declaration files
@@ -27,12 +31,14 @@
     "noFallthroughCasesInSwitch": true, // Report errors for fallthrough cases in switch statement
     "lib": [
       "dom",
-      "es2019.array"
+      "esnext",
+      "es6"
     ]
   },
   "include": [
-    "src/**/*"
+    "./src/**/*"
   ],
+  "rootDir": "./src",
   "exclude": [
     "node_modules/**/*",
     "staticfiles/**/*",
