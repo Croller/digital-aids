@@ -1,7 +1,5 @@
-
 -- CREATE SCHEMA "DigitalAids";
 -- ALTER DATABASE "digital-aids" SET timezone TO 'Europe/Moscow';
-
 CREATE TABLE IF NOT EXISTS data_users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   login VARCHAR NOT NULL,
@@ -14,7 +12,6 @@ CREATE TABLE IF NOT EXISTS data_users (
   email VARCHAR NOT NULL,
   language VARCHAR DEFAULT 'en', -- DICTIONARY dictionary_languages
   meta jsonb DEFAULT '{"browser": "NULL", "ip": "NULL", "geo": "NULL"}',
-  enter_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_confirmed BOOLEAN DEFAULT FALSE,
   is_deleted BOOLEAN DEFAULT FALSE,
   change_at TIMESTAMP with time zone DEFAULT NOW(),
@@ -33,7 +30,6 @@ CREATE TABLE IF NOT EXISTS logs_users (
   email VARCHAR DEFAULT NULL,
   language_id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_languages
   meta jsonb DEFAULT NULL,
-  enter_at TIMESTAMP DEFAULT NULL,
   is_confirmed BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
   change_at TIMESTAMP with time zone DEFAULT NOW(),
@@ -148,16 +144,6 @@ CREATE TABLE IF NOT EXISTS data_categories_translate (
   change_user VARCHAR DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS logs_categories_translate (
-  id VARCHAR NULL, -- DICTIONARY data_categories
-  language VARCHAR NULL, -- DICTIONARY dictionary_languages
-  name VARCHAR DEFAULT NULL,
-  cuisine VARCHAR ARRAY DEFAULT NULL,
-  options jsonb DEFAULT NULL,
-  change_at TIMESTAMP with time zone DEFAULT NOW(),
-  change_user VARCHAR DEFAULT NULL
-);
-
 CREATE TABLE IF NOT EXISTS logs_categories (
   id VARCHAR DEFAULT NULL,
   parent VARCHAR DEFAULT NULL, -- DICTIONARY data_categories
@@ -174,11 +160,21 @@ CREATE TABLE IF NOT EXISTS logs_categories (
   change_user VARCHAR DEFAULT NULL
 );
 
+CREATE TABLE IF NOT EXISTS logs_categories_translate (
+  id VARCHAR NULL, -- DICTIONARY data_categories
+  language VARCHAR NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  cuisine VARCHAR ARRAY DEFAULT NULL,
+  options jsonb DEFAULT NULL,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
+);
+
 CREATE TABLE IF NOT EXISTS data_dishes (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   category VARCHAR NOT NULL, -- DICTIONARY data_categories
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
-  count INT DEFAULT 0,
+  dish_number INT DEFAULT 0,
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
@@ -204,22 +200,11 @@ CREATE TABLE IF NOT EXISTS data_dishes_translate (
   change_user VARCHAR DEFAULT NULL
 );
 
-CREATE TABLE IF NOT EXISTS logs_dishes_translate (
-  id VARCHAR NULL, -- DICTIONARY data_dishes
-  language VARCHAR NULL, -- DICTIONARY dictionary_languages
-  name VARCHAR DEFAULT NULL,
-  description VARCHAR DEFAULT NULL,
-  cuisine VARCHAR ARRAY DEFAULT NULL,
-  options jsonb DEFAULT NULL,
-  change_at TIMESTAMP with time zone DEFAULT NOW(),
-  change_user VARCHAR DEFAULT NULL
-);
-
 CREATE TABLE IF NOT EXISTS logs_dishes (
   id VARCHAR DEFAULT NULL,
   category VARCHAR DEFAULT NULL, -- DICTIONARY data_categories
   restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
-  count INT DEFAULT NULL,
+  dish_number INT DEFAULT NULL,
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
@@ -230,6 +215,17 @@ CREATE TABLE IF NOT EXISTS logs_dishes (
   allergens VARCHAR ARRAY DEFAULT NULL, -- DICTIONARY dictionary_languages
   is_archived BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
+);
+
+CREATE TABLE IF NOT EXISTS logs_dishes_translate (
+  id VARCHAR NULL, -- DICTIONARY data_dishes
+  language VARCHAR NULL, -- DICTIONARY dictionary_languages
+  name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
+  cuisine VARCHAR ARRAY DEFAULT NULL,
+  options jsonb DEFAULT NULL,
   change_at TIMESTAMP with time zone DEFAULT NOW(),
   change_user VARCHAR DEFAULT NULL
 );
@@ -274,7 +270,8 @@ CREATE TABLE IF NOT EXISTS data_orders (
   table_number INT DEFAULT NULL,
   order_number VARCHAR NOT NULL,
   order_url VARCHAR NOT NULL,
-  status VARCHAR DEFAULT 'waiting', --- DICTIONARY dictionary_order_status
+  status VARCHAR DEFAULT 'waiting',
+  --- DICTIONARY dictionary_order_status
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   cooked_at TIMESTAMP with time zone DEFAULT NULL,
@@ -296,7 +293,8 @@ CREATE TABLE IF NOT EXISTS logs_orders (
   table_number INT DEFAULT NULL,
   order_number VARCHAR NULL,
   order_url VARCHAR NULL,
-  status VARCHAR DEFAULT NULL, --- DICTIONARY dictionary_order_status
+  status VARCHAR DEFAULT NULL,
+  --- DICTIONARY dictionary_order_status
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone DEFAULT NULL,
   cooked_at TIMESTAMP with time zone DEFAULT NULL,
@@ -426,10 +424,9 @@ CREATE TABLE IF NOT EXISTS dictionary_access (
 );
 
 CREATE TABLE IF NOT EXISTS dictionary_access_translate (
-  id VARCHAR DEFAULT NULL, 
+  id VARCHAR DEFAULT NULL,
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
   fullname VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL
 );
-

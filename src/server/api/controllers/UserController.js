@@ -1,4 +1,3 @@
-const moment = require('moment');
 const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
@@ -45,7 +44,6 @@ const UserController = () => {
         const user = results.rows[0];
         const { is_deleted, is_archived } = user;
         if (!is_deleted && !is_archived) {
-          user.enter_at = moment().format('YYYY-MM-DD HH:mm:ss.SSS');
           user.meta = meta;
           await queryUtils.updateTableRecord('data_users', user, {
             req,

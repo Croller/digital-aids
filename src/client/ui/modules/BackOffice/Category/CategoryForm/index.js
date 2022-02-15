@@ -384,7 +384,7 @@ export const CategoryForm = ({
             </Form2Col>
           </FormCol>
         )}
-        {current.children && (
+        {/* {current.children && (
           <FormCol>
             <Hr />
             <FormItemStyled
@@ -437,7 +437,7 @@ export const CategoryForm = ({
               </AddGroup>
             )}
           </FormCol>
-        )}
+        )} */}
       </FormStyled>
     </CategoryFormWrapper>
   );
