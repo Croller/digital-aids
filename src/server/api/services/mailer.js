@@ -6,26 +6,16 @@ const mg = mailgun({
   domain: process.env.HOST,
 });
 
-// const info = {
-//   from: 'Information <info@digital-aids.com>',
-//   to: '79104643015@yandex.ru',
-//   subject: 'Hello',
-//   text: 'Testing some Mailgun awesomeness!',
-// };
-// mg.messages().send(info, (error, body) => {
-//   console.log(error, body);
-// });
-
-const error = {
-  code: 0,
-  name: '',
-  text: '',
+const getEmail = (type = null) => {
+  if (type && ['registration', 'restore'].includes(type)) {
+    return `support@${process.env.HOST}`;
+  }
+  return `info@${process.env.HOST}`;
 };
 
-const send = async (req, res) => {
-  const { data } = req.body;
+const send = async (data) => {
   const {
-    from = `"Digital Aids" <${commonUtils.getMail(data.type)}>`,
+    from = `"Digital Aids" <${getEmail(data.type)}>`,
     email = null,
     subject = null,
     files = null,
@@ -45,15 +35,13 @@ const send = async (req, res) => {
       })),
     }),
   };
+  
   try {
     const result = await mg.messages().send(mailOptions);
-    res.json(result);
+    return result;
   } catch (err) {
-    error.name = 'Mailer send error';
-    error.id = 'mailerSendError';
-    error.text = JSON.stringify(err.message);
-    res.status(201);
-    res.json({ error });
+    commonUtils.setError('mailerSendError', 'Mailer send error', JSON.stringify(err.message));
+    return null;
   }
 };
 

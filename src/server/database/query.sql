@@ -93,7 +93,7 @@
 
 -- UPDATE triptrick.users SET enter_at = CURRENT_TIMESTAMP WHERE id = 1;
 
--- DELETE FROM triptrick.users WHERE id = 2;
+-- DELETE FROM data_users WHERE id = 'd284071f-b1ce-4675-a16b-31db5c1d471c';
 
 -- INSERT INTO "Parcels"("Name", the_geom)
 --     VALUES ('Corrected_Shape', 

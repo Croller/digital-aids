@@ -6,7 +6,6 @@ const commonUtils = require('../utils/common');
 
 const UserController = () => {
   let query = '';
-  let values = [];
   let results = null;
 
   const auth = async (req, res) => {
@@ -63,7 +62,7 @@ const UserController = () => {
   const signup = async (req, res) => {
     try {
       const { data } = req.body;
-      const { login, email, project } = data;
+      const { login, email } = data;
       query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
       results = await db.queryValues(query, [login, email]);
 
@@ -77,18 +76,19 @@ const UserController = () => {
         results = await db.queryValues(query, mapper.values);
         const user = results.rows[0];
 
-        query = 'INSERT INTO data_roles (user_id, project, access) VALUES ($1, $2, $3) RETURNING *';
-        values = [user.id, project, '{"guest", "account"}'];
-        await db.queryValues(query, values);
+        query = 'INSERT INTO data_roles (user_id, access) VALUES ($1, $2) RETURNING *';
+        await db.queryValues(query, [user.id, '{"guest", "account"}']);
 
         try {
           const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
           req.body.data.body = req.body.data.body.replace('confirm_link', link);
-          await mailer.send(req, res);
-          res.json(commonUtils.setError());
+
+          results = await mailer.send(req.body.data);
+          res.json(results);
         } catch (err) {
           res.status(201);
           res.json(commonUtils.setError('mailError', 'Mail error', JSON.stringify(err.message)));
+          return;
         }
       } else {
         res.status(201);
@@ -113,7 +113,6 @@ const UserController = () => {
         });
         const token = jwt.generateToken(user);
         delete user.password;
-        delete user.meta;
         res.json({ ...user, token });
       } catch (err) {
         res.status(201);
@@ -121,7 +120,7 @@ const UserController = () => {
       }
     } else {
       res.status(201);
-      res.json(commonUtils.setError('authError', 'Auth error'));
+      res.json(commonUtils.setError('userUpdateError', 'User update error'));
     }
   };
 
@@ -137,7 +136,7 @@ const UserController = () => {
         results = await db.queryValues(query, [password, email]);
 
         req.body.data.body = req.body.data.body.replace('new_password', password);
-        await mailer.send(req, res);
+        await mailer.send(req.body.data);
         res.json(commonUtils.setError());
       } else {
         res.status(201);

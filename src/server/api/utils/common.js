@@ -49,13 +49,6 @@ const post = async (url = null, data = null) => {
   }
 };
 
-const getMailAddress = (type = null) => {
-  if (type && ['registration', 'restore'].includes(type)) {
-    return `support@${process.env.HOST}`;
-  }
-  return `info@${process.env.HOST}`;
-};
-
 const getStringRandom = (length = 15) => {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const charactersLength = characters.length;
@@ -112,7 +105,6 @@ module.exports = {
   getEnv,
   setError,
   getMeta,
-  getMailAddress,
   getStringRandom,
   getHeader,
   fileRead,
