@@ -13,7 +13,7 @@ import { getTextTranslate } from 'client/providers/external';
 import {
   getUrl,
   getDictionaryItem,
- getFile,
+  getFile,
   imageResize,
 } from 'client/utils/common';
 import {

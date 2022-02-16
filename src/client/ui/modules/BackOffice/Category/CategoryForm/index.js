@@ -27,12 +27,12 @@ import {
   FormItemStyled,
   InputStyled,
   TextAreaStyled,
-  Hr,
   SelectStyled, OptionStyled,
   Controls, Control,
   Separator,
   FormRange, RadioGroup, RadioButton,
   InputMaskStyled,
+  Hr,
   Group2Form,
   GroupForm, 
   GroupControl,
@@ -69,10 +69,11 @@ export const CategoryForm = ({
       onOk={() => handleChange(event.key, event.params)}
     />
   ), [event]);
+  const separator = ' || ';
+  const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
 
   const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
-    const separator = ' || ';
-    if (!obj || !sourceLng || sourceLng === targetLng || !token) return obj;
+    if (!obj || sourceLng === targetLng) return obj;
     const text = Object.keys(obj).map(key => obj[key]).join(separator);
     const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
     const textArr = results[0].translatedText.split(separator);
@@ -93,33 +94,29 @@ export const CategoryForm = ({
     form.resetFields();
     setIsChange(false);
     const edited = { ...formData, ...values };
-    const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
     const editedLng = [language, ...restaurant.languages.filter(f => f !== language)];
-    if (!event) {
-      if (!current.id) {
-        const transObj = Object.keys(edited).filter(f => translateKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
-        const editedOther = await Promise.allSettled(editedLng.map(async (lng) => {
-          const resuslts = await getTranslateObj(transObj, language, lng);
-          return resuslts;
-        }));
-        const results = [...editedOther.map(({ value }) => value)].map((value, i, arr) => dataFromToList({
-          ...edited,
-          ...value,
-          ...(i !== 0 && arr[0] ? { key: arr[0].key } : {}),
-          ...(i !== 0 ? { language: editedLng[i] } : {}),
-          restaurant: restaurant.id,
-        },
-        current,
-        editedLng[i]));
-        const enLngIndex = editedLng.findIndex(f => f === 'en');
-        const enCatalog = results[enLngIndex];
-        const lngCatalogs = results.reduce((obj, item, i) => ({ ...obj, [editedLng[i]]: item }), {});
-        onCreateTranslate({ data_catalogories: lngCatalogs });
-        onChange(enCatalog, 'en');
-        return;
-      }
-      onChange(dataFromToList(edited, current, language), language);
+    if (event) return null;
+    if (!current.id) {
+      const transObj = Object.keys(edited).filter(f => translateKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
+      const editedOther = await Promise.allSettled(editedLng.map(async (lng) => {
+        const resuslts = await getTranslateObj(transObj, language, lng);
+        return resuslts;
+      }));
+      const results = [...editedOther.map(({ value }) => value)].map((value, i, arr) => dataFromToList({
+        ...edited,
+        ...value,
+        ...(i !== 0 && arr[0] ? { key: arr[0].key } : {}),
+        ...(i !== 0 ? { language: editedLng[i] } : {}),
+        restaurant: restaurant.id,
+      },
+      current,
+      editedLng[i]));
+      const lngCatalogs = results.reduce((obj, item, i) => ({ ...obj, [editedLng[i]]: item }), {});
+      console.log('lngCatalogs', lngCatalogs);
+      onCreateTranslate({ data_catalogories: lngCatalogs });
+      return null;        
     }
+    onChange(dataFromToList(edited, current, language), language);
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -144,19 +141,16 @@ export const CategoryForm = ({
 
   const handleEvent = (key) => {
     const params = {};
-
     if (key === 'restore') params.is_archived = false;
     if (key === 'delete') params.is_deleted = true;
     if (key === 'archive') params.is_archived = true;
 
     showConfirm();
-    let obj = current;
-    obj = {
-      ...obj,
+    const paramsEdited = {
+      ...current,
       ...params,
-      children: obj.children ? obj.children.map(item => ({ ...item, ...params })) : null,
     };
-    setEvent({ key, params: obj });
+    setEvent({ key, params: paramsEdited });
   };
 
   const handleChange = (key = null, params = null) => {
@@ -169,23 +163,6 @@ export const CategoryForm = ({
     setEvent(null);
     setFormData(null);
     onChange(obj);
-  };
-
-  const handleEventGroup = (key, index) => {
-    setIsChange(true);
-    if (key === 'new') {
-      setCurrent({ ...current, children: [...current.children, categoryModel[0]] });
-      setData({ ...formData, [`children.${current.children.length}.name`]: '' });
-    }
-    if (key === 'delete') {
-      const edited = current.children.map((child, i) => {
-        if (i === index) {
-          return { ...child, is_deleted: true };
-        }
-        return child;
-      });
-      setCurrent({ ...current, children: edited });
-    } 
   };
 
   useEffect(() => {
@@ -297,7 +274,7 @@ export const CategoryForm = ({
             </FormItemStyled>
           </FormCol>
         </Form2Col>
-        {['daily', 'organicWine'].includes(formData.type) && (
+        {formData.type === 'daily' && (
           <FormCol>
             <Form2Col>
               <FormCol>

@@ -1,3 +1,4 @@
+const moment = require('moment');
 const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
@@ -18,9 +19,28 @@ const UserController = () => {
 
   const auth = async (req, res) => {
     const tokenData = await jwt.verifyToken(req, res);
-    if (!tokenData) return;
-    req.body.data = tokenData;
-    UserController().signin(req, res);
+    if (tokenData) {
+      const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
+      const diffEnterTime = moment().diff(moment(tokenData.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
+      const expired = diffEnterTime > expireTime;
+
+      if (!expired) {
+        req.body.data = tokenData;
+        UserController().signin(req, res);
+      } else {
+        error.name = 'Token expired';
+        error.id = 'tokenExpiredError';
+        error.text = '';
+        res.status(201);
+        res.json({ error });
+      }
+    } else {
+      error.name = 'Auth error';
+      error.id = 'authError';
+      error.text = null;
+      res.status(201);
+      res.json({ error });
+    }
   };
 
   const signin = async (req, res) => {
@@ -30,7 +50,8 @@ const UserController = () => {
       language = 'en',
       browser = {},
     } = req.body.data;
-    
+
+    // get ip user
     let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
     ip = ip.replace('::ffff:', '');
     const geo = geoip.lookup(commonUtils.getEnv() ? ip : '83.220.237.49');

@@ -171,31 +171,6 @@ const Category = () => {
   };
   
   const handleChangeCategory = async (data = null, lng = language) => {
-    setRestCategoryEdit(false);
-    if (!data && !restCategory[restCategory.length - 1]) {
-      const withoutLast = restCategory.slice(0, restCategory.length - 1);
-      setRestCategory(withoutLast);
-      setRestCategoryActive(withoutLast[0]);
-      return;
-    }
-    if (!data) {
-      return;
-    }
-    if (restCategoryActive && (restCategoryActive.is_archived !== data.is_archived || restCategoryActive.is_deleted !== data.is_deleted)) {
-      setTimeout(() => {
-        rootDispatch(update({
-          language, 
-          name: 'data_dishes',
-          data: dishCategory.map(dish => ({
-            id: dish.id,
-            is_archived: data.is_archived,
-            is_deleted: data.is_deleted,
-          })),
-        }));
-      }, 1500);
-    }
-    const children = data.children ? data.children.filter(f => !f.is_deleted) : null;
-    setRestCategoryActive({ ...data, children });
     rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language: lng }));
   };
 

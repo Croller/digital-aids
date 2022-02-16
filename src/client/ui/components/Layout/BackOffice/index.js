@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
@@ -49,6 +49,13 @@ export const Layout = ({
     }
   };
 
+  useEffect(() => {
+    if (!token) {
+      setShowLeftSideBar(false);
+      setShowRightSideBar(false);
+    }
+  }, [token]);
+
   return (
     <Wrapper className={className}>
       <Header
@@ -57,7 +64,7 @@ export const Layout = ({
         onShowSideBar={handleShowSideBar}
         onRoute={handleRoute}
       />
-      {showLeftSideBar && (
+      {token && showLeftSideBar && (
         <LeftSideBar
           roles={roles}
           path={pathname}
@@ -74,7 +81,7 @@ export const Layout = ({
           </Block>
         </Content>
       </Cotainer>
-      {showRightSideBar && (
+      {token && showRightSideBar && (
         <OutSideClick onOutsideClick={() => handleShowSideBar('right')}>
           <RightSideBar
             roles={roles}
