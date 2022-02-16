@@ -19,11 +19,14 @@ const setError = (id = null, name = null, text = null) => {
   return { error };
 };
 
-const getGeoIP = (req) => {
+const getMeta = (req) => {
+  const { browser } = req.body.data.meta;
+  delete browser.type;
+
   let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   ip = ip.replace('::ffff:', '');
   const geo = geoip.lookup(getEnv() ? ip : '83.220.237.49');
-  return { ip, geo };
+  return { browser, ip, geo };
 };
 
 const get = async (url = null) => {
@@ -108,7 +111,7 @@ module.exports = {
   post,
   getEnv,
   setError,
-  getGeoIP,
+  getMeta,
   getMailAddress,
   getStringRandom,
   getHeader,

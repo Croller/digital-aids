@@ -25,19 +25,19 @@ const UserController = () => {
       login,
       password,
       language = 'en',
-      browser = {},
     } = req.body.data;
-    const meta = JSON.stringify({ ...commonUtils.getGeoIP(req), browser });
+    const meta = commonUtils.getMeta(req);
 
     try {
       query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
       results = await db.queryValues(query, [login, password]);
-      
+
       if (results.rows.length === 1) {
         const user = results.rows[0];
+        user.meta = meta;
         const { is_deleted, is_archived } = user;
         if (!is_deleted && !is_archived) {
-          await queryUtils.updateTableRecord('data_users', { ...user, meta }, {
+          await queryUtils.updateTableRecord('data_users', user, {
             req,
             res,
             language,
