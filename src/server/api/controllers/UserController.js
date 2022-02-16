@@ -1,16 +1,8 @@
-const moment = require('moment');
-const geoip = require('geoip-lite');
 const db = require('../services/db');
 const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
-const commonUtils = require('../utils/common');
 const queryUtils = require('../utils/query');
-
-const error = {
-  code: 0,
-  name: '',
-  text: '',
-};
+const commonUtils = require('../utils/common');
 
 const UserController = () => {
   let query = '';
@@ -18,28 +10,13 @@ const UserController = () => {
   let results = null;
 
   const auth = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (tokenData) {
-      const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
-      const diffEnterTime = moment().diff(moment(tokenData.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
-      const expired = diffEnterTime > expireTime;
-
-      if (!expired) {
-        req.body.data = tokenData;
-        UserController().signin(req, res);
-      } else {
-        error.name = 'Token expired';
-        error.id = 'tokenExpiredError';
-        error.text = '';
-        res.status(201);
-        res.json({ error });
-      }
+      req.body.data = tokenData;
+      UserController().signin(req, res);
     } else {
-      error.name = 'Auth error';
-      error.id = 'authError';
-      error.text = null;
       res.status(201);
-      res.json({ error });
+      res.json(commonUtils.setError('authError', 'Auth error'));
     }
   };
 
@@ -50,23 +27,17 @@ const UserController = () => {
       language = 'en',
       browser = {},
     } = req.body.data;
-
-    // get ip user
-    let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
-    ip = ip.replace('::ffff:', '');
-    const geo = geoip.lookup(commonUtils.getEnv() ? ip : '83.220.237.49');
-    const meta = JSON.stringify({ ip, browser, geo });
+    const meta = JSON.stringify({ ...commonUtils.getGeoIP(req), browser });
 
     try {
       query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
-      values = [login, password];
-      results = await db.queryValues(query, values);
+      results = await db.queryValues(query, [login, password]);
+      
       if (results.rows.length === 1) {
         const user = results.rows[0];
         const { is_deleted, is_archived } = user;
         if (!is_deleted && !is_archived) {
-          user.meta = meta;
-          await queryUtils.updateTableRecord('data_users', user, {
+          await queryUtils.updateTableRecord('data_users', { ...user, meta }, {
             req,
             res,
             language,
@@ -74,26 +45,18 @@ const UserController = () => {
           });
           user.token = jwt.generateToken(user);
           delete user.password;
-          delete user.meta;
           res.json(user);
         } else {
-          error.name = 'User data is not correct';
-          error.id = 'userDatanNotCorrect';
           res.status(201);
-          res.json({ error });
+          res.json(commonUtils.setError('userDatanNotCorrect', 'User data is not correct'));
         }
       } else {
-        error.name = 'User not found';
-        error.id = 'userNotFound';
         res.status(201);
-        res.json({ error });
+        res.json(commonUtils.setError('userNotFound', 'User not found'));
       }
     } catch (err) {
-      error.name = 'Query error';
-      error.id = 'queryError';
-      error.text = JSON.stringify(err.message);
       res.status(201);
-      res.json({ error });
+      res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
     }
   };
 
@@ -102,8 +65,8 @@ const UserController = () => {
       const { data } = req.body;
       const { login, email, project } = data;
       query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
-      values = [login, email];
-      results = await db.queryValues(query, values);
+      results = await db.queryValues(query, [login, email]);
+
       if (results.rows.length === 0) {
         const mapper = ['login', 'password', 'email'].reduce((obj, key) => ({
           fields: [...obj.fields, key],
@@ -122,77 +85,67 @@ const UserController = () => {
           const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
           req.body.data.body = req.body.data.body.replace('confirm_link', link);
           await mailer.send(req, res);
+          res.json(commonUtils.setError());
         } catch (err) {
-          error.name = 'Mail error';
-          error.id = 'mailError';
-          error.text = JSON.stringify(err.message);
-          res.json({ error });
+          res.status(201);
+          res.json(commonUtils.setError('mailError', 'Mail error', JSON.stringify(err.message)));
         }
-        res.status(200);
-        res.send();
       } else {
-        error.name = 'User exist';
-        error.id = 'userExist';
         res.status(201);
-        res.json({ error });
+        res.json(commonUtils.setError('userExist', 'User exist'));
       }
     } catch (err) {
-      error.name = 'Query error';
-      error.id = 'queryError';
-      error.text = JSON.stringify(err.message);
-      res.json({ error });
+      res.status(201);
+      res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
     }
   };
 
   const update = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
-    if (!tokenData) return;
-    try {
-      const { data = null } = req.body;
-      const user = await queryUtils.updateTableRecord('data_users', (data || tokenData), {
-        req,
-        res,
-        language: 'en', 
-        user: tokenData,
-      });
-      const token = jwt.generateToken(user);
-      delete user.password;
-      delete user.meta;
-      res.json({ ...user, token });
-    } catch (err) {
-      error.name = 'Query error';
-      error.id = 'queryError';
-      error.text = JSON.stringify(err.message);
-      res.json({ error });
+    const tokenData = await jwt.verifyToken(req);
+    if (tokenData) {
+      try {
+        const { data = null } = req.body;
+        const user = await queryUtils.updateTableRecord('data_users', data || tokenData, {
+          req,
+          res,
+          language: 'en', 
+          user: tokenData.user,
+        });
+        const token = jwt.generateToken(user);
+        delete user.password;
+        delete user.meta;
+        res.json({ ...user, token });
+      } catch (err) {
+        res.status(201);
+        res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
+      }
+    } else {
+      res.status(201);
+      res.json(commonUtils.setError('authError', 'Auth error'));
     }
   };
 
   const reset = async (req, res) => {
     try {
-      const { data } = req.body;
+      const { email } = req.body.data;
       query = 'SELECT * FROM data_users WHERE email=$1';
-      values = [data.email];
-      results = await db.queryValues(query, values);
+      results = await db.queryValues(query, [email]);
+
       if (results.rows.length === 1) {
         const password = commonUtils.getStringRandom(7);
         query = 'UPDATE data_users SET password=$1 WHERE email=$2';
-        values = [password, data.email];
-        results = await db.queryValues(query, values);
+        results = await db.queryValues(query, [password, email]);
+
         req.body.data.body = req.body.data.body.replace('new_password', password);
         await mailer.send(req, res);
-        res.status(200);
-        res.send();
+        res.json(commonUtils.setError());
       } else {
-        error.name = 'User not found';
-        error.id = 'userNotFound';
         res.status(201);
-        res.json({ error });
+        res.json(commonUtils.setError('userNotFound', 'User not found'));
       }
     } catch (err) {
-      error.name = 'Query error';
-      error.id = 'queryError';
-      error.text = JSON.stringify(err.message);
-      res.json({ error });
+      res.status(201);
+      res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
     }
   };
   

@@ -2,6 +2,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const geoip = require('geoip-lite');
 
 const staticPath = process.env.SERVER_STORAGE;
 
@@ -10,6 +11,19 @@ const getEnv = () => {
     return false;
   }
   return true;
+};
+
+const setError = (id = null, name = null, text = null) => {
+  const error = !id ? null : { id, name, text };
+  if (id) console.error('Error:', error);
+  return { error };
+};
+
+const getGeoIP = (req) => {
+  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  ip = ip.replace('::ffff:', '');
+  const geo = geoip.lookup(getEnv() ? ip : '83.220.237.49');
+  return { ip, geo };
 };
 
 const get = async (url = null) => {
@@ -93,6 +107,8 @@ module.exports = {
   get,
   post,
   getEnv,
+  setError,
+  getGeoIP,
   getMailAddress,
   getStringRandom,
   getHeader,
