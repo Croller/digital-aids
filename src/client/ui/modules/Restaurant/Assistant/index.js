@@ -7,7 +7,7 @@ import { useModal } from 'react-modal-hook';
 import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
 import { QRCodeSvg } from 'client/assets/images';
 import QrReader from 'react-qr-reader';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import {
   Wrapper,
   List,
@@ -43,7 +43,7 @@ const Assistant = () => {
 
   const handleEmit = (key) => {
     if (user.position === 'waiter' && key === 'guest') {
-      setLocalUser({ position: 'guest' });
+      setLocal({ position: 'guest' });
       rootDispatch(set({ position: 'guest' }));
     } else {
       rootDispatch(updateRow({

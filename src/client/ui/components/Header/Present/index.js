@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { withRouter, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import translate, { languages } from 'client/i18n';
 import OutSideClick from 'react-outside-click-handler';
 import {
@@ -49,7 +49,7 @@ const HeaderComponent = ({
   const handleLangChange = (lng = null) => {
     if (lng) {
       translate.changeLanguage(lng);
-      setLocalUser({ lng });
+      setLocal({ lng });
     }
     setLangList(false);
   };

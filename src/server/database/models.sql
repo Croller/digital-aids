@@ -249,6 +249,25 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   change_user VARCHAR DEFAULT NULL
 );
 
+CREATE TABLE IF NOT EXISTS logs_reserve (
+  id VARCHAR DEFAULT NULL,
+  restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
+  name VARCHAR DEFAULT NULL,
+  email VARCHAR DEFAULT NULL,
+  phone VARCHAR DEFAULT NULL,
+  persons INT NOT NULL,
+  table_number INT DEFAULT NULL,
+  reserve_at TIMESTAMP with time zone DEFAULT NULL,
+  create_user VARCHAR DEFAULT NULL,
+  create_at TIMESTAMP with time zone DEFAULT NULL,
+  is_approved BOOLEAN DEFAULT NULL,
+  is_viewed BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
+);
+
 CREATE TABLE IF NOT EXISTS data_opinions (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
@@ -264,14 +283,29 @@ CREATE TABLE IF NOT EXISTS data_opinions (
   change_user VARCHAR DEFAULT NULL
 );
 
+CREATE TABLE IF NOT EXISTS logs_opinions (
+  id VARCHAR DEFAULT NULL,
+  restaurant VARCHAR NULL, -- DICTIONARY data_restaurants
+  name VARCHAR DEFAULT NULL,
+  email VARCHAR DEFAULT NULL,
+  rate jsonb DEFAULT '{"service": "NULL", "meal": "NULL", "covid": "NULL", "menu": "NULL", "comments": "NULL"}',
+  create_user VARCHAR DEFAULT NULL,
+  create_at TIMESTAMP with time zone NOT NULL,
+  is_viewed BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_deleted BOOLEAN DEFAULT FALSE,
+  change_at TIMESTAMP with time zone DEFAULT NOW(),
+  change_user VARCHAR DEFAULT NULL
+);
+
+
 CREATE TABLE IF NOT EXISTS data_orders (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   table_number INT DEFAULT NULL,
   order_number VARCHAR NOT NULL,
   order_url VARCHAR NOT NULL,
-  status VARCHAR DEFAULT 'waiting',
-  --- DICTIONARY dictionary_order_status
+  status VARCHAR DEFAULT 'waiting', --- DICTIONARY dictionary_order_status
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   cooked_at TIMESTAMP with time zone DEFAULT NULL,
@@ -293,8 +327,7 @@ CREATE TABLE IF NOT EXISTS logs_orders (
   table_number INT DEFAULT NULL,
   order_number VARCHAR NULL,
   order_url VARCHAR NULL,
-  status VARCHAR DEFAULT NULL,
-  --- DICTIONARY dictionary_order_status
+  status VARCHAR DEFAULT NULL,  --- DICTIONARY dictionary_order_status
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone DEFAULT NULL,
   cooked_at TIMESTAMP with time zone DEFAULT NULL,
