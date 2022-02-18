@@ -37,16 +37,14 @@ const getTableBase = async () => {
 
 const checkTable = async (table = null) => {
   query = 'SELECT * FROM information_schema.tables WHERE table_name = $1';
-  values = [table];
-  results = await db.queryValues(query, values);
+  results = await db.queryValues(query, [table]);
   if (results.rows.length === 0) return false;
   return true;
 };
 
 const getTableFields = async (table) => {
   query = 'SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1';
-  values = [table];
-  results = await db.queryValues(query, values);
+  results = await db.queryValues(query, [table]);
   if (results.rows.length === 0) return null;
   return results.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
 };
@@ -316,7 +314,6 @@ const updateTableRecord = async (table, data, params) => {
         }
       }
       // update table with translate
-   
       if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
         let tr_model = await getTableFields(`${table}_translate`);
         tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});

@@ -1,4 +1,13 @@
 const storageKey = process.env.LOCAL_STORAGE_KEY;
+const restaurantSetting = {
+  opinionSend: false,
+  offersViewed: [],
+  table_number: 0,
+  order: null,
+};
+
+// ------------------------------------------------------------------------------------------------------------------------
+// func default
 
 export const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 export const getLocalStorage = (key) => (JSON.parse(localStorage.getItem(key)));
@@ -6,13 +15,6 @@ export const removeLocalStorage = (key) => localStorage.removeItem(key);
 
 // ------------------------------------------------------------------------------------------------------------------------
 // func custom
-
-const restaurantSetting = {
-  opinionSend: false,
-  offersViewed: [],
-  table_number: 0,
-  order: null,
-};
 
 export const getLocal = () => getLocalStorage(storageKey);
 export const setLocal = (obj) => setLocalStorage(storageKey, { ...getLocal(), ...obj });

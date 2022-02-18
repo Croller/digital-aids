@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { showMessage } from 'client/ui/components/_ui/Message';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';

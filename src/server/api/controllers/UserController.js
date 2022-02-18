@@ -102,14 +102,14 @@ const UserController = () => {
 
   const update = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
-    if (tokenData) {
+    const { data } = req.body;
+    if (tokenData && data.id) {
       try {
-        const { data = null } = req.body;
         const user = await queryUtils.updateTableRecord('data_users', data || tokenData, {
           req,
           res,
           language: 'en', 
-          user: tokenData.user,
+          user: tokenData,
         });
         const token = jwt.generateToken(user);
         delete user.password;
