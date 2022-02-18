@@ -60,7 +60,7 @@
 
 -- INSERT INTO data_users (login, password, role, enter_at) VALUES ('view', 'view', '2', '2020-10-28T10:01:11.258')
 -- SELECT * FROM data_users;
-
+-- SELECT * FROM pg_get_keywords();
 -- create extension postgis;
 
 -- ALTER TABLE data_krt_monitoring ADD COLUMN project int;
@@ -78,7 +78,7 @@
 
 -- ALTER TABLE users ADD COLUMN enter_at int;
 -- ALTER TABLE data_users ALTER COLUMN phone TYPE BIGINT
--- ALTER TABLE data_dishes RENAME count TO dish_number;
+-- ALTER TABLE data_roles RENAME user_id TO user;
 -- ALTER TABLE dictionary_dictionary_translate RENAME TO dictionary_translate;
 -- ALTER TABLE my_table ADD COLUMN the_geom_mercator geometry(Geometry,3857);
 -- ALTER TABLE data_krt DROP COLUMN IF EXISTS geom;
@@ -93,7 +93,7 @@
 
 -- UPDATE triptrick.users SET enter_at = CURRENT_TIMESTAMP WHERE id = 1;
 
--- DELETE FROM data_users WHERE id = 'd284071f-b1ce-4675-a16b-31db5c1d471c';
+-- DELETE FROM data_users WHERE login = 'test';
 
 -- INSERT INTO "Parcels"("Name", the_geom)
 --     VALUES ('Corrected_Shape', 

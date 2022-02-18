@@ -1,12 +1,10 @@
 const db = require('../services/db');
 const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
-const queryUtils = require('../utils/query');
 const commonUtils = require('../utils/common');
 
 const UserController = () => {
-  let query = '';
-  let results = null;
+  let results = '';
 
   const auth = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
@@ -23,28 +21,19 @@ const UserController = () => {
     const {
       login,
       password,
-      language = 'en',
     } = req.body.data;
     const meta = commonUtils.getMeta(req);
 
     try {
-      query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
-      results = await db.queryValues(query, [login, password]);
-
-      if (results.rows.length === 1) {
-        const user = results.rows[0];
-        user.meta = meta;
+      results = await db.knex('data_users').where({ login, password });
+      if (results.length === 1) {
+        const user = { ...results[0], meta };
         const { is_deleted, is_archived } = user;
         if (!is_deleted && !is_archived) {
-          await queryUtils.updateTableRecord('data_users', user, {
-            req,
-            res,
-            language,
-            user,
-          });
-          user.token = jwt.generateToken(user);
-          delete user.password;
-          res.json(user);
+          const token = jwt.generateToken(user);
+          res.json({ ...user, token });
+
+          await db.knex('logs_users').insert(user);
         } else {
           res.status(201);
           res.json(commonUtils.setError('userDatanNotCorrect', 'User data is not correct'));
@@ -61,29 +50,20 @@ const UserController = () => {
 
   const signup = async (req, res) => {
     try {
-      const { data } = req.body;
-      const { login, email } = data;
-      query = 'SELECT * FROM data_users WHERE login=$1 OR email=$2';
-      results = await db.queryValues(query, [login, email]);
+      const { user, mail } = req.body.data;
+      const { login, email } = user;
 
-      if (results.rows.length === 0) {
-        const mapper = ['login', 'password', 'email'].reduce((obj, key) => ({
-          fields: [...obj.fields, key],
-          values: [...obj.values, data[key]],
-        }), { fields: [], values: [] });
+      results = await db.knex('data_users').where({ login, email });
+      if (results.length === 0) {
+        results = await db.knex('data_users').insert(user).returning('*');
+        const created = results[0]; 
 
-        query = `INSERT INTO data_users (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-        results = await db.queryValues(query, mapper.values);
-        const user = results.rows[0];
-
-        query = 'INSERT INTO data_roles (user_id, access) VALUES ($1, $2) RETURNING *';
-        await db.queryValues(query, [user.id, '{"guest", "account"}']);
-
+        await db.knex('data_roles').insert({ user_id: created.id, access: ['guest', 'account'] }).select();
         try {
-          const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...user, is_confirmed: true })}`;
-          req.body.data.body = req.body.data.body.replace('confirm_link', link);
+          const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...created, is_confirmed: true })}`;
+          mail.body = mail.body.replace('confirm_link', link);
 
-          results = await mailer.send(req.body.data);
+          results = await mailer.send({ ...mail, to: email });
           res.json(results);
         } catch (err) {
           res.status(201);
@@ -105,15 +85,11 @@ const UserController = () => {
     const { data } = req.body;
     if (tokenData && data.id) {
       try {
-        const user = await queryUtils.updateTableRecord('data_users', data || tokenData, {
-          req,
-          res,
-          language: 'en', 
-          user: tokenData,
-        });
-        const token = jwt.generateToken(user);
-        delete user.password;
-        res.json({ ...user, token });
+        results = await db.knex('data_users').where({ id: data.id }).update(data).returning('*');
+        const updated = results[0];
+        const token = jwt.generateToken(updated);
+        delete updated.password;
+        res.json({ ...updated, token });
       } catch (err) {
         res.status(201);
         res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
@@ -126,17 +102,14 @@ const UserController = () => {
 
   const reset = async (req, res) => {
     try {
-      const { email } = req.body.data;
-      query = 'SELECT * FROM data_users WHERE email=$1';
-      results = await db.queryValues(query, [email]);
-
-      if (results.rows.length === 1) {
+      const { user, mail } = req.body.data;
+      const { email } = user;
+      results = await db.knex('data_users').where({ email });
+      if (results.length === 1) {
         const password = commonUtils.getStringRandom(7);
-        query = 'UPDATE data_users SET password=$1 WHERE email=$2';
-        results = await db.queryValues(query, [password, email]);
-
-        req.body.data.body = req.body.data.body.replace('new_password', password);
-        await mailer.send(req.body.data);
+        results = await db.knex('data_users').where({ email }).update({ password }).returning('*');
+        mail.body = mail.body.replace('new_password', password);
+        await mailer.send({ ...mail, to: email });
         res.json(commonUtils.setError());
       } else {
         res.status(201);

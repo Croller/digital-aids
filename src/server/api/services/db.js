@@ -1,3 +1,4 @@
+const knexjs = require('knex');
 const { Client } = require('pg');
 
 const CONFIG = {
@@ -25,7 +26,29 @@ db.connect()
   .then(() => console.log(`DataBase listen on port: ${process.env.HOST_DB_PORT}`))
   .catch((err) => console.log('DataBase connect error:', err.message));
 
+// verify connection configuration
+const knex = knexjs({
+  client: 'pg',
+  connection: CONFIG,
+  debug: true,
+  log: {
+    warn(message) {
+      console.log('warn', message);
+    },
+    error(message) {
+      console.log('error', message);
+    },
+    deprecate(message) {
+      console.log('deprecate', message);
+    },
+    debug(message) {
+      console.log('debug', message);
+    },
+  },
+});
+
 module.exports = {
+  knex,
   query: str => new Promise((resolve, reject) => {
     console.log('DataBase query:', str);
     db.query(str)

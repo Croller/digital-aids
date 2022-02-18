@@ -45,10 +45,9 @@ const verifyToken = async (req) => {
     const isExpired = moment().diff(moment(enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds') > expireTime;
     if (isExpired) return { user, ...commonUtils.setError('tokenIsExpired', 'Token is expired') };
     try {
-      const query = 'SELECT * FROM data_users WHERE login=$1 AND password=$2';
-      const results = await db.queryValues(query, [login, password]);
-      if (results.rows.length === 1) {
-        return results.rows[0];
+      const results = await db.knex('data_users').where({ login, password });
+      if (results.length === 1) {
+        return results[0];
       }
       commonUtils.setError('userNotFound', 'User not found');
       return null;

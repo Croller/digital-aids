@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS logs_users (
   birthdate TIMESTAMP with time zone DEFAULT NULL,
   phone VARCHAR DEFAULT NULL,
   email VARCHAR DEFAULT NULL,
-  language_id VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_languages
+  language VARCHAR DEFAULT NULL, -- DICTIONARY dictionary_languages
   meta jsonb DEFAULT NULL,
   is_confirmed BOOLEAN DEFAULT NULL,
   is_deleted BOOLEAN DEFAULT NULL,

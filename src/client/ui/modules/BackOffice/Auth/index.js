@@ -29,20 +29,25 @@ const Auth = memo(() => {
   const rule = rules(t);
 
   const onFinish = (values) => {
+    const user = values;
     formKey === 'auth' && rootDispatch(login(values));
     formKey === 'reg' && rootDispatch(registration({
-      ...values,
-      type: formKey,
-      html: true,
-      subject: t('common.account.mail.registration.subject'),
-      body: t('common.account.mail.registration.text'),
+      user,
+      mail: {
+        type: formKey,
+        html: true,
+        subject: t('common.account.mail.registration.subject'),
+        body: t('common.account.mail.registration.text'),
+      },
     }));
     formKey === 'reset' && rootDispatch(reset({
-      ...values,
-      type: formKey,
-      html: true,
-      subject: t('common.account.mail.restore.subject'),
-      body: t('common.account.mail.restore.text'),
+      user,
+      mail: {
+        type: formKey,
+        html: true,
+        subject: t('common.account.mail.restore.subject'),
+        body: t('common.account.mail.restore.text'),
+      },
     }));
   };
 

@@ -16,7 +16,7 @@ const getEmail = (type = null) => {
 const send = async (data) => {
   const {
     from = `"Digital Aids" <${getEmail(data.type)}>`,
-    email = null,
+    to = null,
     subject = null,
     files = null,
     html = false, // true for html emails
@@ -25,7 +25,7 @@ const send = async (data) => {
 
   const mailOptions = {
     from,
-    to: email,
+    to,
     subject: `Digital Aids - ${subject}`,
     ...(html ? { html: body } : { text: body }),
     ...(files && {
