@@ -1,12 +1,4 @@
-export const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
-export const getLocalStorage = (key) => (JSON.parse(localStorage.getItem(key)));
-export const removeLocalStorage = (key) => localStorage.removeItem(key);
-
-// ------------------------------------------------------------------------------------------------------------------------
-// func custom
-
 const storageKey = process.env.LOCAL_STORAGE_KEY;
-
 const restaurantSetting = {
   opinionSend: false,
   offersViewed: [],
@@ -14,26 +6,32 @@ const restaurantSetting = {
   order: null,
 };
 
+// ------------------------------------------------------------------------------------------------------------------------
+// func default
+
+export const setLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+export const getLocalStorage = (key) => (JSON.parse(localStorage.getItem(key)));
+export const removeLocalStorage = (key) => localStorage.removeItem(key);
+
+// ------------------------------------------------------------------------------------------------------------------------
+// func custom
+
 export const getLocal = () => getLocalStorage(storageKey);
-
-export const setLocal = (obj) => setLocalStorage(storageKey, obj);
-
+export const setLocal = (obj) => setLocalStorage(storageKey, { ...getLocal(), ...obj });
 export const initLocal = () => {
-  const exist = getLocal();
-  if (!exist) {
-    setLocal({
-      user: {
-        lng: 'en',
-        cookies: false,
-        token: null,
-        enter_at: null,
-        check18: false,
-        checkDaily: false,
-        position: 'guest',
-      },
-      restaurant: {},
-    });
-  }
+  const storageEmpty = getLocal() || {
+    token: null,
+    lng: 'en',
+    positions: 'guest',
+    checked: {
+      cookies: false,
+      age: false,
+      daily: false,
+    },
+    restaurant: {},
+  };
+  setLocal(storageEmpty);
+  return storageEmpty;
 };
 
 export const setOfferViewed = (key, offer = null, callback = () => {}) => {
@@ -53,27 +51,6 @@ export const setOfferViewed = (key, offer = null, callback = () => {}) => {
       },
     });
     callback();
-  }
-};
-
-export const getLocalUser = () => {
-  const local = getLocalStorage(storageKey);
-  if (local) {
-    return local.user;
-  }
-  return null;
-};
-
-export const setLocalUser = (obj) => {
-  const local = getLocalStorage(storageKey);
-  if (local) {
-    setLocalStorage(storageKey, {
-      ...local,
-      user: {
-        ...local.user,
-        ...obj,
-      },
-    });
   }
 };
 

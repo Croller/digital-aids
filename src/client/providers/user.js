@@ -1,6 +1,7 @@
 import { get, post } from 'client/providers/fetch';
 import { detect } from 'detect-browser';
 
+const meta = { browser: detect() };
 const headers = ({
   token = null,
   language = null,
@@ -10,7 +11,7 @@ const headers = ({
 });
 
 export const signin = async (data) => {
-  const results = await post('user/signin', { data: { ...data, browser: { ...detect() } } });
+  const results = await post('user/signin', { data: { ...data, meta } });
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 
@@ -26,7 +27,7 @@ export const auth = async ({ token }) => {
 };
 
 export const signup = async (data) => {
-  const results = await post('user/signup', { data });
+  const results = await post('user/signup', { data: { ...data, meta } });
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 
@@ -34,7 +35,7 @@ export const signup = async (data) => {
 };
 
 export const reset = async (data) => {
-  const results = await post('user/reset', { data });
+  const results = await post('user/reset', { data: { ...data, meta } });
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 
@@ -42,7 +43,7 @@ export const reset = async (data) => {
 };
 
 export const update = async ({ token, data }) => {
-  const results = await post('user/update', { data }, headers({ token }));
+  const results = await post('user/update', { data: { ...data, meta } }, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 

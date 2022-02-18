@@ -3,54 +3,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { login, auth, set } from 'client/store/user';
 import translate from 'client/i18n';
-import moment from 'moment';
 import {
   initLocal,
-  getLocalUser,
-  setLocalUser,
+  setLocal,
 } from 'client/utils/localStorage';
 
 const PATH = '/back-office';
 
 export const InfoUser = () => {
-  const lng = navigator.language || navigator.userLanguage || 'en-EN';
-  const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
   const rootDispatch = useDispatch();
   const history = useHistory();
   const { pathname } = useLocation();
   const [initUrl, setInitUrl] = useState(null);
-  const [storage, setStorage] = useState({
-    user: {
-      lng: lng.slice(0, 2),
-      cookies: false,
-      token: null,
-      enter_at: null,
-      check18: false,
-      checkDaily: false,
-    },
-    restaurant: {},
-  });
   const { info } = useSelector(s => s.user);
-  const { token, enter_at } = info;
+  const { token } = info;
 
   const initStorage = () => {
-    const localUser = getLocalUser() || storage;
-    translate.changeLanguage(localUser.lng);
-    localUser.token = localUser.token || token;
-    localUser.enter_at = localUser.enter_at || enter_at;
+    const storage = initLocal();
+    translate.changeLanguage(info.lng);
 
-    setLocalUser({ token, enter_at });
-    setStorage({ ...storage, user: localUser });
+    setLocal({ token });
     setInitUrl(pathname);
 
-    if (token && localUser.enter_at && enter_at && !initUrl) {
-      const diffEnterTime = moment().diff(moment(localUser.enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds');
-      rootDispatch(set({ info: { ...info, token: (diffEnterTime > expireTime ? null : token) } }));
-      return null;
-    }
-
-    if (localUser.token && !token && [PATH].some(f => pathname.indexOf(f) > -1)) {
-      rootDispatch(auth({ token: localUser.token, language: localUser.lng }));
+    if ((storage.token || token) && [PATH].some(f => pathname.indexOf(f) > -1)) {
+      rootDispatch(auth({ token: storage.token }));
       return null;
     }
     
@@ -58,7 +34,6 @@ export const InfoUser = () => {
       rootDispatch(login({
         login: process.env.GUEST_LOGIN,
         password: process.env.GUEST_PASSWORD,
-        language: localUser.lng,
       }));
       return null;
     }
@@ -67,24 +42,14 @@ export const InfoUser = () => {
       rootDispatch(login({
         login: process.env.ROOT_LOGIN,
         password: process.env.ROOT_PASSWORD,
-        language: localUser.lng,
       }));
       return null;
     }
   };
 
-  const updateStorage = () => {
-    const local = { ...storage };
-    local.user.token = token;
-    local.user.enter_at = enter_at;
-    setLocalUser(local.user);
-    setStorage(local);
-  };
-
   const logout = () => {
-    const localUser = getLocalUser();
-    rootDispatch(set({ info: { ...info, token } }));
-    setLocalUser({ ...localUser, token: null, enter_at: null });
+    rootDispatch(set({ info: { ...info, token: null } }));
+    setLocal({ token: null });
   };
   
   useEffect(() => {
@@ -101,7 +66,7 @@ export const InfoUser = () => {
   useEffect(() => {
     if (token && initUrl) {
       const url = initUrl.indexOf('auth') > -1 ? `${PATH}/restaurants` : initUrl;
-      updateStorage();
+      setLocal({ token });
       history.push(url);
     }
     if (info.login === process.env.GUEST_LOGIN && pathname.indexOf(PATH) > -1) {

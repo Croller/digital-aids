@@ -11,7 +11,7 @@ const ExternalController = () => {
   let results = null;
 
   const getCoordsByAddress_Google = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (!tokenData) return;
     try {
       const data = req.query;
@@ -30,7 +30,7 @@ const ExternalController = () => {
   };
 
   const getAddressByCoords_Google = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (!tokenData) return;
     try {
       const data = req.query;
@@ -49,7 +49,7 @@ const ExternalController = () => {
   };
 
   const getTextTranslate_Google = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (!tokenData) return;
     try {
       const data = req.query;
@@ -68,7 +68,7 @@ const ExternalController = () => {
   };
 
   const getGeolocation_Google = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (!tokenData) return;
     try {
       results = await google.getGeolocation();

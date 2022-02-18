@@ -15,7 +15,7 @@ const CommonController = () => {
   let results = null;
   
   const getTableByNames = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
     if (!tokenData) return;
@@ -60,32 +60,33 @@ const CommonController = () => {
   };
 
   const getTableRecordById = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
-    if (!tokenData) return;
-    try {
-      const { name } = req.params;
-      const { data } = req.query;
-      const arr = data.split(',');
-      if (Array.isArray(arr)) {
-        query = `SELECT * FROM ${name} WHERE id = ANY ($1) AND is_deleted=FALSE`;
-        values = [arr];
-      } else {
-        query = `SELECT * FROM ${name} WHERE id=($1) AND is_deleted=FALSE`;
-        values = [data];
+    const tokenData = await jwt.verifyToken(req);
+    if (tokenData) {
+      try {
+        const { name } = req.params;
+        const { data } = req.query;
+        const arr = data.split(',');
+        if (Array.isArray(arr)) {
+          query = `SELECT * FROM ${name} WHERE id = ANY ($1) AND is_deleted=FALSE`;
+          values = [arr];
+        } else {
+          query = `SELECT * FROM ${name} WHERE id=($1) AND is_deleted=FALSE`;
+          values = [data];
+        }
+        const result = await db.queryValues(query, values);
+        res.json(result.rows);
+      } catch (err) {
+        res.status(201);
+        res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
       }
-      const result = await db.queryValues(query, values);
-      res.json(result.rows);
-    } catch (err) {
-      error.name = 'Query error';
-      error.id = 'queryError';
-      error.text = JSON.stringify(err.message);
+    } else {
       res.status(201);
-      res.json({ error });
+      res.json(tokenData);
     }
   };
 
   const getTableRecordByParam = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
 
@@ -118,7 +119,7 @@ const CommonController = () => {
   };
 
   const updateTableRecord = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     const header = commonUtils.getHeader(req);
     const language = header['accept-language'];
     if (!tokenData) return null;
@@ -146,7 +147,7 @@ const CommonController = () => {
   };
 
   const deleteTableRecord = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (!tokenData) return;
     try {
       const { name } = req.params;
@@ -166,7 +167,7 @@ const CommonController = () => {
   };
 
   const deleteFile = async (req, res) => {
-    const tokenData = await jwt.verifyToken(req, res);
+    const tokenData = await jwt.verifyToken(req);
     if (!tokenData) return;
     try {
       const { data } = req.body;
@@ -198,5 +199,4 @@ const CommonController = () => {
   };
 };
 
-module.exports = CommonController;  
-
+module.exports = CommonController;

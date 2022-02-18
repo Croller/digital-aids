@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { UserCircleSvg } from 'client/assets/images';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import {
   login,

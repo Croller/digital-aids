@@ -1,5 +1,6 @@
-{
+module.exports = {
   "extends": "stylelint-config-recommended",
+  "plugins": ["stylelint-prettier"],  
   "rules": {
     "block-closing-brace-empty-line-before": null,
     "block-closing-brace-newline-after": null,

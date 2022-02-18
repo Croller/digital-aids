@@ -1,35 +1,37 @@
-DROP TABLE IF EXISTS data_users;
-DROP TABLE IF EXISTS logs_users;
-DROP TABLE IF EXISTS data_roles;
-DROP TABLE IF EXISTS logs_roles;
-DROP TABLE IF EXISTS data_restaurants;
-DROP TABLE IF EXISTS logs_restaurants;
-DROP TABLE IF EXISTS data_categories;
-DROP TABLE IF EXISTS data_categories_translate;
-DROP TABLE IF EXISTS logs_categories_translate;
-DROP TABLE IF EXISTS logs_categories;
-DROP TABLE IF EXISTS data_dishes;
-DROP TABLE IF EXISTS data_dishes_translate;
-DROP TABLE IF EXISTS logs_dishes_translate;
-DROP TABLE IF EXISTS logs_dishes;
-DROP TABLE IF EXISTS data_reserve;
-DROP TABLE IF EXISTS data_opinions;
-DROP TABLE IF EXISTS data_orders;
-DROP TABLE IF EXISTS logs_orders;
-DROP TABLE IF EXISTS data_notify;
-DROP TABLE IF EXISTS logs_notify;
-DROP TABLE IF EXISTS dictionary_currency;
-DROP TABLE IF EXISTS dictionary_currency_translate;
-DROP TABLE IF EXISTS dictionary_languages;
-DROP TABLE IF EXISTS dictionary_languages_translate;
-DROP TABLE IF EXISTS dictionary_allergens;
-DROP TABLE IF EXISTS dictionary_allergens_translate;
-DROP TABLE IF EXISTS dictionary_units;
-DROP TABLE IF EXISTS dictionary_units_translate;
-DROP TABLE IF EXISTS dictionary_days;
-DROP TABLE IF EXISTS dictionary_days_translate;
-DROP TABLE IF EXISTS dictionary_access;
-DROP TABLE IF EXISTS dictionary_access_translate;
+-- DROP TABLE IF EXISTS data_users;
+-- DROP TABLE IF EXISTS logs_users;
+-- DROP TABLE IF EXISTS data_roles;
+-- DROP TABLE IF EXISTS logs_roles;
+-- DROP TABLE IF EXISTS data_restaurants;
+-- DROP TABLE IF EXISTS logs_restaurants;
+-- DROP TABLE IF EXISTS data_categories;
+-- DROP TABLE IF EXISTS logs_categories;
+-- DROP TABLE IF EXISTS data_categories_translate;
+-- DROP TABLE IF EXISTS logs_categories_translate;
+-- DROP TABLE IF EXISTS data_dishes;
+-- DROP TABLE IF EXISTS logs_dishes;
+-- DROP TABLE IF EXISTS data_dishes_translate;
+-- DROP TABLE IF EXISTS logs_dishes_translate;
+-- DROP TABLE IF EXISTS data_reserve;
+-- DROP TABLE IF EXISTS logs_reserve;
+-- DROP TABLE IF EXISTS data_opinions;
+-- DROP TABLE IF EXISTS logs_opinions;
+-- DROP TABLE IF EXISTS data_orders;
+-- DROP TABLE IF EXISTS logs_orders;
+-- DROP TABLE IF EXISTS data_notify;
+-- DROP TABLE IF EXISTS logs_notify;
+-- DROP TABLE IF EXISTS dictionary_currency;
+-- DROP TABLE IF EXISTS dictionary_currency_translate;
+-- DROP TABLE IF EXISTS dictionary_languages;
+-- DROP TABLE IF EXISTS dictionary_languages_translate;
+-- DROP TABLE IF EXISTS dictionary_allergens;
+-- DROP TABLE IF EXISTS dictionary_allergens_translate;
+-- DROP TABLE IF EXISTS dictionary_units;
+-- DROP TABLE IF EXISTS dictionary_units_translate;
+-- DROP TABLE IF EXISTS dictionary_days;
+-- DROP TABLE IF EXISTS dictionary_days_translate;
+-- DROP TABLE IF EXISTS dictionary_access;
+-- DROP TABLE IF EXISTS dictionary_access_translate;
 
 -------------------------- TEMP QUERY --------------------------
 
@@ -76,7 +78,7 @@ DROP TABLE IF EXISTS dictionary_access_translate;
 
 -- ALTER TABLE users ADD COLUMN enter_at int;
 -- ALTER TABLE data_users ALTER COLUMN phone TYPE BIGINT
--- ALTER TABLE data_krt_confirm RENAME disctrict TO district;
+-- ALTER TABLE data_dishes RENAME count TO dish_number;
 -- ALTER TABLE dictionary_dictionary_translate RENAME TO dictionary_translate;
 -- ALTER TABLE my_table ADD COLUMN the_geom_mercator geometry(Geometry,3857);
 -- ALTER TABLE data_krt DROP COLUMN IF EXISTS geom;
@@ -91,7 +93,7 @@ DROP TABLE IF EXISTS dictionary_access_translate;
 
 -- UPDATE triptrick.users SET enter_at = CURRENT_TIMESTAMP WHERE id = 1;
 
--- DELETE FROM triptrick.users WHERE id = 2;
+-- DELETE FROM data_users WHERE id = 'd284071f-b1ce-4675-a16b-31db5c1d471c';
 
 -- INSERT INTO "Parcels"("Name", the_geom)
 --     VALUES ('Corrected_Shape', 

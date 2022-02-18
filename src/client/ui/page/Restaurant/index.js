@@ -4,10 +4,10 @@ import { init, set } from 'client/store/restaurant';
 import * as userStore from 'client/store/user';
 import { getUrlOrder } from 'client/utils/restaurant';
 import {
+  getLocal,
+  setLocal,
   getLocalRestaurant,
-  getLocalUser,
   setLocalRestaurant,
-  setLocalUser,
 } from 'client/utils/localStorage';
 import {
   Route,
@@ -37,6 +37,7 @@ const Receipt = lazy(() => import('client/ui/modules/Restaurant/Receipt'));
 
 export const Restaurant = () => {
   const history = useHistory();
+  const localStorage = getLocal();
   const { pathname } = useLocation();
   const rootDispatch = useDispatch();
   const state = useSelector(s => s);
@@ -58,11 +59,10 @@ export const Restaurant = () => {
     if (restaurant.info && restaurant.info.id) {
       const { dishes, categories } = restaurant;
       const localRest = getLocalRestaurant(restaurant.info.key);
-      const localUser = getLocalUser();
       let order = localRest.order ? getUrlOrder(localRest.order, dishes, categories) : null;
 
       let table_number = localRest.table_number || 0;
-      let position = localUser.position || 'guest';
+      let position = localStorage?.position || 'guest';
       if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
         const [path, number] = href.split('&table_number=');
         order = getUrlOrder(path.split('?params=')[1], dishes, categories);
@@ -80,7 +80,7 @@ export const Restaurant = () => {
       }
       rootDispatch(userStore.set({ position }));
       rootDispatch(set({ table_number, order }));
-      setLocalUser({ position });
+      setLocal({ position });
       setLocalRestaurant(restaurant.info.key, { table_number });
     }
   }, [restaurant.info]);

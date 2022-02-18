@@ -23,6 +23,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { user: { info }, backOffice } = yield select((store) => store);
   const { token } = info;
+
   try {
     const dictionaries = [
       'dictionary_currency',
@@ -33,14 +34,14 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
     ];
 
     let results_dictionary = backOffice.dictionary;
-    // if (!results_dictionary) {
-    results_dictionary = yield commonProvider.loadTable({
-      token,
-      language,
-      data: dictionaries,
-    });
-    results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
-    // }
+    if (!ids || (ids && ids.length > 0)) {
+      results_dictionary = yield commonProvider.loadTable({
+        token,
+        language,
+        data: dictionaries,
+      });
+      results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
+    }
 
     let results_restaurants = [];
     if (!ids) {
@@ -259,7 +260,7 @@ export function* watchAndLog() {
       let ids = null;
       if (roles && token) {
         if (!getAccess({ role: 'root', roles })) {
-          ids = roles.map(m => m.project_id);
+          ids = roles.map(m => m.project_id).filter((f) => f);
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
       }

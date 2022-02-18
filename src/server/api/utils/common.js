@@ -2,6 +2,7 @@
 const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
+const geoip = require('geoip-lite');
 
 const staticPath = process.env.SERVER_STORAGE;
 
@@ -10,6 +11,22 @@ const getEnv = () => {
     return false;
   }
   return true;
+};
+
+const setError = (id = null, name = null, text = null) => {
+  const error = !id ? null : { id, name, text };
+  if (id) console.error('Error:', error);
+  return { error };
+};
+
+const getMeta = (req) => {
+  const { browser } = req.body.data.meta;
+  delete browser.type;
+
+  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  ip = ip.replace('::ffff:', '');
+  const geo = geoip.lookup(getEnv() ? ip : '83.220.237.49');
+  return { browser, ip, geo };
 };
 
 const get = async (url = null) => {
@@ -30,13 +47,6 @@ const post = async (url = null, data = null) => {
   } catch (err) {
     return new Error(err);
   }
-};
-
-const getMailAddress = (type = null) => {
-  if (type && ['registration', 'restore'].includes(type)) {
-    return `support@${process.env.HOST}`;
-  }
-  return `info@${process.env.HOST}`;
 };
 
 const getStringRandom = (length = 15) => {
@@ -93,7 +103,8 @@ module.exports = {
   get,
   post,
   getEnv,
-  getMailAddress,
+  setError,
+  getMeta,
   getStringRandom,
   getHeader,
   fileRead,

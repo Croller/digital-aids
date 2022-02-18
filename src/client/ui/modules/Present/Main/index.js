@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useModal } from 'react-modal-hook';
 import { CookiesModal } from 'client/ui/components/_block/Modal/Cookies';
-import { setLocalUser, getLocalUser } from 'client/utils/localStorage';
+import { setLocal, getLocal } from 'client/utils/localStorage';
 import { useTranslation } from 'react-i18next';
 import { BREAKPOINTS } from 'client/style/constants';
 import { Helmet } from 'react-helmet';
@@ -100,6 +100,7 @@ const CLIENT_ICONS = {
 const Main = () => {
   const refCarousel = useRef();
   const history = useHistory();
+  const { checked } = getLocal();
   const [t] = useTranslation();
   const [carausel, setCarousel] = useState({
     dots: false,
@@ -119,7 +120,8 @@ const Main = () => {
   ));
 
   const handleSetCookies = () => {
-    setLocalUser({ cookies: true });
+    checked.cookies = true;
+    setLocal({ checked });
   };
 
   // const handleChnageLng = (lng) => {
@@ -141,8 +143,7 @@ const Main = () => {
   };
 
   useEffect(() => {
-    const local = getLocalUser();
-    if (!local.cookies) {
+    if (!localStorage?.checked?.cookies) {
       showCookies();
     }
     

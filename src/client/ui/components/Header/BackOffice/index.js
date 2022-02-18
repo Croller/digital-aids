@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
 import { set } from 'client/store/user';
 import {
@@ -42,7 +42,7 @@ const HeaderComponent = ({
     if (lng) {
       const lngBefore = i18n.language;
       translate.changeLanguage(lng);
-      setLocalUser({ lng });
+      setLocal({ lng });
       rootDispatch(set({ info: { ...info, language: lng } }));
 
       if (pathname.indexOf('/language') > -1) {
