@@ -7,7 +7,7 @@ const signature = process.env.SERVER_AUTH_SECRET;
 const expiration = process.env.SERVER_AUTH_TIME;
 const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
 
-const geToken = (headers) => {
+const getToken = (headers) => {
   if (!headers.authorization) return null;
   const [, token] = headers.authorization.split(' ');
   return token.length > 0 ? token : null;
@@ -19,7 +19,7 @@ const generateToken = (obj = null) => {
 };
 
 const decodeToken = (req) => {
-  const token = geToken(req.headers);
+  const token = getToken(req.headers);
   if (token) {
     try {
       const data = jwt.verify(token, signature);
@@ -56,7 +56,7 @@ const verifyToken = async (req) => {
 };
 
 module.exports = {
-  geToken,
+  getToken,
   generateToken,
   decodeToken,
   verifyToken,

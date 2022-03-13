@@ -26,7 +26,7 @@ export const Hr = styled.hr`
 export const Menu = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 32px 0 0 35px;
+  margin: 36px 0 0 35px;
 
   &:last-child {
     margin-top: auto;

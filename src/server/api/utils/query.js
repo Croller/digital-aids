@@ -13,8 +13,7 @@ const getTableAll = async () => {
 
 const getTables = async (names, options = {}) => {
   results = await Promise.all(names.map(async (name) => {
-    const filter = name.indexOf('data_') > -1 ? { is_deleted: false } : {};
-    const result = await db.knex(name).where({ ...filter, ...options });
+    const result = await db.knex(name).where({ ...options });
     return { [name]: result }; 
   }));
   return results.reduce((obj, arr) => ({ ...obj, ...arr }), {});
@@ -26,7 +25,7 @@ const getWordsPermit = async () => {
 };
 
 const getTableFields = async (table) => {
-  results = await isTableExist(table);
+  results = await existTable(table);
 
   if (!results) return null;
   results = await db.knex('information_schema.columns').where({ table_name: table });
@@ -57,24 +56,45 @@ const getTableStats = async (table) => {
   }
 };
 
-const isTableExist = async (table = null) => {
+const existTable = async (table = null) => {
   results = await db.knex('information_schema.tables').where({ table_name: table });
   return results.length !== 0;
 };
 
-const logTableRecord = async (table, id) => {
+const logRecord = async (table, id) => {
   if (table.indexOf('data_') > -1) {
     const logsTable = table.replace('data_', 'logs_');
-    const existTable = await isTableExist(logsTable);
-    if (existTable) {
-      const filtred = await db.knex(table).where({ id });
-      filtred.length === 1 && await db.knex(logsTable).insert(filtred[0]);
+    const filtred = await db.knex(table).where({ id });
+    const existT = await existTable(logsTable);
+    if (existT && filtred.length === 1) {
+      await db.knex(logsTable).insert(filtred[0]);
+      return true;
     }
   }
-  return null;
+  return false;
 };
 
-const searchTableRecord = async (table, data) => {
+const getRecordTranslate = async (table = null, records = null, language = 'en') => {
+  if (table && (records && records.length > 0) && language !== 'en') {
+    const tableTr = `${table}_translate`;
+    const ids = records.map(item => item.id);
+    const existT = await existTable(tableTr);
+    if (!existT) return records;
+
+    const resultsTr = await db.knex(tableTr).whereRaw('id = ANY (?) AND language = ?', [`{"${ids.join('", "')}"}`, language]);
+    if (resultsTr.length > 0) {
+      return records.map(item => {
+        const exist = resultsTr.find(tr => tr.id === item.id);
+        if (!exist) return item;
+        delete exist.language;
+        return { ...item, ...exist };
+      });
+    }
+  }
+  return records;
+};
+
+const searchRecord = async (table, data) => {
   try {
     results = await db.knex(table).where((bd) => {
       Object.keys(data).forEach((key, k) => {
@@ -108,7 +128,7 @@ const mapFields = (type) => {
   return mapper[typeEdit];
 };
 
-const updateTableRecord = async (table, data, language, user) => {
+const updateRecord = async (table, data, language, user) => {
   const source = { ...data };
   try {
     if ((source.files || source.images) && table.includes('data_')) {
@@ -145,7 +165,7 @@ const updateTableRecord = async (table, data, language, user) => {
       }
     } else {
       // update table logs before update 
-      logTableRecord(table, source.id);
+      logRecord(table, source.id);
       
       // update table with translate
       if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
@@ -156,8 +176,8 @@ const updateTableRecord = async (table, data, language, user) => {
 
         let updateTR = updatedDiff(tr_model, tr_data);
         let updateEN = { id: source.id, ...addedDiff(updateTR, tr_data) };
-        updateTR = await updateTableRecord(`${table}_translate`, { ...updateTR, language }, language, user);
-        updateEN = await updateTableRecord(table, updateEN, language, user);
+        updateTR = await updateRecord(`${table}_translate`, { ...updateTR, language }, language, user);
+        updateEN = await updateRecord(table, updateEN, language, user);
         delete updateTR.language;
 
         return { ...updateEN, ...updateTR };
@@ -197,9 +217,11 @@ module.exports = {
   getTableAll,
   getTables,
   getWordsPermit,
+  getTableFields,
   getTableStats,
-  isTableExist,
-  logTableRecord,
-  searchTableRecord,
-  updateTableRecord,
+  existTable,
+  logRecord,
+  getRecordTranslate,
+  searchRecord,
+  updateRecord,
 };

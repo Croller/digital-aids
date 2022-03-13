@@ -36,7 +36,7 @@ const UserController = () => {
         if (!is_deleted && !is_archived) {
           const token = jwt.generateToken(user);
           res.json({ ...user, token });
-          queryUtils.logTableRecord('data_users', user.id);
+          queryUtils.logRecord('data_users', user.id);
         } else {
           res.status(201);
           res.json(commonUtils.setError('userDatanNotCorrect', 'User data is not correct'));
