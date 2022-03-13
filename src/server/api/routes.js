@@ -7,11 +7,11 @@ const routes = {
 
   'GET /api/table': 'CommonController.getTables',
   'GET /api/table/:name/stats': 'CommonController.getTableStats',
-  'GET /api/table/:name/record': 'CommonController.getTableRecordById',
-  'POST /api/table/:name/record': 'CommonController.getTableRecordByParam',
-  'POST /api/table/:name/record/search': 'CommonController.searchTableRecord',
-  'PUT /api/table/:name/record/update': 'CommonController.updateTableRecord',
-  'POST /api/table/:name/record/delete': 'CommonController.deleteTableRecord',
+  'GET /api/table/:name/record': 'CommonController.getRecordById',
+  'POST /api/table/:name/record': 'CommonController.getRecordByParam',
+  'POST /api/table/:name/record/search': 'CommonController.searchRecord',
+  'PUT /api/table/:name/record/update': 'CommonController.updateRecord',
+  'DELETE /api/table/:name/record/delete': 'CommonController.deleteRecord',
   
   'POST /api/mailer/send': 'MailerController.send',
 

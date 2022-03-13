@@ -13,7 +13,7 @@ const headers = ({
   ...(language ? { 'Accept-Language': language } : {}),
 });
 
-export const loadTable = async ({
+export const getTables = async ({
   token,
   data,
   language = 'en',
@@ -25,7 +25,7 @@ export const loadTable = async ({
   return results;
 };
 
-export const loadRow = async ({
+export const getRecordById = async ({
   token,
   name,
   data,
@@ -38,7 +38,7 @@ export const loadRow = async ({
   return results;
 };
 
-export const loadRowByParam = async ({
+export const getRecordByParam = async ({
   token,
   name,
   data,
@@ -51,13 +51,26 @@ export const loadRowByParam = async ({
   return results;
 };
 
-export const update = async ({
+export const updateRecord = async ({
   token,
   name,
   data,
   language = 'en',
 }) => {
   const results = await put(`table/${name}/record/update`, { data }, headers({ token, language }));
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+};
+
+export const deleteRecord = async ({
+  token,
+  name,
+  data,
+  language = 'en',
+}) => {
+  const results = await remove(`table/${name}/record/delete`, { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

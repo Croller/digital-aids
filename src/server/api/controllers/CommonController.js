@@ -4,8 +4,6 @@ const commonUtils = require('../utils/common');
 const queryUtils = require('../utils/query');
 
 const CommonController = () => {
-  let query = '';
-  let values = [];
   let results = null;
   
   const getTables = async (req, res) => {
@@ -51,27 +49,13 @@ const CommonController = () => {
   };
 
   const getTableStats = async (req, res) => {
-    // TODO
-  };
-
-  const getTableRecordById = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
 
     if (tokenData) {
       try {
         const { name } = req.params;
-        const { data } = req.query;
-        const arr = data.split(',');
-
-        if (Array.isArray(arr)) {
-          query = `SELECT * FROM ${name} WHERE id = ANY ($1) AND is_deleted=FALSE`;
-          values = [arr];
-        } else {
-          query = `SELECT * FROM ${name} WHERE id=($1) AND is_deleted=FALSE`;
-          values = [data];
-        }
-        const result = await db.queryValues(query, values);
-        res.json(result.rows);
+        results = await queryUtils.getTableStats(name);
+        res.json(results);
       } catch (err) {
         res.status(201);
         res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
@@ -82,7 +66,31 @@ const CommonController = () => {
     }
   };
 
-  const getTableRecordByParam = async (req, res) => {
+  const getRecordById = async (req, res) => {
+    const tokenData = await jwt.verifyToken(req);
+
+    if (tokenData) {
+      try {
+        const { name } = req.params;
+        const { data } = req.query;
+        const arr = data.split(',');
+        if (data.indexOf(',') > -1 && arr.length > 1) {
+          results = await db.knex(name).whereRaw('id = ANY (?)', `{"${arr.join('", "')}"}`);
+        } else {
+          results = await db.knex(name).where({ id: data });
+        }
+        res.json(results);
+      } catch (err) {
+        res.status(201);
+        res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
+      }
+    } else {
+      res.status(201);
+      res.json(commonUtils.setError('tokenNotValid', 'Token not valid'));
+    }
+  };
+
+  const getRecordByParam = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
 
     if (tokenData) {
@@ -114,7 +122,7 @@ const CommonController = () => {
     }
   };
 
-  const updateTableRecord = async (req, res) => {
+  const updateRecord = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
     if (tokenData) {
       try {
@@ -123,7 +131,7 @@ const CommonController = () => {
         const language = req.headers['accept-language'];
         const arr = Array.isArray(data) ? data : [data];
         results = await Promise.all(arr.map(async (row) => {
-          const result = await queryUtils.updateTableRecord(name, row, language, tokenData);
+          const result = await queryUtils.updateRecord(name, row, language, tokenData);
           return result;
         }));
         res.json(results.filter(item => item));
@@ -137,7 +145,7 @@ const CommonController = () => {
     }
   };
 
-  const searchTableRecord = async (req, res) => {
+  const searchRecord = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
     const language = req.headers['accept-language'];
     
@@ -145,11 +153,11 @@ const CommonController = () => {
       try {
         const { name } = req.params;
         const { data } = req.body;
-        results = await searchTableRecord(name, data);
+        results = await searchRecord(name, data);
 
         if (results.length > 0) {
           results = await (async (row) => {
-            const result = await queryUtils.updateTableRecord(name, row, language, tokenData);
+            const result = await queryUtils.searchRecord(name, row, language, tokenData);
             return result;
           });
           return results;
@@ -165,18 +173,16 @@ const CommonController = () => {
     }
   };
 
-  const deleteTableRecord = async (req, res) => {
+  const deleteRecord = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
+    const language = req.headers['accept-language'];
 
     if (tokenData) {
       try {
         const { name } = req.params;
         const { data } = req.body;
-        const queryStr = Object.keys(data).map((key, k) => `${key}=($${k + 1})`).join(' AND ');
-        query = `DELETE FROM ${name} WHERE ${queryStr}`;
-        values = Object.keys(data).map(key => data[key]);
-        const result = await db.queryValues(query, values);
-        res.json(result.rows);
+        results = await queryUtils.updateRecord(name, { ...data, is_deleted: true }, language, tokenData);
+        res.json(results);
       } catch (err) {
         res.status(201);
         res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));
@@ -193,6 +199,7 @@ const CommonController = () => {
     if (tokenData) {
       try {
         const { data } = req.body;
+
         if (Array.isArray(data)) {
           await Promise.all(data.map(async (path) => {
             const prom = await commonUtils.moveFile(path);
@@ -215,11 +222,11 @@ const CommonController = () => {
   return {
     getTables,
     getTableStats,
-    getTableRecordById,
-    getTableRecordByParam,
-    updateTableRecord,
-    searchTableRecord,
-    deleteTableRecord,
+    getRecordById,
+    getRecordByParam,
+    updateRecord,
+    searchRecord,
+    deleteRecord,
     deleteFile,
   };
 };

@@ -4,7 +4,7 @@ import * as userProvider from 'client/providers/user';
 import * as commonProvider from 'client/providers/common';
 
 // function* getDictionary({ payload }) {
-//   const results_dictionary = yield commonProvider.loadRowByParam(payload);
+//   const results_dictionary = yield commonProvider.getRecordByParam(payload);
 //   yield put({
 //     type: Constants.USER_SET,
 //     payload: {
@@ -46,7 +46,7 @@ function* signin({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      const roles = yield commonProvider.loadRowByParam({
+      const roles = yield commonProvider.getRecordByParam({
         name: 'data_roles',
         token: data.token,
         language,
@@ -73,7 +73,7 @@ function* auth({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      const roles = yield commonProvider.loadRowByParam({
+      const roles = yield commonProvider.getRecordByParam({
         language,
         token: data.token,
         name: 'data_roles',

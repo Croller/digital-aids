@@ -32,7 +32,7 @@ const getTableFields = async (table) => {
   results = await db.knex('information_schema.columns').where({ table_name: table });
   
   if (results.length === 0) return null;
-  return results.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
+  return results.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
 };
 
 const getTableStats = async (table) => {
@@ -42,11 +42,17 @@ const getTableStats = async (table) => {
       const group = await db.knex(table).select(key).groupBy(key);
       return group;
     }));
-    return results.reduce((obj, result) => {
-      const key = Object.keys(result[0])[0];
-      return { ...obj, [key]: result.map(row => row[key]) };
+    return results.reduce((obj, { value }) => {
+      const key = Object.keys(value[0])[0];
+      const values = value.reduce((arr, row) => {
+        let val = Array.isArray(row[key]) ? row[key].reduce((oa, a) => [...oa, a], []) : [row[key]];
+        val = val.filter(v => !arr.some(s => s === v));
+        return [...arr, ...(val || [])];
+      }, []);
+      return { ...obj, [key]: values.sort((a, b) => a - b) };
     }, {});
   } catch (err) {
+    console.log('Stats error', JSON.stringify(err.message));
     return null;
   }
 };
@@ -156,6 +162,7 @@ const updateTableRecord = async (table, data, language, user) => {
 
         return { ...updateEN, ...updateTR };
       }
+      
       // insert/update for table with translate
       if (table.indexOf('_translate') > -1) {
         const resultTrExist = await db.knex(table).where({ id: source.id, language });

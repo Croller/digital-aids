@@ -35,7 +35,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
 
     let results_dictionary = backOffice.dictionary;
     if (!ids || (ids && ids.length > 0)) {
-      results_dictionary = yield commonProvider.loadTable({
+      results_dictionary = yield commonProvider.getTables({
         token,
         language,
         data: dictionaries,
@@ -45,11 +45,11 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
 
     let results_restaurants = [];
     if (!ids) {
-      results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
+      results_restaurants = yield commonProvider.getTables({ token, language, data: ['data_restaurants'] });
       results_restaurants = results_restaurants.data_restaurants.sort((a, b) => a.number - b.number);
     }
     if (ids && ids.length > 0) {
-      results_restaurants = yield commonProvider.loadRow({
+      results_restaurants = yield commonProvider.getRecordById({
         name,
         token,
         language,
@@ -64,7 +64,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
       results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
 
       const restaurants_ids = results_restaurants.map(({ id }) => id);
-      results_categories = yield commonProvider.loadRowByParam({
+      results_categories = yield commonProvider.getRecordByParam({
         name: 'data_categories',
         token,
         language,
@@ -72,7 +72,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
       });
       results_categories = results_categories.sort((a, b) => a.number - b.number);
     
-      results_dishes = yield commonProvider.loadRowByParam({
+      results_dishes = yield commonProvider.getRecordByParam({
         name: 'data_dishes',
         token,
         language,
@@ -108,7 +108,7 @@ function* updateRow({ payload }) {
   let status = 'saved';
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
-    const results = yield commonProvider.update({ ...payload, token }); 
+    const results = yield commonProvider.updateRecord({ ...payload, token }); 
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -117,7 +117,7 @@ function* updateRow({ payload }) {
       // update restaurant with create 2 default categories foodtips/special-deals
       if (name === 'data_restaurants' && !data.id) {
         status = 'created';
-        yield commonProvider.update({
+        yield commonProvider.updateRecord({
           name: 'data_categories',
           token,
           language,
@@ -135,7 +135,7 @@ function* updateRow({ payload }) {
       }, []);
       if (name === 'data_categories' && arr.length > 1 && children.length > 0) {
         status = 'created';
-        const arrChild = yield commonProvider.update({
+        const arrChild = yield commonProvider.updateRecord({
           name,
           token,
           language,
@@ -170,7 +170,7 @@ function* loadTables({ payload }) {
   const { token, language } = yield select((store) => store.user.info);
 
   try {
-    const results = yield commonProvider.loadTable({ token, language, data: names });
+    const results = yield commonProvider.getTables({ token, language, data: names });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -196,7 +196,7 @@ function* loadTableRows({ payload: { name, data } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { token, language } = yield select((store) => store.user.info);
   try {
-    const results = yield commonProvider.loadRowByParam({
+    const results = yield commonProvider.getRecordByParam({
       name,
       token,
       language,
