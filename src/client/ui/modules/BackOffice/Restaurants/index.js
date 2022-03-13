@@ -47,7 +47,11 @@ const Restaurants = () => {
 
   const getList = () => {
     if (!restaurants) return [];
-    return [...(searched || (filtred && filtred[isArchive]))];
+    return [...(searched || (filtred && filtred[isArchive]))].sort((a, b) => {
+      const c = new Date(b.change_at);
+      const d = new Date(a.change_at);
+      return c - d;
+    });
   };
 
   useEffect(() => {

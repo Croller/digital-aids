@@ -28,15 +28,16 @@ const UserController = () => {
 
     try {
       results = await db.knex('data_users').where({ login, password });
-
       if (results.length === 1) {
         const user = { ...results[0], meta };
+        const token = jwt.generateToken(user);
         const { is_deleted, is_archived } = user;
 
         if (!is_deleted && !is_archived) {
-          const token = jwt.generateToken(user);
+          await queryUtils.logRecord('data_users', user.id);
+          await db.knex('data_users').where({ id: user.id }).update({ change_at: new Date().toISOString(), change_user: user.id }).returning('*');
+
           res.json({ ...user, token });
-          queryUtils.logRecord('data_users', user.id);
         } else {
           res.status(201);
           res.json(commonUtils.setError('userDatanNotCorrect', 'User data is not correct'));
@@ -86,10 +87,11 @@ const UserController = () => {
 
   const update = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
-    const { data } = req.body;
 
-    if (tokenData && data.id) {
+    if (tokenData && req.body.data.id) {
       try {
+        const { data } = req.body;
+        await queryUtils.logRecord('data_users', data.id);
         results = await db.knex('data_users').where({ id: data.id }).update(data).returning('*');
         const updated = results[0];
         const token = jwt.generateToken(updated);
@@ -112,6 +114,7 @@ const UserController = () => {
       results = await db.knex('data_users').where({ email });
 
       if (results.length === 1) {
+        await queryUtils.logRecord('data_users', results[0].id);
         const password = commonUtils.getRandomString(7);
         results = await db.knex('data_users').where({ email }).update({ password }).returning('*');
         mail.body = mail.body.replace('new_password', password);

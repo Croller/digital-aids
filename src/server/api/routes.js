@@ -1,8 +1,8 @@
 const routes = {
   'GET /api/user/auth': 'UserController.auth',
   'POST /api/user/signin': 'UserController.signin',
-  'POST /api/user/signup': 'UserController.signup',
-  'PUT /api/user/update': 'UserController.update',
+  'PUT /api/user/signup': 'UserController.signup',
+  'POST /api/user/update': 'UserController.update',
   'POST /api/user/reset': 'UserController.reset',
 
   'GET /api/table': 'CommonController.getTables',
@@ -10,7 +10,7 @@ const routes = {
   'GET /api/table/:name/record': 'CommonController.getRecordById',
   'POST /api/table/:name/record': 'CommonController.getRecordByParam',
   'POST /api/table/:name/record/search': 'CommonController.searchRecord',
-  'PUT /api/table/:name/record/update': 'CommonController.updateRecord',
+  'POST /api/table/:name/record/update': 'CommonController.updateRecord',
   'GET /api/table/:name/record/history': 'CommonController.getRecordHistory',
   'DELETE /api/table/:name/record/delete': 'CommonController.deleteRecord',
   

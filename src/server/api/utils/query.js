@@ -149,9 +149,9 @@ const updateRecord = async (table, data, language, user) => {
     
     // insert/update for table without translate
     if (!source.id) {
-      const edited = { ...source };
+      const edited = { ...source, change_user: user.id, change_at: new Date().toISOString() };
       delete edited.id;
-      [results] = await db.knex(table).insert({ ...edited, change_user: user.id }).returning('*');
+      [results] = await db.knex(table).insert(edited).returning('*');
 
       // options create user roles for new restaurant
       if (table === 'data_restaurants') {
@@ -171,7 +171,7 @@ const updateRecord = async (table, data, language, user) => {
       if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
         let tr_model = await getTableFields(`${table}_translate`);
         tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});
-        const tr_data = { ...source };
+        const tr_data = { ...source, change_user: user.id, change_at: new Date().toISOString() };
         delete tr_data.images;
 
         let updateTR = updatedDiff(tr_model, tr_data);
@@ -187,12 +187,12 @@ const updateRecord = async (table, data, language, user) => {
       if (table.indexOf('_translate') > -1) {
         const resultTrExist = await db.knex(table).where({ id: source.id, language });
         if (resultTrExist.length === 0) {
-          [results] = await db.knex(table).insert(source).returning('*');
+          [results] = await db.knex(table).insert({ ...source, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
         }
       } else {
         // set logic select if langeage !== en
         const logicalTr = table.indexOf('_translate') > -1 && language !== 'en' ? { language } : {};
-        [results] = await db.knex(table).where({ ...logicalTr, id: source.id }).update(source).returning('*');
+        [results] = await db.knex(table).where({ ...logicalTr, id: source.id }).update({ ...source, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
       }
     }
     

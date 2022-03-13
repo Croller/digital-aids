@@ -111,7 +111,7 @@ const Restaurant = () => {
   const handleFinish = (values) => {
     const edited = dataToApi({ ...formData, ...values }, { ...model, id: params.restaurant !== 'new' ? params.restaurant : null });
     rootDispatch(update({ name: 'data_restaurants', data: edited }));
-    deletedFiles && rootDispatch(deleteFiles({ data: deletedFiles }));
+    deletedFiles.length > 0 && rootDispatch(deleteFiles({ data: deletedFiles }));
     setIsChange(false);
   };
 

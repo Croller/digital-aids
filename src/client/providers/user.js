@@ -27,7 +27,7 @@ export const auth = async ({ token }) => {
 };
 
 export const signup = async (data) => {
-  const results = await post('user/signup', { data: { ...data, meta } });
+  const results = await put('user/signup', { data: { ...data, meta } });
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 

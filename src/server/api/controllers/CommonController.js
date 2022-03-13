@@ -196,11 +196,11 @@ const CommonController = () => {
 
         if (Array.isArray(data)) {
           await Promise.all(data.map(async (path) => {
-            const prom = await commonUtils.moveFile(path);
+            const prom = await commonUtils.fileMove(path);
             return prom;
           }));
         } else {
-          await commonUtils.moveFile(data);
+          await commonUtils.fileMove(data);
         }
         res.json({});
       } catch (err) {
