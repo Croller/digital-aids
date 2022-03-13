@@ -1,4 +1,4 @@
-import { get, post } from 'client/providers/fetch';
+import { get, post, put } from 'client/providers/fetch';
 import { detect } from 'detect-browser';
 
 const meta = { browser: detect() };
@@ -43,7 +43,7 @@ export const reset = async (data) => {
 };
 
 export const update = async ({ token, data }) => {
-  const results = await post('user/update', { data: { ...data, meta } }, headers({ token }));
+  const results = await put('user/update', { data: { ...data, meta } }, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 

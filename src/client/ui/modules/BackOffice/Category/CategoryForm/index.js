@@ -159,6 +159,7 @@ export const CategoryForm = ({
     if (key !== 'close') {
       obj = dataFromToList({ ...formData, ...(params || {}) }, current, language);
     }
+
     hideConfirm();
     setEvent(null);
     setFormData(null);
@@ -274,7 +275,7 @@ export const CategoryForm = ({
             </FormItemStyled>
           </FormCol>
         </Form2Col>
-        {formData.type === 'daily' && (
+        {formData && formData.type === 'daily' && (
           <FormCol>
             <Form2Col>
               <FormCol>

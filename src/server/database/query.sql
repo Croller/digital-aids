@@ -60,7 +60,7 @@
 
 -- INSERT INTO data_users (login, password, role, enter_at) VALUES ('view', 'view', '2', '2020-10-28T10:01:11.258')
 -- SELECT * FROM data_users;
--- SELECT * FROM pg_get_keywords();
+-- SELECT * FROM pg_get_keywords;
 -- create extension postgis;
 
 -- ALTER TABLE data_krt_monitoring ADD COLUMN project int;

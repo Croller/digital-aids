@@ -965,7 +965,7 @@
 					]
 				},
 				{
-					"name": "getTableByNames",
+					"name": "getTables",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1003,7 +1003,7 @@
 					},
 					"response": [
 						{
-							"name": "getTableByNames",
+							"name": "getTables",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],

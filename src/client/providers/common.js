@@ -1,6 +1,7 @@
 import {
   get,
   post,
+  put,
   remove,
 } from 'client/providers/fetch';
 
@@ -56,7 +57,7 @@ export const update = async ({
   data,
   language = 'en',
 }) => {
-  const results = await post(`table/${name}/record/update`, { data }, headers({ token, language }));
+  const results = await put(`table/${name}/record/update`, { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

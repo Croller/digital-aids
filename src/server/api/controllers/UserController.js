@@ -2,12 +2,14 @@ const db = require('../services/db');
 const jwt = require('../services/jwt');
 const mailer = require('../services/mailer');
 const commonUtils = require('../utils/common');
+const queryUtils = require('../utils/query');
 
 const UserController = () => {
   let results = '';
 
   const auth = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
+
     if (tokenData) {
       req.body.data = tokenData;
       UserController().signin(req, res);
@@ -26,14 +28,15 @@ const UserController = () => {
 
     try {
       results = await db.knex('data_users').where({ login, password });
+
       if (results.length === 1) {
         const user = { ...results[0], meta };
         const { is_deleted, is_archived } = user;
+
         if (!is_deleted && !is_archived) {
           const token = jwt.generateToken(user);
           res.json({ ...user, token });
-
-          await db.knex('logs_users').insert(user);
+          queryUtils.logTableRecord('data_users', user.id);
         } else {
           res.status(201);
           res.json(commonUtils.setError('userDatanNotCorrect', 'User data is not correct'));
@@ -52,20 +55,21 @@ const UserController = () => {
     try {
       const { user, mail } = req.body.data;
       const { login, email } = user;
-
       results = await db.knex('data_users').where({ login, email });
+
       if (results.length === 0) {
         results = await db.knex('data_users').insert(user).returning('*');
         const created = results[0]; 
+        await db.knex('data_roles').insert({ user_id: created.id, access: ['guest', 'account'] });
 
-        await db.knex('data_roles').insert({ user_id: created.id, access: ['guest', 'account'] }).select();
         try {
           const link = `https://${process.env.HOST}/verify?account=${jwt.generateToken({ ...created, is_confirmed: true })}`;
           mail.body = mail.body.replace('confirm_link', link);
-
           results = await mailer.send({ ...mail, to: email });
           res.json(results);
         } catch (err) {
+          await db.knex('data_users').where({ id: created.id }).del();
+          await db.knex('data_roles').where({ user_id: created.id }).del();
           res.status(201);
           res.json(commonUtils.setError('mailError', 'Mail error', JSON.stringify(err.message)));
           return;
@@ -83,6 +87,7 @@ const UserController = () => {
   const update = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
     const { data } = req.body;
+
     if (tokenData && data.id) {
       try {
         results = await db.knex('data_users').where({ id: data.id }).update(data).returning('*');
@@ -105,8 +110,9 @@ const UserController = () => {
       const { user, mail } = req.body.data;
       const { email } = user;
       results = await db.knex('data_users').where({ email });
+
       if (results.length === 1) {
-        const password = commonUtils.getStringRandom(7);
+        const password = commonUtils.getRandomString(7);
         results = await db.knex('data_users').where({ email }).update({ password }).returning('*');
         mail.body = mail.body.replace('new_password', password);
         await mailer.send({ ...mail, to: email });

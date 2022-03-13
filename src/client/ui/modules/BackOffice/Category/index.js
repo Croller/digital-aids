@@ -42,13 +42,13 @@ const Category = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const rootDispatch = useDispatch();
+  const { user: { roles, info: { token } }, backOffice } = useSelector(s => s);
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState([]);
   const [restCategoryActive, setRestCategoryActive] = useState(null);
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
   const [orderTR, setOrderTr] = useState(null);
   const [dishCategory, setDishCategory] = useState([]);
-  const { user: { roles, info: { token } }, backOffice } = useSelector(s => s);
   const pageSpec = ['foodtips', 'special-deals'];
   const pageSpecActive = pageSpec.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
@@ -171,7 +171,10 @@ const Category = () => {
   };
   
   const handleChangeCategory = async (data = null, lng = language) => {
-    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language: lng }));
+    setRestCategoryEdit(false);
+    setRestCategoryActive(null);
+    initCategory();
+    data && rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language: lng }));
   };
 
   const handleAddDish = () => {

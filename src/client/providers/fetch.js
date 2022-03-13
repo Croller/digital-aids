@@ -55,18 +55,6 @@ export const get = async (path, params = null, options = {}) => {
   }
 };
 
-export const getExternal = async (path, params = null, options = {}) => {
-  try {
-    return await axios.get(path, { headers: { ...options } });
-  } catch (err) {
-    return setError(err, { 
-      url: path,
-      params,
-      options,
-    });
-  }
-};
-
 export const post = async (path, params = {}, options = {}) => {
   try {
     return await api.post(`${getUrl()}/api/${path}`, params, { headers: { ...options } });
@@ -79,12 +67,12 @@ export const post = async (path, params = {}, options = {}) => {
   }
 };
 
-export const postExternal = async (path, params = {}, options = {}) => {
+export const put = async (path, params = {}, options = {}) => {
   try {
-    return await api.post(path, params, { headers: { ...options } });
+    return await api.put(`${getUrl()}/api/${path}`, params, { headers: { ...options } });
   } catch (err) {
     return setError(err, { 
-      url: path,
+      url: `${getUrl()}/api/${path}`,
       params,
       options,
     });
@@ -97,6 +85,30 @@ export const remove = async (path, params = {}, options = {}) => {
   } catch (err) {
     return setError(err, { 
       url: `${getUrl()}/api/${path}`,
+      params,
+      options,
+    });
+  }
+};
+
+export const getExternal = async (path, params = null, options = {}) => {
+  try {
+    return await axios.get(path, { headers: { ...options } });
+  } catch (err) {
+    return setError(err, { 
+      url: path,
+      params,
+      options,
+    });
+  }
+};
+
+export const postExternal = async (path, params = {}, options = {}) => {
+  try {
+    return await api.post(path, params, { headers: { ...options } });
+  } catch (err) {
+    return setError(err, { 
+      url: path,
       params,
       options,
     });

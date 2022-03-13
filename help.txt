@@ -1,8 +1,4 @@
 
-//ssh
-ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 ubuntu@193.122.12.91
-
-
 1. added file from repo
 /home/carte/_DEPLOY/menus
 git pull
@@ -238,6 +234,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
 
+
+
+/////////// digitalocean host ///////////
+
 //install soft ubuntu
 ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139
 21121987!
@@ -296,7 +296,7 @@ mc
 // replace #log_statement = 'none' to log_statement = 'all'
 // run edit pg_hba.conf
 // add line below
-// host    digital-aids             digitalRoot            91.193.176.92/24          md5
+// host    digital-aids             digitalRoot            109.252.216.209/24          md5
 sudo service postgresql restart
 
 // nginx config 

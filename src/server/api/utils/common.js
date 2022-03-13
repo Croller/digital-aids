@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-useless-escape */
 const axios = require('axios');
 const fs = require('fs');
@@ -13,20 +14,35 @@ const getEnv = () => {
   return true;
 };
 
-const setError = (id = null, name = null, text = null) => {
-  const error = !id ? null : { id, name, text };
-  if (id) console.error('Error:', error);
-  return { error };
-};
-
 const getMeta = (req) => {
   const { browser } = req.body.data.meta;
   delete browser.type;
-
   let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
   ip = ip.replace('::ffff:', '');
   const geo = geoip.lookup(getEnv() ? ip : '83.220.237.49');
   return { browser, ip, geo };
+};
+
+const getRandomString = (length = 15) => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  return [...Array(length).fill(null)].reduce(str => `${str}${characters.charAt(Math.floor(Math.random() * charactersLength))}`, '');
+};
+
+const getHeader = (req) => {
+  const { headers } = req;
+  if (!headers.authorization) return null;
+  const [, token] = headers.authorization.split(' ');
+  return {
+    ...headers,
+    authorization: token || null,
+  };
+};
+
+const setError = (id = null, name = null, text = null) => {
+  const error = !id ? null : { id, name, text };
+  if (id) console.error('Error:', error);
+  return { error };
 };
 
 const get = async (url = null) => {
@@ -47,22 +63,6 @@ const post = async (url = null, data = null) => {
   } catch (err) {
     return new Error(err);
   }
-};
-
-const getStringRandom = (length = 15) => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const charactersLength = characters.length;
-  return [...Array(length).fill(null)].reduce(str => `${str}${characters.charAt(Math.floor(Math.random() * charactersLength))}`, '');
-};
-
-const getHeader = (req) => {
-  const { headers } = req;
-  if (!headers.authorization) return null;
-  const [, token] = headers.authorization.split(' ');
-  return {
-    ...headers,
-    authorization: token || null,
-  };
 };
 
 const fileRead = async (url) => new Promise((resolve, reject) => {
@@ -105,7 +105,7 @@ module.exports = {
   getEnv,
   setError,
   getMeta,
-  getStringRandom,
+  getRandomString,
   getHeader,
   fileRead,
   fileWrite,

@@ -2,13 +2,15 @@ const routes = {
   'GET /api/user/auth': 'UserController.auth',
   'POST /api/user/signin': 'UserController.signin',
   'POST /api/user/signup': 'UserController.signup',
-  'POST /api/user/update': 'UserController.update',
+  'PUT /api/user/update': 'UserController.update',
   'POST /api/user/reset': 'UserController.reset',
 
-  'GET /api/table': 'CommonController.getTableByNames',
+  'GET /api/table': 'CommonController.getTables',
+  'GET /api/table/:name/stats': 'CommonController.getTableStats',
   'GET /api/table/:name/record': 'CommonController.getTableRecordById',
   'POST /api/table/:name/record': 'CommonController.getTableRecordByParam',
-  'POST /api/table/:name/record/update': 'CommonController.updateTableRecord',
+  'POST /api/table/:name/record/search': 'CommonController.searchTableRecord',
+  'PUT /api/table/:name/record/update': 'CommonController.updateTableRecord',
   'POST /api/table/:name/record/delete': 'CommonController.deleteTableRecord',
   
   'POST /api/mailer/send': 'MailerController.send',

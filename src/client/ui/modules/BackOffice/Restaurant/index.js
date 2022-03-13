@@ -124,7 +124,6 @@ const Restaurant = () => {
   };
 
   const handleValuesChange = async (values) => {
-    console.log('values - ', { ...formData, ...values });
     if (!values) return;
     const edited = { ...formData, ...values };
 

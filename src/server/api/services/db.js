@@ -30,7 +30,7 @@ db.connect()
 const knex = knexjs({
   client: 'pg',
   connection: CONFIG,
-  debug: true,
+  // debug: true,
   log: {
     warn(message) {
       console.log('warn', message);

@@ -38,13 +38,13 @@ export const InfoUser = () => {
       return null;
     }
 
-    // if (process.env.NODE_ENV === 'development' && pathname.indexOf(PATH) > -1) {
-    //   rootDispatch(login({
-    //     login: process.env.ROOT_LOGIN,
-    //     password: process.env.ROOT_PASSWORD,
-    //   }));
-    //   return null;
-    // }
+    if (process.env.NODE_ENV === 'development' && pathname.indexOf(PATH) > -1) {
+      rootDispatch(login({
+        login: process.env.ROOT_LOGIN,
+        password: process.env.ROOT_PASSWORD,
+      }));
+      return null;
+    }
   };
 
   const logout = () => {
