@@ -58,7 +58,7 @@ const ExternalController = () => {
    
     if (tokenData) {
       try {
-        const data = req.query;
+        const { data } = req.body;
         results = await google.getTextTranslate(data);
         if (!results || (results && results.status === 'REQUEST_DENIED')) {
           res.status(201);

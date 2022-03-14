@@ -73,6 +73,7 @@ const Category = () => {
     let categoryActive = null;
 
     const rest = restaurants.find(f => f.id === restaurant);
+    console.log('rest', rest);
     if (rest) {
       const restCategories = [...(categories
         ? dataApiToList(categories.filter(f => f.restaurant === restaurant))
@@ -210,7 +211,7 @@ const Category = () => {
   }, [dishes, restCategoryActive, pathname]);
 
   useEffect(() => {
-    rootDispatch(init({ ids: [restaurant], language }));
+    rootDispatch(init({ ids: [restaurant] }));
   }, [language]);
 
   useEffect(() => {

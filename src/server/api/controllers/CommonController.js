@@ -17,10 +17,11 @@ const CommonController = () => {
         results = await queryUtils.getTables(names);
 
         if (language !== 'en' && Object.keys(results).length > 0) {
-          results = await Object.keys(results).reduce(async (obj, key) => {
+          results = await Promise.allSettled(Object.keys(results).map(async (key) => {
             const resultsTr = await queryUtils.getRecordTranslate(key, results[key], language);
-            return { ...obj, [key]: resultsTr };
-          }, {});
+            return { key, values: resultsTr };
+          }, []));
+          results = results.reduce((obj, { value }) => ({ ...obj, [value.key]: value.values }), {});
         }
         res.json(results);
       } catch (err) {

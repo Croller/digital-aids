@@ -19,10 +19,10 @@ function* updateState({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* init({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
+function* init({ payload: { name = 'data_restaurants' } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
-  const { user: { info }, backOffice } = yield select((store) => store);
-  const { token } = info;
+  const { backOffice, user: { roles, info: { token, language } } } = yield select((store) => store);
+  const ids = roles.filter(f => f.project_id).map(role => role.project_id) || null;
 
   try {
     const dictionaries = [
