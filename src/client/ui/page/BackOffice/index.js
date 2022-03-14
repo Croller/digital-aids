@@ -28,11 +28,7 @@ const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 export const BackOffice = () => {
   const params = useParams();
   const { info: { token, login }, roles } = useSelector(store => store.user);
-  const access = token && getAccess({ role: 'account', roles });
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
+  const isAuth = token && getAccess({ role: 'account', roles });
 
   useEffect(() => {
     if (!params.restaurant) {
@@ -44,7 +40,7 @@ export const BackOffice = () => {
     <Layout>
       <Switch>
         <Route path={`${PATH}/auth`} component={Auth} />
-        {access && (
+        {isAuth && (
           <Route>
             <Switch>
               <Route

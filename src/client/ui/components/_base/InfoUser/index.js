@@ -13,9 +13,9 @@ const PATH = '/back-office';
 export const InfoUser = () => {
   const rootDispatch = useDispatch();
   const history = useHistory();
-  const { pathname } = useLocation();
   const [initUrl, setInitUrl] = useState(null);
   const { info } = useSelector(s => s.user);
+  const { pathname } = useLocation();
   const { token } = info;
 
   const initStorage = () => {

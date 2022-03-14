@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from 'client/store/user';
@@ -68,10 +68,6 @@ const Assistant = () => {
       window.location.href = data;
     }
   };
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <Wrapper>
