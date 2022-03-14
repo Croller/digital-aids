@@ -37,8 +37,7 @@ const initState = {
   errors: null,
 };
 
-export default function (state = initState, action) {
-  const { type, payload } = action;
+export default function (state = initState, { type, payload }) {
   switch (type) {
     case Constants.REST_SET:
       return { ...state, ...payload };

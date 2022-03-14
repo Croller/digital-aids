@@ -19,9 +19,9 @@ import {
 import { Layout } from 'client/ui/components/Layout/Restaurant';
 import { Loader } from 'client/ui/components/_block/Loader';
 
-const { href } = window.location;
 const PATH = '/restaurant';
 
+const { href } = window.location;
 const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
 const Menu = lazy(() => import('client/ui/modules/Restaurant/Menu'));
 const Assistant = lazy(() => import('client/ui/modules/Restaurant/Assistant'));

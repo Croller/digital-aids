@@ -11,6 +11,7 @@ import { Layout } from 'client/ui/components/Layout/BackOffice';
 import { getAccess } from 'client/utils/common';
 
 const PATH = '/back-office';
+
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
 const Flyer = lazy(() => import('client/ui/modules/BackOffice/Flyer'));

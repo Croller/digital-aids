@@ -3,16 +3,6 @@ import * as Constants from 'client/store/user/constants';
 import * as userProvider from 'client/providers/user';
 import * as commonProvider from 'client/providers/common';
 
-// function* getDictionary({ payload }) {
-//   const results_dictionary = yield commonProvider.getRecordByParam(payload);
-//   yield put({
-//     type: Constants.USER_SET,
-//     payload: {
-//       dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
-//     },
-//   });
-// }
-
 function* updateState({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
@@ -47,9 +37,9 @@ function* signin({ payload }) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
       const roles = yield commonProvider.getRecordByParam({
-        name: 'data_roles',
-        token: data.token,
         language,
+        token: data.token,
+        name: 'data_roles',
         data: { user_id: data.id }, 
       });
       if (roles.error) {

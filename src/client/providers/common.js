@@ -1,7 +1,6 @@
 import {
   get,
   post,
-  put,
   remove,
 } from 'client/providers/fetch';
 
