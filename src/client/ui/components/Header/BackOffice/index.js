@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
 import { setLocal } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
-import { set } from 'client/store/user';
+import { update } from 'client/store/user';
 import {
   LogoSvg,
   CloseSvg,
@@ -34,7 +34,6 @@ const HeaderComponent = ({
 }) => {
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
-  const { info } = useSelector(s => s.user);
   const [t, i18n] = useTranslation();
   const [langList, setLangList] = useState(false);
 
@@ -43,7 +42,7 @@ const HeaderComponent = ({
       const lngBefore = i18n.language;
       translate.changeLanguage(lng);
       setLocal({ lng });
-      rootDispatch(set({ info: { ...info, language: lng } }));
+      rootDispatch(update({ token, data: { language: lng } }));
 
       if (pathname.indexOf('/language') > -1) {
         onRoute(pathname.replace(`/${lngBefore}/`, `/${lng}/`).replace('/back-office/', ''));

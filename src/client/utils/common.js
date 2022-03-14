@@ -36,6 +36,11 @@ export const getAccess = ({
     .some(f => f.access.some(s => s === role));
 };
 
+const charLibrary = {
+  Ё: 'YO', Й: 'I', Ц: 'TS', У: 'U', К: 'K', Е: 'E', Н: 'N', Г: 'G', Ш: 'SH', Щ: 'SCH', З: 'Z', Х: 'H', Ъ: '\'', ё: 'yo', й: 'i', ц: 'ts', у: 'u', к: 'k', е: 'e', н: 'n', г: 'g', ш: 'sh', щ: 'sch', з: 'z', х: 'h', ъ: '\'', Ф: 'F', Ы: 'I', В: 'V', А: 'a', П: 'P', Р: 'R', О: 'O', Л: 'L', Д: 'D', Ж: 'ZH', Э: 'E', ф: 'f', ы: 'i', в: 'v', а: 'a', п: 'p', р: 'r', о: 'o', л: 'l', д: 'd', ж: 'zh', э: 'e', Я: 'Ya', Ч: 'CH', С: 'S', М: 'M', И: 'I', Т: 'T', Ь: '\'', Б: 'B', Ю: 'YU', я: 'ya', ч: 'ch', с: 's', м: 'm', и: 'i', т: 't', ь: '\'', б: 'b', ю: 'yu', 
+};
+export const transliterate = (word) => word.split('').map((char) => charLibrary[char] || char).join('');
+
 // ------------------------------------------------------------------------------------------------------------------------
 // dom func
 
@@ -239,25 +244,31 @@ export const objDeepToPlain = (
 // ------------------------------------------------------------------------------------------------------------------------
 // file func
 
-export const getFileBase64 = (file) => new Promise((resolve, reject) => {
+export const downloadFile = async (url, filename) => {
+  await fetch(url).then((t) => t.blob().then((b) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.setAttribute('download', filename);
+    if (url.indexOf('pdf') > -1) {
+      window.open(url, '_blank');
+    } else {
+      a.click();
+    }
+  }));
+};
+
+export const getBase64File = (file, readAs = 'readAsDataURL') => new Promise((resolve, reject) => {
   const reader = new FileReader();
-  reader.readAsDataURL(file);
+  reader[readAs](file);
   reader.onload = () => resolve(reader.result);
   reader.onerror = error => reject(error);
 });
-
-export const downloadFile = (url, filename) => {
-  const downloadLink = document.createElement('a');
-  downloadLink.href = url;
-  downloadLink.download = filename;
-  downloadLink.click();
-};
 
 export const getFile = async (url = null, uuid = null) => {
   if (!url || !uuid) return null;
   const result = await fetch(url);
   const blob = await result.blob();
-  const base64 = await getFileBase64(blob);
+  const base64 = await getBase64File(blob);
   const type = base64 && base64.split(';base64')[0].replace('data:', '');
   return {
     type,
@@ -267,16 +278,28 @@ export const getFile = async (url = null, uuid = null) => {
   };
 };
 
-const getImage = (src) => new Promise((resolve, reject) => {
-  const img = new Image();
-  img.onload = () => resolve(img);
-  img.onerror = reject;
-  img.src = src;
-});
+export const getBase64Url = (url) => fetch(url)
+  .then(response => response.blob())
+  .then(blob => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  }));
+
+export const getImage = (src = null) => {
+  if (!src) return null;
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+};
 
 export const imageConverter = async (file = null, uuid = null, type = 'image/png') => {
   if (!file && !file.type) return null;
-  const base64 = await getFileBase64(file);
+  const base64 = await getBase64File(file);
   const imgParams = await getImage(base64);
   const { width, height } = imgParams;
 
@@ -291,8 +314,8 @@ export const imageConverter = async (file = null, uuid = null, type = 'image/png
   const blob = await result.blob();
   return {
     type,
-    base64: basePng,
     uuid,
+    base64: basePng,
     originFileObj: new File([blob], uuid, { type }),
   };
 };
@@ -361,6 +384,6 @@ export const imageCompression = async (file, options = {}) => {
   return {
     uuid,
     originFileObj: compresed,
-    base64: await getFileBase64(compresed),
+    base64: await getBase64File(compresed),
   };
 };

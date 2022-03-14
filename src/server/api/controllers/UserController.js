@@ -88,11 +88,12 @@ const UserController = () => {
   const update = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
 
-    if (tokenData && req.body.data.id) {
+    if (tokenData) {
       try {
         const { data } = req.body;
-        await queryUtils.logRecord('data_users', data.id);
-        results = await db.knex('data_users').where({ id: data.id }).update(data).returning('*');
+        const meta = commonUtils.getMeta(req);
+        await queryUtils.logRecord('data_users', tokenData.id);
+        results = await db.knex('data_users').where({ id: tokenData.id }).update({ ...data, meta }).returning('*');
         const updated = results[0];
         const token = jwt.generateToken(updated);
         delete updated.password;

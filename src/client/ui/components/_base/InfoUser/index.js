@@ -26,7 +26,7 @@ export const InfoUser = () => {
     setInitUrl(pathname);
 
     if ((storage.token || token) && [PATH].some(f => pathname.indexOf(f) > -1)) {
-      rootDispatch(auth({ token: storage.token }));
+      rootDispatch(auth({ token: storage.token, language: storage.lng }));
       return null;
     }
     

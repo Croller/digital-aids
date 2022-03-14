@@ -1,4 +1,4 @@
-import { stringToKey } from 'client/utils/common';
+import { stringToKey, transliterate } from 'client/utils/common';
 import { WEEK_DAYS } from 'client/utils/constants';
 import moment from 'moment';
 
@@ -89,7 +89,7 @@ export const dataToApi = (data, current) => {
   return {
     ...(current && current.id ? { id: current.id } : {}),
     name,
-    key: (stringToKey(name) || ''),
+    key: transliterate(stringToKey(name) || ''),
     address,
     email,
     opinion,

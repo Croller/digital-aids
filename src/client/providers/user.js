@@ -18,8 +18,8 @@ export const signin = async (data) => {
   return results;
 };
 
-export const auth = async ({ token }) => {
-  const results = await get('user/auth', null, headers({ token }));
+export const auth = async ({ token, language = 'en' }) => {
+  const results = await get('user/auth', null, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -43,7 +43,7 @@ export const reset = async (data) => {
 };
 
 export const update = async ({ token, data }) => {
-  const results = await put('user/update', { data: { ...data, meta } }, headers({ token }));
+  const results = await post('user/update', { data: { ...data, meta } }, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 

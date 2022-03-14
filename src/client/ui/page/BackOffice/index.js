@@ -39,8 +39,9 @@ export const BackOffice = () => {
   return (
     <Layout>
       <Switch>
-        <Route path={`${PATH}/auth`} component={Auth} />
-        {isAuth && (
+        {!isAuth ? (
+          <Route path={`${PATH}/auth`} component={Auth} />
+        ) : (
           <Route>
             <Switch>
               <Route

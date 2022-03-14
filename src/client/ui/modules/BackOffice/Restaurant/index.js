@@ -64,6 +64,7 @@ const Restaurant = () => {
   const setData = (obj) => {
     setFormData(obj);
     form.setFieldsValue(obj);
+    !addressStr && setAddressStr(obj.address);
   };
 
   const initValue = () => {
@@ -133,15 +134,11 @@ const Restaurant = () => {
     if (edited.main_language !== 'en' && !edited.sub_languages.includes('en')) {
       edited.sub_languages = ['en', ...edited.sub_languages];
     }
-    if (edited.address) {
+    if (formData.address.length !== addressStr.length) {
       setAddressStr(edited.address);
     }
     if (Object.keys(edited).length > 0) {
-      const obj = {
-        ...formData,
-        ...edited,
-      };
-      setData(obj);
+      setData({ ...formData, ...edited });
     }
     setIsChange(true);
   };
@@ -163,7 +160,7 @@ const Restaurant = () => {
 
   const handleDebouceSearch = async (obj) => {
     let results = null;
-    if (debouceSearch) {
+    if (debouceSearch && formData.address !== obj.address) {
       results = await getCoordsByAddress(obj, token);
     }
     setAddressResults(results);
@@ -221,7 +218,6 @@ const Restaurant = () => {
             <FormItemStyled
               label={t('common.words.name')}
               name="name"
-              // hasFeedback
               required
               rules={rule.text}
             >
@@ -238,7 +234,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.text')}
               >
                 {(formData.cuisine || []).map((str, i) => (
                   <OptionStyled key={`_cuisine_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -266,7 +262,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.text')}
               >
                 {(formData.employees || []).map((str, i) => (
                   <OptionStyled key={`_employees_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -344,14 +340,14 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            <FormItemStyled
+            {/* <FormItemStyled
               label="TheFork"
               name="socials.thefork.url"
             >
               <InputStyled
                 placeholder={t('common.form.placeholder.link')}
               />
-            </FormItemStyled>
+            </FormItemStyled> */}
             {roles.some(f => f.root || f.root_back) && (
               <Form2Col>
                 <FormCol>
@@ -471,7 +467,7 @@ const Restaurant = () => {
               </SelectStyled>
             </FormItemStyled>
             <FormItemStyled
-              label={t('common.words.translations')}
+              label={t('common.words.supportLng')}
               name="sub_languages"
               required
               rules={rule.select}

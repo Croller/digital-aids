@@ -17,7 +17,7 @@ const getEnv = () => {
 const getMeta = (req) => {
   const { browser } = req.body.data.meta;
   delete browser.type;
-  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress;
+  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress || '0.0.0.0';
   ip = ip.replace('::ffff:', '');
   const geo = geoip.lookup(getEnv() ? ip : '83.220.237.49');
   return { browser, ip, geo };

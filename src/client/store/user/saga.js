@@ -59,7 +59,6 @@ function* auth({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
     const data = yield userProvider.auth(payload);
-    
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
