@@ -173,7 +173,7 @@ export const Caterory = styled(Button)`
   `}
 `;
 
-export const CateroryFormStyled = styled(CategoryForm)`
+export const CategoryFormStyled = styled(CategoryForm)`
   margin-bottom: 30px;
 `;
 

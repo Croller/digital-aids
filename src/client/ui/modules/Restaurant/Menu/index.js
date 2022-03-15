@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -61,10 +61,6 @@ const Menu = () => {
       name: t('restaurant.common.foodtips'),
     },
   ];
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <Wrapper>

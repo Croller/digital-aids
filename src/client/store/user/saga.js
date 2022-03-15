@@ -3,16 +3,6 @@ import * as Constants from 'client/store/user/constants';
 import * as userProvider from 'client/providers/user';
 import * as commonProvider from 'client/providers/common';
 
-// function* getDictionary({ payload }) {
-//   const results_dictionary = yield commonProvider.loadRowByParam(payload);
-//   yield put({
-//     type: Constants.USER_SET,
-//     payload: {
-//       dictionary: Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {}),
-//     },
-//   });
-// }
-
 function* updateState({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
@@ -46,13 +36,17 @@ function* signin({ payload }) {
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      const roles = yield commonProvider.loadRowByParam({
-        name: 'data_roles',
-        token: data.token,
+      const roles = yield commonProvider.getRecordByParam({
         language,
+        token: data.token,
+        name: 'data_roles',
         data: { user_id: data.id }, 
       });
-      yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
+      if (roles.error) {
+        yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
+      } else if (roles) {
+        yield put({ type: Constants.USER_SET, payload: { info: { ...data, language }, roles } });
+      }
     }
   } catch (err) {
     throw err;
@@ -65,11 +59,10 @@ function* auth({ payload }) {
   yield put({ type: Constants.USER_LOADING_SET, payload: true });
   try {
     const data = yield userProvider.auth(payload);
-    
     if (data.error) {
       yield put({ type: Constants.USER_ERROR_SET, payload: data.error });
     } else if (data) {
-      const roles = yield commonProvider.loadRowByParam({
+      const roles = yield commonProvider.getRecordByParam({
         language,
         token: data.token,
         name: 'data_roles',

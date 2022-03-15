@@ -23,16 +23,16 @@ const initState = {
   error: null,
 };
 
-export default function (state = initState, action) {
-  switch (action.type) {
+export default function (state = initState, { type, payload }) {
+  switch (type) {
     case Constants.BO_SET:
-      return { ...state, ...action.payload };
+      return { ...state, ...payload };
     case Constants.BO_ERROR_SET:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: payload, loading: false };
     case Constants.BO_LOADING_SET:
       return {
         ...state,
-        loading: action.payload,
+        loading: payload,
         error: null,
         status: null,
       };

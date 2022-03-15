@@ -1,7 +1,5 @@
-
 import {
   get,
-  getExternal,
   post,
   remove,
 } from 'client/providers/fetch';
@@ -14,7 +12,7 @@ const headers = ({
   ...(language ? { 'Accept-Language': language } : {}),
 });
 
-export const loadTable = async ({
+export const getTables = async ({
   token,
   data,
   language = 'en',
@@ -26,7 +24,7 @@ export const loadTable = async ({
   return results;
 };
 
-export const loadRow = async ({
+export const getRecordById = async ({
   token,
   name,
   data,
@@ -39,7 +37,7 @@ export const loadRow = async ({
   return results;
 };
 
-export const loadRowByParam = async ({
+export const getRecordByParam = async ({
   token,
   name,
   data,
@@ -52,13 +50,26 @@ export const loadRowByParam = async ({
   return results;
 };
 
-export const update = async ({
+export const updateRecord = async ({
   token,
   name,
   data,
   language = 'en',
 }) => {
   const results = await post(`table/${name}/record/update`, { data }, headers({ token, language }));
+  if (results.status && results.data && [200, 201].includes(results.status)) {
+    return results.data;
+  }
+  return results;
+};
+
+export const deleteRecord = async ({
+  token,
+  name,
+  data,
+  language = 'en',
+}) => {
+  const results = await remove(`table/${name}/record/delete`, { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
@@ -76,17 +87,6 @@ export const deleteFiles = async ({
   return results;
 };
 
-export const getCoordsByAddress = async ({
-  address,
-  language = 'en',
-}) => {
-  const results = await getExternal(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${process.env.API_KEY_GOOGLE_GEOCODE}`);
-  if (results.status && results.data && [200, 201].includes(results.status)) {
-    return results.data;
-  }
-  return results;
-};
-
 export const sendFromInfo = async ({
   token,
   data,
@@ -97,38 +97,3 @@ export const sendFromInfo = async ({
   }
   return results;
 };
-
-// export const getTableByNames = (arr) => async (dispatch) => {
-//   dispatch(setLoading(true));
-//   const results = await post('table/get', { names: arr });
-//   if (results.status === 200 && !results.data.error) {
-//     const data = Object.keys(results.data).reduce((obj, key) => {
-//       if (key.indexOf('date') !== -1) {
-//         return { ...obj, [key]: moment(results.data[key]).local().format('DD.MM.YYYY') };
-//       }
-//       return { ...obj, [key]: results.data[key] };
-//     }, {});
-//     dispatch(setT(data));
-//   } else {
-//     dispatch(setError(results.data.error));
-//   }
-// };
-
-// export const insertTableRecord = ({ name, data }) => async (dispatch) => {
-//   dispatch(setLoading(true));
-//   const results = await post('table/record/create', { name, data });
-//   if (results.status === 200 && !results.data.error) {
-//     dispatch(addTRecord(name, results.data));
-//   } else {
-//     dispatch(setError(results.data.error));
-//   }
-// };
-
-// export const updateTableRecord = ({ name, data }) => async (dispatch) => {
-//   const results = await post('table/record/update', { name, data });
-//   if (results.status === 200 && !results.data.error) {
-//     dispatch(updateTRecord(name, results.data));
-//   } else {
-//     dispatch(setError(results.data.error));
-//   }
-// };

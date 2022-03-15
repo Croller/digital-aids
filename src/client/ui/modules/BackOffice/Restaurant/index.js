@@ -3,16 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/restaurant';
-import { getUrl, loadFile } from 'client/utils/common';
+import { getUrl, getFile } from 'client/utils/common';
 import { update, deleteFiles } from 'client/store/backOffice';
 import { auth } from 'client/store/user';
 import { AlertCircleSvg } from 'client/assets/images';
-import { getCoordsByAddress } from 'client/providers/common';
 import { useDebounce } from 'client/ui/components/_base/Debounce';
 import { Marker } from 'google-maps-react';
+import { getCoordsByAddress } from 'client/providers/external';
 import {
   RestaurantWrapper,
   NavBarStyled,
@@ -64,22 +64,24 @@ const Restaurant = () => {
   const setData = (obj) => {
     setFormData(obj);
     form.setFieldsValue(obj);
+    !addressStr && setAddressStr(obj.address);
   };
 
-  const initValue = () => {
-    let data = { ...model };
+  const initValue = async () => {
+    let data = {};
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(f => f.id === params.restaurant);
     }
 
-    setData(dataToForm({ ...data, images: [] }));
     if (data.images && data.images.length > 0) {
-      Promise.all(data.images.map(async (uuid, i) => {
+      const images = await Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
-        const file = await loadFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
+        const file = await getFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
         return file;
-      })).then(images => setData(dataToForm({ ...data, images })));
+      }));
+      data.images = images;
     }
+    setData(dataToForm(data));
     setLoadFiles(false);
   };
 
@@ -111,7 +113,7 @@ const Restaurant = () => {
   const handleFinish = (values) => {
     const edited = dataToApi({ ...formData, ...values }, { ...model, id: params.restaurant !== 'new' ? params.restaurant : null });
     rootDispatch(update({ name: 'data_restaurants', data: edited }));
-    deletedFiles && rootDispatch(deleteFiles({ data: deletedFiles }));
+    deletedFiles.length > 0 && rootDispatch(deleteFiles({ data: deletedFiles }));
     setIsChange(false);
   };
 
@@ -124,7 +126,6 @@ const Restaurant = () => {
   };
 
   const handleValuesChange = async (values) => {
-    console.log('values - ', { ...formData, ...values });
     if (!values) return;
     const edited = { ...formData, ...values };
 
@@ -134,15 +135,11 @@ const Restaurant = () => {
     if (edited.main_language !== 'en' && !edited.sub_languages.includes('en')) {
       edited.sub_languages = ['en', ...edited.sub_languages];
     }
-    if (edited.address) {
+    if (formData.address.length !== addressStr.length) {
       setAddressStr(edited.address);
     }
     if (Object.keys(edited).length > 0) {
-      const obj = {
-        ...formData,
-        ...edited,
-      };
-      setData(obj);
+      setData({ ...formData, ...edited });
     }
     setIsChange(true);
   };
@@ -163,15 +160,11 @@ const Restaurant = () => {
   };
 
   const handleDebouceSearch = async (obj) => {
-    if (debouceSearch) {
-      console.log('language', { ...obj });
-      const results = await getCoordsByAddress(obj);
-      if (results.status === 'OK') {
-        setAddressResults(results.results);
-        return;
-      }
+    let results = null;
+    if (debouceSearch && formData.address !== obj.address) {
+      results = await getCoordsByAddress(obj, token);
     }
-    setAddressResults(null);
+    setAddressResults(results);
   };
 
   const handleUpdateAddress = (address, geometry) => {
@@ -206,7 +199,7 @@ const Restaurant = () => {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
   }, [status]);
-  
+  console.log('formData', `at_work.${formData && formData['at_work.day']}.from`, formData && formData[`at_work.${formData['at_work.day']}.from`], formData);
   return formData && (
     <RestaurantWrapper>
       <NavBarStyled
@@ -226,7 +219,6 @@ const Restaurant = () => {
             <FormItemStyled
               label={t('common.words.name')}
               name="name"
-              // hasFeedback
               required
               rules={rule.text}
             >
@@ -243,7 +235,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.text')}
               >
                 {(formData.cuisine || []).map((str, i) => (
                   <OptionStyled key={`_cuisine_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -271,7 +263,7 @@ const Restaurant = () => {
               <SelectStyled
                 mode="tags"
                 tokenSeparators={[',']}
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.text')}
               >
                 {(formData.employees || []).map((str, i) => (
                   <OptionStyled key={`_employees_${i + 1}`} value={str}>{str}</OptionStyled>
@@ -349,14 +341,14 @@ const Restaurant = () => {
                 placeholder={t('common.form.placeholder.link')}
               />
             </FormItemStyled>
-            <FormItemStyled
+            {/* <FormItemStyled
               label="TheFork"
               name="socials.thefork.url"
             >
               <InputStyled
                 placeholder={t('common.form.placeholder.link')}
               />
-            </FormItemStyled>
+            </FormItemStyled> */}
             {roles.some(f => f.root || f.root_back) && (
               <Form2Col>
                 <FormCol>
@@ -476,7 +468,7 @@ const Restaurant = () => {
               </SelectStyled>
             </FormItemStyled>
             <FormItemStyled
-              label={t('common.words.translations')}
+              label={t('common.words.supportLng')}
               name="sub_languages"
               required
               rules={rule.select}
@@ -515,21 +507,23 @@ const Restaurant = () => {
                   ))}
                 </RadioGroup>
               </FormItemStyled>
-              <FormRange>
-                <FormItemStyled
-                  name={`at_work.${formData['at_work.day']}.from`}
-                >
-                  <InputMaskStyled mask="11:11" />
-                </FormItemStyled>
-                <Separator>
-                  -
-                </Separator>
-                <FormItemStyled
-                  name={`at_work.${formData['at_work.day']}.to`}
-                >
-                  <InputMaskStyled mask="11:11" />
-                </FormItemStyled>
-              </FormRange>
+              {formData[`at_work.${formData['at_work.day']}.from`] && (
+                <FormRange>
+                  <FormItemStyled
+                    name={`at_work.${formData['at_work.day']}.from`}
+                  >
+                    <InputMaskStyled mask="11:11" />
+                  </FormItemStyled>
+                  <Separator>
+                    -
+                  </Separator>
+                  <FormItemStyled
+                    name={`at_work.${formData['at_work.day']}.to`}
+                  >
+                    <InputMaskStyled mask="11:11" />
+                  </FormItemStyled>
+                </FormRange>
+              )}
             </FormItemStyled>
             {params.restaurant !== 'new' && (
               <NavItemStyled onClick={handleRoute} />

@@ -15,7 +15,7 @@ import {
   RedLine2Svg,
 } from 'client/assets/images';
 import { Request } from 'client/ui/components/Footer/Request';
-import 'slick-carousel/slick/slick.css'; 
+import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 

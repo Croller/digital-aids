@@ -25,6 +25,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@babel/runtime": "^7.10.5",
+    "@google-cloud/translate": "^6.2.2",
     "@hot-loader/react-dom": "^16.8.6",
     "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@mapbox/mbtiles": "^0.11.0",
@@ -50,6 +51,7 @@
     "jsonwebtoken": "^8.5.1",
     "jspdf": "^2.3.1",
     "kill-port": "^1.6.1",
+    "knex": "^1.0.2",
     "mailgun-js": "^0.22.0",
     "mapbox-gl": "^2.3.0",
     "moment": "^2.29.1",

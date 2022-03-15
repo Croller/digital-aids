@@ -89,12 +89,15 @@ export const FormItemStyled = styled(FormItem)`
       font-size: 15px;
     }
 
-    .ant-form-item-explain-error {
+    .ant-form-item-explain-connected {
       position: absolute;
-      bottom: -23px;
       right: 0;
-      font-size: 13px;
-      font-family: ${FONTS.medium};
+      bottom: -26px;
+
+      .ant-form-item-explain-error {
+        font-size: 13px;
+        font-family: ${FONTS.medium};
+      }
     }
   }
 
