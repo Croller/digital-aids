@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import translate from 'client/i18n';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import { set } from 'client/store/user';
 import { getDictionaryItem } from 'client/utils/common';
 import { init } from 'client/store/restaurant';
@@ -20,7 +20,7 @@ const Language = () => {
 
   const handleClick = (lng) => {
     translate.changeLanguage(lng);
-    setLocalUser({ lng });
+    setLocal({ lng });
     rootDispatch(set({ info: { ...info, language: lng } }));
     rootDispatch(init({ restaurant: key, language: lng }));
     
@@ -30,10 +30,6 @@ const Language = () => {
     }
     history.push('categories');
   };
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <Wrapper>

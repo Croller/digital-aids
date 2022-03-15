@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { } from './styled';
 
-export const SideBar = () => {
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
-
-  return (
-    <>
-    </>
-  );
-};
+export const Temp = () => (
+  <>
+  </>
+);

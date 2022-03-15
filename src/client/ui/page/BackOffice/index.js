@@ -8,8 +8,10 @@ import {
   useParams,
 } from 'react-router-dom';
 import { Layout } from 'client/ui/components/Layout/BackOffice';
+import { getAccess } from 'client/utils/common';
 
 const PATH = '/back-office';
+
 const Auth = lazy(() => import('client/ui/modules/BackOffice/Auth'));
 const Restaurant = lazy(() => import('client/ui/modules/BackOffice/Restaurant'));
 const Flyer = lazy(() => import('client/ui/modules/BackOffice/Flyer'));
@@ -25,106 +27,106 @@ const Mails = lazy(() => import('client/ui/modules/BackOffice/Mails'));
 
 export const BackOffice = () => {
   const params = useParams();
-  const { token } = useSelector(store => store.user.info);
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
+  const { info: { token, login }, roles } = useSelector(store => store.user);
+  const isAuth = token && getAccess({ role: 'account', roles });
 
   useEffect(() => {
     if (!params.restaurant) {
       closeSocket();
     }
-  }, [params.restaurant]);
+  }, [params.restaurant, login]);
 
   return (
     <Layout>
       <Switch>
-        <Route path={`${PATH}/auth`} component={Auth} />
-        {token && (
-          <>
-            <Route
-              exact
-              path={[
-                `${PATH}/restaurant/:restaurant/reserve/archive`,
-                `${PATH}/restaurant/:restaurant/reserve`,
-              ]}
-              component={Reservations}
-            />
-            <Route
-              exact
-              path={[
-                `${PATH}/restaurant/:restaurant/opinions/archive`,
-                `${PATH}/restaurant/:restaurant/opinions`,
-              ]}
-              component={Opinions}
-            />
-            <Route
-              exact
-              path={[
-                `${PATH}/restaurant/:restaurant/notify/archive`,
-                `${PATH}/restaurant/:restaurant/notify`,
-              ]}
-              component={Notify}
-            />
-            <Route
-              exact
-              path={[
-                `${PATH}/restaurant/:restaurant/orders/archive`,
-                `${PATH}/restaurant/:restaurant/orders`,
-              ]}
-              component={Orders}
-            />
-            <Route
-              exact
-              path={[
-                `${PATH}/restaurant/:restaurant/language/:language/dashboard`,
-                `${PATH}/restaurant/:restaurant/language/:language/special-deals/archive`,
-                `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
-                `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,
-                `${PATH}/restaurant/:restaurant/language/:language/foodtips`,
-                `${PATH}/restaurant/:restaurant/language/:language/menu/archive`,
-                `${PATH}/restaurant/:restaurant/language/:language/menu`,
-              ]}
-              component={Category}
-            />
-            <Route
-              path={[
-                `${PATH}/restaurants/archive`,
-                `${PATH}/restaurants`,
-              ]}
-              component={Restaurants}
-            />
-            <Route
-              exact
-              path={`${PATH}/restaurant/:restaurant/flyer`}
-              component={Flyer}
-            />
-            <Route
-              exact
-              path={`${PATH}/restaurant/:restaurant`}
-              component={Restaurant}
-            />
-            <Route
-              exact
-              path={[
-                `${PATH}/users/:user`,
-                `${PATH}/users`,
-              ]}
-              component={Users}
-            />
-            <Route
-              path={`${PATH}/account`}
-              component={Account}
-            />
-            <Route
-              path={[
-                `${PATH}/mails`,
-              ]}
-              component={Mails}
-            />
-            <Redirect to={`${PATH}/restaurants`} />
-          </>
+        {!isAuth ? (
+          <Route path={`${PATH}/auth`} component={Auth} />
+        ) : (
+          <Route>
+            <Switch>
+              <Route
+                exact
+                path={[
+                  `${PATH}/restaurant/:restaurant/reserve/archive`,
+                  `${PATH}/restaurant/:restaurant/reserve`,
+                ]}
+                component={Reservations}
+              />
+              <Route
+                exact
+                path={[
+                  `${PATH}/restaurant/:restaurant/opinions/archive`,
+                  `${PATH}/restaurant/:restaurant/opinions`,
+                ]}
+                component={Opinions}
+              />
+              <Route
+                exact
+                path={[
+                  `${PATH}/restaurant/:restaurant/notify/archive`,
+                  `${PATH}/restaurant/:restaurant/notify`,
+                ]}
+                component={Notify}
+              />
+              <Route
+                exact
+                path={[
+                  `${PATH}/restaurant/:restaurant/orders/archive`,
+                  `${PATH}/restaurant/:restaurant/orders`,
+                ]}
+                component={Orders}
+              />
+              <Route
+                exact
+                path={[
+                  `${PATH}/restaurant/:restaurant/language/:language/dashboard`,
+                  `${PATH}/restaurant/:restaurant/language/:language/special-deals/archive`,
+                  `${PATH}/restaurant/:restaurant/language/:language/special-deals`,
+                  `${PATH}/restaurant/:restaurant/language/:language/foodtips/archive`,
+                  `${PATH}/restaurant/:restaurant/language/:language/foodtips`,
+                  `${PATH}/restaurant/:restaurant/language/:language/menu/archive`,
+                  `${PATH}/restaurant/:restaurant/language/:language/menu`,
+                ]}
+                component={Category}
+              />
+              <Route
+                path={[
+                  `${PATH}/restaurants/archive`,
+                  `${PATH}/restaurants`,
+                ]}
+                component={Restaurants}
+              />
+              <Route
+                exact
+                path={`${PATH}/restaurant/:restaurant/flyer`}
+                component={Flyer}
+              />
+              <Route
+                exact
+                path={`${PATH}/restaurant/:restaurant`}
+                component={Restaurant}
+              />
+              <Route
+                exact
+                path={[
+                  `${PATH}/users/:user`,
+                  `${PATH}/users`,
+                ]}
+                component={Users}
+              />
+              <Route
+                path={`${PATH}/account`}
+                component={Account}
+              />
+              <Route
+                path={[
+                  `${PATH}/mails`,
+                ]}
+                component={Mails}
+              />
+              <Redirect to={`${PATH}/restaurants`} />
+            </Switch>
+          </Route>
         )}
         <Redirect to={`${PATH}/auth`} />
       </Switch>

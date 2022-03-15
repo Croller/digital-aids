@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import translate, { languages } from 'client/i18n';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import OutSideClick from 'react-outside-click-handler';
-import { set } from 'client/store/user';
+import { update } from 'client/store/user';
 import {
   LogoSvg,
   CloseSvg,
@@ -32,15 +33,20 @@ const HeaderComponent = ({
   className,
 }) => {
   const rootDispatch = useDispatch();
-  const { info } = useSelector(s => s.user);
+  const { pathname } = useLocation();
   const [t, i18n] = useTranslation();
   const [langList, setLangList] = useState(false);
 
   const handleLangChange = (lng = null) => {
     if (lng) {
+      const lngBefore = i18n.language;
       translate.changeLanguage(lng);
-      setLocalUser({ lng });
-      rootDispatch(set({ info: { ...info, language: lng } }));
+      setLocal({ lng });
+      rootDispatch(update({ token, data: { language: lng } }));
+
+      if (pathname.indexOf('/language') > -1) {
+        onRoute(pathname.replace(`/${lngBefore}/`, `/${lng}/`).replace('/back-office/', ''));
+      }
     }
     setLangList(false);
   };
@@ -74,7 +80,7 @@ const HeaderComponent = ({
               <CloseButton onClick={handleLangChange}>
                 <CloseSvg />
               </CloseButton>
-              <OutSideClick onOutsideClick={handleLangChange}>
+              <OutSideClick onOutsideClick={() => setLangList(false)}>
                 <LangList>
                   {['en', 'ru'].map(lng => (
                     <LangButton

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { set } from 'client/store/user';
@@ -7,7 +7,7 @@ import { useModal } from 'react-modal-hook';
 import { ReserveSend } from 'client/ui/components/_block/Modal/ReserveSend';
 import { QRCodeSvg } from 'client/assets/images';
 import QrReader from 'react-qr-reader';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import {
   Wrapper,
   List,
@@ -43,7 +43,7 @@ const Assistant = () => {
 
   const handleEmit = (key) => {
     if (user.position === 'waiter' && key === 'guest') {
-      setLocalUser({ position: 'guest' });
+      setLocal({ position: 'guest' });
       rootDispatch(set({ position: 'guest' }));
     } else {
       rootDispatch(updateRow({
@@ -68,10 +68,6 @@ const Assistant = () => {
       window.location.href = data;
     }
   };
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <Wrapper>

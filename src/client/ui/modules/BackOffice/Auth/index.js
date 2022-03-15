@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { UserCircleSvg } from 'client/assets/images';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import {
   login,
@@ -29,20 +29,25 @@ const Auth = memo(() => {
   const rule = rules(t);
 
   const onFinish = (values) => {
+    const user = values;
     formKey === 'auth' && rootDispatch(login(values));
     formKey === 'reg' && rootDispatch(registration({
-      ...values,
-      type: formKey,
-      html: true,
-      subject: t('common.account.mail.registration.subject'),
-      body: t('common.account.mail.registration.text'),
+      user,
+      mail: {
+        type: formKey,
+        html: true,
+        subject: t('common.account.mail.registration.subject'),
+        body: t('common.account.mail.registration.text'),
+      },
     }));
     formKey === 'reset' && rootDispatch(reset({
-      ...values,
-      type: formKey,
-      html: true,
-      subject: t('common.account.mail.restore.subject'),
-      body: t('common.account.mail.restore.text'),
+      user,
+      mail: {
+        type: formKey,
+        html: true,
+        subject: t('common.account.mail.restore.subject'),
+        body: t('common.account.mail.restore.text'),
+      },
     }));
   };
 

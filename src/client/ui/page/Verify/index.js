@@ -9,14 +9,15 @@ import { update } from 'client/store/user';
 const { href } = window.location;
 
 export const Verify = () => {
-  const rootDispatch = useDispatch();
-  const history = useHistory();
-  const { status } = useSelector(s => s.user);
   const [t] = useTranslation();
   const [initUrl, setInitUrl] = useState(null);
+  const { status } = useSelector(s => s.user);
+  const rootDispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     let url = null;
+    
     if (href.indexOf('/verify?account=') > -1) {
       const [, token] = href.split('?account=');
       if (token && typeof token === 'string') {

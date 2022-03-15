@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { Confirm18Modal } from 'client/ui/components/_block/Modal/Confirm18';
 import { OfferRestaurantModal } from 'client/ui/components/_block/Modal/Offer/Restaurant';
-import { setOfferViewed, getLocalUser, setLocalUser } from 'client/utils/localStorage';
+import { setOfferViewed, getLocal, setLocal } from 'client/utils/localStorage';
 import { getUrl } from 'client/utils/common';
 import {
   Wrapper,
@@ -16,6 +16,7 @@ import {
 
 const Categories = () => {
   const history = useHistory();
+  const { checked } = getLocal();
   const { categories, offers, info } = useSelector(store => store.restaurant);
   const [t] = useTranslation();
   const [offer, setOffer] = useState(null);
@@ -25,7 +26,8 @@ const Categories = () => {
       onOk={() => {
         const category = categories.find(f => f.type === 'alcohol');
         if (category) {
-          setLocalUser({ check18: true });
+          checked.age = true;
+          setLocal({ checked });
           history.push(`category/${category.key}`);
         }
       }}
@@ -39,8 +41,7 @@ const Categories = () => {
   ), [offer]);
 
   const handleItemClick = (category) => {
-    const { check18 } = getLocalUser();
-    if (category.type === 'alcohol' && check18) {
+    if (category.type === 'alcohol' && checked.age) {
       confirmAge();
       return;
     }

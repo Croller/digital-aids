@@ -4,7 +4,7 @@ import {
   GoogleApiWrapper, 
 } from 'google-maps-react';
 // TODO lng to props, getLocal delete
-import { getLocalUser } from 'client/utils/localStorage';
+import { getLocal } from 'client/utils/localStorage';
  
 const MapContainer = ({
   zoom = 15,
@@ -26,9 +26,9 @@ const MapContainer = ({
 );
  
 export const GoogleMap = GoogleApiWrapper(({ lng = 'en' }) => {
-  const user = getLocalUser();
+  const localStorage = getLocal();
   return {
-    language: user.lng || lng,
+    language: localStorage.lng || lng,
     apiKey: process.env.API_KEY_GOOGLE_MAP,
   };
 })(MapContainer);

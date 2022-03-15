@@ -1,4 +1,4 @@
-import React, { lazy, useEffect } from 'react';
+import React, { lazy } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { Layout } from 'client/ui/components/Layout/Present';
@@ -8,22 +8,16 @@ const Tutorial = lazy(() => import('client/ui/modules/Present/Tutorial'));
 const PrivacyPolicy = lazy(() => import('client/ui/modules/Present/PrivacyPolicy'));
 const Restaurants = lazy(() => import('client/ui/modules/Present/Restaurants'));
 
-export const Present = () => {
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
-
-  return (
-    <Layout>
-      <Switch>
-        <Route exac path="/tutorial" component={Tutorial} />
-        <Route exac path="/privacy-policy" component={PrivacyPolicy} />
-        <Route exac path="/restaurants" component={Restaurants} />
-        <Route path="*" component={Main} />
-        <Redirect to="*" />
-      </Switch>
-    </Layout>
-  );
-};
+export const Present = () => (
+  <Layout>
+    <Switch>
+      <Route exac path="/tutorial" component={Tutorial} />
+      <Route exac path="/privacy-policy" component={PrivacyPolicy} />
+      <Route exac path="/restaurants" component={Restaurants} />
+      <Route path="*" component={Main} />
+      <Redirect to="*" />
+    </Switch>
+  </Layout>
+);
 
 export default Present;

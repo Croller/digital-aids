@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { showMessage } from 'client/ui/components/_ui/Message';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { dataToForm, dataToApi } from 'client/store/backOffice/mapper/user';
 import {
   AccountFormWrapper,
@@ -40,7 +40,7 @@ export const AccountForm = ({
       ...formData,
       ...values,
     };
-    onSubmit({ data: dataToApi(obj, source) });
+    onSubmit({ name: 'data_users', data: dataToApi(obj, source) });
     setIsChange(false);
   };
 

@@ -5,12 +5,10 @@ let io = null;
 const create = (server) => {
   io = new Server(server);
   io.on('connection', onConnection);
-  console.log(`Socket listen on port ${process.env.LOCAL_SERVER_PORT}`);
 };
 
 const onConnection = (socket) => {
   socket.on('join', (chanel) => {
-    console.log(`Socket joining chanel: ${chanel}`);
     socket.join(chanel);
   });
 
@@ -19,7 +17,6 @@ const onConnection = (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log('Disconnected...');
   });
 };
 
