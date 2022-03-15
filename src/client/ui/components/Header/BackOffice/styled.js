@@ -142,7 +142,8 @@ export const LangWrapper = styled.div`
   z-index: ${Z_INDEX.modal};
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    top: 100px;
+    top: 80px;
+    right: 0;
     left: unset;
   }
 `;

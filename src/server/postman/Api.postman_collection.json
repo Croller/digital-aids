@@ -1,0 +1,1312 @@
+{
+	"info": {
+		"_postman_id": "5862fbd7-837c-46bc-880b-f5aaed95f68a",
+		"name": "Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "External",
+			"item": [
+				{
+					"name": "getCoordsByAddress",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTk0NDA3LCJleHAiOjE2NDcyMzc2MDd9.qkQpc-_sRoY2xMKMDlpgFTtHXgnaRiyWf11aTaLOcLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/api/external/address-to-coords?address=Moscow&language=ru",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"external",
+								"address-to-coords"
+							],
+							"query": [
+								{
+									"key": "address",
+									"value": "Moscow"
+								},
+								{
+									"key": "language",
+									"value": "ru"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getCoordsByAddress",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8086/api/external/address-to-coords?address=Moscow&language=ru",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"external",
+										"address-to-coords"
+									],
+									"query": [
+										{
+											"key": "address",
+											"value": "Moscow"
+										},
+										{
+											"key": "language",
+											"value": "ru"
+										},
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "getAddressByCoords",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTk0NDA3LCJleHAiOjE2NDcyMzc2MDd9.qkQpc-_sRoY2xMKMDlpgFTtHXgnaRiyWf11aTaLOcLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/api/external/coords-to-address?latlng=55.755826,37.6172999&language=ru&partial_match=true",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"external",
+								"coords-to-address"
+							],
+							"query": [
+								{
+									"key": "latlng",
+									"value": "55.755826,37.6172999"
+								},
+								{
+									"key": "language",
+									"value": "ru"
+								},
+								{
+									"key": "partial_match",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getAddressByCoords",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8086/api/external/coords-to-address?latlng=55.755826,37.6172999&language=ru&partial_match=true",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"external",
+										"coords-to-address"
+									],
+									"query": [
+										{
+											"key": "latlng",
+											"value": "55.755826,37.6172999"
+										},
+										{
+											"key": "language",
+											"value": "ru"
+										},
+										{
+											"key": "partial_match",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "14522"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"38ba-CmxiKCOxtbUrD/KmQAMjGG/bt+Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 27 Jan 2022 01:10:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"14 строение 1\",\n                \"short_name\": \"14 строение 1\",\n                \"types\": [\n                    \"premise\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Тверской\",\n                \"short_name\": \"Тверской\",\n                \"types\": [\n                    \"administrative_area_level_3\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"109012\",\n                \"short_name\": \"109012\",\n                \"types\": [\n                    \"postal_code\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"14 строение 1, Москва, Россия, 109012\",\n        \"geometry\": {\n            \"location\": {\n                \"lat\": 55.7557986,\n                \"lng\": 37.6173522\n            },\n            \"location_type\": \"ROOFTOP\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.75714758029149,\n                    \"lng\": 37.6187011802915\n                },\n                \"southwest\": {\n                    \"lat\": 55.7544496197085,\n                    \"lng\": 37.6160032197085\n                }\n            }\n        },\n        \"place_id\": \"ChIJi9W-h1pKtUYRy77VD1UqFJ0\",\n        \"plus_code\": {\n            \"compound_code\": \"QJ48+8W Тверской район, Москва, Россия\",\n            \"global_code\": \"9G7VQJ48+8W\"\n        },\n        \"types\": [\n            \"street_address\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Охотный ряд\",\n                \"short_name\": \"Охотный ряд\",\n                \"types\": [\n                    \"establishment\",\n                    \"point_of_interest\",\n                    \"subway_station\",\n                    \"transit_station\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Тверской\",\n                \"short_name\": \"Тверской\",\n                \"types\": [\n                    \"administrative_area_level_3\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"125009\",\n                \"short_name\": \"125009\",\n                \"types\": [\n                    \"postal_code\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Охотный ряд, Москва, Россия, 125009\",\n        \"geometry\": {\n            \"location\": {\n                \"lat\": 55.757689,\n                \"lng\": 37.6164801\n            },\n            \"location_type\": \"GEOMETRIC_CENTER\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.7590379802915,\n                    \"lng\": 37.6178290802915\n                },\n                \"southwest\": {\n                    \"lat\": 55.7563400197085,\n                    \"lng\": 37.6151311197085\n                }\n            }\n        },\n        \"place_id\": \"ChIJW40721pKtUYRfdQOt3ACviI\",\n        \"plus_code\": {\n            \"compound_code\": \"QJ58+3H Тверской район, Москва, Россия\",\n            \"global_code\": \"9G7VQJ58+3H\"\n        },\n        \"types\": [\n            \"establishment\",\n            \"point_of_interest\",\n            \"subway_station\",\n            \"transit_station\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"3\",\n                \"short_name\": \"3\",\n                \"types\": [\n                    \"street_number\"\n                ]\n            },\n            {\n                \"long_name\": \"проезд Воскресенские Ворота\",\n                \"short_name\": \"пр-д Воскресенские Ворота\",\n                \"types\": [\n                    \"route\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Тверской\",\n                \"short_name\": \"Тверской\",\n                \"types\": [\n                    \"administrative_area_level_3\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"109012\",\n                \"short_name\": \"109012\",\n                \"types\": [\n                    \"postal_code\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"пр-д Воскресенские Ворота, 3, Москва, Россия, 109012\",\n        \"geometry\": {\n            \"location\": {\n                \"lat\": 55.75592630000001,\n                \"lng\": 37.617866\n            },\n            \"location_type\": \"RANGE_INTERPOLATED\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.75727528029151,\n                    \"lng\": 37.6192149802915\n                },\n                \"southwest\": {\n                    \"lat\": 55.75457731970851,\n                    \"lng\": 37.6165170197085\n                }\n            }\n        },\n        \"place_id\": \"EjhQcm95ZXpkIFZvc2tyZXNlbnNraXllIFZvcm90YSwgMywgTW9za3ZhLCBSdXNzaWEsIDEwOTAxMiIaEhgKFAoSCWW8pWJaSrVGEbC32ScXUmH_EAM\",\n        \"types\": [\n            \"street_address\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"QJ48+8W\",\n                \"short_name\": \"QJ48+8W\",\n                \"types\": [\n                    \"plus_code\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"QJ48+8W Тверской район, Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.755875,\n                    \"lng\": 37.617375\n                },\n                \"southwest\": {\n                    \"lat\": 55.75575,\n                    \"lng\": 37.61725\n                }\n            },\n            \"location\": {\n                \"lat\": 55.7558261,\n                \"lng\": 37.6172999\n            },\n            \"location_type\": \"GEOMETRIC_CENTER\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.7571614802915,\n                    \"lng\": 37.61866148029149\n                },\n                \"southwest\": {\n                    \"lat\": 55.7544635197085,\n                    \"lng\": 37.6159635197085\n                }\n            }\n        },\n        \"place_id\": \"GhIJS3ve6L7gS0AReynhrgPPQkA\",\n        \"plus_code\": {\n            \"compound_code\": \"QJ48+8W Тверской район, Москва, Россия\",\n            \"global_code\": \"9G7VQJ48+8W\"\n        },\n        \"types\": [\n            \"plus_code\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"проезд Воскресенские Ворота\",\n                \"short_name\": \"пр-д Воскресенские Ворота\",\n                \"types\": [\n                    \"route\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Тверской\",\n                \"short_name\": \"Тверской\",\n                \"types\": [\n                    \"administrative_area_level_3\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"109012\",\n                \"short_name\": \"109012\",\n                \"types\": [\n                    \"postal_code\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"пр-д Воскресенские Ворота, Москва, Россия, 109012\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.7560881,\n                    \"lng\": 37.6175372\n                },\n                \"southwest\": {\n                    \"lat\": 55.7559524,\n                    \"lng\": 37.6173238\n                }\n            },\n            \"location\": {\n                \"lat\": 55.7560203,\n                \"lng\": 37.6174305\n            },\n            \"location_type\": \"GEOMETRIC_CENTER\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.7573692302915,\n                    \"lng\": 37.61877948029151\n                },\n                \"southwest\": {\n                    \"lat\": 55.7546712697085,\n                    \"lng\": 37.61608151970851\n                }\n            }\n        },\n        \"place_id\": \"ChIJwXL0iFpKtUYRtsZ4pBOegek\",\n        \"types\": [\n            \"route\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"109012\",\n                \"short_name\": \"109012\",\n                \"types\": [\n                    \"postal_code\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Москва, Россия, 109012\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.7603591,\n                    \"lng\": 37.633492\n                },\n                \"southwest\": {\n                    \"lat\": 55.750027,\n                    \"lng\": 37.615893\n                }\n            },\n            \"location\": {\n                \"lat\": 55.755623,\n                \"lng\": 37.620455\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.7603591,\n                    \"lng\": 37.633492\n                },\n                \"southwest\": {\n                    \"lat\": 55.750027,\n                    \"lng\": 37.615893\n                }\n            }\n        },\n        \"place_id\": \"ChIJPS9vZPWtSkER1avEldUlXkM\",\n        \"types\": [\n            \"postal_code\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Китай-город\",\n                \"short_name\": \"Китай-город\",\n                \"types\": [\n                    \"neighborhood\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Тверской\",\n                \"short_name\": \"Тверской\",\n                \"types\": [\n                    \"administrative_area_level_3\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Китай-город, Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.7617308,\n                    \"lng\": 37.6347832\n                },\n                \"southwest\": {\n                    \"lat\": 55.74677699999999,\n                    \"lng\": 37.6040822\n                }\n            },\n            \"location\": {\n                \"lat\": 55.7521239,\n                \"lng\": 37.6211384\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.7617308,\n                    \"lng\": 37.6347832\n                },\n                \"southwest\": {\n                    \"lat\": 55.74677699999999,\n                    \"lng\": 37.6040822\n                }\n            }\n        },\n        \"place_id\": \"ChIJcZHjalxKtUYRwVzqj-18v5U\",\n        \"types\": [\n            \"neighborhood\",\n            \"political\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Тверской\",\n                \"short_name\": \"Тверской\",\n                \"types\": [\n                    \"administrative_area_level_3\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Тверской, Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.792505,\n                    \"lng\": 37.6347832\n                },\n                \"southwest\": {\n                    \"lat\": 55.74677699999999,\n                    \"lng\": 37.5768602\n                }\n            },\n            \"location\": {\n                \"lat\": 55.7723804,\n                \"lng\": 37.6045362\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.792505,\n                    \"lng\": 37.6347832\n                },\n                \"southwest\": {\n                    \"lat\": 55.74677699999999,\n                    \"lng\": 37.5768602\n                }\n            }\n        },\n        \"place_id\": \"ChIJ78Iohj9KtUYRuJLnZzLyfb0\",\n        \"types\": [\n            \"administrative_area_level_3\",\n            \"political\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Тверской район\",\n                \"short_name\": \"Тверской р-н\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_2\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Тверской р-н, Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.7926329,\n                    \"lng\": 37.635073\n                },\n                \"southwest\": {\n                    \"lat\": 55.74697099999999,\n                    \"lng\": 37.5748972\n                }\n            },\n            \"location\": {\n                \"lat\": 55.7729754,\n                \"lng\": 37.60436\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.7926329,\n                    \"lng\": 37.635073\n                },\n                \"southwest\": {\n                    \"lat\": 55.74697099999999,\n                    \"lng\": 37.5748972\n                }\n            }\n        },\n        \"place_id\": \"ChIJs3O6uDhKtUYRmd41qyFJK3c\",\n        \"types\": [\n            \"political\",\n            \"sublocality\",\n            \"sublocality_level_2\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Центральный административный округ\",\n                \"short_name\": \"Центральный административный округ\",\n                \"types\": [\n                    \"political\",\n                    \"sublocality\",\n                    \"sublocality_level_1\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Центральный административный округ, Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 55.797092,\n                    \"lng\": 37.7135712\n                },\n                \"southwest\": {\n                    \"lat\": 55.710244,\n                    \"lng\": 37.514274\n                }\n            },\n            \"location\": {\n                \"lat\": 55.7569428,\n                \"lng\": 37.6149895\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 55.797092,\n                    \"lng\": 37.7135712\n                },\n                \"southwest\": {\n                    \"lat\": 55.710244,\n                    \"lng\": 37.514274\n                }\n            }\n        },\n        \"place_id\": \"ChIJz08vV1BKtUYR2D1lCclQxZM\",\n        \"types\": [\n            \"political\",\n            \"sublocality\",\n            \"sublocality_level_1\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"locality\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 56.0214609,\n                    \"lng\": 37.9678221\n                },\n                \"southwest\": {\n                    \"lat\": 55.142591,\n                    \"lng\": 36.8032249\n                }\n            },\n            \"location\": {\n                \"lat\": 55.755826,\n                \"lng\": 37.6172999\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 56.0214609,\n                    \"lng\": 37.9678221\n                },\n                \"southwest\": {\n                    \"lat\": 55.142591,\n                    \"lng\": 36.8032249\n                }\n            }\n        },\n        \"place_id\": \"ChIJybDUc_xKtUYRTM9XV8zWRD0\",\n        \"types\": [\n            \"locality\",\n            \"political\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_2\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_1\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 56.02156799999999,\n                    \"lng\": 37.9678191\n                },\n                \"southwest\": {\n                    \"lat\": 55.1428781,\n                    \"lng\": 36.8037541\n                }\n            },\n            \"location\": {\n                \"lat\": 55.5464948,\n                \"lng\": 37.2926266\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 56.02156799999999,\n                    \"lng\": 37.9678191\n                },\n                \"southwest\": {\n                    \"lat\": 55.1428781,\n                    \"lng\": 36.8037541\n                }\n            }\n        },\n        \"place_id\": \"ChIJP5cfydBLtUYRyvGyUIpYc50\",\n        \"types\": [\n            \"administrative_area_level_2\",\n            \"political\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Москва\",\n                \"short_name\": \"Москва\",\n                \"types\": [\n                    \"administrative_area_level_1\",\n                    \"political\"\n                ]\n            },\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Москва, Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 56.02156799999999,\n                    \"lng\": 37.9678191\n                },\n                \"southwest\": {\n                    \"lat\": 55.1428781,\n                    \"lng\": 36.8037541\n                }\n            },\n            \"location\": {\n                \"lat\": 55.5464948,\n                \"lng\": 37.2926266\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 56.02156799999999,\n                    \"lng\": 37.9678191\n                },\n                \"southwest\": {\n                    \"lat\": 55.1428781,\n                    \"lng\": 36.8037541\n                }\n            }\n        },\n        \"place_id\": \"ChIJr-dYmSzISkERysTPiPSjVws\",\n        \"types\": [\n            \"administrative_area_level_1\",\n            \"political\"\n        ]\n    },\n    {\n        \"address_components\": [\n            {\n                \"long_name\": \"Россия\",\n                \"short_name\": \"RU\",\n                \"types\": [\n                    \"country\",\n                    \"political\"\n                ]\n            }\n        ],\n        \"formatted_address\": \"Россия\",\n        \"geometry\": {\n            \"bounds\": {\n                \"northeast\": {\n                    \"lat\": 82.1673907,\n                    \"lng\": -168.97788\n                },\n                \"southwest\": {\n                    \"lat\": 41.185353,\n                    \"lng\": 19.6160999\n                }\n            },\n            \"location\": {\n                \"lat\": 61.52401,\n                \"lng\": 105.318756\n            },\n            \"location_type\": \"APPROXIMATE\",\n            \"viewport\": {\n                \"northeast\": {\n                    \"lat\": 82.1673907,\n                    \"lng\": -168.97788\n                },\n                \"southwest\": {\n                    \"lat\": 41.185353,\n                    \"lng\": 19.6160999\n                }\n            }\n        },\n        \"place_id\": \"ChIJ-yRniZpWPEURE_YRZvj9CRQ\",\n        \"types\": [\n            \"country\",\n            \"political\"\n        ]\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "getTextTranslate",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTk0NDA3LCJleHAiOjE2NDcyMzc2MDd9.qkQpc-_sRoY2xMKMDlpgFTtHXgnaRiyWf11aTaLOcLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/api/external/text-language-change?text=Москва&sourceLng=ru&targetLng=fr",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"external",
+								"text-language-change"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "Москва"
+								},
+								{
+									"key": "sourceLng",
+									"value": "ru"
+								},
+								{
+									"key": "targetLng",
+									"value": "fr"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getTextTranslate",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8086/api/external/text-language-change?text=Курьяновская&sourceLng=ru&targetLng=en",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"external",
+										"text-language-change"
+									],
+									"query": [
+										{
+											"key": "text",
+											"value": "Курьяновская"
+										},
+										{
+											"key": "sourceLng",
+											"value": "ru"
+										},
+										{
+											"key": "targetLng",
+											"value": "en"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "34"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"22-RJY6jryookF3Rgyy4aMYjzuJ2N0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 27 Jan 2022 01:20:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"translatedText\": \"Kuryanovskaya\"\n}"
+						}
+					]
+				},
+				{
+					"name": "getGeolocation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTk0NDA3LCJleHAiOjE2NDcyMzc2MDd9.qkQpc-_sRoY2xMKMDlpgFTtHXgnaRiyWf11aTaLOcLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8086/api/external/geolocation",
+							"host": [
+								"localhost"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"external",
+								"geolocation"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "getGeolocation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8086/api/external/geolocation",
+									"host": [
+										"localhost"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"external",
+										"geolocation"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b-6QcF9bwZajdaCOK9af/9uz9Y4PE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 27 Jan 2022 02:03:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"location\": {\n        \"lat\": 55.836672,\n        \"lng\": 37.388288\n    },\n    \"accuracy\": 5498.051032099102\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "auth",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTgwMzgyLCJleHAiOjE2NDcyMjM1ODJ9.CqlI8MEWXi1d65Dm3FuzXH-tl_hdq25RJ9fCSiCzp3s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:8086/api/user/auth",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"user",
+								"auth"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "auth",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://0.0.0.0:8086/api/user/auth",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"user",
+										"auth"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1401"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"579-zfblnOC/2MIEeooL1sDlAI9SvZM\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 27 Jan 2022 01:37:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n    \"login\": \"rootAdmin\",\n    \"surname\": \"Root\",\n    \"name\": \"R\",\n    \"middlename\": \"R\",\n    \"birthdate\": \"1987-12-20T21:00:00.000Z\",\n    \"phone\": \"{79104643015}\",\n    \"email\": \"79104643015@yandex.ru\",\n    \"language\": \"en\",\n    \"enter_at\": \"2022-01-27 04:37:40.151\",\n    \"is_confirmed\": true,\n    \"is_deleted\": false,\n    \"change_at\": \"2022-01-26T20:32:56.815Z\",\n    \"change_user\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzYTJhZjE1LWU3M2EtNDE3Yi1iZjc5LTNkMTY5ZjRlYmExNiIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjoie1wiaXBcIjpcIjEyNy4wLjAuMVwiLFwiYnJvd3NlclwiOnt9LFwiZ2VvXCI6e1wicmFuZ2VcIjpbMTQwNjk4NzUyMCwxNDA2OTg3NjQ3XSxcImNvdW50cnlcIjpcIlJVXCIsXCJyZWdpb25cIjpcIk1PV1wiLFwiZXVcIjpcIjBcIixcInRpbWV6b25lXCI6XCJFdXJvcGUvTW9zY293XCIsXCJjaXR5XCI6XCJNb3Njb3dcIixcImxsXCI6WzU1Ljc1MjcsMzcuNjE3Ml0sXCJtZXRyb1wiOjAsXCJhcmVhXCI6MX19IiwiZW50ZXJfYXQiOiIyMDIyLTAxLTI3IDA0OjM3OjQwLjE1MSIsImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDEtMjZUMjA6MzI6NTYuODE1WiIsImNoYW5nZV91c2VyIjoiMTNhMmFmMTUtZTczYS00MTdiLWJmNzktM2QxNjlmNGViYTE2IiwiaWF0IjoxNjQzMjQ3NDYwLCJleHAiOjE2NDMyOTA2NjB9.9HFpjKhNcM2G_zhEVrM_8vLVfAwiydtiRrpoGPLe7Q8\"\n}"
+						}
+					]
+				},
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsibmFtZSI6ImNocm9tZSIsInZlcnNpb24iOiI4OS4wLjQzODkiLCJvcyI6Ik1hYyBPUyJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ1MTUwMTY5LCJleHAiOjE2NDUxOTMzNjl9.oZnwklhZ6IKEjfNJOpt4hgSYP4rqEIcVb3tXQ5xYQ4E",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": \"bc581fb2-bc1a-4a18-ab8c-824345a393dc\",\n        \"surname\": \"Root\",\n        \"name\": \"Rw\",\n        \"middlename\": \"R\",\n        \"login\": \"rootAdmin\",\n        \"birthdate\": \"1987-12-21T00:00:00.000\",\n        \"email\": \"79104643015@yandex.ru\",\n        \"phone\": \"{79104643015}\"\n        // \"meta\": {\n        //     \"browser\": {\n        //         \"name\": \"chrome\",\n        //         \"version\": \"89.0.4389\",\n        //         \"os\": \"Mac OS\",\n        //         \"type\": \"browser\"\n        //     }\n        // }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8086/api/user/update",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"data\": {\n        \"id\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n        \"surname\": \"Root\",\n        \"name\": \"Reee\",\n        \"middlename\": \"R\",\n        \"login\": \"rootAdmin\",\n        \"birthdate\": \"1987-12-21T00:00:00.000\",\n        \"email\": \"79104643015@yandex.ru\",\n        \"phone\": \"{79104643015}\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://0.0.0.0:8086/api/user/update",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"user",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1411"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"583-eIGvEL8CNSqtAhTuzTrakBTUM+Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 27 Jan 2022 01:39:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n    \"login\": \"rootAdmin\",\n    \"surname\": \"Root\",\n    \"name\": \"Reee\",\n    \"middlename\": \"R\",\n    \"birthdate\": \"1987-12-20T21:00:00.000Z\",\n    \"phone\": \"{79104643015}\",\n    \"email\": \"79104643015@yandex.ru\",\n    \"language\": \"en\",\n    \"enter_at\": \"2022-01-27T01:37:40.151Z\",\n    \"is_confirmed\": true,\n    \"is_deleted\": false,\n    \"change_at\": \"2022-01-26T20:32:56.815Z\",\n    \"change_user\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzYTJhZjE1LWU3M2EtNDE3Yi1iZjc5LTNkMTY5ZjRlYmExNiIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSZWVlIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjoie1wiaXBcIjpcIjEyNy4wLjAuMVwiLFwiYnJvd3NlclwiOnt9LFwiZ2VvXCI6e1wicmFuZ2VcIjpbMTQwNjk4NzUyMCwxNDA2OTg3NjQ3XSxcImNvdW50cnlcIjpcIlJVXCIsXCJyZWdpb25cIjpcIk1PV1wiLFwiZXVcIjpcIjBcIixcInRpbWV6b25lXCI6XCJFdXJvcGUvTW9zY293XCIsXCJjaXR5XCI6XCJNb3Njb3dcIixcImxsXCI6WzU1Ljc1MjcsMzcuNjE3Ml0sXCJtZXRyb1wiOjAsXCJhcmVhXCI6MX19IiwiZW50ZXJfYXQiOiIyMDIyLTAxLTI3VDAxOjM3OjQwLjE1MVoiLCJpc19jb25maXJtZWQiOnRydWUsImlzX2RlbGV0ZWQiOmZhbHNlLCJjaGFuZ2VfYXQiOiIyMDIyLTAxLTI2VDIwOjMyOjU2LjgxNVoiLCJjaGFuZ2VfdXNlciI6IjEzYTJhZjE1LWU3M2EtNDE3Yi1iZjc5LTNkMTY5ZjRlYmExNiIsImlhdCI6MTY0MzI0NzU5NiwiZXhwIjoxNjQzMjkwNzk2fQ.06CU7KlEOqq2JXAhVrCEcQcHpoPQzkm1Ojco_XMRJPU\"\n}"
+						}
+					]
+				},
+				{
+					"name": "reset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:8086/api/user/auth",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"user",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const login = pm.environment.get(\"da_login\");",
+									"const password = pm.environment.get(\"da_password\");",
+									"const browser = null;",
+									"",
+									"const postRequest = {",
+									"  url: 'https://postman-echo.com/post',",
+									"  method: 'POST',",
+									"  header: {",
+									"    'Content-Type': 'application/json',",
+									"    'X-Foo': 'bar'",
+									"  },",
+									"  body: {",
+									"    mode: 'raw',",
+									"    raw: JSON.stringify({ \"data\": { login, password, browser } })",
+									"  }",
+									"};",
+									"",
+									"pm.test(\"signin test\", function () {",
+									"    pm.sendRequest(postRequest, (error, response) => {",
+									"        error && console.log(error);",
+									"",
+									"        pm.test('response process', () => {",
+									"            pm.expect(error).to.equal(null);",
+									"            pm.expect(response).to.have.property('code', 200);",
+									"            pm.expect(response).to.have.property('status', 'OK');",
+									"        });",
+									"",
+									"        pm.test('response meta', () => {",
+									"            const time = pm.response.responseTime;",
+									"            const size = pm.response.responseSize;",
+									"        });",
+									"",
+									"        pm.test('response body', () => {",
+									"            const responseJson = pm.response.json();",
+									"            pm.response.to.have.body(responseJson);",
+									"        });",
+									"",
+									"        ",
+									"        ",
+									"        ",
+									"    });",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-forwarded-for",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"login\": \"rootAdmin\",\n        \"password\": \"rootAids2021\",\n        \"language\": \"ru\",\n        \"meta\": {\n            \"browser\": {\n                \"name\": \"chrome\",\n                \"version\": \"89.0.4389\",\n                \"os\": \"Mac OS\",\n                \"type\": \"browser\"\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8086/api/user/signin",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"user",
+								"signin"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "signin",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-forwarded-for",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"data\": {\n        \"login\": \"rootAdmin\",\n        \"password\": \"rootAids2021\",\n        \"language\": \"ru\",\n        \"browser\": {\n            \"name\": \"chrome\",\n            \"version\": \"89.0.4389\",\n            \"os\": \"Mac OS\",\n            \"type\": \"browser\"\n        }\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://0.0.0.0:8086/api/user/signin",
+									"protocol": "http",
+									"host": [
+										"0",
+										"0",
+										"0",
+										"0"
+									],
+									"port": "8086",
+									"path": [
+										"api",
+										"user",
+										"signin"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1513"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5e9-GvX1X4p0s4bO8vISXYJq9E4Dr9M\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 27 Jan 2022 01:31:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n    \"login\": \"rootAdmin\",\n    \"surname\": \"Root\",\n    \"name\": \"R\",\n    \"middlename\": \"R\",\n    \"birthdate\": \"1987-12-20T21:00:00.000Z\",\n    \"phone\": \"{79104643015}\",\n    \"email\": \"79104643015@yandex.ru\",\n    \"language\": \"en\",\n    \"enter_at\": \"2022-01-27 04:31:44.190\",\n    \"is_confirmed\": true,\n    \"is_deleted\": false,\n    \"change_at\": \"2022-01-26T20:32:56.815Z\",\n    \"change_user\": \"13a2af15-e73a-417b-bf79-3d169f4eba16\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzYTJhZjE1LWU3M2EtNDE3Yi1iZjc5LTNkMTY5ZjRlYmExNiIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjoie1wiaXBcIjpcIjEyNy4wLjAuMVwiLFwiYnJvd3NlclwiOntcIm5hbWVcIjpcImNocm9tZVwiLFwidmVyc2lvblwiOlwiODkuMC40Mzg5XCIsXCJvc1wiOlwiTWFjIE9TXCIsXCJ0eXBlXCI6XCJicm93c2VyXCJ9LFwiZ2VvXCI6e1wicmFuZ2VcIjpbMTQwNjk4NzUyMCwxNDA2OTg3NjQ3XSxcImNvdW50cnlcIjpcIlJVXCIsXCJyZWdpb25cIjpcIk1PV1wiLFwiZXVcIjpcIjBcIixcInRpbWV6b25lXCI6XCJFdXJvcGUvTW9zY293XCIsXCJjaXR5XCI6XCJNb3Njb3dcIixcImxsXCI6WzU1Ljc1MjcsMzcuNjE3Ml0sXCJtZXRyb1wiOjAsXCJhcmVhXCI6MX19IiwiZW50ZXJfYXQiOiIyMDIyLTAxLTI3IDA0OjMxOjQ0LjE5MCIsImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDEtMjZUMjA6MzI6NTYuODE1WiIsImNoYW5nZV91c2VyIjoiMTNhMmFmMTUtZTczYS00MTdiLWJmNzktM2QxNjlmNGViYTE2IiwiaWF0IjoxNjQzMjQ3MTA0LCJleHAiOjE2NDMyOTAzMDR9.nNJ45Fu8Yylpcm6eR--CtLHaMnHZbos-m3TRp9JqymA\"\n}"
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "{{da_login}}",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "{{da_password}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Common",
+			"item": [
+				{
+					"name": "getTables",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTkzMDk5LCJleHAiOjE2NDcyMzYyOTl9.KkFJp5ja4tgPAnX2gkRRLiiCsQu8aAKN-cbBJ_N0HVc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "el",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://0.0.0.0:8086/api/table?data=dictionary_allergens",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"table"
+							],
+							"query": [
+								{
+									"key": "data",
+									"value": "dictionary_currency,dictionary_languages,dictionary_days,dictionary_units,dictionary_allergens",
+									"disabled": true
+								},
+								{
+									"key": "data",
+									"value": "dictionary_allergens"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTableStats",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTQ5ODAyLCJleHAiOjE2NDcxOTMwMDJ9.fWn9oKXRct_d9SviMJem6zUuY0vDwgWtxLJasUAfUVI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://0.0.0.0:8086/api/table/data_restaurants/stats",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8086",
+							"path": [
+								"api",
+								"table",
+								"data_restaurants",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecordById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTk0NDA3LCJleHAiOjE2NDcyMzc2MDd9.qkQpc-_sRoY2xMKMDlpgFTtHXgnaRiyWf11aTaLOcLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "ru",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8085/api/table/dictionary_allergens/record?data=gluten",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"table",
+								"dictionary_allergens",
+								"record"
+							],
+							"query": [
+								{
+									"key": "data",
+									"value": "71416833-12bc-4ac5-96b7-d8cf58556aa6",
+									"disabled": true
+								},
+								{
+									"key": "data",
+									"value": "71416833-12bc-4ac5-96b7-d8cf58556aa6,942c499a-3cc3-44c8-8e79-7a2a89f17002",
+									"disabled": true
+								},
+								{
+									"key": "data",
+									"value": "gluten"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecordHistory",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTk0NDA3LCJleHAiOjE2NDcyMzc2MDd9.qkQpc-_sRoY2xMKMDlpgFTtHXgnaRiyWf11aTaLOcLk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "ru",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8085/api/table/data_users/record/history?data=bc581fb2-bc1a-4a18-ab8c-824345a393dc",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"table",
+								"data_users",
+								"record",
+								"history"
+							],
+							"query": [
+								{
+									"key": "data",
+									"value": "bc581fb2-bc1a-4a18-ab8c-824345a393dc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getRecordByParam",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTkzMDk5LCJleHAiOjE2NDcyMzYyOTl9.KkFJp5ja4tgPAnX2gkRRLiiCsQu8aAKN-cbBJ_N0HVc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "el",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": \"9674194a-0f9a-4d75-b079-f0116dcf3bde\",\n        \"is_deleted\": false\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8085/api/table/data_categories/record",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"table",
+								"data_categories",
+								"record"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "searchRecord",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTkzMDk5LCJleHAiOjE2NDcyMzYyOTl9.KkFJp5ja4tgPAnX2gkRRLiiCsQu8aAKN-cbBJ_N0HVc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "el",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": [\"gluten\", \"sesame\"]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8085/api/table/dictionary_allergens/record/search",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"table",
+								"dictionary_allergens",
+								"record",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateRecord",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTQ5ODAyLCJleHAiOjE2NDcxOTMwMDJ9.fWn9oKXRct_d9SviMJem6zUuY0vDwgWtxLJasUAfUVI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": \"71416833-12bc-4ac5-96b7-d8cf58556aa6\",\n        \"is_deleted\": false\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8085/api/table/data_restaurants/record/update",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"table",
+								"data_restaurants",
+								"record",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteRecord",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjNTgxZmIyLWJjMWEtNGExOC1hYjhjLTgyNDM0NWEzOTNkYyIsImxvZ2luIjoicm9vdEFkbWluIiwicGFzc3dvcmQiOiJyb290QWlkczIwMjEiLCJzdXJuYW1lIjoiUm9vdCIsIm5hbWUiOiJSdzIyMzMyMWQxIiwibWlkZGxlbmFtZSI6IlIiLCJiaXJ0aGRhdGUiOiIxOTg3LTEyLTIwVDIxOjAwOjAwLjAwMFoiLCJwaG9uZSI6Ins3OTEwNDY0MzAxNX0iLCJlbWFpbCI6Ijc5MTA0NjQzMDE1QHlhbmRleC5ydSIsImxhbmd1YWdlIjoiZW4iLCJtZXRhIjp7ImJyb3dzZXIiOnsib3MiOiJNYWMgT1MiLCJuYW1lIjoiY2hyb21lIiwidmVyc2lvbiI6Ijg5LjAuNDM4OSJ9LCJpcCI6IjEyNy4wLjAuMSIsImdlbyI6eyJyYW5nZSI6WzE0MDY5ODc1MjAsMTQwNjk4NzY0N10sImNvdW50cnkiOiJSVSIsInJlZ2lvbiI6Ik1PVyIsImV1IjoiMCIsInRpbWV6b25lIjoiRXVyb3BlL01vc2NvdyIsImNpdHkiOiJNb3Njb3ciLCJsbCI6WzU1Ljc1MjcsMzcuNjE3Ml0sIm1ldHJvIjowLCJhcmVhIjoxfX0sImlzX2NvbmZpcm1lZCI6dHJ1ZSwiaXNfZGVsZXRlZCI6ZmFsc2UsImNoYW5nZV9hdCI6IjIwMjItMDItMTVUMjM6MDg6MDEuNzUzWiIsImNoYW5nZV91c2VyIjoiYmM1ODFmYjItYmMxYS00YTE4LWFiOGMtODI0MzQ1YTM5M2RjIiwiaWF0IjoxNjQ3MTQ5ODAyLCJleHAiOjE2NDcxOTMwMDJ9.fWn9oKXRct_d9SviMJem6zUuY0vDwgWtxLJasUAfUVI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"id\": \"71416833-12bc-4ac5-96b7-d8cf58556aa6\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://0.0.0.0:8085/api/table/data_restaurants/record/delete",
+							"protocol": "http",
+							"host": [
+								"0",
+								"0",
+								"0",
+								"0"
+							],
+							"port": "8085",
+							"path": [
+								"api",
+								"table",
+								"data_restaurants",
+								"record",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{da_password}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "{{da_login}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

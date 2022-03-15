@@ -19,6 +19,7 @@ export const Content = styled.div`
   display: flex;
   justify-content: center;
   padding-left: ${p => (p.leftbar ? '245px' : '0')};
+  
   padding-right: ${p => (p.rightbar ? '245px' : '0')};
 `;
 

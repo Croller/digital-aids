@@ -1,10 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
 import { LeftSideBar } from 'client/ui/components/Layout/BackOffice/LeftSideBar';
 import { RightSideBar } from 'client/ui/components/Layout/BackOffice/RightSideBar';
-import { setLocalUser } from 'client/utils/localStorage';
+import { setLocal } from 'client/utils/localStorage';
 import * as user from 'client/store/user';
 import { set } from 'client/store/backOffice';
 import OutSideClick from 'react-outside-click-handler';
@@ -22,7 +22,7 @@ export const Layout = ({
   const history = useHistory();
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
-  const [showLeftSideBar, setShowLeftSideBar] = useState(true);
+  const [showLeftSideBar, setShowLeftSideBar] = useState(false);
   const [showRightSideBar, setShowRightSideBar] = useState(false);
   const { info, roles } = useSelector(store => store.user);
   const { token } = info;
@@ -30,7 +30,7 @@ export const Layout = ({
   const handleRoute = useCallback((part = 'restaurants') => {
     if (part === 'auth') {
       history.push(path);
-      setLocalUser({ token: null });
+      setLocal({ token: null });
       rootDispatch(user.set({ info: { ...info, token: null } }));
       rootDispatch(set({ restaurants: null }));
     }
@@ -49,6 +49,13 @@ export const Layout = ({
     }
   };
 
+  useEffect(() => {
+    if (!token) {
+      setShowLeftSideBar(false);
+      setShowRightSideBar(false);
+    }
+  }, [token]);
+
   return (
     <Wrapper className={className}>
       <Header
@@ -66,8 +73,8 @@ export const Layout = ({
       )}
       <Cotainer>
         <Content
-          leftbar={token && showLeftSideBar}
-          rightbar={token && showRightSideBar}
+          leftbar={showLeftSideBar}
+          rightbar={showRightSideBar}
         >
           <Block>
             {children}

@@ -5,7 +5,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { init, update, deleteFiles } from 'client/store/backOffice';
 import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
-import { getDictionaryItem } from 'client/utils/common';
+import { getAccess, getDictionaryItem } from 'client/utils/common';
 import {
   AlertCircleSvg,
   ArchiveSvg,
@@ -26,7 +26,7 @@ import {
   ListCategory,
   CategoryEdit,
   Caterory,
-  CateroryFormStyled,
+  CategoryFormStyled,
   InfoStyled,
   DishControls,
   NewDish,
@@ -42,15 +42,23 @@ const Category = () => {
   const { pathname } = useLocation();
   const history = useHistory();
   const rootDispatch = useDispatch();
+  const { user: { roles, info: { token } }, backOffice } = useSelector(s => s);
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState([]);
   const [restCategoryActive, setRestCategoryActive] = useState(null);
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
+  const [orderTR, setOrderTr] = useState(null);
   const [dishCategory, setDishCategory] = useState([]);
-  const { user: { roles }, backOffice } = useSelector(s => s);
   const pageSpec = ['foodtips', 'special-deals'];
   const pageSpecActive = pageSpec.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
+  const root = getAccess({ role: 'root', roles });
+  const access = getAccess({
+    roles,
+    role: 'owner',
+    project: 'data_restaurants',
+    project_id: restaurant,
+  });
   const {
     restaurants,
     categories,
@@ -60,14 +68,13 @@ const Category = () => {
     loading,
   } = backOffice;
 
-  const initCategory = () => {
+  const initCategory = async () => {
     let categoryFilter = [];
     let categoryActive = null;
 
     const rest = restaurants.find(f => f.id === restaurant);
+    console.log('rest', rest);
     if (rest) {
-      rest.languages = ['en', ...rest.languages.filter(f => f !== 'en')];
-
       const restCategories = [...(categories
         ? dataApiToList(categories.filter(f => f.restaurant === restaurant))
         : [])];
@@ -88,6 +95,24 @@ const Category = () => {
       setRestCategoryActive(categoryActive);
       setRestCategory(categoryFilter);
       setRestInfo(rest);
+
+      if (orderTR && orderTR.data_catalogories && categoryActive && categoryActive.id) {
+        const { key, type, name } = orderTR.data_catalogories.en;
+        const { id } = categoryActive;
+        if (categoryActive.key === key && categoryActive.type === type && categoryActive.name === name) {
+          await Promise.allSettled(Object.keys(orderTR.data_catalogories).filter(f => f !== 'en').map(async (lng) => {
+            const obj = orderTR.data_catalogories[lng];
+            const { children } = obj;
+            obj.id = id;
+            if (children) {
+              obj.children = children.map(it => ({ ...it, parent: id }));
+            }
+            return rootDispatch(update({ name: 'data_categories', data: dataToApi(obj, restInfo), language: lng }));
+          }));
+          console.log(results);
+          setOrderTr(null);
+        }
+      }
     }
   };
 
@@ -144,54 +169,34 @@ const Category = () => {
     setRestCategoryEdit(true);
     setRestCategoryActive(null);
     setRestCategory([...restCategory, null]);
-    handleRoute('language', 'en');
   };
   
-  const handleChangeCategory = (data = null) => {
+  const handleChangeCategory = async (data = null, lng = language) => {
     setRestCategoryEdit(false);
-    if (!data && !restCategory[restCategory.length - 1]) {
-      const withoutLast = restCategory.slice(0, restCategory.length - 1);
-      setRestCategory(withoutLast);
-      setRestCategoryActive(withoutLast[0]);
-      return;
-    }
-    if (!data) {
-      return;
-    }
-    if (restCategoryActive && (restCategoryActive.is_archived !== data.is_archived || restCategoryActive.is_deleted !== data.is_deleted)) {
-      setTimeout(() => {
-        rootDispatch(update({
-          name: 'data_dishes',
-          data: dishCategory.map(dish => ({
-            id: dish.id,
-            is_archived: data.is_archived,
-            is_deleted: data.is_deleted,
-          })), 
-        }));
-      }, 1500);
-    }
-    setRestCategoryActive({
-      ...data,
-      children: data.children ? data.children.filter(f => !f.is_deleted) : null,
-    });
-
-    rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language }));
+    setRestCategoryActive(null);
+    initCategory();
+    data && rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language: lng }));
   };
 
   const handleAddDish = () => {
     setRestCategoryEdit(false);
     setDishCategory([null, ...dishCategory]);
-    handleRoute('language', 'en');
   };
 
-  const handleChangeDish = (data = null) => {
+  const handleChangeDish = (data = null, lng = language) => {
     if (!data) return;
-    rootDispatch(update({ name: 'data_dishes', data, language }));
+    rootDispatch(update({ name: 'data_dishes', data, language: lng }));
   };
 
   const handleChangeFiles = (data = null) => {
     data && rootDispatch(deleteFiles({ data }));
   };
+
+  // useEffect(() => {
+  //   if (info && info.language) {
+  //     handleRoute('language', info.language);
+  //   }
+  // }, [info && info.language]);
 
   useEffect(() => {
     if (restaurants && categories && dictionary) {
@@ -206,8 +211,8 @@ const Category = () => {
   }, [dishes, restCategoryActive, pathname]);
 
   useEffect(() => {
-    rootDispatch(init({ ids: [restaurant], language }));
-  }, [params.language]);
+    rootDispatch(init({ ids: [restaurant] }));
+  }, [language]);
 
   useEffect(() => {
     if (status) {
@@ -234,13 +239,13 @@ const Category = () => {
           {pathname.indexOf('/dashboard') === -1 && (
             <>
               <ListLng>
-                {restInfo.languages.map(lng => (
+                {restInfo.languages.map((lng, l) => (
                   <Lng
                     key={`_lng_${lng}`}
                     active={lng === params.language}
                     onClick={() => handleRoute('language', lng)}
                   >
-                    {lng === 'en' && (<AlertCircleSvg />)}
+                    {l === 0 && (<AlertCircleSvg />)}
                     {getDictionaryItem(lng, 'id', dictionary.languages, 'name')}
                   </Lng>
                 ))}
@@ -257,14 +262,14 @@ const Category = () => {
                         {item.name}
                       </Caterory>
                     ))}
-                    {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
+                    {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && (access || root) && (
                       <Caterory new onClick={handleAddCategory}>
                         {t('common.words.newCategory')}
                         <PlusSvg />
                       </Caterory>
                     )}
                   </ListCategory>
-                  {restCategory.length > 0 && !restCategoryEdit && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
+                  {restCategory.length > 0 && !restCategoryEdit && (access || root) && (
                     <CategoryEdit
                       onClick={() => { 
                         setDishCategory([]);
@@ -277,14 +282,17 @@ const Category = () => {
                 </CategoryWrapper>
               )}
               {restCategoryEdit && (
-                <CateroryFormStyled 
+                <CategoryFormStyled
+                  token={token}
                   source={restCategoryActive}
                   dictionary={dictionary}
+                  restaurant={restInfo}
                   currency={restInfo.currency[0]}
                   language={language}
                   loading={loading}
                   archive={isArchive}
                   onChange={handleChangeCategory}
+                  onCreateTranslate={setOrderTr}
                 />
               )}
               {pageSpecActive && restCategoryActive && (
@@ -293,7 +301,7 @@ const Category = () => {
                   options={restCategoryActive.options}
                 />
               )}
-              {!isArchive && restCategoryActive && roles.some(f => (f.manager || f.manager_back) && (restaurant === f.restaurant || (f.root || f.root_back))) && (
+              {!isArchive && restCategoryActive && (access || root) && (
                 <DishControls>
                   <NewDish
                     onClick={handleAddDish}
@@ -316,14 +324,15 @@ const Category = () => {
                   {dishCategory.map((dish) => (
                     <DishFormStyled
                       key={`_dish_${dish ? dish.id : 'new'}`}
+                      token={token}
                       source={dish}
                       roles={roles}
                       type={restCategoryActive.type}
                       controls={!restCategoryActive.is_archived}
                       dishes={getRestDishes()}
                       categories={getRestDisheCategories()}
-                      restaurant={restInfo}
                       dictionary={dictionary}
+                      restaurant={restInfo}
                       currency={restInfo.currency[0]}
                       loading={loading}
                       archive={isArchive}

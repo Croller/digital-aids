@@ -10,16 +10,16 @@ const initState = {
   error: null,
 };
 
-export default function (state = initState, action) {
-  switch (action.type) {
+export default function (state = initState, { type, payload }) {
+  switch (type) {
     case Constants.PRESENT_SET:
-      return { ...state, ...action.payload };
+      return { ...state, ...payload };
     case Constants.PRESENT_ERROR_SET:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: payload, loading: false };
     case Constants.PRESENT_LOADING_SET:
       return {
         ...state,
-        loading: action.payload,
+        loading: payload,
         error: null,
         status: null,
       };

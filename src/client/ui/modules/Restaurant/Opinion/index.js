@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
@@ -75,10 +75,6 @@ const Opinion = () => {
     local.opinionSend = true;
     setLocalRestaurant(key, local);
   };
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   // const handleSend = async () => {
   //   const local = getLocal();

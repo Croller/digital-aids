@@ -6,7 +6,7 @@ import {
 } from 'redux-saga/effects';
 import * as Constants from 'client/store/backOffice/constants';
 import * as commonProvider from 'client/providers/common';
-import { getSort, updateItem } from 'client/utils/common';
+import { getAccess, getSort, updateItem } from 'client/utils/common';
 import { categoryModel } from 'client/store/backOffice/mapper/category';
 
 function* updateState({ payload }) {
@@ -19,10 +19,11 @@ function* updateState({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* init({ payload: { name = 'data_restaurants', ids = null, language = 'en' } }) {
+function* init({ payload: { name = 'data_restaurants' } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
-  const { user: { info }, backOffice } = yield select((store) => store);
-  const { token } = info;
+  const { backOffice, user: { roles, info: { token, language } } } = yield select((store) => store);
+  const ids = roles.filter(f => f.project_id).map(role => role.project_id) || null;
+
   try {
     const dictionaries = [
       'dictionary_currency',
@@ -33,8 +34,8 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
     ];
 
     let results_dictionary = backOffice.dictionary;
-    if (!results_dictionary) {
-      results_dictionary = yield commonProvider.loadTable({
+    if (!ids || (ids && ids.length > 0)) {
+      results_dictionary = yield commonProvider.getTables({
         token,
         language,
         data: dictionaries,
@@ -44,11 +45,11 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
 
     let results_restaurants = [];
     if (!ids) {
-      results_restaurants = yield commonProvider.loadTable({ token, language, data: ['data_restaurants'] });
+      results_restaurants = yield commonProvider.getTables({ token, language, data: ['data_restaurants'] });
       results_restaurants = results_restaurants.data_restaurants.sort((a, b) => a.number - b.number);
     }
     if (ids && ids.length > 0) {
-      results_restaurants = yield commonProvider.loadRow({
+      results_restaurants = yield commonProvider.getRecordById({
         name,
         token,
         language,
@@ -63,7 +64,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
       results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
 
       const restaurants_ids = results_restaurants.map(({ id }) => id);
-      results_categories = yield commonProvider.loadRowByParam({
+      results_categories = yield commonProvider.getRecordByParam({
         name: 'data_categories',
         token,
         language,
@@ -71,7 +72,7 @@ function* init({ payload: { name = 'data_restaurants', ids = null, language = 'e
       });
       results_categories = results_categories.sort((a, b) => a.number - b.number);
     
-      results_dishes = yield commonProvider.loadRowByParam({
+      results_dishes = yield commonProvider.getRecordByParam({
         name: 'data_dishes',
         token,
         language,
@@ -107,11 +108,7 @@ function* updateRow({ payload }) {
   let status = 'saved';
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
-    const results = yield commonProvider.update({
-      ...payload,
-      token,
-      // language: ((Array.isArray(data) && data[0].id) || data.id) ? language : 'en',
-    }); 
+    const results = yield commonProvider.updateRecord({ ...payload, token }); 
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -120,7 +117,7 @@ function* updateRow({ payload }) {
       // update restaurant with create 2 default categories foodtips/special-deals
       if (name === 'data_restaurants' && !data.id) {
         status = 'created';
-        yield commonProvider.update({
+        yield commonProvider.updateRecord({
           name: 'data_categories',
           token,
           language,
@@ -129,19 +126,20 @@ function* updateRow({ payload }) {
       }
 
       // update children parent after create new category group
-      let children = arr.slice(1);
-      children = children.filter(f => !f.parent && f);
+      const parent = arr[0];
+      const children = [...arr.slice(1)].reduce((arrCh, child) => {
+        if (!child.parent && child.id !== parent.id) {
+          return [...arrCh, { ...child, parent: parent.id }];
+        }
+        return arrCh;
+      }, []);
       if (name === 'data_categories' && arr.length > 1 && children.length > 0) {
         status = 'created';
-        const arrChild = yield commonProvider.update({
+        const arrChild = yield commonProvider.updateRecord({
           name,
           token,
           language,
-          data: children.map(child => {
-            const obj = { ...child };
-            delete obj.children;
-            return { ...obj, parent: arr[0].id };
-          }), 
+          data: children, 
         });
         arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
       }
@@ -172,7 +170,7 @@ function* loadTables({ payload }) {
   const { token, language } = yield select((store) => store.user.info);
 
   try {
-    const results = yield commonProvider.loadTable({ token, language, data: names });
+    const results = yield commonProvider.getTables({ token, language, data: names });
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
@@ -198,7 +196,7 @@ function* loadTableRows({ payload: { name, data } }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { token, language } = yield select((store) => store.user.info);
   try {
-    const results = yield commonProvider.loadRowByParam({
+    const results = yield commonProvider.getRecordByParam({
       name,
       token,
       language,
@@ -256,15 +254,13 @@ export function* watchAndLog() {
   while (true) {
     const action = yield take('*');
     const { type, payload } = action;
-    // const { user } = yield select();
 
     if (payload && payload.info && type === 'USER_SET') {
       const { info: { token }, roles } = payload;
       let ids = null;
       if (roles && token) {
-        const isRoot = roles.some(f => f.root);
-        if (!isRoot) {
-          ids = roles.map(m => m.restaurant).filter(f => f) || [];
+        if (!getAccess({ role: 'root', roles })) {
+          ids = roles.map(m => m.project_id).filter((f) => f);
         }
         yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
       }

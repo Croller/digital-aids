@@ -37,16 +37,16 @@ const initState = {
   errors: null,
 };
 
-export default function (state = initState, action) {
-  switch (action.type) {
+export default function (state = initState, { type, payload }) {
+  switch (type) {
     case Constants.REST_SET:
-      return { ...state, ...action.payload };
+      return { ...state, ...payload };
     case Constants.REST_ERROR_SET:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: payload, loading: false };
     case Constants.REST_LOADING_SET:
       return {
         ...state,
-        loading: action.payload,
+        loading: payload,
         error: null,
         status: null,
       };
@@ -58,7 +58,7 @@ export default function (state = initState, action) {
     case Constants.REST_REPLACE_ORDER: 
       return {
         ...initState,
-        order: action.payload,
+        order: payload,
       };
     default:
       return state;

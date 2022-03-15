@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react';
+import React, { memo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -111,10 +111,6 @@ const Information = memo(() => {
       refCarousel.current.slickPrev();
     }
   };
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <InformationWrapper>
