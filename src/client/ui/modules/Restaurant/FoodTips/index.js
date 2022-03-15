@@ -42,28 +42,27 @@ const FoodTips = () => {
 
   const hangleChangSlide = (direction) => {
     if (direction === 'next') {
-      if (slide < items.length - 1) {
+      if (slide + 1 <= items.length - 1) {
         setSlide(slide + 1);
         return null;
       }
     }
-
     if (direction === 'prev') {
       if (slide > 0) {
         setSlide(slide - 1);
         return null;
       }
     }
-    setSlide(0);
+    setSlide(direction === 'next' ? 0 : items.length - 1);
   };
 
-  const handleRoute = () => {
-    const path = `/restaurant/${key}/categories`;
+  const handleRoute = (part = 'categories') => {
+    const path = `/restaurant/${key}/${part}`;
 
     if (history.action !== 'POP') {
       history.goBack();
       return null;
-    }
+    } 
     history.push(path);
   };
 
@@ -102,7 +101,7 @@ const FoodTips = () => {
 
   return items && (
     <Wrapper>
-      <CloseButton onClick={() => handleRoute('information')}>
+      <CloseButton onClick={() => handleRoute('menu')}>
         <CloseSvg />
       </CloseButton>
       <CarouselControls>

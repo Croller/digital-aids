@@ -1,7 +1,18 @@
 import html2canvas from 'html2canvas';
 import { jsPDF as Pdf } from 'jspdf';
-import imgCompress from 'browser-image-compression';
 import { v4 as uuidv4 } from 'uuid';
+import imgCompress from 'browser-image-compression';
+import * as moment from 'moment';
+
+// ------------------------------------------------------------------------------------------------------------------------
+// constants
+
+export const dateTimeFormat = {
+  date: 'DD.MM.YYYY',
+  dateTime: 'DD.MM.YYYY HH:mm:ss.S',
+  time: 'HH:mm',
+  database: 'YYYY-MM-DDTHH:mm:ss.SSS',
+};
 
 // ------------------------------------------------------------------------------------------------------------------------
 // logical func
@@ -13,7 +24,22 @@ export const getUrl = () => {
   return `https://${process.env.HOST}`;
 };
 
-export const compareBreakpoint = (width, constant) => width && constant && width >= parseInt(constant.replace('px'), 0);
+export const getAccess = ({
+  project = null,
+  role = null,
+  roles = null,
+  project_id = null,
+}) => {
+  if (!role || !roles) return false;
+  return roles
+    .filter(f => project === f.project && (project_id ? project_id === f.project_id : true))
+    .some(f => f.access.some(s => s === role));
+};
+
+const charLibrary = {
+  Ё: 'YO', Й: 'I', Ц: 'TS', У: 'U', К: 'K', Е: 'E', Н: 'N', Г: 'G', Ш: 'SH', Щ: 'SCH', З: 'Z', Х: 'H', Ъ: '\'', ё: 'yo', й: 'i', ц: 'ts', у: 'u', к: 'k', е: 'e', н: 'n', г: 'g', ш: 'sh', щ: 'sch', з: 'z', х: 'h', ъ: '\'', Ф: 'F', Ы: 'I', В: 'V', А: 'a', П: 'P', Р: 'R', О: 'O', Л: 'L', Д: 'D', Ж: 'ZH', Э: 'E', ф: 'f', ы: 'i', в: 'v', а: 'a', п: 'p', р: 'r', о: 'o', л: 'l', д: 'd', ж: 'zh', э: 'e', Я: 'Ya', Ч: 'CH', С: 'S', М: 'M', И: 'I', Т: 'T', Ь: '\'', Б: 'B', Ю: 'YU', я: 'ya', ч: 'ch', с: 's', м: 'm', и: 'i', т: 't', ь: '\'', б: 'b', ю: 'yu', 
+};
+export const transliterate = (word) => word.split('').map((char) => charLibrary[char] || char).join('');
 
 // ------------------------------------------------------------------------------------------------------------------------
 // dom func
@@ -29,7 +55,7 @@ export const htmlToImage = async (id) => {
 };
 
 export const imgToPdf = async (base64, title) => {
-  const imgParams = await getImageParams(base64);
+  const imgParams = await getImage(base64);
   const { width, height } = imgParams;
   const doc = new Pdf('portrait', 'px', [width, height], true, true);
   doc.addImage(base64, 'PNG', 0, 0, width, height);
@@ -46,8 +72,6 @@ export const validateBase64 = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-
 // ------------------------------------------------------------------------------------------------------------------------
 // variable func
 
-export const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
-
 export const random4Int = () => Math.floor(1000 + Math.random() * 9000);
 
 export const stringToKey = (str = null) => {
@@ -55,7 +79,8 @@ export const stringToKey = (str = null) => {
   return str.toLowerCase().replace(/[^a-zа-я0-9]/gi, '-');
 };
 
-export const getDictionaryItem = (value, key, array, prop = null) => {
+export const getDictionaryItem = (value = null, key = 'id', array = null, prop = null) => {
+  if (!value || !array || (array && array.length === 0)) return null;
   const result = array.find(f => f[key] === value);
   if (prop) {
     return result ? result[prop] : null;
@@ -63,9 +88,24 @@ export const getDictionaryItem = (value, key, array, prop = null) => {
   return result;
 };
 
+export const getDateTime = (value = null, format = dateTimeFormat.date, toDataBase = false) => {
+  if (!value || (value && !moment(value).isValid)) return null;
+  if (toDataBase) {
+    return moment(value, format).format(dateTimeFormat.database);
+  }
+  return moment(value).format(format);
+};
+
+export const getSort = (array = null, key = 'number') => {
+  if (!array || (array && !array[0]) || (array && !array[0][key])) return [];
+  if (typeof array[0][key] === 'number') {
+    return array.sort((a, b) => a[key] - b[key]);
+  }
+  return array;
+};
+
 export const updateItem = (data = null, current = null, key = 'id') => {
   if (!data || !current) return data;
-
   if (Array.isArray(data) && Array.isArray(current)) {
     if (current && current.length > 0) {
       return data.reduce((arr, item) => {
@@ -89,44 +129,20 @@ export const updateItem = (data = null, current = null, key = 'id') => {
   };
 };
 
-export const objPlainToDeep = (arr, pKey = 'parent') => {
-  const results = arr.reduce((result, item) => {
-    if (item[pKey]) {
-      const parent = result.map(itemParent => {
-        if (itemParent.id === item[pKey]) {
-          const copy = { ...itemParent };
-          let obj = copy;
-          if (itemParent.children) {
-            obj = { ...copy, children: [...copy.children, item] };
-          } else {
-            copy.children = [item];
-          }
-          return obj;
-        }
-        return itemParent;
-      }, []);
-      return parent;
-    }
-    return [...result, item];
-  }, []);
-  return results;
-};
-
 export const objRecursive = (
   arr = null,
-  chKey = 'children',
   callback = (
     key,
     value,
   ) => ({ [key]: value }),
   parent = null,
 ) => {
-  if (!arr) return arr;
+  if (!arr || (arr && !Array.isArray(arr))) return arr;
   return arr.map((item) => Object.keys(item).reduce((results, key) => {
-    if (key === chKey && item[key] && Array.isArray(item[key])) {
+    if (item[key] && Array.isArray(item[key])) {
       return {
         ...results,
-        [key]: objRecursive(item[key], callback, (parent || results)),
+        [key]: objRecursive(item[key], callback(), (parent || results)),
       };
     }
     return {
@@ -160,7 +176,7 @@ export const objRecUpdate = (
         ...items.updated,
         {
           ...Object.keys(item).reduce((obj, key) => {
-            let plainKey = `${itemKey}children.`;
+            let plainKey = `${itemKey}.`;
             let results = { updated: [], plain: {}, array: [] };
             results = objRecUpdate(item[key], callback, (parent || obj.id));
             if (key !== 'children') {
@@ -197,32 +213,62 @@ export const objRecUpdate = (
     delete copyChild.children;
     return copyChild;
   });
-  
   return calculate;
+};
+
+export const objDeepToPlain = (
+  source = null,
+  parent = '',
+) => {
+  if (!source) return null;
+  if (Array.isArray(source)) {
+    return source.reduce((ob, item, i) => {
+      const dot = Array.isArray(item) ? '' : '.';
+      return { ...ob, ...objDeepToPlain(item, `${parent || 'obj'}[${i}]${dot}`) };
+    }, {});
+  }
+  return Object.keys(source).reduce((results, key) => {
+    let edited = { [`${parent}${key}`]: source[key] };
+    if (!source[key]) return { ...results, ...edited };
+    if (Array.isArray(source[key]) || typeof source[key] === 'object') {
+      let parentSub = '';
+      if (typeof source[key] === 'object' && !Array.isArray(source[key])) {
+        parentSub = '.';
+      }
+      edited = objDeepToPlain(source[key], `${parent}${key}${parentSub}`);
+    }
+    return { ...results, ...edited };
+  }, {});
 };
 
 // ------------------------------------------------------------------------------------------------------------------------
 // file func
 
-export const getBase64 = (file) => new Promise((resolve, reject) => {
+export const downloadFile = async (url, filename) => {
+  await fetch(url).then((t) => t.blob().then((b) => {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(b);
+    a.setAttribute('download', filename);
+    if (url.indexOf('pdf') > -1) {
+      window.open(url, '_blank');
+    } else {
+      a.click();
+    }
+  }));
+};
+
+export const getBase64File = (file, readAs = 'readAsDataURL') => new Promise((resolve, reject) => {
   const reader = new FileReader();
-  reader.readAsDataURL(file);
+  reader[readAs](file);
   reader.onload = () => resolve(reader.result);
   reader.onerror = error => reject(error);
 });
 
-export const downloadFile = (url, filename) => {
-  const downloadLink = document.createElement('a');
-  downloadLink.href = url;
-  downloadLink.download = filename;
-  downloadLink.click();
-};
-
-export const loadFile = async (url = null, uuid = null) => {
+export const getFile = async (url = null, uuid = null) => {
   if (!url || !uuid) return null;
   const result = await fetch(url);
   const blob = await result.blob();
-  const base64 = await getBase64(blob);
+  const base64 = await getBase64File(blob);
   const type = base64 && base64.split(';base64')[0].replace('data:', '');
   return {
     type,
@@ -232,10 +278,29 @@ export const loadFile = async (url = null, uuid = null) => {
   };
 };
 
+export const getBase64Url = (url) => fetch(url)
+  .then(response => response.blob())
+  .then(blob => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  }));
+
+export const getImage = (src = null) => {
+  if (!src) return null;
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
+};
+
 export const imageConverter = async (file = null, uuid = null, type = 'image/png') => {
   if (!file && !file.type) return null;
-  const base64 = await getBase64(file);
-  const imgParams = await getImageParams(base64);
+  const base64 = await getBase64File(file);
+  const imgParams = await getImage(base64);
   const { width, height } = imgParams;
 
   const canvas = document.createElement('canvas');
@@ -249,18 +314,11 @@ export const imageConverter = async (file = null, uuid = null, type = 'image/png
   const blob = await result.blob();
   return {
     type,
-    base64: basePng,
     uuid,
+    base64: basePng,
     originFileObj: new File([blob], uuid, { type }),
   };
 };
-
-const getImageParams = (src) => new Promise((resolve, reject) => {
-  const img = new Image();
-  img.onload = () => resolve(img);
-  img.onerror = reject;
-  img.src = src;
-});
 
 export const imageResize = async (file, crop, type = 'image/png') => {
   const imgParams = document.querySelector('.ReactCrop__image');
@@ -326,6 +384,6 @@ export const imageCompression = async (file, options = {}) => {
   return {
     uuid,
     originFileObj: compresed,
-    base64: await getBase64(compresed),
+    base64: await getBase64File(compresed),
   };
 };

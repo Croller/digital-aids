@@ -30,6 +30,10 @@
       "restore": "Are you sure you want to restore this position? \n Once you restore it, it will available again in you Menu.",
       "delete": "Are you sure you want to delete this position? \n Once you delete it, you can not restore it latter."
     },
+    "user": {
+      "deleted": "Are you sure \n you want to delete this user?",
+      "archive": "Are you sure you want to remove an entire archive this user?this user"
+    },
     "archive": "Are you sure you want to remove an entire archive? \n Once you remove it, it will not available to restore.",
     "crop": "Select area thumbnail"
   },

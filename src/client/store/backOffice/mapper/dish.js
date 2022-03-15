@@ -4,7 +4,7 @@ export const dataToForm = (data) => {
   const { 
     id,
     key,
-    count,
+    num,
     name,
     description,
     allergens,
@@ -17,7 +17,7 @@ export const dataToForm = (data) => {
   return {
     id,
     key,
-    count,
+    num,
     name,
     description,
     allergens: allergens || [],
@@ -42,7 +42,7 @@ export const dataToApi = (data, categories, restaurant, language) => {
   const {
     id,
     key,
-    count,
+    num,
     name,
     category,
     description,
@@ -70,8 +70,8 @@ export const dataToApi = (data, categories, restaurant, language) => {
   }, {});
 
   return {
-    id: id || null,
-    count,
+    ...(id ? { id } : {}),
+    num,
     key: language === 'en' ? (stringToKey(name) || '') : key,
     name,
     description,
@@ -88,7 +88,7 @@ export const model = {
   id: null,
   category: null,
   restaurant: null,
-  count: 0,
+  num: 0,
   key: null,
   name: null,
   description: null,

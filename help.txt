@@ -1,8 +1,4 @@
 
-//ssh
-ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 ubuntu@193.122.12.91
-
-
 1. added file from repo
 /home/carte/_DEPLOY/menus
 git pull
@@ -92,13 +88,13 @@ host    all             all             185.8.127.19/24 md5
 
 {
   "previewLimit": 50,
-  "server": "160.153.248.149",
+  "server": "64.225.82.139",
   "port": 5432,
   "driver": "PostgreSQL",
-  "name": "digital-aids",
-  "database": "DigitalAids",
-  "username": "rootdc",
-  "password": "dc1231414"
+  "database": "digital-aids",
+  "username": "digitalRoot",
+  "password": "aidsRoot2021",
+  "name": "digital-aids"
 }
 
 // local access db
@@ -238,6 +234,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 
 
+
+
+/////////// digitalocean host ///////////
+
 //install soft ubuntu
 ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139
 21121987!
@@ -296,7 +296,7 @@ mc
 // replace #log_statement = 'none' to log_statement = 'all'
 // run edit pg_hba.conf
 // add line below
-// host    all             all             109.197.204.68/24          md5
+// host    digital-aids             digitalRoot            109.252.216.209/24          md5
 sudo service postgresql restart
 
 // nginx config 
@@ -320,7 +320,7 @@ npm i
 pm2 start /home/app/src/server/index.js -n server
 pm2 save
 
-// build priject
+// build project
 ssh-agent bash -c 'ssh-add /home/ssh/ssh_79104643015; git clone git@github.com:Croller/restauran.git'
 git pull
 npm run build
@@ -385,7 +385,7 @@ netstat -lntu
 
 pm2 logs
 pm2 list
-pm2 restart api
+pm2 restart server
 pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api
 pm2 start /home/carte/_DEPLOY/menus/api/index.js -n api --env=/home/carte/_DEPLOY/menus/api/.env
 pm2 start /home/ubuntu/server/index.js -n server

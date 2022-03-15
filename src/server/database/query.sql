@@ -1,13 +1,25 @@
 -- DROP TABLE IF EXISTS data_users;
+-- DROP TABLE IF EXISTS logs_users;
+-- DROP TABLE IF EXISTS data_roles;
+-- DROP TABLE IF EXISTS logs_roles;
 -- DROP TABLE IF EXISTS data_restaurants;
-
+-- DROP TABLE IF EXISTS logs_restaurants;
 -- DROP TABLE IF EXISTS data_categories;
--- DROP TABLE IF EXISTS data_dishes;
-
+-- DROP TABLE IF EXISTS logs_categories;
 -- DROP TABLE IF EXISTS data_categories_translate;
+-- DROP TABLE IF EXISTS logs_categories_translate;
+-- DROP TABLE IF EXISTS data_dishes;
+-- DROP TABLE IF EXISTS logs_dishes;
 -- DROP TABLE IF EXISTS data_dishes_translate;
-
--- DROP TABLE IF EXISTS dictionary_roles;
+-- DROP TABLE IF EXISTS logs_dishes_translate;
+-- DROP TABLE IF EXISTS data_reserve;
+-- DROP TABLE IF EXISTS logs_reserve;
+-- DROP TABLE IF EXISTS data_opinions;
+-- DROP TABLE IF EXISTS logs_opinions;
+-- DROP TABLE IF EXISTS data_orders;
+-- DROP TABLE IF EXISTS logs_orders;
+-- DROP TABLE IF EXISTS data_notify;
+-- DROP TABLE IF EXISTS logs_notify;
 -- DROP TABLE IF EXISTS dictionary_currency;
 -- DROP TABLE IF EXISTS dictionary_currency_translate;
 -- DROP TABLE IF EXISTS dictionary_languages;
@@ -18,20 +30,14 @@
 -- DROP TABLE IF EXISTS dictionary_units_translate;
 -- DROP TABLE IF EXISTS dictionary_days;
 -- DROP TABLE IF EXISTS dictionary_days_translate;
--- DROP TABLE IF EXISTS data_reserve;
--- DROP TABLE IF EXISTS data_opinions;
--- DROP TABLE IF EXISTS data_orders;
--- DROP TABLE IF EXISTS data_notify;
-
-
-
-
-
+-- DROP TABLE IF EXISTS dictionary_access;
+-- DROP TABLE IF EXISTS dictionary_access_translate;
 
 -------------------------- TEMP QUERY --------------------------
 
 
 
+-- DELETE FROM logs_categories_translate WHERE change_at BETWEEN '2021-08-04T21:26:56.822294' AND '2021-08-05T21:26:56.822294';
 -- ALTER TABLE data_restaurants RENAME opinion TO description;
 -- ALTER TABLE data_restaurants ADD COLUMN number serial;
 -- ALTER TABLE data_restaurants ADD is_publish BOOLEAN DEFAULT FALSE;
@@ -54,7 +60,7 @@
 
 -- INSERT INTO data_users (login, password, role, enter_at) VALUES ('view', 'view', '2', '2020-10-28T10:01:11.258')
 -- SELECT * FROM data_users;
-
+-- SELECT * FROM pg_get_keywords;
 -- create extension postgis;
 
 -- ALTER TABLE data_krt_monitoring ADD COLUMN project int;
@@ -72,7 +78,7 @@
 
 -- ALTER TABLE users ADD COLUMN enter_at int;
 -- ALTER TABLE data_users ALTER COLUMN phone TYPE BIGINT
--- ALTER TABLE data_krt_confirm RENAME disctrict TO district;
+-- ALTER TABLE data_roles RENAME user_id TO user;
 -- ALTER TABLE dictionary_dictionary_translate RENAME TO dictionary_translate;
 -- ALTER TABLE my_table ADD COLUMN the_geom_mercator geometry(Geometry,3857);
 -- ALTER TABLE data_krt DROP COLUMN IF EXISTS geom;
@@ -87,7 +93,7 @@
 
 -- UPDATE triptrick.users SET enter_at = CURRENT_TIMESTAMP WHERE id = 1;
 
--- DELETE FROM triptrick.users WHERE id = 2;
+-- DELETE FROM data_users WHERE login = 'test';
 
 -- INSERT INTO "Parcels"("Name", the_geom)
 --     VALUES ('Corrected_Shape', 
@@ -118,7 +124,6 @@
 --             ]
 --         }
 --     ),4326),3857));
-
 
 
 
@@ -185,3 +190,22 @@
 -- CSV HEADER;
 
 -- SELECT * FROM data_krt;
+
+-- with _restaurant as 
+-- (
+--   SELECT * FROM data_restaurants WHERE key='example'
+-- )
+-- , _role_guest as 
+-- (
+--   SELECT * FROM data_roles WHERE name='Guest'
+-- )
+-- , _role_current as 
+-- (
+--   INSERT INTO data_roles (name, restaurant, root, root_back, owner, owner_back, manager, manager_back, employee, user, guest) VALUES 
+--     ('Employee', (select id from _restaurant), FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE)
+--     RETURNING id
+-- )
+-- UPDATE data_users 
+--     SET
+--     roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
+-- where login = 'employee';

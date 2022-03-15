@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { ClockSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
 import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
-import { update, loadByParam } from 'client/store/backOffice';
+import { update, loadItems } from 'client/store/backOffice';
 import { ReservationInfo } from 'client/ui/modules/BackOffice/components/ReservationInfo';
 import moment from 'moment';
 import {
@@ -50,7 +50,7 @@ const Reservations = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    rootDispatch(loadByParam({
+    rootDispatch(loadItems({
       name: 'data_reserve',
       data: { restaurant },
     }));

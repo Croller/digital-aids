@@ -1,10 +1,42 @@
-TRUNCATE data_users RESTART IDENTITY CASCADE;
+with _user as 
+(
+  INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
+  ('rootAdmin', 'rootAids2021', 'Root', 'R', 'R', '1987-12-21T00:00:00.000', '{79104643015}', '79104643015@yandex.ru', TRUE)
+  RETURNING id
+)
+INSERT INTO data_roles (user_id, access) VALUES 
+((select id from _user), '{"root", "owner", "manager", "employee", "account", "guest"}')
+RETURNING id;
 
-INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, roles) VALUES 
-('rootAdmin', 'rootAids2021', 'Admin', 'DC', 'root', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{1, 2, 3, 4}'),
-('owner', 'ownerAids2021Test', 'owner', 'ow', 'ner', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{2, 3, 4}'),
-('employees', 'employeesAids2021Test', 'employees', 'employ', 'emplo', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{3, 4}'),
-('user', 'userAids2021Test', 'user', 'user', 'user', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{4}'),
-('guest', 'guestAids2021Test', 'guest', 'guest', 'guest', '2020-10-28T10:01:11.258', '{74950000000, 74950000000}', '{"ya@ya.ru", "ya@ya.ru"}', '{5}');
+with _user as 
+(
+  INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
+  ('root_backAdmin', 'root_back_DigitalAids2021', 'Root Back', 'R', 'R', '1987-12-21T00:00:00.000', NUll, '@.com', TRUE)
+  RETURNING id
+)
+INSERT INTO data_roles (user_id, access) VALUES 
+((select id from _user), '{"root", "owner", "manager", "employee", "account", "guest"}')
+RETURNING id;
+
+with _user as 
+(
+  INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
+  ('user_test', 'user_DigitalAids2021Test', 'User', 'U', 'U', NULL, NULL, '@.com', TRUE)
+  RETURNING id
+)
+INSERT INTO data_roles (user_id, access) VALUES 
+((select id from _user), '{"account", "guest"}')
+RETURNING id;
+
+with _user as 
+(
+  INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
+  ('guest', 'guest_DigitalAids2021Test', 'User', 'U', 'U', NULL, NULL, '@.com', TRUE)
+  RETURNING id
+)
+INSERT INTO data_roles (user_id, access) VALUES 
+((select id from _user), '{"guest"}')
+RETURNING id;
 
 SELECT * FROM data_users;
+SELECT * FROM data_roles;

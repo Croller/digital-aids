@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { showMessage } from 'client/ui/components/_ui/Message';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { getDictionaryItem } from 'client/utils/common';
+import { getTextTranslate } from 'client/providers/external';
 import {
   dataToForm,
   dataFromToList,
@@ -26,12 +27,12 @@ import {
   FormItemStyled,
   InputStyled,
   TextAreaStyled,
-  Hr,
   SelectStyled, OptionStyled,
   Controls, Control,
   Separator,
   FormRange, RadioGroup, RadioButton,
   InputMaskStyled,
+  Hr,
   Group2Form,
   GroupForm, 
   GroupControl,
@@ -39,14 +40,17 @@ import {
 } from './styled';
 
 export const CategoryForm = ({
+  token = null,
   source = null,
   loading = false,
   currency = null,
   dictionary = null,
   archive = false,
   language = 'en',
+  restaurant,
   className,
   onChange = () => {},
+  onCreateTranslate = () => {},
 }) => {
   const [t] = useTranslation();
   const rule = rules(t);
@@ -59,28 +63,60 @@ export const CategoryForm = ({
     <ConfirmChange
       title={t(`backOffice.confirmModal.category.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
-      textCancel={t('common.words.doNot')}
-      onCancel={hideConfirm}
+      textCancel={t('common.words.cancel')}
       onClose={hideConfirm}
-      onOk={() => {
-        hideConfirm();
-        setEvent(null);
-        handleChange(event.key, event.params);
-      }}
+      onCancel={hideConfirm}
+      onOk={() => handleChange(event.key, event.params)}
     />
   ), [event]);
+  const separator = ' || ';
+  const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
+
+  const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
+    if (!obj || sourceLng === targetLng) return obj;
+    const text = Object.keys(obj).map(key => obj[key]).join(separator);
+    const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
+    const textArr = results[0].translatedText.split(separator);
+    return Object.keys(obj).reduce((ob, key, k) => {
+      if (typeof ob[key] === 'string') {
+        return { ...ob, [key]: textArr[k] };
+      }
+      return ob;
+    }, obj);
+  };
 
   const setData = (obj) => {
     setFormData(obj);
     form.setFieldsValue(obj);
   };
 
-  const handleFinish = (values) => {
-    setIsChange(false);
+  const handleFinish = async (values) => {
     form.resetFields();
-    if (!event) {
-      onChange(dataFromToList({ ...formData, ...values }, current, language));
+    setIsChange(false);
+    const edited = { ...formData, ...values };
+    const editedLng = [language, ...restaurant.languages.filter(f => f !== language)];
+    if (event) return null;
+    if (!current.id) {
+      const transObj = Object.keys(edited).filter(f => translateKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
+      const editedOther = await Promise.allSettled(editedLng.map(async (lng) => {
+        const resuslts = await getTranslateObj(transObj, language, lng);
+        return resuslts;
+      }));
+      const results = [...editedOther.map(({ value }) => value)].map((value, i, arr) => dataFromToList({
+        ...edited,
+        ...value,
+        ...(i !== 0 && arr[0] ? { key: arr[0].key } : {}),
+        ...(i !== 0 ? { language: editedLng[i] } : {}),
+        restaurant: restaurant.id,
+      },
+      current,
+      editedLng[i]));
+      const lngCatalogs = results.reduce((obj, item, i) => ({ ...obj, [editedLng[i]]: item }), {});
+      console.log('lngCatalogs', lngCatalogs);
+      onCreateTranslate({ data_catalogories: lngCatalogs });
+      return null;        
     }
+    onChange(dataFromToList(edited, current, language), language);
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -93,7 +129,6 @@ export const CategoryForm = ({
 
   const handleValuesChange = (values) => {
     if (!values) return;
-    console.log('values - ', { ...formData, ...values });
     let edited = { ...formData, ...values };
     if (values.type) {
       const def = categoryModel.find(f => f.type === values.type);
@@ -106,19 +141,16 @@ export const CategoryForm = ({
 
   const handleEvent = (key) => {
     const params = {};
-
     if (key === 'restore') params.is_archived = false;
     if (key === 'delete') params.is_deleted = true;
     if (key === 'archive') params.is_archived = true;
 
     showConfirm();
-    let obj = current;
-    obj = {
-      ...obj,
+    const paramsEdited = {
+      ...current,
       ...params,
-      children: obj.children ? obj.children.map(item => ({ ...item, ...params })) : null,
     };
-    setEvent({ key, params: obj });
+    setEvent({ key, params: paramsEdited });
   };
 
   const handleChange = (key = null, params = null) => {
@@ -127,25 +159,11 @@ export const CategoryForm = ({
     if (key !== 'close') {
       obj = dataFromToList({ ...formData, ...(params || {}) }, current, language);
     }
-    onChange(obj);
-    setFormData(null);
-  };
 
-  const handleEventGroup = (key, index) => {
-    setIsChange(true);
-    if (key === 'new') {
-      setCurrent({ ...current, children: [...current.children, categoryModel[0]] });
-      setData({ ...formData, [`children.${current.children.length}.name`]: '' });
-    }
-    if (key === 'delete') {
-      const edited = current.children.map((child, i) => {
-        if (i === index) {
-          return { ...child, is_deleted: true };
-        }
-        return child;
-      });
-      setCurrent({ ...current, children: edited });
-    } 
+    hideConfirm();
+    setEvent(null);
+    setFormData(null);
+    onChange(obj);
   };
 
   useEffect(() => {
@@ -235,7 +253,7 @@ export const CategoryForm = ({
                 showSearch
                 placeholder={t('common.form.placeholder.number')}
                 optionFilterProp="label"
-                disabled={archive || language !== 'en' || (current && current.id)}
+                disabled={archive || (current && current.id)}
               >
                 {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.type)).map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
@@ -257,7 +275,7 @@ export const CategoryForm = ({
             </FormItemStyled>
           </FormCol>
         </Form2Col>
-        {['daily', 'organicWine'].includes(formData.type) && (
+        {formData && formData.type === 'daily' && (
           <FormCol>
             <Form2Col>
               <FormCol>
@@ -324,7 +342,7 @@ export const CategoryForm = ({
                     >
                       <InputMaskStyled
                         mask="11:11"
-                        disabled={archive || language !== 'en'}
+                        disabled={archive}
                       />
                     </FormItemStyled>
                     <Separator>
@@ -335,7 +353,7 @@ export const CategoryForm = ({
                     >
                       <InputMaskStyled
                         mask="11:11"
-                        disabled={archive || language !== 'en'}
+                        disabled={archive}
                       />
                     </FormItemStyled>
                   </FormRange>
@@ -344,7 +362,7 @@ export const CategoryForm = ({
             </Form2Col>
           </FormCol>
         )}
-        {current.children && (
+        {/* {current.children && (
           <FormCol>
             <Hr />
             <FormItemStyled
@@ -397,7 +415,7 @@ export const CategoryForm = ({
               </AddGroup>
             )}
           </FormCol>
-        )}
+        )} */}
       </FormStyled>
     </CategoryFormWrapper>
   );

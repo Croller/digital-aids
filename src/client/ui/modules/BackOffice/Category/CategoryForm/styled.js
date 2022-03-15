@@ -328,7 +328,7 @@ export const FormItemStyled = styled(FormItem)`
 export const Controls = styled.div`
   position: absolute;
   right: 22px;
-  top: 10px;
+  top: 12px;
   display: flex;
   flex-direction: row;
   z-index: 1;

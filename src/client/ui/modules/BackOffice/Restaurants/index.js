@@ -47,13 +47,17 @@ const Restaurants = () => {
 
   const getList = () => {
     if (!restaurants) return [];
-    return [...(searched || (filtred && filtred[isArchive]))];
+    return [...(searched || (filtred && filtred[isArchive]))].sort((a, b) => {
+      const c = new Date(b.change_at);
+      const d = new Date(a.change_at);
+      return c - d;
+    });
   };
 
   useEffect(() => {
     window.prerenderReady = true;
     if (restaurants) {
-      const result = restaurants.sort((a, b) => a.number - b.number).reduce((obj, rest) => { 
+      const result = restaurants.reduce((obj, rest) => { 
         const val = rest.is_archived;
         if (rest.is_deleted) {
           return obj;
@@ -77,17 +81,13 @@ const Restaurants = () => {
             type={(searched && 'search') || (isArchive ? 'archive' : 'restaurants')}
             icon={isArchive ? (<ArchiveSvg />) : (<RestaurantSvg />)}
           />
-        ) : (
-          <>
-            {getList().map((item, i) => (
-              <RestaurantInfo
-                {...item}
-                key={`_restauran_${i + 1}_${item.id}`}
-                onEvent={handleEvent}
-              />
-            ))}
-          </>
-        )}
+        ) : (getList().map((item, i) => (
+          <RestaurantInfo
+            {...item}
+            key={`_restauran_${i + 1}_${item.id}`}
+            onEvent={handleEvent}
+          />
+        )))}
       </List>
     </RestaurantList>
   );

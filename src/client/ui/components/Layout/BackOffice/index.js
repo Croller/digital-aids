@@ -1,10 +1,13 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import { Header } from 'client/ui/components/Header/BackOffice';
-import { Sidebar } from 'client/ui/components/Layout/BackOffice/Sidebar';
-import { setUser } from 'client/utils/localStorage';
-import { logout } from 'client/store/user';
+import { LeftSideBar } from 'client/ui/components/Layout/BackOffice/LeftSideBar';
+import { RightSideBar } from 'client/ui/components/Layout/BackOffice/RightSideBar';
+import { setLocal } from 'client/utils/localStorage';
+import * as user from 'client/store/user';
+import { set } from 'client/store/backOffice';
+import OutSideClick from 'react-outside-click-handler';
 import { 
   Wrapper,
   Cotainer,
@@ -19,29 +22,50 @@ export const Layout = ({
   const history = useHistory();
   const rootDispatch = useDispatch();
   const { pathname } = useLocation();
-  const [showSideBar, setShowSideBar] = useState(true);
-  const { id, token, roles } = useSelector(store => store.user.info);
+  const [showLeftSideBar, setShowLeftSideBar] = useState(false);
+  const [showRightSideBar, setShowRightSideBar] = useState(false);
+  const { info, roles } = useSelector(store => store.user);
+  const { token } = info;
 
   const handleRoute = useCallback((part = 'restaurants') => {
     if (part === 'auth') {
       history.push(path);
-      setUser({ token: null });
-      rootDispatch(logout());
+      setLocal({ token: null });
+      rootDispatch(user.set({ info: { ...info, token: null } }));
+      rootDispatch(set({ restaurants: null }));
     }
     const path = `/back-office/${part}`;
     history.push(path);
+
+    setShowRightSideBar(true);
   }, []);
+
+  const handleShowSideBar = (key) => {
+    if (key === 'left') {
+      setShowLeftSideBar(!showLeftSideBar);
+    }
+    if (key === 'right') {
+      setShowRightSideBar(!showRightSideBar);
+    }
+  };
+
+  useEffect(() => {
+    if (!token) {
+      setShowLeftSideBar(false);
+      setShowRightSideBar(false);
+    }
+  }, [token]);
 
   return (
     <Wrapper className={className}>
       <Header
-        id={id}
         token={token}
-        onShowSideBar={() => setShowSideBar(!showSideBar)}
+        showRightSideBar={showRightSideBar}
+        onShowSideBar={handleShowSideBar}
         onRoute={handleRoute}
       />
-      {token && showSideBar && (
-        <Sidebar
+      {token && showLeftSideBar && (
+        <LeftSideBar
           roles={roles}
           path={pathname}
           onRoute={handleRoute}
@@ -49,13 +73,23 @@ export const Layout = ({
       )}
       <Cotainer>
         <Content
-          sidebar={token && showSideBar}
+          leftbar={showLeftSideBar}
+          rightbar={showRightSideBar}
         >
           <Block>
             {children}
           </Block>
         </Content>
       </Cotainer>
+      {token && showRightSideBar && (
+        <OutSideClick onOutsideClick={() => handleShowSideBar('right')}>
+          <RightSideBar
+            roles={roles}
+            path={pathname}
+            onRoute={handleRoute}
+          />
+        </OutSideClick>
+      )}
     </Wrapper>
   );
 };

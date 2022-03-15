@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { BellSvg, ArchiveSvg, LoupeSvg } from 'client/assets/images';
 import { EmptyBlock } from 'client/ui/modules/BackOffice/components/EmptyBlock';
-import { update, loadByParam } from 'client/store/backOffice';
+import { update, loadItems } from 'client/store/backOffice';
 import { NotifyInfo } from 'client/ui/modules/BackOffice/components/NotifyInfo';
 import moment from 'moment';
 import {
@@ -46,7 +46,7 @@ const Notify = () => {
 
   useEffect(() => {
     window.prerenderReady = true;
-    rootDispatch(loadByParam({
+    rootDispatch(loadItems({
       name: 'data_notify',
       data: { restaurant },
     }));

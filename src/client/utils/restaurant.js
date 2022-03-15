@@ -1,7 +1,5 @@
-// import { v4 as uuidv4 } from 'uuid';
-// import { stringToKey, objRecursive } from 'client/utils/common';
 import moment from 'moment';
-import { weekDays } from 'client/utils/common';
+import { WEEK_DAYS } from 'client/utils/constants';
 
 export const getTotal = (arr) => {
   if (arr && Array.isArray(arr)) {
@@ -18,7 +16,7 @@ export const getTotal = (arr) => {
 export const getWorkTime = (at_work = null) => {
   const current_date = new Date();
   const weekDayNum = current_date.getDay();
-  const weekDayKey = weekDays[weekDayNum];
+  const weekDayKey = WEEK_DAYS[weekDayNum];
   const [from, to] = at_work[weekDayKey];
   if (!moment(from).isValid() || !moment(to).isValid()) return '';
   return [moment(from).format('HH:mm'), moment(to).format('HH:mm')].join(' - ');
@@ -77,8 +75,8 @@ export const setUrlOrder = (order) => {
   return encode;
 };
 
-export const getUrlOrder = (url, dishes, categories) => {
-  if (typeof url !== 'string') return null;
+export const getUrlOrder = (url = null, dishes = null, categories = null) => {
+  if (typeof url !== 'string' || !dishes || !categories) return null;
   const params = url;
   // TODO edit 
   // const yourParamName = new URLSearchParams(window.location.search).getAll('yourParamName[]')
@@ -130,79 +128,3 @@ export const getUrlOrder = (url, dishes, categories) => {
   }, []);
   return newOrder;
 };
-
-// export const getCategoryTemp = () => objRecursive(categoryDefault, (key, value, parent = null) => {
-//   if (!value) return { [key]: value };
-//   if (key === 'name') {
-//     return {
-//       id: uuidv4(),
-//       [key]: value,
-//       key: stringToKey(value),
-//       parent: (parent && parent.id) || null,
-//     };
-//   }
-//   return { [key]: value };
-// });
-
-// const lng = [
-//   'en',
-//   'es',
-//   'el',
-//   'it',
-//   'de',
-//   'fr',
-//   'no',
-//   'ja',
-//   'ko',
-//   'ru',
-//   'zh',
-// ];
-
-// const cat = [
-//   'Breakfasts',
-//   'Startes',
-//   'Appetizers',
-//   'Cold Appetizers',
-//   'Hot Appetizers',
-//   'Salads',
-//   'Soups',
-//   'Pasta',
-//   'Fish',
-//   'Meat',
-//   'Seafood',
-//   'Seafood&Fish',
-//   'Desserts',
-//   'Burgers',
-//   'Bakery',
-//   'Vegetarian',
-//   'Kids\' Menu',
-//   'Drinks',
-//   'Wine',
-//   'Beer',
-//   'Liqueurs',
-//   'Brandy',
-//   'Beverages',
-//   'Wine',
-//   'Beer',
-//   'Сocktails',
-//   'Main courses',
-//   'Bottle',
-//   'Glass',
-//   'Coffee',
-//   'Tea',
-//   'Red wine',
-//   'White wine',
-//   'Homemade wine',
-//   'Sparkling wine',
-//   'Rose wine',
-//   'Organic wine',
-//   'Vodka',
-//   'Whiskey',
-//   'Cognac',
-//   'Tea&Coffee',
-//   'Daily Menu',
-//   'Alcohol drinks',
-// ];
-// console.log(lng.reduce((arr, lg) => {
-//   cat.map(ca => `('${})`)
-// }));

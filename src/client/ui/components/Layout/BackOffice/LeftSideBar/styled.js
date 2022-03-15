@@ -5,7 +5,7 @@ import {
   FONTS,
 } from 'client/style/constants';
 
-export const SidebarWrapper = styled.div`
+export const LeftSideBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 245px;
@@ -16,10 +16,17 @@ export const SidebarWrapper = styled.div`
   box-shadow: ${THEME.boxShadowHeader};
 `;  
 
+export const Hr = styled.hr`
+  width: 80%;
+  border: 1.5px solid ${PALETTE.grey23};
+  border-bottom: 0;
+  margin: 38px auto 8px;
+`;
+
 export const Menu = styled.ul`
   list-style: none;
   padding: 0;
-  margin: 32px 0 0 35px;
+  margin: 36px 0 0 35px;
 
   &:last-child {
     margin-top: auto;
@@ -53,11 +60,11 @@ export const Item = styled.li`
 `;
 
 export const Icon = styled.span`
-  margin-right: 7px;
+  margin-right: 14px;
 
   > svg {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
 
     path {
       fill: ${PALETTE.grey24};

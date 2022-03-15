@@ -14,11 +14,13 @@ export const Cotainer = styled.div`
 `;
 
 export const Content = styled.div`
-  width: ${p => (p.sidebar ? 'calc(100% - 245px)' : '100%')};
+  width: 100%;
   padding-top: 97px;
-  margin-left: ${p => (p.sidebar ? '245px' : '0')};
   display: flex;
   justify-content: center;
+  padding-left: ${p => (p.leftbar ? '245px' : '0')};
+  
+  padding-right: ${p => (p.rightbar ? '245px' : '0')};
 `;
 
 export const Block = styled.div`

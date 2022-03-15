@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { showMessage } from 'client/ui/components/_ui/Message';
-import { rules, collectError } from 'client/utils/validatorRules';
+import { rules, collectError } from 'client/utils/validations';
 import { useTranslation } from 'react-i18next';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
@@ -9,10 +9,11 @@ import { ImageChange } from 'client/ui/components/_block/Modal/ImageChange';
 import { dataToForm, dataToApi, model } from 'client/store/backOffice/mapper/dish';
 import { ALLERGENS } from 'client/ui/components/_block/Allergens/constants';
 import { ImgCrop } from 'client/ui/components/_ui/ImgCrop';
+import { getTextTranslate } from 'client/providers/external';
 import {
   getUrl,
   getDictionaryItem,
-  loadFile,
+  getFile,
   imageResize,
 } from 'client/utils/common';
 import {
@@ -49,11 +50,13 @@ const CROP_CONFIG = {
 };
 
 export const DishForm = ({
+  token = null,
   source = null,
+  roles = null,
   type = null,
   dishes = null,
   categories = null,
-  resaurant = null,
+  restaurant = null,
   controls = true,
   loading = false,
   dictionary = null,
@@ -78,7 +81,7 @@ export const DishForm = ({
     <ConfirmChange
       title={t(`backOffice.confirmModal.dish.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
-      textCancel={t('common.words.doNot')}
+      textCancel={t('common.words.cancel')}
       onCancel={hideConfirm}
       onClose={hideConfirm}
       onOk={() => {
@@ -120,6 +123,20 @@ export const DishForm = ({
     </ImageChange>
   ), [eventCrop]);
 
+  const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
+    const separator = ' || ';
+    if (!obj || !sourceLng || sourceLng === targetLng || !token) return obj;
+    const text = Object.keys(obj).map(key => obj[key]).join(separator);
+    const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
+    const textArr = results[0].translatedText.split(separator);
+    return Object.keys(obj).reduce((ob, key, k) => {
+      if (typeof ob[key] === 'string') {
+        return { ...ob, [key]: textArr[k] };
+      }
+      return ob;
+    }, obj);
+  };
+
   const setFiledsValue = (obj = null) => {
     if (!obj) return;
     setFormData(obj);
@@ -136,7 +153,7 @@ export const DishForm = ({
     }));
     if (data.images && data.images.length > 0) {
       Promise.all(data.images.map(async (uuid) => {
-        const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
+        const file = await getFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
         return file;
       })).then(images => setFiledsValue(dataToForm({ ...data, images })));
     }
@@ -189,12 +206,17 @@ export const DishForm = ({
     return (thumbnail && [thumbnail]) || (images[0] && [images[0]]);
   };
 
-  const handleFinish = (values = {}) => {
-    const obj = {
-      ...formData,
-      ...values,
-    };
-    onChange(dataToApi(obj, categories, resaurant, language));
+  const handleFinish = async (values = {}) => {
+    const excludeKeys = ['id', 'category', 'restaurant', 'count', 'cuisine', 'images', 'price', 'options', 'allergens', 'is_archived', 'is_deleted'];
+    const edited = { ...formData, ...values };
+    if (!edited.id && language !== 'en') {
+      const transObj = Object.keys(edited).filter(f => !excludeKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
+      const edited_EN = await getTranslateObj(transObj, language);
+      const dataApi = dataToApi({ ...edited, ...edited_EN }, categories, restaurant, 'en');
+      edited.key = dataApi.key;
+      onChange(dataApi);
+    }
+    onChange(dataToApi(edited, categories, restaurant, language), language);
     onChangeFiles(deletedFiles);
     setEdit(false);
     setIsChange(false);
@@ -225,7 +247,7 @@ export const DishForm = ({
 
       if (images && images.length > 0) {
         Promise.all(images.map(async (uuid) => {
-          const file = await loadFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
+          const file = await getFile(`${getUrl()}/static/restaurants/dishes/${uuid}.png`, uuid);
           return file;
         })).then(imgs => setFiledsValue({ ...obj, images: imgs }));
       }
@@ -285,66 +307,64 @@ export const DishForm = ({
 
   return formData && (
     <DishFormWrapper className={className}>
-      {controls && (
+      {controls && roles.some(f => f.manager || f.manager_back || f.root || f.root_back) && (
         <Controls>
           {isChange && (
-            <>
-              <Tooltip placement="top" title={t('common.words.save')}>
-                <Control
-                  disabled={!isChange || loading}
-                  active
-                  onClick={() => form.submit()}
-                >
-                  <FloppyDiskSvg />
-                </Control>
-              </Tooltip>
-            </>
+            <Tooltip placement="top" title={t('common.words.save')}>
+              <Control
+                disabled={!isChange || loading}
+                active
+                onClick={() => form.submit()}
+              >
+                <FloppyDiskSvg />
+              </Control>
+            </Tooltip>
           )}
           {source && source.id && (
             <>
               {!archive && !isChange && (
-              <>
-                {!edit && (
-                  <>
-                    <Tooltip placement="top" title={t('common.words.edit')}>
-                      <Control
-                        disabled={loading}
-                        onClick={handleEdit}
-                      >
-                        <EditSvg />
-                      </Control>
-                    </Tooltip>
-                    <Tooltip placement="top" title={t('common.words.archive')}>
-                      <Control
-                        disabled={loading}
-                        onClick={() => handleEvent('archive')}
-                      >
-                        <ArchiveSvg />
-                      </Control>
-                    </Tooltip>
-                  </>
-                )}
-              </>
+                <>
+                  {!edit && (
+                    <>
+                      <Tooltip placement="top" title={t('common.words.edit')}>
+                        <Control
+                          disabled={loading}
+                          onClick={handleEdit}
+                        >
+                          <EditSvg />
+                        </Control>
+                      </Tooltip>
+                      <Tooltip placement="top" title={t('common.words.archive')}>
+                        <Control
+                          disabled={loading}
+                          onClick={() => handleEvent('archive')}
+                        >
+                          <ArchiveSvg />
+                        </Control>
+                      </Tooltip>
+                    </>
+                  )}
+                </>
               )}
               {archive && (
-              <>
-                <Tooltip placement="top" title={t('common.words.restore')}>
-                  <Control
-                    disabled={loading}
-                    onClick={() => handleEvent('restore')}
-                  >
-                    <PlusSvg />
-                  </Control>
-                </Tooltip>
-                <Tooltip placement="top" title={t('common.words.delete')}>
-                  <Control
-                    disabled={loading}
-                    onClick={() => handleEvent('delete')}
-                  >
-                    <TrashSvg />
-                  </Control>
-                </Tooltip>
-              </>
+                <>
+                  <Tooltip placement="top" title={t('common.words.restore')}>
+                    <Control
+                      disabled={loading}
+                      onClick={() => handleEvent('restore')}
+                    >
+                      <PlusSvg />
+                    </Control>
+                  </Tooltip>
+                  <Tooltip placement="top" title={t('common.words.delete')}>
+                    <Control
+                      disabled={loading}
+                      onClick={() => handleEvent('delete')}
+                    >
+                      <TrashSvg />
+                    </Control>
+                  </Tooltip>
+                </>
               )}
             </>
           )}

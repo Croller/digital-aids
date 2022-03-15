@@ -27,7 +27,7 @@ export const Wrapper = styled.div`
 export const Person = styled(IconText)`
   font-size: 16px;
   font-family: ${FONTS.medium};
-  min-width: 180px;
+  min-width: 320px;
 
   > span > svg {
     width: 26px;

@@ -12,7 +12,7 @@ function* init() {
   const { token } = store.user.info;
 
   try {
-    const results = yield commonProvider.loadRowByParam({
+    const results = yield commonProvider.getRecordByParam({
       name: 'data_restaurants',
       token,
       language: 'en',

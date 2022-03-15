@@ -11,9 +11,9 @@ export const NavItemWrapper = styled.div`
 export const Item = styled(Button)`
   height: 50px;
   padding: 0;
-  min-width: 180px;
+  min-width: 210px;
   font-family: ${FONTS.medium};
-  background-color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.green1}`)};
+  background-color: ${PALETTE.green1};
   border-radius: ${THEME.borderRadiusL};
 
   &:not(:last-child) {
