@@ -1,8 +1,12 @@
 {
   "extends": [
     "stylelint-config-standard",
-    "stylelint-config-styled-components"
+    "stylelint-config-styled-components",
+    "stylelint-config-idiomatic-order"
   ],
+  "plugins": [
+		"stylelint-order"
+	],
   "syntax": "scss",
   "rules": {
     "block-closing-brace-empty-line-before": null,
