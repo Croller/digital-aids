@@ -67,20 +67,21 @@ const Restaurant = () => {
     !addressStr && setAddressStr(obj.address);
   };
 
-  const initValue = () => {
-    let data = { ...model };
+  const initValue = async () => {
+    let data = {};
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(f => f.id === params.restaurant);
     }
 
-    setData(dataToForm({ ...data, images: [] }));
     if (data.images && data.images.length > 0) {
-      Promise.all(data.images.map(async (uuid, i) => {
+      const images = await Promise.all(data.images.map(async (uuid, i) => {
         const path = i === 0 ? 'logo' : 'photos';
         const file = await getFile(`${getUrl()}/static/restaurants/${path}/${uuid}.png`, uuid);
         return file;
-      })).then(images => setData(dataToForm({ ...data, images })));
+      }));
+      data.images = images;
     }
+    setData(dataToForm(data));
     setLoadFiles(false);
   };
 
@@ -198,7 +199,7 @@ const Restaurant = () => {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
   }, [status]);
-  
+  console.log('formData', `at_work.${formData && formData['at_work.day']}.from`, formData && formData[`at_work.${formData['at_work.day']}.from`], formData);
   return formData && (
     <RestaurantWrapper>
       <NavBarStyled
@@ -506,21 +507,23 @@ const Restaurant = () => {
                   ))}
                 </RadioGroup>
               </FormItemStyled>
-              <FormRange>
-                <FormItemStyled
-                  name={`at_work.${formData['at_work.day']}.from`}
-                >
-                  <InputMaskStyled mask="11:11" />
-                </FormItemStyled>
-                <Separator>
-                  -
-                </Separator>
-                <FormItemStyled
-                  name={`at_work.${formData['at_work.day']}.to`}
-                >
-                  <InputMaskStyled mask="11:11" />
-                </FormItemStyled>
-              </FormRange>
+              {formData[`at_work.${formData['at_work.day']}.from`] && (
+                <FormRange>
+                  <FormItemStyled
+                    name={`at_work.${formData['at_work.day']}.from`}
+                  >
+                    <InputMaskStyled mask="11:11" />
+                  </FormItemStyled>
+                  <Separator>
+                    -
+                  </Separator>
+                  <FormItemStyled
+                    name={`at_work.${formData['at_work.day']}.to`}
+                  >
+                    <InputMaskStyled mask="11:11" />
+                  </FormItemStyled>
+                </FormRange>
+              )}
             </FormItemStyled>
             {params.restaurant !== 'new' && (
               <NavItemStyled onClick={handleRoute} />

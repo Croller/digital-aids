@@ -167,7 +167,7 @@ module.exports = {
         [key]: `http://0.0.0.0:${process.env.LOCAL_SERVER_PORT}`,
       }), {}),
       secure: false,
-      changeOrigin: false,
+      changeOrigin: true,
     },
   },
 };

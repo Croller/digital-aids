@@ -19,6 +19,7 @@ export const dataToForm = (data) => {
     at_work,
     geojson,
     is_publish,
+    languages,
   } = data;
 
   const goemEdit = (geojson && geojson.geometry.coordinates) || geojson;
@@ -30,12 +31,12 @@ export const dataToForm = (data) => {
     email,
     opinion,
     phone,
-    currency: currency[0],
+    currency: currency && [currency[0] || null],
     cuisine,
     employees,
     avg_price,
-    main_language: data.languages[0],
-    sub_languages: data.languages.filter(f => f !== data.languages[0]),
+    main_language: languages ? languages[0] : null,
+    sub_languages: languages && languages.filter(f => f !== languages[0]),
     images,
     is_publish,
     'socials.facebook.url': socials.facebook.url,
