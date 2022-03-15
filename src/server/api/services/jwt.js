@@ -1,68 +1,63 @@
+const moment = require('moment');
 const jwt = require('jsonwebtoken');
 const db = require('./db');
 const commonUtils = require('../utils/common');
 
 const signature = process.env.SERVER_AUTH_SECRET;
 const expiration = process.env.SERVER_AUTH_TIME;
+const expireTime = process.env.SERVER_AUTH_TIME.replace('h', '') * 60 * 60;
 
-const error = {
-  code: 0,
-  name: '',
-  text: '',
+const getToken = (headers) => {
+  if (!headers.authorization) return null;
+  const [, token] = headers.authorization.split(' ');
+  return token.length > 0 ? token : null;
+};
+
+const generateToken = (obj = null) => {
+  if (!obj) return null;
+  return jwt.sign(obj, signature, { expiresIn: expiration });
+};
+
+const decodeToken = (req) => {
+  const token = getToken(req.headers);
+  if (token) {
+    try {
+      const data = jwt.verify(token, signature);
+      return data;
+    } catch (err) {
+      commonUtils.setError('tokenNotValid', 'Token not valid', JSON.stringify(err.message));
+      return null;
+    }
+  }
+  commonUtils.setError('tokenNotExist', 'Token not exist');
+  return null;
+};
+
+const verifyToken = async (req) => {
+  const user = decodeToken(req);
+  if (user) {
+    const { login, password, enter_at } = user;
+    const isExpired = moment().diff(moment(enter_at, 'YYYY-MM-DDTHH:mm:ss.SSS'), 'seconds') > expireTime;
+    if (isExpired) return { user, ...commonUtils.setError('tokenIsExpired', 'Token is expired') };
+    try {
+      const results = await db.knex('data_users').where({ login, password });
+      if (results.length === 1) {
+        return results[0];
+      }
+      commonUtils.setError('userNotFound', 'User not found');
+      return null;
+    } catch (err) {
+      commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message));
+      return null;
+    }
+  }
+  commonUtils.setError('tokenDecode', 'Token decode error');
+  return null;
 };
 
 module.exports = {
-  generateToken: (user) => {
-    const obj = {
-      id: user.id,
-      login: user.login,
-      password: user.password,
-    };
-    return jwt.sign(obj, signature, { expiresIn: expiration });
-  },
-
-  // getToken: (req) => {
-  //   const { authorization } = commonUtils.getHeader(req);
-  //   if (authorization) {
-  //     return jwt.verify(authorization, signature);
-  //   }
-  //   return null;
-  // },
-
-  verifyToken: async (req, res) => {
-    const { authorization } = commonUtils.getHeader(req);
-    if (authorization) {
-      const data = jwt.verify(authorization, signature);
-      if (data) {
-        const { login, password } = data;
-        const result = await db.query(`SELECT * FROM data_users WHERE login='${login}' AND password='${password}'`);
-        if (result.rows.length === 1) {
-          const user = result.rows[0];
-          return user;
-        }
-        error.name = 'User not found';
-        error.code = 'userNotFound';
-        res.json({ error });
-        return null;
-      } 
-      error.name = 'Token not valid';
-      error.code = 'tokenNotValid';
-      res.json({ error });
-      return null;
-    } 
-    error.name = 'Token not exist';
-    error.code = 'tokenNotExist';
-    res.json({ error });
-    return null;
-  },
-  
-  verifyRoles: (req, res, userRoles, roles) => {
-    if (userRoles.some(r => roles.includes(r))) {
-      return true;
-    } 
-    error.name = 'Roles not exist';
-    error.code = 'rolesNotExist';
-    res.json({ error });
-    return null;
-  }, 
+  getToken,
+  generateToken,
+  decodeToken,
+  verifyToken,
 };

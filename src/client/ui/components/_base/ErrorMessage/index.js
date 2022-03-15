@@ -14,8 +14,8 @@ export const ErrorMessage = () => {
 
   const getError = () => {
     const error = user.error || restaurant.error || company.error || backOffice.error;
-    if (error && error.code) {
-      return t(`common.errorCode.${error.code}`);
+    if (error && error.id) {
+      return t(`common.errorCode.${error.id}`);
     }
     return null;
   };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useModal } from 'react-modal-hook';
 import { useHistory } from 'react-router-dom';
@@ -122,10 +122,6 @@ const Order = () => {
       </Title>
     </>
   );
-
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
 
   return (
     <>

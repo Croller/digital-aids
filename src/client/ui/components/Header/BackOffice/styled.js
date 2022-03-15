@@ -75,6 +75,7 @@ export const Hamburger = styled.div`
 `;
 
 export const User = styled.div`
+  width: 30px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -85,7 +86,7 @@ export const User = styled.div`
     height: 30px;
 
     path {
-      fill: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.black}`)};
+      fill: ${PALETTE.black};
     }
   }
 `;
@@ -141,7 +142,8 @@ export const LangWrapper = styled.div`
   z-index: ${Z_INDEX.modal};
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
-    top: 100px;
+    top: 80px;
+    right: 0;
     left: unset;
   }
 `;

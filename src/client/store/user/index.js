@@ -18,24 +18,38 @@ const initState = {
     enter_at: null,
     meta: { browser: null, ip: null, geo: null },
   },
+  roles: null,
+  dictionary: null,
   position: 'guest',
 
-  dictionary: null,
   loading: false,
+  status: null,
   error: null,
 };
 
-export default function (state = initState, action) {
-  switch (action.type) {
+export default function (state = initState, { type, payload }) {
+  switch (type) {
     case Constants.USER_SET:
-      return { ...state, ...action.payload };
+      return { ...state, ...payload };
     case Constants.USER_ERROR_SET:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: payload, loading: false };
     case Constants.USER_LOADING_SET:
-      return { ...state, loading: action.payload, error: null };
+      return {
+        ...state,
+        loading: payload,
+        error: null,
+        status: null,
+      };
     default:
       return state;
   }
+}
+
+export function set(payload) {
+  return {
+    type: Constants.USER_SET_STATE,
+    payload,
+  };
 }
 
 export function update(payload) {
@@ -59,10 +73,17 @@ export function auth(payload) {
   };
 }
 
-export function logout() {
+export function registration(payload) {
   return {
-    type: Constants.USER_LOGOUT,
-    payload: null,
+    type: Constants.USER_REGISTRATION,
+    payload,
+  };
+}
+
+export function reset(payload) {
+  return {
+    type: Constants.USER_RESET_PASSWORD,
+    payload,
   };
 }
 

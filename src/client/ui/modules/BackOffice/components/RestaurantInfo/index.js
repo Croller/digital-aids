@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { useTranslation } from 'react-i18next';
@@ -20,9 +20,13 @@ import {
   StarHalfDashedSvg,
   ShoppingBagSvg,
   BellSvg,
+  MenuSvg,
+  InfoCircleSvg,
+  ChefHeadSvg,
 } from 'client/assets/images';
 import { 
-  Wrapper,
+  RestaurantInfoWrapper,
+  InfoWrapper,
   Header,
   Name,
   Controls,
@@ -34,9 +38,28 @@ import {
   Address,
   NavItemStyled,
   Bandage,
+  DashboardWrapper,
+  DashItem,
+  DashItemName,
 } from './styled';
 
 const CONTROL_CONFIG = [
+  {
+    key: 'menu',
+    icon: (<MenuSvg />),
+    path: '/back-office/restaurant/:restaurant/language/:language/menu',
+    part: '/menu',
+  },
+  {
+    key: 'specialDeals',
+    icon: <InfoCircleSvg />,
+    path: '/back-office/restaurant/:restaurant/language/:language/special-deals',
+  },
+  {
+    key: 'foodtips',
+    icon: <ChefHeadSvg />,
+    path: '/back-office/restaurant/:restaurant/language/:language/foodtips',
+  },
   {
     key: 'orders',
     icon: <ShoppingBagSvg />,
@@ -70,7 +93,7 @@ const CONTROL_CONFIG = [
   {
     key: 'edit',
     icon: <EditSvg />,
-    path: 'restaurant/:restaurant',
+    path: '/back-office/restaurant/:restaurant',
   },
   {
     key: 'restore',
@@ -89,20 +112,21 @@ export const RestaurantInfo = ({
   name,
   address,
   phone,
-  onEvent = () => {},
   className,
+  onEvent = () => {},
 }) => {
   const [t] = useTranslation();
   const history = useHistory();
   const rootDispatch = useDispatch();
-  const { alert } = useSelector(state => state.backOffice);
+  const { backOffice: { alert } } = useSelector(s => s);
+  const params = useParams();
   const { pathname } = useLocation();
   const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
       title={t(`backOffice.confirmModal.restaurant.${event.key}`)}
       textOk={t(`common.words.${event.key}`)}
-      textCancel={t('common.words.doNot')}
+      textCancel={t('common.words.cancel')}
       onCancel={hideConfirm}
       onClose={hideConfirm}
       onOk={() => {
@@ -113,37 +137,43 @@ export const RestaurantInfo = ({
   ), [event]);
 
   const handleRoute = (key, path) => {
-    const params = { id };
+    const param = { id };
 
     if (alert[key]) {
       rootDispatch(set({ alert: { ...alert, [key]: false } }));
     }
     
     if (path) {
-      history.push(path.replace(':restaurant', id));
+      let ePath = path.replace(':restaurant', id);
+      if (ePath.indexOf(':language') > -1) {
+        ePath = ePath.replace(':language', params.language);
+      }
+      history.push(ePath);
       return;
     }
 
-    if (key === 'restore') params.is_archived = false;
-    if (key === 'delete') params.is_deleted = true;
-    if (key === 'archive') params.is_archived = true;
+    if (key === 'restore') param.is_archived = false;
+    if (key === 'delete') param.is_deleted = true;
+    if (key === 'archive') param.is_archived = true;
 
-    setEvent({ key, params });
+    setEvent({ key, params: param });
     showConfirm();
   };
 
   const getControl = () => {
     const arr = [...CONTROL_CONFIG];
-    if (pathname.indexOf('/restaurants') > -1) {
+    if (pathname.indexOf('/restaurants') > -1 || (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1)) {
       if (pathname.indexOf('/restaurants/archive') > -1) {
         return arr.filter(({ key }) => ['restore', 'delete'].includes(key));
       }
       return arr.filter(({ key }) => ['archive', 'edit'].includes(key));
     }
-    if (pathname.indexOf('/restaurant/') > -1 && pathname.indexOf('/language') > -1) {
-      return arr.filter(({ key }) => ['orders', 'notify', 'flyer', 'reserve', 'opinions'].includes(key));
-    }
     return [];
+  };
+
+  const getDashItem = () => {
+    const arr = [...CONTROL_CONFIG];
+    return arr.filter(({ key }) => ['flyer', 'reserve', 'opinions', 'orders', 'notify', 'menu', 'specialDeals', 'foodtips'].includes(key));
   };
 
   useEffect(() => {
@@ -164,37 +194,53 @@ export const RestaurantInfo = ({
   }, [pathname]);
 
   return (
-    <Wrapper className={className}>
-      <Header>
-        <Name
-          icon={<RestaurantSvg />}
-          text={name}
-        />
-        <Controls>
-          {getControl().map(({ key, icon, path }) => (
-            <Tooltip key={key} placement="top" title={t(`common.words.${key}`)}>
-              <Control onClick={() => handleRoute(key, path)}>
-                {icon}
-                {alert[key] && (<Bandage />)}
-              </Control>
-            </Tooltip>
+    <RestaurantInfoWrapper className={className}>
+      <InfoWrapper>
+        <Header>
+          <Name
+            icon={<RestaurantSvg />}
+            text={name}
+          />
+          <Controls>
+            {getControl().map(({ key, icon, path }) => (
+              <Tooltip key={key} placement="top" title={t(`common.words.${key}`)}>
+                <Control onClick={() => handleRoute(key, path)}>
+                  {icon}
+                </Control>
+              </Tooltip>
+            ))}
+          </Controls>
+        </Header>
+        <Hr />
+        <Content>
+          <Contacts>
+            <Phone
+              icon={<PhoneCallSvg />}
+              text={phone ? phone[0] : ''}
+            />
+            <Address
+              icon={<MapMarkerSvg />}
+              text={address}
+            />
+          </Contacts>
+          {pathname.indexOf('/dashboard') === -1 && (
+            <NavItemStyled id={id} onClick={(path) => handleRoute('restaurant', path)} />
+          )}
+        </Content>
+      </InfoWrapper>
+      {pathname.indexOf('/dashboard') > -1 && (
+        <DashboardWrapper>
+          {getDashItem().map(({ key, icon, path }) => (
+            <DashItem key={key} onClick={() => handleRoute(key, path)}>
+              {icon}
+              {alert[key] && (<Bandage />)}
+              <DashItemName>
+                {t(`common.words.${key}`)}
+              </DashItemName>
+            </DashItem>
           ))}
-        </Controls>
-      </Header>
-      <Hr />
-      <Content>
-        <Contacts>
-          <Phone
-            icon={<PhoneCallSvg />}
-            text={phone ? phone[0] : ''}
-          />
-          <Address
-            icon={<MapMarkerSvg />}
-            text={address}
-          />
-        </Contacts>
-        <NavItemStyled id={id} onClick={(path) => handleRoute('restaurant', path)} />
-      </Content>
-    </Wrapper>
+        </DashboardWrapper>
+      )}
+    </RestaurantInfoWrapper>
   );
 };

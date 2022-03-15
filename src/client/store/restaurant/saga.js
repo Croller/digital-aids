@@ -38,7 +38,7 @@ function* init({ payload: { restaurant = null, language = 'en' } }) {
     let results_foodtips = [];
     let results_offers = [];
 
-    results_dictionary = yield commonProvider.loadTable({
+    results_dictionary = yield commonProvider.getTables({
       token,
       language: language || info.language,
       data: dictionaries,
@@ -46,7 +46,7 @@ function* init({ payload: { restaurant = null, language = 'en' } }) {
     results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
 
     if (restaurant.length > 0) {
-      results_restaurant = yield commonProvider.loadRowByParam({
+      results_restaurant = yield commonProvider.getRecordByParam({
         name: 'data_restaurants',
         token,
         language: 'en',
@@ -57,7 +57,7 @@ function* init({ payload: { restaurant = null, language = 'en' } }) {
     if (results_restaurant.length > 0) {
       results_restaurant = { ...results_restaurant[0] };
 
-      results_categories = yield commonProvider.loadRowByParam({
+      results_categories = yield commonProvider.getRecordByParam({
         name: 'data_categories',
         token,
         language,
@@ -65,7 +65,7 @@ function* init({ payload: { restaurant = null, language = 'en' } }) {
       });
       results_categories = results_categories.sort((a, b) => a.number - b.number);
 
-      results_dishes = yield commonProvider.loadRowByParam({
+      results_dishes = yield commonProvider.getRecordByParam({
         name: 'data_dishes',
         token,
         language,
@@ -111,7 +111,7 @@ function* updateRow({ payload }) {
   const { token } = yield select((store) => store.user.info);
   yield put({ type: Constants.REST_LOADING_SET, payload: true });
   try {
-    const results = yield commonProvider.update({
+    const results = yield commonProvider.updateRecord({
       ...payload,
       token,
     }); 
@@ -157,7 +157,7 @@ function* setOrder({ payload }) {
           ...data.filter(f => !f.dailymenu),
         ];
       }
-      setLocalRestaurant(info.key, { order: setUrlOrder(data) });
+      setLocalRestaurant(info.key, { order: data ? setUrlOrder(data) : null });
       yield put({ type: Constants.REST_SET, payload: { order: data } });
     } catch (err) {
       throw err;

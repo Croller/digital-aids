@@ -8,7 +8,7 @@ const initState = {
   opinions: null,
   orders: null,
   notify: null,
-
+  users: null,
   dictionary: null,
 
   alert: {
@@ -23,16 +23,16 @@ const initState = {
   error: null,
 };
 
-export default function (state = initState, action) {
-  switch (action.type) {
+export default function (state = initState, { type, payload }) {
+  switch (type) {
     case Constants.BO_SET:
-      return { ...state, ...action.payload };
+      return { ...state, ...payload };
     case Constants.BO_ERROR_SET:
-      return { ...state, error: action.payload, loading: false };
+      return { ...state, error: payload, loading: false };
     case Constants.BO_LOADING_SET:
       return {
         ...state,
-        loading: action.payload,
+        loading: payload,
         error: null,
         status: null,
       };
@@ -62,9 +62,16 @@ export function update(payload) {
   };
 }
 
-export function loadByParam(payload) {
+export function loadItems(payload) {
   return {
-    type: Constants.BO_LOAD_ITEMS_BY_PARAM,
+    type: Constants.BO_LOAD_ITEMS,
+    payload,
+  };
+}
+
+export function loadTables(payload) {
+  return {
+    type: Constants.BO_LOAD_TABLES,
     payload,
   };
 }

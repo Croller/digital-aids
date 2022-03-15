@@ -9,4 +9,5 @@ npm-debug.log
 .idea
 package-lock.json
 
-src/server/static
+**/*.png
+!src/server/static/*.png

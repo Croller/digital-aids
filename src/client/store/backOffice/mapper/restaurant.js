@@ -1,4 +1,5 @@
-import { stringToKey, weekDays } from 'client/utils/common';
+import { stringToKey, transliterate } from 'client/utils/common';
+import { WEEK_DAYS } from 'client/utils/constants';
 import moment from 'moment';
 
 export const dataToForm = (data) => {
@@ -18,6 +19,7 @@ export const dataToForm = (data) => {
     at_work,
     geojson,
     is_publish,
+    languages,
   } = data;
 
   const goemEdit = (geojson && geojson.geometry.coordinates) || geojson;
@@ -29,12 +31,12 @@ export const dataToForm = (data) => {
     email,
     opinion,
     phone,
-    currency: currency[0],
+    currency: currency && [currency[0] || null],
     cuisine,
     employees,
     avg_price,
-    main_language: data.languages[0],
-    sub_languages: data.languages.filter(f => f !== data.languages[0]),
+    main_language: languages ? languages[0] : null,
+    sub_languages: languages && languages.filter(f => f !== languages[0]),
     images,
     is_publish,
     'socials.facebook.url': socials.facebook.url,
@@ -48,7 +50,7 @@ export const dataToForm = (data) => {
     lat: geojson ? parseFloat(goemEdit[0]) : 0,
     lng: geojson ? parseFloat(goemEdit[1]) : 0,
     'at_work.day': 'mon',
-    ...weekDays.reduce((obj, key) => ({
+    ...WEEK_DAYS.reduce((obj, key) => ({
       ...obj,
       [`at_work.${key}.from`]: moment(at_work[key][0]).isValid ? moment(at_work[key][0]).format('HH:mm') : null,
       [`at_work.${key}.to`]: moment(at_work[key][1]).isValid ? moment(at_work[key][1]).format('HH:mm') : null,
@@ -58,7 +60,6 @@ export const dataToForm = (data) => {
 
 export const dataToApi = (data, current) => {
   const {
-    id,
     name,
     address,
     email,
@@ -87,9 +88,9 @@ export const dataToApi = (data, current) => {
     }, []);
 
   return {
-    id: id || current.id,
+    ...(current && current.id ? { id: current.id } : {}),
     name,
-    key: (stringToKey(name) || ''),
+    key: transliterate(stringToKey(name) || ''),
     address,
     email,
     opinion,

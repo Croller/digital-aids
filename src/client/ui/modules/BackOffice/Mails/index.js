@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { OpinionMail } from 'client/ui/components/Mails/Opinion';
 
 import {
@@ -16,19 +16,13 @@ const OPINION_DATA = {
   comments: 'Test',
 };
 
-const Mails = () => {
-  useEffect(() => {
-    window.prerenderReady = true;
-  }, []);
-
-  return (
-    <MailsWrapper>
-      <Block>
-        <OpinionMail {...OPINION_DATA} />
-      </Block>
-    </MailsWrapper>
-  );
-};
+const Mails = () => (
+  <MailsWrapper>
+    <Block>
+      <OpinionMail {...OPINION_DATA} />
+    </Block>
+  </MailsWrapper>
+);
 
 export default Mails;
 

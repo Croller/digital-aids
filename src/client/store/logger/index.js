@@ -14,11 +14,12 @@ export function* watchAndLog() {
     if (payload) {
       const { token, roles } = payload;
       if (token && roles && type === 'USER_SET') {
-        let ids = null;
-        if ([2, 3].some(s => roles.includes(s)) && !roles.includes(1)) {
-          ids = payload.restaurants;
-        }
-        yield put({ type: Constants.BO_LOAD_INIT, payload: { ids } });
+        // if ([2, 3].some(s => roles.includes(s)) && !roles.includes(1)) {
+        //   ids = payload.restaurants;
+        // }
+        yield setTimeout(() => {
+          put({ type: Constants.BO_LOAD_INIT });
+        }, 15000);
       }
     } 
   }

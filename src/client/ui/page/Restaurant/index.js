@@ -1,9 +1,14 @@
 import React, { lazy, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { init, set } from 'client/store/restaurant';
-import { update } from 'client/store/user';
+import * as userStore from 'client/store/user';
 import { getUrlOrder } from 'client/utils/restaurant';
-import { getLocalRestaurant, setLocalRestaurant, setUser } from 'client/utils/localStorage';
+import {
+  getLocal,
+  setLocal,
+  getLocalRestaurant,
+  setLocalRestaurant,
+} from 'client/utils/localStorage';
 import {
   Route,
   Switch,
@@ -14,9 +19,9 @@ import {
 import { Layout } from 'client/ui/components/Layout/Restaurant';
 import { Loader } from 'client/ui/components/_block/Loader';
 
-const { href } = window.location;
 const PATH = '/restaurant';
 
+const { href } = window.location;
 const Language = lazy(() => import('client/ui/modules/Restaurant/Language'));
 const Menu = lazy(() => import('client/ui/modules/Restaurant/Menu'));
 const Assistant = lazy(() => import('client/ui/modules/Restaurant/Assistant'));
@@ -32,6 +37,7 @@ const Receipt = lazy(() => import('client/ui/modules/Restaurant/Receipt'));
 
 export const Restaurant = () => {
   const history = useHistory();
+  const localStorage = getLocal();
   const { pathname } = useLocation();
   const rootDispatch = useDispatch();
   const state = useSelector(s => s);
@@ -56,6 +62,7 @@ export const Restaurant = () => {
       let order = localRest.order ? getUrlOrder(localRest.order, dishes, categories) : null;
 
       let table_number = localRest.table_number || 0;
+      let position = localStorage?.position || 'guest';
       if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
         const [path, number] = href.split('&table_number=');
         order = getUrlOrder(path.split('?params=')[1], dishes, categories);
@@ -64,15 +71,16 @@ export const Restaurant = () => {
       if (href.indexOf('/receipt?params=') === -1) {
         if (href.indexOf('table_number=') > -1) {
           const number = href.split('table_number=')[1];
-          table_number = parseInt(number, 0);
+          table_number = number ? parseInt(number, 0) : table_number;
         }
         if (href.indexOf('position=waiter') > -1) {
-          const position = href.split('position=')[1];
-          setUser({ position });
-          rootDispatch(update({ position }));
+          const pos = href.split('position=')[1];
+          position = pos || 'guest';
         }
       }
+      rootDispatch(userStore.set({ position }));
       rootDispatch(set({ table_number, order }));
+      setLocal({ position });
       setLocalRestaurant(restaurant.info.key, { table_number });
     }
   }, [restaurant.info]);

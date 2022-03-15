@@ -35,9 +35,10 @@
     "time": "Time",
     "persons": "Persons",
     "reserving": "Reserve",
-    "assistant": "Assistant"
+    "assistant": "Virtual Assistant"
   },
   "pageAssistent": {
+    "guest": "Change to guest",
     "waiter": "Waiter",
     "receipt": "Receipt",
     "napkin": "Napkin",

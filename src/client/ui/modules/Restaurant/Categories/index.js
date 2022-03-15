@@ -16,6 +16,7 @@ import {
 
 const Categories = () => {
   const history = useHistory();
+  const { checked } = getLocal();
   const { categories, offers, info } = useSelector(store => store.restaurant);
   const [t] = useTranslation();
   const [offer, setOffer] = useState(null);
@@ -25,9 +26,8 @@ const Categories = () => {
       onOk={() => {
         const category = categories.find(f => f.type === 'alcohol');
         if (category) {
-          const local = getLocal();
-          local.user.check18 = true;
-          setLocal(local);
+          checked.age = true;
+          setLocal({ checked });
           history.push(`category/${category.key}`);
         }
       }}
@@ -41,8 +41,7 @@ const Categories = () => {
   ), [offer]);
 
   const handleItemClick = (category) => {
-    const { user } = getLocal();
-    if (category.type === 'alcohol' && !user.check18) {
+    if (category.type === 'alcohol' && checked.age) {
       confirmAge();
       return;
     }

@@ -1,19 +1,119 @@
+/* eslint-disable no-console */
 const { addedDiff, updatedDiff } = require('deep-object-diff');
 const db = require('../services/db');
 const socket = require('../services/socket');
 const commonUtils = require('../utils/common');
 
-const error = {
-  code: 0,
-  name: '',
-  text: '',
+let results = [];
+
+const getTableAll = async () => {
+  results = await db.knex('information_schema.tables').select();
+  return results;
 };
 
-let query = '';
-let values = [];
+const getTables = async (names, options = {}) => {
+  results = await Promise.all(names.map(async (name) => {
+    const result = await db.knex(name).where({ ...options });
+    return { [name]: result }; 
+  }));
+  return results.reduce((obj, arr) => ({ ...obj, ...arr }), {});
+};
+
+const getWordsPermit = async () => {
+  results = await db.knex('pg_get_keywords()').select();
+  return results;
+};
+
+const getTableFields = async (table) => {
+  results = await existTable(table);
+
+  if (!results) return null;
+  results = await db.knex('information_schema.columns').where({ table_name: table });
+  
+  if (results.length === 0) return null;
+  return results.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
+};
+
+const getTableStats = async (table) => {
+  try {
+    const fieldsTable = await getTableFields(table);
+    results = await Promise.allSettled(Object.keys(fieldsTable).map(async (key) => {
+      const group = await db.knex(table).select(key).groupBy(key);
+      return group;
+    }));
+    return results.reduce((obj, { value }) => {
+      const key = Object.keys(value[0])[0];
+      const values = value.reduce((arr, row) => {
+        let val = Array.isArray(row[key]) ? row[key].reduce((oa, a) => [...oa, a], []) : [row[key]];
+        val = val.filter(v => !arr.some(s => s === v));
+        return [...arr, ...(val || [])];
+      }, []);
+      return { ...obj, [key]: values.sort((a, b) => a - b) };
+    }, {});
+  } catch (err) {
+    console.log('Stats error', JSON.stringify(err.message));
+    return null;
+  }
+};
+
+const existTable = async (table = null) => {
+  results = await db.knex('information_schema.tables').where({ table_name: table });
+  return results.length !== 0;
+};
+
+const logRecord = async (table, id) => {
+  if (table.indexOf('data_') > -1) {
+    const logsTable = table.replace('data_', 'logs_');
+    const filtred = await db.knex(table).where({ id });
+    const existT = await existTable(logsTable);
+    if (existT && filtred.length === 1) {
+      await db.knex(logsTable).insert(filtred[0]);
+      return true;
+    }
+  }
+  return false;
+};
+
+const getRecordTranslate = async (table = null, records = null, language = 'en') => {
+  if (table && (records && records.length > 0) && language !== 'en') {
+    const tableTr = `${table}_translate`;
+    const ids = records.map(item => item.id);
+    const existT = await existTable(tableTr);
+    if (!existT) return records;
+
+    const resultsTr = await db.knex(tableTr).whereRaw('id = ANY (?) AND language = ?', [`{"${ids.join('", "')}"}`, language]);
+    if (resultsTr.length > 0) {
+      return records.map(item => {
+        const exist = resultsTr.find(tr => tr.id === item.id);
+        if (!exist) return item;
+        delete exist.language;
+        return { ...item, ...exist };
+      });
+    }
+  }
+  return records;
+};
+
+const searchRecord = async (table, data) => {
+  try {
+    results = await db.knex(table).where((bd) => {
+      Object.keys(data).forEach((key, k) => {
+        if (k === 0) {
+          bd.where({ [key]: data[key] });
+        } else {
+          bd.orWhere({ [key]: data[key] });
+        }
+      });
+    });
+    return results;
+  } catch (err) {
+    console.log('Search error', JSON.stringify(err.message));
+    return null;
+  }
+};
 
 const mapFields = (type) => {
-  const typeEdit = type.replace(/ /g, '_');
+  const typeEdit = type.replace(/ /g, '_').toLowerCase();
   const mapper = {
     integer: { type: 'number', value: 0 },
     double_precision: { type: 'float', value: 0.0 },
@@ -22,145 +122,106 @@ const mapFields = (type) => {
     jsonb: { type: 'object', value: {} },
     boolean: { type: 'boolean', value: false },
     ARRAY: { type: 'array', value: [] },
+    timestamp_with_time_zone: { type: 'datetime', value: null },
+    geometry: { type: 'geometry', value: null },
   };
   return mapper[typeEdit];
 };
 
-const getTableFields = async (table) => {
-  query = 'SELECT column_name, data_type FROM information_schema.columns WHERE table_name = $1';
-  values = [table];
-  const result = await db.queryValues(query, values);
-
-  if (result.rows.length === 0) {
-    return null;
-  }
-  return result.rows.reduce((obj, { column_name, data_type }) => ({ ...obj, [column_name]: mapFields(data_type) }), {});
-};
-
-const updateTableRecord = async (table, data, params) => {
-  const { res, user, language } = params;
-  const { login, password, restaurants } = user;
-  const fieldsTable = await getTableFields(table);
-
+const updateRecord = async (table, data, language, user) => {
+  const source = { ...data };
   try {
-    const mapper = (table.indexOf('translate') > -1 ? Object.keys(data) : Object.keys(data).filter(f => f !== 'id')).reduce((obj, key) => {
-      if (key === 'images') {
-        return {
-          fields: [...obj.fields, key],
-          values: [...obj.values, (data[key] ? data[key].map((image) => (image ? image.uuid : null)) : null)],
-        };
+    if ((source.files || source.images) && table.includes('data_')) {
+      const files = [...(source.files || []), ...(source.images || [])];
+      if (files.length > 0) {
+        await Promise.all(files.filter(f => f).map(async (item) => {
+          const { base64, path } = item;
+          const file = await commonUtils.fileWrite(path, base64);
+          return file;
+        }));
+        ['files', 'images'].forEach(key => {
+          if (source[key]) {
+            source[key] = source[key].map((file) => (file && typeof file === 'object' ? file.uuid : file));
+          }
+        });
       }
-      if (fieldsTable[key] && fieldsTable[key].type === 'object') {
-        return {
-          fields: [...obj.fields, key],
-          values: [...obj.values, JSON.stringify(data[key])],
-        };
-      }
-      return {
-        fields: [...obj.fields, key],
-        values: [...obj.values, data[key]],
-      };
-    }, { fields: [], values: [] });
-
-    if (data.images) {
-      await Promise.all(data.images.filter(f => f).map(async (image) => {
-        const { base64, path } = image;
-        const file = await commonUtils.writeFile(path, base64);
-        return file;
-      }));
-    }
-
-    let result = {};
-
-    // update table with translate
-    if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
-      let tr_model = await getTableFields(`${table}_translate`);
-      tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});
-      const tr_data = { ...data };
-      delete tr_data.images;
-
-      let updateTR = updatedDiff(tr_model, tr_data);
-      let updateEN = { id: data.id, ...addedDiff(updateTR, tr_data) };
-      updateTR = await updateTableRecord(`${table}_translate`, { ...updateTR, language }, params);
-      updateEN = await updateTableRecord(table, updateEN, { res, user, language: 'en' });
-      delete updateTR.language;
-
-      return { ...updateEN, ...updateTR };
     }
     
     // insert/update for table without translate
-    if (!data.id) {
-      query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-      result = await db.queryValues(query, mapper.values);
+    if (!source.id) {
+      const edited = { ...source, change_user: user.id, change_at: new Date().toISOString() };
+      delete edited.id;
+      [results] = await db.knex(table).insert(edited).returning('*');
 
-      // options added to users, restaurants created
+      // options create user roles for new restaurant
       if (table === 'data_restaurants') {
-        query = 'UPDATE data_users SET restaurants=$1 WHERE login=$2 AND password=$3';
-        values = [[...(restaurants || []), result.rows[0].id], login, password];
-        await db.queryValues(query, values);
+        await db.knex('data_roles').insert({
+          user_id: user.id,
+          access: ['owner', 'manager', 'employee', 'account', 'guest'],
+          project: table,
+          project_id: results.id,
+          change_user: user.id,
+        });
       }
     } else {
-      query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
-      values = [data.id, ...mapper.values];
+      // update table logs before update 
+      logRecord(table, source.id);
+      
+      // update table with translate
+      if (['data_categories', 'data_dishes'].includes(table) && language !== 'en') {
+        let tr_model = await getTableFields(`${table}_translate`);
+        tr_model = Object.keys(tr_model).reduce((obj, key) => ({ ...obj, [key]: null }), {});
+        const tr_data = { ...source, change_user: user.id, change_at: new Date().toISOString() };
+        delete tr_data.images;
 
-      // insert/update for table with translate
-      if (table.indexOf('translate') > -1) {
-        const results = await getTableRecord(table, { id: data.id, language }, params);
-        query = `UPDATE ${table} SET ${mapper.fields.map((filed, f) => `${filed}=$${f + 2}`).join(', ')} WHERE id=$1 ${language !== 'en' ? `AND language = '${language}'` : ''} RETURNING *`;
-        values = [data.id, ...mapper.values];
-        if (results.length === 0) {
-          query = `INSERT INTO ${table} (${mapper.fields.join(', ')}) VALUES (${mapper.fields.map((key, i) => `$${i + 1}`).join(', ')}) RETURNING *`;
-          values = [...mapper.values];
-        }
+        let updateTR = updatedDiff(tr_model, tr_data);
+        let updateEN = { id: source.id, ...addedDiff(updateTR, tr_data) };
+        updateTR = await updateRecord(`${table}_translate`, { ...updateTR, language }, language, user);
+        updateEN = await updateRecord(table, updateEN, language, user);
+        delete updateTR.language;
+
+        return { ...updateEN, ...updateTR };
       }
-
-      result = await db.queryValues(query, values);
+      
+      // insert/update for table with translate
+      if (table.indexOf('_translate') > -1) {
+        const resultTrExist = await db.knex(table).where({ id: source.id, language });
+        if (resultTrExist.length === 0) {
+          [results] = await db.knex(table).insert({ ...source, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
+        }
+      } else {
+        // set logic select if langeage !== en
+        const logicalTr = table.indexOf('_translate') > -1 && language !== 'en' ? { language } : {};
+        [results] = await db.knex(table).where({ ...logicalTr, id: source.id }).update({ ...source, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
+      }
     }
+    
     // socket emit change to client
-    if ('restaurant' in result.rows[0]) {
-      const { restaurant } = result.rows[0];
+    if ('restaurant' in results) {
       socket.emit({
-        type: !data.id ? 'create' : 'update',
-        id: restaurant,
+        type: !source.id ? 'create' : 'update',
+        id: results.restaurant,
         table,
-        data: result.rows[0],
+        data: results,
       });
     }
-
-    return result.rows[0];
+    
+    return results;
   } catch (err) {
-    error.name = 'Query error';
-    error.code = 'queryError';
-    error.text = JSON.stringify(err.message);
-    res.status(201);
-    res.json({ error });
-  }
-};
-
-const getTableRecord = async (table, data, params) => {
-  const { res } = params;
-  try {
-    const queryStr = Object.keys(data).map((key, k) => {
-      if (data[key] && Array.isArray(data[key])) {
-        return `${key} = ANY ($${k + 1})`;
-      }
-      return `${key}=($${k + 1})`;
-    }).join(' AND ');
-    query = `SELECT * FROM ${table} WHERE ${queryStr}`;
-    values = Object.keys(data).map(key => data[key]);
-    const result = await db.queryValues(query, values);
-    return result.rows;
-  } catch (err) {
-    error.name = 'Query error';
-    error.code = 'queryError';
-    error.text = JSON.stringify(err.message);
-    res.status(201);
-    res.json({ error });
+    console.log('Update error', JSON.stringify(err.message));
+    return null;
   }
 };
 
 module.exports = {
+  getTableAll,
+  getTables,
+  getWordsPermit,
   getTableFields,
-  updateTableRecord,
-  getTableRecord,
+  getTableStats,
+  existTable,
+  logRecord,
+  getRecordTranslate,
+  searchRecord,
+  updateRecord,
 };
