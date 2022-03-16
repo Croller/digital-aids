@@ -11,20 +11,20 @@ import { Info } from './Info';
 
 const listStyle = css`
   display: flex;
-  justify-content: flex-start;
   flex-direction: row;
+  justify-content: flex-start;
 `;
 
 const buttonStyle = css`
   height: 58px;
-  background-color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey26}`)};
-  color: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black1}`)};
-  text-transform: uppercase;
-  font-family: ${FONTS.semiBold};
-  font-size: 18px;
   margin-right: 26px;
   margin-bottom: 22px;
+  background-color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey26}`)};
   border-radius: ${THEME.borderRadiusL};
+  color: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black1}`)};
+  font-family: ${FONTS.semiBold};
+  font-size: 18px;
+  text-transform: uppercase;
 
   > svg {
     width: 22px;
@@ -68,13 +68,13 @@ export const ListControls = styled.div`
 `;
 
 export const Control = styled(Button)`
-  height: 58px;
   width: 290px;
-  color: ${PALETTE.white};
+  height: 58px;
   background-color: ${PALETTE.green1};
-  text-transform: uppercase;
+  color: ${PALETTE.white};
   font-family: ${FONTS.semiBold};
   font-size: 16px;
+  text-transform: uppercase;
 
   > svg {
     width: 22px;
@@ -116,14 +116,14 @@ export const CategoryWrapper = styled.div`
 
 export const CategoryEdit = styled(Button)`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 44px;
   height: 44px;
+  align-items: center;
+  justify-content: center;
   padding: 0;
+  margin-top: -4px;
   background-color: ${PALETTE.grey26};
   border-radius: ${THEME.borderRadiusM};
-  margin-top: -4px;
 
   > svg {
     width: 20px;
@@ -147,6 +147,7 @@ export const Caterory = styled(Button)`
   width: auto;
   background-color: transparent;
   color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey12}`)};
+  padding: 0 12px;
   border-radius: unset;
   border-bottom: ${p => (p.active && `4px solid ${PALETTE.black1}`)};
   text-transform: uppercase;
@@ -154,7 +155,6 @@ export const Caterory = styled(Button)`
   font-size: 16px;
   margin-right: 22px;
   margin-bottom: 14px;
-  padding: 0 12px;
   align-items: flex-start;
   word-wrap: normal;
 
@@ -188,14 +188,14 @@ export const DishControls = styled.div`
 `;
 
 export const NewDish = styled(Button)`
-  height: 46px;
   width: 184px;
-  color: ${PALETTE.white};
+  height: 46px;
   background-color: ${PALETTE.green1};
-  text-transform: uppercase;
+  border-radius: ${THEME.borderRadiusL};
+  color: ${PALETTE.white};
   font-family: ${FONTS.semiBold};
   font-size: 16px;
-  border-radius: ${THEME.borderRadiusL};
+  text-transform: uppercase;
 
   > svg {
     width: 22px;
@@ -209,15 +209,15 @@ export const NewDish = styled(Button)`
 `;
 
 export const ArchiveBtn = styled(Button)`
-  height: 46px;
   width: 175px;
-  font-size: 14px;
-  font-family: ${FONTS.medium};
-  color: ${PALETTE.black1};
-  text-transform: uppercase;
-  background-color: ${PALETTE.grey26};
+  height: 46px;
   margin-left: auto;
+  background-color: ${PALETTE.grey26};
   border-radius: ${THEME.borderRadiusL};
+  color: ${PALETTE.black1};
+  font-family: ${FONTS.medium};
+  font-size: 14px;
+  text-transform: uppercase;
 
   > svg {
     width: 19px;
@@ -232,8 +232,8 @@ export const ArchiveBtn = styled(Button)`
 
 export const DishList = styled.div`
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
+  justify-content: flex-start;
   margin-bottom: 48px;
 `;
 

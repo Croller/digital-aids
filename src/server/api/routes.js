@@ -1,4 +1,4 @@
-const routes = {
+module.exports = {
   'GET /api/user/auth': 'UserController.auth',
   'POST /api/user/signin': 'UserController.signin',
   'PUT /api/user/signup': 'UserController.signup',
@@ -8,7 +8,7 @@ const routes = {
   'GET /api/table': 'CommonController.getTables',
   'GET /api/table/:name/stats': 'CommonController.getTableStats',
   'GET /api/table/:name/record': 'CommonController.getRecordById',
-  'POST /api/table/:name/record': 'CommonController.getRecordByParam',
+  'POST /api/table/:name/record/find': 'CommonController.getRecordByParam',
   'POST /api/table/:name/record/search': 'CommonController.searchRecord',
   'POST /api/table/:name/record/update': 'CommonController.updateRecord',
   'GET /api/table/:name/record/history': 'CommonController.getRecordHistory',
@@ -23,5 +23,3 @@ const routes = {
 
   'DELETE /api/file/delete': 'CommonController.deleteFile',
 };
-
-module.exports = routes;

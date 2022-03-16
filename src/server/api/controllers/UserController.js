@@ -5,7 +5,7 @@ const commonUtils = require('../utils/common');
 const queryUtils = require('../utils/query');
 
 const UserController = () => {
-  let results = '';
+  let results = null;
 
   const auth = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);

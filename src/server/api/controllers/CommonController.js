@@ -131,9 +131,11 @@ const CommonController = () => {
         const { name } = req.params;
         const { data } = req.body;
         const language = req.headers['accept-language'];
+        let languages = req.headers['content-length'];
+        languages = languages ? languages.split(', ') : null;
         const arr = Array.isArray(data) ? data : [data];
         results = await Promise.all(arr.map(async (row) => {
-          const result = await queryUtils.updateRecord(name, row, language, tokenData);
+          const result = await queryUtils.updateRecord(name, row, language, tokenData, languages);
           return result;
         }));
         res.json(results.filter(item => item));

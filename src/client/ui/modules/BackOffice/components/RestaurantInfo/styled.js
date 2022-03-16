@@ -15,11 +15,11 @@ export const RestaurantInfoWrapper = styled.div`
 
 export const InfoWrapper = styled.div`
   width: 100%;
+  padding: 22px 23px 20px 24px;
+  margin-bottom: 30px;
   background-color: ${PALETTE.white};
   border-radius: ${THEME.borderRadiusL};
   box-shadow: ${THEME.boxShadow2};
-  padding: 22px 23px 20px 24px;
-  margin-bottom: 30px;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     height: auto;
@@ -27,15 +27,15 @@ export const InfoWrapper = styled.div`
 `;
 
 export const Header = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
 `;
 
 export const Name = styled(IconText)`
-  font-size: 22px;
   font-family: ${FONTS.semiBold};
+  font-size: 22px;
 
   > span > svg {
     width: 35px;
@@ -50,21 +50,21 @@ export const Name = styled(IconText)`
 
 export const Controls = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  flex-direction: row;
 `;
 
 export const Control = styled(Button)`
+  position: relative;
   display: flex;
+  width: 32px;
+  height: 32px;
   align-items: center;
   justify-content: center;
   padding: 0;
-  width: 32px;
-  height: 32px;
   background-color: ${PALETTE.grey26};
   border-radius: ${THEME.borderRadiusS};
-  position: relative;
 
   &:not(:last-child) {
     margin-right: 18px;
@@ -81,16 +81,16 @@ export const Control = styled(Button)`
 `;
 
 export const Hr = styled.hr`
-  margin: 18px 0;
   border: 1px solid ${PALETTE.grey23};
+  margin: 18px 0;
 `;
 
 export const Content = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  flex-direction: column;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     flex-direction: row;
@@ -98,11 +98,11 @@ export const Content = styled.div`
 `;
 
 export const Contacts = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-direction: column;
 
   &:last-child {
     margin-bottom: 0;
@@ -131,21 +131,21 @@ export const NavItemStyled = styled(NavItem)`
 
 export const DashboardWrapper = styled.div`
   display: flex;
+  width: calc(100% + 2%);
   flex-flow: row wrap;
   justify-content: space-between;
-  width: calc(100% + 2%);
   margin-left: -1%;
 `;
 export const DashItem = styled.div`
   position: relative;
+  display: flex;
   width: 18%;
   height: 160px;
-  margin: 0 1% 20px;
-  display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 22px 18px;
+  margin: 0 1% 20px;
   border-radius: ${THEME.borderRadiusL};
   box-shadow: ${THEME.boxShadow2};
   cursor: pointer;
@@ -155,9 +155,9 @@ export const DashItem = styled.div`
   }
 
   > svg {
-    margin: 12px 0 18px;
     width: 44px;
     height: 44px;
+    margin: 12px 0 18px;
 
     path {
       fill: ${PALETTE.black1};
@@ -175,21 +175,21 @@ export const DashItem = styled.div`
 
 export const Bandage = styled.span`
   position: absolute;
-  right: 8px;
   top: 7px;
-  border-radius: 50%;
-  background-color: ${PALETTE.red1};
+  right: 8px;
+  display: flex;
   min-width: 12px;
   height: 12px;
-  color: ${PALETTE.white};
-  font-family: ${FONTS.bold};
-  display: flex;
   align-items: center;
   justify-content: center;
+  background-color: ${PALETTE.red1};
+  border-radius: 50%;
+  color: ${PALETTE.white};
+  font-family: ${FONTS.bold};
 `;
 
 export const DashItemName = styled.span`
-  font-size: 16px;
   font-family: ${FONTS.bold};
+  font-size: 16px;
   text-transform: uppercase;
 `;

@@ -29,14 +29,14 @@ import {
   TextAreaStyled,
   SelectStyled, OptionStyled,
   Controls, Control,
-  Separator,
-  FormRange, RadioGroup, RadioButton,
-  InputMaskStyled,
-  Hr,
-  Group2Form,
-  GroupForm, 
-  GroupControl,
-  AddGroup,
+  // Separator,
+  // FormRange, RadioGroup, RadioButton,
+  // InputMaskStyled,
+  // Hr,
+  // Group2Form,
+  // GroupForm, 
+  // GroupControl,
+  // AddGroup,
 } from './styled';
 
 export const CategoryForm = ({
@@ -52,13 +52,15 @@ export const CategoryForm = ({
   onChange = () => {},
   onCreateTranslate = () => {},
 }) => {
+  const separator = ' || ';
+  const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
   const [t] = useTranslation();
   const rule = rules(t);
+  const [form] = FormStyled.useForm();
+  const [event, setEvent] = useState(null);
   const [isChange, setIsChange] = useState(false);
   const [current, setCurrent] = useState(null);
   const [formData, setFormData] = useState(null);
-  const [form] = FormStyled.useForm();
-  const [event, setEvent] = useState(null);
   const [showConfirm, hideConfirm] = useModal(() => (
     <ConfirmChange
       title={t(`backOffice.confirmModal.category.${event.key}`)}
@@ -69,8 +71,6 @@ export const CategoryForm = ({
       onOk={() => handleChange(event.key, event.params)}
     />
   ), [event]);
-  const separator = ' || ';
-  const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
 
   const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
     if (!obj || sourceLng === targetLng) return obj;
@@ -322,7 +322,7 @@ export const CategoryForm = ({
                   />
                 </FormItemStyled>
               </FormCol>
-              <FormCol>
+              {/* <FormCol>
                 <FormItemStyled
                   label={t('common.words.workingTime')}
                 >
@@ -358,7 +358,7 @@ export const CategoryForm = ({
                     </FormItemStyled>
                   </FormRange>
                 </FormItemStyled>
-              </FormCol>
+              </FormCol> */}
             </Form2Col>
           </FormCol>
         )}

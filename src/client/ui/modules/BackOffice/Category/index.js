@@ -35,13 +35,15 @@ import {
   EmptyBlockStyled,
 } from './styled';
 
+const PA = ['foodtips', 'special-deals'];
+
 const Category = () => {
   const [t] = useTranslation();
-  const params = useParams();
-  const { restaurant, language } = params;
-  const { pathname } = useLocation();
   const history = useHistory();
+  const params = useParams();
   const rootDispatch = useDispatch();
+  const { pathname } = useLocation();
+  const { restaurant, language } = params;
   const { user: { roles, info: { token } }, backOffice } = useSelector(s => s);
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState([]);
@@ -49,8 +51,7 @@ const Category = () => {
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
   const [orderTR, setOrderTr] = useState(null);
   const [dishCategory, setDishCategory] = useState([]);
-  const pageSpec = ['foodtips', 'special-deals'];
-  const pageSpecActive = pageSpec.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
+  const pageSpecActive = PA.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
   const root = getAccess({ role: 'root', roles });
   const access = getAccess({
@@ -80,7 +81,7 @@ const Category = () => {
         : [])];
       
       if (pageSpecActive === null) {
-        categoryFilter = restCategories.filter(f => !pageSpec.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
+        categoryFilter = restCategories.filter(f => !PA.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
       }
   
       categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : null;
@@ -109,7 +110,6 @@ const Category = () => {
             }
             return rootDispatch(update({ name: 'data_categories', data: dataToApi(obj, restInfo), language: lng }));
           }));
-          console.log(results);
           setOrderTr(null);
         }
       }
@@ -140,7 +140,7 @@ const Category = () => {
   };
 
   const getRestDishes = () => {
-    const defCategory = categories.filter(f => f.restaurant === restaurant && !f.is_archived && !pageSpec.includes(f.key));
+    const defCategory = categories.filter(f => f.restaurant === restaurant && !f.is_archived && !PA.includes(f.key));
     return dishes.filter(f => f.restaurant === restaurant && !f.is_archived && defCategory.some(s => s.id === f.category));
   };
 

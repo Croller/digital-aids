@@ -13,26 +13,26 @@ export const CategoryFormWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: row;
-  border-radius: ${THEME.borderRadiusL};
-  background-color: ${PALETTE.white};
-  box-shadow: ${THEME.boxShadow1};
   padding: 0 20px 0 20px;
+  background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadiusL};
+  box-shadow: ${THEME.boxShadow1};
 `;
 
 export const FormStyled = styled(Form)`
-  margin-top: 22px;
   width: 100%;
+  margin-top: 22px;
 `;
 
 export const FormCol = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   flex-direction: column;
 `;
 
 export const Form2Col = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
   flex-direction: row;
 
   > div {
@@ -47,9 +47,9 @@ export const Form2Col = styled.div`
 
 export const InputStyled = styled(InputForm)`
   height: 48px;
-  font-size: 18px;
-  font-family: ${FONTS.medium};
   border-radius: ${THEME.borderRadiusS};
+  font-family: ${FONTS.medium};
+  font-size: 18px;
 
   ${p => p.addonAfter && css`
     padding: 0;
@@ -59,9 +59,9 @@ export const InputStyled = styled(InputForm)`
       border: 0;
 
       .ant-input {
-        font-size: 18px;
-        font-family: ${FONTS.medium};
         color: ${PALETTE.black};
+        font-family: ${FONTS.medium};
+        font-size: 18px;
 
         &:focus {
           box-shadow: none;
@@ -69,22 +69,22 @@ export const InputStyled = styled(InputForm)`
       }
 
       .ant-input-group-addon {
+        padding: 4px 18px;
         border: 0;
         border-left: 1px solid ${PALETTE.grey3};
         background: transparent;
         font-family: ${FONTS.medium};
         font-size: 18px;
-        padding: 4px 18px;
       }
     }
   `}
 `;
 
 export const TextAreaStyled = styled(TextAreaForm)`
-  font-size: 18px;
-  font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusS};
   min-height: 48px !important;
+  border-radius: ${THEME.borderRadiusS};
+  font-family: ${FONTS.medium};
+  font-size: 18px;
   line-height: 22px !important;
 
   &.info {
@@ -94,13 +94,13 @@ export const TextAreaStyled = styled(TextAreaForm)`
 
 export const InputMaskStyled = styled(MaskedInput)`
   width: 100%;
-  border-radius: ${THEME.borderRadiusL};
-  border: 1px solid ${PALETTE.grey6};
   padding: 8px 22px;
+  border: 1px solid ${PALETTE.grey6};
+  background-color: ${PALETTE.white};
+  border-radius: ${THEME.borderRadiusL};
+  color: ${PALETTE.black};
   font-family: ${FONTS.medium};
   font-size: 18px;
-  color: ${PALETTE.black};
-  background-color: ${PALETTE.white};
   text-align: center;
 
   &:hover {
@@ -108,44 +108,44 @@ export const InputMaskStyled = styled(MaskedInput)`
   }
 
   &:focus {
-    outline: none;
     border-color: ${PALETTE.grey6};
     box-shadow: unset;
+    outline: none;
   }
 `;
 
 export const Hr = styled.hr`
-  margin: 8px 0 30px;
   border: 1px solid ${PALETTE.grey23};
+  margin: 8px 0 30px;
 `;
 
 export const SelectStyled = styled(Select)`
   &.ant-select {
     .ant-select-selector {
-      min-height: 48px !important;
-      background-color: ${PALETTE.white};
-      border: 1px solid ${PALETTE.grey6};
-      border-radius: ${THEME.borderRadiusS};
-      padding: 4px 18px;
       display: flex;
+      min-height: 48px !important;
       align-items: center;
+      padding: 4px 18px;
+      border: 1px solid ${PALETTE.grey6};
+      background-color: ${PALETTE.white};
+      border-radius: ${THEME.borderRadiusS};
 
       .ant-select-selection-item {
-        height: 48px;
-        font-size: 18px;
-        font-family: ${FONTS.medium};
         display: flex;
+        height: 48px;
         align-items: center;
+        font-family: ${FONTS.medium};
+        font-size: 18px;
 
         .ant-select-selection-item-content {
-          height: 48px;
           display: flex;
+          height: 48px;
           align-items: center;
         }
 
         .ant-select-selection-item-remove {
-          font-size: 17px;
           font-family: ${FONTS.medium};
+          font-size: 17px;
 
           > svg {
             stroke-width: 20px;
@@ -159,18 +159,18 @@ export const SelectStyled = styled(Select)`
       }
 
       .ant-select-selection-placeholder {
-        font-size: 18px;
-        font-family: ${FONTS.medium};
         display: flex;
         align-items: center;
+        font-family: ${FONTS.medium};
+        font-size: 18px;
       }
     }
 
     .ant-select-arrow {
       top: 44%;
-      font-size: 20px;
       right: 28px !important;
       color: ${PALETTE.black};
+      font-size: 20px;
     }
 
     &:hover {
@@ -182,9 +182,9 @@ export const SelectStyled = styled(Select)`
 
     &.ant-select-focused {
       .ant-select-selector {
-        outline: none !important;
         border-color: ${PALETTE.grey6} !important;
         box-shadow: unset !important;
+        outline: none !important;
       }
     }
 
@@ -201,26 +201,26 @@ export const SelectStyled = styled(Select)`
         padding: 4px 8px;
 
         .ant-select-selection-item {
-          height: 36px;
-          font-size: 18px;
-          font-family: ${FONTS.medium};
           display: flex;
+          height: 36px;
           align-items: center;
-          border-radius: ${THEME.borderRadiusS};
-          background-color: ${PALETTE.grey16};
           margin-right: 6px;
+          background-color: ${PALETTE.grey16};
+          border-radius: ${THEME.borderRadiusS};
           color: ${PALETTE.black};
+          font-family: ${FONTS.medium};
+          font-size: 18px;
 
           .ant-select-selection-item-content {
-            height: 36px;
             display: flex;
+            height: 36px;
             align-items: center;
             padding: 4px 8px;
           }
 
           .ant-select-selection-item-remove {
-            font-size: 17px;
             font-family: ${FONTS.medium};
+            font-size: 17px;
 
             .anticon-close {
               margin-right: 4px;
@@ -238,9 +238,9 @@ export const SelectStyled = styled(Select)`
 
 export const OptionStyled = styled(Option)`
   height: 62px;
-  font-size: 18px;
-  font-family: ${FONTS.medium};
   border-radius: ${THEME.borderRadiusS};
+  font-family: ${FONTS.medium};
+  font-size: 18px;
 `;
 
 export const FormItemStyled = styled(FormItem)`
@@ -249,9 +249,9 @@ export const FormItemStyled = styled(FormItem)`
   &.ant-form-item-has-success {
     .ant-form-item-children-icon {
       position: absolute;
+      z-index: 1;
       top: 34px;
       right: 15px;
-      z-index: 1;
       width: 17px;
       height: 14px;
       font-size: 15px;
@@ -267,16 +267,16 @@ export const FormItemStyled = styled(FormItem)`
       border-color: ${PALETTE.red2};
 
       &:focus {
-        outline: none;
         box-shadow: unset;
+        outline: none;
       }
     }
 
     .ant-form-item-children-icon {
       position: absolute;
+      z-index: 1;
       top: 34px;
       right: 15px;
-      z-index: 1;
       width: 17px;
       height: 14px;
       font-size: 15px;
@@ -284,10 +284,10 @@ export const FormItemStyled = styled(FormItem)`
 
     .ant-form-item-explain-error {
       position: absolute;
-      bottom: -23px;
       right: 0;
-      font-size: 13px;
+      bottom: -23px;
       font-family: ${FONTS.medium};
+      font-size: 13px;
     }
   }
 
@@ -295,15 +295,15 @@ export const FormItemStyled = styled(FormItem)`
     padding: 0 0 12px;
 
     label {
-      font-size: 16px;
-      font-family: ${FONTS.bold};
       color: ${PALETTE.grey12};
+      font-family: ${FONTS.bold};
+      font-size: 16px;
       text-transform: uppercase;
 
       svg {
-        margin-right: 8px;
         width: 22px;
         height: 22px;
+        margin-right: 8px;
       }
 
       &.ant-form-item-required {
@@ -315,10 +315,10 @@ export const FormItemStyled = styled(FormItem)`
           display: block;
           margin-left: 4px;
           color: ${PALETTE.red2};
-          font-size: 16px;
-          font-family: ${FONTS.bold};
-          line-height: 1;
           content: '*';
+          font-family: ${FONTS.bold};
+          font-size: 16px;
+          line-height: 1;
         }
       }
     }
@@ -327,32 +327,32 @@ export const FormItemStyled = styled(FormItem)`
 
 export const Controls = styled.div`
   position: absolute;
-  right: 22px;
+  z-index: 1;
   top: 12px;
+  right: 22px;
   display: flex;
   flex-direction: row;
-  z-index: 1;
 
   > button {
     &:not(:last-child) {
-      margin-right: 24px;
+      margin-right: 18px;
     }
   }
 `;
 
 export const Control = styled(Button)`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 32px;
   height: 32px;
+  align-items: center;
+  justify-content: center;
   padding: 0;
   background-color: ${p => (p.active ? `${PALETTE.green1}` : `${PALETTE.grey26}`)};
   border-radius: ${THEME.borderRadiusM};
 
   > svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
 
     path {
       fill: ${p => (p.active ? `${PALETTE.white}` : `${PALETTE.black1}`)};
@@ -361,19 +361,19 @@ export const Control = styled(Button)`
 `;
 
 export const Separator = styled.span`
-  width: 36px;
   display: flex;
-  justify-content: center;
+  width: 36px;
   align-items: center;
-  font-size: 20px;
+  justify-content: center;
   font-family: ${FONTS.bold};
+  font-size: 20px;
 `;
 
 export const FormRange = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   .ant-form-item {
     width: 48%;
@@ -387,21 +387,21 @@ export const RadioGroup = styled(Radio.Group)`
 
 export const RadioButton = styled(Radio.Button)`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 13.3%;
   height: 40px;
-  font-size: 18px !important;
-  font-family: ${FONTS.medium};
-  border-radius: ${THEME.borderRadiusM} !important;
-  background-color: ${PALETTE.grey16} !important;
-  color: ${PALETTE.black} !important;
+  align-items: center;
+  justify-content: center;
   border: 0 !important;
+  background-color: ${PALETTE.grey16} !important;
+  border-radius: ${THEME.borderRadiusM} !important;
   box-shadow: unset !important;
+  color: ${PALETTE.black} !important;
+  font-family: ${FONTS.medium};
+  font-size: 18px !important;
 
   &.ant-radio-button-wrapper-checked {
-    color: ${PALETTE.white} !important;
     background-color: ${PALETTE.green1} !important;
+    color: ${PALETTE.white} !important;
   }
 
   &:not(:last-child) {
@@ -416,9 +416,9 @@ export const RadioButton = styled(Radio.Button)`
 export const Group2Form = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
 
   > div {
     width: 48%;
@@ -428,8 +428,8 @@ export const Group2Form = styled.div`
 export const GroupForm = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-bottom: 24px;
 
   .ant-form-item {
@@ -441,20 +441,20 @@ export const GroupForm = styled.div`
 export const GroupControl = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   margin-left: 10px;
 `;
 
 export const AddGroup = styled(Button)`
-  height: 38px;
   width: 170px;
+  height: 38px;
+  margin-bottom: 16px;
   background-color: transparent;
   color: ${PALETTE.green1};
-  text-transform: uppercase;
   font-family: ${FONTS.semiBold};
   font-size: 16px;
-  margin-bottom: 16px;
+  text-transform: uppercase;
 
   > svg {
     width: 22px;

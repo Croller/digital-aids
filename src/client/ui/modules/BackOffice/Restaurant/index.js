@@ -31,9 +31,9 @@ import {
   AddressList,
   AddressItem,
   MapStyled,
-  Separator,
-  FormRange, RadioGroup, RadioButton,
-  InputMaskStyled,
+  // Separator,
+  // FormRange, RadioGroup, RadioButton,
+  // InputMaskStyled,
 } from './styled';
 
 const Restaurant = () => {
@@ -494,7 +494,7 @@ const Restaurant = () => {
                 ))}
               </SelectStyled>
             </FormItemStyled>
-            <FormItemStyled
+            {/* <FormItemStyled
               label={t('common.words.workingTime')}
             >
               <FormItemStyled
@@ -524,7 +524,7 @@ const Restaurant = () => {
                   </FormItemStyled>
                 </FormRange>
               )}
-            </FormItemStyled>
+            </FormItemStyled> */}
             {params.restaurant !== 'new' && (
               <NavItemStyled onClick={handleRoute} />
             )}

@@ -3,12 +3,12 @@ import { WEEK_DAYS } from 'client/utils/constants';
 import moment from 'moment';
 
 export const dataToForm = (data) => {
-  const { type, options } = data;
+  const { key, options } = data;
 
   return {
     ...data,
     ...(options && Object.keys(options).length > 0) ? Object.keys(options).reduce((item, okey) => {
-      if (okey === 'at_work' && type === 'daily') {
+      if (okey === 'at_work' && key === 'daily-menu') {
         return {
           ...item,
           'options.at_work.day': 'mon',
@@ -53,7 +53,7 @@ export const dataFromToList = (data, current = null, language) => {
 export const dataApiToList = (data = null) => {
   if (!data) return null;
   return [...data.filter(f => !f.parent)].map(item => {
-    const model = categoryModel.find(f => f.type === item.type);
+    const model = categoryModel.find(f => f.key === item.key);
     return { ...model, ...item };
   });
 };
@@ -94,9 +94,8 @@ export const optionsModel = {
 export const categoryModel = [
   {
     id: null,
-    type: 'default', 
-    name: 'Default',
     key: 'default',
+    name: 'Default',
     parent: null,
     restaurant: null,
     options: null,
@@ -105,9 +104,8 @@ export const categoryModel = [
   },
   {
     id: null,
-    type: 'daily', 
-    name: 'Daily Menu',
     key: 'daily-menu',
+    name: 'Daily Menu',
     parent: null,
     restaurant: null,
     options: optionsModel,
@@ -116,9 +114,8 @@ export const categoryModel = [
   },
   {
     id: null,
-    type: 'alcohol', 
-    name: 'Alcohol',
     key: 'alcohol',
+    name: 'Alcohol',
     parent: null,
     restaurant: null,
     options: null,
@@ -127,9 +124,8 @@ export const categoryModel = [
   },
   {
     id: null,
-    type: 'foodtips',
-    name: 'Foodtips',
     key: 'foodtips',
+    name: 'Foodtips',
     parent: null,
     restaurant: null,
     options: { rules: { info: { maxLength: 5 } } },
@@ -138,9 +134,8 @@ export const categoryModel = [
   },
   {
     id: null,
-    type: 'specialDeals',
-    name: 'Special deals',
     key: 'special-deals',
+    name: 'Special deals',
     parent: null,
     restaurant: null,
     options: { rules: { info: { maxLength: 1 } } },

@@ -6,26 +6,27 @@ export const Wrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 0 56px 44px 56px;
+
 `;
 
 export const Hr = styled.hr`
   width: 100%;
+  border: 0.4px solid ${PALETTE.grey10};
   margin: 0;
   margin-bottom: 18px;
-  border: 0.4px solid ${PALETTE.grey10};
 `;
 
 export const Description = styled.p`
-  font-size: 16px;
-  font-family: ${FONTS.semiBold};
-  text-align: center;
-  white-space: pre-line;
   margin: 0;
   margin-bottom: 28px;
+  font-family: ${FONTS.semiBold};
+  font-size: 16px;
   line-height: 28px;
+  text-align: center;
+  white-space: pre-line;
 `;
 
 export const SocialWrapper = styled.div`

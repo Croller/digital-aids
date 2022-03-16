@@ -7,9 +7,11 @@ import {
 const headers = ({
   token = null,
   language = null,
+  languages = null,
 }) => ({
   ...(token ? { Authorization: `Bearer ${token}` } : {}),
   ...(language ? { 'Accept-Language': language } : {}),
+  ...(languages ? { 'Content-Language': languages.join(', ') } : {}),
 });
 
 export const getTables = async ({
@@ -55,8 +57,9 @@ export const updateRecord = async ({
   name,
   data,
   language = 'en',
+  languages = null,
 }) => {
-  const results = await post(`table/${name}/record/update`, { data }, headers({ token, language }));
+  const results = await post(`table/${name}/record/update`, { data }, headers({ token, language, languages }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }
