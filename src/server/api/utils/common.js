@@ -15,10 +15,19 @@ const getEnv = () => {
 };
 
 const getMeta = (req) => {
-  const { browser } = req.body.data.meta;
-  delete browser.type;
-  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress || '0.0.0.0';
+  let browser = {
+    name: null,
+    version: null,
+    os: null,
+    type: null,
+  };
+  if (!req.body.data) return null;
+  if ('meta' in req.body.data) {
+    browser = { ...req.body.data.meta.browser };
+  }
+  let ip = req.header('x-forwarded-for') || req.connection.remoteAddress || '83.220.237.49';
   ip = ip.replace('::ffff:', '');
+
   const geo = geoip.lookup(getEnv() ? ip : '83.220.237.49');
   return { browser, ip, geo };
 };

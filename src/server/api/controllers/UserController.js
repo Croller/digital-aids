@@ -12,7 +12,7 @@ const UserController = () => {
 
     if (tokenData) {
       req.body.data = tokenData;
-      UserController().signin(req, res);
+      signin(req, res);
     } else {
       res.status(201);
       res.json(commonUtils.setError('authError', 'Auth error'));
@@ -93,11 +93,10 @@ const UserController = () => {
         const { data } = req.body;
         const meta = commonUtils.getMeta(req);
         await queryUtils.logRecord('data_users', tokenData.id);
-        results = await db.knex('data_users').where({ id: tokenData.id }).update({ ...data, meta }).returning('*');
-        const updated = results[0];
-        const token = jwt.generateToken(updated);
-        delete updated.password;
-        res.json({ ...updated, token });
+        [results] = await db.knex('data_users').where({ id: tokenData.id }).update({ ...data, meta }).returning('*');
+        const token = jwt.generateToken(results);
+        delete results.password;
+        res.json({ ...results, token });
       } catch (err) {
         res.status(201);
         res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));

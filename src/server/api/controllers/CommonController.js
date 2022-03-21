@@ -4,7 +4,7 @@ const commonUtils = require('../utils/common');
 const queryUtils = require('../utils/query');
 
 const CommonController = () => {
-  let results = null;
+  let results = [null];
   
   const getTables = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
@@ -126,12 +126,13 @@ const CommonController = () => {
 
   const updateRecord = async (req, res) => {
     const tokenData = await jwt.verifyToken(req);
+
     if (tokenData) {
       try {
         const { name } = req.params;
         const { data } = req.body;
         const language = req.headers['accept-language'];
-        let languages = req.headers['content-length'];
+        let languages = req.headers['content-language'];
         languages = languages ? languages.split(', ') : null;
         const arr = Array.isArray(data) ? data : [data];
         results = await Promise.all(arr.map(async (row) => {

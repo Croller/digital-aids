@@ -5,11 +5,11 @@ const api = axios.create({
   crossdomain: true,
   withCredentials: true,
   headers: {
-    Accept: 'application/json',
     'Access-Control-Allow-Origin': '*',
+    Accept: 'application/json',
     'Content-Type': 'application/json',
     'Accept-Language': 'en',
-    'Content-Language': 'en',
+    'Content-Language': 'en, ru',
   },
 });
 

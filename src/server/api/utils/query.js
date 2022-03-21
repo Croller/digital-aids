@@ -1,11 +1,12 @@
 /* eslint-disable no-console */
 const { addedDiff, updatedDiff } = require('deep-object-diff');
-const { MEDIA_KEYS, TRANSLATE_KEYS } = require('./constants');
 const db = require('../services/db');
 const socket = require('../services/socket');
 const google = require('../services/google');
 const commonUtils = require('../utils/common');
 
+const MEDIA_KEYS = ['files', 'images'];
+const TRANSLATE_KEYS = ['name', 'description'];
 let results = [];
 
 const mapFields = (type) => {
@@ -29,15 +30,15 @@ const isTable = async (table = null) => {
   return results.length === 1;
 };
 
-// const getWordsPermit = async () => {
-//   results = await db.knex('pg_get_keywords()').select();
-//   return results;
-// };
+const getWordsPermit = async () => {
+  results = await db.knex('pg_get_keywords()').select();
+  return results;
+};
 
-// const getTableAll = async () => {
-//   results = await db.knex('information_schema.tables').select();
-//   return results;
-// };
+const getTableAll = async () => {
+  results = await db.knex('information_schema.tables').select();
+  return results;
+};
 
 const getTables = async (tables, options = {}) => {
   results = await Promise.all(tables.map(async (table) => {
@@ -93,16 +94,23 @@ const translateRecord = async (record = null, sourceLng = 'en', targetLng = 'en'
   try {
     const separator = ' || ';
     const source = { ...record };
-    const objTr = TRANSLATE_KEYS.map(key => record[key]);
-    const text = objTr.join(separator);
+    const keysTr = TRANSLATE_KEYS.filter(key => record[key] && key);
+    const arrTr = keysTr.map(key => record[key]);
+    if (!arrTr || (arrTr && arrTr.length === 0)) return null;
+
+    const text = arrTr.length > 1 ? arrTr.join(separator) : arrTr[0];
     const resultsTr = await google.getTextTranslate({ text, sourceLng, targetLng });
-    if (resultsTr && Array.isArray(resultsTr) && resultsTr.length > 0) {
+    if (resultsTr.error) return null;
+
+    if (arrTr.length === 1) {
+      source[keysTr[0]] = resultsTr[0].translatedText;
+    } else {
       const textArr = resultsTr[0].translatedText.split(separator);
-      return TRANSLATE_KEYS.forEach((key, k) => {
+      keysTr.forEach((key, k) => {
         source[key] = textArr[k];
       });
     }
-    return null;
+    return source;
   } catch (err) {
     console.log('Translete error', JSON.stringify(err.message));
     return null;
@@ -174,18 +182,25 @@ const updateRecord = async (table, data, language, user, languages = null) => {
       delete edited.id;
 
       if (existTable && language !== 'en' && languages) {
-        results = await Promise.allSettled(languages.map(async (lng) => {
-          let resultTr = await translateRecord(source, language, lng);
-          resultTr = (resultTr || source);
-          resultTr = await updateRecordTr(table, resultTr, lng, user);
-          return { key: lng, values: resultTr };
+        let resultsTr = await Promise.all(languages.map(async (lng) => {
+          const res = await translateRecord(source, language, lng);
+          return res;
         }));
-        results = results.reduce((obj, { value }) => ({ ...obj, [value.key]: value.values }), {});
+        const arrTrFilter = resultsTr.reduce((obj, result, r) => (result ? { items: [...obj.items, result], lng: [...obj.lng, languages[r]] } : obj), { items: [], lng: [] });
+        
+        const updatedEn = await updateRecordTr(table, arrTrFilter.items.shift(), arrTrFilter.lng.shift(), user);
+        resultsTr = await Promise.all(arrTrFilter.items.map(async (obj, o) => {
+          const res = await updateRecordTr(table, { ...obj, id: updatedEn.id }, arrTrFilter.lng[o], user);
+          return res;
+        }));
+        console.log('updateRecordTr', { ...resultsTr });
+          
+        results = results.map(({ value }) => value);
         console.log('results translate', results);
 
         results = results[language];
       } else {
-        [results] = await db.knex(table).insert(source).returning('*');
+        [results] = await db.knex(table).insert(edited).returning('*');
       }
 
       // options create user roles for new restaurant
@@ -236,26 +251,32 @@ const updateRecord = async (table, data, language, user, languages = null) => {
   }
 };
 
-const updateRecordTr = async (table, data, language, user) => {
-  const source = { ...data };
+const updateRecordTr = async (table, source, language, user) => {
+  if (language === 'en') {
+    const updateEn = await updateRecord(table, source, language, user);
+    return updateEn;
+  } 
   const tableTr = `${table}_translate`;
   let modelTr = await getTableFields(tableTr);
 
   modelTr = Object.keys(modelTr).reduce((obj, key) => ({ ...obj, [key]: null }), {});
-  const dataTr = { ...source, change_user: user.id, change_at: new Date().toISOString() };
+  const dataTr = { ...source };
   delete dataTr.images;
   delete dataTr.files;
 
   let updateTr = updatedDiff(modelTr, dataTr);
-  let updateEn = { id: source.id, ...addedDiff(updateTr, dataTr) };
-  updateTr = await updateRecord(tableTr, { ...updateTr, language }, language, user);
+  let updateEn = { ...source, ...addedDiff(updateTr, dataTr) };
   updateEn = await updateRecord(table, updateEn, language, user);
+  updateTr = await updateRecord(tableTr, { id: source.id || updateEn.id, ...updateTr, language }, language, user);
   delete updateTr.language;
 
   return { ...updateEn, ...updateTr };
 };
 
 module.exports = {
+  isTable,
+  getWordsPermit,
+  getTableAll,
   getTables,
   getTableFields,
   getTableStats,

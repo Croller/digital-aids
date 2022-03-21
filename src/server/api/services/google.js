@@ -4,38 +4,52 @@ const googleApiGeocode = process.env.API_KEY_GOOGLE_GEOCODING;
 const googleApiTranslate = process.env.API_KEY_GOOGLE_TRANSLATE;
 const googleApiGeolocation = process.env.API_KEY_GOOGLE_GEOLOCATION;
 
-let results = null;
+const getResponse = (key, { status, data }) => {
+  const error = commonUtils.setError('externalSourceError', 'Extrnal source error', data || (data && data.error_message));
+  if (status === 200) {
+    if (data.status === 'REQUEST_DENIED') {
+      return { error };
+    }
+    if (key === 'coords' || key === 'address') return data.results;
+    if (key === 'location') return data;
+    if (key === 'translate') return data.data.translations;
+  }
+  return { error };
+};
 
 const getCoordsByAddress = async ({
   address = null,
   language = 'en',
 }) => {
-  if (!address) return null;
-  results = await commonUtils.get(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${googleApiGeocode}`);
-  if (results.status === 200) {
-    return results.data;
+  try {
+    if (!address) return null;
+    const response = await commonUtils.get(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&address=${address.replace(/ /g, '+')}&key=${googleApiGeocode}`);
+    return getResponse('coords', response);
+  } catch (err) {
+    return { error: commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)) };
   }
-  return null;
 };
 
 const getAddressByCoords = async ({
   latlng = null,
   language = 'en',
 }) => {
-  if (!latlng) return null;
-  results = await commonUtils.get(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&latlng=${latlng}&key=${googleApiGeocode}`);
-  if (results.status === 200) {
-    return results.data;
+  try {
+    if (!latlng) return null;
+    const response = await commonUtils.get(`https://maps.googleapis.com/maps/api/geocode/json?language=${language}&latlng=${latlng}&key=${googleApiGeocode}`);
+    return getResponse('address', response);
+  } catch (err) {
+    return { error: commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)) };
   }
-  return null;
 };
 
 const getGeolocation = async () => {
-  results = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, {});
-  if (results.status === 200) {
-    return results.data;
+  try {
+    const response = await commonUtils.post(`https://www.googleapis.com/geolocation/v1/geolocate?key=${googleApiGeolocation}`, {});
+    return getResponse('location', response);
+  } catch (err) {
+    return { error: commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)) };
   }
-  return null;
 };
 
 const getTextTranslate = async ({
@@ -43,12 +57,13 @@ const getTextTranslate = async ({
   sourceLng = 'en',
   targetLng = 'en',
 }) => {
-  if (!text || sourceLng === targetLng) return null;
-  results = await commonUtils.get(`https://translation.googleapis.com/language/translate/v2?key=${googleApiTranslate}&q=${text.replace(/ /g, '+')}&source=${sourceLng}&target=${targetLng}`);
-  if (results.status === 200) {
-    return results.data;
+  try {
+    if (!text || sourceLng === targetLng) return null;
+    const response = await commonUtils.get(`https://translation.googleapis.com/language/translate/v2?key=${googleApiTranslate}&q=${text.replace(/ /g, '+')}&source=${sourceLng}&target=${targetLng}`);
+    return getResponse('translate', response);
+  } catch (err) {
+    return { error: commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)) };
   }
-  return null;
 };
 
 module.exports = {

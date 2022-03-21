@@ -1,4 +1,4 @@
-import { get } from 'client/providers/fetch';
+import { get, post } from 'client/providers/fetch';
 
 const headers = ({
   token = null,
@@ -16,8 +16,8 @@ export const getCoordsByAddress = async ({ address, language }, token) => {
   return results;
 };
 
-export const getTextTranslate = async ({ text, sourceLng, targetLng }, token) => {
-  const results = await get('external/text-language-change', { text, sourceLng, targetLng }, headers({ token }));
+export const getTextTranslate = async ({ data }, token) => {
+  const results = await post('external/text-language-change', { data }, headers({ token }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   } 

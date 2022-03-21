@@ -9,20 +9,10 @@ const ExternalController = () => {
     const tokenData = await jwt.verifyToken(req);
    
     if (tokenData) {
-      try {
-        const data = req.query;
-        results = await google.getCoordsByAddress(data);
-        if (!results || (results && results.status === 'REQUEST_DENIED')) {
-          res.status(201);
-          res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', results || (results && results.error_message)));
-        } else {
-          res.status(200);
-          res.json(results.results);
-        }
-      } catch (err) {
-        res.status(201);
-        res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)));
-      }
+      const data = req.query;
+      results = await google.getCoordsByAddress(data);
+      res.status(200);
+      res.json(results);
     } else {
       res.status(201);
       res.json(commonUtils.setError('tokenNotValid', 'Token not valid'));
@@ -33,20 +23,10 @@ const ExternalController = () => {
     const tokenData = await jwt.verifyToken(req);
    
     if (tokenData) {
-      try {
-        const data = req.query;
-        results = await google.getAddressByCoords(data);
-        if (!results || (results && results.status === 'REQUEST_DENIED')) {
-          res.status(201);
-          res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', results || (results && results.error_message)));
-        } else {
-          res.status(200);
-          res.json(results.results);
-        }
-      } catch (err) {
-        res.status(201);
-        res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)));
-      }
+      const data = req.query;
+      results = await google.getAddressByCoords(data);
+      res.status(200);
+      res.json(results);
     } else {
       res.status(201);
       res.json(commonUtils.setError('tokenNotValid', 'Token not valid'));
@@ -57,20 +37,10 @@ const ExternalController = () => {
     const tokenData = await jwt.verifyToken(req);
    
     if (tokenData) {
-      try {
-        const { data } = req.body;
-        results = await google.getTextTranslate(data);
-        if (!results || (results && results.status === 'REQUEST_DENIED')) {
-          res.status(201);
-          res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', results || (results && results.error_message)));
-        } else {
-          res.status(200);
-          res.json(results.data.translations);
-        }
-      } catch (err) {
-        res.status(201);
-        res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)));
-      }
+      const { data } = req.body;
+      results = await google.getTextTranslate(data);
+      res.status(200);
+      res.json(results);
     } else {
       res.status(201);
       res.json(commonUtils.setError('tokenNotValid', 'Token not valid'));
@@ -81,19 +51,9 @@ const ExternalController = () => {
     const tokenData = await jwt.verifyToken(req);
 
     if (tokenData) {
-      try {
-        results = await google.getGeolocation();
-        if (!results || (results && results.status === 'REQUEST_DENIED')) {
-          res.status(201);
-          res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', results || (results && results.error_message)));
-        } else {
-          res.status(200);
-          res.json(results);
-        }
-      } catch (err) {
-        res.status(201);
-        res.json(commonUtils.setError('externalSourceError', 'Extrnal source error', JSON.stringify(err.message)));
-      }
+      results = await google.getGeolocation();
+      res.status(200);
+      res.json(results);
     } else {
       res.status(201);
       res.json(commonUtils.setError('tokenNotValid', 'Token not valid'));
