@@ -24,16 +24,18 @@ export const dataToForm = (data) => {
   };
 };
 
-export const dataFromToList = (data, current = null, language) => {
+export const dataToApi = (data, current = null, restaurant, language) => {
   const {
     key,
     name,
   } = data;
 
   return {
-    ...data,
+    ...current,
     ...(current && current.id ? { id: current.id } : {}),
+    name,
     key: language === 'en' ? (stringToKey(name) || '') : key,
+    restaurant: restaurant.id,
     options: !current.options ? null : {
       ...(!current.options.at_work ? {} : {
         description: data['options.at_work.description'] || null,
@@ -45,33 +47,8 @@ export const dataFromToList = (data, current = null, language) => {
           ],
         }), {}),
       }),
-      ...Object.keys(data).filter(f => f.indexOf('options.') > -1 && f.indexOf('options.at_work') === -1).reduce((item, k) => ({ ...item, [k.split('.')[1]]: data[k] }), {}),
     },
   };
-};
-
-export const dataApiToList = (data = null) => {
-  if (!data) return null;
-  return [...data.filter(f => !f.parent)].map(item => {
-    const model = categoryModel.find(f => f.key === item.key);
-    return { ...model, ...item };
-  });
-};
-
-export const dataToApi = (data, restaurant) => {
-  const keyFloat = ['price'];
-  const edited = {
-    ...Object.keys(data).filter(f => f.indexOf('options.') === -1).reduce((obj, key) => {
-      let value = data[key];
-      if (keyFloat.some(s => key.indexOf(s) > -1)) {
-        value = parseFloat(value);
-      }
-      return { ...obj, [key]: value };
-    }, {}),
-    restaurant: data.restaurant || restaurant.id,
-  };
-
-  return [edited];
 };
 
 export const optionsModel = {

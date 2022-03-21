@@ -53,7 +53,7 @@ const Restaurant = () => {
   const rootDispatch = useDispatch();
   const [isChange, setIsChange] = useState(false);
   const [loadFiles, setLoadFiles] = useState(true);
-  const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(model);
   const [deletedFiles, setDeletedFiles] = useState([]);
   const [addressStr, setAddressStr] = useState(null);
   const [addressResults, setAddressResults] = useState(null);
@@ -68,7 +68,7 @@ const Restaurant = () => {
   };
 
   const initValue = async () => {
-    let data = {};
+    let data = { ...model };
     if (params.restaurant !== 'new' && restaurants) {
       data = restaurants.find(f => f.id === params.restaurant);
     }
@@ -182,7 +182,6 @@ const Restaurant = () => {
   }, [debouceSearch]);
 
   useEffect(() => {
-    window.prerenderReady = true;
     initValue();
 
     return () => {
@@ -199,7 +198,7 @@ const Restaurant = () => {
       showMessage({ type: 'success', content: t(`common.words.${status}`) });
     }
   }, [status]);
-  console.log('formData', `at_work.${formData && formData['at_work.day']}.from`, formData && formData[`at_work.${formData['at_work.day']}.from`], formData);
+  // console.log('formData', `at_work.${formData && formData['at_work.day']}.from`, formData && formData[`at_work.${formData['at_work.day']}.from`], formData);
   return formData && (
     <RestaurantWrapper>
       <NavBarStyled

@@ -85,18 +85,20 @@ export const Uploader = forwardRef(({
 
   return (
     <Wrapper className={className}>
-      <UploadStyled
-        ref={ref}
-        maxCount={max}
-        showUploadList={false}
-        listType="picture-card"
-        fileList={files}
-        onChange={handleChange}
-        customRequest={handleUpload}
-        disabled={disabled}
-      >
-        {files && files.length >= max ? null : uploadButton}
-      </UploadStyled>
+      {files.length < max && (
+        <UploadStyled
+          ref={ref}
+          maxCount={max}
+          showUploadList={false}
+          listType="picture-card"
+          fileList={files}
+          onChange={handleChange}
+          customRequest={handleUpload}
+          disabled={disabled}
+        >
+          {files && files.length <= max && uploadButton}
+        </UploadStyled>
+      )}
       <List className="list-images">
         {files && files.length > 0 && files.map((file) => (
           <ImgBlock key={`_image_${file.uuid}`}>

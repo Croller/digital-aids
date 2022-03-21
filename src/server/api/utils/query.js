@@ -186,20 +186,18 @@ const updateRecord = async (table, data, language, user, languages = null) => {
       if (existTable && languages) {
         const filtredLng = languages.filter(f => f !== 'en' && f !== language);
 
-        let createdEn = edited;
+        let createdEn = source;
         if (language !== 'en') {
           createdEn = await translateRecord(edited, language, 'en');
         }
         [createdEn] = await db.knex(table).insert({ ...createdEn, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
-        source.id = createdEn.id;
 
         let resultsTr = await Promise.all(filtredLng.map(async (lng) => {
           const res = await translateRecord(source, language, lng);
           return res;
         }));
-        results = source;
         resultsTr = await Promise.all([{ ...source, language }, ...resultsTr].map(async (obj) => {
-          const editedObj = { ...obj };
+          const editedObj = { ...obj, id: createdEn.id };
           delete editedObj.language;
           const res = await updateRecordTr(table, editedObj, obj.language, user);
           return res;

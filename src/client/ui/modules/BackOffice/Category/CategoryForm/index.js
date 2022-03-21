@@ -6,11 +6,10 @@ import { Tooltip } from 'antd';
 import { useModal } from 'react-modal-hook';
 import { ConfirmChange } from 'client/ui/components/_block/Modal/ConfirmChange';
 import { getDictionaryItem } from 'client/utils/common';
-import { getTextTranslate } from 'client/providers/external';
 import {
   dataToForm,
-  dataFromToList,
   categoryModel,
+  dataToApi,
 } from 'client/store/backOffice/mapper/category';
 import {
   ArchiveSvg,
@@ -40,7 +39,6 @@ import {
 } from './styled';
 
 export const CategoryForm = ({
-  token = null,
   source = null,
   loading = false,
   currency = null,
@@ -49,11 +47,9 @@ export const CategoryForm = ({
   language = 'en',
   restaurant,
   className,
-  onChange = () => {},
-  onCreateTranslate = () => {},
+  onSave = () => {},
+  onClose = () => {},
 }) => {
-  const separator = ' || ';
-  const translateKeys = ['key', 'name', 'options.info', 'options.description', '.name', 'cuisine'];
   const [t] = useTranslation();
   const rule = rules(t);
   const [form] = FormStyled.useForm();
@@ -68,22 +64,9 @@ export const CategoryForm = ({
       textCancel={t('common.words.cancel')}
       onClose={hideConfirm}
       onCancel={hideConfirm}
-      onOk={() => handleChange(event.key, event.params)}
+      onOk={handleOnClose}
     />
   ), [event]);
-
-  const getTranslateObj = async (obj = null, sourceLng = 'en', targetLng = 'en') => {
-    if (!obj || sourceLng === targetLng) return obj;
-    const text = Object.keys(obj).map(key => obj[key]).join(separator);
-    const results = await getTextTranslate({ text, sourceLng, targetLng }, token);
-    const textArr = results[0].translatedText.split(separator);
-    return Object.keys(obj).reduce((ob, key, k) => {
-      if (typeof ob[key] === 'string') {
-        return { ...ob, [key]: textArr[k] };
-      }
-      return ob;
-    }, obj);
-  };
 
   const setData = (obj) => {
     setFormData(obj);
@@ -94,29 +77,7 @@ export const CategoryForm = ({
     form.resetFields();
     setIsChange(false);
     const edited = { ...formData, ...values };
-    const editedLng = [language, ...restaurant.languages.filter(f => f !== language)];
-    if (event) return null;
-    if (!current.id) {
-      const transObj = Object.keys(edited).filter(f => translateKeys.some(s => f.indexOf(s) > -1)).reduce((obj, key) => ({ ...obj, [key]: edited[key] }), {});
-      const editedOther = await Promise.allSettled(editedLng.map(async (lng) => {
-        const resuslts = await getTranslateObj(transObj, language, lng);
-        return resuslts;
-      }));
-      const results = [...editedOther.map(({ value }) => value)].map((value, i, arr) => dataFromToList({
-        ...edited,
-        ...value,
-        ...(i !== 0 && arr[0] ? { key: arr[0].key } : {}),
-        ...(i !== 0 ? { language: editedLng[i] } : {}),
-        restaurant: restaurant.id,
-      },
-      current,
-      editedLng[i]));
-      const lngCatalogs = results.reduce((obj, item, i) => ({ ...obj, [editedLng[i]]: item }), {});
-      console.log('lngCatalogs', lngCatalogs);
-      onCreateTranslate({ data_catalogories: lngCatalogs });
-      return null;        
-    }
-    onChange(dataFromToList(edited, current, language), language);
+    onSave(dataToApi(edited, current, restaurant, language), language);
   };
 
   const handleFinishFailed = ({ errorFields }) => {
@@ -130,8 +91,8 @@ export const CategoryForm = ({
   const handleValuesChange = (values) => {
     if (!values) return;
     let edited = { ...formData, ...values };
-    if (values.type) {
-      const def = categoryModel.find(f => f.type === values.type);
+    if (values.key) {
+      const def = categoryModel.find(f => f.key === values.key);
       setCurrent({ ...current, ...def });
       edited = { ...edited, ...dataToForm(def) };
     }
@@ -153,17 +114,11 @@ export const CategoryForm = ({
     setEvent({ key, params: paramsEdited });
   };
 
-  const handleChange = (key = null, params = null) => {
-    if (!key) return;
-    let obj = null;
-    if (key !== 'close') {
-      obj = dataFromToList({ ...formData, ...(params || {}) }, current, language);
-    }
-
+  const handleOnClose = () => {
     hideConfirm();
     setEvent(null);
     setFormData(null);
-    onChange(obj);
+    onClose();
   };
 
   useEffect(() => {
@@ -235,7 +190,7 @@ export const CategoryForm = ({
           <Tooltip placement="top" title={t('common.words.close')}>
             <Control
               disabled={loading}
-              onClick={() => handleChange('close')}
+              onClick={handleOnClose}
             >
               <CloseSvg />
             </Control>
@@ -245,18 +200,17 @@ export const CategoryForm = ({
           <FormCol>
             <FormItemStyled
               label={t('common.words.type')}
-              name="type"
+              name="key"
               required
               rules={rule.text}
             >
               <SelectStyled
-                showSearch
-                placeholder={t('common.form.placeholder.number')}
+                placeholder={t('common.form.placeholder.select')}
                 optionFilterProp="label"
                 disabled={archive || (current && current.id)}
               >
-                {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.type)).map((item, i) => (
-                  <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
+                {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.key)).map((item, i) => (
+                  <OptionStyled key={`_key_${i + 1}`} value={item.key}>{item.name}</OptionStyled>
                 ))}
               </SelectStyled>
             </FormItemStyled>
@@ -275,7 +229,7 @@ export const CategoryForm = ({
             </FormItemStyled>
           </FormCol>
         </Form2Col>
-        {formData && formData.type === 'daily' && (
+        {formData && formData.key === 'daily-menu' && (
           <FormCol>
             <Form2Col>
               <FormCol>

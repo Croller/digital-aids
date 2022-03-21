@@ -154,6 +154,7 @@ export const SelectStyled = styled(Select)`
       }
 
       .ant-select-selection-search {
+        margin-top: -3px;
         font-family: ${FONTS.regular};
         font-size: 16px;
       }
@@ -167,7 +168,7 @@ export const SelectStyled = styled(Select)`
     }
 
     .ant-select-arrow {
-      top: 44%;
+      top: 52%;
       right: 28px !important;
       color: ${PALETTE.black};
       font-size: 20px;

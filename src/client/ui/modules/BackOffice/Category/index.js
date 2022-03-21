@@ -4,7 +4,6 @@ import { showMessage } from 'client/ui/components/_ui/Message';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { init, update, deleteFiles } from 'client/store/backOffice';
-import { dataToApi, dataApiToList } from 'client/store/backOffice/mapper/category';
 import { getAccess, getDictionaryItem } from 'client/utils/common';
 import {
   AlertCircleSvg,
@@ -49,7 +48,6 @@ const Category = () => {
   const [restCategory, setRestCategory] = useState([]);
   const [restCategoryActive, setRestCategoryActive] = useState(null);
   const [restCategoryEdit, setRestCategoryEdit] = useState(false);
-  const [orderTR, setOrderTr] = useState(null);
   const [dishCategory, setDishCategory] = useState([]);
   const pageSpecActive = PA.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
@@ -74,14 +72,9 @@ const Category = () => {
     let categoryActive = null;
 
     const rest = restaurants.find(f => f.id === restaurant);
-    console.log('rest', rest);
     if (rest) {
-      const restCategories = [...(categories
-        ? dataApiToList(categories.filter(f => f.restaurant === restaurant))
-        : [])];
-      
       if (pageSpecActive === null) {
-        categoryFilter = restCategories.filter(f => !PA.includes(f.key) && !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
+        categoryFilter = categories.filter(f => !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
       }
   
       categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : null;
@@ -94,25 +87,8 @@ const Category = () => {
       }
 
       setRestCategoryActive(categoryActive);
-      setRestCategory(categoryFilter);
+      setRestCategory(categories);
       setRestInfo(rest);
-
-      if (orderTR && orderTR.data_catalogories && categoryActive && categoryActive.id) {
-        const { key, type, name } = orderTR.data_catalogories.en;
-        const { id } = categoryActive;
-        if (categoryActive.key === key && categoryActive.type === type && categoryActive.name === name) {
-          await Promise.allSettled(Object.keys(orderTR.data_catalogories).filter(f => f !== 'en').map(async (lng) => {
-            const obj = orderTR.data_catalogories[lng];
-            const { children } = obj;
-            obj.id = id;
-            if (children) {
-              obj.children = children.map(it => ({ ...it, parent: id }));
-            }
-            return rootDispatch(update({ name: 'data_categories', data: dataToApi(obj, restInfo), language: lng }));
-          }));
-          setOrderTr(null);
-        }
-      }
     }
   };
 
@@ -171,11 +147,20 @@ const Category = () => {
     setRestCategory([...restCategory, null]);
   };
   
-  const handleChangeCategory = async (data = null, lng = language) => {
+  const handleOnSaveCategory = async (data = null, lng = language) => {
+    const { languages } = restaurants.find(f => f.id === restaurant);
+    data && languages && rootDispatch(update({
+      name: 'data_categories',
+      data,
+      language: lng,
+      languages,
+    }));
+  };
+
+  const handleOnCloseCategory = () => {
     setRestCategoryEdit(false);
     setRestCategoryActive(null);
     initCategory();
-    data && rootDispatch(update({ name: 'data_categories', data: dataToApi(data, restInfo), language: lng }));
   };
 
   const handleAddDish = () => {
@@ -211,7 +196,7 @@ const Category = () => {
   }, [dishes, restCategoryActive, pathname]);
 
   useEffect(() => {
-    rootDispatch(init({ ids: [restaurant] }));
+    rootDispatch(init({ id: restaurant, language }));
   }, [language]);
 
   useEffect(() => {
@@ -291,8 +276,8 @@ const Category = () => {
                   language={language}
                   loading={loading}
                   archive={isArchive}
-                  onChange={handleChangeCategory}
-                  onCreateTranslate={setOrderTr}
+                  onSave={handleOnSaveCategory}
+                  onClose={handleOnCloseCategory}
                 />
               )}
               {pageSpecActive && restCategoryActive && (

@@ -8,11 +8,11 @@ export const Wrapper = styled.div`
 `;
 
 export const Adder = styled.div`
-  width: 100%;
   display: flex;
+  width: 100%;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 `;
 
 export const Icon = styled.span`
@@ -29,18 +29,18 @@ export const Icon = styled.span`
 `;
 
 export const Text = styled.span`
+  margin: 0 !important;
+  color: ${PALETTE.grey27};
   font-size: 16px;
   font-weight: ${FONTS.medium};
-  color: ${PALETTE.grey27};
-  margin: 0 !important;
 `;
 
 export const UploadStyled = styled(Upload)`
   .ant-upload-select-picture-card {
-    background-color: ${PALETTE.white};
     border: 1px solid ${PALETTE.grey27};
-    border-radius: ${THEME.borderRadiusL};
     margin: 0;
+    background-color: ${PALETTE.white};
+    border-radius: ${THEME.borderRadiusL};
 
     &:last-child {
       width: 100%;
@@ -60,10 +60,10 @@ export const List = styled.div`
 `;
 
 export const ImgBlock = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   margin-bottom: 22px;
 
   &:not(:last-child) {
@@ -81,10 +81,10 @@ export const Img = styled.img`
 `;
 
 export const Delete = styled(Button)`
-  display: ${p => (p.show ? 'block' : 'none')};
   position: absolute;
   top: 16px;
   left: 16px;
+  display: ${p => (p.show ? 'block' : 'none')};
   width: 32px;
   height: 32px;
   padding: 0;
@@ -101,10 +101,10 @@ export const Delete = styled(Button)`
 `;
 
 export const Edit = styled(Button)`
-  display: ${p => (p.show ? 'block' : 'none')};
   position: absolute;
   top: 16px;
   right: 16px;
+  display: ${p => (p.show ? 'block' : 'none')};
   width: 32px;
   height: 32px;
   padding: 0;

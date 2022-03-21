@@ -19,7 +19,8 @@ function* updateState({ payload }) {
   yield put({ type: Constants.BO_LOADING_SET, payload: false });
 }
 
-function* init({ payload: { name = 'data_restaurants' } }) {
+function* init({ payload }) {
+  const { name = 'data_restaurants', id } = payload;
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   const { backOffice, user: { roles, info: { token, language } } } = yield select((store) => store);
   const ids = roles.filter(f => f.project_id).map(role => role.project_id) || null;
@@ -63,20 +64,19 @@ function* init({ payload: { name = 'data_restaurants' } }) {
     if (results_restaurants.length > 0) {
       results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
 
-      const restaurants_ids = results_restaurants.map(({ id }) => id);
       results_categories = yield commonProvider.getRecordByParam({
         name: 'data_categories',
         token,
-        language,
-        data: { restaurant: restaurants_ids },
+        language: payload.language || language,
+        data: { restaurant: id },
       });
       results_categories = results_categories.sort((a, b) => a.number - b.number);
     
       results_dishes = yield commonProvider.getRecordByParam({
         name: 'data_dishes',
         token,
-        language,
-        data: { restaurant: restaurants_ids },
+        language: payload.language || language,
+        data: { restaurant: id },
       });
       results_dishes = results_dishes.sort((a, b) => b.number - a.number);
     }

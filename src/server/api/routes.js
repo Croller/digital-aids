@@ -13,13 +13,13 @@ module.exports = {
   'POST /api/table/:name/record/update': 'CommonController.updateRecord',
   'GET /api/table/:name/record/history': 'CommonController.getRecordHistory',
   'DELETE /api/table/:name/record/delete': 'CommonController.deleteRecord',
-  
-  'POST /api/mailer/send': 'MailerController.send',
 
   'GET /api/external/address-to-coords': 'ExternalController.getCoordsByAddress_Google',
   'GET /api/external/coords-to-address': 'ExternalController.getAddressByCoords_Google',
   'POST /api/external/text-language-change': 'ExternalController.getTextTranslate_Google',
   'GET /api/external/geo-location': 'ExternalController.getGeolocation_Google',
+
+  'POST /api/mailer/send': 'MailerController.send',
 
   'DELETE /api/file/delete': 'CommonController.deleteFile',
 };
