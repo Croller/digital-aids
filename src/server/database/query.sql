@@ -209,3 +209,13 @@
 --     SET
 --     roles=ARRAY[(select id from _role_guest), (select id from _role_current)]
 -- where login = 'employee';
+
+
+-- select
+--     id,
+--     coalesce(pn.title, p.title) as title,
+--     coalesce(pn.price, p.price) as price
+-- from
+--     products p
+--     left join
+--     products_new pn using(id)

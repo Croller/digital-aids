@@ -57,13 +57,13 @@ const getTableFields = async (table) => {
 const getTableStats = async (table) => {
   try {
     const fieldsTable = await getTableFields(table);
-    results = await Promise.allSettled(Object.keys(fieldsTable).map(async (key) => {
+    results = await Promise.all(Object.keys(fieldsTable).map(async (key) => {
       const group = await db.knex(table).select(key).groupBy(key);
       return group;
     }));
-    return results.reduce((obj, { value }) => {
-      const key = Object.keys(value[0])[0];
-      const values = value.reduce((arr, row) => {
+    return results.reduce((obj, item) => {
+      const key = Object.keys(item[0])[0];
+      const values = item.reduce((arr, row) => {
         let val = Array.isArray(row[key]) ? row[key].reduce((oa, a) => [...oa, a], []) : [row[key]];
         val = val.filter(v => !arr.some(s => s === v));
         return [...arr, ...(val || [])];
@@ -124,7 +124,6 @@ const getRecordTranslate = async (table = null, records = null, language = 'en')
     const tableTr = `${table}_translate`;
     const existTable = await isTable(tableTr);
     if (!existTable) return records;
-
     const resultsTr = await db.knex(tableTr).whereRaw('id = ANY (?) AND language = ?', [`{"${ids.join('", "')}"}`, language]);
     if (resultsTr.length > 0) {
       return records.map(item => {
@@ -178,34 +177,32 @@ const updateRecord = async (table, data, language, user, languages = null) => {
     
     // insert/update for table without translate
     if (!source.id) {
-      const existTable = await isTable(`${table}_translate`);
+      const tableTr = `${table}_translate`;
+      const existTable = await isTable(tableTr);
       const edited = { ...source };
       delete edited.id;
-
+      
       // insert translate
-      if (existTable && language !== 'en' && languages) {
+      if (existTable && languages && language !== 'en') {
         const filtredLng = languages.filter(f => f !== 'en' && f !== language);
         let createdEn = await translateRecord(edited, language, 'en');
-        [createdEn] = await db.knex(table).insert(createdEn).returning('*');
-        
+        [createdEn] = await db.knex(table).insert({ ...createdEn, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
+        source.id = createdEn.id;
+
         let resultsTr = await Promise.all(filtredLng.map(async (lng) => {
           const res = await translateRecord(source, language, lng);
           return res;
         }));
-        source.id = createdEn.id;
         results = source;
-
-        resultsTr = [{ ...source, language }, ...resultsTr].map(ob => ({ ...ob, id: createdEn.id }));
-        resultsTr = await Promise.all(resultsTr.map(async (obj) => {
+        resultsTr = await Promise.all([{ ...source, language }, ...resultsTr].map(async (obj) => {
           const editedObj = { ...obj };
           delete editedObj.language;
           const res = await updateRecordTr(table, editedObj, obj.language, user);
           return res;
         }));
        
-        const indexLng = languages.findIndex(lng => lng === language);
-        results = [createdEn, ...resultsTr];
-        results = results[indexLng];
+        const indexLng = ['en', language, ...filtredLng].findIndex(lng => lng === language);
+        results = [createdEn, ...resultsTr][indexLng];
       } else {
         [results] = await db.knex(table).insert(edited).returning('*');
       }
