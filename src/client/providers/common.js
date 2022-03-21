@@ -45,7 +45,7 @@ export const getRecordByParam = async ({
   data,
   language = 'en',
 }) => {
-  const results = await post(`table/${name}/record`, { data }, headers({ token, language }));
+  const results = await post(`table/${name}/record/find`, { data }, headers({ token, language }));
   if (results.status && results.data && [200, 201].includes(results.status)) {
     return results.data;
   }

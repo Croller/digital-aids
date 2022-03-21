@@ -183,9 +183,13 @@ const updateRecord = async (table, data, language, user, languages = null) => {
       delete edited.id;
       
       // insert translate
-      if (existTable && languages && language !== 'en') {
+      if (existTable && languages) {
         const filtredLng = languages.filter(f => f !== 'en' && f !== language);
-        let createdEn = await translateRecord(edited, language, 'en');
+
+        let createdEn = edited;
+        if (language !== 'en') {
+          createdEn = await translateRecord(edited, language, 'en');
+        }
         [createdEn] = await db.knex(table).insert({ ...createdEn, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
         source.id = createdEn.id;
 
@@ -201,7 +205,7 @@ const updateRecord = async (table, data, language, user, languages = null) => {
           return res;
         }));
        
-        const indexLng = ['en', language, ...filtredLng].findIndex(lng => lng === language);
+        const indexLng = ['en', ...(language === 'en' ? [] : [language]), ...filtredLng].findIndex(lng => lng === language);
         results = [createdEn, ...resultsTr][indexLng];
       } else {
         [results] = await db.knex(table).insert(edited).returning('*');
@@ -222,7 +226,7 @@ const updateRecord = async (table, data, language, user, languages = null) => {
       logRecord(table, source.id);
 
       // update table with translate and return value
-      const updateRes = updateRecordTr(table, source, language, user);
+      const updateRes = await updateRecordTr(table, source, language, user);
       if (updateRes) return updateRes;
       
       // insert/update for table with translate
