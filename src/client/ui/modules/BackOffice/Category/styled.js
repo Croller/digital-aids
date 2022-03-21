@@ -98,9 +98,9 @@ export const Lng = styled(Button)`
   ${buttonStyle}
 
   width: auto;
+  padding: 0 12px;
   margin-right: 22px;
   margin-bottom: 22px;
-  padding: 0 12px;
 
   &:first-child {
     width: 163px;
@@ -143,19 +143,19 @@ export const ListCategory = styled.div`
 `;
 
 export const Caterory = styled(Button)`
-  height: 38px;
   width: auto;
-  background-color: transparent;
-  color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey12}`)};
+  height: 38px;
+  align-items: flex-start;
   padding: 0 12px;
-  border-radius: unset;
   border-bottom: ${p => (p.active && `4px solid ${PALETTE.black1}`)};
-  text-transform: uppercase;
-  font-family: ${FONTS.semiBold};
-  font-size: 16px;
   margin-right: 22px;
   margin-bottom: 14px;
-  align-items: flex-start;
+  background-color: transparent;
+  border-radius: unset;
+  color: ${p => (p.active ? `${PALETTE.black1}` : `${PALETTE.grey12}`)};
+  font-family: ${FONTS.semiBold};
+  font-size: 16px;
+  text-transform: uppercase;
   word-wrap: normal;
 
   ${p => p.new && css`
