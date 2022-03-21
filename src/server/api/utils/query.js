@@ -89,11 +89,11 @@ const logRecord = async (table, id) => {
   return false;
 };
 
-const translateRecord = async (record = null, sourceLng = 'en', targetLng = 'en') => {
-  if (!record || sourceLng === targetLng) return null;
+const translateRecord = async (source = null, sourceLng = 'en', targetLng = 'en') => {
+  if (!source || sourceLng === targetLng) return null;
   try {
     const separator = ' || ';
-    const source = { ...record };
+    const record = { ...source };
     const keysTr = TRANSLATE_KEYS.filter(key => record[key] && key);
     const arrTr = keysTr.map(key => record[key]);
     if (!arrTr || (arrTr && arrTr.length === 0)) return null;
@@ -103,14 +103,15 @@ const translateRecord = async (record = null, sourceLng = 'en', targetLng = 'en'
     if (resultsTr.error) return null;
 
     if (arrTr.length === 1) {
-      source[keysTr[0]] = resultsTr[0].translatedText;
+      const key = keysTr[0];
+      record[key] = resultsTr[0].translatedText;
     } else {
       const textArr = resultsTr[0].translatedText.split(separator);
       keysTr.forEach((key, k) => {
-        source[key] = textArr[k];
+        record[key] = textArr[k];
       });
     }
-    return source;
+    return { ...record, ...(targetLng !== 'en' ? { language: targetLng } : {}) };
   } catch (err) {
     console.log('Translete error', JSON.stringify(err.message));
     return null;
@@ -181,24 +182,30 @@ const updateRecord = async (table, data, language, user, languages = null) => {
       const edited = { ...source };
       delete edited.id;
 
+      // insert translate
       if (existTable && language !== 'en' && languages) {
-        let resultsTr = await Promise.all(languages.map(async (lng) => {
+        const filtredLng = languages.filter(f => f !== 'en' && f !== language);
+        let createdEn = await translateRecord(edited, language, 'en');
+        [createdEn] = await db.knex(table).insert(createdEn).returning('*');
+        
+        let resultsTr = await Promise.all(filtredLng.map(async (lng) => {
           const res = await translateRecord(source, language, lng);
           return res;
         }));
-        const arrTrFilter = resultsTr.reduce((obj, result, r) => (result ? { items: [...obj.items, result], lng: [...obj.lng, languages[r]] } : obj), { items: [], lng: [] });
-        
-        const updatedEn = await updateRecordTr(table, arrTrFilter.items.shift(), arrTrFilter.lng.shift(), user);
-        resultsTr = await Promise.all(arrTrFilter.items.map(async (obj, o) => {
-          const res = await updateRecordTr(table, { ...obj, id: updatedEn.id }, arrTrFilter.lng[o], user);
+        source.id = createdEn.id;
+        results = source;
+
+        resultsTr = [{ ...source, language }, ...resultsTr].map(ob => ({ ...ob, id: createdEn.id }));
+        resultsTr = await Promise.all(resultsTr.map(async (obj) => {
+          const editedObj = { ...obj };
+          delete editedObj.language;
+          const res = await updateRecordTr(table, editedObj, obj.language, user);
           return res;
         }));
-        console.log('updateRecordTr', { ...resultsTr });
-          
-        results = results.map(({ value }) => value);
-        console.log('results translate', results);
-
-        results = results[language];
+       
+        const indexLng = languages.findIndex(lng => lng === language);
+        results = [createdEn, ...resultsTr];
+        results = results[indexLng];
       } else {
         [results] = await db.knex(table).insert(edited).returning('*');
       }
@@ -236,11 +243,12 @@ const updateRecord = async (table, data, language, user, languages = null) => {
     
     // socket emit change to client
     if ('restaurant' in results) {
+      const type = !source.id ? 'create' : 'update';
       socket.emit({
-        type: !source.id ? 'create' : 'update',
         id: results.restaurant,
-        table,
         data: results,
+        type,
+        table,
       });
     }
     
@@ -251,26 +259,27 @@ const updateRecord = async (table, data, language, user, languages = null) => {
   }
 };
 
-const updateRecordTr = async (table, source, language, user) => {
-  if (language === 'en') {
-    const updateEn = await updateRecord(table, source, language, user);
-    return updateEn;
-  } 
+const updateRecordTr = async (table, source, language = 'en', user) => {
+  if (language === 'en') return null;
+  const dataTr = { ...source };
   const tableTr = `${table}_translate`;
   let modelTr = await getTableFields(tableTr);
-
-  modelTr = Object.keys(modelTr).reduce((obj, key) => ({ ...obj, [key]: null }), {});
-  const dataTr = { ...source };
   delete dataTr.images;
   delete dataTr.files;
 
-  let updateTr = updatedDiff(modelTr, dataTr);
-  let updateEn = { ...source, ...addedDiff(updateTr, dataTr) };
-  updateEn = await updateRecord(table, updateEn, language, user);
-  updateTr = await updateRecord(tableTr, { id: source.id || updateEn.id, ...updateTr, language }, language, user);
-  delete updateTr.language;
+  modelTr = Object.keys(modelTr).reduce((obj, key) => ({ ...obj, [key]: null }), {});
+  const updateTr = updatedDiff(modelTr, dataTr);
+  const updateEn = { ...addedDiff(updateTr, dataTr) };
+  const [resultEn] = await db.knex(table).where({ id: source.id }).update({ ...updateEn, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
+  let [resultTr] = await db.knex(tableTr).where({ id: source.id, language }).update({ ...updateTr, change_user: user.id, change_at: new Date().toISOString() }).returning('*');
+  if (!resultTr) {
+    [resultTr] = await db.knex(tableTr).insert({
+      ...updateTr, language, change_user: user.id, change_at: new Date().toISOString(), 
+    }).returning('*');
+  }
+  delete resultTr.language;
 
-  return { ...updateEn, ...updateTr };
+  return { ...resultEn, ...resultTr };
 };
 
 module.exports = {

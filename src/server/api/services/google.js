@@ -5,16 +5,15 @@ const googleApiTranslate = process.env.API_KEY_GOOGLE_TRANSLATE;
 const googleApiGeolocation = process.env.API_KEY_GOOGLE_GEOLOCATION;
 
 const getResponse = (key, { status, data }) => {
-  const error = commonUtils.setError('externalSourceError', 'Extrnal source error', data || (data && data.error_message));
   if (status === 200) {
     if (data.status === 'REQUEST_DENIED') {
-      return { error };
+      return { error: commonUtils.setError('externalSourceError', 'Extrnal source error', data || (data && data.error_message)) };
     }
     if (key === 'coords' || key === 'address') return data.results;
     if (key === 'location') return data;
     if (key === 'translate') return data.data.translations;
   }
-  return { error };
+  return { error: commonUtils.setError('externalSourceError', 'Extrnal source error', data || (data && data.error_message)) };
 };
 
 const getCoordsByAddress = async ({
