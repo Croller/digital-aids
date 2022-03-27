@@ -9,6 +9,7 @@ const https = require('https');
 const fs = require('fs');
 const routes = require('./api/routes');
 const socket = require('./api/services/socket');
+const sensors = require('./api/services/sensors');
 
 require('dotenv').config({
   path: path.resolve('.env'),
@@ -49,3 +50,6 @@ console.log(`Server listen on port: ${process.env.LOCAL_SERVER_PORT}`);
 app.get('*', (req, res) => {
   res.sendFile(path.resolve('dist/index.html'));
 });
+
+// test read sensor
+sensors.read_DHT22();
