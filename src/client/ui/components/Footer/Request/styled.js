@@ -3,20 +3,18 @@ import { PALETTE, FONTS, BREAKPOINTS } from 'client/style/constants';
 import { InputForm } from 'client/ui/components/_ui/Input';
 import { TextAreaForm } from 'client/ui/components/_ui/TextArea';
 import { Button } from 'client/ui/components/_ui/Button';
-import { Form, Select } from 'antd';
-
-const FormItem = Form.Item;
+import { Form } from 'antd';
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     flex-direction: row;
-    justify-content: flex-start;
     align-items: flex-start;
+    justify-content: flex-start;
   }
 `;
 
@@ -46,17 +44,17 @@ export const Contacts = styled.div`
 `;
 
 export const Title = styled.h3`
+  margin: 0;
+  margin-bottom: 22px;
   font-family: ${FONTS.bold};
   font-size: 22px;
   line-height: 34px;
-  margin: 0;
-  margin-bottom: 22px;
   white-space: pre-line;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
+    margin-bottom: 68px;
     font-size: 28px;
     line-height: 42px;
-    margin-bottom: 68px;
   }
 `;
 
@@ -65,8 +63,8 @@ export const SpanGreen = styled.span`
 `;
 
 export const Hr = styled.hr`
-  margin: 22px 0;
   border: 0.4px solid ${PALETTE.grey7};
+  margin: 22px 0;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     margin: 72px 0 32px;
@@ -74,10 +72,10 @@ export const Hr = styled.hr`
 `;
 
 export const Contact = styled.div`
-  font-family: ${FONTS.medium};
-  font-size: 16px;
   margin-bottom: 22px;
   cursor: pointer;
+  font-family: ${FONTS.medium};
+  font-size: 16px;
 
   svg {
     width: 16px;
@@ -92,9 +90,9 @@ export const Contact = styled.div`
 
 export const FormStyled = styled(Form)`
   display: flex;
-  justify-content: center;
-  flex-direction: column;
   width: 100%;
+  flex-direction: column;
+  justify-content: center;
 
   > div {
     &:last-child {
@@ -133,10 +131,10 @@ export const ControlGroup = styled.div`
 `;
 
 export const Label = styled.label`
-  font-family: ${FONTS.regular};
-  font-size: 16px;
   margin-bottom: 12px;
   color: ${PALETTE.grey20};
+  font-family: ${FONTS.regular};
+  font-size: 16px;
 `;
 
 export const InputStyled = styled(InputForm)`
@@ -154,8 +152,8 @@ export const SendButton = styled(Button)`
   height: 52px;
   margin: 0 auto;
   background-color: ${PALETTE.green1};
-  text-transform: uppercase;
   color: ${PALETTE.white};
+  text-transform: uppercase;
 
   @media screen and (min-width: ${BREAKPOINTS.medium}) {
     width: 274px;

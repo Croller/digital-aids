@@ -20,7 +20,6 @@ export const OfferCategoryModal = memo(({
     window.open(source.link.url, '_blank').focus();
     onClose();
   };
-  console.log(source);
   return source && (
     <Modal>
       <Wrapper>

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 export const highlightErrorLog = ({ err, component = 'unknown' }) => {
   if (process.env.NODE_ENV !== 'production') {
     console.warn(

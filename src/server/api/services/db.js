@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const knexjs = require('knex');
 const { Client } = require('pg');
 
@@ -20,7 +21,6 @@ if (process.env.NODE_ENV === 'production') {
   CONFIG.database = process.env.LOCAL_DB_DATABASE;
 }
 
-// verify connection configuration
 const db = new Client(CONFIG);
 db.connect()
   .then(() => console.log(`DataBase listen on port: ${process.env.HOST_DB_PORT}`))
@@ -30,6 +30,9 @@ db.connect()
 const knex = knexjs({
   client: 'pg',
   connection: CONFIG,
+  pool: {
+    propagateCreateError: false, 
+  },
   // debug: true,
   log: {
     warn(message) {
