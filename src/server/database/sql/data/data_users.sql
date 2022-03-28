@@ -1,7 +1,7 @@
 with _user as 
 (
   INSERT INTO data_users (login, password, surname, name, middlename, birthdate, phone, email, is_confirmed) VALUES 
-  ('rootAdmin', 'rootAids2021', 'Root', 'R', 'R', '1987-12-21T00:00:00.000', '{79104643015}', '79104643015@yandex.ru', TRUE)
+  ('rootAdmin', 'rootAids2021', 'Root', 'R', 'R', '1987-12-21T00:00:00.000', '{89104643015}', '79104643015@yandex.ru', TRUE)
   RETURNING id
 )
 INSERT INTO data_roles (user_id, access) VALUES 

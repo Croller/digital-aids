@@ -68,6 +68,7 @@ CREATE TABLE IF NOT EXISTS data_restaurants (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
   address VARCHAR DEFAULT NULL,
   email VARCHAR ARRAY DEFAULT NULL,
   website VARCHAR ARRAY DEFAULT NULL,
@@ -95,6 +96,7 @@ CREATE TABLE IF NOT EXISTS logs_restaurants (
   id VARCHAR DEFAULT NULL,
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
   address VARCHAR DEFAULT NULL,
   email VARCHAR ARRAY DEFAULT NULL,
   website VARCHAR ARRAY DEFAULT NULL,
@@ -125,6 +127,7 @@ CREATE TABLE IF NOT EXISTS data_categories (
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   images VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT '{}',
@@ -138,6 +141,7 @@ CREATE TABLE IF NOT EXISTS data_categories_translate (
   id VARCHAR NOT NULL, -- DICTIONARY data_categories
   language VARCHAR NOT NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT '{}',
   change_at TIMESTAMP with time zone DEFAULT NOW(),
@@ -152,6 +156,7 @@ CREATE TABLE IF NOT EXISTS logs_categories (
   key VARCHAR DEFAULT NULL,
   type VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   images VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT NULL,
@@ -165,6 +170,7 @@ CREATE TABLE IF NOT EXISTS logs_categories_translate (
   id VARCHAR NULL, -- DICTIONARY data_categories
   language VARCHAR NULL, -- DICTIONARY dictionary_languages
   name VARCHAR DEFAULT NULL,
+  description VARCHAR DEFAULT NULL,
   cuisine VARCHAR ARRAY DEFAULT NULL,
   options jsonb DEFAULT NULL,
   change_at TIMESTAMP with time zone DEFAULT NOW(),
@@ -238,6 +244,7 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   email VARCHAR NOT NULL,
   phone VARCHAR DEFAULT NULL,
   persons INT NOT NULL,
+  description VARCHAR DEFAULT NULL,
   table_number INT DEFAULT NULL,
   reserve_at TIMESTAMP with time zone NOT NULL DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL,
@@ -257,6 +264,7 @@ CREATE TABLE IF NOT EXISTS logs_reserve (
   email VARCHAR DEFAULT NULL,
   phone VARCHAR DEFAULT NULL,
   persons INT NOT NULL,
+  description VARCHAR DEFAULT NULL,
   table_number INT DEFAULT NULL,
   reserve_at TIMESTAMP with time zone DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL,
@@ -347,8 +355,8 @@ CREATE TABLE IF NOT EXISTS logs_orders (
 CREATE TABLE IF NOT EXISTS data_notify (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  type VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   description VARCHAR DEFAULT NULL,
-  options VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   table_number INT DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
@@ -362,8 +370,8 @@ CREATE TABLE IF NOT EXISTS data_notify (
 CREATE TABLE IF NOT EXISTS logs_notify (
   id VARCHAR DEFAULT NULL,
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
+  type VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   description VARCHAR DEFAULT NULL,
-  options VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   table_number INT DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),

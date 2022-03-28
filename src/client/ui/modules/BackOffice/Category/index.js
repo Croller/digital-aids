@@ -73,9 +73,7 @@ const Category = () => {
 
     const rest = restaurants.find(f => f.id === restaurant);
     if (rest) {
-      if (pageSpecActive === null) {
-        categoryFilter = categories.filter(f => !f.is_deleted && (isArchive === false ? f.is_archived === isArchive : f));
-      }
+      categoryFilter = categories.filter(f => !f.is_deleted && f.is_archived === isArchive);
   
       categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : null;
       if (restCategoryActive && categoryFilter.length > 0) {
@@ -87,7 +85,7 @@ const Category = () => {
       }
 
       setRestCategoryActive(categoryActive);
-      setRestCategory(categories);
+      setRestCategory(categoryFilter);
       setRestInfo(rest);
     }
   };
@@ -157,7 +155,8 @@ const Category = () => {
     }));
   };
 
-  const handleOnCloseCategory = () => {
+  const handleOnCloseCategory = (data = null, lng = language) => {
+    handleOnSaveCategory(data, lng);
     setRestCategoryEdit(false);
     setRestCategoryActive(null);
     initCategory();
@@ -215,9 +214,7 @@ const Category = () => {
       {loading && (<LoaderStyled />)}
       {restInfo && restCategory && (
         <CategoryEditWrapper>
-          {pathname.indexOf('/dashboard') === -1 && (
-            <NavBarStyled />
-          )}
+          <NavBarStyled />
           {!isArchive && (
             <RestaurantInfoStyled {...restInfo} />
           )}
@@ -292,7 +289,7 @@ const Category = () => {
                     onClick={handleAddDish}
                     disabled={getRules(restCategoryActive)}
                   >
-                    {t('common.words.newAdd')}
+                    {`${t('common.words.newPlate')} `}
                     <PlusSvg />
                   </NewDish>
                   <ArchiveBtn

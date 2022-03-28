@@ -64,7 +64,7 @@ export const CategoryForm = ({
       textCancel={t('common.words.cancel')}
       onClose={hideConfirm}
       onCancel={hideConfirm}
-      onOk={handleOnClose}
+      onOk={() => handleOnClose(event.params)}
     />
   ), [event]);
 
@@ -114,11 +114,11 @@ export const CategoryForm = ({
     setEvent({ key, params: paramsEdited });
   };
 
-  const handleOnClose = () => {
+  const handleOnClose = (data = null) => {
     hideConfirm();
     setEvent(null);
     setFormData(null);
-    onClose();
+    onClose(data, language);
   };
 
   useEffect(() => {
@@ -145,7 +145,7 @@ export const CategoryForm = ({
           {isChange && (
             <Tooltip placement="top" title={t('common.words.save')}>
               <Control
-                onClick={() => form.submit()}
+                onClick={() => !showConfirm && form.submit()}
                 disabled={!isChange || loading}
                 active
               >
@@ -200,7 +200,7 @@ export const CategoryForm = ({
           <FormCol>
             <FormItemStyled
               label={t('common.words.type')}
-              name="key"
+              name="type"
               required
               rules={rule.text}
             >
@@ -209,8 +209,8 @@ export const CategoryForm = ({
                 optionFilterProp="label"
                 disabled={archive || (current && current.id)}
               >
-                {categoryModel.filter(f => !['specialDeals', 'foodtips'].includes(f.key)).map((item, i) => (
-                  <OptionStyled key={`_key_${i + 1}`} value={item.key}>{item.name}</OptionStyled>
+                {categoryModel.filter(f => !['special-deals', 'foodtips'].includes(f.type)).map((item, i) => (
+                  <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>
                 ))}
               </SelectStyled>
             </FormItemStyled>
@@ -229,18 +229,17 @@ export const CategoryForm = ({
             </FormItemStyled>
           </FormCol>
         </Form2Col>
-        {formData && formData.key === 'daily-menu' && (
+        {formData && formData.type === 'daily-menu' && (
           <FormCol>
             <Form2Col>
               <FormCol>
                 <FormItemStyled
-                  label={t('common.words.info')}
-                  name="options.info"
+                  label={t('common.words.description')}
+                  name="options.description"
                   required
                   rules={rule.text}
                 >
                   <TextAreaStyled
-                    minRows={1}
                     placeholder={t('common.form.placeholder.text')}
                     disabled={archive}
                   />
@@ -263,19 +262,6 @@ export const CategoryForm = ({
               </FormCol>
             </Form2Col>
             <Form2Col>
-              <FormCol>
-                <FormItemStyled
-                  label={t('common.words.description')}
-                  name="options.description"
-                  required
-                  rules={rule.text}
-                >
-                  <TextAreaStyled
-                    placeholder={t('common.form.placeholder.text')}
-                    disabled={archive}
-                  />
-                </FormItemStyled>
-              </FormCol>
               {/* <FormCol>
                 <FormItemStyled
                   label={t('common.words.workingTime')}

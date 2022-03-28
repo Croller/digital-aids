@@ -14,17 +14,16 @@ export const Cotainer = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 100%;
-  padding-top: 97px;
   display: flex;
+  width: 100%;
   justify-content: center;
-  padding-left: ${p => (p.leftbar ? '245px' : '0')};
-  
+  padding-top: 97px;
   padding-right: ${p => (p.rightbar ? '245px' : '0')};
+  padding-left: ${p => (p.leftbar ? '245px' : '0')};
 `;
 
 export const Block = styled.div`
   width: 100%;
-  max-width: 1195;
+  max-width: 1195px;
   padding: 30px 36px 30px 22px;
 `;

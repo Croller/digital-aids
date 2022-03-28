@@ -36,6 +36,7 @@ const UserController = () => {
         if (!is_deleted && !is_archived) {
           await queryUtils.logRecord('data_users', user.id);
           await db.knex('data_users').where({ id: user.id }).update({ change_at: new Date().toISOString(), change_user: user.id }).returning('*');
+          delete user.password;
 
           res.json({ ...user, token });
         } else {
@@ -93,10 +94,11 @@ const UserController = () => {
         const { data } = req.body;
         const meta = commonUtils.getMeta(req);
         await queryUtils.logRecord('data_users', tokenData.id);
-        [results] = await db.knex('data_users').where({ id: tokenData.id }).update({ ...data, meta }).returning('*');
-        const token = jwt.generateToken(results);
-        delete results.password;
-        res.json({ ...results, token });
+        const [user] = await db.knex('data_users').where({ id: tokenData.id }).update({ ...data, meta }).returning('*');
+        const token = jwt.generateToken(user);
+        delete user.password;
+
+        res.json({ ...user, token });
       } catch (err) {
         res.status(201);
         res.json(commonUtils.setError('queryError', 'Query error', JSON.stringify(err.message)));

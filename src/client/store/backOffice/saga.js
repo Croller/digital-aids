@@ -34,21 +34,17 @@ function* init({ payload }) {
       'dictionary_allergens',
     ];
 
-    let results_dictionary = backOffice.dictionary;
-    if (!ids || (ids && ids.length > 0)) {
-      results_dictionary = yield commonProvider.getTables({
-        token,
-        language,
-        data: dictionaries,
-      });
-      results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
-    }
-
     let results_restaurants = [];
-    if (!ids) {
-      results_restaurants = yield commonProvider.getTables({ token, language, data: ['data_restaurants'] });
-      results_restaurants = results_restaurants.data_restaurants.sort((a, b) => a.number - b.number);
-    }
+    let results_categories = [];
+    let results_dishes = [];
+    let results_dictionary = backOffice.dictionary;
+    results_dictionary = yield commonProvider.getTables({
+      token,
+      language,
+      data: dictionaries,
+    });
+    results_dictionary = Object.keys(results_dictionary).reduce((obj, key) => ({ ...obj, [key.split('_')[1]]: results_dictionary[key] }), {});
+
     if (ids && ids.length > 0) {
       results_restaurants = yield commonProvider.getRecordById({
         name,
@@ -57,9 +53,6 @@ function* init({ payload }) {
         data: ids,
       });
     }
-
-    let results_categories = [];
-    let results_dishes = [];
 
     if (results_restaurants.length > 0) {
       results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;

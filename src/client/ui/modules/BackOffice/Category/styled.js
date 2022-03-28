@@ -188,8 +188,10 @@ export const DishControls = styled.div`
 `;
 
 export const NewDish = styled(Button)`
-  width: 184px;
+  width: auto;
+  max-width: 240px;
   height: 46px;
+  padding: 0 20px;
   background-color: ${PALETTE.green1};
   border-radius: ${THEME.borderRadiusL};
   color: ${PALETTE.white};

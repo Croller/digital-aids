@@ -72,7 +72,7 @@ const getTableStats = async (table) => {
     }, {});
   } catch (err) {
     console.log('Stats error', JSON.stringify(err.message));
-    return null;
+    return [];
   }
 };
 
@@ -122,8 +122,8 @@ const getRecordTranslate = async (table = null, records = null, language = 'en')
   if (table && (records && records.length > 0) && language !== 'en') {
     const ids = records.map(item => item.id);
     const tableTr = `${table}_translate`;
-    const existTable = await isTable(tableTr);
-    if (!existTable) return records;
+    const existTableTr = await isTable(tableTr);
+    if (!existTableTr) return records;
     const resultsTr = await db.knex(tableTr).whereRaw('id = ANY (?) AND language = ?', [`{"${ids.join('", "')}"}`, language]);
     if (resultsTr.length > 0) {
       return records.map(item => {
@@ -178,15 +178,15 @@ const updateRecord = async (table, data, language, user, languages = null) => {
     // insert/update for table without translate
     if (!source.id) {
       const tableTr = `${table}_translate`;
-      const existTable = await isTable(tableTr);
+      const existTableTr = await isTable(tableTr);
       const edited = { ...source };
       delete edited.id;
       
       // insert translate
-      if (existTable && languages) {
+      if (existTableTr && languages) {
         const filtredLng = languages.filter(f => f !== 'en' && f !== language);
 
-        let createdEn = source;
+        let createdEn = edited;
         if (language !== 'en') {
           createdEn = await translateRecord(edited, language, 'en');
         }

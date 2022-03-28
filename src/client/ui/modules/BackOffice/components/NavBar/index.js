@@ -153,12 +153,12 @@ export const NavBar = withRouter(({
       data.back = { text: 'back' };
       data.loupe = false;
       data.search = false;
-      data.delete = restaurant !== 'new';
+      data.delete = ['special/archive', 'foodtips/archive', 'menu/archive'].some(s => pathname.indexOf(s) > -1) && ['dashboard', 'new'].some(s => pathname.indexOf(s) === -1);
       data.archive = false;
       data.add_new = false;
-      data.title = {
+      data.title = restaurant !== 'new' ? null : {
         icon: <RestaurantSvg />,
-        text: `${restaurant !== 'new' ? '' : `${t('common.words.create')} `}${t(`common.words.${page}`)}`,
+        text: `${t('common.words.create')} ${t(`common.words.${page}`)}`,
       };
     }
 
@@ -172,7 +172,7 @@ export const NavBar = withRouter(({
       data.archive = !['/special-deals', '/foodtips', '/notify', '/opinions', '/reserve', '/orders'].some(f => pathname.indexOf(f) > -1) && pathname.indexOf('/archive') === -1;
       data.delete = pathname.indexOf('/archive') > -1;
       data.add_new = false;
-      data.title = pathname.indexOf('/archive') > -1 && {
+      data.title = pathname.indexOf('/restaurants') > -1 && {
         icon: <ArchiveSvg />,
         text: `${t(`common.words.${page}`)} ${t('common.words.archive')}`,
       };

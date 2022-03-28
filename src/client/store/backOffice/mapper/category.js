@@ -26,15 +26,19 @@ export const dataToForm = (data) => {
 
 export const dataToApi = (data, current = null, restaurant, language) => {
   const {
+    type,
     key,
     name,
+    description,
   } = data;
 
   return {
     ...current,
     ...(current && current.id ? { id: current.id } : {}),
-    name,
+    type,
     key: language === 'en' ? (stringToKey(name) || '') : key,
+    name,
+    description,
     restaurant: restaurant.id,
     options: !current.options ? null : {
       ...(!current.options.at_work ? {} : {
@@ -54,7 +58,6 @@ export const dataToApi = (data, current = null, restaurant, language) => {
 export const optionsModel = {
   price: 0.00,
   info: null,
-  description: null,
   age: 0,
   at_work: {
     description: '9:00-22:00',
@@ -71,8 +74,10 @@ export const optionsModel = {
 export const categoryModel = [
   {
     id: null,
+    type: 'default',
     key: 'default',
     name: 'Default',
+    description: null,
     parent: null,
     restaurant: null,
     options: null,
@@ -81,8 +86,10 @@ export const categoryModel = [
   },
   {
     id: null,
+    type: 'daily-menu',
     key: 'daily-menu',
     name: 'Daily Menu',
+    description: null,
     parent: null,
     restaurant: null,
     options: optionsModel,
@@ -91,6 +98,7 @@ export const categoryModel = [
   },
   {
     id: null,
+    type: 'alcohol',
     key: 'alcohol',
     name: 'Alcohol',
     parent: null,
@@ -101,8 +109,10 @@ export const categoryModel = [
   },
   {
     id: null,
+    type: 'foodtips',
     key: 'foodtips',
     name: 'Foodtips',
+    description: null,
     parent: null,
     restaurant: null,
     options: { rules: { info: { maxLength: 5 } } },
@@ -111,8 +121,10 @@ export const categoryModel = [
   },
   {
     id: null,
+    type: 'special-deals',
     key: 'special-deals',
     name: 'Special deals',
+    description: null,
     parent: null,
     restaurant: null,
     options: { rules: { info: { maxLength: 1 } } },
