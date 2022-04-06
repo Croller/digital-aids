@@ -51,7 +51,7 @@ const Assistant = () => {
         data: {
           restaurant: restaurant.info.id,
           options: menu.reduce((obj, k) => ({ ...obj, [k]: k === key }), {}),
-          table_number: restaurant.table_number,
+          number_table: restaurant.number_table,
           create_user: user.info.id,
         },
       }));
@@ -71,7 +71,7 @@ const Assistant = () => {
 
   return (
     <Wrapper>
-      {restaurant.table_number ? (
+      {restaurant.number_table ? (
         <List>
           {menu.filter(f => f !== user.position).map(key => (
             <ButtonStyled

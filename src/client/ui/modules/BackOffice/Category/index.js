@@ -8,24 +8,16 @@ import { getAccess, getDictionaryItem } from 'client/utils/common';
 import {
   AlertCircleSvg,
   ArchiveSvg,
-  EditSvg,
   PlusSvg,
 } from 'client/assets/images';
+import { CategoryList } from './CategoryList';
 import { 
   CategoryEditWrapper,
   LoaderStyled,
   NavBarStyled,
   RestaurantInfoStyled,
-  // MenuControl,
-  // ListControls,
-  // Control,
   ListLng,
   Lng,
-  CategoryWrapper,
-  ListCategory,
-  CategoryEdit,
-  Caterory,
-  CategoryFormStyled,
   InfoStyled,
   DishControls,
   NewDish,
@@ -46,8 +38,6 @@ const Category = () => {
   const { user: { roles, info: { token } }, backOffice } = useSelector(s => s);
   const [restInfo, setRestInfo] = useState(null);
   const [restCategory, setRestCategory] = useState([]);
-  const [restCategoryActive, setRestCategoryActive] = useState(null);
-  const [restCategoryEdit, setRestCategoryEdit] = useState(false);
   const [dishCategory, setDishCategory] = useState([]);
   const pageSpecActive = PA.find(s => pathname.indexOf(`/${s}`) > -1 && s) || null;
   const isArchive = pathname.indexOf('/archive') > -1;
@@ -67,41 +57,16 @@ const Category = () => {
     loading,
   } = backOffice;
 
-  const initCategory = async () => {
-    let categoryFilter = [];
-    let categoryActive = null;
-
-    const rest = restaurants.find(f => f.id === restaurant);
-    if (rest) {
-      categoryFilter = categories.filter(f => !f.is_deleted && f.is_archived === isArchive);
-  
-      categoryActive = categoryFilter.length > 0 ? categoryFilter[0] : null;
-      if (restCategoryActive && categoryFilter.length > 0) {
-        categoryActive = categoryFilter.find(f => f.key === restCategoryActive.key) || categoryFilter[0];
-      }
-
-      if (pageSpecActive) {
-        categoryActive = categories.find(f => f.key === pageSpecActive && f.restaurant === restaurant);
-      }
-
-      setRestCategoryActive(categoryActive);
-      setRestCategory(categoryFilter);
-      setRestInfo(rest);
-    }
-  };
-
   const initDish = () => {
     let dishesFilter = [];
     if (restCategoryActive) {
-      dishesFilter = dishes.filter(f => f.category === restCategoryActive.id && !f.is_deleted && f.is_archived === isArchive);
-      if (restCategoryActive.children) {
-        dishesFilter = dishes.filter(f => restCategoryActive.children.some(s => s.id === f.category) && !f.is_deleted && f.is_archived === isArchive);
-      }
+      dishesFilter = dishes.filter(f => !f.is_deleted && f.is_archived === isArchive && f.category === restCategoryActive.id);
     }
     if (pageSpecActive) {
       const categorySpec = categories.find(f => f.restaurant === restaurant && f.key === pageSpecActive);
-      dishesFilter = categorySpec ? dishes.filter(f => f.category === categorySpec.id && !f.is_deleted && f.is_archived === isArchive) : [];
+      dishesFilter = categorySpec ? dishes.filter(f => !f.is_deleted && f.is_archived === isArchive && f.category === categorySpec.id) : [];
     }
+
     setDishCategory(dishesFilter);
   };
 
@@ -137,33 +102,18 @@ const Category = () => {
     }
     history.push(path);
   };
-
-  const handleAddCategory = () => {
-    setDishCategory([]);
-    setRestCategoryEdit(true);
-    setRestCategoryActive(null);
-    setRestCategory([...restCategory, null]);
-  };
   
-  const handleOnSaveCategory = async (data = null, lng = language) => {
+  const handleOnSave = async (name = 'data_categories', data = null, lng = language) => {
     const { languages } = restaurants.find(f => f.id === restaurant);
     data && languages && rootDispatch(update({
-      name: 'data_categories',
+      name,
       data,
       language: lng,
       languages,
     }));
   };
 
-  const handleOnCloseCategory = (data = null, lng = language) => {
-    handleOnSaveCategory(data, lng);
-    setRestCategoryEdit(false);
-    setRestCategoryActive(null);
-    initCategory();
-  };
-
   const handleAddDish = () => {
-    setRestCategoryEdit(false);
     setDishCategory([null, ...dishCategory]);
   };
 
@@ -176,23 +126,19 @@ const Category = () => {
     data && rootDispatch(deleteFiles({ data }));
   };
 
-  // useEffect(() => {
-  //   if (info && info.language) {
-  //     handleRoute('language', info.language);
-  //   }
-  // }, [info && info.language]);
+  useEffect(() => {
+    if (restaurants) {
+      const rest = restaurants.find(f => f.id === restaurant);
+      setRestInfo(rest || null);
+    }
+  }, [restaurants]);
 
   useEffect(() => {
-    if (restaurants && categories && dictionary) {
-      initCategory();
+    if (categories) {
+      
+      setRestCategory();
     }
-  }, [restaurants, categories, dictionary, pathname]);
-
-  useEffect(() => {
-    if (dishes) {
-      initDish();
-    }
-  }, [dishes, restCategoryActive, pathname]);
+  }, [restInfo, categories, pathname]);
 
   useEffect(() => {
     rootDispatch(init({ id: restaurant, language }));
@@ -205,7 +151,6 @@ const Category = () => {
   }, [status]);
 
   useEffect(() => {
-    setRestCategoryEdit(false);
     setDishCategory(dishCategory.map(m => m));
   }, [pathname]);
 
@@ -232,57 +177,15 @@ const Category = () => {
                   </Lng>
                 ))}
               </ListLng>
-              {!pageSpecActive && restCategory && (
-                <CategoryWrapper>
-                  <ListCategory>
-                    {restCategory.map((item, i) => item && (
-                      <Caterory
-                        key={`_category_${item.key}_${i + 1}`}
-                        active={restCategoryActive && item.key === restCategoryActive.key}
-                        onClick={() => setRestCategoryActive(item)}
-                      >
-                        {item.name}
-                      </Caterory>
-                    ))}
-                    {!isArchive && (restCategory.slice(-1)[0] || restCategory.length === 0) && !restCategoryEdit && (access || root) && (
-                      <Caterory new onClick={handleAddCategory}>
-                        {t('common.words.newCategory')}
-                        <PlusSvg />
-                      </Caterory>
-                    )}
-                  </ListCategory>
-                  {restCategory.length > 0 && !restCategoryEdit && (access || root) && (
-                    <CategoryEdit
-                      onClick={() => { 
-                        setDishCategory([]);
-                        setRestCategoryEdit(true);
-                      }}
-                    >
-                      <EditSvg />
-                    </CategoryEdit>
-                  )}
-                </CategoryWrapper>
-              )}
-              {restCategoryEdit && (
-                <CategoryFormStyled
-                  token={token}
-                  source={restCategoryActive}
-                  dictionary={dictionary}
-                  restaurant={restInfo}
-                  currency={restInfo.currency[0]}
-                  language={language}
-                  loading={loading}
-                  archive={isArchive}
-                  onSave={handleOnSaveCategory}
-                  onClose={handleOnCloseCategory}
-                />
-              )}
-              {pageSpecActive && restCategoryActive && (
+              <CategoryList
+                categories={categories}
+                onSave={handleOnSave} />
+              {/* {pageSpecActive && restCategoryActive && (
                 <InfoStyled
                   page={pageSpecActive}
                   options={restCategoryActive.options}
                 />
-              )}
+              )} */}
               {!isArchive && restCategoryActive && (access || root) && (
                 <DishControls>
                   <NewDish

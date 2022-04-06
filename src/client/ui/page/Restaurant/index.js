@@ -61,17 +61,17 @@ export const Restaurant = () => {
       const localRest = getLocalRestaurant(restaurant.info.key);
       let order = localRest.order ? getUrlOrder(localRest.order, dishes, categories) : null;
 
-      let table_number = localRest.table_number || 0;
+      let number_table = localRest.number_table || 0;
       let position = localStorage?.position || 'guest';
-      if (href.indexOf('/receipt?params=') > -1 && href.indexOf('table_number=') > -1) {
-        const [path, number] = href.split('&table_number=');
+      if (href.indexOf('/receipt?params=') > -1 && href.indexOf('number_table=') > -1) {
+        const [path, number] = href.split('&number_table=');
         order = getUrlOrder(path.split('?params=')[1], dishes, categories);
-        table_number = parseInt(number, 0);
+        number_table = parseInt(number, 0);
       }
       if (href.indexOf('/receipt?params=') === -1) {
-        if (href.indexOf('table_number=') > -1) {
-          const number = href.split('table_number=')[1];
-          table_number = number ? parseInt(number, 0) : table_number;
+        if (href.indexOf('number_table=') > -1) {
+          const number = href.split('number_table=')[1];
+          number_table = number ? parseInt(number, 0) : number_table;
         }
         if (href.indexOf('position=waiter') > -1) {
           const pos = href.split('position=')[1];
@@ -79,9 +79,9 @@ export const Restaurant = () => {
         }
       }
       rootDispatch(userStore.set({ position }));
-      rootDispatch(set({ table_number, order }));
+      rootDispatch(set({ number_table, order }));
       setLocal({ position });
-      setLocalRestaurant(restaurant.info.key, { table_number });
+      setLocalRestaurant(restaurant.info.key, { number_table });
     }
   }, [restaurant.info]);
 

@@ -23,8 +23,8 @@ export const Btn = styled.button`
   }
 
   ${p => p.loading && css`
-    cursor: not-allowed !important;
     background-color: ${PALETTE.green2} !important;
+    cursor: not-allowed !important;
   `}
 
   ${p => p.disabled && css`
@@ -34,7 +34,7 @@ export const Btn = styled.button`
 `;
 
 export const SpinStyled = styled(Spin)`
+  margin-right: 14px;
   color: ${PALETTE.white};
   font-size: 14px;
-  margin-right: 14px;
 `;

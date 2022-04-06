@@ -36,7 +36,7 @@ const Receipt = () => {
     restaurant: {
       info: { id, key, currency },
       order,
-      table_number,
+      number_table,
       dictionary,
     },
   } = useSelector(store => store);
@@ -80,7 +80,7 @@ const Receipt = () => {
 
   const getQRCodeValue = () => {
     const encode = setUrlOrder(order);
-    const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}&table_number=${table_number}`;
+    const url = `${getUrl()}/restaurant/${key}/order/receipt?params=${encode}&number_table=${number_table}`;
     console.log('url', url);
     return url;
   };
@@ -91,9 +91,9 @@ const Receipt = () => {
         name: 'data_orders',
         data: {
           restaurant: id,
-          table_number,
-          order_url: setUrlOrder(order),
-          order_number: `RST-${random4Int()}-${random4Int()}`,
+          number_table,
+          url_order: setUrlOrder(order),
+          number_order: `RST-${random4Int()}-${random4Int()}`,
         },
       }));
       return;
@@ -103,7 +103,7 @@ const Receipt = () => {
       data: {
         restaurant: id,
         options: { waiter: true },
-        table_number,
+        number_table,
       },
     }));
     showConfirm();
@@ -203,7 +203,7 @@ const Receipt = () => {
                 {getDateTime(language)}
               </DateTime>
               <TableNumber>
-                {`#${table_number || 0}`}
+                {`#${number_table || 0}`}
               </TableNumber>
             </Info>
             
@@ -244,7 +244,7 @@ const Receipt = () => {
             </Total>
           </ReceiptWrapper>
           <ControlWrapper>
-            {table_number ? (
+            {number_table ? (
               <EventButton onClick={handleOrderEvent}>
                 {position === 'waiter' ? t('restaurant.common.send') : t('restaurant.pageAssistent.waiter')}
               </EventButton>

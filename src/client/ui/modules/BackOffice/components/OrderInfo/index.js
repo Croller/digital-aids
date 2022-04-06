@@ -47,8 +47,8 @@ const STATUS_CONF = [
 export const OrderInfo = memo(({
   id,
   order_decode = null,
-  order_number,
-  table_number,
+  number_order,
+  number_table,
   status,
   create_at,
   delivered_at,
@@ -93,11 +93,11 @@ export const OrderInfo = memo(({
         <Head>
           <Order
             icon={<ShoppingBagSvg />}
-            text={order_number}
+            text={number_order}
           />
           <Table
             icon={<MapMarkerSvg />}
-            text={table_number || 0}
+            text={number_table || 0}
           />
           <Date
             icon={<CalendarSvg />}

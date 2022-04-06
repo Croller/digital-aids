@@ -39,7 +39,7 @@ import {
 } from './styled';
 
 export const CategoryForm = ({
-  source = null,
+  source = { id: null, parent: null },
   loading = false,
   currency = null,
   dictionary = null,
@@ -122,9 +122,10 @@ export const CategoryForm = ({
   };
 
   useEffect(() => {
-    const obj = source || categoryModel[0];
+    const obj = source.id ? source : { ...categoryModel[0], ...source };
     setCurrent(obj);
     setData(dataToForm(obj));
+
     return () => {
       form.resetFields();
     };
@@ -207,7 +208,7 @@ export const CategoryForm = ({
               <SelectStyled
                 placeholder={t('common.form.placeholder.select')}
                 optionFilterProp="label"
-                disabled={archive || (current && current.id)}
+                disabled={archive || (current && (current.id || current.parent))}
               >
                 {categoryModel.filter(f => !['special-deals', 'foodtips'].includes(f.type)).map((item, i) => (
                   <OptionStyled key={`_type_${i + 1}`} value={item.type}>{item.name}</OptionStyled>

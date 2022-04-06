@@ -54,7 +54,7 @@ const Information = memo(() => {
       socials,
       currency,
     },
-    table_number,
+    number_table,
     dictionary,
   } = useSelector(store => store.restaurant);
   const refCarousel = useRef();
@@ -89,7 +89,7 @@ const Information = memo(() => {
     if (navigator.share) {
       await navigator.share({
         title: 'Digital Aids',
-        url: `${window.location.href}?table_number=${table_number}`,
+        url: `${window.location.href}?number_table=${number_table}`,
       })
         .then(() => console.log('Successful share! 🎉'))
         .catch(err => console.error(err));

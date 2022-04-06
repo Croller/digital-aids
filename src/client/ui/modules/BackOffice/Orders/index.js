@@ -65,7 +65,7 @@ const Orders = () => {
       let results = orders.sort((a, b) => moment(b.create_at).diff(moment(a.create_at)));
       results = results.map(item => ({
         ...item,
-        order_decode: getUrlOrder(item.order_url, dishes, categories),
+        order_decode: getUrlOrder(item.url_order, dishes, categories),
       }));
       setFiltred(results);
     }

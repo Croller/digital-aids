@@ -22,7 +22,7 @@ import {
 export const NotifyInfo = memo(({
   id,
   options,
-  table_number,
+  number_table,
   create_at,
   is_viewed,
   className,
@@ -48,7 +48,7 @@ export const NotifyInfo = memo(({
       />
       <Table
         icon={<MapMarkerSvg />}
-        text={table_number || 0}
+        text={number_table || 0}
       />
       <Date
         icon={<CalendarSvg />}

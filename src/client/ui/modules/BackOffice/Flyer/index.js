@@ -59,7 +59,7 @@ const Flyer = () => {
   const handleChangeTable = (str) => {
     setTableNumber(str);
     const rest = restaurants.find(f => f.id === restaurant);
-    setQrCodeTable(`${getUrl()}/restaurant/${rest.key}/information?table_number=${str}`);
+    setQrCodeTable(`${getUrl()}/restaurant/${rest.key}/information?number_table=${str}`);
   };
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const Flyer = () => {
       const rest = restaurants.find(f => f.id === restaurant);
       if (rest) {
         setQrCode(`${getUrl()}/restaurant/${rest.key}/information`);
-        setQrCodeTable(`${getUrl()}/restaurant/${rest.key}/information?table_number=1`);
+        setQrCodeTable(`${getUrl()}/restaurant/${rest.key}/information?number_table=1`);
         setQrCodeWaiter(`${getUrl()}/restaurant/${rest.key}/information?position=waiter`);
         setLngValue(rest.languages);
       }

@@ -181,7 +181,7 @@ CREATE TABLE IF NOT EXISTS data_dishes (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   category VARCHAR NOT NULL, -- DICTIONARY data_categories
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
-  dish_number INT DEFAULT 0,
+  number_dish INT DEFAULT 0,
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS logs_dishes (
   id VARCHAR DEFAULT NULL,
   category VARCHAR DEFAULT NULL, -- DICTIONARY data_categories
   restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
-  dish_number INT DEFAULT NULL,
+  number_dish INT DEFAULT NULL,
   key VARCHAR DEFAULT NULL,
   name VARCHAR DEFAULT NULL,
   description VARCHAR DEFAULT NULL,
@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS data_reserve (
   phone VARCHAR DEFAULT NULL,
   persons INT NOT NULL,
   description VARCHAR DEFAULT NULL,
-  table_number INT DEFAULT NULL,
+  number_table INT DEFAULT NULL,
   reserve_at TIMESTAMP with time zone NOT NULL DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL,
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
@@ -265,7 +265,7 @@ CREATE TABLE IF NOT EXISTS logs_reserve (
   phone VARCHAR DEFAULT NULL,
   persons INT NOT NULL,
   description VARCHAR DEFAULT NULL,
-  table_number INT DEFAULT NULL,
+  number_table INT DEFAULT NULL,
   reserve_at TIMESTAMP with time zone DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL,
   create_at TIMESTAMP with time zone DEFAULT NULL,
@@ -311,9 +311,9 @@ CREATE TABLE IF NOT EXISTS logs_opinions (
 CREATE TABLE IF NOT EXISTS data_orders (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
-  table_number INT DEFAULT NULL,
-  order_number VARCHAR NOT NULL,
-  order_url VARCHAR NOT NULL,
+  number_table INT DEFAULT NULL,
+  number_order VARCHAR NOT NULL,
+  url_order VARCHAR NOT NULL,
   status VARCHAR DEFAULT 'waiting', --- DICTIONARY dictionary_order_status
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
@@ -333,9 +333,9 @@ CREATE TABLE IF NOT EXISTS data_orders (
 CREATE TABLE IF NOT EXISTS logs_orders (
   id VARCHAR DEFAULT NULL,
   restaurant VARCHAR DEFAULT NULL, -- DICTIONARY data_restaurants
-  table_number INT DEFAULT NULL,
-  order_number VARCHAR NULL,
-  order_url VARCHAR NULL,
+  number_table INT DEFAULT NULL,
+  number_order VARCHAR NULL,
+  url_order VARCHAR NULL,
   status VARCHAR DEFAULT NULL,  --- DICTIONARY dictionary_order_status
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone DEFAULT NULL,
@@ -357,7 +357,7 @@ CREATE TABLE IF NOT EXISTS data_notify (
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   type VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   description VARCHAR DEFAULT NULL,
-  table_number INT DEFAULT NULL,
+  number_table INT DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_viewed BOOLEAN DEFAULT FALSE,
@@ -372,7 +372,7 @@ CREATE TABLE IF NOT EXISTS logs_notify (
   restaurant VARCHAR NOT NULL, -- DICTIONARY data_restaurants
   type VARCHAR NOT NULL DEFAULT NULL, -- '{"waiter": "FALSE", "receipt": "FALSE", "napkin": "FALSE", "appliances": "FALSE", "manager": "FALSE"}',
   description VARCHAR DEFAULT NULL,
-  table_number INT DEFAULT NULL,
+  number_table INT DEFAULT NULL,
   create_user VARCHAR DEFAULT NULL, -- DICTIONARY data_users
   create_at TIMESTAMP with time zone NOT NULL DEFAULT NOW(),
   is_viewed BOOLEAN DEFAULT FALSE,

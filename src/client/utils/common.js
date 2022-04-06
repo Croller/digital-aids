@@ -241,6 +241,23 @@ export const objDeepToPlain = (
   }, {});
 };
 
+const objDeepToFlatten = (obj, path = '') => {
+  const newObj = JSON.parse(JSON.stringify(obj));
+
+  return Object.keys(newObj).reduce((agg, key) => {
+    if (!Array.isArray(newObj[key]) && typeof newObj[key] === 'object') {
+      return {
+        ...agg,
+        ...objDeepToFlatten(newObj[key], path ? `${path}.${key}` : key),
+      };
+    }
+    return {
+      ...agg,
+      [path ? `${path}.${key}` : key]: newObj[key],
+    };
+  }, {});
+};
+
 // ------------------------------------------------------------------------------------------------------------------------
 // file func
 

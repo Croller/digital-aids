@@ -2,7 +2,7 @@ const storageKey = process.env.LOCAL_STORAGE_KEY;
 const restaurantSetting = {
   opinionSend: false,
   offersViewed: [],
-  table_number: 0,
+  number_table: 0,
   order: null,
 };
 

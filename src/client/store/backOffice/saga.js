@@ -56,14 +56,12 @@ function* init({ payload }) {
 
     if (results_restaurants.length > 0) {
       results_restaurants = backOffice.restaurants ? updateItem(backOffice.restaurants, results_restaurants) : results_restaurants;
-
       results_categories = yield commonProvider.getRecordByParam({
         name: 'data_categories',
         token,
         language: payload.language || language,
         data: { restaurant: id },
       });
-      results_categories = results_categories.sort((a, b) => a.number - b.number);
     
       results_dishes = yield commonProvider.getRecordByParam({
         name: 'data_dishes',
@@ -71,7 +69,6 @@ function* init({ payload }) {
         language: payload.language || language,
         data: { restaurant: id },
       });
-      results_dishes = results_dishes.sort((a, b) => b.number - a.number);
     }
     const error = null;
     
@@ -95,54 +92,18 @@ function* init({ payload }) {
 }
 
 function* updateRow({ payload }) {
+  const { name, data } = payload;
   const { token } = yield select((store) => store.user.info);
-  const { name, data, language = 'en' } = payload;
   const table = yield select((store) => store.backOffice[name.split('_')[1]]);
-  let status = 'saved';
+  const status = data.id ? 'saved' : 'created';
   yield put({ type: Constants.BO_LOADING_SET, payload: true });
   try {
     const results = yield commonProvider.updateRecord({ ...payload, token }); 
     if (results.error) {
       yield put({ type: Constants.BO_ERROR_SET, payload: results.error });
     } else if (results) {
-      let arr = Array.isArray(results) ? results : [results];
+      const arr = updateItem(results, table);
 
-      // update restaurant with create 2 default categories foodtips/special-deals
-      if (name === 'data_restaurants' && !data.id) {
-        status = 'created';
-        yield commonProvider.updateRecord({
-          name: 'data_categories',
-          token,
-          language,
-          data: categoryModel.slice(-2).map(item => ({ ...item, restaurant: results[0].id })), 
-        });
-      }
-
-      // update children parent after create new category group
-      const parent = arr[0];
-      const children = [...arr.slice(1)].reduce((arrCh, child) => {
-        if (!child.parent && child.id !== parent.id) {
-          return [...arrCh, { ...child, parent: parent.id }];
-        }
-        return arrCh;
-      }, []);
-      if (name === 'data_categories' && arr.length > 1 && children.length > 0) {
-        status = 'created';
-        const arrChild = yield commonProvider.updateRecord({
-          name,
-          token,
-          language,
-          data: children, 
-        });
-        arr = [arr[0], ...(Array.isArray(arrChild) ? arrChild : [arrChild])];
-      }
-      
-      arr = updateItem(arr, table);
-      arr.sort((a, b) => a.number - b.number);
-      if (['data_restaurants', 'data_dishes'].includes(name)) {
-        arr.sort((a, b) => b.number - a.number);
-      }
-      
       yield put({
         type: Constants.BO_SET,
         payload: {
@@ -171,7 +132,6 @@ function* loadTables({ payload }) {
         type: Constants.BO_SET,
         payload: names.reduce((obj, name) => {
           const table = name.split('_')[1];
-          results[name] = getSort(results[name]);
           if (name.split('_')[0] === 'data') {
             return { ...obj, [table]: results[name] };
           }
