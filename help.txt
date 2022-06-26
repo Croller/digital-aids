@@ -242,6 +242,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.75.221
 21121987!
 
+
 sudo su
 sudo apt update
 sudo apt -y upgrade
