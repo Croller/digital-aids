@@ -71,6 +71,9 @@
 
 -- UPDATE pg_user SET usesuper = TRUE WHERE usename = 'yfhryprmlffmvs';
 
+-- CREATE SCHEMA "DigitalAids";
+-- DROP SCHEMA IF EXISTS "DigitalAidsTest"
+
 -- DROP TABLE users
 -- DROP SCHEMA CASCADE;
 

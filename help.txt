@@ -91,10 +91,10 @@ host    all             all             185.8.127.19/24 md5
   "server": "64.225.82.139",
   "port": 5432,
   "driver": "PostgreSQL",
-  "database": "digital-aids",
-  "username": "digitalRoot",
-  "password": "aidsRoot2021",
-  "name": "digital-aids"
+  "database": "digital-aids",   // digital-aids-test
+  "username": "digitalRoot",    // digitalTest
+  "password": "aidsRoot2021",   // aidsTest2021
+  "name": "digital-aids"        // digital-aids-test
 }
 
 // local access db
@@ -275,12 +275,16 @@ pm2 startup systemd
 
 // postgresql config 
 sudo -i -u postgres
-createuser digitalRoot
+create user digitalRoot
+create user digitalTest
+CREATE ROLE "digitalTest" LOGIN PASSWORD 'aidsTest2021!';
 
-psql
+psql postgres
 ALTER USER "digitalRoot" PASSWORD 'aidsRoot2021';
+ALTER USER "digitalTest" PASSWORD 'aidsTest2021';
 ALTER USER "postgres" PASSWORD 'postgresRoot2021';
 CREATE DATABASE "digital-aids" WITH OWNER = 'digitalRoot';
+CREATE DATABASE "digital-aids-test" WITH OWNER = 'digitalTest';
 exit
 psql -d digital-aids
 CREATE EXTENSION IF NOT EXISTS postgis;

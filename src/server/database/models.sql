@@ -1,5 +1,6 @@
 -- CREATE SCHEMA "DigitalAids";
 -- ALTER DATABASE "digital-aids" SET timezone TO 'Europe/Moscow';
+
 CREATE TABLE IF NOT EXISTS data_users (
   id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
   login VARCHAR NOT NULL,
