@@ -239,7 +239,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 /////////// digitalocean host ///////////
 
 //install soft ubuntu
-ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.82.139
+ssh -i /Users/croller/Documents/SSH/mac/ssh_79104643015 root@64.225.75.221
 21121987!
 
 sudo su
